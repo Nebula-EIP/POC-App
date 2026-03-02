@@ -11,7 +11,7 @@ jobs:
         build_type: [Debug, Release]
 
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
 
     steps:
     - name: Checkout code
@@ -61,7 +61,7 @@ jobs:
       run: mkdir -p build
 
     - name: Configure CMake
-      timeout-minutes: 15
+      timeout-minutes: 5
       run: |
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G Ninja \
@@ -69,7 +69,7 @@ jobs:
           -DCMAKE_VERBOSE_MAKEFILE=OFF
 
     - name: Build project
-      timeout-minutes: 20
+      timeout-minutes: 10
       run: |
         cd build
         cmake --build . --config ${{ matrix.build_type }} --parallel 2
@@ -87,7 +87,7 @@ jobs:
         build_type: [Debug, Release]
 
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 15
 
     steps:
     - name: Checkout code
@@ -134,7 +134,7 @@ jobs:
 
     - name: Build project
       shell: msys2 {0}
-      timeout-minutes: 20
+      timeout-minutes: 10
       run: |
         cd build
         cmake --build . --parallel 2
