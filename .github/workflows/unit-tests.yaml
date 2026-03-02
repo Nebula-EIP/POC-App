@@ -56,6 +56,7 @@ jobs:
 
     - name: Create build directory
       run: mkdir -p build
+      shell: bash
 
     - name: Configure CMake with tests enabled
       timeout-minutes: 5
