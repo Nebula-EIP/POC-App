@@ -1,0 +1,70 @@
+name: Unit Tests
+
+on:
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  unit-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Debug, Release]
+
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup C++ environment
+      uses: aminya/setup-cpp@v1
+      with:
+        compiler: gcc
+        cmake: true
+        ninja: true
+
+    - name: Cache CPM dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          build/_deps
+          ~/.cache/CPM
+        key: ${{ matrix.os }}-cpm-tests-${{ hashFiles('CMakeLists.txt', 'src/**/CMakeLists.txt', 'tests/**/CMakeLists.txt') }}
+        restore-keys: |
+          ${{ matrix.os }}-cpm-tests-
+
+    - name: Install Linux dependencies
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential \
+          libx11-dev \
+          libxrandr-dev \
+          libxinerama-dev \
+          libxcursor-dev \
+          libxi-dev \
+          libgl1-mesa-dev \
+          libasound2-dev \
+          mesa-common-dev
+
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Configure CMake with tests enabled
+      timeout-minutes: 15
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G Ninja -DCPM_SOURCE_CACHE=${{ runner.os == 'Linux' && '~/.cache/CPM' || '$HOME/.cache/CPM' }} -DCMAKE_VERBOSE_MAKEFILE=OFF -DBUILD_TESTING=ON
+
+    - name: Build project and tests
+      timeout-minutes: 20
+      run: |
+        cd build
+        cmake --build . --config ${{ matrix.build_type }} --parallel 2
+
+    - name: Run unit tests
+      run: |
+        cd build
+        ctest --output-on-failure --verbose
