@@ -1,0 +1,31 @@
+BasedOnStyle: Google
+
+# Column limit (Google default is 80)
+ColumnLimit: 100
+
+# Better modern C++ readability
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# Keep constructor initializer formatting clean
+BreakConstructorInitializersBeforeComma: false
+
+# Include handling
+SortIncludes: true
+IncludeBlocks: Regroup
+
+# Namespace formatting
+NamespaceIndentation: None
+
+# Pointer/reference style (Google style)
+PointerAlignment: Left
+
+# Better template formatting
+AlwaysBreakTemplateDeclarations: Yes
+
+# Access modifier formatting
+IndentAccessModifiers: false
+
+# Prevent overly compressed lambdas
+AllowShortLambdasOnASingleLine: Empty
