@@ -1,0 +1,10 @@
+# Specific files
+nebula
+
+# Wildcards
+*.o
+
+# Folders
+.nebula/
+.vscode/
+build/
