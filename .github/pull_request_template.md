@@ -36,7 +36,6 @@
 
 ## Checklist
 - [ ] Source branch is based on `dev`
-- [ ] Linked to the correct GitHub issues
+- [ ] Linked to the correct Linear issues
 - [ ] Added at least 2 people as reviewers, 4 if you are merging into main
 - [ ] No conflicts
-- [ ] Documentation deployment CI must pass
