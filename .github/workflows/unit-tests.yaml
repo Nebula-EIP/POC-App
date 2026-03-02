@@ -30,7 +30,7 @@ jobs:
       with:
         path: |
           build/_deps
-          ~/.cache/CPM
+          .cache/CPM
         key: ${{ matrix.os }}-cpm-tests-${{ hashFiles('CMakeLists.txt', 'src/**/CMakeLists.txt', 'tests/**/CMakeLists.txt') }}
         restore-keys: |
           ${{ matrix.os }}-cpm-tests-
@@ -56,7 +56,7 @@ jobs:
       timeout-minutes: 15
       run: |
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G Ninja -DCPM_SOURCE_CACHE=${{ runner.os == 'Linux' && '~/.cache/CPM' || '$HOME/.cache/CPM' }} -DCMAKE_VERBOSE_MAKEFILE=OFF -DBUILD_TESTING=ON
+        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G Ninja -DCPM_SOURCE_CACHE="${{ github.workspace }}/.cache/CPM" -DCMAKE_VERBOSE_MAKEFILE=OFF -DBUILD_TESTING=ON
 
     - name: Build project and tests
       timeout-minutes: 20
