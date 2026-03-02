@@ -1,42 +1,20 @@
 # Tests CMakeLists.txt
 
-# Enable testing
-enable_testing()
-
-# Find or fetch a testing framework (example with Google Test)
-# Uncomment when you want to add tests
-# find_package(GTest)
-# if(NOT GTest_FOUND)
-#     include(FetchContent)
-#     FetchContent_Declare(
-#         googletest
-#         GIT_REPOSITORY https://github.com/google/googletest.git
-#         GIT_TAG release-1.12.1
-#     )
-#     FetchContent_MakeAvailable(googletest)
-# endif()
-
 # Collect test files
-file(GLOB_RECURSE TEST_SOURCES
-    "*.cpp"
-)
+file(GLOB_RECURSE TEST_SOURCES "*.cpp")
 
-# Create test executables
+# Create test executable
 if(TEST_SOURCES)
-    foreach(TEST_FILE ${TEST_SOURCES})
-        get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
-        add_executable(${TEST_NAME} ${TEST_FILE})
+    add_executable(nebula_tests ${TEST_SOURCES})
 
-        # Link with project libraries and testing framework
-        # target_link_libraries(${TEST_NAME} PRIVATE
-        #     core
-        #     utils
-        #     GTest::gtest_main
-        # )
+    target_link_libraries(nebula_tests PRIVATE gtest gtest_main)
+    target_compile_features(nebula_tests PRIVATE cxx_std_20)
 
-        # Add test to CTest
-        add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
-    endforeach()
+    # Link with project libraries when available
+    # target_link_libraries(nebula_tests PRIVATE core utils)
+
+    # Register tests with CTest
+    add_test(NAME NebulaCoreTests COMMAND nebula_tests)
 else()
     message(STATUS "No test files found - skipping test creation")
 endif()

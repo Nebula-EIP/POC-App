@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("Hello there little {}.\n", "boy");
+    std::cout << "Nebula Editor - Starting..." << std::endl;
     return 0;
 }

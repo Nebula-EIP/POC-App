@@ -1,38 +1,28 @@
-# Editor executable CMakeLists.txt
+# Nebula Editor Executable
 
-# Collect all source files (excluding main.cpp for now)
-file(GLOB_RECURSE EDITOR_SOURCES
-    "*.cpp"
-)
-
-file(GLOB_RECURSE EDITOR_HEADERS
-    "*.hpp"
-    "*.h"
-)
+# Collect all source files
+file(GLOB_RECURSE EDITOR_SOURCES "*.cpp")
+file(GLOB_RECURSE EDITOR_HEADERS "*.hpp" "*.h")
 
 # Create editor executable
 if(EDITOR_SOURCES)
-    add_executable(editor ${EDITOR_SOURCES} ${EDITOR_HEADERS})
+    add_executable(Nebula ${EDITOR_SOURCES} ${EDITOR_HEADERS})
 
-    target_include_directories(editor
+    target_compile_features(Nebula PRIVATE cxx_std_20)
+
+    target_include_directories(Nebula
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
             ${CMAKE_CURRENT_SOURCE_DIR}/include
     )
 
-    # Link with all project libraries
-    # Uncomment when libraries are available
-    # target_link_libraries(editor PRIVATE
+    # Link with all project libraries when available
+    # target_link_libraries(Nebula PRIVATE
     #     core
     #     utils
     #     graph-builder
     #     graph-exporter
     # )
-
-    # Set properties
-    set_target_properties(editor PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    )
 else()
-    message(STATUS "No source files found in editor - skipping executable creation")
+    message(FATAL_ERROR "No source files found in editor!")
 endif()
