@@ -7,4 +7,5 @@ nebula
 # Folders
 .nebula/
 .vscode/
+.cache/
 build/
