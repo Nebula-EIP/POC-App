@@ -31,7 +31,8 @@ class NodeBase {
 
     struct Connection {
         NodeBase *node = nullptr; // Dest node
-        uint8_t pin = 0;    // Dest pin
+        uint8_t pin = 0;          // Dest pin
+        PinDataType type = PinDataType::kUndefined;
 
         Connection() = default;
         Connection(NodeBase *node, uint8_t pin);
