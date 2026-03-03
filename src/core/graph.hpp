@@ -16,16 +16,29 @@ namespace core {
 class Graph {
  public:
     Graph() = default;
-    ~Graph();
+    ~Graph() = default;
 
-    uint32_t AddNode(NodeBase::NodeKind kind);
+    NodeBase* AddNode(NodeBase::NodeKind kind);
+
+    template<typename T>
+    T *AddNode(NodeBase::NodeKind kind);
+
     void RemoveNode(NodeBase *node);
+    NodeBase *GetNode(uint32_t id) const;
+
+    template<typename T>
+    T *GetNode(uint32_t id) const;
 
     std::expected<void, std::string> Link(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
     std::expected<void, std::string> Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
  private:
+    std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind);
+
+    uint32_t next_id_ = 0;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
 };
 
 } // namespace core
+
+#include "graph.tcc"
