@@ -17,12 +17,12 @@ if(EDITOR_SOURCES)
     )
 
     # Link with all project libraries when available
-    # target_link_libraries(Nebula PRIVATE
-    #     core
-    #     utils
-    #     graph-builder
-    #     graph-exporter
-    # )
+    target_link_libraries(Nebula PRIVATE
+        core
+        # utils
+        # graph-builder
+        # graph-exporter
+    )
 else()
     message(FATAL_ERROR "No source files found in editor!")
 endif()
