@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <format>
 
+#include "nodes/literal_node.hpp"
+
 using namespace core;
 
 NodeBase* Graph::AddNode(NodeBase::NodeKind kind) {
@@ -63,9 +65,11 @@ NodeBase* Graph::GetNode(uint32_t id) const {
     return it != nodes_.end() ? it->get() : nullptr;
 }
 
-std::expected<void, std::string> core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
+std::expected<void, std::string> core::Graph::Link(
+    NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
     if (!from || !to) {
-        return std::unexpected(std::format("{} pointer is null", ((from == nullptr) ? "1st" : "2nd")));
+        return std::unexpected(std::format("{} pointer is null",
+            ((from == nullptr) ? "1st" : "2nd")));
     }
 
     if (out_pin >= from->GetOutputPinCount()) {
@@ -87,7 +91,8 @@ std::expected<void, std::string> core::Graph::Link(NodeBase *from, uint8_t out_p
     return {};
 }
 
-std::expected<void, std::string> core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
+std::expected<void, std::string> core::Graph::Unlink(
+    NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
     if (!from || !to) {
         return std::unexpected("Invalid node pointers");
     }
@@ -101,28 +106,21 @@ std::expected<void, std::string> core::Graph::Unlink(NodeBase *from, uint8_t out
 std::unique_ptr<NodeBase> Graph::CreateNode(uint32_t id, NodeBase::NodeKind kind) {
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
-            // return std::make_unique<LiteralNode>(id);
+            return std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
         
         case NodeBase::NodeKind::kVariable:
-            // return std::make_unique<VariableNode>(id);
         
         case NodeBase::NodeKind::kOperator:
-            // return std::make_unique<OperatorNode>(id);
         
         case NodeBase::NodeKind::kFunction:
-            // return std::make_unique<FunctionNode>(id);
         
         case NodeBase::NodeKind::kFunctionInput:
-            // return std::make_unique<FunctionInputNode>(id);
         
         case NodeBase::NodeKind::kFunctionOutput:
-            // return std::make_unique<FunctionOutputNode>(id);
         
         case NodeBase::NodeKind::kCondition:
-            // return std::make_unique<ConditionNode>(id);
         
         case NodeBase::NodeKind::kLoop:
-            // return std::make_unique<LoopNode>(id);
         
         case NodeBase::NodeKind::kUndefined:
         default:

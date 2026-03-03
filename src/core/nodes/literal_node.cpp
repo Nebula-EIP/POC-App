@@ -24,7 +24,8 @@ NodeBase::PinDataType LiteralNode::GetOutputPinType(uint8_t pin) const {
         return PinDataType::kUndefined;
 }
 
-std::expected<void, std::string> LiteralNode::CanConnectTo(uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+std::expected<void, std::string> LiteralNode::CanConnectTo(
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
     if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin))
         return std::unexpected("Types don't match");
 

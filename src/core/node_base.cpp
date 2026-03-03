@@ -40,6 +40,7 @@ void NodeBase::SetParent(uint8_t in_pin, NodeBase *parent, uint8_t parent_pin) {
 
 void NodeBase::AddChild(uint8_t out_pin, NodeBase *child, uint8_t child_pin) {
     if (childrens_[out_pin].size() < childrens_[out_pin].capacity()) {
+        // Inserts in the first empty space found
         auto it = std::find(childrens_[out_pin].begin(), childrens_[out_pin].end(), nullptr);
         if (it != childrens_[out_pin].end()) {
             (*it)->node = child;
