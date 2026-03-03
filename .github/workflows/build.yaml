@@ -93,22 +93,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup MSYS2 with MinGW-w64
-      uses: msys2/setup-msys2@v2
-      with:
-        update: false
-        install: >-
-          mingw-w64-x86_64-toolchain
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-make
-          mingw-w64-x86_64-ninja
+    - name: Setup MSVC (Windows)
+      uses: ilammy/msvc-dev-cmd@v1
 
     - name: Cache CPM dependencies
       uses: actions/cache@v4
       with:
         path: |
           build/_deps
-          ~/.cache/CPM
+          .cache/CPM
         key: windows-cpm-${{ hashFiles('CMakeLists.txt', 'src/**/CMakeLists.txt') }}
         restore-keys: |
           windows-cpm-
@@ -123,21 +116,23 @@ jobs:
           windows-build-${{ matrix.build_type }}-
           windows-build-
 
-    - name: Configure CMake (MinGW Makefiles)
-      shell: msys2 {0}
+    - name: Create build directory
+      run: mkdir -p build
+      shell: bash
+
+    - name: Configure CMake
+      timeout-minutes: 5
       run: |
-        mkdir -p build
         cd build
-        cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-          -DCPM_SOURCE_CACHE=$HOME/.cache/CPM \
-          -DCMAKE_VERBOSE_MAKEFILE=OFF
+        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G "Visual Studio 17 2022" -DCPM_SOURCE_CACHE="${{ github.workspace }}/.cache/CPM" -DCMAKE_VERBOSE_MAKEFILE=OFF
+      shell: bash
 
     - name: Build project
-      shell: msys2 {0}
       timeout-minutes: 10
       run: |
         cd build
-        cmake --build . --parallel 2
+        cmake --build . --config ${{ matrix.build_type }} --parallel 2
+      shell: bash
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
