@@ -62,6 +62,7 @@ class NodeBase {
 
     virtual std::string GetDisplayName() const = 0;
     virtual std::string GetCategory() const = 0;
+
  protected:
     friend class Graph;
 
@@ -71,6 +72,7 @@ class NodeBase {
     void ClearParent(uint8_t pin);
     void RemoveChild(uint8_t output_pin, NodeBase* node, uint8_t input_pin);
 
+ protected:
     const uint32_t id_;
     const NodeKind kind_;
 
