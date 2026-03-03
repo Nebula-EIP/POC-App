@@ -1,31 +1,12 @@
+# Use the Google style in this project.
 BasedOnStyle: Google
 
-# Column limit (Google default is 80)
-ColumnLimit: 100
+# Some folks prefer to write "int& foo" while others prefer "int &foo".  The
+# Google Style Guide only asks for consistency within a project, we chose
+# "int &foo" for this project:
+DerivePointerAlignment: false
+PointerAlignment: Right
 
-# Better modern C++ readability
-AllowShortFunctionsOnASingleLine: Empty
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
-
-# Keep constructor initializer formatting clean
-BreakConstructorInitializersBeforeComma: false
-
-# Include handling
-SortIncludes: true
-IncludeBlocks: Regroup
-
-# Namespace formatting
-NamespaceIndentation: None
-
-# Pointer/reference style (Google style)
-PointerAlignment: Left
-
-# Better template formatting
-AlwaysBreakTemplateDeclarations: Yes
-
-# Access modifier formatting
-IndentAccessModifiers: false
-
-# Prevent overly compressed lambdas
-AllowShortLambdasOnASingleLine: Empty
+# The Google Style Guide only asks for consistency w.r.t. "east const" vs.
+# "const west" alignment of cv-qualifiers. In this project we use "const west".
+QualifierAlignment: Left
