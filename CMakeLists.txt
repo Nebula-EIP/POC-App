@@ -36,7 +36,7 @@ file(
     DOWNLOAD
     https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.1/CPM.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake
-    EXPECTED_HASH SHA256=65cf5ff1bfb6b3f77e36f9d25cf0b98d2ddc17f37eff63d8c19c06c84c04c98b
+    EXPECTED_HASH SHA256=f3a6dcc6a04ce9e7f51a127307fa4f699fb2bade357a8eb4c5b45df76e1dc6a5
 )
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
