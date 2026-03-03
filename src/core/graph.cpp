@@ -1,6 +1,7 @@
 #include "graph.hpp"
 
 #include <algorithm>
+#include <format>
 
 using namespace core;
 
@@ -64,19 +65,20 @@ NodeBase* Graph::GetNode(uint32_t id) const {
 
 std::expected<void, std::string> core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
     if (!from || !to) {
-        return std::unexpected("Invalid node pointers (nullptr)");
+        return std::unexpected(std::format("{} pointer is null", ((from == nullptr) ? "1st" : "2nd")));
     }
 
     if (out_pin >= from->GetOutputPinCount()) {
-        return std::unexpected("Invalid output pin");
+        return std::unexpected("Output pin out of bounds");
     }
 
     if (in_pin >= to->GetInputPinCount()) {
-        return std::unexpected("Invalid input pin");
+        return std::unexpected("Input pin out of bounds");
     }
     
-    if (!from->CanConnectTo(out_pin, to, in_pin)) {
-        return std::unexpected("Impossible connection, come back in later versions for more infos :p");
+    auto res = from->CanConnectTo(out_pin, to, in_pin);
+    if (!res) {
+        return std::unexpected("{}");
     }
 
     to->SetParent(in_pin, from, out_pin);
