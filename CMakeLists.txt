@@ -10,15 +10,16 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # CPM source cache for CI/CD optimization
 set(CPM_SOURCE_CACHE "${CMAKE_SOURCE_DIR}/.cache/CPM" CACHE PATH "CPM source cache")
 
 file(
     DOWNLOAD
-    https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.0/CPM.cmake
+    https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.1/CPM.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake
-    EXPECTED_HASH SHA256=2020b4fc42dba44817983e06342e682ecfc3d2f484a581f11cc5731fbe4dce8a
+    EXPECTED_HASH SHA256=65cf5ff1bfb6b3f77e36f9d25cf0b98d2ddc17f37eff63d8c19c06c84c04c98b
 )
 include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
 
