@@ -120,6 +120,11 @@ jobs:
       run: mkdir -p build
       shell: bash
 
+    - name: Clean CMake cache for generator switch
+      run: |
+        rm -rf build/CMakeCache.txt build/CMakeFiles
+      shell: bash
+
     - name: Configure CMake
       timeout-minutes: 5
       run: |
