@@ -5,9 +5,7 @@
 
 #include "nodes/literal_node.hpp"
 
-using namespace core;
-
-NodeBase* Graph::AddNode(NodeBase::NodeKind kind) {
+core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         return nullptr;
     }
@@ -23,7 +21,7 @@ NodeBase* Graph::AddNode(NodeBase::NodeKind kind) {
     return nodes_.back().get();
 }
 
-void Graph::RemoveNode(NodeBase *node) {
+void core::Graph::RemoveNode(NodeBase *node) {
     if (!node) return;
 
     // Disconnect all connections
@@ -39,37 +37,39 @@ void Graph::RemoveNode(NodeBase *node) {
         auto children = node->childrens(i);
 
         // Copy to avoid iterator invalidation
-        std::vector<NodeBase::Connection*> children_copy(children.begin(), children.end());
+        std::vector<NodeBase::Connection *> children_copy(children.begin(),
+                                                          children.end());
         for (auto *child_conn : children_copy) {
             Unlink(node, i, child_conn->node, child_conn->pin);
         }
     }
 
     // Remove from nodes vector
-    auto it = std::find_if(nodes_.begin(), nodes_.end(),
-        [node](const std::unique_ptr<NodeBase> &n) {
-            return n.get() == node;
-        });
-    
+    auto it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+
     if (it != nodes_.end()) {
         nodes_.erase(it);
     }
 }
 
-NodeBase* Graph::GetNode(uint32_t id) const {
+core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     auto it = std::find_if(nodes_.begin(), nodes_.end(),
-        [id](const std::unique_ptr<NodeBase>& node) {
-            return node->id() == id;
-        });
-    
+                           [id](const std::unique_ptr<NodeBase> &node) {
+                               return node->id() == id;
+                           });
+
     return it != nodes_.end() ? it->get() : nullptr;
 }
 
-std::expected<void, std::string> core::Graph::Link(
-    NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
+std::expected<void, std::string> core::Graph::Link(NodeBase *from,
+                                                   uint8_t out_pin,
+                                                   NodeBase *to,
+                                                   uint8_t in_pin) {
     if (!from || !to) {
-        return std::unexpected(std::format("{} pointer is null",
-            ((from == nullptr) ? "1st" : "2nd")));
+        return std::unexpected(std::format(
+            "{} pointer is null", ((from == nullptr) ? "1st" : "2nd")));
     }
 
     if (out_pin >= from->GetOutputPinCount()) {
@@ -79,7 +79,7 @@ std::expected<void, std::string> core::Graph::Link(
     if (in_pin >= to->GetInputPinCount()) {
         return std::unexpected("Input pin out of bounds");
     }
-    
+
     auto res = from->CanConnectTo(out_pin, to, in_pin);
     if (!res) {
         return std::unexpected("{}");
@@ -91,8 +91,10 @@ std::expected<void, std::string> core::Graph::Link(
     return {};
 }
 
-std::expected<void, std::string> core::Graph::Unlink(
-    NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin) {
+std::expected<void, std::string> core::Graph::Unlink(NodeBase *from,
+                                                     uint8_t out_pin,
+                                                     NodeBase *to,
+                                                     uint8_t in_pin) {
     if (!from || !to) {
         return std::unexpected("Invalid node pointers");
     }
@@ -103,25 +105,26 @@ std::expected<void, std::string> core::Graph::Unlink(
     return {};
 }
 
-std::unique_ptr<NodeBase> Graph::CreateNode(uint32_t id, NodeBase::NodeKind kind) {
+std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
+    uint32_t id, NodeBase::NodeKind kind) {
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
             return std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
-        
+
         case NodeBase::NodeKind::kVariable:
-        
+
         case NodeBase::NodeKind::kOperator:
-        
+
         case NodeBase::NodeKind::kFunction:
-        
+
         case NodeBase::NodeKind::kFunctionInput:
-        
+
         case NodeBase::NodeKind::kFunctionOutput:
-        
+
         case NodeBase::NodeKind::kCondition:
-        
+
         case NodeBase::NodeKind::kLoop:
-        
+
         case NodeBase::NodeKind::kUndefined:
         default:
             return nullptr;

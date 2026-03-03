@@ -10,3 +10,7 @@ PointerAlignment: Right
 # The Google Style Guide only asks for consistency w.r.t. "east const" vs.
 # "const west" alignment of cv-qualifiers. In this project we use "const west".
 QualifierAlignment: Left
+
+# The Google Style Guide asks for 2 spaces indentation.
+# We do not approve this choice. 
+IndentWidth: 4

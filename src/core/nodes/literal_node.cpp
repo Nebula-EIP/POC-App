@@ -1,53 +1,47 @@
 #include "literal_node.hpp"
 
-using namespace core;
-
-LiteralNode::LiteralNode(uint32_t id, NodeKind kind)
+core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind)
     : NodeBase(id, kind) {}
 
-uint8_t LiteralNode::GetInputPinCount() const {
-    return 0;
-}
+uint8_t core::LiteralNode::GetInputPinCount() const { return 0; }
 
-uint8_t LiteralNode::GetOutputPinCount() const {
-    return 1;
-}
+uint8_t core::LiteralNode::GetOutputPinCount() const { return 1; }
 
-NodeBase::PinDataType LiteralNode::GetInputPinType(uint8_t /*pin*/) const {
+core::NodeBase::PinDataType core::LiteralNode::GetInputPinType(
+    uint8_t /*pin*/) const {
     return PinDataType::kUndefined;
 }
 
-NodeBase::PinDataType LiteralNode::GetOutputPinType(uint8_t pin) const {
-    if (pin == 0)
+core::NodeBase::PinDataType core::LiteralNode::GetOutputPinType(
+    uint8_t pin) const {
+    if (pin == 0) {
         return type_;
-    else
+    } else {
         return PinDataType::kUndefined;
+    }
 }
 
-std::expected<void, std::string> LiteralNode::CanConnectTo(
+std::expected<void, std::string> core::LiteralNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
-    if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin))
+    if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin)) {
         return std::unexpected("Types don't match");
+    }
 
     return {};
 }
 
-std::string LiteralNode::GetInputPinName(uint8_t /*pin*/) const {
+std::string core::LiteralNode::GetInputPinName(uint8_t /*pin*/) const {
     return "";
 }
 
-std::string LiteralNode::GetOutputPinName(uint8_t pin) const {
-    if (pin == 0)
+std::string core::LiteralNode::GetOutputPinName(uint8_t pin) const {
+    if (pin == 0) {
         return "Kakou";
-    else
+    } else {
         return "";
+    }
 }
 
-std::string LiteralNode::GetDisplayName() const {
-    return name_;
-}
+std::string core::LiteralNode::GetDisplayName() const { return name_; }
 
-std::string LiteralNode::GetCategory() const {
-    return "Cool stuff~";
-}
-
+std::string core::LiteralNode::GetCategory() const { return "Cool stuff~"; }

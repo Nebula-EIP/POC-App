@@ -7,7 +7,7 @@ namespace core {
 class Graph;
 
 class LiteralNode : public NodeBase {
- public:
+   public:
     ~LiteralNode() = default;
 
     uint8_t GetInputPinCount() const override;
@@ -17,7 +17,7 @@ class LiteralNode : public NodeBase {
     PinDataType GetOutputPinType(uint8_t pin) const override;
 
     std::expected<void, std::string> CanConnectTo(
-        uint8_t out_pin, const NodeBase* target, uint8_t in_pin) const override;
+        uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const override;
 
     std::string GetInputPinName(uint8_t pin) const override;
     std::string GetOutputPinName(uint8_t pin) const override;
@@ -25,14 +25,14 @@ class LiteralNode : public NodeBase {
     std::string GetDisplayName() const override;
     std::string GetCategory() const override;
 
- private:
-   friend Graph;
+   private:
+    friend Graph;
 
-   LiteralNode(uint32_t id, NodeKind kind);
+    LiteralNode(uint32_t id, NodeKind kind);
 
- private:
+   private:
     PinDataType type_ = PinDataType::kUndefined;
     std::string name_ = "Literal";
 };
 
-} // namespace core
+}  // namespace core
