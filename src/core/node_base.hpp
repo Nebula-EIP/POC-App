@@ -56,7 +56,7 @@ class NodeBase {
     virtual PinDataType GetInputPinType(uint8_t pin) const = 0;
     virtual PinDataType GetOutputPinType(uint8_t pin) const = 0;
 
-    virtual bool CanConnectTo(uint8_t out_pin, const NodeBase* target, uint8_t in_pin) const = 0;
+    virtual std::expected<void, std::string> CanConnectTo(uint8_t out_pin, const NodeBase* target, uint8_t in_pin) const = 0;
 
     virtual std::string GetInputPinName(uint8_t pin) const = 0;
     virtual std::string GetOutputPinName(uint8_t pin) const = 0;
