@@ -1,10 +1,10 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <filesystem>
 #include <map>
 #include <optional>
-#include <filesystem>
+#include <string>
+#include <vector>
 
 namespace nebula::cmake {
 
@@ -41,7 +41,7 @@ struct CompilationResult {
  * for compiling single C++ files with custom arguments.
  */
 class CMakeCompiler {
-public:
+   public:
     CMakeCompiler() = default;
     ~CMakeCompiler() = default;
 
@@ -51,16 +51,14 @@ public:
      * @param config Compilation configuration
      * @return CompilationResult with success status and details
      */
-    CompilationResult compile_file(
-        const std::filesystem::path& source_file,
-        const CompilerConfig& config
-    );
+    CompilationResult compile_file(const std::filesystem::path &source_file,
+                                   const CompilerConfig &config);
 
     /**
      * @brief Set the build directory for temporary CMake files
      * @param dir Build directory path
      */
-    void set_build_directory(const std::filesystem::path& dir);
+    void set_build_directory(const std::filesystem::path &dir);
 
     /**
      * @brief Get the current build directory
@@ -73,24 +71,21 @@ public:
      */
     void clean_build_directory();
 
-private:
-    std::filesystem::path build_dir_ = std::filesystem::temp_directory_path() / "nebula_cmake_build";
+   private:
+    std::filesystem::path build_dir_ =
+        std::filesystem::temp_directory_path() / "nebula_cmake_build";
 
     /**
      * @brief Generate CMakeLists.txt for the source file
      */
-    std::string generate_cmake_file(
-        const std::filesystem::path& source_file,
-        const CompilerConfig& config
-    );
+    std::string generate_cmake_file(const std::filesystem::path &source_file,
+                                    const CompilerConfig &config);
 
     /**
      * @brief Execute a system command and capture output
      */
-    CompilationResult execute_command(
-        const std::string& command,
-        const std::filesystem::path& working_dir
-    );
+    CompilationResult execute_command(const std::string &command,
+                                      const std::filesystem::path &working_dir);
 
     /**
      * @brief Create the build directory if it doesn't exist
@@ -98,4 +93,4 @@ private:
     void ensure_build_directory();
 };
 
-} // namespace nebula::cmake
+}  // namespace nebula::cmake

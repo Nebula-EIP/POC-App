@@ -1,14 +1,15 @@
 #include "cmake_compiler.hpp"
-#include <fstream>
-#include <sstream>
+
 #include <array>
-#include <memory>
 #include <cstdio>
+#include <fstream>
+#include <memory>
+#include <sstream>
 #include <stdexcept>
 
 namespace nebula::cmake {
 
-void CMakeCompiler::set_build_directory(const std::filesystem::path& dir) {
+void CMakeCompiler::set_build_directory(const std::filesystem::path &dir) {
     build_dir_ = dir;
 }
 
@@ -29,9 +30,7 @@ void CMakeCompiler::clean_build_directory() {
 }
 
 std::string CMakeCompiler::generate_cmake_file(
-    const std::filesystem::path& source_file,
-    const CompilerConfig& config
-) {
+    const std::filesystem::path &source_file, const CompilerConfig &config) {
     std::stringstream cmake_content;
 
     cmake_content << "cmake_minimum_required(VERSION 3.20)\n";
@@ -62,15 +61,15 @@ std::string CMakeCompiler::generate_cmake_file(
     }
 
     if (!config.definitions.empty()) {
-        for (const auto& def : config.definitions) {
+        for (const auto &def : config.definitions) {
             cmake_content << "add_definitions(-D" << def << ")\n";
         }
         cmake_content << "\n";
     }
 
     std::string exec_name = config.output_name.empty()
-        ? source_file.stem().string()
-        : config.output_name;
+                                ? source_file.stem().string()
+                                : config.output_name;
 
     cmake_content << "add_executable(" << exec_name << " "
                   << std::filesystem::absolute(source_file).string() << ")\n\n";
@@ -94,16 +93,15 @@ std::string CMakeCompiler::generate_cmake_file(
     }
 
     cmake_content << "set_target_properties(" << exec_name << " PROPERTIES\n";
-    cmake_content << "    RUNTIME_OUTPUT_DIRECTORY \"${CMAKE_BINARY_DIR}/bin\"\n";
+    cmake_content
+        << "    RUNTIME_OUTPUT_DIRECTORY \"${CMAKE_BINARY_DIR}/bin\"\n";
     cmake_content << ")\n";
 
     return cmake_content.str();
 }
 
 CompilationResult CMakeCompiler::execute_command(
-    const std::string& command,
-    const std::filesystem::path& working_dir
-) {
+    const std::string &command, const std::filesystem::path &working_dir) {
     CompilationResult result;
     result.success = false;
     result.exit_code = -1;
@@ -111,8 +109,9 @@ CompilationResult CMakeCompiler::execute_command(
     auto original_path = std::filesystem::current_path();
     try {
         std::filesystem::current_path(working_dir);
-    } catch (const std::exception& e) {
-        result.error_output = "Failed to change to working directory: " + std::string(e.what());
+    } catch (const std::exception &e) {
+        result.error_output =
+            "Failed to change to working directory: " + std::string(e.what());
         return result;
     }
 
@@ -120,7 +119,7 @@ CompilationResult CMakeCompiler::execute_command(
     std::array<char, 128> buffer;
     std::string output;
 
-    FILE* pipe = popen((command + " 2>&1").c_str(), "r");
+    FILE *pipe = popen((command + " 2>&1").c_str(), "r");
     if (!pipe) {
         result.error_output = "Failed to execute command: " + command;
         std::filesystem::current_path(original_path);
@@ -147,15 +146,14 @@ CompilationResult CMakeCompiler::execute_command(
 }
 
 CompilationResult CMakeCompiler::compile_file(
-    const std::filesystem::path& source_file,
-    const CompilerConfig& config
-) {
+    const std::filesystem::path &source_file, const CompilerConfig &config) {
     CompilationResult final_result;
     final_result.success = false;
     final_result.exit_code = -1;
 
     if (!std::filesystem::exists(source_file)) {
-        final_result.error_output = "Source file does not exist: " + source_file.string();
+        final_result.error_output =
+            "Source file does not exist: " + source_file.string();
         return final_result;
     }
 
@@ -192,7 +190,8 @@ CompilationResult CMakeCompiler::compile_file(
 
     CompilationResult cmake_result = execute_command(cmake_command, build_dir_);
     if (!cmake_result.success) {
-        final_result.error_output = "CMake configuration failed:\n" + cmake_result.error_output;
+        final_result.error_output =
+            "CMake configuration failed:\n" + cmake_result.error_output;
         return final_result;
     }
 
@@ -212,14 +211,15 @@ CompilationResult CMakeCompiler::compile_file(
 
     CompilationResult build_result = execute_command(build_command, build_dir_);
     if (!build_result.success) {
-        final_result.error_output = "Build failed:\n" + build_result.error_output;
+        final_result.error_output =
+            "Build failed:\n" + build_result.error_output;
         return final_result;
     }
 
     final_result.output += build_result.output;
     std::string exec_name = config.output_name.empty()
-        ? source_file.stem().string()
-        : config.output_name;
+                                ? source_file.stem().string()
+                                : config.output_name;
 
     final_result.executable_path = build_dir_ / "bin" / exec_name;
 
@@ -231,13 +231,15 @@ CompilationResult CMakeCompiler::compile_file(
         final_result.success = true;
         final_result.exit_code = 0;
         final_result.output += "\n=== Compilation Successful ===\n";
-        final_result.output += "Executable: " + final_result.executable_path.string() + "\n";
+        final_result.output +=
+            "Executable: " + final_result.executable_path.string() + "\n";
     } else {
         final_result.success = false;
-        final_result.error_output = "Compilation completed but executable not found";
+        final_result.error_output =
+            "Compilation completed but executable not found";
     }
 
     return final_result;
 }
 
-} // namespace nebula::cmake
+}  // namespace nebula::cmake
