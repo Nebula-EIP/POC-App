@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "code-generation/code-generator-errors.hpp"
 
 namespace code_generation {
 class CodeGeneratorFile {
