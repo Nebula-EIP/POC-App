@@ -5,6 +5,29 @@
 
 #include "nodes/literal_node.hpp"
 
+core::Graph::Graph()
+    : next_id_(0),
+      project_name_("Untitled Project"),
+      version_("1.0"),
+      author_(""),
+      created_at_(std::chrono::system_clock::now()),
+      modified_at_(std::chrono::system_clock::now()) {
+}
+
+void core::Graph::SetProjectName(const std::string& name) {
+    project_name_ = name;
+    UpdateModifiedTime();
+}
+
+void core::Graph::SetAuthor(const std::string& author) {
+    author_ = author;
+    UpdateModifiedTime();
+}
+
+void core::Graph::UpdateModifiedTime() {
+    modified_at_ = std::chrono::system_clock::now();
+}
+
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         return nullptr;

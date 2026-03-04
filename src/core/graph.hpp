@@ -4,6 +4,7 @@
  */
 
 #pragma once
+#include <chrono>
 #include <cstdint>
 #include <expected>
 #include <memory>
@@ -16,7 +17,7 @@ namespace core {
 
 class Graph {
    public:
-    Graph() = default;
+    Graph();
     ~Graph() = default;
 
     /**
@@ -111,6 +112,18 @@ class Graph {
     std::expected<void, std::string> Unlink(NodeBase *from, uint8_t out_pin,
                                             NodeBase *to, uint8_t in_pin);
 
+    // Project metadata getters
+    const std::string& GetProjectName() const { return project_name_; }
+    const std::string& GetVersion() const { return version_; }
+    const std::string& GetAuthor() const { return author_; }
+    std::chrono::system_clock::time_point GetCreatedAt() const { return created_at_; }
+    std::chrono::system_clock::time_point GetModifiedAt() const { return modified_at_; }
+
+    // Project metadata setters
+    void SetProjectName(const std::string& name);
+    void SetAuthor(const std::string& author);
+    void UpdateModifiedTime();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -123,6 +136,13 @@ class Graph {
 
     uint32_t next_id_ = 0;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
+
+    // Project metadata
+    std::string project_name_;
+    std::string version_;
+    std::string author_;
+    std::chrono::system_clock::time_point created_at_;
+    std::chrono::system_clock::time_point modified_at_;
 };
 
 }  // namespace core
