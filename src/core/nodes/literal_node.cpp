@@ -54,3 +54,25 @@ nlohmann::json core::LiteralNode::Serialize() const {
     json["name"] = name_;
     return json;
 }
+
+std::unique_ptr<core::LiteralNode> core::LiteralNode::DeserializeHelper(
+    const nlohmann::json& json, uint32_t id) {
+    // Validate required fields for LiteralNode
+    if (!json.contains("type") || !json.contains("name")) {
+        return nullptr;
+    }
+
+    try {
+        std::string type_str = json["type"].get<std::string>();
+        std::string name = json["name"].get<std::string>();
+
+        auto node = std::unique_ptr<LiteralNode>(
+            new LiteralNode(id, NodeKind::kLiteral));
+        node->type_ = StringToPinDataType(type_str);
+        node->name_ = name;
+
+        return node;
+    } catch (const std::exception&) {
+        return nullptr;
+    }
+}

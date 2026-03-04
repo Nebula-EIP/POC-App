@@ -27,6 +27,15 @@ class LiteralNode : public NodeBase {
 
     nlohmann::json Serialize() const override;
 
+    /**
+     * @brief Deserializes a LiteralNode from JSON.
+     * @param json The JSON object containing the literal node data.
+     * @param id The node ID (parsed from JSON by factory).
+     * @return A unique_ptr to the deserialized LiteralNode, or nullptr on error.
+     */
+    static std::unique_ptr<LiteralNode> DeserializeHelper(
+        const nlohmann::json& json, uint32_t id);
+
    private:
     friend Graph;
 

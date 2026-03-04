@@ -9,6 +9,10 @@
 
 namespace core {
 
+// Forward declarations
+class Graph;
+class LiteralNode;
+
 /**
  * @class NodeBase
  * @brief Abstract base class for all nodes in the graph system.
@@ -144,6 +148,20 @@ class NodeBase {
      * @return JSON object containing the serialized node data.
      */
     virtual nlohmann::json Serialize() const = 0;
+
+    /**
+     * @brief Deserializes a node from JSON data.
+     *
+     * Factory method that parses JSON and creates the appropriate node type.
+     * The JSON must contain "id" and "kind" fields at a minimum.
+     *
+     * @param json The JSON object containing the node data.
+     * @param graph Pointer to the owning Graph (friend class).
+     * @return An expected containing a unique_ptr to the deserialized node,
+     *         or an error message if deserialization fails.
+     */
+    static std::expected<std::unique_ptr<NodeBase>, std::string> Deserialize(
+        const nlohmann::json& json, Graph* graph);
 
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes

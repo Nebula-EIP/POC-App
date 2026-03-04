@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "nodes/literal_node.hpp"
+
 core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p)
     : node(n), pin(p) {}
 
@@ -154,4 +156,53 @@ core::NodeBase::PinDataType core::StringToPinDataType(const std::string& str) {
     if (str == "String") return core::NodeBase::PinDataType::kString;
     if (str == "Void") return core::NodeBase::PinDataType::kVoid;
     return core::NodeBase::PinDataType::kUndefined;
+}
+
+std::expected<std::unique_ptr<core::NodeBase>, std::string> core::NodeBase::Deserialize(
+    const nlohmann::json& json, Graph* /*graph*/) {
+    // Validate required fields
+    if (!json.contains("id") || !json.contains("kind")) {
+        return std::unexpected("Missing required fields: id or kind");
+    }
+
+    uint32_t id;
+    std::string kind_str;
+    
+    try {
+        id = json["id"].get<uint32_t>();
+        kind_str = json["kind"].get<std::string>();
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string("Failed to parse node fields: ") + e.what());
+    }
+
+    NodeKind kind = StringToNodeKind(kind_str);
+    if (kind == NodeKind::kUndefined) {
+        return std::unexpected(std::string("Unknown node kind: ") + kind_str);
+    }
+
+    // Dispatch to appropriate node type deserializer
+    switch (kind) {
+        case NodeKind::kLiteral: {
+            auto node = LiteralNode::DeserializeHelper(json, id);
+            if (!node) {
+                return std::unexpected("Failed to deserialize LiteralNode");
+            }
+            // Initialize connections after construction
+            node->InitializeConnections();
+            return std::unique_ptr<NodeBase>(node.release());
+        }
+
+        case NodeKind::kVariable:
+        case NodeKind::kFunction:
+        case NodeKind::kFunctionInput:
+        case NodeKind::kFunctionOutput:
+        case NodeKind::kOperator:
+        case NodeKind::kCondition:
+        case NodeKind::kLoop:
+            return std::unexpected(std::string("Node kind not yet implemented: ") + kind_str);
+
+        case NodeKind::kUndefined:
+        default:
+            return std::unexpected("Cannot deserialize undefined node kind");
+    }
 }
