@@ -9,9 +9,9 @@ namespace core {
 
 class Graph;
 
-class LiteralNode : public NodeBase {
+class VariableNode : public NodeBase {
    public:
-    ~LiteralNode() = default;
+    ~VariableNode() = default;
 
     void set_name(const std::string &name);
     const std::string &name() const;
@@ -56,8 +56,8 @@ class LiteralNode : public NodeBase {
     nlohmann::json Serialize() const override;
 
     /**
-     * @brief Deserializes this LiteralNode's data from JSON.
-     * @param json The JSON object containing the literal node data.
+     * @brief Deserializes this VariableNode's data from JSON.
+     * @param json The JSON object containing the variable node data.
      * @return An expected containing void on success, or an error message on
      *         failure.
      */
@@ -68,7 +68,7 @@ class LiteralNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    LiteralNode(uint32_t id, NodeKind kind);
+    VariableNode(uint32_t id, NodeKind kind);
 
    private:
     PinDataType type_ = PinDataType::kUndefined;

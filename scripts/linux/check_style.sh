@@ -52,7 +52,7 @@ echo -e "${BLUE}Running clang-format on all source files...${RESET}"
 FILES_TO_FORMAT=""
 while IFS= read -r file; do
     FILES_TO_FORMAT="$FILES_TO_FORMAT $file"
-done < <(eval "find src -type f \( -name \"*.cpp\" -o -name \"*.h\" -o -name \"*.tcc\" \) ! -path \"*/test/*\" ! -path \"*/.cache/*\" $EXCLUDE_ARGS")
+done < <(eval "find src -type f \( -name \"*.cpp\" -o -name \"*.hpp\" -o -name \"*.h\" -o -name \"*.tcc\" \) ! -path \"*/test/*\" ! -path \"*/.cache/*\" $EXCLUDE_ARGS")
 
 if [ -z "$FILES_TO_FORMAT" ]; then
     echo -e "${YELLOW}No files to format.${RESET}"
