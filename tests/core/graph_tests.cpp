@@ -7,34 +7,34 @@
 class GraphTest : public testing::Test {
  protected:
     core::Graph graph_;
-
-    void DumpGraph() const {
-        core::NodeBase *node = graph_.GetNode(0);
-    
-        printf("### DUMPING GRAPH ###\n");
-        for (uint32_t i = 1; node != nullptr; i++) {
-            printf("Node[%d]\n", node->id());
-    
-            for (uint8_t i = 0; i < node->GetInputPinCount(); i++) {
-                const core::NodeBase::Connection *conn = node->parent(i);
-                if (conn && conn->IsConnected()) {
-                    printf("  IN[%d] <- Node[%d] Out[%d]\n", i, conn->node->id(), conn->pin);
-                }
-            }
-            for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-                for (const core::NodeBase::Connection &conn : node->childrens(i)) {
-                    
-                    printf("  OUT[%d] -> Node[%d] In[%d]\n",
-                        i,
-                        (conn.node ? conn.node->id() : 0),
-                        conn.pin);
-                }
-            }
-            node = graph_.GetNode(i);
-        }
-        printf("### COMPLETED ###\n");
-    }
 };
+
+void DumpGraph(const core::Graph &graph) {
+    core::NodeBase *node = graph.GetNode(0);
+
+    printf("### DUMPING GRAPH ###\n");
+    for (uint32_t i = 1; node != nullptr; i++) {
+        printf("Node[%d]\n", node->id());
+
+        for (uint8_t i = 0; i < node->GetInputPinCount(); i++) {
+            const core::NodeBase::Connection *conn = node->parent(i);
+            if (conn && conn->IsConnected()) {
+                printf("  IN[%d] <- Node[%d] Out[%d]\n", i, conn->node->id(), conn->pin);
+            }
+        }
+        for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
+            for (const core::NodeBase::Connection &conn : node->childrens(i)) {
+                
+                printf("  OUT[%d] -> Node[%d] In[%d]\n",
+                    i,
+                    (conn.node ? conn.node->id() : 0),
+                    conn.pin);
+            }
+        }
+        node = graph.GetNode(i);
+    }
+    printf("### COMPLETED ###\n");
+}
 
 #pragma region Node Management
 
