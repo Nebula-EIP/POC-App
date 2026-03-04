@@ -61,13 +61,15 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
     // Same for outputs
     for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-        auto children = node->childrens(i);
+        const auto &children = node->childrens(i);
 
         // Copy to avoid iterator invalidation
-        std::vector<NodeBase::Connection *> children_copy(children.begin(),
-                                                          children.end());
-        for (auto *child_conn : children_copy) {
-            Unlink(node, i, child_conn->node, child_conn->pin);
+        std::vector<NodeBase::Connection> children_copy(children.begin(),
+                                                        children.end());
+        for (const auto &child_conn : children_copy) {
+            if (child_conn.IsConnected()) {
+                Unlink(node, i, child_conn.node, child_conn.pin);
+            }
         }
     }
 
@@ -206,12 +208,12 @@ nlohmann::json core::Graph::Serialize() const {
             const auto &children = source_node->childrens(out_pin);
             // Iterate through all connections on this output pin
             for (const auto &conn : children) {
-                if (conn && conn->IsConnected()) {
+                if (conn.IsConnected()) {
                     nlohmann::json connection;
                     connection["source_node_id"] = source_node->id();
                     connection["source_pin"] = out_pin;
-                    connection["target_node_id"] = conn->node->id();
-                    connection["target_pin"] = conn->pin;
+                    connection["target_node_id"] = conn.node->id();
+                    connection["target_pin"] = conn.pin;
                     connections_array.push_back(connection);
                 }
             }

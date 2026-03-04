@@ -1,7 +1,10 @@
 #include "literal_node.hpp"
 
 core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {}
+    : NodeBase(id, kind) {
+    parents_.resize(GetInputPinCount());
+    childrens_.resize(GetOutputPinCount());
+}
 
 uint8_t core::LiteralNode::GetInputPinCount() const { return 0; }
 

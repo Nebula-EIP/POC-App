@@ -72,8 +72,9 @@ class NodeBase {
          * @brief Constructs a connection with specified node and pin.
          * @param node Pointer to the connected node.
          * @param pin Pin number on the connected node.
+         * @param type Data type going trough the connection
          */
-        Connection(NodeBase *node, uint8_t pin);
+        Connection(NodeBase *node, uint8_t pin, PinDataType type);
 
         bool IsConnected() const;
     };
@@ -90,14 +91,14 @@ class NodeBase {
      * @return Pointer to the connection information, or nullptr if not
      * connected.
      */
-    Connection *parent(uint8_t input_pin) const;
+    const Connection *parent(uint8_t input_pin) const;
 
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
      * @return Reference to a vector of connection pointers.
      */
-    const std::vector<Connection *> &childrens(uint8_t output_pin) const;
+    const std::vector<Connection> &childrens(uint8_t output_pin) const;
 
     virtual uint8_t GetInputPinCount() const = 0;
     virtual uint8_t GetOutputPinCount() const = 0;
@@ -167,16 +168,6 @@ class NodeBase {
     friend class Graph;  ///< Graph class manages the lifetime of nodes
 
     /**
-     * @brief Protected constructor to prevent direct instantiation.
-     *
-     * Nodes can only be created through the Graph factory methods.
-     *
-     * @param id Unique identifier for this node.
-     * @param kind The type/kind of this node.
-     */
-    NodeBase(uint32_t id, NodeKind kind);
-
-    /**
      * @brief Sets an input pin connection.
      *
      * If the input pin already has a connection, it will be overridden.
@@ -215,7 +206,8 @@ class NodeBase {
      * @param node Pointer to the child node to disconnect.
      * @param input_pin The input pin index on the child node.
      */
-    void RemoveChild(uint8_t output_pin, NodeBase *node, uint8_t input_pin);
+    void RemoveChild(uint8_t output_pin, const NodeBase *node,
+                     uint8_t input_pin);
 
     /**
      * @brief Initializes the connection vectors based on pin counts.
@@ -226,11 +218,22 @@ class NodeBase {
     void InitializeConnections();
 
    protected:
+    /**
+     * @brief Protected constructor to prevent direct instantiation.
+     *
+     * The NodeBase constructor can only be called by class inheriting from
+     * NodeBase
+     *
+     * @param id Unique identifier for this node.
+     * @param kind The type/kind of this node.
+     */
+    NodeBase(uint32_t id, NodeKind kind);
+
     const uint32_t id_;
     const NodeKind kind_;
 
-    std::vector<Connection *> parents_;
-    std::vector<std::vector<Connection *>> childrens_;
+    std::vector<Connection> parents_;
+    std::vector<std::vector<Connection>> childrens_;
 };
 
 // Helper functions for enum to/from string conversion
