@@ -14,15 +14,29 @@ class CodeGeneratorFile {
      * @param line The line of code to be added.
      * @return New cursor position
      */
-    int AddContent(const std::string& line);
+    int Line(const std::string& line);
 
     /**
      * @brief Adds a line of code to the file content at a specified position.
      * @param line The line of code to be added.
-     * @param position The position in the content where the line should be inserted.
+     * @param position The position at which to add the line of code. If the position is out of bounds, it will be wrapped around.
      * @return New cursor position
      */
-    int AddContentAt(const std::string& line, int position);
+    int LineAt(const std::string& line, int position);
+
+    /**
+     * @brief Opens a new code block with the specified header (e.g., "if (condition) {") and adds it to the content.
+     *        The block will be closed with a corresponding closing brace "}" when CloseBlock() is called.
+     * @param block_header The header of the code block to be opened.
+     * @return True if the block was successfully opened, false otherwise (e.g., if the block header is invalid).
+     */
+    bool OpenBlock(const std::string& block_header);
+
+    /**
+     * @brief Closes the most recently opened code block by adding a closing brace "}" to the content.
+     * @return True if a block was successfully closed, false otherwise (e.g., if there are no open blocks to close).
+     */
+    bool CloseBlock();
 
     /**
      * @brief Sets the indentation level for the formatted content.
@@ -65,8 +79,9 @@ class CodeGeneratorFile {
     */
     int GetContainedPosition(int position) const;
 
-    std::string content_ = "";
+    std::vector<std::string> content_;
     int cursor_ = 0;
     int indent_level_ = 4;
+    int open_blocks_ = 0;
 };
 }  // namespace code_generation

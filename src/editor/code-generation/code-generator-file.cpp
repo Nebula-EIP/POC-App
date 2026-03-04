@@ -1,21 +1,33 @@
 #include "code-generation/code-generator-file.hpp"
 
 namespace code_generation {
-int CodeGeneratorFile::AddContent(const std::string& line)
+int CodeGeneratorFile::Line(const std::string& line)
 {
-    if (cursor_ > content_.size())
-        cursor_ = content_.size();
-    content_.insert(cursor_, line);
-    cursor_ += line.length();
+    return LineAt(line, cursor_);
+}
+
+int CodeGeneratorFile::LineAt(const std::string& line, int position)
+{
+    position = GetContainedPosition(position);
+    content_.insert(content_.begin() + position, line);
+    cursor_++;
     return cursor_;
 }
 
-int CodeGeneratorFile::AddContentAt(const std::string& line, int position)
+bool CodeGeneratorFile::OpenBlock(const std::string& block_header)
 {
-    position = GetContainedPosition(position);
-    content_.insert(position, line);
-    cursor_ = position + line.length();
-    return cursor_;
+    open_blocks_++;
+    Line(block_header + " {");
+    return true;
+}
+
+bool CodeGeneratorFile::CloseBlock()
+{
+    if (open_blocks_ <= 0)
+        return false;
+    open_blocks_--;
+    Line("}");
+    return true;
 }
 
 void CodeGeneratorFile::SetIndentLevel(int level)
@@ -40,7 +52,10 @@ int CodeGeneratorFile::MoveCursor(int offset)
 
 std::string CodeGeneratorFile::GetContent() const
 {
-    return content_;
+    std::string content = "";
+    for (const std::string& line : content_)
+        content += line;
+    return content;
 }
 
 int CodeGeneratorFile::GetContainedPosition(int position) const

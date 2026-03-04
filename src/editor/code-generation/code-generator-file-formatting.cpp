@@ -67,8 +67,9 @@ std::string GetNewLIneFormatted(const std::string& line, int indent_level, int c
 std::string CodeGeneratorFile::GetFormatedContent() const
 {
     std::string final_code = "";
+    std::string content = GetContent();
     // Split the content into code blocks based on curly braces, keeping the delimiters to determine indentation levels.
-    std::vector<std::string> code_blocks = utils::splitByDelims(content_, {'{', '}'}, true, true);
+    std::vector<std::string> code_blocks = utils::splitByDelims(content, {'{', '}'}, true, true);
     int current_indent = 0;
 
     for (std::string &line : code_blocks) {

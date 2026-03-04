@@ -4,11 +4,11 @@
 int main(void) {
   code_generation::CodeGeneratorFile generator;
   try {
-    generator.AddContent("int main() {");
-    generator.AddContent("std::cout << \"H;ello, {World}!\" << std::endl;");
-    generator.AddContent("return 0;");
-    generator.AddContent("}");
-    generator.AddContentAt("#include <iostream>\n", 0);
+    generator.OpenBlock("int main()");
+    generator.Line("std::cout << \"H;ello, {World}!\" << std::endl;");
+    generator.Line("return 0;");
+    generator.CloseBlock();
+    generator.LineAt("#include <iostream>\n", 0);
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return 1;
