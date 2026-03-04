@@ -3,6 +3,7 @@
 
 ## Related Issue(s)
 <!-- Closes the correct issues -->
+<!-- Format: '- [TAG-ID/NAME](url)'-->
 
 
 <!-- Use the part you need for your specific type of PR only, delete the rest -->
