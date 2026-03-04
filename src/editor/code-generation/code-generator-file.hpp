@@ -52,6 +52,12 @@ class CodeGeneratorFile {
     int SetCursor(int position);
 
     /**
+     * @brief Retrieves the position of the most recently opened code block, which can be used to determine where to insert new lines of code within that block.
+     * @return The position of the most recently opened code block, or -1 if there
+     */
+    int GetPositionStartBlock() const;
+
+    /**
      * @brief Moves the cursor by a specified offset from its current position.
      * @param offset The number of positions to move the cursor. Positive values move it forward
      *               and negative values move it backward.
@@ -80,8 +86,8 @@ class CodeGeneratorFile {
     int GetContainedPosition(int position) const;
 
     std::vector<std::string> content_;
+    std::vector<int> block_positions_;
     int cursor_ = 0;
     int indent_level_ = 4;
-    int open_blocks_ = 0;
 };
 }  // namespace code_generation

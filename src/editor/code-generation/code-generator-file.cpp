@@ -4,7 +4,6 @@ namespace code_generation {
 int CodeGeneratorFile::Line(const std::string& line)
 {
     LineAt(line, cursor_);
-    cursor_++;
     return cursor_;
 }
 
@@ -12,21 +11,24 @@ int CodeGeneratorFile::LineAt(const std::string& line, int position)
 {
     position = GetContainedPosition(position);
     content_.insert(content_.begin() + position, line);
+    if (position <= cursor_)
+        cursor_++;
+
     return cursor_;
 }
 
 bool CodeGeneratorFile::OpenBlock(const std::string& block_header)
 {
-    open_blocks_++;
+    block_positions_.push_back(cursor_);
     Line(block_header + " {");
     return true;
 }
 
 bool CodeGeneratorFile::CloseBlock()
 {
-    if (open_blocks_ <= 0)
+    if (block_positions_.empty())
         return false;
-    open_blocks_--;
+    block_positions_.pop_back();
     Line("}");
     return true;
 }
@@ -68,6 +70,13 @@ int CodeGeneratorFile::GetContainedPosition(int position) const
     while (position > content_.size())
         position -= content_.size() + 1;
     return position;
+}
+
+int CodeGeneratorFile::GetPositionStartBlock() const
+{
+    if (block_positions_.empty())
+        return -1;
+    return block_positions_.back() + 1;
 }
 
 }  // namespace code_generation

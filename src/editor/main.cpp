@@ -7,6 +7,7 @@ int main(void) {
     generator.OpenBlock("int main()");
     generator.Line("std::cout << \"H;ello, {World}!\" << std::endl;");
     generator.Line("return 0;");
+    generator.LineAt("int x = 5;", generator.GetPositionStartBlock());
     generator.CloseBlock();
     generator.LineAt("#include <iostream>\n", 0);
   } catch (const std::exception& e) {
