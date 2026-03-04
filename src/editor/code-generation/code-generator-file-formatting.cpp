@@ -2,6 +2,42 @@
 #include "utils/string-splitter.hpp"
 
 namespace code_generation {
+namespace {
+int countCharOutsideQuotes(const std::string& s, char needle)
+{
+    bool inSingleQuotes = false;
+    bool inDoubleQuotes = false;
+    bool escaping = false;
+    int count = 0;
+
+    for (char c : s) {
+        if (escaping) {
+            escaping = false;
+            continue;
+        }
+
+        if ((inSingleQuotes || inDoubleQuotes) && c == '\\') {
+            escaping = true;
+            continue;
+        }
+
+        if (c == '\'' && !inDoubleQuotes) {
+            inSingleQuotes = !inSingleQuotes;
+            continue;
+        }
+        if (c == '"' && !inSingleQuotes) {
+            inDoubleQuotes = !inDoubleQuotes;
+            continue;
+        }
+
+        if (!inSingleQuotes && !inDoubleQuotes && c == needle)
+            ++count;
+    }
+
+    return count;
+}
+}  // namespace
+
 std::string CodeGeneratorFile::GetFormatedContent() const
 {
     std::string final_code = "";
@@ -14,18 +50,16 @@ std::string CodeGeneratorFile::GetFormatedContent() const
     for (std::string &line : code_blocks) {
         std::vector<std::string> sub_lines = utils::splitByDelims(line, {';'}, true, true);
 
-        // if the line contains a closing brace, decrease the indentation level
-        if (line.find('}') != std::string::npos)
-            current_indent--;
+        // If the line contains a closing brace outside of quotes, decrease the indentation level.
+        current_indent -= countCharOutsideQuotes(line, '}');
         // Parse each line in the code block, applying the current indentation
         for (std::string &sub_line : sub_lines) {
             for (int i = 0; i < current_indent; i++)
                 final_code += std::string(indent_level_, ' ');
             final_code += sub_line + "\n";
         }
-        // if the line contains an opening brace, increase the indentation
-        if (line.find('{') != std::string::npos)
-            current_indent++;
+        // If the line contains an opening brace outside of quotes, increase the indentation.
+        current_indent += countCharOutsideQuotes(line, '{');
     }
     return final_code;
 }

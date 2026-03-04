@@ -5,7 +5,8 @@ std::vector<std::string> splitByDelims(
     const std::string& input,
     const std::vector<char>& delims,
     bool keepEmpty,
-    bool keepDelims
+    bool keepDelims,
+    bool ignoreDelimsInQuotes
 ) {
     // If no delimiters are provided, return the whole string as a single token.
     if (delims.empty())
@@ -18,8 +19,38 @@ std::vector<std::string> splitByDelims(
     std::string current;
     current.reserve(input.size());
 
+    bool inSingleQuotes = false;
+    bool inDoubleQuotes = false;
+    bool escaping = false;
+
     for (char c : input) {
-        if (delimSet.find(c) != delimSet.end()) {
+        if (escaping) {
+            current.push_back(c);
+            escaping = false;
+            continue;
+        }
+
+        if ((inSingleQuotes || inDoubleQuotes) && c == '\\') {
+            current.push_back(c);
+            escaping = true;
+            continue;
+        }
+
+        if (c == '\'' && !inDoubleQuotes) {
+            inSingleQuotes = !inSingleQuotes;
+            current.push_back(c);
+            continue;
+        }
+
+        if (c == '"' && !inSingleQuotes) {
+            inDoubleQuotes = !inDoubleQuotes;
+            current.push_back(c);
+            continue;
+        }
+
+        const bool canSplit = !ignoreDelimsInQuotes || (!inSingleQuotes && !inDoubleQuotes);
+
+        if (canSplit && delimSet.find(c) != delimSet.end()) {
             // We hit a delimiter: flush the current token.
             if (keepDelims)
                 current.push_back(c);

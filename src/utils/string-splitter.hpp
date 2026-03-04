@@ -8,6 +8,7 @@ std::vector<std::string> splitByDelims(
     const std::string& input,
     const std::vector<char>& delims,
     bool keepEmpty = false,
-    bool keepDelims = false
+    bool keepDelims = false,
+    bool ignoreDelimsInQuotes = true
 );
 }  // namespace utils

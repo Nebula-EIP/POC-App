@@ -4,7 +4,7 @@
 int main(void) {
   code_generation::CodeGeneratorFile generator;
   generator.AddContent("int main() {");
-  generator.AddContent("    std::cout << \"Hello, World!\" << std::endl;");
+  generator.AddContent("    std::cout << \"H;ello, {World}!\" << std::endl;");
   generator.AddContent("    return 0;");
   generator.AddContent("}");
   generator.AddContentAt("#include <iostream>\n", 0);
