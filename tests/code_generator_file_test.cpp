@@ -160,4 +160,105 @@ TEST(CodeGeneratorFileTest, CursorMoveAndSetCursorAffectInsertionPoint)
     EXPECT_EQ(gen.GetContent(), "ZABC");
 }
 
+// ---------- CloseAllBlocks ----------
+
+TEST(CodeGeneratorFileTest, CloseAllBlocksReturnsFalseWhenNoBlocksOpen)
+{
+    CodeGeneratorFile gen;
+    EXPECT_FALSE(gen.CloseAllBlocks());
+    EXPECT_EQ(gen.GetContent(), "");
+}
+
+TEST(CodeGeneratorFileTest, CloseAllBlocksClosesEveryOpenBlock)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("int main()");
+    gen.OpenBlock("if (true)");
+    gen.Line("x++;");
+    EXPECT_TRUE(gen.CloseAllBlocks());
+
+    EXPECT_EQ(gen.GetContent(), "int main() {if (true) {x++;}}");
+}
+
+// ---------- CloseAndOpenBlock ----------
+
+TEST(CodeGeneratorFileTest, CloseAndOpenBlockReturnsFalseWhenNoBlocksOpen)
+{
+    CodeGeneratorFile gen;
+    EXPECT_FALSE(gen.CloseAndOpenBlock("else"));
+}
+
+TEST(CodeGeneratorFileTest, CloseAndOpenBlockClosesAndReopens)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("if (x > 0)");
+    gen.Line("return 1;");
+    gen.CloseAndOpenBlock("else");
+    gen.Line("return 0;");
+    gen.CloseBlock();
+
+    EXPECT_EQ(gen.GetContent(), "if (x > 0) {return 1;}else {return 0;}");
+}
+
+// ---------- Nested blocks formatting ----------
+
+TEST(CodeGeneratorFileTest, FormattedNestedBlocks)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("int main()");
+    gen.OpenBlock("if (true)");
+    gen.Line("x++;");
+    gen.CloseAllBlocks();
+
+    const std::string expected =
+        "int main() {\n"
+        "    if (true) {\n"
+        "        x++;\n"
+        "    }\n"
+        "}\n";
+
+    EXPECT_EQ(gen.GetFormatedContent(), expected);
+}
+
+TEST(CodeGeneratorFileTest, FormattedCloseAndOpenBlock)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("if (x > 0)");
+    gen.Line("return 1;");
+    gen.CloseAndOpenBlock("else");
+    gen.Line("return 0;");
+    gen.CloseBlock();
+
+    const std::string expected =
+        "if (x > 0) {\n"
+        "    return 1;\n"
+        "}\n"
+        "else {\n"
+        "    return 0;\n"
+        "}\n";
+
+    EXPECT_EQ(gen.GetFormatedContent(), expected);
+}
+
+// ---------- GetPositionStartBlock with nesting ----------
+
+TEST(CodeGeneratorFileTest, GetPositionStartBlockReturnsInnerBlockStart)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("int main()");
+    gen.Line("int x = 0;");
+    gen.OpenBlock("if (x)");
+
+    // Should point right after "if (x) {", i.e. inside the inner block.
+    int pos = gen.GetPositionStartBlock();
+    gen.LineAt("x++;", pos);
+    gen.CloseAllBlocks();
+
+    EXPECT_EQ(gen.GetContent(), "int main() {int x = 0;if (x) {x++;}}");}
+
 }  // namespace
