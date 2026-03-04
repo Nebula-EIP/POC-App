@@ -1,5 +1,6 @@
 #include "code-generation/code-generator-file.hpp"
 #include "utils/string-splitter.hpp"
+#include <algorithm>
 
 namespace code_generation {
 namespace {
@@ -39,7 +40,7 @@ int countCharOutsideQuotes(const std::string& s, char needle)
 std::vector<std::string> splitByNewlines(const std::string& s)
 {
     std::vector<std::string> sub_lines = utils::splitByDelims(s, {';'}, false, true);
-    for (int i = 0; i < sub_lines.size(); i++) {
+    for (size_t i = 0; i < sub_lines.size(); i++) {
         if (std::find(sub_lines[i].begin(), sub_lines[i].end(), '\n') == sub_lines[i].end())
             continue;
 
