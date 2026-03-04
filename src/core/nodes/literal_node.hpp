@@ -2,6 +2,7 @@
 
 #include "../node_base.hpp"
 
+#include <string>
 #include <any>
 
 namespace core {
@@ -24,7 +25,7 @@ class LiteralNode : public NodeBase {
      * It is the caller responsibility to store data that is the correct
      * type which can be retreived with LiteralNode::type().
      */
-    void set_data();
+    void set_data(std::any data);
 
     /**
      * @brief Retrieves the data stored in the literal node.

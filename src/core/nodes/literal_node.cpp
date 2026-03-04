@@ -24,7 +24,7 @@ core::NodeBase::PinDataType core::LiteralNode::type() const {
 }
 
 
-void core::LiteralNode::set_data() {
+void core::LiteralNode::set_data(std::any data) {
     data_ = data;
 }
 
