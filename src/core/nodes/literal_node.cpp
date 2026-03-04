@@ -26,6 +26,14 @@ core::NodeBase::PinDataType core::LiteralNode::GetOutputPinType(
 
 std::expected<void, std::string> core::LiteralNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+    if (out_pin != 0) {
+        return std::unexpected("Pin does not exists");
+    }
+
+    if (in_pin >= target->GetInputPinCount()) {
+        return std::unexpected("Target pin does not exists");
+    }
+
     if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin)) {
         return std::unexpected("Types don't match");
     }

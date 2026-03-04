@@ -7,7 +7,7 @@ namespace core {
 class Graph;
 
 class LiteralNode : public NodeBase {
-   public:
+ public:
     ~LiteralNode() = default;
 
     uint8_t GetInputPinCount() const override;
@@ -25,14 +25,15 @@ class LiteralNode : public NodeBase {
     std::string GetDisplayName() const override;
     std::string GetCategory() const override;
 
-   private:
+ private:
     friend Graph;
 
     LiteralNode(uint32_t id, NodeKind kind);
 
-   private:
+ private:
     PinDataType type_ = PinDataType::kUndefined;
     std::string name_ = "Literal";
+    
 };
 
 }  // namespace core
