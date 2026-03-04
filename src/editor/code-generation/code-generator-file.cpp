@@ -33,6 +33,14 @@ bool CodeGeneratorFile::CloseBlock()
     return true;
 }
 
+bool CodeGeneratorFile::CloseAllBlocks()
+{
+    bool toReturn = !block_positions_.empty();
+    while (!block_positions_.empty())
+        CloseBlock();
+    return toReturn;
+}
+
 bool CodeGeneratorFile::CloseAndOpenBlock(const std::string& block_header)
 {
     if (block_positions_.empty())
