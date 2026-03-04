@@ -53,8 +53,20 @@ class VariableNode : public NodeBase {
     std::string GetDisplayName() const override;
     std::string GetCategory() const override;
 
+    nlohmann::json Serialize() const override;
+
+    /**
+     * @brief Deserializes this VariableNode's data from JSON.
+     * @param json The JSON object containing the variable node data.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
+     */
+    std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) override;
+
    private:
     friend Graph;
+    friend NodeBase;
 
     VariableNode(uint32_t id, NodeKind kind);
 

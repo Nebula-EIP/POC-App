@@ -68,3 +68,34 @@ std::string core::LiteralNode::GetOutputPinName(uint8_t pin) const {
 std::string core::LiteralNode::GetDisplayName() const { return name_; }
 
 std::string core::LiteralNode::GetCategory() const { return "Cool stuff~"; }
+
+nlohmann::json core::LiteralNode::Serialize() const {
+    nlohmann::json json;
+    json["id"] = id();
+    json["kind"] = core::NodeKindToString(kind());
+    json["type"] = core::PinDataTypeToString(type_);
+    json["name"] = name_;
+    return json;
+}
+
+std::expected<void, std::string> core::LiteralNode::Deserialize(
+    const nlohmann::json &json) {
+    // Validate required fields for LiteralNode
+    if (!json.contains("type") || !json.contains("name")) {
+        return std::unexpected(
+            "Missing required fields for LiteralNode: type or name");
+    }
+
+    try {
+        std::string type_str = json["type"].get<std::string>();
+        std::string name = json["name"].get<std::string>();
+
+        type_ = StringToPinDataType(type_str);
+        name_ = name;
+
+        return {};
+    } catch (const std::exception &e) {
+        return std::unexpected(
+            std::string("Failed to deserialize LiteralNode: ") + e.what());
+    }
+}

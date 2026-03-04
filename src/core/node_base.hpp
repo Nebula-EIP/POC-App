@@ -1,11 +1,17 @@
 #pragma once
+#include <chrono>
 #include <cstdint>
 #include <expected>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
 namespace core {
+
+// Forward declarations
+class Graph;
+class LiteralNode;
 
 /**
  * @class NodeBase
@@ -73,7 +79,7 @@ class NodeBase {
         bool IsConnected() const;
     };
 
-    virtual ~NodeBase() = default;
+    virtual ~NodeBase();
 
     uint32_t id() const;
 
@@ -133,6 +139,46 @@ class NodeBase {
      */
     virtual std::string GetCategory() const = 0;
 
+    /**
+     * @brief Serializes the node to JSON format.
+     *
+     * Converts this node's data into a JSON object following the .nebula
+     * format specification. The JSON must include the node's id and kind,
+     * plus any node-specific properties.
+     *
+     * @return JSON object containing the serialized node data.
+     */
+    virtual nlohmann::json Serialize() const = 0;
+
+    /**
+     * @brief Deserializes this node's data from JSON.
+     *
+     * Called by the factory after the node is constructed to initialize its
+     * fields from the JSON data. Each derived class implements this to load
+     * its specific properties.
+     *
+     * @param json The JSON object containing the node's data.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
+     */
+    virtual std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) = 0;
+
+    /**
+     * @brief Factory method to deserialize a node from JSON.
+     *
+     * Creates the appropriate node type based on the "kind" field in JSON,
+     * then calls its virtual Deserialize method to initialize it. The JSON
+     * must contain "id" and "kind" fields at a minimum.
+     *
+     * @param json The JSON object containing the node data.
+     * @param graph Pointer to the owning Graph (friend class).
+     * @return An expected containing a unique_ptr to the deserialized node,
+     *         or an error message if deserialization fails.
+     */
+    static std::expected<std::unique_ptr<NodeBase>, std::string>
+    DeserializeFactory(const nlohmann::json &json, Graph *graph);
+
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
 
@@ -178,6 +224,14 @@ class NodeBase {
     void RemoveChild(uint8_t output_pin, const NodeBase *node,
                      uint8_t input_pin);
 
+    /**
+     * @brief Initializes the connection vectors based on pin counts.
+     *
+     * Must be called after construction to properly size the parents_
+     * and childrens_ vectors and create Connection objects.
+     */
+    void InitializeConnections();
+
    protected:
     /**
      * @brief Protected constructor to prevent direct instantiation.
@@ -196,5 +250,13 @@ class NodeBase {
     std::vector<Connection> parents_;
     std::vector<std::vector<Connection>> childrens_;
 };
+
+// Helper functions for enum to/from string conversion
+
+std::string NodeKindToString(NodeBase::NodeKind kind);
+NodeBase::NodeKind StringToNodeKind(const std::string &str);
+
+std::string PinDataTypeToString(NodeBase::PinDataType type);
+NodeBase::PinDataType StringToPinDataType(const std::string &str);
 
 }  // namespace core
