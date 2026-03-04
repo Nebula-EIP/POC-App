@@ -21,8 +21,8 @@ if(CORE_SOURCES)
             $<INSTALL_INTERFACE:include>
     )
 
-    # Add dependencies here when needed
-    # target_link_libraries(core PUBLIC ...)
+    # Add dependencies
+    target_link_libraries(core PUBLIC nlohmann_json::nlohmann_json)
 
     # Set properties
     set_target_properties(core PROPERTIES
