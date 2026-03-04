@@ -52,6 +52,12 @@ TEST(CodeGeneratorFileTest, CloseBlockFailsIfNoneOpen)
     EXPECT_EQ(gen.GetContent(), "");
 }
 
+TEST(CodeGeneratorFileTest, GetPositionStartBlockReturnsMinusOneWhenNoBlockOpen)
+{
+    CodeGeneratorFile gen;
+    EXPECT_EQ(gen.GetPositionStartBlock(), -1);
+}
+
 TEST(CodeGeneratorFileTest, OpenAndCloseBlockGenerateBraces)
 {
     CodeGeneratorFile gen;
@@ -61,6 +67,23 @@ TEST(CodeGeneratorFileTest, OpenAndCloseBlockGenerateBraces)
     EXPECT_TRUE(gen.CloseBlock());
 
     EXPECT_EQ(gen.GetContent(), "int main() {return 0;}");
+}
+
+TEST(CodeGeneratorFileTest, GetPositionStartBlockAllowsInsertionInsideBlockWithoutReordering)
+{
+    CodeGeneratorFile gen;
+
+    gen.OpenBlock("int main()");
+    gen.Line("return 0;");
+
+    // Insert before the current cursor (inside the block).
+    gen.LineAt("int x = 5;", gen.GetPositionStartBlock());
+
+    // Regression: previously, LineAt() didn't move the cursor, so CloseBlock()
+    // inserted '}' before 'return 0;'.
+    gen.CloseBlock();
+
+    EXPECT_EQ(gen.GetContent(), "int main() {int x = 5;return 0;}");
 }
 
 TEST(CodeGeneratorFileTest, SetIndentLevelRejectsNonPositive)
