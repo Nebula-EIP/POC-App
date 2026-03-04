@@ -25,6 +25,8 @@ class LiteralNode : public NodeBase {
     std::string GetDisplayName() const override;
     std::string GetCategory() const override;
 
+    nlohmann::json Serialize() const override;
+
    private:
     friend Graph;
 

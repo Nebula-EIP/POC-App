@@ -1,7 +1,9 @@
 #pragma once
+#include <chrono>
 #include <cstdint>
 #include <expected>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
@@ -132,6 +134,17 @@ class NodeBase {
      */
     virtual std::string GetCategory() const = 0;
 
+    /**
+     * @brief Serializes the node to JSON format.
+     *
+     * Converts this node's data into a JSON object following the .nebula
+     * format specification. The JSON must include the node's id and kind,
+     * plus any node-specific properties.
+     *
+     * @return JSON object containing the serialized node data.
+     */
+    virtual nlohmann::json Serialize() const = 0;
+
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
 
@@ -201,5 +214,13 @@ class NodeBase {
     std::vector<Connection *> parents_;
     std::vector<std::vector<Connection *>> childrens_;
 };
+
+// Helper functions for enum to/from string conversion
+
+std::string NodeKindToString(NodeBase::NodeKind kind);
+NodeBase::NodeKind StringToNodeKind(const std::string& str);
+
+std::string PinDataTypeToString(NodeBase::PinDataType type);
+NodeBase::PinDataType StringToPinDataType(const std::string& str);
 
 }  // namespace core

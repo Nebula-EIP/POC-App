@@ -90,3 +90,68 @@ void core::NodeBase::InitializeConnections() {
         childrens_.push_back(std::vector<Connection *>());
     }
 }
+
+// Helper functions for enum to/from string conversion
+
+std::string core::NodeKindToString(core::NodeBase::NodeKind kind) {
+    switch (kind) {
+        case core::NodeBase::NodeKind::kLiteral:
+            return "Literal";
+        case core::NodeBase::NodeKind::kVariable:
+            return "Variable";
+        case core::NodeBase::NodeKind::kFunction:
+            return "Function";
+        case core::NodeBase::NodeKind::kFunctionInput:
+            return "FunctionInput";
+        case core::NodeBase::NodeKind::kFunctionOutput:
+            return "FunctionOutput";
+        case core::NodeBase::NodeKind::kOperator:
+            return "Operator";
+        case core::NodeBase::NodeKind::kCondition:
+            return "Condition";
+        case core::NodeBase::NodeKind::kLoop:
+            return "Loop";
+        case core::NodeBase::NodeKind::kUndefined:
+        default:
+            return "Undefined";
+    }
+}
+
+core::NodeBase::NodeKind core::StringToNodeKind(const std::string& str) {
+    if (str == "Literal") return core::NodeBase::NodeKind::kLiteral;
+    if (str == "Variable") return core::NodeBase::NodeKind::kVariable;
+    if (str == "Function") return core::NodeBase::NodeKind::kFunction;
+    if (str == "FunctionInput") return core::NodeBase::NodeKind::kFunctionInput;
+    if (str == "FunctionOutput") return core::NodeBase::NodeKind::kFunctionOutput;
+    if (str == "Operator") return core::NodeBase::NodeKind::kOperator;
+    if (str == "Condition") return core::NodeBase::NodeKind::kCondition;
+    if (str == "Loop") return core::NodeBase::NodeKind::kLoop;
+    return core::NodeBase::NodeKind::kUndefined;
+}
+
+std::string core::PinDataTypeToString(core::NodeBase::PinDataType type) {
+    switch (type) {
+        case core::NodeBase::PinDataType::kInt:
+            return "Int";
+        case core::NodeBase::PinDataType::kFloat:
+            return "Float";
+        case core::NodeBase::PinDataType::kBool:
+            return "Bool";
+        case core::NodeBase::PinDataType::kString:
+            return "String";
+        case core::NodeBase::PinDataType::kVoid:
+            return "Void";
+        case core::NodeBase::PinDataType::kUndefined:
+        default:
+            return "Undefined";
+    }
+}
+
+core::NodeBase::PinDataType core::StringToPinDataType(const std::string& str) {
+    if (str == "Int") return core::NodeBase::PinDataType::kInt;
+    if (str == "Float") return core::NodeBase::PinDataType::kFloat;
+    if (str == "Bool") return core::NodeBase::PinDataType::kBool;
+    if (str == "String") return core::NodeBase::PinDataType::kString;
+    if (str == "Void") return core::NodeBase::PinDataType::kVoid;
+    return core::NodeBase::PinDataType::kUndefined;
+}
