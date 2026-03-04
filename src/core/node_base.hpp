@@ -175,13 +175,15 @@ class NodeBase {
      * @param node Pointer to the child node to disconnect.
      * @param input_pin The input pin index on the child node.
      */
-    void RemoveChild(uint8_t output_pin, const NodeBase *node, uint8_t input_pin);
+    void RemoveChild(uint8_t output_pin, const NodeBase *node,
+                     uint8_t input_pin);
 
    protected:
     /**
      * @brief Protected constructor to prevent direct instantiation.
      *
-     * The NodeBase constructor can only be called by class inheriting from NodeBase
+     * The NodeBase constructor can only be called by class inheriting from
+     * NodeBase
      *
      * @param id Unique identifier for this node.
      * @param kind The type/kind of this node.

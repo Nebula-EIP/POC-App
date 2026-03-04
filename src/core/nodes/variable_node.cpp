@@ -6,31 +6,17 @@ core::VariableNode::VariableNode(uint32_t id, NodeKind kind)
     childrens_.resize(GetOutputPinCount());
 }
 
-void core::VariableNode::set_name(const std::string &name) {
-    name_ = name;
-}
+void core::VariableNode::set_name(const std::string &name) { name_ = name; }
 
-const std::string &core::VariableNode::name() const {
-    return name_;
-}
+const std::string &core::VariableNode::name() const { return name_; }
 
+void core::VariableNode::set_type(PinDataType type) { type_ = type; }
 
-void core::VariableNode::set_type(PinDataType type) {
-    type_ = type;
-}
+core::NodeBase::PinDataType core::VariableNode::type() const { return type_; }
 
-core::NodeBase::PinDataType core::VariableNode::type() const {
-    return type_;
-}
+void core::VariableNode::set_data(std::any data) { data_ = data; }
 
-
-void core::VariableNode::set_data(std::any data) {
-    data_ = data;
-}
-
-std::any core::VariableNode::data() const {
-    return data_;
-}
+std::any core::VariableNode::data() const { return data_; }
 
 uint8_t core::VariableNode::GetInputPinCount() const { return 1; }
 

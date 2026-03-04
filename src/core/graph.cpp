@@ -40,7 +40,7 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
         // Copy to avoid iterator invalidation
         std::vector<NodeBase::Connection> childrens_copy(childrens.begin(),
-                                                          childrens.end());
+                                                         childrens.end());
         for (auto &child_conn : childrens_copy) {
             Unlink(node, i, child_conn.node, child_conn.pin);
         }
