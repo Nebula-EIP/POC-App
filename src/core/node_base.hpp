@@ -72,7 +72,7 @@ class NodeBase {
         bool IsConnected() const;
     };
 
-    virtual ~NodeBase() = default;
+    virtual ~NodeBase();
 
     uint32_t id() const;
 
@@ -185,6 +185,14 @@ class NodeBase {
      * @param input_pin The input pin index on the child node.
      */
     void RemoveChild(uint8_t output_pin, NodeBase *node, uint8_t input_pin);
+
+    /**
+     * @brief Initializes the connection vectors based on pin counts.
+     *
+     * Must be called after construction to properly size the parents_
+     * and childrens_ vectors and create Connection objects.
+     */
+    void InitializeConnections();
 
    protected:
     const uint32_t id_;

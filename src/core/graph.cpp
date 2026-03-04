@@ -130,9 +130,12 @@ std::expected<void, std::string> core::Graph::Unlink(NodeBase *from,
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
     uint32_t id, NodeBase::NodeKind kind) {
+    std::unique_ptr<NodeBase> node;
+
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
-            return std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
+            node = std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kVariable:
 
@@ -152,4 +155,11 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
         default:
             return nullptr;
     }
+
+    // Initialize connection vectors after construction
+    if (node) {
+        node->InitializeConnections();
+    }
+
+    return node;
 }
