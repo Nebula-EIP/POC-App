@@ -9,6 +9,7 @@
 #include <sstream>
 
 #include "nodes/literal_node.hpp"
+#include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
     : next_id_(0),
@@ -144,6 +145,8 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kVariable:
+            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kOperator:
 

@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "nodes/literal_node.hpp"
+#include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
     : node(n), pin(p), type(t) {}
@@ -233,7 +234,16 @@ core::NodeBase::Deserialize(const nlohmann::json &json, Graph * /*graph*/) {
             return std::unique_ptr<NodeBase>(node.release());
         }
 
-        case NodeKind::kVariable:
+        case NodeKind::kVariable: {
+            auto node = VariableNode::DeserializeHelper(json, id);
+            if (!node) {
+                return std::unexpected("Failed to deserialize VariableNode");
+            }
+            // Initialize connections after construction
+            node->InitializeConnections();
+            return std::unique_ptr<NodeBase>(node.release());
+        }
+
         case NodeKind::kFunction:
         case NodeKind::kFunctionInput:
         case NodeKind::kFunctionOutput:
