@@ -58,6 +58,13 @@ class CodeGeneratorFile {
     std::string GetFormatedContent() const;
 
  private:
+    /**
+     * @brief Return the position contained in the content, accounting for wrapping around if the position is out of bounds.
+     * @param position The position to be contained within the content.
+     * @return The contained position within the content.
+    */
+    int GetContainedPosition(int position) const;
+
     std::string content_ = "";
     int cursor_ = 0;
     int indent_level_ = 4;

@@ -12,10 +12,7 @@ int CodeGeneratorFile::AddContent(const std::string& line)
 
 int CodeGeneratorFile::AddContentAt(const std::string& line, int position)
 {
-    if (position < 0 || position > content_.length())
-        throw code_generation::CursorOutOfBoundsError(
-            "CodeGeneratorFile::AddContentAt", position,
-            static_cast<long long>(content_.length()));
+    position = GetContainedPosition(position);
     content_.insert(position, line);
     cursor_ = position + line.length();
     return cursor_;
@@ -31,10 +28,6 @@ void CodeGeneratorFile::SetIndentLevel(int level)
 
 int CodeGeneratorFile::SetCursor(int position)
 {
-    if (position < 0 || position > content_.length())
-        throw code_generation::CursorOutOfBoundsError(
-            "CodeGeneratorFile::SetCursor", position,
-            static_cast<long long>(content_.length()));
     cursor_ = position;
     return cursor_;
 }
@@ -49,4 +42,16 @@ std::string CodeGeneratorFile::GetContent() const
 {
     return content_;
 }
+
+int CodeGeneratorFile::GetContainedPosition(int position) const
+{
+    if (content_.empty())
+        return 0;
+    while (position < 0)
+        position += content_.size() + 1;
+    while (position > content_.size())
+        position -= content_.size() + 1;
+    return position;
+}
+
 }  // namespace code_generation
