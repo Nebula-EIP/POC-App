@@ -124,6 +124,17 @@ class Graph {
     void SetAuthor(const std::string& author);
     void UpdateModifiedTime();
 
+    /**
+     * @brief Serializes the entire graph to JSON format.
+     *
+     * Converts the graph and all its data into a JSON object following the
+     * .nebula file format specification. Includes metadata, nodes, and
+     * connections.
+     *
+     * @return JSON object containing the serialized graph data.
+     */
+    nlohmann::json Serialize() const;
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.

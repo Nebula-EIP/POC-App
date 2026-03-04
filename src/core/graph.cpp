@@ -1,7 +1,9 @@
 #include "graph.hpp"
 
 #include <algorithm>
+#include <iomanip>
 #include <format>
+#include <sstream>
 
 #include "nodes/literal_node.hpp"
 
@@ -162,4 +164,57 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
     }
 
     return node;
+}
+
+nlohmann::json core::Graph::Serialize() const {
+    nlohmann::json json;
+
+    // Serialize metadata
+    json["metadata"]["project_name"] = project_name_;
+    json["metadata"]["version"] = version_;
+    json["metadata"]["author"] = author_;
+
+    // Convert timestamps to ISO 8601 strings
+    auto to_iso8601 = [](const std::chrono::system_clock::time_point& tp) {
+        auto time = std::chrono::system_clock::to_time_t(tp);
+        std::stringstream ss;
+        ss << std::put_time(std::gmtime(&time), "%Y-%m-%dT%H:%M:%SZ");
+        return ss.str();
+    };
+
+    json["metadata"]["created_at"] = to_iso8601(created_at_);
+    json["metadata"]["modified_at"] = to_iso8601(modified_at_);
+
+    // Serialize graph data
+    json["graph"]["next_id"] = next_id_;
+
+    // Serialize nodes
+    nlohmann::json nodes_array = nlohmann::json::array();
+    for (const auto& node : nodes_) {
+        nodes_array.push_back(node->Serialize());
+    }
+    json["graph"]["nodes"] = nodes_array;
+
+    // Serialize connections
+    nlohmann::json connections_array = nlohmann::json::array();
+    for (const auto& source_node : nodes_) {
+        // Iterate through all output pins
+        for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount(); ++out_pin) {
+            const auto& children = source_node->childrens(out_pin);
+            // Iterate through all connections on this output pin
+            for (const auto& conn : children) {
+                if (conn && conn->IsConnected()) {
+                    nlohmann::json connection;
+                    connection["source_node_id"] = source_node->id();
+                    connection["source_pin"] = out_pin;
+                    connection["target_node_id"] = conn->node->id();
+                    connection["target_pin"] = conn->pin;
+                    connections_array.push_back(connection);
+                }
+            }
+        }
+    }
+    json["graph"]["connections"] = connections_array;
+
+    return json;
 }
