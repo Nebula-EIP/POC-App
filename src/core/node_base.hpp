@@ -161,7 +161,7 @@ class NodeBase {
      *         or an error message if deserialization fails.
      */
     static std::expected<std::unique_ptr<NodeBase>, std::string> Deserialize(
-        const nlohmann::json& json, Graph* graph);
+        const nlohmann::json &json, Graph *graph);
 
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
@@ -236,9 +236,9 @@ class NodeBase {
 // Helper functions for enum to/from string conversion
 
 std::string NodeKindToString(NodeBase::NodeKind kind);
-NodeBase::NodeKind StringToNodeKind(const std::string& str);
+NodeBase::NodeKind StringToNodeKind(const std::string &str);
 
 std::string PinDataTypeToString(NodeBase::PinDataType type);
-NodeBase::PinDataType StringToPinDataType(const std::string& str);
+NodeBase::PinDataType StringToPinDataType(const std::string &str);
 
 }  // namespace core

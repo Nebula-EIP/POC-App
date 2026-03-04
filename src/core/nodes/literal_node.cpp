@@ -56,7 +56,7 @@ nlohmann::json core::LiteralNode::Serialize() const {
 }
 
 std::unique_ptr<core::LiteralNode> core::LiteralNode::DeserializeHelper(
-    const nlohmann::json& json, uint32_t id) {
+    const nlohmann::json &json, uint32_t id) {
     // Validate required fields for LiteralNode
     if (!json.contains("type") || !json.contains("name")) {
         return nullptr;
@@ -72,7 +72,7 @@ std::unique_ptr<core::LiteralNode> core::LiteralNode::DeserializeHelper(
         node->name_ = name;
 
         return node;
-    } catch (const std::exception&) {
+    } catch (const std::exception &) {
         return nullptr;
     }
 }

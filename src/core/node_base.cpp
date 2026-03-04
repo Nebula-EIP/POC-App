@@ -13,14 +13,14 @@ core::NodeBase::NodeBase(uint32_t id, NodeKind kind) : id_(id), kind_(kind) {}
 
 core::NodeBase::~NodeBase() {
     // Clean up parent connections
-    for (auto* conn : parents_) {
+    for (auto *conn : parents_) {
         delete conn;
     }
     parents_.clear();
 
     // Clean up children connections
-    for (auto& child_vec : childrens_) {
-        for (auto* conn : child_vec) {
+    for (auto &child_vec : childrens_) {
+        for (auto *conn : child_vec) {
             delete conn;
         }
         child_vec.clear();
@@ -52,7 +52,7 @@ void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
 
 void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
                               uint8_t child_pin) {
-    auto* conn = new Connection(child, child_pin);
+    auto *conn = new Connection(child, child_pin);
     conn->type = GetOutputPinType(out_pin);
     childrens_[out_pin].push_back(conn);
 }
@@ -66,11 +66,11 @@ void core::NodeBase::ClearParent(uint8_t pin) {
 void core::NodeBase::RemoveChild(uint8_t out_pin, NodeBase *node,
                                  uint8_t in_pin) {
     auto &children = childrens_[out_pin];
-    auto it = std::find_if(children.begin(), children.end(),
-                           [node, in_pin](Connection* conn) {
-                               return conn && conn->node == node && conn->pin == in_pin;
-                           });
-    
+    auto it = std::find_if(
+        children.begin(), children.end(), [node, in_pin](Connection *conn) {
+            return conn && conn->node == node && conn->pin == in_pin;
+        });
+
     if (it != children.end()) {
         delete *it;
         children.erase(it);
@@ -119,15 +119,31 @@ std::string core::NodeKindToString(core::NodeBase::NodeKind kind) {
     }
 }
 
-core::NodeBase::NodeKind core::StringToNodeKind(const std::string& str) {
-    if (str == "Literal") return core::NodeBase::NodeKind::kLiteral;
-    if (str == "Variable") return core::NodeBase::NodeKind::kVariable;
-    if (str == "Function") return core::NodeBase::NodeKind::kFunction;
-    if (str == "FunctionInput") return core::NodeBase::NodeKind::kFunctionInput;
-    if (str == "FunctionOutput") return core::NodeBase::NodeKind::kFunctionOutput;
-    if (str == "Operator") return core::NodeBase::NodeKind::kOperator;
-    if (str == "Condition") return core::NodeBase::NodeKind::kCondition;
-    if (str == "Loop") return core::NodeBase::NodeKind::kLoop;
+core::NodeBase::NodeKind core::StringToNodeKind(const std::string &str) {
+    if (str == "Literal") {
+        return core::NodeBase::NodeKind::kLiteral;
+    }
+    if (str == "Variable") {
+        return core::NodeBase::NodeKind::kVariable;
+    }
+    if (str == "Function") {
+        return core::NodeBase::NodeKind::kFunction;
+    }
+    if (str == "FunctionInput") {
+        return core::NodeBase::NodeKind::kFunctionInput;
+    }
+    if (str == "FunctionOutput") {
+        return core::NodeBase::NodeKind::kFunctionOutput;
+    }
+    if (str == "Operator") {
+        return core::NodeBase::NodeKind::kOperator;
+    }
+    if (str == "Condition") {
+        return core::NodeBase::NodeKind::kCondition;
+    }
+    if (str == "Loop") {
+        return core::NodeBase::NodeKind::kLoop;
+    }
     return core::NodeBase::NodeKind::kUndefined;
 }
 
@@ -149,7 +165,7 @@ std::string core::PinDataTypeToString(core::NodeBase::PinDataType type) {
     }
 }
 
-core::NodeBase::PinDataType core::StringToPinDataType(const std::string& str) {
+core::NodeBase::PinDataType core::StringToPinDataType(const std::string &str) {
     if (str == "Int") return core::NodeBase::PinDataType::kInt;
     if (str == "Float") return core::NodeBase::PinDataType::kFloat;
     if (str == "Bool") return core::NodeBase::PinDataType::kBool;
@@ -158,8 +174,8 @@ core::NodeBase::PinDataType core::StringToPinDataType(const std::string& str) {
     return core::NodeBase::PinDataType::kUndefined;
 }
 
-std::expected<std::unique_ptr<core::NodeBase>, std::string> core::NodeBase::Deserialize(
-    const nlohmann::json& json, Graph* /*graph*/) {
+std::expected<std::unique_ptr<core::NodeBase>, std::string>
+core::NodeBase::Deserialize(const nlohmann::json &json, Graph * /*graph*/) {
     // Validate required fields
     if (!json.contains("id") || !json.contains("kind")) {
         return std::unexpected("Missing required fields: id or kind");
@@ -167,12 +183,13 @@ std::expected<std::unique_ptr<core::NodeBase>, std::string> core::NodeBase::Dese
 
     uint32_t id;
     std::string kind_str;
-    
+
     try {
         id = json["id"].get<uint32_t>();
         kind_str = json["kind"].get<std::string>();
-    } catch (const std::exception& e) {
-        return std::unexpected(std::string("Failed to parse node fields: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to parse node fields: ") +
+                               e.what());
     }
 
     NodeKind kind = StringToNodeKind(kind_str);
@@ -199,7 +216,8 @@ std::expected<std::unique_ptr<core::NodeBase>, std::string> core::NodeBase::Dese
         case NodeKind::kOperator:
         case NodeKind::kCondition:
         case NodeKind::kLoop:
-            return std::unexpected(std::string("Node kind not yet implemented: ") + kind_str);
+            return std::unexpected(
+                std::string("Node kind not yet implemented: ") + kind_str);
 
         case NodeKind::kUndefined:
         default:

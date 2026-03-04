@@ -2,9 +2,9 @@
 
 #include <algorithm>
 #include <ctime>
+#include <format>
 #include <fstream>
 #include <iomanip>
-#include <format>
 #include <map>
 #include <sstream>
 
@@ -16,15 +16,14 @@ core::Graph::Graph()
       version_("1.0"),
       author_(""),
       created_at_(std::chrono::system_clock::now()),
-      modified_at_(std::chrono::system_clock::now()) {
-}
+      modified_at_(std::chrono::system_clock::now()) {}
 
-void core::Graph::SetProjectName(const std::string& name) {
+void core::Graph::SetProjectName(const std::string &name) {
     project_name_ = name;
     UpdateModifiedTime();
 }
 
-void core::Graph::SetAuthor(const std::string& author) {
+void core::Graph::SetAuthor(const std::string &author) {
     author_ = author;
     UpdateModifiedTime();
 }
@@ -178,7 +177,7 @@ nlohmann::json core::Graph::Serialize() const {
     json["metadata"]["author"] = author_;
 
     // Convert timestamps to ISO 8601 strings
-    auto to_iso8601 = [](const std::chrono::system_clock::time_point& tp) {
+    auto to_iso8601 = [](const std::chrono::system_clock::time_point &tp) {
         auto time = std::chrono::system_clock::to_time_t(tp);
         std::stringstream ss;
         ss << std::put_time(std::gmtime(&time), "%Y-%m-%dT%H:%M:%SZ");
@@ -193,19 +192,20 @@ nlohmann::json core::Graph::Serialize() const {
 
     // Serialize nodes
     nlohmann::json nodes_array = nlohmann::json::array();
-    for (const auto& node : nodes_) {
+    for (const auto &node : nodes_) {
         nodes_array.push_back(node->Serialize());
     }
     json["graph"]["nodes"] = nodes_array;
 
     // Serialize connections
     nlohmann::json connections_array = nlohmann::json::array();
-    for (const auto& source_node : nodes_) {
+    for (const auto &source_node : nodes_) {
         // Iterate through all output pins
-        for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount(); ++out_pin) {
-            const auto& children = source_node->childrens(out_pin);
+        for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount();
+             ++out_pin) {
+            const auto &children = source_node->childrens(out_pin);
             // Iterate through all connections on this output pin
-            for (const auto& conn : children) {
+            for (const auto &conn : children) {
                 if (conn && conn->IsConnected()) {
                     nlohmann::json connection;
                     connection["source_node_id"] = source_node->id();
@@ -222,14 +222,16 @@ nlohmann::json core::Graph::Serialize() const {
     return json;
 }
 
-std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann::json& json) {
+std::expected<core::Graph, std::string> core::Graph::Deserialize(
+    const nlohmann::json &json) {
     // Validate JSON structure
     if (!json.contains("metadata") || !json.contains("graph")) {
-        return std::unexpected("Missing required top-level sections: metadata or graph");
+        return std::unexpected(
+            "Missing required top-level sections: metadata or graph");
     }
 
-    const auto& metadata = json["metadata"];
-    const auto& graph_data = json["graph"];
+    const auto &metadata = json["metadata"];
+    const auto &graph_data = json["graph"];
 
     // Validate metadata fields
     if (!metadata.contains("project_name") || !metadata.contains("version")) {
@@ -239,7 +241,8 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
     // Validate version
     std::string version = metadata["version"].get<std::string>();
     if (version != "1.0") {
-        return std::unexpected("Unsupported .nebula format version: " + version);
+        return std::unexpected("Unsupported .nebula format version: " +
+                               version);
     }
 
     // Create new graph
@@ -249,72 +252,82 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
     try {
         graph.project_name_ = metadata["project_name"].get<std::string>();
         graph.version_ = metadata["version"].get<std::string>();
-        
+
         if (metadata.contains("author")) {
             graph.author_ = metadata["author"].get<std::string>();
         }
 
         // Parse timestamps from ISO 8601 strings
-        auto parse_iso8601 = [](const std::string& iso_str) -> std::chrono::system_clock::time_point {
+        auto parse_iso8601 = [](const std::string &iso_str)
+            -> std::chrono::system_clock::time_point {
             std::tm tm = {};
             std::istringstream ss(iso_str);
             ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%SZ");
-            auto time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+            auto time =
+                std::chrono::system_clock::from_time_t(std::mktime(&tm));
             return time;
         };
 
         if (metadata.contains("created_at")) {
-            graph.created_at_ = parse_iso8601(metadata["created_at"].get<std::string>());
+            graph.created_at_ =
+                parse_iso8601(metadata["created_at"].get<std::string>());
         }
         if (metadata.contains("modified_at")) {
-            graph.modified_at_ = parse_iso8601(metadata["modified_at"].get<std::string>());
+            graph.modified_at_ =
+                parse_iso8601(metadata["modified_at"].get<std::string>());
         }
-    } catch (const std::exception& e) {
-        return std::unexpected(std::string("Failed to parse metadata: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to parse metadata: ") +
+                               e.what());
     }
 
     // Validate graph structure
-    if (!graph_data.contains("next_id") || !graph_data.contains("nodes") || 
+    if (!graph_data.contains("next_id") || !graph_data.contains("nodes") ||
         !graph_data.contains("connections")) {
-        return std::unexpected("Missing required graph fields: next_id, nodes, or connections");
+        return std::unexpected(
+            "Missing required graph fields: next_id, nodes, or connections");
     }
 
     // Restore next_id
     try {
         graph.next_id_ = graph_data["next_id"].get<uint32_t>();
-    } catch (const std::exception& e) {
-        return std::unexpected(std::string("Failed to parse next_id: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to parse next_id: ") +
+                               e.what());
     }
 
     // Deserialize nodes
-    const auto& nodes_array = graph_data["nodes"];
+    const auto &nodes_array = graph_data["nodes"];
     if (!nodes_array.is_array()) {
         return std::unexpected("Field 'nodes' is not an array");
     }
 
-    std::map<uint32_t, NodeBase*> id_to_node_map;
-    
-    for (const auto& node_json : nodes_array) {
+    std::map<uint32_t, NodeBase *> id_to_node_map;
+
+    for (const auto &node_json : nodes_array) {
         auto result = NodeBase::Deserialize(node_json, &graph);
         if (!result) {
-            return std::unexpected("Failed to deserialize node: " + result.error());
+            return std::unexpected("Failed to deserialize node: " +
+                                   result.error());
         }
 
-        auto& node_ptr = result.value();
+        auto &node_ptr = result.value();
         uint32_t node_id = node_ptr->id();
         id_to_node_map[node_id] = node_ptr.get();
         graph.nodes_.push_back(std::move(node_ptr));
     }
 
     // Restore connections
-    const auto& connections_array = graph_data["connections"];
+    const auto &connections_array = graph_data["connections"];
     if (!connections_array.is_array()) {
         return std::unexpected("Field 'connections' is not an array");
     }
 
-    for (const auto& conn_json : connections_array) {
-        if (!conn_json.contains("source_node_id") || !conn_json.contains("source_pin") ||
-            !conn_json.contains("target_node_id") || !conn_json.contains("target_pin")) {
+    for (const auto &conn_json : connections_array) {
+        if (!conn_json.contains("source_node_id") ||
+            !conn_json.contains("source_pin") ||
+            !conn_json.contains("target_node_id") ||
+            !conn_json.contains("target_pin")) {
             return std::unexpected("Connection missing required fields");
         }
 
@@ -329,14 +342,18 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
             auto target_it = id_to_node_map.find(target_id);
 
             if (source_it == id_to_node_map.end()) {
-                return std::unexpected("Connection references non-existent source node ID: " + std::to_string(source_id));
+                return std::unexpected(
+                    "Connection references non-existent source node ID: " +
+                    std::to_string(source_id));
             }
             if (target_it == id_to_node_map.end()) {
-                return std::unexpected("Connection references non-existent target node ID: " + std::to_string(target_id));
+                return std::unexpected(
+                    "Connection references non-existent target node ID: " +
+                    std::to_string(target_id));
             }
 
-            NodeBase* source = source_it->second;
-            NodeBase* target = target_it->second;
+            NodeBase *source = source_it->second;
+            NodeBase *target = target_it->second;
 
             // Validate pin indices
             if (source_pin >= source->GetOutputPinCount()) {
@@ -347,16 +364,19 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
             }
 
             // Validate pin type compatibility
-            auto type_result = source->CanConnectTo(source_pin, target, target_pin);
+            auto type_result =
+                source->CanConnectTo(source_pin, target, target_pin);
             if (!type_result) {
-                return std::unexpected("Nodes cannot be connected: " + type_result.error());
+                return std::unexpected("Nodes cannot be connected: " +
+                                       type_result.error());
             }
 
             // Establish the connection
             target->SetParent(target_pin, source, source_pin);
             source->AddChild(source_pin, target, target_pin);
-        } catch (const std::exception& e) {
-            return std::unexpected(std::string("Failed to parse connection: ") + e.what());
+        } catch (const std::exception &e) {
+            return std::unexpected(std::string("Failed to parse connection: ") +
+                                   e.what());
         }
     }
 
@@ -364,7 +384,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
 }
 
 std::expected<void, std::string> core::Graph::SaveToFile(
-    const std::filesystem::path& path) {
+    const std::filesystem::path &path) {
     try {
         // Update modified timestamp before saving
         UpdateModifiedTime();
@@ -375,22 +395,24 @@ std::expected<void, std::string> core::Graph::SaveToFile(
         // Write to file with pretty printing
         std::ofstream file(path);
         if (!file.is_open()) {
-            return std::unexpected("Failed to open file for writing: " + path.string());
+            return std::unexpected("Failed to open file for writing: " +
+                                   path.string());
         }
 
         file << json.dump(4) << std::endl;
         file.close();
 
         return {};
-    } catch (const std::filesystem::filesystem_error& e) {
+    } catch (const std::filesystem::filesystem_error &e) {
         return std::unexpected(std::string("Filesystem error: ") + e.what());
-    } catch (const std::exception& e) {
-        return std::unexpected(std::string("Failed to save graph: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to save graph: ") +
+                               e.what());
     }
 }
 
 std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
-    const std::filesystem::path& path) {
+    const std::filesystem::path &path) {
     try {
         // Check if file exists
         if (!std::filesystem::exists(path)) {
@@ -400,24 +422,27 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
         // Read file
         std::ifstream file(path);
         if (!file.is_open()) {
-            return std::unexpected("Failed to open file for reading: " + path.string());
+            return std::unexpected("Failed to open file for reading: " +
+                                   path.string());
         }
 
         // Parse JSON
         nlohmann::json json;
         try {
             file >> json;
-        } catch (const nlohmann::json::parse_error& e) {
-            return std::unexpected(std::string("Failed to parse JSON: ") + e.what());
+        } catch (const nlohmann::json::parse_error &e) {
+            return std::unexpected(std::string("Failed to parse JSON: ") +
+                                   e.what());
         }
 
         file.close();
 
         // Deserialize the graph
         return Deserialize(json);
-    } catch (const std::filesystem::filesystem_error& e) {
+    } catch (const std::filesystem::filesystem_error &e) {
         return std::unexpected(std::string("Filesystem error: ") + e.what());
-    } catch (const std::exception& e) {
-        return std::unexpected(std::string("Failed to load graph: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to load graph: ") +
+                               e.what());
     }
 }

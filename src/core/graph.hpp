@@ -22,10 +22,10 @@ class Graph {
     ~Graph() = default;
 
     // Graph is move-only due to unique_ptr ownership
-    Graph(const Graph&) = delete;
-    Graph& operator=(const Graph&) = delete;
-    Graph(Graph&&) = default;
-    Graph& operator=(Graph&&) = default;
+    Graph(const Graph &) = delete;
+    Graph &operator=(const Graph &) = delete;
+    Graph(Graph &&) = default;
+    Graph &operator=(Graph &&) = default;
 
     /**
      * @brief Adds a new node of the specified kind to the graph.
@@ -120,15 +120,19 @@ class Graph {
                                             NodeBase *to, uint8_t in_pin);
 
     // Project metadata getters
-    const std::string& GetProjectName() const { return project_name_; }
-    const std::string& GetVersion() const { return version_; }
-    const std::string& GetAuthor() const { return author_; }
-    std::chrono::system_clock::time_point GetCreatedAt() const { return created_at_; }
-    std::chrono::system_clock::time_point GetModifiedAt() const { return modified_at_; }
+    const std::string &GetProjectName() const { return project_name_; }
+    const std::string &GetVersion() const { return version_; }
+    const std::string &GetAuthor() const { return author_; }
+    std::chrono::system_clock::time_point GetCreatedAt() const {
+        return created_at_;
+    }
+    std::chrono::system_clock::time_point GetModifiedAt() const {
+        return modified_at_;
+    }
 
     // Project metadata setters
-    void SetProjectName(const std::string& name);
-    void SetAuthor(const std::string& author);
+    void SetProjectName(const std::string &name);
+    void SetAuthor(const std::string &author);
     void UpdateModifiedTime();
 
     /**
@@ -152,7 +156,8 @@ class Graph {
      * @return An expected containing the deserialized Graph,
      *         or an error message if deserialization fails.
      */
-    static std::expected<Graph, std::string> Deserialize(const nlohmann::json& json);
+    static std::expected<Graph, std::string> Deserialize(
+        const nlohmann::json &json);
 
     /**
      * @brief Saves the graph to a .nebula file.
@@ -163,9 +168,11 @@ class Graph {
      *
      * @param path The file path where the graph should be saved.
      * @return An expected containing void on success, or an error message if
-     *         the save fails (e.g., permission denied, disk full, invalid path).
+     *         the save fails (e.g., permission denied, disk full, invalid
+     * path).
      */
-    std::expected<void, std::string> SaveToFile(const std::filesystem::path& path);
+    std::expected<void, std::string> SaveToFile(
+        const std::filesystem::path &path);
 
     /**
      * @brief Loads a graph from a .nebula file.
@@ -175,9 +182,11 @@ class Graph {
      *
      * @param path The file path to load from.
      * @return An expected containing the loaded Graph on success, or an error
-     *         message if loading fails (file not found, corrupted, invalid format).
+     *         message if loading fails (file not found, corrupted, invalid
+     * format).
      */
-    static std::expected<Graph, std::string> LoadFromFile(const std::filesystem::path& path);
+    static std::expected<Graph, std::string> LoadFromFile(
+        const std::filesystem::path &path);
 
    private:
     /**
