@@ -7,6 +7,7 @@
 #include <chrono>
 #include <cstdint>
 #include <expected>
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <vector>
@@ -152,6 +153,31 @@ class Graph {
      *         or an error message if deserialization fails.
      */
     static std::expected<Graph, std::string> Deserialize(const nlohmann::json& json);
+
+    /**
+     * @brief Saves the graph to a .nebula file.
+     *
+     * Serializes the graph and writes it to the specified file path as JSON.
+     * The file will be created or overwritten. Updates the modified timestamp
+     * before saving.
+     *
+     * @param path The file path where the graph should be saved.
+     * @return An expected containing void on success, or an error message if
+     *         the save fails (e.g., permission denied, disk full, invalid path).
+     */
+    std::expected<void, std::string> SaveToFile(const std::filesystem::path& path);
+
+    /**
+     * @brief Loads a graph from a .nebula file.
+     *
+     * Reads and deserializes a .nebula file from the specified path,
+     * reconstructing the complete graph with all nodes and connections.
+     *
+     * @param path The file path to load from.
+     * @return An expected containing the loaded Graph on success, or an error
+     *         message if loading fails (file not found, corrupted, invalid format).
+     */
+    static std::expected<Graph, std::string> LoadFromFile(const std::filesystem::path& path);
 
    private:
     /**

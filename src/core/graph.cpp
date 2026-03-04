@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <ctime>
+#include <fstream>
 #include <iomanip>
 #include <format>
 #include <map>
@@ -360,4 +361,63 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann:
     }
 
     return graph;
+}
+
+std::expected<void, std::string> core::Graph::SaveToFile(
+    const std::filesystem::path& path) {
+    try {
+        // Update modified timestamp before saving
+        UpdateModifiedTime();
+
+        // Serialize the graph
+        nlohmann::json json = Serialize();
+
+        // Write to file with pretty printing
+        std::ofstream file(path);
+        if (!file.is_open()) {
+            return std::unexpected("Failed to open file for writing: " + path.string());
+        }
+
+        file << json.dump(4) << std::endl;
+        file.close();
+
+        return {};
+    } catch (const std::filesystem::filesystem_error& e) {
+        return std::unexpected(std::string("Filesystem error: ") + e.what());
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string("Failed to save graph: ") + e.what());
+    }
+}
+
+std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
+    const std::filesystem::path& path) {
+    try {
+        // Check if file exists
+        if (!std::filesystem::exists(path)) {
+            return std::unexpected("File does not exist: " + path.string());
+        }
+
+        // Read file
+        std::ifstream file(path);
+        if (!file.is_open()) {
+            return std::unexpected("Failed to open file for reading: " + path.string());
+        }
+
+        // Parse JSON
+        nlohmann::json json;
+        try {
+            file >> json;
+        } catch (const nlohmann::json::parse_error& e) {
+            return std::unexpected(std::string("Failed to parse JSON: ") + e.what());
+        }
+
+        file.close();
+
+        // Deserialize the graph
+        return Deserialize(json);
+    } catch (const std::filesystem::filesystem_error& e) {
+        return std::unexpected(std::string("Filesystem error: ") + e.what());
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string("Failed to load graph: ") + e.what());
+    }
 }
