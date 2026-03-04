@@ -200,7 +200,8 @@ core::NodeBase::PinDataType core::StringToPinDataType(const std::string &str) {
 }
 
 std::expected<std::unique_ptr<core::NodeBase>, std::string>
-core::NodeBase::Deserialize(const nlohmann::json &json, Graph * /*graph*/) {
+core::NodeBase::DeserializeFactory(const nlohmann::json &json,
+                                   Graph * /*graph*/) {
     // Validate required fields
     if (!json.contains("id") || !json.contains("kind")) {
         return std::unexpected("Missing required fields: id or kind");
@@ -222,26 +223,35 @@ core::NodeBase::Deserialize(const nlohmann::json &json, Graph * /*graph*/) {
         return std::unexpected(std::string("Unknown node kind: ") + kind_str);
     }
 
-    // Dispatch to appropriate node type deserializer
+    // Create the appropriate node type
+    std::unique_ptr<NodeBase> node;
     switch (kind) {
         case NodeKind::kLiteral: {
-            auto node = LiteralNode::DeserializeHelper(json, id);
-            if (!node) {
-                return std::unexpected("Failed to deserialize LiteralNode");
+            auto literal_node =
+                std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
+            // Deserialize the node's data
+            auto result = literal_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
             }
-            // Initialize connections after construction
-            node->InitializeConnections();
-            return std::unique_ptr<NodeBase>(node.release());
+            // Initialize connections after deserialization
+            literal_node->InitializeConnections();
+            node = std::move(literal_node);
+            break;
         }
 
         case NodeKind::kVariable: {
-            auto node = VariableNode::DeserializeHelper(json, id);
-            if (!node) {
-                return std::unexpected("Failed to deserialize VariableNode");
+            auto variable_node =
+                std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            // Deserialize the node's data
+            auto result = variable_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
             }
-            // Initialize connections after construction
-            node->InitializeConnections();
-            return std::unique_ptr<NodeBase>(node.release());
+            // Initialize connections after deserialization
+            variable_node->InitializeConnections();
+            node = std::move(variable_node);
+            break;
         }
 
         case NodeKind::kFunction:
@@ -257,4 +267,6 @@ core::NodeBase::Deserialize(const nlohmann::json &json, Graph * /*graph*/) {
         default:
             return std::unexpected("Cannot deserialize undefined node kind");
     }
+
+    return node;
 }

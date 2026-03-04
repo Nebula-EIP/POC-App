@@ -86,24 +86,24 @@ nlohmann::json core::VariableNode::Serialize() const {
     return json;
 }
 
-std::unique_ptr<core::VariableNode> core::VariableNode::DeserializeHelper(
-    const nlohmann::json &json, uint32_t id) {
+std::expected<void, std::string> core::VariableNode::Deserialize(
+    const nlohmann::json &json) {
     // Validate required fields for VariableNode
     if (!json.contains("type") || !json.contains("name")) {
-        return nullptr;
+        return std::unexpected(
+            "Missing required fields for VariableNode: type or name");
     }
 
     try {
         std::string type_str = json["type"].get<std::string>();
         std::string name = json["name"].get<std::string>();
 
-        auto node = std::unique_ptr<VariableNode>(
-            new VariableNode(id, NodeKind::kVariable));
-        node->type_ = StringToPinDataType(type_str);
-        node->name_ = name;
+        type_ = StringToPinDataType(type_str);
+        name_ = name;
 
-        return node;
-    } catch (const std::exception &) {
-        return nullptr;
+        return {};
+    } catch (const std::exception &e) {
+        return std::unexpected(
+            std::string("Failed to deserialize VariableNode: ") + e.what());
     }
 }

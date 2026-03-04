@@ -56,17 +56,17 @@ class LiteralNode : public NodeBase {
     nlohmann::json Serialize() const override;
 
     /**
-     * @brief Deserializes a LiteralNode from JSON.
+     * @brief Deserializes this LiteralNode's data from JSON.
      * @param json The JSON object containing the literal node data.
-     * @param id The node ID (parsed from JSON by factory).
-     * @return A unique_ptr to the deserialized LiteralNode, or nullptr on
-     * error.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
      */
-    static std::unique_ptr<LiteralNode> DeserializeHelper(
-        const nlohmann::json &json, uint32_t id);
+    std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) override;
 
    private:
     friend Graph;
+    friend NodeBase;
 
     LiteralNode(uint32_t id, NodeKind kind);
 

@@ -33,17 +33,11 @@ void core::Graph::UpdateModifiedTime() {
     modified_at_ = std::chrono::system_clock::now();
 }
 
-const std::string &core::Graph::GetProjectName() const {
-    return project_name_;
-}
+const std::string &core::Graph::GetProjectName() const { return project_name_; }
 
-const std::string &core::Graph::GetVersion() const {
-    return version_;
-}
+const std::string &core::Graph::GetVersion() const { return version_; }
 
-const std::string &core::Graph::GetAuthor() const {
-    return author_;
-}
+const std::string &core::Graph::GetAuthor() const { return author_; }
 
 std::chrono::system_clock::time_point core::Graph::GetCreatedAt() const {
     return created_at_;
@@ -329,7 +323,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
     std::map<uint32_t, NodeBase *> id_to_node_map;
 
     for (const auto &node_json : nodes_array) {
-        auto result = NodeBase::Deserialize(node_json, &graph);
+        auto result = NodeBase::DeserializeFactory(node_json, &graph);
         if (!result) {
             return std::unexpected("Failed to deserialize node: " +
                                    result.error());

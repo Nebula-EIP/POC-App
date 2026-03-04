@@ -151,18 +151,33 @@ class NodeBase {
     virtual nlohmann::json Serialize() const = 0;
 
     /**
-     * @brief Deserializes a node from JSON data.
+     * @brief Deserializes this node's data from JSON.
      *
-     * Factory method that parses JSON and creates the appropriate node type.
-     * The JSON must contain "id" and "kind" fields at a minimum.
+     * Called by the factory after the node is constructed to initialize its
+     * fields from the JSON data. Each derived class implements this to load
+     * its specific properties.
+     *
+     * @param json The JSON object containing the node's data.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
+     */
+    virtual std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) = 0;
+
+    /**
+     * @brief Factory method to deserialize a node from JSON.
+     *
+     * Creates the appropriate node type based on the "kind" field in JSON,
+     * then calls its virtual Deserialize method to initialize it. The JSON
+     * must contain "id" and "kind" fields at a minimum.
      *
      * @param json The JSON object containing the node data.
      * @param graph Pointer to the owning Graph (friend class).
      * @return An expected containing a unique_ptr to the deserialized node,
      *         or an error message if deserialization fails.
      */
-    static std::expected<std::unique_ptr<NodeBase>, std::string> Deserialize(
-        const nlohmann::json &json, Graph *graph);
+    static std::expected<std::unique_ptr<NodeBase>, std::string>
+    DeserializeFactory(const nlohmann::json &json, Graph *graph);
 
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes

@@ -56,17 +56,17 @@ class VariableNode : public NodeBase {
     nlohmann::json Serialize() const override;
 
     /**
-     * @brief Deserializes a VariableNode from JSON.
+     * @brief Deserializes this VariableNode's data from JSON.
      * @param json The JSON object containing the variable node data.
-     * @param id The node ID (parsed from JSON by factory).
-     * @return A unique_ptr to the deserialized VariableNode, or nullptr on
-     * error.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
      */
-    static std::unique_ptr<VariableNode> DeserializeHelper(
-        const nlohmann::json &json, uint32_t id);
+    std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) override;
 
    private:
     friend Graph;
+    friend NodeBase;
 
     VariableNode(uint32_t id, NodeKind kind);
 
