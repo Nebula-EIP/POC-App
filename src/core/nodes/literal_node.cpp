@@ -6,6 +6,32 @@ core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind)
     childrens_.resize(GetOutputPinCount());
 }
 
+void core::LiteralNode::set_name(const std::string &name) {
+    name_ = name;
+}
+
+const std::string &core::LiteralNode::name() const {
+    return name_;
+}
+
+
+void core::LiteralNode::set_type(PinDataType type) {
+    type_ = type;
+}
+
+core::NodeBase::PinDataType core::LiteralNode::type() const {
+    return type_;
+}
+
+
+void core::LiteralNode::set_data() {
+    data_ = data;
+}
+
+std::any core::LiteralNode::data() const {
+    return data_;
+}
+
 uint8_t core::LiteralNode::GetInputPinCount() const { return 0; }
 
 uint8_t core::LiteralNode::GetOutputPinCount() const { return 1; }

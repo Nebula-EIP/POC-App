@@ -2,6 +2,8 @@
 
 #include "../node_base.hpp"
 
+#include <any>
+
 namespace core {
 
 class Graph;
@@ -9,6 +11,31 @@ class Graph;
 class LiteralNode : public NodeBase {
  public:
     ~LiteralNode() = default;
+
+    void set_name(const std::string &name);
+    const std::string &name() const;
+
+    void set_type(PinDataType type);
+    PinDataType type() const;
+    
+    /**
+     * @brief Set the data to be stored in the node.
+     * 
+     * It is the caller responsibility to store data that is the correct
+     * type which can be retreived with LiteralNode::type().
+     */
+    void set_data();
+
+    /**
+     * @brief Retrieves the data stored in the literal node.
+     * 
+     * This function returns the data encapsulated within the literal node
+     * as a std::any object. The actual type of the data can be determined
+     * by the caller using std::any_cast along with LiteralNode::type().
+     * 
+     * @return std::any The data stored in the literal node.
+     */
+    std::any data() const;
 
     uint8_t GetInputPinCount() const override;
     uint8_t GetOutputPinCount() const override;
@@ -33,7 +60,7 @@ class LiteralNode : public NodeBase {
  private:
     PinDataType type_ = PinDataType::kUndefined;
     std::string name_ = "Literal";
-    
+    std::any data_;
 };
 
 }  // namespace core
