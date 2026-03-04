@@ -1,8 +1,10 @@
 #include "graph.hpp"
 
 #include <algorithm>
+#include <ctime>
 #include <iomanip>
 #include <format>
+#include <map>
 #include <sstream>
 
 #include "nodes/literal_node.hpp"
@@ -217,4 +219,145 @@ nlohmann::json core::Graph::Serialize() const {
     json["graph"]["connections"] = connections_array;
 
     return json;
+}
+
+std::expected<core::Graph, std::string> core::Graph::Deserialize(const nlohmann::json& json) {
+    // Validate JSON structure
+    if (!json.contains("metadata") || !json.contains("graph")) {
+        return std::unexpected("Missing required top-level sections: metadata or graph");
+    }
+
+    const auto& metadata = json["metadata"];
+    const auto& graph_data = json["graph"];
+
+    // Validate metadata fields
+    if (!metadata.contains("project_name") || !metadata.contains("version")) {
+        return std::unexpected("Missing required metadata fields");
+    }
+
+    // Validate version
+    std::string version = metadata["version"].get<std::string>();
+    if (version != "1.0") {
+        return std::unexpected("Unsupported .nebula format version: " + version);
+    }
+
+    // Create new graph
+    Graph graph;
+
+    // Restore metadata
+    try {
+        graph.project_name_ = metadata["project_name"].get<std::string>();
+        graph.version_ = metadata["version"].get<std::string>();
+        
+        if (metadata.contains("author")) {
+            graph.author_ = metadata["author"].get<std::string>();
+        }
+
+        // Parse timestamps from ISO 8601 strings
+        auto parse_iso8601 = [](const std::string& iso_str) -> std::chrono::system_clock::time_point {
+            std::tm tm = {};
+            std::istringstream ss(iso_str);
+            ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%SZ");
+            auto time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+            return time;
+        };
+
+        if (metadata.contains("created_at")) {
+            graph.created_at_ = parse_iso8601(metadata["created_at"].get<std::string>());
+        }
+        if (metadata.contains("modified_at")) {
+            graph.modified_at_ = parse_iso8601(metadata["modified_at"].get<std::string>());
+        }
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string("Failed to parse metadata: ") + e.what());
+    }
+
+    // Validate graph structure
+    if (!graph_data.contains("next_id") || !graph_data.contains("nodes") || 
+        !graph_data.contains("connections")) {
+        return std::unexpected("Missing required graph fields: next_id, nodes, or connections");
+    }
+
+    // Restore next_id
+    try {
+        graph.next_id_ = graph_data["next_id"].get<uint32_t>();
+    } catch (const std::exception& e) {
+        return std::unexpected(std::string("Failed to parse next_id: ") + e.what());
+    }
+
+    // Deserialize nodes
+    const auto& nodes_array = graph_data["nodes"];
+    if (!nodes_array.is_array()) {
+        return std::unexpected("Field 'nodes' is not an array");
+    }
+
+    std::map<uint32_t, NodeBase*> id_to_node_map;
+    
+    for (const auto& node_json : nodes_array) {
+        auto result = NodeBase::Deserialize(node_json, &graph);
+        if (!result) {
+            return std::unexpected("Failed to deserialize node: " + result.error());
+        }
+
+        auto& node_ptr = result.value();
+        uint32_t node_id = node_ptr->id();
+        id_to_node_map[node_id] = node_ptr.get();
+        graph.nodes_.push_back(std::move(node_ptr));
+    }
+
+    // Restore connections
+    const auto& connections_array = graph_data["connections"];
+    if (!connections_array.is_array()) {
+        return std::unexpected("Field 'connections' is not an array");
+    }
+
+    for (const auto& conn_json : connections_array) {
+        if (!conn_json.contains("source_node_id") || !conn_json.contains("source_pin") ||
+            !conn_json.contains("target_node_id") || !conn_json.contains("target_pin")) {
+            return std::unexpected("Connection missing required fields");
+        }
+
+        try {
+            uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
+            uint8_t source_pin = conn_json["source_pin"].get<uint8_t>();
+            uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
+            uint8_t target_pin = conn_json["target_pin"].get<uint8_t>();
+
+            // Find nodes by ID
+            auto source_it = id_to_node_map.find(source_id);
+            auto target_it = id_to_node_map.find(target_id);
+
+            if (source_it == id_to_node_map.end()) {
+                return std::unexpected("Connection references non-existent source node ID: " + std::to_string(source_id));
+            }
+            if (target_it == id_to_node_map.end()) {
+                return std::unexpected("Connection references non-existent target node ID: " + std::to_string(target_id));
+            }
+
+            NodeBase* source = source_it->second;
+            NodeBase* target = target_it->second;
+
+            // Validate pin indices
+            if (source_pin >= source->GetOutputPinCount()) {
+                return std::unexpected("Source pin index out of bounds");
+            }
+            if (target_pin >= target->GetInputPinCount()) {
+                return std::unexpected("Target pin index out of bounds");
+            }
+
+            // Validate pin type compatibility
+            auto type_result = source->CanConnectTo(source_pin, target, target_pin);
+            if (!type_result) {
+                return std::unexpected("Nodes cannot be connected: " + type_result.error());
+            }
+
+            // Establish the connection
+            target->SetParent(target_pin, source, source_pin);
+            source->AddChild(source_pin, target, target_pin);
+        } catch (const std::exception& e) {
+            return std::unexpected(std::string("Failed to parse connection: ") + e.what());
+        }
+    }
+
+    return graph;
 }

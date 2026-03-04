@@ -20,6 +20,12 @@ class Graph {
     Graph();
     ~Graph() = default;
 
+    // Graph is move-only due to unique_ptr ownership
+    Graph(const Graph&) = delete;
+    Graph& operator=(const Graph&) = delete;
+    Graph(Graph&&) = default;
+    Graph& operator=(Graph&&) = default;
+
     /**
      * @brief Adds a new node of the specified kind to the graph.
      *
@@ -134,6 +140,18 @@ class Graph {
      * @return JSON object containing the serialized graph data.
      */
     nlohmann::json Serialize() const;
+
+    /**
+     * @brief Deserializes a complete graph from JSON.
+     *
+     * Factory method that reconstructs a Graph object and all its nodes and
+     * connections from JSON data in the .nebula format.
+     *
+     * @param json The JSON object containing the complete graph data.
+     * @return An expected containing the deserialized Graph,
+     *         or an error message if deserialization fails.
+     */
+    static std::expected<Graph, std::string> Deserialize(const nlohmann::json& json);
 
    private:
     /**
