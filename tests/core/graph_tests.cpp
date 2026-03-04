@@ -91,5 +91,3 @@ TEST_F(GraphTest, RemoveNode_NonExistentNode_DoesNotCrash) {
     // Try to remove it from this graph - should not crash
     EXPECT_NO_THROW(graph_.RemoveNode(other_node));
 }
-
-

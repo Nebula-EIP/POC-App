@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <format>
+#include <iostream>
 
 #include "nodes/literal_node.hpp"
 
@@ -34,13 +35,13 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
     // Same for outputs
     for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-        auto children = node->childrens(i);
+        const auto &childrens = node->childrens(i);
 
         // Copy to avoid iterator invalidation
-        std::vector<NodeBase::Connection *> children_copy(children.begin(),
-                                                          children.end());
-        for (auto *child_conn : children_copy) {
-            Unlink(node, i, child_conn->node, child_conn->pin);
+        std::vector<NodeBase::Connection> childrens_copy(childrens.begin(),
+                                                          childrens.end());
+        for (auto &child_conn : childrens_copy) {
+            Unlink(node, i, child_conn.node, child_conn.pin);
         }
     }
 
