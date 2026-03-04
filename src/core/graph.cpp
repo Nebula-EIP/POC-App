@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "nodes/literal_node.hpp"
+#include "nodes/variable_node.hpp"
 
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
@@ -113,6 +114,7 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             return std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
 
         case NodeBase::NodeKind::kVariable:
+            return std::unique_ptr<VariableNode>(new VariableNode(id, kind));
 
         case NodeBase::NodeKind::kOperator:
 
