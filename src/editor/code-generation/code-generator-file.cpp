@@ -3,14 +3,15 @@
 namespace code_generation {
 int CodeGeneratorFile::Line(const std::string& line)
 {
-    return LineAt(line, cursor_);
+    LineAt(line, cursor_);
+    cursor_++;
+    return cursor_;
 }
 
 int CodeGeneratorFile::LineAt(const std::string& line, int position)
 {
     position = GetContainedPosition(position);
     content_.insert(content_.begin() + position, line);
-    cursor_++;
     return cursor_;
 }
 
