@@ -87,6 +87,11 @@ std::expected<void, std::string> core::Graph::Link(NodeBase *from,
         return std::unexpected("{}");
     }
 
+    if (to->parent(in_pin)) {
+        const NodeBase::Connection *conn = to->parent(in_pin);
+        Unlink(conn->node, conn->pin, to, in_pin);
+    }
+
     to->SetParent(in_pin, from, out_pin);
     from->AddChild(out_pin, to, in_pin);
 
