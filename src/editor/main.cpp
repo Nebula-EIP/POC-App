@@ -8,7 +8,11 @@ int main(void) {
     generator.Line("std::cout << \"H;ello, {World}!\" << std::endl;");
     generator.Line("return 0;");
     generator.LineAt("int x = 5;", generator.GetPositionStartBlock());
-    generator.CloseBlock();
+    generator.OpenBlock("if (x > 0)");
+    generator.Line("std::cout << \"x is positive\" << std::endl;");
+    generator.CloseAndOpenBlock("else");
+    generator.Line("std::cout << \"x is not positive\" << std::endl;");
+    generator.CloseAllBlocks();
     generator.LineAt("#include <iostream>\n", 0);
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;

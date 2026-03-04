@@ -33,6 +33,15 @@ bool CodeGeneratorFile::CloseBlock()
     return true;
 }
 
+bool CodeGeneratorFile::CloseAndOpenBlock(const std::string& block_header)
+{
+    if (block_positions_.empty())
+        return false;
+    block_positions_.pop_back();
+    Line("}");
+    return OpenBlock(block_header);
+}
+
 void CodeGeneratorFile::SetIndentLevel(int level)
 {
     if (level <= 0)

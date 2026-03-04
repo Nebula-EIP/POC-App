@@ -39,6 +39,19 @@ class CodeGeneratorFile {
     bool CloseBlock();
 
     /**
+     * @brief Closes the most recently opened code block and immediately opens a new block with the specified header.
+     * @param block_header The header of the new code block to be opened after closing the current block.
+     * @return True if the current block was successfully closed and the new block was successfully opened, false otherwise (e.g., if there are no open blocks to close or if the new block header is invalid).
+     */
+    bool CloseAndOpenBlock(const std::string& block_header);
+
+    /**
+     * @brief Closes all currently open code blocks by adding the appropriate number of closing braces "}" to the content.
+     * @return True if all blocks were successfully closed, false otherwise (e.g., if there are no open blocks to close).
+     */
+    bool CloseAllBlocks();
+
+    /**
      * @brief Sets the indentation level for the formatted content.
      * @param level The indentation level to be set. Each level corresponds to a fixed number of spaces.
      */
