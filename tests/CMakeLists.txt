@@ -1,7 +1,13 @@
 # Tests CMakeLists.txt
 
-# Collect test files
-file(GLOB_RECURSE TEST_SOURCES "*.cpp")
+# Add subdirectories for specific module tests
+add_subdirectory(cmake-tool)
+
+# Collect test files for main tests (excluding subdirectories)
+file(GLOB TEST_SOURCES 
+    "main_test.cpp"
+    "core/*.cpp"
+)
 
 # Create test executable
 if(TEST_SOURCES)
