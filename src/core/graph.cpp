@@ -33,6 +33,26 @@ void core::Graph::UpdateModifiedTime() {
     modified_at_ = std::chrono::system_clock::now();
 }
 
+const std::string &core::Graph::GetProjectName() const {
+    return project_name_;
+}
+
+const std::string &core::Graph::GetVersion() const {
+    return version_;
+}
+
+const std::string &core::Graph::GetAuthor() const {
+    return author_;
+}
+
+std::chrono::system_clock::time_point core::Graph::GetCreatedAt() const {
+    return created_at_;
+}
+
+std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
+    return modified_at_;
+}
+
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         return nullptr;

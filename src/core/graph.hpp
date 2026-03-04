@@ -119,20 +119,51 @@ class Graph {
     std::expected<void, std::string> Unlink(NodeBase *from, uint8_t out_pin,
                                             NodeBase *to, uint8_t in_pin);
 
-    // Project metadata getters
-    const std::string &GetProjectName() const { return project_name_; }
-    const std::string &GetVersion() const { return version_; }
-    const std::string &GetAuthor() const { return author_; }
-    std::chrono::system_clock::time_point GetCreatedAt() const {
-        return created_at_;
-    }
-    std::chrono::system_clock::time_point GetModifiedAt() const {
-        return modified_at_;
-    }
+    /**
+     * @brief Gets the project name.
+     * @return The name of the project.
+     */
+    const std::string &GetProjectName() const;
 
-    // Project metadata setters
+    /**
+     * @brief Gets the project version.
+     * @return The version string of the project.
+     */
+    const std::string &GetVersion() const;
+
+    /**
+     * @brief Gets the project author.
+     * @return The author of the project.
+     */
+    const std::string &GetAuthor() const;
+
+    /**
+     * @brief Gets the project creation timestamp.
+     * @return The time point when the project was created.
+     */
+    std::chrono::system_clock::time_point GetCreatedAt() const;
+
+    /**
+     * @brief Gets the project last modification timestamp.
+     * @return The time point when the project was last modified.
+     */
+    std::chrono::system_clock::time_point GetModifiedAt() const;
+
+    /**
+     * @brief Sets the project name.
+     * @param name The new project name.
+     */
     void SetProjectName(const std::string &name);
+
+    /**
+     * @brief Sets the project author.
+     * @param author The new author name.
+     */
     void SetAuthor(const std::string &author);
+
+    /**
+     * @brief Updates the project modification timestamp to the current time.
+     */
     void UpdateModifiedTime();
 
     /**
