@@ -76,12 +76,21 @@ if errorlevel 1 (
 )
 
 echo Build completed successfully!
-echo Executable location: %BUILD_DIR%\bin\%BUILD_TYPE%\editor.exe
+
+REM VS generators may append the config again (e.g. bin\Release\Release\...).
+set "NEBULA_EXE=%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe"
+if not exist "%NEBULA_EXE%" set "NEBULA_EXE=%BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe"
+
+echo Executable location: %NEBULA_EXE%
 
 REM Run if requested
 if %RUN_AFTER_BUILD%==1 (
-    echo Running editor...
-    %BUILD_DIR%\bin\%BUILD_TYPE%\editor.exe
+    if not exist "%NEBULA_EXE%" (
+        echo Executable not found: "%NEBULA_EXE%"
+        exit /b 1
+    )
+    echo Running Nebula...
+    "%NEBULA_EXE%"
 )
 
 endlocal

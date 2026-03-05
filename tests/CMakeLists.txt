@@ -9,6 +9,22 @@ if(TEST_SOURCES)
 
     target_compile_features(nebula_tests PRIVATE cxx_std_20)
 
+    # Code-generation lives under src/editor and isn't a standalone library yet.
+    # Compile the code-generation sources into the test executable.
+    target_sources(nebula_tests PRIVATE
+        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file-formatting.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/file-writing/file-writer.cpp
+    )
+
+    # Allow includes like "code-generation/..." and "errors/...".
+    target_include_directories(nebula_tests PRIVATE
+        ${CMAKE_SOURCE_DIR}/src/editor
+    )
+
+    # code-generator-file-formatting depends on utils/string-splitter.hpp
+    target_link_libraries(nebula_tests PRIVATE utils)
+
     # Link with project libraries when available
     target_link_libraries(nebula_tests PRIVATE
         gtest

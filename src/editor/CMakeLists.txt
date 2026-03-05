@@ -19,7 +19,7 @@ if(EDITOR_SOURCES)
     # Link with all project libraries when available
     target_link_libraries(Nebula PRIVATE
         core
-        # utils
+        utils
         # graph-builder
         # graph-exporter
     )
