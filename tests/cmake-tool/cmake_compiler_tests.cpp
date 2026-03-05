@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "cmake_compiler.hpp"
+#include <algorithm>
 #include <fstream>
 #include <filesystem>
 
@@ -312,5 +313,8 @@ TEST_F(CMakeCompilerTest, GeneratedCMakeListsContent) {
 
     EXPECT_THAT(content, testing::HasSubstr("CMAKE_CXX_STANDARD 17"));
     EXPECT_THAT(content, testing::HasSubstr("-Wall"));
-    EXPECT_THAT(content, testing::HasSubstr(test_file_.string()));
+
+    std::string expected_path = test_file_.string();
+    std::replace(expected_path.begin(), expected_path.end(), '\\', '/');
+    EXPECT_THAT(content, testing::HasSubstr(expected_path));
 }
