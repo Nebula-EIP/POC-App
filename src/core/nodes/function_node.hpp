@@ -28,7 +28,7 @@ struct FunctionParameter {
  */
 class FunctionNode : public NodeBase {
    public:
-    ~FunctionNode() = default;
+    ~FunctionNode();
 
     // -- Name --
 

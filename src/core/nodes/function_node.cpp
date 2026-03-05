@@ -4,6 +4,8 @@
 
 // ── Construction ────────────────────────────────────────────────────────────
 
+core::FunctionNode::~FunctionNode() = default;
+
 core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind)
     : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
     parents_.resize(GetInputPinCount());
