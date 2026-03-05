@@ -14,7 +14,7 @@ class CodeGeneratorFile {
      * @param line The line of code to be added.
      * @return New cursor position
      */
-    int Line(const std::string& line);
+    size_t Line(const std::string& line);
 
     /**
      * @brief Adds a line of code to the file content at a specified position.
@@ -22,7 +22,7 @@ class CodeGeneratorFile {
      * @param position The position at which to add the line of code. If the position is out of bounds, it will be wrapped around.
      * @return New cursor position
      */
-    int LineAt(const std::string& line, int position);
+    size_t LineAt(const std::string& line, int position);
 
     /**
      * @brief Opens a new code block with the specified header (e.g., "if (condition) {") and adds it to the content.
@@ -62,13 +62,13 @@ class CodeGeneratorFile {
      * @param position The new cursor position to be set.
      * @return The new cursor position after setting it.
      */
-    int SetCursor(int position);
+    size_t SetCursor(int position);
 
     /**
      * @brief Retrieves the position of the most recently opened code block, which can be used to determine where to insert new lines of code within that block.
      * @return The position of the most recently opened code block, or -1 if there
      */
-    int GetPositionStartBlock() const;
+    size_t GetPositionStartBlock() const;
 
     /**
      * @brief Moves the cursor by a specified offset from its current position.
@@ -96,11 +96,11 @@ class CodeGeneratorFile {
      * @param position The position to be contained within the content.
      * @return The contained position within the content.
     */
-    int GetContainedPosition(int position) const;
+    size_t GetContainedPosition(int position) const;
 
     std::vector<std::string> content_;
     std::vector<int> block_positions_;
-    int cursor_ = 0;
+    size_t cursor_ = 0;
     int indent_level_ = 4;
 };
 }  // namespace code_generation
