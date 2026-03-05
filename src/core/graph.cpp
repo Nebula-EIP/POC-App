@@ -165,7 +165,8 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kVariable:
-            return std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunction:
             node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
