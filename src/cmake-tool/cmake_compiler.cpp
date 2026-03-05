@@ -62,7 +62,9 @@ std::string CMakeCompiler::generate_cmake_file(
         cmake_content << "include_directories(";
         for (size_t i = 0; i < config.include_directories.size(); ++i) {
             if (i > 0) cmake_content << " ";
-            cmake_content << config.include_directories[i];
+            std::string include_path = config.include_directories[i];
+            std::replace(include_path.begin(), include_path.end(), '\\', '/');
+            cmake_content << include_path;
         }
         cmake_content << ")\n\n";
     }
@@ -244,13 +246,29 @@ CompilationResult CMakeCompiler::compile_file(
                                 ? source_file.stem().string()
                                 : config.output_name;
 
-    final_result.executable_path = build_dir_ / "bin" / exec_name;
+#ifdef _WIN32
+    if (exec_name.find(".exe") == std::string::npos) {
+        exec_name += ".exe";
+    }
+#endif
 
-    if (!std::filesystem::exists(final_result.executable_path)) {
-        final_result.executable_path = build_dir_ / exec_name;
+    std::vector<std::filesystem::path> possible_paths = {
+        build_dir_ / "bin" / exec_name,
+        build_dir_ / "bin" / config.build_type / exec_name,
+        build_dir_ / config.build_type / exec_name,
+        build_dir_ / exec_name
+    };
+
+    bool found = false;
+    for (const auto& path : possible_paths) {
+        if (std::filesystem::exists(path)) {
+            final_result.executable_path = path;
+            found = true;
+            break;
+        }
     }
 
-    if (std::filesystem::exists(final_result.executable_path)) {
+    if (found) {
         final_result.success = true;
         final_result.exit_code = 0;
         final_result.output += "\n=== Compilation Successful ===\n";
