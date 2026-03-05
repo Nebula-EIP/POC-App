@@ -4,10 +4,10 @@
 
 namespace code_generation {
 namespace {
-int countCharOutsideQuotes(const std::string& s, char needle)
+int CountCharOutsideQuotes(const std::string& s, char needle)
 {
-    bool inSingleQuotes = false;
-    bool inDoubleQuotes = false;
+    bool in_single_quotes = false;
+    bool in_double_quotes = false;
     bool escaping = false;
     int count = 0;
 
@@ -17,27 +17,27 @@ int countCharOutsideQuotes(const std::string& s, char needle)
             continue;
         }
 
-        if ((inSingleQuotes || inDoubleQuotes) && c == '\\') {
+        if ((in_single_quotes || in_double_quotes) && c == '\\') {
             escaping = true;
             continue;
         }
 
-        if (c == '\'' && !inDoubleQuotes) {
-            inSingleQuotes = !inSingleQuotes;
+        if (c == '\'' && !in_double_quotes) {
+            in_single_quotes = !in_single_quotes;
             continue;
         }
-        if (c == '"' && !inSingleQuotes) {
-            inDoubleQuotes = !inDoubleQuotes;
+        if (c == '"' && !in_single_quotes) {
+            in_double_quotes = !in_double_quotes;
             continue;
         }
 
-        if (!inSingleQuotes && !inDoubleQuotes && c == needle)
+        if (!in_single_quotes && !in_double_quotes && c == needle)
             ++count;
     }
     return count;
 }
 
-std::vector<std::string> splitByNewlines(const std::string& s)
+std::vector<std::string> SplitByNewlines(const std::string& s)
 {
     std::vector<std::string> sub_lines = utils::SplitByDelims(s, {';'}, false, true);
     for (size_t i = 0; i < sub_lines.size(); i++) {
@@ -74,13 +74,13 @@ std::string CodeGeneratorFile::GetFormatedContent() const
     int current_indent = 0;
 
     for (std::string &line : code_blocks) {
-        std::vector<std::string> sub_lines = splitByNewlines(line);
+        std::vector<std::string> sub_lines = SplitByNewlines(line);
 
         // Parse each line in the code block, applying the current indentation
         for (std::string &sub_line : sub_lines) {
-            current_indent -= countCharOutsideQuotes(sub_line, '}');
+            current_indent -= CountCharOutsideQuotes(sub_line, '}');
             final_code += GetNewLIneFormatted(sub_line, indent_level_, current_indent);
-            current_indent += countCharOutsideQuotes(sub_line, '{');
+            current_indent += CountCharOutsideQuotes(sub_line, '{');
         }
     }
     return final_code;

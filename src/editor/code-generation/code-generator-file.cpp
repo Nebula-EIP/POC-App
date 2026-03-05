@@ -35,10 +35,10 @@ bool CodeGeneratorFile::CloseBlock()
 
 bool CodeGeneratorFile::CloseAllBlocks()
 {
-    bool toReturn = !block_positions_.empty();
+    bool to_return = !block_positions_.empty();
     while (!block_positions_.empty())
         CloseBlock();
-    return toReturn;
+    return to_return;
 }
 
 bool CodeGeneratorFile::CloseAndOpenBlock(const std::string& block_header)
@@ -66,8 +66,8 @@ size_t CodeGeneratorFile::SetCursor(int position)
 
 int CodeGeneratorFile::MoveCursor(int offset)
 {
-    int nextPos = cursor_ + offset;
-    return SetCursor(nextPos);
+    int next_pos = cursor_ + offset;
+    return SetCursor(next_pos);
 }
 
 std::string CodeGeneratorFile::GetContent() const
@@ -95,8 +95,8 @@ size_t CodeGeneratorFile::GetPositionStartBlock() const
     if (block_positions_.empty())
         throw code_generation::CodeGenerationError(
             "CodeGeneratorFile::GetPositionStartBlock: No open blocks");
-    size_t lastBlockPos = block_positions_.back();
-    return lastBlockPos + 1;
+    size_t last_block_pos = block_positions_.back();
+    return last_block_pos + 1;
 }
 
 }  // namespace code_generation
