@@ -8,8 +8,9 @@ bool FileWriter::WriteToFile(const std::string &path,
                              const std::string &content) {
     // Create parent directories if they don't exist
     std::filesystem::path file_path(path);
-    if (file_path.has_parent_path())
+    if (file_path.has_parent_path()) {
         std::filesystem::create_directories(file_path.parent_path());
+    }
 
     // Open the file for writing (creates it if it doesn't exist, truncates it
     // if it does)

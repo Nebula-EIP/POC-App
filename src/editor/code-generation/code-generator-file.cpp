@@ -41,9 +41,10 @@ bool CodeGeneratorFile::CloseAndOpenBlock(const std::string &block_header) {
 }
 
 void CodeGeneratorFile::SetIndentLevel(int level) {
-    if (level <= 0)
+    if (level <= 0) {
         throw code_generation::IndentationError(
             "CodeGeneratorFile::SetIndentLevel", level);
+    }
     indent_level_ = level;
 }
 
@@ -59,7 +60,9 @@ int CodeGeneratorFile::MoveCursor(int offset) {
 
 std::string CodeGeneratorFile::GetContent() const {
     std::string content = "";
-    for (const std::string &line : content_) content += line;
+    for (const std::string &line : content_) {
+        content += line;
+    }
     return content;
 }
 
@@ -73,9 +76,10 @@ size_t CodeGeneratorFile::GetContainedPosition(int position) const {
 }
 
 size_t CodeGeneratorFile::GetPositionStartBlock() const {
-    if (block_positions_.empty())
+    if (block_positions_.empty()) {
         throw code_generation::CodeGenerationError(
             "CodeGeneratorFile::GetPositionStartBlock: No open blocks");
+    }
     size_t last_block_pos = block_positions_.back();
     return last_block_pos + 1;
 }
