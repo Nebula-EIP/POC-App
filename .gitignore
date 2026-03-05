@@ -9,3 +9,5 @@ nebula
 .vscode/
 .cache/
 build/
+
+code-generated/
