@@ -1,0 +1,142 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build-linux:
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup C++ environment
+      uses: aminya/setup-cpp@v1
+      with:
+        compiler: gcc
+        cmake: true
+        ninja: true
+
+    - name: Cache CPM dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          build/_deps
+          ~/.cache/CPM
+        key: linux-cpm-${{ hashFiles('CMakeLists.txt', 'src/**/CMakeLists.txt') }}
+        restore-keys: |
+          linux-cpm-
+
+    - name: Cache CMake build (Linux)
+      uses: actions/cache@v4
+      with:
+        path: |
+          build
+        key: linux-build-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt', 'src/**/*') }}
+        restore-keys: |
+          linux-build-${{ matrix.build_type }}-
+          linux-build-
+
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential \
+          libx11-dev \
+          libxrandr-dev \
+          libxinerama-dev \
+          libxcursor-dev \
+          libxi-dev \
+          libgl1-mesa-dev \
+          libasound2-dev \
+          mesa-common-dev
+
+    - name: Create build directory
+      run: mkdir -p build
+
+    - name: Configure CMake
+      timeout-minutes: 5
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G Ninja \
+          -DCPM_SOURCE_CACHE=~/.cache/CPM \
+          -DCMAKE_VERBOSE_MAKEFILE=OFF
+
+    - name: Build project
+      timeout-minutes: 10
+      run: |
+        cd build
+        cmake --build . --config ${{ matrix.build_type }} --parallel 2
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nebula-linux-${{ matrix.build_type }}
+        path: |
+          build/bin/${{ matrix.build_type }}/Nebula
+
+  build-windows:
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup MSVC (Windows)
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Cache CPM dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          build/_deps
+          .cache/CPM
+        key: windows-cpm-${{ hashFiles('CMakeLists.txt', 'src/**/CMakeLists.txt') }}
+        restore-keys: |
+          windows-cpm-
+
+    - name: Cache CMake build (Windows)
+      uses: actions/cache@v4
+      with:
+        path: |
+          build
+        key: windows-build-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt', 'src/**/*') }}
+        restore-keys: |
+          windows-build-${{ matrix.build_type }}-
+          windows-build-
+
+    - name: Create build directory
+      run: mkdir -p build
+      shell: bash
+
+    - name: Configure CMake
+      timeout-minutes: 5
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -G "Visual Studio 17 2022" -DCPM_SOURCE_CACHE="${{ github.workspace }}/.cache/CPM" -DCMAKE_VERBOSE_MAKEFILE=OFF
+      shell: bash
+
+    - name: Build project
+      timeout-minutes: 10
+      run: |
+        cd build
+        cmake --build . --config ${{ matrix.build_type }} --parallel 2
+      shell: bash
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nebula-windows-${{ matrix.build_type }}
+        path: |
+          build/bin/${{ matrix.build_type }}/Nebula.exe
