@@ -55,7 +55,7 @@ TEST(CodeGeneratorFileTest, CloseBlockFailsIfNoneOpen)
 TEST(CodeGeneratorFileTest, GetPositionStartBlockReturnsMinusOneWhenNoBlockOpen)
 {
     CodeGeneratorFile gen;
-    EXPECT_EQ(gen.GetPositionStartBlock(), -1);
+    EXPECT_THROW(gen.GetPositionStartBlock(), code_generation::CodeGenerationError);
 }
 
 TEST(CodeGeneratorFileTest, OpenAndCloseBlockGenerateBraces)
