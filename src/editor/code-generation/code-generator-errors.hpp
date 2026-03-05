@@ -7,34 +7,41 @@ namespace code_generation {
 
 // Base exception for the code_generation module.
 class CodeGenerationError : public editor::EditorException {
-public:
+   public:
     explicit CodeGenerationError(std::string msg)
         : editor::EditorException(std::move(msg)) {}
 };
 
 // Thrown when an operation is attempted that would cause an overflow.
 class IndentationError : public CodeGenerationError {
-public:
+   public:
     explicit IndentationError(std::string were)
-        : CodeGenerationError(std::move(were) + ": "
-        "Indentation level must be positive") {}
+        : CodeGenerationError(std::move(were) +
+                              ": "
+                              "Indentation level must be positive") {}
 
     IndentationError(std::string were, int level)
-        : CodeGenerationError(std::move(were) + ": "
-        "Indentation level must be positive (level=" + std::to_string(level) + ")") {}
+        : CodeGenerationError(std::move(were) +
+                              ": "
+                              "Indentation level must be positive (level=" +
+                              std::to_string(level) + ")") {}
 };
 
 // Thrown when an operation is attempted that would cause an overflow.
 class CursorOutOfBoundsError : public CodeGenerationError {
-public:
+   public:
     explicit CursorOutOfBoundsError(std::string were)
-        : CodeGenerationError(std::move(were) + ": "
-        "Cursor position is out of bounds") {}
+        : CodeGenerationError(std::move(were) +
+                              ": "
+                              "Cursor position is out of bounds") {}
 
-    CursorOutOfBoundsError(std::string were, int position, long long contentLength)
-        : CodeGenerationError(std::move(were) + ": "
-        "Cursor position is out of bounds (pos=" + std::to_string(position)
-        + ", length=" + std::to_string(contentLength) + ")") {}
+    CursorOutOfBoundsError(std::string were, int position,
+                           long long contentLength)
+        : CodeGenerationError(std::move(were) +
+                              ": "
+                              "Cursor position is out of bounds (pos=" +
+                              std::to_string(position) + ", length=" +
+                              std::to_string(contentLength) + ")") {}
 };
 
-} // namespace code_generation
+}  // namespace code_generation
