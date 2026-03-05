@@ -120,7 +120,11 @@ TEST_F(CMakeCompilerTest, DebugBuildType) {
 TEST_F(CMakeCompilerTest, WithCompileFlags) {
     nebula::cmake::CMakeCompiler compiler;
     nebula::cmake::CompilerConfig config;
+#ifdef _WIN32
+    config.compile_flags = {"/W4"};
+#else
     config.compile_flags = {"-Wall", "-Wextra"};
+#endif
 
     auto build_dir = test_dir_ / "build_flags";
     compiler.set_build_directory(build_dir);
@@ -275,7 +279,11 @@ TEST_F(CMakeCompilerTest, AllOptionsCombined) {
 
     config.cxx_standard = "20";
     config.build_type = "Debug";
+#ifdef _WIN32
+    config.compile_flags = {"/W4"};
+#else
     config.compile_flags = {"-Wall", "-Wextra", "-Wpedantic"};
+#endif
     config.definitions = {"DEBUG_MODE", "TEST_BUILD"};
     config.output_name = "full_test";
     config.verbose = false;
