@@ -78,8 +78,11 @@ std::string CMakeCompiler::generate_cmake_file(
                                 ? source_file.stem().string()
                                 : config.output_name;
 
+    std::string source_path = std::filesystem::absolute(source_file).string();
+    std::replace(source_path.begin(), source_path.end(), '\\', '/');
+
     cmake_content << "add_executable(" << exec_name << " "
-                  << std::filesystem::absolute(source_file).string() << ")\n\n";
+                  << source_path << ")\n\n";
 
     if (!config.link_flags.empty()) {
         cmake_content << "target_link_options(" << exec_name << " PRIVATE ";
