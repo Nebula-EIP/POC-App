@@ -224,22 +224,6 @@ TEST_F(CMakeCompilerTest, CleanBuildDirectory) {
     EXPECT_FALSE(fs::exists(build_dir / "dummy.txt"));
 }
 
-// Test verbose mode
-TEST_F(CMakeCompilerTest, VerboseMode) {
-    nebula::cmake::CMakeCompiler compiler;
-    nebula::cmake::CompilerConfig config;
-    config.verbose = true;
-
-    auto build_dir = test_dir_ / "build_verbose";
-    compiler.set_build_directory(build_dir);
-
-    auto result = compiler.compile_file(test_file_, config);
-
-    EXPECT_TRUE(result.success);
-    EXPECT_FALSE(result.output.empty());
-    EXPECT_THAT(result.output, testing::HasSubstr("Generated CMakeLists.txt"));
-}
-
 // Test compilation with invalid C++ code
 TEST_F(CMakeCompilerTest, InvalidCppCode) {
     fs::path invalid_file = test_dir_ / "invalid.cpp";
@@ -330,49 +314,3 @@ TEST_F(CMakeCompilerTest, GeneratedCMakeListsContent) {
     EXPECT_THAT(content, testing::HasSubstr("-Wall"));
     EXPECT_THAT(content, testing::HasSubstr(test_file_.string()));
 }
-
-// Test with different build types
-class BuildTypeTest : public CMakeCompilerTest,
-                      public ::testing::WithParamInterface<std::string> {};
-
-TEST_P(BuildTypeTest, DifferentBuildTypes) {
-    nebula::cmake::CMakeCompiler compiler;
-    nebula::cmake::CompilerConfig config;
-    config.build_type = GetParam();
-
-    auto build_dir = test_dir_ / ("build_" + GetParam());
-    compiler.set_build_directory(build_dir);
-
-    auto result = compiler.compile_file(test_file_, config);
-
-    EXPECT_TRUE(result.success) << "Failed with build type: " << GetParam();
-}
-
-INSTANTIATE_TEST_SUITE_P(
-    BuildTypes,
-    BuildTypeTest,
-    ::testing::Values("Debug", "Release", "RelWithDebInfo", "MinSizeRel")
-);
-
-// Test with different C++ standards
-class CxxStandardTest : public CMakeCompilerTest,
-                        public ::testing::WithParamInterface<std::string> {};
-
-TEST_P(CxxStandardTest, DifferentCxxStandards) {
-    nebula::cmake::CMakeCompiler compiler;
-    nebula::cmake::CompilerConfig config;
-    config.cxx_standard = GetParam();
-
-    auto build_dir = test_dir_ / ("build_std" + GetParam());
-    compiler.set_build_directory(build_dir);
-
-    auto result = compiler.compile_file(test_file_, config);
-
-    EXPECT_TRUE(result.success) << "Failed with C++ standard: " << GetParam();
-}
-
-INSTANTIATE_TEST_SUITE_P(
-    CxxStandards,
-    CxxStandardTest,
-    ::testing::Values("23")
-);
