@@ -12,6 +12,8 @@
 #define PCLOSE _pclose
 #else
 #include <sys/wait.h>
+#define POPEN popen
+#define PCLOSE pclose
 #endif
 
 namespace nebula::cmake {
