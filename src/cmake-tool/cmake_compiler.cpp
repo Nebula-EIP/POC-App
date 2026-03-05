@@ -7,6 +7,14 @@
 #include <sstream>
 #include <stdexcept>
 
+#ifdef _WIN32
+    #define popen _popen
+    #define pclose _pclose
+    #define WEXITSTATUS(x) (x)
+#else
+    #include <sys/wait.h>
+#endif
+
 namespace nebula::cmake {
 
 void CMakeCompiler::set_build_directory(const std::filesystem::path &dir) {
