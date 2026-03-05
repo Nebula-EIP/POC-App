@@ -10,7 +10,6 @@
 #ifdef _WIN32
     #define popen _popen
     #define pclose _pclose
-    #define WEXITSTATUS(x) (x)
 #else
     #include <sys/wait.h>
 #endif
@@ -127,7 +126,12 @@ CompilationResult CMakeCompiler::execute_command(
     std::array<char, 128> buffer;
     std::string output;
 
+#ifdef _WIN32
+    FILE *pipe = popen(command.c_str(), "r");
+#else
     FILE *pipe = popen((command + " 2>&1").c_str(), "r");
+#endif
+
     if (!pipe) {
         result.error_output = "Failed to execute command: " + command;
         std::filesystem::current_path(original_path);
@@ -139,7 +143,15 @@ CompilationResult CMakeCompiler::execute_command(
     }
 
     int status = pclose(pipe);
+
+#ifdef _WIN32
+    // On Windows, _pclose returns the exit code directly
+    result.exit_code = status;
+#else
+    // On Unix/Linux, use WEXITSTATUS to extract exit code
     result.exit_code = WEXITSTATUS(status);
+#endif
+
     result.success = (result.exit_code == 0);
 
     if (result.success) {
