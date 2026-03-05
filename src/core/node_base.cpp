@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "nodes/function_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
@@ -254,7 +255,18 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
-        case NodeKind::kFunction:
+        case NodeKind::kFunction: {
+            auto function_node =
+                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            auto result = function_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            function_node->InitializeConnections();
+            node = std::move(function_node);
+            break;
+        }
+
         case NodeKind::kFunctionInput:
         case NodeKind::kFunctionOutput:
         case NodeKind::kOperator:
