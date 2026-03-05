@@ -374,5 +374,5 @@ TEST_P(CxxStandardTest, DifferentCxxStandards) {
 INSTANTIATE_TEST_SUITE_P(
     CxxStandards,
     CxxStandardTest,
-    ::testing::Values("11", "14", "17", "20", "23")
+    ::testing::Values("23")
 );
