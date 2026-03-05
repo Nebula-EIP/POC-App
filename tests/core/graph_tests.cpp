@@ -849,20 +849,15 @@ TEST_F(GraphTest, ComplexGraph_MultipleNodesAndConnections_MaintainsIntegrity) {
     static_cast<core::VariableNode*>(var2)->set_type(core::NodeBase::PinDataType::kInt);
     
     // Create connections
-    DumpGraph(graph_);
     ASSERT_TRUE(graph_.Link(lit1, 0, var1, 0).has_value());
     // var1 input can only connect to one, so lit2 will overwrite lit1
-    DumpGraph(graph_);
     ASSERT_TRUE(graph_.Link(lit2, 0, var1, 0).has_value());
-    DumpGraph(graph_);
     ASSERT_TRUE(graph_.Link(var1, 0, var2, 0).has_value());
     // var2 input will be overwritten by lit3
-    DumpGraph(graph_);
     ASSERT_TRUE(graph_.Link(lit3, 0, var2, 0).has_value());
     
     // Verify initial connections
     // var1's parent should be lit2 (overwrote lit1)
-    DumpGraph(graph_);
     auto* var1_parent = var1->parent(0);
     ASSERT_NE(var1_parent, nullptr);
     EXPECT_EQ(var1_parent->node, lit2);
@@ -897,8 +892,6 @@ TEST_F(GraphTest, ComplexGraph_MultipleNodesAndConnections_MaintainsIntegrity) {
     // Remove var1 (middle node)
     graph_.RemoveNode(var1);
 
-    DumpGraph(graph_);
-    
     // Verify var1 is gone
     EXPECT_EQ(graph_.GetNode(var1->id()), nullptr);
     

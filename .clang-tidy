@@ -59,4 +59,3 @@ CheckOptions:
   # Template parameters
   - key: readability-identifier-naming.TemplateParameterCase
     value: CamelCase
-    

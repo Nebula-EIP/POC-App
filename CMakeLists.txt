@@ -32,13 +32,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # CPM source cache for CI/CD optimization
 set(CPM_SOURCE_CACHE "${CMAKE_SOURCE_DIR}/.cache/CPM" CACHE PATH "CPM source cache")
 
-file(
-    DOWNLOAD
-    https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.42.1/CPM.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake
-    EXPECTED_HASH SHA256=f3a6dcc6a04ce9e7f51a127307fa4f699fb2bade357a8eb4c5b45df76e1dc6a5
-)
-include(${CMAKE_CURRENT_BINARY_DIR}/cmake/CPM.cmake)
+# Include CPM from local cmake directory
+include(${CMAKE_SOURCE_DIR}/cmake/CPM.cmake)
 
 # Add nlohmann/json for JSON serialization
 CPMAddPackage(
