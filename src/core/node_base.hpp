@@ -1,11 +1,17 @@
 #pragma once
+#include <chrono>
 #include <cstdint>
 #include <expected>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
 namespace core {
+
+// Forward declarations
+class Graph;
+class LiteralNode;
 
 /**
  * @class NodeBase
@@ -66,13 +72,14 @@ class NodeBase {
          * @brief Constructs a connection with specified node and pin.
          * @param node Pointer to the connected node.
          * @param pin Pin number on the connected node.
+         * @param type Data type going trough the connection
          */
-        Connection(NodeBase *node, uint8_t pin);
+        Connection(NodeBase *node, uint8_t pin, PinDataType type);
 
         bool IsConnected() const;
     };
 
-    virtual ~NodeBase() = default;
+    virtual ~NodeBase();
 
     uint32_t id() const;
 
@@ -84,14 +91,14 @@ class NodeBase {
      * @return Pointer to the connection information, or nullptr if not
      * connected.
      */
-    Connection *parent(uint8_t input_pin) const;
+    const Connection *parent(uint8_t input_pin) const;
 
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
      * @return Reference to a vector of connection pointers.
      */
-    const std::vector<Connection *> &childrens(uint8_t output_pin) const;
+    const std::vector<Connection> &childrens(uint8_t output_pin) const;
 
     virtual uint8_t GetInputPinCount() const = 0;
     virtual uint8_t GetOutputPinCount() const = 0;
@@ -132,18 +139,48 @@ class NodeBase {
      */
     virtual std::string GetCategory() const = 0;
 
-   protected:
-    friend class Graph;  ///< Graph class manages the lifetime of nodes
+    /**
+     * @brief Serializes the node to JSON format.
+     *
+     * Converts this node's data into a JSON object following the .nebula
+     * format specification. The JSON must include the node's id and kind,
+     * plus any node-specific properties.
+     *
+     * @return JSON object containing the serialized node data.
+     */
+    virtual nlohmann::json Serialize() const = 0;
 
     /**
-     * @brief Protected constructor to prevent direct instantiation.
+     * @brief Deserializes this node's data from JSON.
      *
-     * Nodes can only be created through the Graph factory methods.
+     * Called by the factory after the node is constructed to initialize its
+     * fields from the JSON data. Each derived class implements this to load
+     * its specific properties.
      *
-     * @param id Unique identifier for this node.
-     * @param kind The type/kind of this node.
+     * @param json The JSON object containing the node's data.
+     * @return An expected containing void on success, or an error message on
+     *         failure.
      */
-    NodeBase(uint32_t id, NodeKind kind);
+    virtual std::expected<void, std::string> Deserialize(
+        const nlohmann::json &json) = 0;
+
+    /**
+     * @brief Factory method to deserialize a node from JSON.
+     *
+     * Creates the appropriate node type based on the "kind" field in JSON,
+     * then calls its virtual Deserialize method to initialize it. The JSON
+     * must contain "id" and "kind" fields at a minimum.
+     *
+     * @param json The JSON object containing the node data.
+     * @param graph Pointer to the owning Graph (friend class).
+     * @return An expected containing a unique_ptr to the deserialized node,
+     *         or an error message if deserialization fails.
+     */
+    static std::expected<std::unique_ptr<NodeBase>, std::string>
+    DeserializeFactory(const nlohmann::json &json, Graph *graph);
+
+   protected:
+    friend class Graph;  ///< Graph class manages the lifetime of nodes
 
     /**
      * @brief Sets an input pin connection.
@@ -184,14 +221,42 @@ class NodeBase {
      * @param node Pointer to the child node to disconnect.
      * @param input_pin The input pin index on the child node.
      */
-    void RemoveChild(uint8_t output_pin, NodeBase *node, uint8_t input_pin);
+    void RemoveChild(uint8_t output_pin, const NodeBase *node,
+                     uint8_t input_pin);
+
+    /**
+     * @brief Initializes the connection vectors based on pin counts.
+     *
+     * Must be called after construction to properly size the parents_
+     * and childrens_ vectors and create Connection objects.
+     */
+    void InitializeConnections();
 
    protected:
+    /**
+     * @brief Protected constructor to prevent direct instantiation.
+     *
+     * The NodeBase constructor can only be called by class inheriting from
+     * NodeBase
+     *
+     * @param id Unique identifier for this node.
+     * @param kind The type/kind of this node.
+     */
+    NodeBase(uint32_t id, NodeKind kind);
+
     const uint32_t id_;
     const NodeKind kind_;
 
-    std::vector<Connection *> parents_;
-    std::vector<std::vector<Connection *>> childrens_;
+    std::vector<Connection> parents_;
+    std::vector<std::vector<Connection>> childrens_;
 };
+
+// Helper functions for enum to/from string conversion
+
+std::string NodeKindToString(NodeBase::NodeKind kind);
+NodeBase::NodeKind StringToNodeKind(const std::string &str);
+
+std::string PinDataTypeToString(NodeBase::PinDataType type);
+NodeBase::PinDataType StringToPinDataType(const std::string &str);
 
 }  // namespace core

@@ -35,6 +35,14 @@ set(CPM_SOURCE_CACHE "${CMAKE_SOURCE_DIR}/.cache/CPM" CACHE PATH "CPM source cac
 # Include CPM from local cmake directory
 include(${CMAKE_SOURCE_DIR}/cmake/CPM.cmake)
 
+# Add nlohmann/json for JSON serialization
+CPMAddPackage(
+    NAME nlohmann_json
+    VERSION 3.11.3
+    GITHUB_REPOSITORY nlohmann/json
+    OPTIONS "JSON_BuildTests OFF" "JSON_Install OFF"
+)
+
 # Testing support
 option(BUILD_TESTING "Build the testing tree." ON)
 
