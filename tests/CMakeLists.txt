@@ -13,8 +13,11 @@ if(TEST_SOURCES)
     # Link with project libraries when available
     target_link_libraries(nebula_tests PRIVATE
         core
+        cmake_tool
         #utils
     )
+
+    target_include_directories(nebula_tests PRIVATE ${CMAKE_SOURCE_DIR}/src/cmake-tool)
 
     # Register tests with CTest
     add_test(NAME NebulaCoreTests COMMAND nebula_tests)
