@@ -150,18 +150,15 @@ bool OperatorNode::IsUnaryOperator() const {
 
 NodeBase::PinDataType OperatorNode::GetOperatorInputType() const {
     switch (operator_type_) {
-        // Arithmetic operators: Int or Float
         case OperatorType::kAddition:
         case OperatorType::kSubtraction:
         case OperatorType::kMultiplication:
         case OperatorType::kDivision:
-            return PinDataType::kInt;  // Can be extended to support Float
+            return PinDataType::kInt;
 
-        // Modulo: Int only
         case OperatorType::kModulo:
             return PinDataType::kInt;
 
-        // Bitwise operators: Int only
         case OperatorType::kBitwiseAnd:
         case OperatorType::kBitwiseOr:
         case OperatorType::kBitwiseXor:
@@ -170,16 +167,14 @@ NodeBase::PinDataType OperatorNode::GetOperatorInputType() const {
         case OperatorType::kRightShift:
             return PinDataType::kInt;
 
-        // Comparison operators: Int or Float
         case OperatorType::kEqual:
         case OperatorType::kNotEqual:
         case OperatorType::kLessThan:
         case OperatorType::kGreaterThan:
         case OperatorType::kLessOrEqual:
         case OperatorType::kGreaterOrEqual:
-            return PinDataType::kInt;  // Can be extended to support Float
+            return PinDataType::kInt;
 
-        // Logical operators: Bool
         case OperatorType::kLogicalAnd:
         case OperatorType::kLogicalOr:
         case OperatorType::kLogicalNot:
@@ -192,15 +187,13 @@ NodeBase::PinDataType OperatorNode::GetOperatorInputType() const {
 
 NodeBase::PinDataType OperatorNode::GetOperatorOutputType() const {
     switch (operator_type_) {
-        // Arithmetic operators: Same as input type (Int or Float)
         case OperatorType::kAddition:
         case OperatorType::kSubtraction:
         case OperatorType::kMultiplication:
         case OperatorType::kDivision:
         case OperatorType::kModulo:
-            return PinDataType::kInt;  // Same as input type
+            return PinDataType::kInt;
 
-        // Bitwise operators: Int
         case OperatorType::kBitwiseAnd:
         case OperatorType::kBitwiseOr:
         case OperatorType::kBitwiseXor:
@@ -209,7 +202,6 @@ NodeBase::PinDataType OperatorNode::GetOperatorOutputType() const {
         case OperatorType::kRightShift:
             return PinDataType::kInt;
 
-        // Comparison operators: Bool
         case OperatorType::kEqual:
         case OperatorType::kNotEqual:
         case OperatorType::kLessThan:
@@ -218,7 +210,6 @@ NodeBase::PinDataType OperatorNode::GetOperatorOutputType() const {
         case OperatorType::kGreaterOrEqual:
             return PinDataType::kBool;
 
-        // Logical operators: Bool
         case OperatorType::kLogicalAnd:
         case OperatorType::kLogicalOr:
         case OperatorType::kLogicalNot:
