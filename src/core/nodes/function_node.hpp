@@ -60,6 +60,12 @@ class FunctionNode : public NodeBase {
     void RemoveParameter(uint8_t index);
 
     /**
+     * @brief Removes a parameter by name.
+     * @param name The name of the parameter to remove.
+     */
+    void RemoveParameter(const std::string &name);
+
+    /**
      * @brief Returns the parameter list.
      */
     const std::vector<FunctionParameter> &parameters() const;

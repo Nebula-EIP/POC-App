@@ -35,7 +35,6 @@ void core::FunctionNode::AddParameter(const std::string &name,
     parameters_.push_back({name, type});
     // Resize connection vectors to match new pin count
     parents_.resize(GetInputPinCount());
-    childrens_.resize(GetOutputPinCount());
 }
 
 void core::FunctionNode::RemoveParameter(uint8_t index) {
@@ -43,6 +42,19 @@ void core::FunctionNode::RemoveParameter(uint8_t index) {
     parameters_.erase(parameters_.begin() + index);
     // Rebuild connections – the caller should have unlinked beforehand
     parents_.resize(GetInputPinCount());
+}
+
+void core::FunctionNode::RemoveParameter(const std::string &name) {
+    auto it = std::find_if(parameters_.begin(), parameters_.end(),
+                           [&name](const FunctionParameter &param) {
+                               return param.name == name;
+                           });
+    if (it != parameters_.end()) {
+        size_t index = std::distance(parameters_.begin(), it);
+        parameters_.erase(it);
+        // Rebuild connections – the caller should have unlinked beforehand
+        parents_.resize(GetInputPinCount());
+    }
 }
 
 const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
