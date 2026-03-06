@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "nodes/literal_node.hpp"
+#include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
@@ -254,10 +255,23 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
+        case NodeKind::kOperator: {
+            auto operator_node =
+                std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+            // Deserialize the node's data
+            auto result = operator_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            // Initialize connections after deserialization
+            operator_node->InitializeConnections();
+            node = std::move(operator_node);
+            break;
+        }
+
         case NodeKind::kFunction:
         case NodeKind::kFunctionInput:
         case NodeKind::kFunctionOutput:
-        case NodeKind::kOperator:
         case NodeKind::kCondition:
         case NodeKind::kLoop:
             return std::unexpected(
