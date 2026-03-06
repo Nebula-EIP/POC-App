@@ -48,8 +48,7 @@ std::string core::FunctionOutputNode::GetInputPinName(uint8_t pin) const {
     return "";
 }
 
-std::string core::FunctionOutputNode::GetOutputPinName(
-    uint8_t /*pin*/) const {
+std::string core::FunctionOutputNode::GetOutputPinName(uint8_t /*pin*/) const {
     return "";
 }
 

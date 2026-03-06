@@ -14,8 +14,8 @@ core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind)
     childrens_.resize(GetOutputPinCount());
 
     // Create the FunctionOutputNode in the body graph
-    auto *out_node = body_->AddNode<FunctionOutputNode>(
-        NodeKind::kFunctionOutput);
+    auto *out_node =
+        body_->AddNode<FunctionOutputNode>(NodeKind::kFunctionOutput);
     out_node->set_name("Return");
     out_node->set_type(return_type_);
 }
@@ -54,8 +54,7 @@ void core::FunctionNode::AddParameter(const std::string &name,
     childrens_.resize(GetOutputPinCount());
 
     // Create a corresponding FunctionInputNode in the body graph
-    auto *in_node = body_->AddNode<FunctionInputNode>(
-        NodeKind::kFunctionInput);
+    auto *in_node = body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
     in_node->set_name(name);
     in_node->set_type(type);
 }

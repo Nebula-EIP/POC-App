@@ -52,8 +52,7 @@ std::expected<void, std::string> core::FunctionInputNode::CanConnectTo(
     return {};
 }
 
-std::string core::FunctionInputNode::GetInputPinName(
-    uint8_t /*pin*/) const {
+std::string core::FunctionInputNode::GetInputPinName(uint8_t /*pin*/) const {
     return "";
 }
 
@@ -66,9 +65,7 @@ std::string core::FunctionInputNode::GetOutputPinName(uint8_t pin) const {
 
 std::string core::FunctionInputNode::GetDisplayName() const { return name_; }
 
-std::string core::FunctionInputNode::GetCategory() const {
-    return "Functions";
-}
+std::string core::FunctionInputNode::GetCategory() const { return "Functions"; }
 
 nlohmann::json core::FunctionInputNode::Serialize() const {
     nlohmann::json json;
