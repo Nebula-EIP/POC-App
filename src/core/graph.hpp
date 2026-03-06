@@ -222,7 +222,6 @@ class Graph {
         const std::filesystem::path &path);
 
    private:
-    friend class FunctionNode;
 
     /**
      * @brief Factory method to create a node based on its kind.
