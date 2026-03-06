@@ -1,6 +1,7 @@
 #include "function_node.hpp"
 
 #include "../graph.hpp"
+#include "function_input_node.hpp"
 
 // ── Construction ────────────────────────────────────────────────────────────
 
@@ -32,13 +33,20 @@ core::NodeBase::PinDataType core::FunctionNode::return_type() const {
 
 void core::FunctionNode::AddParameter(const std::string &name,
                                       PinDataType type) {
-    parameters_.push_back({name, type});
+    auto *input_node =
+        body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
+    input_node->set_name(name);
+    input_node->set_type(type);
+    parameters_.push_back({name, type, input_node->id()});
     // Resize connection vectors to match new pin count
     parents_.resize(GetInputPinCount());
 }
 
 void core::FunctionNode::RemoveParameter(uint8_t index) {
     if (index >= parameters_.size()) return;
+    if (auto *node = body_->GetNode(parameters_[index].node_id)) {
+        body_->RemoveNode(node);
+    }
     parameters_.erase(parameters_.begin() + index);
     // Rebuild connections – the caller should have unlinked beforehand
     parents_.resize(GetInputPinCount());
@@ -50,7 +58,9 @@ void core::FunctionNode::RemoveParameter(const std::string &name) {
                                return param.name == name;
                            });
     if (it != parameters_.end()) {
-        size_t index = std::distance(parameters_.begin(), it);
+        if (auto *node = body_->GetNode(it->node_id)) {
+            body_->RemoveNode(node);
+        }
         parameters_.erase(it);
         // Rebuild connections – the caller should have unlinked beforehand
         parents_.resize(GetInputPinCount());
@@ -150,6 +160,7 @@ nlohmann::json core::FunctionNode::Serialize() const {
         nlohmann::json p;
         p["name"] = param.name;
         p["type"] = core::PinDataTypeToString(param.type);
+        p["node_id"] = param.node_id;
         params.push_back(p);
     }
     json["parameters"] = params;
@@ -189,6 +200,9 @@ std::expected<void, std::string> core::FunctionNode::Deserialize(
             FunctionParameter param;
             param.name = p["name"].get<std::string>();
             param.type = StringToPinDataType(p["type"].get<std::string>());
+            if (p.contains("node_id")) {
+                param.node_id = p["node_id"].get<uint32_t>();
+            }
             parameters_.push_back(param);
         }
 

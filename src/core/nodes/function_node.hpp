@@ -16,6 +16,7 @@ class Graph;
 struct FunctionParameter {
     std::string name;
     NodeBase::PinDataType type = NodeBase::PinDataType::kUndefined;
+    uint32_t node_id = 0;
 };
 
 /**
@@ -55,12 +56,14 @@ class FunctionNode : public NodeBase {
 
     /**
      * @brief Removes a parameter by index.
+     * (the caller must have unlinked beforehand)
      * @param index The 0-based index of the parameter to remove.
      */
     void RemoveParameter(uint8_t index);
 
     /**
      * @brief Removes a parameter by name.
+     * (the caller must have unlinked beforehand)
      * @param name The name of the parameter to remove.
      */
     void RemoveParameter(const std::string &name);
