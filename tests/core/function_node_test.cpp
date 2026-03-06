@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "graph.hpp"
+#include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
@@ -430,10 +431,18 @@ TEST_F(FunctionNodeTest, Deserialize_RoundTrip_PreservesData) {
     EXPECT_EQ(restored->parameters()[1].type,
               core::NodeBase::PinDataType::kString);
 
-    // Check inner graph was restored
+    // Check inner graph was restored (2 FunctionInputNodes + 1 LiteralNode)
     auto inner_json = restored->body().Serialize();
-    EXPECT_EQ(inner_json["graph"]["nodes"].size(), 1);
-    EXPECT_EQ(inner_json["graph"]["nodes"][0]["name"], "pi");
+    EXPECT_EQ(inner_json["graph"]["nodes"].size(), 3);
+    // Find the literal node among the restored body nodes
+    bool found_pi = false;
+    for (const auto &n : inner_json["graph"]["nodes"]) {
+        if (n["name"] == "pi") {
+            found_pi = true;
+            break;
+        }
+    }
+    EXPECT_TRUE(found_pi);
 }
 
 TEST_F(FunctionNodeTest, Deserialize_MissingFields_ReturnsError) {
@@ -520,10 +529,169 @@ TEST_F(FunctionNodeTest, SaveAndLoad_PreservesFunctionNode) {
     EXPECT_EQ(loaded_func->parameters()[0].name, "lhs");
     EXPECT_EQ(loaded_func->parameters()[1].name, "rhs");
 
+    // 2 FunctionInputNodes (lhs, rhs) + 1 LiteralNode (result)
     auto body_json = loaded_func->body().Serialize();
-    EXPECT_EQ(body_json["graph"]["nodes"].size(), 1);
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 3);
 
     fs::remove(tmp);
+}
+
+// ---------- AddParameter creates FunctionInputNode in body ----------
+
+TEST_F(FunctionNodeTest, AddParameter_CreatesFunctionInputNodeInBody) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+
+    const auto &params = func->parameters();
+    ASSERT_EQ(params.size(), 1);
+
+    auto *input_node =
+        func->body().GetNode<core::FunctionInputNode>(params[0].node_id);
+    ASSERT_NE(input_node, nullptr);
+    EXPECT_EQ(input_node->name(), "x");
+    EXPECT_EQ(input_node->type(), core::NodeBase::PinDataType::kInt);
+}
+
+TEST_F(FunctionNodeTest, AddParameter_Multiple_CreatesOneNodePerParam) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
+    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+    func->AddParameter("c", core::NodeBase::PinDataType::kBool);
+
+    const auto &params = func->parameters();
+    ASSERT_EQ(params.size(), 3);
+
+    for (const auto &param : params) {
+        auto *input_node =
+            func->body().GetNode<core::FunctionInputNode>(param.node_id);
+        ASSERT_NE(input_node, nullptr) << "Missing node for param: " << param.name;
+        EXPECT_EQ(input_node->name(), param.name);
+        EXPECT_EQ(input_node->type(), param.type);
+    }
+
+    // Body should contain exactly 3 nodes
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 3);
+}
+
+// ---------- RemoveParameter(index) removes node from body ----------
+
+TEST_F(FunctionNodeTest, RemoveParameterByIndex_RemovesNodeFromBody) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
+    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+
+    uint32_t removed_node_id = func->parameters()[0].node_id;
+    uint32_t kept_node_id = func->parameters()[1].node_id;
+
+    func->RemoveParameter(static_cast<uint8_t>(0));
+
+    // The removed node should no longer exist in the body
+    EXPECT_EQ(func->body().GetNode(removed_node_id), nullptr);
+
+    // The kept node should still exist
+    auto *kept = func->body().GetNode<core::FunctionInputNode>(kept_node_id);
+    ASSERT_NE(kept, nullptr);
+    EXPECT_EQ(kept->name(), "b");
+
+    // Body should have exactly 1 node left
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 1);
+}
+
+TEST_F(FunctionNodeTest, RemoveParameterByIndex_LastParam_LeavesEmptyBody) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    uint32_t node_id = func->parameters()[0].node_id;
+
+    func->RemoveParameter(static_cast<uint8_t>(0));
+
+    EXPECT_EQ(func->body().GetNode(node_id), nullptr);
+    EXPECT_TRUE(func->parameters().empty());
+
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 0);
+}
+
+// ---------- RemoveParameter(name) removes node from body ----------
+
+TEST_F(FunctionNodeTest, RemoveParameterByName_RemovesNodeFromBody) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
+    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+    func->AddParameter("c", core::NodeBase::PinDataType::kBool);
+
+    uint32_t removed_id = func->parameters()[1].node_id;  // "b"
+
+    func->RemoveParameter(std::string("b"));
+
+    // "b" node removed from body
+    EXPECT_EQ(func->body().GetNode(removed_id), nullptr);
+
+    // Remaining params are "a" and "c"
+    ASSERT_EQ(func->parameters().size(), 2);
+    EXPECT_EQ(func->parameters()[0].name, "a");
+    EXPECT_EQ(func->parameters()[1].name, "c");
+
+    // Both remaining nodes still exist
+    for (const auto &param : func->parameters()) {
+        EXPECT_NE(func->body().GetNode(param.node_id), nullptr)
+            << "Node for " << param.name << " should still exist";
+    }
+
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 2);
+}
+
+TEST_F(FunctionNodeTest, RemoveParameterByName_NonExistent_DoesNothing) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+
+    func->RemoveParameter(std::string("does_not_exist"));
+
+    // Nothing changed
+    ASSERT_EQ(func->parameters().size(), 1);
+    EXPECT_EQ(func->parameters()[0].name, "x");
+
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 1);
+}
+
+// ---------- Body nodes survive alongside manually added nodes ----------
+
+TEST_F(FunctionNodeTest, AddParameter_CoexistsWithManualBodyNodes) {
+    auto *func = graph_.AddNode<core::FunctionNode>(
+        core::NodeBase::NodeKind::kFunction);
+
+    // Manually add a literal node to the body
+    auto *lit = func->body().AddNode<core::LiteralNode>(
+        core::NodeBase::NodeKind::kLiteral);
+    lit->set_type(core::NodeBase::PinDataType::kInt);
+
+    // Now add a parameter — creates another node
+    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+
+    auto body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 2);
+
+    // Remove the parameter — only its node is removed, literal stays
+    func->RemoveParameter(static_cast<uint8_t>(0));
+
+    body_json = func->body().Serialize();
+    EXPECT_EQ(body_json["graph"]["nodes"].size(), 1);
+    EXPECT_NE(func->body().GetNode(lit->id()), nullptr);
 }
 
 }  // namespace

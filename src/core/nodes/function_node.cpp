@@ -2,6 +2,7 @@
 
 #include "../graph.hpp"
 #include "function_input_node.hpp"
+#include "function_node_errors.hpp"
 
 // ── Construction ────────────────────────────────────────────────────────────
 
@@ -35,6 +36,10 @@ void core::FunctionNode::AddParameter(const std::string &name,
                                       PinDataType type) {
     auto *input_node =
         body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
+    if (!input_node) {
+        throw function_node_errors::ParameterNodeCreationException(
+            "Failed to create FunctionInputNode for parameter");
+    }
     input_node->set_name(name);
     input_node->set_type(type);
     parameters_.push_back({name, type, input_node->id()});
@@ -53,10 +58,9 @@ void core::FunctionNode::RemoveParameter(uint8_t index) {
 }
 
 void core::FunctionNode::RemoveParameter(const std::string &name) {
-    auto it = std::find_if(parameters_.begin(), parameters_.end(),
-                           [&name](const FunctionParameter &param) {
-                               return param.name == name;
-                           });
+    auto it = std::find_if(
+        parameters_.begin(), parameters_.end(),
+        [&name](const FunctionParameter &param) { return param.name == name; });
     if (it != parameters_.end()) {
         if (auto *node = body_->GetNode(it->node_id)) {
             body_->RemoveNode(node);
