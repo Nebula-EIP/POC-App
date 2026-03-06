@@ -7,7 +7,7 @@ template<typename IdType>
 class IdManager {
  public:
     IdManager() = default;
-    IdManager() = default;
+    ~IdManager() = default;
 
     IdType NewId();
 
