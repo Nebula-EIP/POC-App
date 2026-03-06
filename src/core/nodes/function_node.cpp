@@ -1,8 +1,6 @@
 #include "function_node.hpp"
 
 #include "../graph.hpp"
-#include "function_input_node.hpp"
-#include "function_output_node.hpp"
 
 // ── Construction ────────────────────────────────────────────────────────────
 
@@ -12,12 +10,6 @@ core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind)
     : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
     parents_.resize(GetInputPinCount());
     childrens_.resize(GetOutputPinCount());
-
-    // Create the FunctionOutputNode in the body graph
-    auto *out_node =
-        body_->AddNode<FunctionOutputNode>(NodeKind::kFunctionOutput);
-    out_node->set_name("Return");
-    out_node->set_type(return_type_);
 }
 
 // ── Name ────────────────────────────────────────────────────────────────────
@@ -30,14 +22,6 @@ const std::string &core::FunctionNode::name() const { return name_; }
 
 void core::FunctionNode::set_return_type(PinDataType type) {
     return_type_ = type;
-
-    // Update the FunctionOutputNode in the body graph
-    for (const auto &node_ptr : body_->nodes_) {
-        if (node_ptr->kind() == NodeKind::kFunctionOutput) {
-            static_cast<FunctionOutputNode *>(node_ptr.get())->set_type(type);
-            break;
-        }
-    }
 }
 
 core::NodeBase::PinDataType core::FunctionNode::return_type() const {
@@ -52,33 +36,10 @@ void core::FunctionNode::AddParameter(const std::string &name,
     // Resize connection vectors to match new pin count
     parents_.resize(GetInputPinCount());
     childrens_.resize(GetOutputPinCount());
-
-    // Create a corresponding FunctionInputNode in the body graph
-    auto *in_node = body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
-    in_node->set_name(name);
-    in_node->set_type(type);
 }
 
 void core::FunctionNode::RemoveParameter(uint8_t index) {
     if (index >= parameters_.size()) return;
-
-    // Remove the matching FunctionInputNode from the body graph
-    const auto &param = parameters_[index];
-    uint8_t match_count = 0;
-    NodeBase *to_remove = nullptr;
-    for (const auto &node_ptr : body_->nodes_) {
-        if (node_ptr->kind() == NodeKind::kFunctionInput) {
-            if (match_count == index) {
-                to_remove = node_ptr.get();
-                break;
-            }
-            ++match_count;
-        }
-    }
-    if (to_remove) {
-        body_->RemoveNode(to_remove);
-    }
-
     parameters_.erase(parameters_.begin() + index);
     // Rebuild connections – the caller should have unlinked beforehand
     parents_.resize(GetInputPinCount());
