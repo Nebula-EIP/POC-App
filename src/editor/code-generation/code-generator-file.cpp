@@ -70,8 +70,9 @@ size_t CodeGeneratorFile::GetContainedPosition(int position) const {
     if (content_.empty()) return 0;
     while (position < 0) position += content_.size() + 1;
     size_t pos_not_negative = static_cast<size_t>(position);
-    while (pos_not_negative > content_.size())
+    while (pos_not_negative > content_.size()) {
         pos_not_negative -= content_.size() + 1;
+    }
     return pos_not_negative;
 }
 
