@@ -8,8 +8,8 @@
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
-core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
-    : node(n), pin(p), type(t) {}
+core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type)
+    : node(node), out_pin(out_pin), in_pin(in_pin), type(type) {}
 
 bool core::NodeBase::Connection::IsConnected() const { return node != nullptr; }
 

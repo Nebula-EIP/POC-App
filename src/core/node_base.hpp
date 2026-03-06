@@ -61,8 +61,9 @@ class NodeBase {
      * and the data type of the connection.
      */
     struct Connection {
-        NodeBase *node = nullptr;  ///< Pointer to the connected node
-        uint8_t pin = 0;           ///< Pin number on the connected node
+        NodeBase *node = nullptr;     ///< Pointer to the connected node
+        uint8_t out_pin = 0;          ///< Output pin of the connection
+        uint8_t in_pin = 0;           ///< Input pin of the connection
         PinDataType type =
             PinDataType::kUndefined;  ///< Data type of the connection
 
@@ -71,10 +72,11 @@ class NodeBase {
         /**
          * @brief Constructs a connection with specified node and pin.
          * @param node Pointer to the connected node.
-         * @param pin Pin number on the connected node.
+         * @param out_pin Pin number on the node who owns the connection
+         * @param in_pin Pin number on the connected node.
          * @param type Data type going trough the connection
          */
-        Connection(NodeBase *node, uint8_t pin, PinDataType type);
+        Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type);
 
         bool IsConnected() const;
     };
