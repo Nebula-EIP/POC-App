@@ -2,7 +2,9 @@
 
 #include <algorithm>
 
+#include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
@@ -267,8 +269,30 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
-        case NodeKind::kFunctionInput:
-        case NodeKind::kFunctionOutput:
+        case NodeKind::kFunctionInput: {
+            auto input_node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind));
+            auto result = input_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            input_node->InitializeConnections();
+            node = std::move(input_node);
+            break;
+        }
+
+        case NodeKind::kFunctionOutput: {
+            auto output_node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind));
+            auto result = output_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            output_node->InitializeConnections();
+            node = std::move(output_node);
+            break;
+        }
+
         case NodeKind::kOperator:
         case NodeKind::kCondition:
         case NodeKind::kLoop:
