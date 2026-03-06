@@ -8,6 +8,9 @@
 #include <map>
 #include <sstream>
 
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
@@ -164,15 +167,24 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kVariable:
-            return std::unique_ptr<VariableNode>(new VariableNode(id, kind));
-
-        case NodeBase::NodeKind::kOperator:
+            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunction:
+            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunctionInput:
+            node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunctionOutput:
+            node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind));
+            break;
+
+        case NodeBase::NodeKind::kOperator:
 
         case NodeBase::NodeKind::kCondition:
 

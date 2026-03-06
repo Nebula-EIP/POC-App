@@ -29,7 +29,7 @@ config.build_type = "Release";
 config.compile_flags = {"-Wall", "-Wextra"};
 config.verbose = true;
 
-auto result = compiler.compile_file("main.cpp", config);
+auto result = compiler.CompileFile("main.cpp", config);
 
 if (result.success) {
     std::cout << "Executable: " << result.executable_path << "\n";
@@ -87,10 +87,10 @@ Configuration structure for compilation:
 
 Main compiler class:
 
-- `compile_file(source_file, config)`: Compile a source file
-- `set_build_directory(dir)`: Set custom build directory
-- `get_build_directory()`: Get current build directory
-- `clean_build_directory()`: Clean the build directory
+- `CompileFile(source_file, config)`: Compile a source file
+- `SetBuildDirectory(dir)`: Set custom build directory
+- `GetBuildDirectory()`: Get current build directory
+- `CleanBuildDirectory()`: Clean the build directory
 
 ### CompilationResult
 

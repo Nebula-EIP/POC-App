@@ -8,35 +8,37 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-    #define popen _popen
-    #define pclose _pclose
+#define POPEN _popen
+#define PCLOSE _pclose
 #else
-    #include <sys/wait.h>
+#include <sys/wait.h>
+#define POPEN popen
+#define PCLOSE pclose
 #endif
 
 namespace nebula::cmake {
 
-void CMakeCompiler::set_build_directory(const std::filesystem::path &dir) {
-    build_dir_ = dir;
+void CMakeCompiler::SetBuildDirectory(const std::filesystem::path &dir) {
+    build_dir = dir;
 }
 
-std::filesystem::path CMakeCompiler::get_build_directory() const {
-    return build_dir_;
+std::filesystem::path CMakeCompiler::GetBuildDirectory() const {
+    return build_dir;
 }
 
-void CMakeCompiler::ensure_build_directory() {
-    if (!std::filesystem::exists(build_dir_)) {
-        std::filesystem::create_directories(build_dir_);
+void CMakeCompiler::EnsureBuildDirectory() {
+    if (!std::filesystem::exists(build_dir)) {
+        std::filesystem::create_directories(build_dir);
     }
 }
 
-void CMakeCompiler::clean_build_directory() {
-    if (std::filesystem::exists(build_dir_)) {
-        std::filesystem::remove_all(build_dir_);
+void CMakeCompiler::CleanBuildDirectory() {
+    if (std::filesystem::exists(build_dir)) {
+        std::filesystem::remove_all(build_dir);
     }
 }
 
-std::string CMakeCompiler::generate_cmake_file(
+std::string CMakeCompiler::GenerateCmakeFile(
     const std::filesystem::path &source_file, const CompilerConfig &config) {
     std::stringstream cmake_content;
 
@@ -83,8 +85,8 @@ std::string CMakeCompiler::generate_cmake_file(
     std::string source_path = std::filesystem::absolute(source_file).string();
     std::replace(source_path.begin(), source_path.end(), '\\', '/');
 
-    cmake_content << "add_executable(" << exec_name << " "
-                  << source_path << ")\n\n";
+    cmake_content << "add_executable(" << exec_name << " " << source_path
+                  << ")\n\n";
 
     if (!config.link_flags.empty()) {
         cmake_content << "target_link_options(" << exec_name << " PRIVATE ";
@@ -112,7 +114,7 @@ std::string CMakeCompiler::generate_cmake_file(
     return cmake_content.str();
 }
 
-CompilationResult CMakeCompiler::execute_command(
+CompilationResult CMakeCompiler::ExecuteCommand(
     const std::string &command, const std::filesystem::path &working_dir) {
     CompilationResult result;
     result.success = false;
@@ -132,9 +134,9 @@ CompilationResult CMakeCompiler::execute_command(
     std::string output;
 
 #ifdef _WIN32
-    FILE *pipe = popen(command.c_str(), "r");
+    FILE *pipe = POPEN(command.c_str(), "r");
 #else
-    FILE *pipe = popen((command + " 2>&1").c_str(), "r");
+    FILE *pipe = POPEN((command + " 2>&1").c_str(), "r");
 #endif
 
     if (!pipe) {
@@ -147,7 +149,7 @@ CompilationResult CMakeCompiler::execute_command(
         output += buffer.data();
     }
 
-    int status = pclose(pipe);
+    int status = PCLOSE(pipe);
 
 #ifdef _WIN32
     // On Windows, _pclose returns the exit code directly
@@ -170,7 +172,7 @@ CompilationResult CMakeCompiler::execute_command(
     return result;
 }
 
-CompilationResult CMakeCompiler::compile_file(
+CompilationResult CMakeCompiler::CompileFile(
     const std::filesystem::path &source_file, const CompilerConfig &config) {
     CompilationResult final_result;
     final_result.success = false;
@@ -182,11 +184,11 @@ CompilationResult CMakeCompiler::compile_file(
         return final_result;
     }
 
-    ensure_build_directory();
+    EnsureBuildDirectory();
 
     // Generate CMakeLists.txt
-    std::string cmake_content = generate_cmake_file(source_file, config);
-    std::filesystem::path cmake_file = build_dir_ / "CMakeLists.txt";
+    std::string cmake_content = GenerateCmakeFile(source_file, config);
+    std::filesystem::path cmake_file = build_dir / "CMakeLists.txt";
 
     std::ofstream cmake_out(cmake_file);
     if (!cmake_out) {
@@ -213,7 +215,7 @@ CompilationResult CMakeCompiler::compile_file(
         final_result.output += "Command: " + cmake_command + "\n\n";
     }
 
-    CompilationResult cmake_result = execute_command(cmake_command, build_dir_);
+    CompilationResult cmake_result = ExecuteCommand(cmake_command, build_dir);
     if (!cmake_result.success) {
         final_result.error_output =
             "CMake configuration failed:\n" + cmake_result.error_output;
@@ -234,7 +236,7 @@ CompilationResult CMakeCompiler::compile_file(
         final_result.output += "Command: " + build_command + "\n\n";
     }
 
-    CompilationResult build_result = execute_command(build_command, build_dir_);
+    CompilationResult build_result = ExecuteCommand(build_command, build_dir);
     if (!build_result.success) {
         final_result.error_output =
             "Build failed:\n" + build_result.error_output;
@@ -253,14 +255,12 @@ CompilationResult CMakeCompiler::compile_file(
 #endif
 
     std::vector<std::filesystem::path> possible_paths = {
-        build_dir_ / "bin" / exec_name,
-        build_dir_ / "bin" / config.build_type / exec_name,
-        build_dir_ / config.build_type / exec_name,
-        build_dir_ / exec_name
-    };
+        build_dir / "bin" / exec_name,
+        build_dir / "bin" / config.build_type / exec_name,
+        build_dir / config.build_type / exec_name, build_dir / exec_name};
 
     bool found = false;
-    for (const auto& path : possible_paths) {
+    for (const auto &path : possible_paths) {
         if (std::filesystem::exists(path)) {
             final_result.executable_path = path;
             found = true;

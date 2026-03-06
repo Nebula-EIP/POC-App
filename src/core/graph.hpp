@@ -16,6 +16,8 @@
 
 namespace core {
 
+class FunctionNode;
+
 class Graph {
    public:
     Graph();
