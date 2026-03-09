@@ -9,9 +9,11 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-#define popen _popen
-#define pclose _pclose
+#define POPEN _popen
+#define PCLOSE _pclose
 #else
+#define POPEN popen
+#define PCLOSE pclose
 #include <sys/wait.h>
 #endif
 
@@ -133,9 +135,9 @@ CompilationResult CMakeCompiler::execute_command(
     std::string output;
 
 #ifdef _WIN32
-    FILE *pipe = popen(command.c_str(), "r");
+    FILE *pipe = POPEN(command.c_str(), "r");
 #else
-    FILE *pipe = popen((command + " 2>&1").c_str(), "r");
+    FILE *pipe = POPEN((command + " 2>&1").c_str(), "r");
 #endif
 
     if (!pipe) {
@@ -148,7 +150,7 @@ CompilationResult CMakeCompiler::execute_command(
         output += buffer.data();
     }
 
-    int status = pclose(pipe);
+    int status = PCLOSE(pipe);
 
 #ifdef _WIN32
     // On Windows, _pclose returns the exit code directly
