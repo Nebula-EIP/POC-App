@@ -14,6 +14,14 @@ class BaseException : public std::exception {
         const std::string &err_msg,
         const std::source_location &location = std::source_location::current()
     );
+
+    template <typename... Args>
+    BaseException(
+        const std::source_location &location,
+        std::format_string<Args...> fmt,
+        Args &&...args
+    );
+
     ~BaseException() = default;
 
     const char *what() const noexcept override;
@@ -43,3 +51,19 @@ class BaseException : public std::exception {
 };
 
 }  // namespace utils
+
+#include "exception_base.tcc"
+
+/**
+ * @brief Throws a BaseException with formatted message and automatic location capture.
+ * @param ExceptionType The exception class to throw (must derive from BaseException)
+ * @param fmt Format string (std::format compatible)
+ * @param ... Format arguments
+ * 
+ * Example:
+ * @code
+ * THROW_EXCEPTION(BaseException, "Failed to load node {}", node_id);
+ * @endcode
+ */
+#define THROW_EXCEPTION(ExceptionType, fmt, ...) \
+    throw ExceptionType(std::source_location::current(), fmt, ##__VA_ARGS__)

@@ -11,7 +11,16 @@ class CoreException : utils::BaseException {
         const std::source_location &location = std::source_location::current()
     );
 
+    template <typename... Args>
+    CoreException(
+        const std::source_location &location,
+        std::format_string<Args...> fmt,
+        Args &&...args
+    );
+
     ~CoreException() = default;
 };
 
 } // namespace core
+
+#include "core_exception.tcc"
