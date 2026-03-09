@@ -19,7 +19,9 @@ bool core::NodeBase::Connection::IsConnected() const noexcept { return node != n
 
 
 
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {}
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {
+    InitializeConnections();
+}
 
 core::NodeBase::~NodeBase() noexcept = default;
 
