@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Running clang-format check..."
-
-if ! command -v clang-format >/dev/null 2>&1; then
-    echo "clang-format not found"
-    exit 1
-fi
+MODE=${1:-fix}
 
 FILES=$(find src -type f \( \
     -name "*.cpp" -o \
@@ -20,6 +15,12 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-clang-format --dry-run --Werror $FILES
-
-echo "Format check passed."
+if [ "${MODE}" = "check" ]; then
+    echo "Running clang-format check..."
+    clang-format --dry-run --Werror $FILES
+    echo "Format check passed."
+else
+    echo "Running clang-format..."
+    clang-format -i $FILES
+    echo "Formatting applied."
+fi

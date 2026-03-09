@@ -1,12 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo Running clang-format check...
+set MODE=%1
 
-where clang-format >nul 2>&1
-if %ERRORLEVEL% neq 0 (
-    echo clang-format not found
-    exit /b 1
+if "%MODE%"=="" (
+    set MODE=fix
 )
 
 set FILES=
@@ -20,11 +18,22 @@ if "!FILES!"=="" (
     exit /b 0
 )
 
-clang-format --dry-run --Werror !FILES!
-if %ERRORLEVEL% neq 0 (
-    echo Format errors detected
-    exit /b 1
+if /I "%MODE%"=="check" (
+    echo Running clang-format check...
+    clang-format --dry-run --Werror !FILES!
+    if %ERRORLEVEL% neq 0 (
+        echo Format errors detected
+        exit /b 1
+    )
+    echo Format check passed.
+) else (
+    echo Running clang-format...
+    clang-format -i !FILES!
+    if %ERRORLEVEL% neq 0 (
+        echo Formatting failed
+        exit /b 1
+    )
+    echo Formatting applied.
 )
 
-echo Format check passed.
 exit /b 0
