@@ -47,19 +47,25 @@ jobs:
       - name: Setup environment
         run: ${{ matrix.setup_script }}
 
-      - name: Restore dependancies cache
-        uses: actions/cache@v4
-        with:
-          path: .cache/CPM
-          key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
-          restore-keys: ${{ runner.os }}-cpm-
+      - name: Clean build directory
+        run: rm -rf build
 
-      - name: Restore build cache
-        uses: actions/cache@v4
-        with:
-          path: build
-          key: ${{ runner.os }}-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt','src/**/*','tests/**/*') }}
-          restore-keys: ${{ runner.os }}-${{ matrix.build_type }}-
+      - name: Clean dependancies cache
+        run: rm -rf .cache
+
+      # - name: Restore dependancies cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: .cache/CPM
+      #     key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
+      #     restore-keys: ${{ runner.os }}-cpm-
+
+      # - name: Restore build cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: build
+      #     key: ${{ runner.os }}-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt','src/**/*','tests/**/*') }}
+      #     restore-keys: ${{ runner.os }}-${{ matrix.build_type }}-
 
       - name: Build
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
