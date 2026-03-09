@@ -26,18 +26,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo.
-echo Searching for Nebula.exe...
-dir /s /b "%BUILD_DIR%\bin\" | find "Nebula.exe"
-
 if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" (
-    echo Found at: %BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe
     copy /Y "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" "Nebula.exe" >nul
-) else if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe" (
-    echo Found at: %BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe
-    copy /Y "%BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe" "Nebula.exe" >nul
-) else (
-    echo WARNING: Nebula.exe not found at expected paths
 )
 
 echo Build completed.
