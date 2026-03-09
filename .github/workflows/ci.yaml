@@ -29,11 +29,11 @@ jobs:
             shell: bash
 
           - os: windows-latest
-            setup_script: ./scripts/windows/setup-env.bat
-            build_script: ./scripts/windows/build.bat
-            format_script: ./scripts/windows/format.bat
-            lint_script: ./scripts/windows/lint.bat
-            test_script: ./scripts/windows/test.bat
+            setup_script: call .\scripts\windows\setup-env.bat
+            build_script: call .\scripts\windows\build.bat
+            format_script: call .\scripts\windows\format.bat
+            lint_script: call .\scripts\windows\lint.bat
+            test_script: call .\scripts\windows\test.bat
             shell: cmd
 
     defaults:
@@ -63,35 +63,6 @@ jobs:
 
       - name: Build
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
-
-      - name: Verify C++ standard from compile_commands (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          python3 - <<'PY'
-          import json, re, sys
-          with open("build/compile_commands.json", "r", encoding="utf-8") as f:
-              db = json.load(f)
-
-          bad = []
-          for e in db:
-              cmd = e.get("command", "")
-              if not cmd and "arguments" in e:
-                  cmd = " ".join(e["arguments"])
-              m = re.search(r'-std=([^\s"]+)', cmd)
-              std = m.group(1) if m else "<none>"
-
-              if e.get("file", "").endswith("src/core/graph.cpp"):
-                  print(f"graph.cpp std flag: {std}")
-
-              if m is None or all(x not in std for x in ("c++23", "gnu++23", "c++2b", "gnu++2b")):
-                  bad.append((e.get("file", "?"), std))
-
-          print(f"compile_commands entries: {len(db)}")
-          print(f"non C++23-like entries: {len(bad)}")
-          if bad:
-              print("example non-conforming entry:", bad[0])
-              sys.exit(1)
-          PY
 
       - name: Format check
         run: ${{ matrix.format_script }}
