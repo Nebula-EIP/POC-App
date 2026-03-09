@@ -20,7 +20,7 @@ sudo apt-get install -y \
     libasound2-dev \
     mesa-common-dev
 
-# Install modern clang-tidy for C++23 support (std::expected, etc.)
-sudo apt-get install -y clang-tidy-18 clang-format-18 || true
+# Install libc++ for better C++23 compatibility during static analysis
+sudo apt-get install -y libc++-18-dev libc++abi-18-dev || true
 
 echo "Environment ready."
