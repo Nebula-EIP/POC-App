@@ -3,10 +3,8 @@
 
 #include "id_manager.hpp"
 
-namespace utils {
-
 template<typename IdType>
-IdType IdManager::NewId() {
+IdType utils::IdManager<IdType>::NewId() {
    if (available_ids_.empty()) {
       return current_id_++;
    } else {
@@ -17,8 +15,6 @@ IdType IdManager::NewId() {
 }
 
 template<typename IdType>
-void IdManager::FreeId(IdType id) {
+void utils::IdManager<IdType>::FreeId(IdType id) {
    available_ids_.push_back(id);
 }
-
-} // namespace utils
