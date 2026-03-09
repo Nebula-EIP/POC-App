@@ -88,31 +88,34 @@ void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::ClearParent(uint8_t pin) {
-    if (GetInputPinCount() <= pin || parents_.size() <= pin) {
-        return;
-    }
+    auto it = std::find_if(parents_.begin(), parents_.end(),
+        [pin](Connection conn){return conn.in_pin == pin;});
 
-    parents_[pin].node = nullptr;
-    parents_[pin].pin = 0;
-    parents_[pin].type = PinDataType::kUndefined;
+    it->in_pin = 0;
+    it->node = nullptr;
+    it->out_pin = 0;
 }
+
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
                                  uint8_t in_pin) {
-    if (node == nullptr || GetOutputPinCount() <= out_pin ||
-        childrens_.size() <= out_pin) {
-        return;
-    }
+    auto v_it = std::find_if(childrens_.begin(), childrens_.end(),
+        [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
+            return std::get<0>(conns) == out_pin;
+        });
+    
+    std::vector<core::NodeBase::Connection> &vec = std::get<1>(*v_it);
 
-    auto &children = childrens_[out_pin];
-    for (auto &connection : children) {
-        if (connection.node == node && connection.pin == in_pin) {
-            connection.node = nullptr;
-            connection.pin = 0;
-            connection.type = PinDataType::kUndefined;
-            break;
-        }
-    }
+    auto it = std::find_if(vec.begin(), vec.begin(),
+        [out_pin, node, in_pin](Connection conn){
+            return (
+                (conn.in_pin == in_pin)
+                && (conn.node == node)
+                && (conn.out_pin == out_pin)
+            );
+        });
+    
+    vec.erase(it);
 }
 
 void core::NodeBase::InitializeConnections() {

@@ -228,7 +228,8 @@ class NodeBase {
     /**
      * @brief Resets an input pin connection.
      *
-     * Disconnects the specified input pin and cleans up the connection data.
+     * Disconnects the specified input pin and cleans up the connection data,
+     * only keeps the pin type in memory.
      *
      * @param pin The input pin index to clear.
      * 
