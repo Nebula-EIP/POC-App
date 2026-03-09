@@ -47,24 +47,6 @@ jobs:
       - name: Setup environment
         run: ${{ matrix.setup_script }}
 
-      - name: Tool versions (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          echo "=== Toolchain versions ==="
-          clang-tidy --version || true
-          clang-format --version || true
-          cmake --version || true
-          g++ --version || true
-          c++ --version || true
-
-      - name: Tool versions (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          echo === Toolchain versions ===
-          clang-tidy --version
-          clang-format --version
-          cmake --version
-
       # - name: Restore dependancies cache
       #   uses: actions/cache@v4
       #   with:
@@ -81,6 +63,35 @@ jobs:
 
       - name: Build
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
+
+      - name: Verify C++ standard from compile_commands (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          python3 - <<'PY'
+          import json, re, sys
+          with open("build/compile_commands.json", "r", encoding="utf-8") as f:
+              db = json.load(f)
+
+          bad = []
+          for e in db:
+              cmd = e.get("command", "")
+              if not cmd and "arguments" in e:
+                  cmd = " ".join(e["arguments"])
+              m = re.search(r'-std=([^\s"]+)', cmd)
+              std = m.group(1) if m else "<none>"
+
+              if e.get("file", "").endswith("src/core/graph.cpp"):
+                  print(f"graph.cpp std flag: {std}")
+
+              if m is None or all(x not in std for x in ("c++23", "gnu++23", "c++2b", "gnu++2b")):
+                  bad.append((e.get("file", "?"), std))
+
+          print(f"compile_commands entries: {len(db)}")
+          print(f"non C++23-like entries: {len(bad)}")
+          if bad:
+              print("example non-conforming entry:", bad[0])
+              sys.exit(1)
+          PY
 
       - name: Format check
         run: ${{ matrix.format_script }}
