@@ -1,6 +1,9 @@
 #include "node_base.hpp"
 
 #include <algorithm>
+#include <exception>
+
+#include "connection_exceptions.hpp"
 
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
@@ -8,52 +11,59 @@
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
-core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type)
+core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type) noexcept
     : node(node), out_pin(out_pin), in_pin(in_pin), type(type) {}
 
-bool core::NodeBase::Connection::IsConnected() const { return node != nullptr; }
+bool core::NodeBase::Connection::IsConnected() const noexcept { return node != nullptr; }
 
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind) : id_(id), kind_(kind) {}
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {}
 
-core::NodeBase::~NodeBase() = default;
+core::NodeBase::~NodeBase() noexcept = default;
 
-uint32_t core::NodeBase::id() const { return id_; }
+uint32_t core::NodeBase::id() const noexcept { return id_; }
 
-core::NodeBase::NodeKind core::NodeBase::kind() const { return kind_; }
+core::NodeBase::NodeKind core::NodeBase::kind() const noexcept { return kind_; }
 
 // parents_ vector already filled by the Graph class
-const core::NodeBase::Connection *core::NodeBase::parent(uint8_t in_pin) const {
-    if (GetInputPinCount() <= in_pin || parents_.size() <= in_pin) {
-        return nullptr;
-    }
+core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
+    auto it = std::find_if(parents_.begin(), parents_.end(),
+        [in_pin](Connection conn){return conn.in_pin == in_pin;});
 
-    const Connection &conn = parents_[in_pin];
-    return conn.IsConnected() ? &conn : nullptr;
+    if (it != parents_.end()) {
+        if (it->IsConnected()) {
+            return (*it);
+        } else {
+            THROW_EXCEPTION(PinNotConnectedException, "Pin {} is not connected", in_pin);
+        }
+    } else {
+        THROW_EXCEPTION(InvalidPinIndexException, "Pin {} does not exists", in_pin);
+    }
 }
 
 // childrens_ vector already filled by the Graph class
-const std::vector<core::NodeBase::Connection> &core::NodeBase::childrens(
+const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
-    static const std::vector<NodeBase::Connection> kEmptyVector;
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+        [](Connection conn){conn.IsConnected();});
 
-    if (GetOutputPinCount() <= out_pin || childrens_.size() <= out_pin) {
-        return kEmptyVector;
+    if (it != childrens_.end()) {
+        return &(*it);
+    } else {
+        return nullptr;
     }
-
-    return childrens_[out_pin];
 }
 
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
                                uint8_t parent_pin) {
-    if (parent == nullptr || GetInputPinCount() <= in_pin ||
-        parent->GetOutputPinCount() <= parent_pin) {
+    if (parent == nullptr
+        || this->parent(in_pin) == nullptr
+        || parent->childrens(parent_pin) == nullptr) {
         return;
     }
 
-    if (parents_.size() <= in_pin) {
-        parents_.resize(in_pin + 1);
-    }
 
+
+    auto it = this->parent(in_pin);
     parents_[in_pin].node = parent;
     parents_[in_pin].pin = parent_pin;
     parents_[in_pin].type = parent->GetOutputPinType(parent_pin);

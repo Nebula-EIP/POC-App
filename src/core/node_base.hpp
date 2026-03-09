@@ -6,6 +6,9 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+#include <utility>
+
+#include "id_manager.hpp"
 
 namespace core {
 
@@ -67,7 +70,7 @@ class NodeBase {
         PinDataType type =
             PinDataType::kUndefined;  ///< Data type of the connection
 
-        Connection() = default;
+        Connection() noexcept = default;
 
         /**
          * @brief Constructs a connection with specified node and pin.
@@ -76,34 +79,37 @@ class NodeBase {
          * @param in_pin Pin number on the connected node.
          * @param type Data type going trough the connection
          */
-        Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type);
+        Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type) noexcept;
 
-        bool IsConnected() const;
+        bool IsConnected() const noexcept;
     };
 
-    virtual ~NodeBase();
+    virtual ~NodeBase() noexcept;
 
-    uint32_t id() const;
+    uint32_t id() const noexcept;
 
-    NodeKind kind() const;
+    NodeKind kind() const noexcept;
 
     /**
      * @brief Retrieves connection information for a given input pin.
      * @param input_pin The index of the input pin.
-     * @return Pointer to the connection information, or nullptr if not
-     * connected.
+     * 
+     * @throws `InvalidPinIndexException` if input_pin >= GetInputPinCount()
+     * @throws `PinNotConnectedException` if the pin exists but is not connected 
+     * 
+     * @return Connection struct representing the pin's connection
      */
-    const Connection *parent(uint8_t input_pin) const;
+    Connection parent(uint8_t input_pin) const;
 
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
-     * @return Reference to a vector of connection pointers.
+     * @return Pointer to a vector of connection pointers.
      */
-    const std::vector<Connection> &childrens(uint8_t output_pin) const;
+    const std::vector<Connection> *childrens(uint8_t output_pin) const;
 
-    virtual uint8_t GetInputPinCount() const = 0;
-    virtual uint8_t GetOutputPinCount() const = 0;
+    virtual uint8_t GetInputPinCount() const noexcept = 0;
+    virtual uint8_t GetOutputPinCount() const noexcept = 0;
 
     virtual PinDataType GetInputPinType(uint8_t pin) const = 0;
     virtual PinDataType GetOutputPinType(uint8_t pin) const = 0;
@@ -127,9 +133,9 @@ class NodeBase {
      */
     virtual std::expected<void, std::string> CanConnectTo(
         uint8_t out_pin, const NodeBase *target,
-        uint8_t target_in_pin) const = 0;
+        uint8_t target_in_pin) const noexcept = 0;
 
-    virtual std::string GetDisplayName() const = 0;
+    virtual std::string GetDisplayName() const noexcept = 0;
 
     /**
      * @brief Gets the category of this node.
@@ -139,7 +145,7 @@ class NodeBase {
      *
      * @return The category name for this node.
      */
-    virtual std::string GetCategory() const = 0;
+    virtual std::string GetCategory() const noexcept = 0;
 
     /**
      * @brief Serializes the node to JSON format.
@@ -244,13 +250,15 @@ class NodeBase {
      * @param id Unique identifier for this node.
      * @param kind The type/kind of this node.
      */
-    NodeBase(uint32_t id, NodeKind kind);
+    NodeBase(uint32_t id, NodeKind kind) noexcept;
 
     const uint32_t id_;
     const NodeKind kind_;
 
+    utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;
-    std::vector<std::vector<Connection>> childrens_;
+    utils::IdManager<uint8_t> out_pin_id_manager_;
+    std::vector<std::pair<uint8_t, std::vector<Connection>>> childrens_;
 };
 
 // Helper functions for enum to/from string conversion
