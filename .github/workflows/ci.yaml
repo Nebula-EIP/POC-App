@@ -48,19 +48,45 @@ jobs:
       - name: Setup environment
         run: ${{ matrix.setup_script }}
 
-      # - name: Restore dependancies cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: .cache/CPM
-      #     key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
-      #     restore-keys: ${{ runner.os }}-cpm-
+      - name: Check CPM cache before restore
+        run: |
+          echo "=== CPM cache status BEFORE restore ==="
+          if [ -d .cache/CPM ]; then du -sh .cache/CPM 2>/dev/null || echo "Cache exists but cannot measure size"; else echo "No cache directory yet"; fi
+        shell: bash
+        if: matrix.os == 'ubuntu-latest'
 
-      # - name: Restore build cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: build
-      #     key: ${{ runner.os }}-${{ matrix.build_type }}-${{ hashFiles('CMakeLists.txt','src/**/*','tests/**/*') }}
-      #     restore-keys: ${{ runner.os }}-${{ matrix.build_type }}-
+      - name: Check CPM cache before restore (Windows)
+        run: |
+          echo === CPM cache status BEFORE restore ===
+          if exist .cache\CPM (dir .cache\CPM /s) else (echo No cache directory yet)
+        shell: cmd
+        if: matrix.os == 'windows-latest'
+
+      - name: Restore dependencies cache
+        id: cache-cpm
+        uses: actions/cache@v4
+        with:
+          path: .cache/CPM
+          key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: ${{ runner.os }}-cpm-
+
+      - name: Cache hit result
+        run: echo "Cache hit = ${{ steps.cache-cpm.outputs.cache-hit }}"
+        shell: bash
+
+      - name: Check CPM cache after restore
+        run: |
+          echo "=== CPM cache status AFTER restore ==="
+          if [ -d .cache/CPM ]; then du -sh .cache/CPM 2>/dev/null || echo "Cache exists but cannot measure size"; else echo "No cache directory yet"; fi
+        shell: bash
+        if: matrix.os == 'ubuntu-latest'
+
+      - name: Check CPM cache after restore (Windows)
+        run: |
+          echo === CPM cache status AFTER restore ===
+          if exist .cache\CPM (dir .cache\CPM /s) else (echo No cache directory yet)
+        shell: cmd
+        if: matrix.os == 'windows-latest'
 
       - name: Build
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
