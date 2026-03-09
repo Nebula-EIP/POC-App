@@ -24,6 +24,7 @@ echo "Using ${CLANG_TIDY_BIN}: $(${CLANG_TIDY_BIN} --version | head -n 1)"
 
 CLANG_SUFFIX="${CLANG_TIDY_BIN#clang-tidy}"
 CMAKE_COMPILER_ARGS=()
+TIDY_EXTRA_ARGS=(--extra-arg=-std=c++2b)
 
 if [ -n "${CLANG_SUFFIX}" ] && command -v "clang++${CLANG_SUFFIX}" >/dev/null 2>&1 && command -v "clang${CLANG_SUFFIX}" >/dev/null 2>&1; then
     CMAKE_COMPILER_ARGS=(-DCMAKE_CXX_COMPILER="clang++${CLANG_SUFFIX}" -DCMAKE_C_COMPILER="clang${CLANG_SUFFIX}")
@@ -33,6 +34,12 @@ elif command -v clang++ >/dev/null 2>&1 && command -v clang >/dev/null 2>&1; the
     echo "Using default Clang toolchain for lint DB: clang++"
 else
     echo "No Clang compiler found; using project default compiler for lint DB."
+fi
+
+if [ -f "/usr/include/c++/v1/expected" ]; then
+    echo "libc++ detected: enabling -stdlib=libc++ for lint DB"
+    CMAKE_COMPILER_ARGS+=("-DCMAKE_CXX_FLAGS=-stdlib=libc++")
+    TIDY_EXTRA_ARGS+=(--extra-arg=-stdlib=libc++)
 fi
 
 if [ ! -f "${BUILD_DIR}/compile_commands.json" ]; then
@@ -63,7 +70,7 @@ for file in $FILES; do
     if ! "${CLANG_TIDY_BIN}" "$file" \
         -p "${BUILD_DIR}" \
         --quiet \
-        --extra-arg=-std=c++2b; then
+        "${TIDY_EXTRA_ARGS[@]}"; then
         FAILED=1
     fi
 done
