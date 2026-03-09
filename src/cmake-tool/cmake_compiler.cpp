@@ -9,10 +9,10 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-    #define popen _popen
-    #define pclose _pclose
+#define popen _popen
+#define pclose _pclose
 #else
-    #include <sys/wait.h>
+#include <sys/wait.h>
 #endif
 
 namespace nebula::cmake {
@@ -84,8 +84,8 @@ std::string CMakeCompiler::generate_cmake_file(
     std::string source_path = std::filesystem::absolute(source_file).string();
     std::replace(source_path.begin(), source_path.end(), '\\', '/');
 
-    cmake_content << "add_executable(" << exec_name << " "
-                  << source_path << ")\n\n";
+    cmake_content << "add_executable(" << exec_name << " " << source_path
+                  << ")\n\n";
 
     if (!config.link_flags.empty()) {
         cmake_content << "target_link_options(" << exec_name << " PRIVATE ";
@@ -256,12 +256,10 @@ CompilationResult CMakeCompiler::compile_file(
     std::vector<std::filesystem::path> possible_paths = {
         build_dir_ / "bin" / exec_name,
         build_dir_ / "bin" / config.build_type / exec_name,
-        build_dir_ / config.build_type / exec_name,
-        build_dir_ / exec_name
-    };
+        build_dir_ / config.build_type / exec_name, build_dir_ / exec_name};
 
     bool found = false;
-    for (const auto& path : possible_paths) {
+    for (const auto &path : possible_paths) {
         if (std::filesystem::exists(path)) {
             final_result.executable_path = path;
             found = true;
