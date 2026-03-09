@@ -219,7 +219,9 @@ class NodeBase {
      * @param node Pointer to the child node, must not be nullptr.
      * @param child_pin The input pin index on the child node.
      * 
-     * @warning It is the caller responsibility to check the function's arguments before calling it.
+     * @warning
+     * It is the caller responsibility to check the function's arguments before calling it and
+     * if said connection is a valid one.
      */
     void AddChild(uint8_t output_pin, NodeBase *node, uint8_t child_pin) noexcept;
 
