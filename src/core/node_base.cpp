@@ -16,6 +16,9 @@ core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin, uint8_t 
 
 bool core::NodeBase::Connection::IsConnected() const noexcept { return node != nullptr; }
 
+
+
+
 core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {}
 
 core::NodeBase::~NodeBase() noexcept = default;
@@ -59,20 +62,12 @@ const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     }
 }
 
+// Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
                                uint8_t parent_pin) {
-    if (parent == nullptr
-        || this->parent(in_pin) == nullptr
-        || parent->childrens(parent_pin) == nullptr) {
-        return;
-    }
-
-
-
-    auto it = this->parent(in_pin);
+    parents_[in_pin].in_pin = in_pin;
     parents_[in_pin].node = parent;
-    parents_[in_pin].pin = parent_pin;
-    parents_[in_pin].type = parent->GetOutputPinType(parent_pin);
+    parents_[in_pin].out_pin = parent_pin;
 }
 
 void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,

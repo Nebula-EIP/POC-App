@@ -197,13 +197,17 @@ class NodeBase {
     /**
      * @brief Sets an input pin connection.
      *
-     * If the input pin already has a connection, it will be overridden.
-     *
      * @param input_pin The input pin index on this node.
-     * @param node Pointer to the parent node.
+     * @param node Pointer to the parent node, must not be nullptr.
      * @param parent_pin The output pin index on the parent node.
+     *
+     * @warning
+     * If the input pin already has a connection, it will be overridden.
+     * 
+     * It is the caller responsibility to check the function's arguments before calling it and
+     * if said connection is a valid one.
      */
-    void SetParent(uint8_t input_pin, NodeBase *node, uint8_t parent_pin);
+    void SetParent(uint8_t input_pin, NodeBase *node, uint8_t parent_pin) noexcept;
 
     /**
      * @brief Adds a child connection from an output pin.
@@ -212,10 +216,12 @@ class NodeBase {
      * connected to the same output pin.
      *
      * @param output_pin The output pin index on this node.
-     * @param node Pointer to the child node.
+     * @param node Pointer to the child node, must not be nullptr.
      * @param child_pin The input pin index on the child node.
+     * 
+     * @warning It is the caller responsibility to check the function's arguments before calling it.
      */
-    void AddChild(uint8_t output_pin, NodeBase *node, uint8_t child_pin);
+    void AddChild(uint8_t output_pin, NodeBase *node, uint8_t child_pin) noexcept;
 
     /**
      * @brief Resets an input pin connection.
@@ -223,18 +229,22 @@ class NodeBase {
      * Disconnects the specified input pin and cleans up the connection data.
      *
      * @param pin The input pin index to clear.
+     * 
+     * @warning It is the caller responsibility to check the function's arguments before calling it.
      */
-    void ClearParent(uint8_t pin);
+    void ClearParent(uint8_t pin) noexcept;
 
     /**
      * @brief Removes a specific child connection from an output pin.
      *
      * @param output_pin The output pin index on this node.
-     * @param node Pointer to the child node to disconnect.
+     * @param node Pointer to the child node to disconnect, must not be nullptr.
      * @param input_pin The input pin index on the child node.
+     * 
+     * @warning It is the caller responsibility to check the function's arguments before calling it.
      */
     void RemoveChild(uint8_t output_pin, const NodeBase *node,
-                     uint8_t input_pin);
+                     uint8_t input_pin) noexcept;
 
     /**
      * @brief Initializes the connection vectors based on pin counts.
