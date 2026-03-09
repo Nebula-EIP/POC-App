@@ -11,6 +11,8 @@ sudo apt-get install -y \
     ninja-build \
     clang-format \
     clang-tidy \
+    libc++-18-dev \
+    libc++abi-18-dev \
     libx11-dev \
     libxrandr-dev \
     libxinerama-dev \
@@ -19,8 +21,5 @@ sudo apt-get install -y \
     libgl1-mesa-dev \
     libasound2-dev \
     mesa-common-dev
-
-# Install libc++ for better C++23 compatibility during static analysis
-sudo apt-get install -y libc++-18-dev libc++abi-18-dev || true
 
 echo "Environment ready."
