@@ -5,6 +5,7 @@
 #include <mutex>
 #include <source_location>
 #include <string>
+#include <iostream>
 
 /**
  * @brief Logs a debug message with automatic source location capture.

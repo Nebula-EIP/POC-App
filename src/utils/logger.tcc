@@ -2,11 +2,9 @@
 
 #include "logger.hpp"
 
-namespace utils {
-
 // Template implementation
 template <typename... TArgs>
-void Logger::log(LogLevel level, const std::source_location& location,
+void utils::Logger::log(LogLevel level, const std::source_location& location,
                  std::string_view formatStr, const TArgs&... args) {
     if (level < minimum_log_level)
         return;
@@ -20,5 +18,3 @@ void Logger::log(LogLevel level, const std::source_location& location,
               << "\033[0m] [" << file << ":" << location.line() << "] "
               << message << std::endl;
 }
-
-} // namspace utils
