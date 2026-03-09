@@ -2,8 +2,8 @@
 set -e
 
 BUILD_TYPE=${1:-Release}
-BUILD_DIR=build
 LINT_BUILD_DIR="build-lint-${BUILD_TYPE}"
+BUILD_DIR="${LINT_BUILD_DIR}"
 
 echo "Running clang-tidy..."
 
@@ -22,18 +22,31 @@ fi
 
 echo "Using ${CLANG_TIDY_BIN}: $(${CLANG_TIDY_BIN} --version | head -n 1)"
 
+CLANG_SUFFIX="${CLANG_TIDY_BIN#clang-tidy}"
+CMAKE_COMPILER_ARGS=()
+
+if [ -n "${CLANG_SUFFIX}" ] && command -v "clang++${CLANG_SUFFIX}" >/dev/null 2>&1 && command -v "clang${CLANG_SUFFIX}" >/dev/null 2>&1; then
+    CMAKE_COMPILER_ARGS=(-DCMAKE_CXX_COMPILER="clang++${CLANG_SUFFIX}" -DCMAKE_C_COMPILER="clang${CLANG_SUFFIX}")
+    echo "Using Clang toolchain for lint DB: clang++${CLANG_SUFFIX}"
+elif command -v clang++ >/dev/null 2>&1 && command -v clang >/dev/null 2>&1; then
+    CMAKE_COMPILER_ARGS=(-DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang)
+    echo "Using default Clang toolchain for lint DB: clang++"
+else
+    echo "No Clang compiler found; using project default compiler for lint DB."
+fi
+
 if [ ! -f "${BUILD_DIR}/compile_commands.json" ]; then
-    echo "compile_commands.json not found in ${BUILD_DIR}."
-    echo "Generating a dedicated lint database in ${LINT_BUILD_DIR}..."
+    echo "Generating a dedicated lint database in ${BUILD_DIR}..."
 
-    cmake -B "${LINT_BUILD_DIR}" \
-          -S . \
-          -G Ninja \
-          -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
-          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-          -DCPM_SOURCE_CACHE="${PWD}/.cache/CPM"
+        cmake -B "${LINT_BUILD_DIR}" \
+                    -S . \
+                    -G Ninja \
+                    -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
+                    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+                    -DCMAKE_CXX_STANDARD=23 \
+                    -DCPM_SOURCE_CACHE="${PWD}/.cache/CPM" \
+                    "${CMAKE_COMPILER_ARGS[@]}"
 
-    BUILD_DIR="${LINT_BUILD_DIR}"
 fi
 
 FILES=$(find src -type f -name "*.cpp")
