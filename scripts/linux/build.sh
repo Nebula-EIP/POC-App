@@ -6,8 +6,6 @@ BUILD_TYPE=${1:-Debug}
 
 echo "Building Nebula (${BUILD_TYPE})..."
 
-mkdir -p ${BUILD_DIR}
-
 cmake -B ${BUILD_DIR} \
       -S . \
       -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
