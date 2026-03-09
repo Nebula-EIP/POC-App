@@ -121,9 +121,15 @@ void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
 void core::NodeBase::InitializeConnections() {
     parents_.clear();
     parents_.resize(GetInputPinCount());
+    for (uint8_t id = 0; id < parents_.size(); id = in_pin_id_manager_.NewId()) {
+        parents_[id].in_pin = id;
+    }
 
     childrens_.clear();
     childrens_.resize(GetOutputPinCount());
+    for (uint8_t id = 0; id < childrens_.size(); id = in_pin_id_manager_.NewId()) {
+        std::get<0>(childrens_[id]) = id;
+    }
 }
 
 // Helper functions for enum to/from string conversion
