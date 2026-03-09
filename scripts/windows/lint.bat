@@ -12,6 +12,15 @@ set LINT_BUILD_DIR=build-lint-%BUILD_TYPE%
 
 echo Running clang-tidy...
 
+set VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe
+if exist "%VSWHERE%" (
+    for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set VSINSTALL=%%i
+)
+
+if defined VSINSTALL (
+    call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64 >nul
+)
+
 where clang-tidy >nul 2>&1
 if %ERRORLEVEL% neq 0 (
     echo clang-tidy not found

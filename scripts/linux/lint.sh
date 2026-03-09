@@ -7,10 +7,20 @@ LINT_BUILD_DIR="build-lint-${BUILD_TYPE}"
 
 echo "Running clang-tidy..."
 
-if ! command -v clang-tidy >/dev/null 2>&1; then
+CLANG_TIDY_BIN=""
+for candidate in clang-tidy-20 clang-tidy-19 clang-tidy-18 clang-tidy-17 clang-tidy; do
+    if command -v "${candidate}" >/dev/null 2>&1; then
+        CLANG_TIDY_BIN="${candidate}"
+        break
+    fi
+done
+
+if [ -z "${CLANG_TIDY_BIN}" ]; then
     echo "clang-tidy not found"
     exit 1
 fi
+
+echo "Using ${CLANG_TIDY_BIN}: $(${CLANG_TIDY_BIN} --version | head -n 1)"
 
 if [ ! -f "${BUILD_DIR}/compile_commands.json" ]; then
     echo "compile_commands.json not found in ${BUILD_DIR}."
@@ -37,7 +47,7 @@ FAILED=0
 
 for file in $FILES; do
     echo "Checking $file"
-    if ! clang-tidy "$file" \
+    if ! "${CLANG_TIDY_BIN}" "$file" \
         -p "${BUILD_DIR}" \
         --quiet \
         --extra-arg=-std=c++2b; then
