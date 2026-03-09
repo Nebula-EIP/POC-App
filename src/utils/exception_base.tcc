@@ -4,4 +4,6 @@
 template <typename... Args>
 utils::BaseException::BaseException(const std::source_location &location,
                                     std::format_string<Args...> fmt,
-                                    Args &&...args) {}
+                                    Args &&...args)
+    : what_(std::format(fmt, std::forward<Args>(args)...)), 
+     location_(location) {}

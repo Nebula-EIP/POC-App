@@ -1,5 +1,5 @@
 #pragma once
-#include "core_exception.hpp"
+#include "core_exceptions.hpp"
 
 template <typename... Args>
 core::CoreException::CoreException(const std::source_location &location,
