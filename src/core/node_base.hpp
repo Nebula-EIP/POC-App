@@ -94,7 +94,7 @@ class NodeBase {
      * @brief Retrieves connection information for a given input pin.
      * @param input_pin The index of the input pin.
      * 
-     * @throws `InvalidPinIndexException` if input_pin >= GetInputPinCount()
+     * @throws `InvalidPinIndexException` if the pin does not exists
      * @throws `PinNotConnectedException` if the pin exists but is not connected 
      * 
      * @return Connection struct representing the pin's connection
@@ -104,7 +104,11 @@ class NodeBase {
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
-     * @return Pointer to a vector of connection pointers.
+     * 
+     * @throws `InvalidPinIndexException` if the pin does not exists
+     * @throws `PinNotConnectedException` if the pin exists but is not connected 
+     * 
+     * @return Pointer to a vector of Connection structs.
      */
     const std::vector<Connection> *childrens(uint8_t output_pin) const;
 

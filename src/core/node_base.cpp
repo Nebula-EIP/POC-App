@@ -33,10 +33,10 @@ core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
         if (it->IsConnected()) {
             return (*it);
         } else {
-            THROW_EXCEPTION(PinNotConnectedException, "Pin {} is not connected", in_pin);
+            THROW_EXCEPTION(PinNotConnectedException, "Input pin {} is not connected", in_pin);
         }
     } else {
-        THROW_EXCEPTION(InvalidPinIndexException, "Pin {} does not exists", in_pin);
+        THROW_EXCEPTION(InvalidPinIndexException, "Input pin {} does not exists", in_pin);
     }
 }
 
@@ -44,12 +44,18 @@ core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
 const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
     auto it = std::find_if(childrens_.begin(), childrens_.end(),
-        [](Connection conn){conn.IsConnected();});
+        [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
+            return std::get<0>(conns) == out_pin;
+        });
 
     if (it != childrens_.end()) {
-        return &(*it);
+        if (!std::get<1>(*it).empty()) {
+            return &(std::get<1>(*it));
+        } else {
+            THROW_EXCEPTION(PinNotConnectedException, "Output pin {} has no connections", );
+        }
     } else {
-        return nullptr;
+        THROW_EXCEPTION(InvalidPinIndexException, "Output pin {} does not exists", out_pin);
     }
 }
 
