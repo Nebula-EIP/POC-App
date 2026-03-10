@@ -1,12 +1,17 @@
 @echo off
 setlocal enabledelayedexpansion
 
-color 0A
+for /F %%a in ('echo prompt $E ^| cmd /Q /D /A /C') do set "ESC=%%a"
+set "GREEN=%ESC%[0;32m"
+set "YELLOW=%ESC%[1;33m"
+set "RED=%ESC%[0;31m"
+set "BLUE=%ESC%[0;34m"
+set "NC=%ESC%[0m"
 
 echo.
-echo ========================================
-echo Development Build ^& Test Nebula
-echo ========================================
+echo %BLUE%========================================%NC%
+echo %BLUE%  Development Build ^& Test Nebula%NC%
+echo %BLUE%========================================%NC%
 echo.
 
 echo Select build type:
@@ -20,8 +25,7 @@ if "%build_choice%"=="1" (
 ) else if "%build_choice%"=="2" (
     set BUILD_TYPE=Release
 ) else (
-    color 0C
-    echo Invalid choice
+    echo %RED%Invalid choice%NC%
     exit /b 1
 )
 
@@ -37,41 +41,38 @@ if "%format_choice%"=="1" (
 ) else if "%format_choice%"=="2" (
     set FORMAT_MODE=fix
 ) else (
-    color 0C
-    echo Invalid choice
+    echo %RED%Invalid choice%NC%
     exit /b 1
 )
 
-color 0A
 echo.
-echo Building %BUILD_TYPE% with format mode: %FORMAT_MODE%
+echo %BLUE%Building %BUILD_TYPE% with format mode: %FORMAT_MODE%%NC%
 echo.
 
-echo [1/5] Configure...
+echo %YELLOW%[1/5] Configure...%NC%
 call .\scripts\windows\configure.bat %BUILD_TYPE%
 if errorlevel 1 exit /b 1
 
-echo [2/5] Format (%FORMAT_MODE%)...
+echo %YELLOW%[2/5] Format (%FORMAT_MODE%)...%NC%
 call .\scripts\windows\format.bat %FORMAT_MODE%
 if errorlevel 1 exit /b 1
 
-echo [3/5] Lint...
+echo %YELLOW%[3/5] Lint...%NC%
 call .\scripts\windows\lint.bat
 if errorlevel 1 exit /b 1
 
-echo [4/5] Build (%BUILD_TYPE%)...
+echo %YELLOW%[4/5] Build (%BUILD_TYPE%)...%NC%
 call .\scripts\windows\build.bat %BUILD_TYPE%
 if errorlevel 1 exit /b 1
 
-echo [5/5] Test (%BUILD_TYPE%)...
+echo %YELLOW%[5/5] Test (%BUILD_TYPE%)...%NC%
 call .\scripts\windows\test.bat %BUILD_TYPE%
 if errorlevel 1 exit /b 1
 
-color 0A
 echo.
-echo ========================================
-echo Development Completed
-echo ========================================
+echo %GREEN%========================================%NC%
+echo %GREEN%  Development Completed%NC%
+echo %GREEN%========================================%NC%
 echo.
 
 exit /b 0
