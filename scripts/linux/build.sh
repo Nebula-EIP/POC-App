@@ -6,11 +6,6 @@ BUILD_TYPE=${1:-Debug}
 
 echo "Building Nebula (${BUILD_TYPE})..."
 
-cmake -B ${BUILD_DIR} \
-      -S . \
-      -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
-      -DCPM_SOURCE_CACHE=${PWD}/.cache/CPM
-
 cmake --build ${BUILD_DIR} \
       --parallel
 

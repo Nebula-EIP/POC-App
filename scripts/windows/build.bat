@@ -9,16 +9,6 @@ if "%BUILD_TYPE%"=="" (
 
 echo Building Nebula (%BUILD_TYPE%)...
 
-cmake -B %BUILD_DIR% ^
-      -S . ^
-      -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ^
-      -DCPM_SOURCE_CACHE=%CD%\.cache\CPM
-
-if errorlevel 1 (
-    echo CMake configuration failed
-    exit /b 1
-)
-
 cmake --build %BUILD_DIR% --config %BUILD_TYPE% --parallel
 
 if errorlevel 1 (
@@ -31,4 +21,3 @@ if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" (
 )
 
 echo Build completed.
-exit /b 0
