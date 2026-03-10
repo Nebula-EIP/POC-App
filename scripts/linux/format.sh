@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-MODE=${1:-fix}
+MODE=${1:-check}
 
 FILES=$(find src -type f \( \
     -name "*.cpp" -o \
@@ -14,12 +14,12 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-if [ "${MODE}" = "check" ]; then
-    echo "Running clang-format check..."
-    clang-format --dry-run --Werror $FILES
-    echo "Format check passed."
-else
+if [ "${MODE}" = "fix" ]; then
     echo "Running clang-format..."
     clang-format -i $FILES
     echo "Formatting applied."
+else
+    echo "Running clang-format check..."
+    clang-format --dry-run --Werror $FILES
+    echo "Format check passed."
 fi

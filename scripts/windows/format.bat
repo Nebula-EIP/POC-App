@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set MODE=%1
 
 if "%MODE%"=="" (
-    set MODE=fix
+    set MODE=check
 )
 
 set FILES=
@@ -18,15 +18,7 @@ if "!FILES!"=="" (
     exit /b 0
 )
 
-if /I "%MODE%"=="check" (
-    echo Running clang-format check...
-    clang-format --dry-run --Werror !FILES!
-    if %ERRORLEVEL% neq 0 (
-        echo Format errors detected
-        exit /b 1
-    )
-    echo Format check passed.
-) else (
+if /I "%MODE%"=="fix" (
     echo Running clang-format...
     clang-format -i !FILES!
     if %ERRORLEVEL% neq 0 (
@@ -34,4 +26,12 @@ if /I "%MODE%"=="check" (
         exit /b 1
     )
     echo Formatting applied.
+) else (
+    echo Running clang-format check...
+    clang-format --dry-run --Werror !FILES!
+    if %ERRORLEVEL% neq 0 (
+        echo Format errors detected
+        exit /b 1
+    )
+    echo Format check passed.
 )
