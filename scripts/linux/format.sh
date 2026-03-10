@@ -6,7 +6,6 @@ MODE=${1:-fix}
 FILES=$(find src -type f \( \
     -name "*.cpp" -o \
     -name "*.hpp" -o \
-    -name "*.h" -o \
     -name "*.tcc" \
 \))
 
