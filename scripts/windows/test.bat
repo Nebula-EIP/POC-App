@@ -5,20 +5,14 @@ set BUILD_DIR=build
 set BUILD_TYPE=%1
 
 if "%BUILD_TYPE%"=="" (
-    set BUILD_TYPE=Release
+    set BUILD_TYPE=Debug
 )
 
 echo Running tests (%BUILD_TYPE%)...
 
-if not exist %BUILD_DIR% (
-    echo Build directory not found
-    exit /b 1
-)
-
 ctest --test-dir %BUILD_DIR% ^
       -C %BUILD_TYPE% ^
-      --output-on-failure ^
-      --verbose
+      --output-on-failure
 
 if errorlevel 1 (
     echo Some tests failed
@@ -26,4 +20,3 @@ if errorlevel 1 (
 )
 
 echo All tests passed.
-exit /b 0
