@@ -108,7 +108,7 @@ core::NodeBase::PinDataType core::FunctionNode::GetOutputPinType(
 // ── Connection validation ───────────────────────────────────────────────────
 
 std::expected<void, std::string> core::FunctionNode::CanConnectTo(
-    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (out_pin != 0) {
         return std::unexpected("Pin does not exist");
     }

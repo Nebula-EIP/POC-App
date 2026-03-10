@@ -71,7 +71,7 @@ class FunctionNode : public NodeBase {
     /**
      * @brief Returns the parameter list.
      */
-    const std::vector<FunctionParameter> &parameters() const;
+    const std::vector<FunctionParameter> &parameters() const noexcept;
 
     // -- Inner graph (function body) --
 
