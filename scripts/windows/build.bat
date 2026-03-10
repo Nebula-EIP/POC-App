@@ -18,6 +18,8 @@ if errorlevel 1 (
 
 if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" (
     copy /Y "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" "Nebula.exe" >nul
+) else if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe" (
+    copy /Y "%BUILD_DIR%\bin\%BUILD_TYPE%\Nebula.exe" "Nebula.exe" >nul
 )
 
 echo Build completed.
