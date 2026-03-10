@@ -22,7 +22,7 @@ jobs:
 
         include:
           - os: ubuntu-latest
-            setup_script: ./scripts/linux/setup-env.sh
+            setup_script: ./scripts/linux/setup.sh
             configure_script: ./scripts/linux/configure.sh
             format_script: ./scripts/linux/format.sh
             lint_script: ./scripts/linux/lint.sh
@@ -31,7 +31,7 @@ jobs:
             shell: bash
 
           - os: windows-latest
-            setup_script: call .\scripts\windows\setup-env.bat
+            setup_script: call .\scripts\windows\setup.bat
             configure_script: call .\scripts\windows\configure.bat
             format_script: call .\scripts\windows\format.bat
             lint_script: call .\scripts\windows\lint.bat
@@ -57,7 +57,7 @@ jobs:
           key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
           restore-keys: ${{ runner.os }}-cpm-
 
-      - name: Configure
+      - name: Configure build
         run: ${{ matrix.configure_script }} ${{ matrix.build_type }}
 
       - name: Format check
@@ -66,7 +66,7 @@ jobs:
       - name: Lint check
         run: ${{ matrix.lint_script }}
 
-      - name: Build
+      - name: Build project
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
 
       - name: Run tests
