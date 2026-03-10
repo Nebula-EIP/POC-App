@@ -5,6 +5,12 @@ BUILD_DIR=build
 
 echo "Running clang-tidy..."
 
+if [ -f "/usr/include/c++/v1/expected" ]; then
+    STDLIB_FLAG="--extra-arg=-stdlib=libc++"
+else
+    STDLIB_FLAG=""
+fi
+
 FILES=$(find src -type f -name "*.cpp")
 
 if [ -z "$FILES" ]; then
@@ -19,7 +25,7 @@ for file in $FILES; do
     if ! clang-tidy "$file" \
         -p "${BUILD_DIR}" \
         --quiet \
-        --extra-arg=-stdlib=libc++; then
+        ${STDLIB_FLAG}; then
         FAILED=1
     fi
 done
