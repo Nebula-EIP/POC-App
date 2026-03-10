@@ -9,7 +9,7 @@ set FAILED=0
 
 for /r src %%f in (*.cpp) do (
     echo Checking %%f
-    clang-tidy "%%f" -p "%BUILD_DIR%" --quiet --extra-arg=-std=c++23
+    clang-tidy "%%f" -p "%BUILD_DIR%" --quiet
     if !ERRORLEVEL! neq 0 (
         set FAILED=1
     )
