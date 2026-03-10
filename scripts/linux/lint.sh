@@ -5,13 +5,6 @@ BUILD_DIR=build
 
 echo "Running clang-tidy..."
 
-TIDY_EXTRA_ARGS=(--extra-arg=-std=c++23)
-
-if [ -f "/usr/include/c++/v1/expected" ]; then
-    echo "libc++ detected: enabling -stdlib=libc++ for lint"
-    TIDY_EXTRA_ARGS+=(--extra-arg=-stdlib=libc++)
-fi
-
 FILES=$(find src -type f -name "*.cpp")
 
 if [ -z "$FILES" ]; then
@@ -26,7 +19,7 @@ for file in $FILES; do
     if ! clang-tidy "$file" \
         -p "${BUILD_DIR}" \
         --quiet \
-        "${TIDY_EXTRA_ARGS[@]}"; then
+        --extra-arg=-std=c++23; then
         FAILED=1
     fi
 done
