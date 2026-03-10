@@ -9,7 +9,7 @@ if "%MODE%"=="" (
 
 set FILES=
 
-for /r src %%f in (*.cpp *.hpp *.h *.tcc) do (
+for /r src %%f in (*.cpp *.hpp *.tcc) do (
     set FILES=!FILES! "%%f"
 )
 
