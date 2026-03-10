@@ -1,26 +1,23 @@
 #include "variable_node.hpp"
 
 core::VariableNode::VariableNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
-    parents_.resize(GetInputPinCount());
-    childrens_.resize(GetOutputPinCount());
-}
+    : NodeBase(id, kind) {}
 
 void core::VariableNode::set_name(const std::string &name) { name_ = name; }
 
-const std::string &core::VariableNode::name() const { return name_; }
+const std::string &core::VariableNode::name() const noexcept { return name_; }
 
 void core::VariableNode::set_type(PinDataType type) { type_ = type; }
 
-core::NodeBase::PinDataType core::VariableNode::type() const { return type_; }
+core::NodeBase::PinDataType core::VariableNode::type() const noexcept { return type_; }
 
 void core::VariableNode::set_data(std::any data) { data_ = data; }
 
-std::any core::VariableNode::data() const { return data_; }
+std::any core::VariableNode::data() const noexcept { return data_; }
 
-uint8_t core::VariableNode::GetInputPinCount() const { return 1; }
+uint8_t core::VariableNode::GetInputPinCount() const noexcept { return 1; }
 
-uint8_t core::VariableNode::GetOutputPinCount() const { return 1; }
+uint8_t core::VariableNode::GetOutputPinCount() const noexcept { return 1; }
 
 core::NodeBase::PinDataType core::VariableNode::GetInputPinType(
     uint8_t pin) const {
@@ -41,7 +38,7 @@ core::NodeBase::PinDataType core::VariableNode::GetOutputPinType(
 }
 
 std::expected<void, std::string> core::VariableNode::CanConnectTo(
-    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (out_pin != 0) {
         return std::unexpected("Pin does not exists");
     }
@@ -73,9 +70,9 @@ std::string core::VariableNode::GetOutputPinName(uint8_t pin) const {
     }
 }
 
-std::string core::VariableNode::GetDisplayName() const { return name_; }
+std::string core::VariableNode::GetDisplayName() const noexcept { return name_; }
 
-std::string core::VariableNode::GetCategory() const { return "Cool stuff~"; }
+std::string core::VariableNode::GetCategory() const noexcept { return "Cool stuff~"; }
 
 nlohmann::json core::VariableNode::Serialize() const {
     nlohmann::json json;

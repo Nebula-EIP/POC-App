@@ -1,10 +1,7 @@
 #include "function_input_node.hpp"
 
 core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
-    parents_.resize(GetInputPinCount());
-    childrens_.resize(GetOutputPinCount());
-}
+    : NodeBase(id, kind) {}
 
 void core::FunctionInputNode::set_name(const std::string &name) {
     name_ = name;

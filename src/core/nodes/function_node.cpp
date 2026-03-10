@@ -8,17 +8,14 @@
 
 core::FunctionNode::~FunctionNode() = default;
 
-core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
-    parents_.resize(GetInputPinCount());
-    childrens_.resize(GetOutputPinCount());
-}
+core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
+    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {}
 
 // ── Name ────────────────────────────────────────────────────────────────────
 
 void core::FunctionNode::set_name(const std::string &name) { name_ = name; }
 
-const std::string &core::FunctionNode::name() const { return name_; }
+const std::string &core::FunctionNode::name() const noexcept { return name_; }
 
 // ── Return type ─────────────────────────────────────────────────────────────
 
@@ -26,7 +23,7 @@ void core::FunctionNode::set_return_type(PinDataType type) {
     return_type_ = type;
 }
 
-core::NodeBase::PinDataType core::FunctionNode::return_type() const {
+core::NodeBase::PinDataType core::FunctionNode::return_type() const noexcept {
     return return_type_;
 }
 
@@ -72,7 +69,7 @@ void core::FunctionNode::RemoveParameter(const std::string &name) {
 }
 
 const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
-    const {
+    const noexcept {
     return parameters_;
 }
 
@@ -84,11 +81,11 @@ const core::Graph &core::FunctionNode::body() const { return *body_; }
 
 // ── Pin counts ──────────────────────────────────────────────────────────────
 
-uint8_t core::FunctionNode::GetInputPinCount() const {
+uint8_t core::FunctionNode::GetInputPinCount() const noexcept {
     return static_cast<uint8_t>(parameters_.size());
 }
 
-uint8_t core::FunctionNode::GetOutputPinCount() const { return 1; }
+uint8_t core::FunctionNode::GetOutputPinCount() const noexcept { return 1; }
 
 // ── Pin types ───────────────────────────────────────────────────────────────
 
@@ -145,9 +142,9 @@ std::string core::FunctionNode::GetOutputPinName(uint8_t pin) const {
 
 // ── Display ─────────────────────────────────────────────────────────────────
 
-std::string core::FunctionNode::GetDisplayName() const { return name_; }
+std::string core::FunctionNode::GetDisplayName() const noexcept { return name_; }
 
-std::string core::FunctionNode::GetCategory() const { return "Functions"; }
+std::string core::FunctionNode::GetCategory() const noexcept { return "Functions"; }
 
 // ── Serialization ───────────────────────────────────────────────────────────
 

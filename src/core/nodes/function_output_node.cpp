@@ -1,26 +1,23 @@
 #include "function_output_node.hpp"
 
-core::FunctionOutputNode::FunctionOutputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
-    parents_.resize(GetInputPinCount());
-    childrens_.resize(GetOutputPinCount());
-}
+core::FunctionOutputNode::FunctionOutputNode(uint32_t id, NodeKind kind)  noexcept
+    : NodeBase(id, kind) {}
 
 void core::FunctionOutputNode::set_name(const std::string &name) {
     name_ = name;
 }
 
-const std::string &core::FunctionOutputNode::name() const { return name_; }
+const std::string &core::FunctionOutputNode::name() const  noexcept { return name_; }
 
 void core::FunctionOutputNode::set_type(PinDataType type) { type_ = type; }
 
-core::NodeBase::PinDataType core::FunctionOutputNode::type() const {
+core::NodeBase::PinDataType core::FunctionOutputNode::type() const  noexcept {
     return type_;
 }
 
-uint8_t core::FunctionOutputNode::GetInputPinCount() const { return 1; }
+uint8_t core::FunctionOutputNode::GetInputPinCount() const  noexcept { return 1; }
 
-uint8_t core::FunctionOutputNode::GetOutputPinCount() const { return 0; }
+uint8_t core::FunctionOutputNode::GetOutputPinCount() const  noexcept { return 0; }
 
 core::NodeBase::PinDataType core::FunctionOutputNode::GetInputPinType(
     uint8_t pin) const {
@@ -37,7 +34,7 @@ core::NodeBase::PinDataType core::FunctionOutputNode::GetOutputPinType(
 
 std::expected<void, std::string> core::FunctionOutputNode::CanConnectTo(
     uint8_t /*out_pin*/, const NodeBase * /*target*/,
-    uint8_t /*in_pin*/) const {
+    uint8_t /*in_pin*/) const  noexcept {
     return std::unexpected("FunctionOutputNode has no output pins");
 }
 
@@ -52,9 +49,9 @@ std::string core::FunctionOutputNode::GetOutputPinName(uint8_t /*pin*/) const {
     return "";
 }
 
-std::string core::FunctionOutputNode::GetDisplayName() const { return name_; }
+std::string core::FunctionOutputNode::GetDisplayName() const  noexcept { return name_; }
 
-std::string core::FunctionOutputNode::GetCategory() const {
+std::string core::FunctionOutputNode::GetCategory() const  noexcept {
     return "Functions";
 }
 
