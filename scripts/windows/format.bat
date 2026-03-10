@@ -35,5 +35,3 @@ if /I "%MODE%"=="check" (
     )
     echo Formatting applied.
 )
-
-exit /b 0
