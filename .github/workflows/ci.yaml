@@ -64,6 +64,7 @@ jobs:
         run: ${{ matrix.format_script }} check
 
       - name: Lint check
+        run: ${{ matrix.lint_script }}
 
       - name: Build
         run: ${{ matrix.build_script }} ${{ matrix.build_type }}
