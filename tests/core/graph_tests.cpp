@@ -6,8 +6,13 @@
 #include <thread>
 
 #include "graph.hpp"
+#include "graph_exceptions.hpp"
+#include "connection_exceptions.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_output_node.hpp"
 
 class GraphTest : public testing::Test {
  protected:
@@ -15,910 +20,1765 @@ class GraphTest : public testing::Test {
 };
 
 void DumpGraph(const core::Graph &graph) {
-    core::NodeBase *node = graph.GetNode(0);
-
-    printf("### DUMPING GRAPH ###\n");
-    for (uint32_t i = 1; node != nullptr; i++) {
+      printf("### DUMPING GRAPH ###\n");
+    for (const auto &node : graph.GetAllNodes()) {
         printf("Node[%d]\n", node->id());
 
-        for (uint8_t i = 0; i < node->GetInputPinCount(); i++) {
-            const core::NodeBase::Connection *conn = node->parent(i);
-            if (conn && conn->IsConnected()) {
-                printf("  IN[%d] <- Node[%d] Out[%d]\n", i, conn->node->id(), conn->pin);
-            }
+        for (auto conn : node->GetAllChildrens()) {
+            printf("  IN[%d] <- Node[%d] Out[%d]\n", conn.in_pin, conn.node->id(), conn.out_pin);
         }
-        for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-            for (const core::NodeBase::Connection &conn : node->childrens(i)) {
-                printf("  OUT[%d] -> Node[%d] In[%d]\n", i,
-                       (conn.node ? conn.node->id() : 0), conn.pin);
-            }
+
+        for (auto conn : node->GetAllParents()) {
+            printf("  OUT[%d] -> Node[%d] In[%d]\n", conn.out_pin,
+                (conn.node ? conn.node->id() : 0), conn.in_pin);
         }
-        node = graph.GetNode(i);
     }
     printf("### COMPLETED ###\n");
 }
 
-#pragma region Node Management Tests
+#pragma region Constructor & Metadata
 
-TEST_F(GraphTest, AddNode_ValidKind_ReturnsNonNull) {
-    EXPECT_NE(graph_.AddNode(core::NodeBase::NodeKind::kLiteral), nullptr);
+TEST_F(GraphTest, ConstructorInitializesDefaultValues) {
+    // Verify default project name
+    EXPECT_EQ(graph_.GetProjectName(), "Untitled Project");
+    
+    // Verify default version
+    EXPECT_EQ(graph_.GetVersion(), "1.0");
+    
+    // Verify empty author
+    EXPECT_EQ(graph_.GetAuthor(), "");
+    
+    // Verify timestamps are set to current time (within a reasonable margin)
+    auto now = std::chrono::system_clock::now();
+    auto created = graph_.GetCreatedAt();
+    auto modified = graph_.GetModifiedAt();
+    
+    // Check that timestamps are within 1 second of now
+    auto created_diff = std::chrono::duration_cast<std::chrono::seconds>(now - created).count();
+    auto modified_diff = std::chrono::duration_cast<std::chrono::seconds>(now - modified).count();
+    
+    EXPECT_LE(std::abs(created_diff), 1);
+    EXPECT_LE(std::abs(modified_diff), 1);
+    
+    // Created and modified should be equal (or very close) at construction
+    auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(modified - created).count();
+    EXPECT_LE(std::abs(diff), 100);
 }
 
-TEST_F(GraphTest, AddNode_UndefinedKind_ReturnsNull) {
-    EXPECT_EQ(graph_.AddNode(core::NodeBase::NodeKind::kUndefined), nullptr);
+TEST_F(GraphTest, SetProjectNameUpdatesName) {
+    const std::string new_name = "My Test Project";
+    
+    graph_.SetProjectName(new_name);
+    
+    EXPECT_EQ(graph_.GetProjectName(), new_name);
 }
 
-TEST_F(GraphTest, AddNode_MultipleNodes_AssignsUniqueIds) {
-    auto a = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto b = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto c = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-
-    EXPECT_TRUE(
-        (a->id() != b->id())
-        && (a->id() != c->id())
-        && (b->id() != c->id())
-    );
+TEST_F(GraphTest, SetProjectNameUpdatesModifiedTime) {
+    auto initial_modified = graph_.GetModifiedAt();
+    
+    // Sleep briefly to ensure time difference
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    
+    graph_.SetProjectName("Updated Project");
+    
+    auto new_modified = graph_.GetModifiedAt();
+    
+    // Modified time should be greater than initial
+    EXPECT_GT(new_modified, initial_modified);
 }
 
-TEST_F(GraphTest, AddNode_Templated_ReturnsCorrectType) {
-    auto* node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+TEST_F(GraphTest, SetAuthorUpdatesAuthor) {
+    const std::string author_name = "John Doe";
+    
+    graph_.SetAuthor(author_name);
+    
+    EXPECT_EQ(graph_.GetAuthor(), author_name);
+}
+
+TEST_F(GraphTest, SetAuthorUpdatesModifiedTime) {
+    auto initial_modified = graph_.GetModifiedAt();
+    
+    // Sleep briefly to ensure time difference
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    
+    graph_.SetAuthor("Jane Smith");
+    
+    auto new_modified = graph_.GetModifiedAt();
+    
+    // Modified time should be greater than initial
+    EXPECT_GT(new_modified, initial_modified);
+}
+
+TEST_F(GraphTest, GettersReturnCorrectMetadata) {
+    // Set all metadata fields
+    const std::string project_name = "Test Project";
+    const std::string author = "Test Author";
+    
+    graph_.SetProjectName(project_name);
+    graph_.SetAuthor(author);
+    
+    // Verify all getters return correct values
+    EXPECT_EQ(graph_.GetProjectName(), project_name);
+    EXPECT_EQ(graph_.GetVersion(), "1.0");
+    EXPECT_EQ(graph_.GetAuthor(), author);
+    
+    // Verify timestamps are valid
+    auto created = graph_.GetCreatedAt();
+    auto modified = graph_.GetModifiedAt();
+    
+    // Modified should be after or equal to created
+    EXPECT_GE(modified, created);
+    
+    // Verify timestamps are reasonable (not in the future)
+    auto now = std::chrono::system_clock::now();
+    EXPECT_LE(created, now);
+    EXPECT_LE(modified, now);
+}
+
+#pragma endregion Constructor & Metadata
+
+#pragma region AddNode
+
+TEST_F(GraphTest, AddNodeCreatesLiteralNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kLiteral);
-    
-    // Verify it's actually a LiteralNode by calling a method specific to it
-    EXPECT_EQ(node->GetDisplayName(), "Literal");
+    EXPECT_EQ(node->id(), 0);
 }
 
-TEST_F(GraphTest, GetNode_ValidId_ReturnsCorrectNode) {
-    auto* node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    uint32_t id = node->id();
+TEST_F(GraphTest, AddNodeCreatesVariableNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
     
-    auto* retrieved = graph_.GetNode(id);
-    EXPECT_EQ(retrieved, node);
-    EXPECT_EQ(retrieved->id(), id);
+    ASSERT_NE(node, nullptr);
+    EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kVariable);
+    EXPECT_EQ(node->id(), 0);
 }
 
-TEST_F(GraphTest, GetNode_InvalidId_ReturnsNull) {
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+TEST_F(GraphTest, AddNodeCreatesFunctionNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
     
+    ASSERT_NE(node, nullptr);
+    EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunction);
+    EXPECT_EQ(node->id(), 0);
+}
+
+TEST_F(GraphTest, AddNodeCreatesFunctionInputNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput);
+    
+    ASSERT_NE(node, nullptr);
+    EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunctionInput);
+    EXPECT_EQ(node->id(), 0);
+}
+
+TEST_F(GraphTest, AddNodeCreatesFunctionOutputNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput);
+    
+    ASSERT_NE(node, nullptr);
+    EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunctionOutput);
+    EXPECT_EQ(node->id(), 0);
+}
+
+TEST_F(GraphTest, AddNodeThrowsOnUndefinedKind) {
+    EXPECT_THROW({
+        graph_.AddNode(core::NodeBase::NodeKind::kUndefined);
+    }, core::InvalidNodeKindException);
+}
+
+TEST_F(GraphTest, AddNodeAssignsUniqueIds) {
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    ASSERT_NE(node3, nullptr);
+    
+    // Verify IDs are unique
+    EXPECT_EQ(node1->id(), 0);
+    EXPECT_EQ(node2->id(), 1);
+    EXPECT_EQ(node3->id(), 2);
+    
+    // Verify all IDs are different
+    EXPECT_NE(node1->id(), node2->id());
+    EXPECT_NE(node2->id(), node3->id());
+    EXPECT_NE(node1->id(), node3->id());
+}
+
+TEST_F(GraphTest, AddNodeTemplatedVersionReturnsCorrectType) {
+    // Test with LiteralNode
+    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(literal_node, nullptr);
+    EXPECT_EQ(literal_node->kind(), core::NodeBase::NodeKind::kLiteral);
+    
+    // Test with VariableNode
+    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(variable_node, nullptr);
+    EXPECT_EQ(variable_node->kind(), core::NodeBase::NodeKind::kVariable);
+    
+    // Test with FunctionNode
+    auto *function_node = graph_.AddNode<core::FunctionNode>(core::NodeBase::NodeKind::kFunction);
+    ASSERT_NE(function_node, nullptr);
+    EXPECT_EQ(function_node->kind(), core::NodeBase::NodeKind::kFunction);
+    
+    // Test with FunctionInputNode
+    auto *input_node = graph_.AddNode<core::FunctionInputNode>(core::NodeBase::NodeKind::kFunctionInput);
+    ASSERT_NE(input_node, nullptr);
+    EXPECT_EQ(input_node->kind(), core::NodeBase::NodeKind::kFunctionInput);
+    
+    // Test with FunctionOutputNode
+    auto *output_node = graph_.AddNode<core::FunctionOutputNode>(core::NodeBase::NodeKind::kFunctionOutput);
+    ASSERT_NE(output_node, nullptr);
+    EXPECT_EQ(output_node->kind(), core::NodeBase::NodeKind::kFunctionOutput);
+}
+
+#pragma endregion AddNode
+
+#pragma region RemoveNode
+
+TEST_F(GraphTest, RemoveNodeDeletesExistingNode) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(node, nullptr);
+    
+    uint32_t node_id = node->id();
+    
+    // Remove the node
+    graph_.RemoveNode(node);
+    
+    // Verify node no longer exists in the graph
+    EXPECT_EQ(graph_.GetNode(node_id), nullptr);
+}
+
+TEST_F(GraphTest, RemoveNodeThrowsOnNullptr) {
+    EXPECT_THROW({
+        graph_.RemoveNode(nullptr);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, RemoveNodeThrowsOnUnownedNode) {
+    // Create a separate graph with its own node
+    core::Graph other_graph;
+    auto *other_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(other_node, nullptr);
+    
+    // Try to remove the other graph's node from this graph
+    EXPECT_THROW({
+        graph_.RemoveNode(other_node);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, RemoveNodeDisconnectsParentConnections) {
+    // Create three nodes: parent -> middle -> child
+    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(parent, nullptr);
+    ASSERT_NE(middle, nullptr);
+    ASSERT_NE(child, nullptr);
+    
+    // Link parent -> middle
+    graph_.Link(parent, 0, middle, 0);
+    
+    // Verify middle is connected to parent
+    EXPECT_TRUE(middle->IsInputPinConnected(0));
+    
+    // Remove middle node
+    graph_.RemoveNode(middle);
+    
+    // Verify parent no longer has middle as a child
+    EXPECT_FALSE(parent->IsOutputPinConnected(0));
+}
+
+TEST_F(GraphTest, RemoveNodeDisconnectsChildConnections) {
+    // Create three nodes: parent -> middle -> child
+    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(parent, nullptr);
+    ASSERT_NE(middle, nullptr);
+    ASSERT_NE(child, nullptr);
+    
+    // Link middle -> child
+    graph_.Link(middle, 0, child, 0);
+    
+    // Verify child is connected to middle
+    EXPECT_TRUE(child->IsInputPinConnected(0));
+    
+    // Remove middle node
+    graph_.RemoveNode(middle);
+    
+    // Verify child no longer has middle as a parent
+    EXPECT_FALSE(child->IsInputPinConnected(0));
+}
+
+TEST_F(GraphTest, RemoveNodeFreesNodeId) {
+    // Add a node
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(node1, nullptr);
+    uint32_t first_id = node1->id();
+    EXPECT_EQ(first_id, 0);
+    
+    // Add another node
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(node2, nullptr);
+    EXPECT_EQ(node2->id(), 1);
+    
+    // Remove the first node
+    graph_.RemoveNode(node1);
+    
+    // Add a new node - it should reuse the freed ID
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    ASSERT_NE(node3, nullptr);
+    
+    // The new node should have reused the freed ID (0)
+    EXPECT_EQ(node3->id(), first_id);
+}
+
+#pragma endregion RemoveNode
+
+#pragma region GetNode
+
+TEST_F(GraphTest, GetNodeReturnsExistingNode) {
+    // Add nodes with different kinds
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(literal_node, nullptr);
+    ASSERT_NE(variable_node, nullptr);
+    ASSERT_NE(function_node, nullptr);
+    
+    uint32_t literal_id = literal_node->id();
+    uint32_t variable_id = variable_node->id();
+    uint32_t function_id = function_node->id();
+    
+    // Retrieve nodes by their IDs
+    auto *retrieved_literal = graph_.GetNode(literal_id);
+    auto *retrieved_variable = graph_.GetNode(variable_id);
+    auto *retrieved_function = graph_.GetNode(function_id);
+    
+    // Verify we get the same nodes back
+    EXPECT_EQ(retrieved_literal, literal_node);
+    EXPECT_EQ(retrieved_variable, variable_node);
+    EXPECT_EQ(retrieved_function, function_node);
+    
+    // Verify node properties are correct
+    EXPECT_EQ(retrieved_literal->kind(), core::NodeBase::NodeKind::kLiteral);
+    EXPECT_EQ(retrieved_variable->kind(), core::NodeBase::NodeKind::kVariable);
+    EXPECT_EQ(retrieved_function->kind(), core::NodeBase::NodeKind::kFunction);
+}
+
+TEST_F(GraphTest, GetNodeReturnsNullptrForNonexistentId) {
     // Try to get a node with an ID that doesn't exist
-    auto* node = graph_.GetNode(999);
+    auto *node = graph_.GetNode(999);
+    
+    EXPECT_EQ(node, nullptr);
+    
+    // Add some nodes
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    // Try to get a node with an ID that still doesn't exist
+    node = graph_.GetNode(100);
+    
     EXPECT_EQ(node, nullptr);
 }
 
-TEST_F(GraphTest, GetNode_Templated_ReturnsCorrectType) {
-    auto* added_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    uint32_t id = added_node->id();
+TEST_F(GraphTest, GetNodeTemplatedVersionReturnsCorrectType) {
+    // Add nodes of specific types
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *input_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput);
+    auto *output_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput);
     
-    auto* retrieved = graph_.GetNode<core::LiteralNode>(id);
-    ASSERT_NE(retrieved, nullptr);
-    EXPECT_EQ(retrieved->id(), id);
-    EXPECT_EQ(retrieved->GetDisplayName(), "Literal");
+    ASSERT_NE(literal_node, nullptr);
+    ASSERT_NE(variable_node, nullptr);
+    ASSERT_NE(function_node, nullptr);
+    ASSERT_NE(input_node, nullptr);
+    ASSERT_NE(output_node, nullptr);
+    
+    // Retrieve nodes using templated version
+    auto *retrieved_literal = graph_.GetNode<core::LiteralNode>(literal_node->id());
+    auto *retrieved_variable = graph_.GetNode<core::VariableNode>(variable_node->id());
+    auto *retrieved_function = graph_.GetNode<core::FunctionNode>(function_node->id());
+    auto *retrieved_input = graph_.GetNode<core::FunctionInputNode>(input_node->id());
+    auto *retrieved_output = graph_.GetNode<core::FunctionOutputNode>(output_node->id());
+    
+    // Check for nulls
+    ASSERT_NE(retrieved_literal, nullptr);
+    ASSERT_NE(retrieved_variable, nullptr);
+    ASSERT_NE(retrieved_function, nullptr);
+    ASSERT_NE(retrieved_input, nullptr);
+    ASSERT_NE(retrieved_output, nullptr);
+    
+    // Verify the returned pointers match and have correct kinds
+    EXPECT_EQ(retrieved_literal->kind(), core::NodeBase::NodeKind::kLiteral);
+    EXPECT_EQ(retrieved_variable->kind(), core::NodeBase::NodeKind::kVariable);
+    EXPECT_EQ(retrieved_function->kind(), core::NodeBase::NodeKind::kFunction);
+    EXPECT_EQ(retrieved_input->kind(), core::NodeBase::NodeKind::kFunctionInput);
+    EXPECT_EQ(retrieved_output->kind(), core::NodeBase::NodeKind::kFunctionOutput);
+    
+    // Test that nullptr is returned for non-existent ID
+    auto *null_node = graph_.GetNode<core::LiteralNode>(999);
+    EXPECT_EQ(null_node, nullptr);
 }
 
-TEST_F(GraphTest, RemoveNode_ValidNode_RemovesFromGraph) {
-    auto* node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    uint32_t id = node->id();
+#pragma endregion GetNode
+
+#pragma region Link
+
+TEST_F(GraphTest, LinkConnectsTwoNodes) {
+    // Create two nodes with compatible pin types
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
     
-    graph_.RemoveNode(node);
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
     
-    // Verify node is no longer accessible
-    auto* retrieved = graph_.GetNode(id);
-    EXPECT_EQ(retrieved, nullptr);
+    // Verify nodes are not connected initially
+    EXPECT_FALSE(to_node->IsInputPinConnected(0));
+    EXPECT_FALSE(from_node->IsOutputPinConnected(0));
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify connection was established
+    EXPECT_TRUE(to_node->IsInputPinConnected(0));
+    EXPECT_TRUE(from_node->IsOutputPinConnected(0));
 }
 
-TEST_F(GraphTest, RemoveNode_NullPointer_DoesNotCrash) {
-    // Should not crash when removing null
-    EXPECT_NO_THROW(graph_.RemoveNode(nullptr));
+TEST_F(GraphTest, LinkThrowsOnNullFromNode) {
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
+    
+    EXPECT_THROW({
+        graph_.Link(nullptr, 0, to_node, 0);
+    }, core::NodeNotFoundException);
 }
 
-TEST_F(GraphTest, RemoveNode_NonExistentNode_DoesNotCrash) {
-    // Create a node in a different graph
+TEST_F(GraphTest, LinkThrowsOnNullToNode) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
+    
+    EXPECT_THROW({
+        graph_.Link(from_node, 0, nullptr, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnUnownedFromNode) {
+    // Create a node in another graph
     core::Graph other_graph;
-    auto* other_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *from_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
     
-    // Try to remove it from this graph - should not crash
-    EXPECT_NO_THROW(graph_.RemoveNode(other_node));
-}
-
-// Metadata Tests
-
-TEST_F(GraphTest, Metadata_DefaultValues_AreSet) {
-    EXPECT_EQ(graph_.GetProjectName(), "Untitled Project");
-    EXPECT_EQ(graph_.GetVersion(), "1.0");
-    EXPECT_EQ(graph_.GetAuthor(), "");
-    // Timestamps should be set to current time (non-zero)
-}
-
-TEST_F(GraphTest, Metadata_SetProjectName_UpdatesValue) {
-    graph_.SetProjectName("Test Project");
-    EXPECT_EQ(graph_.GetProjectName(), "Test Project");
-}
-
-TEST_F(GraphTest, Metadata_SetAuthor_UpdatesValue) {
-    graph_.SetAuthor("Test Author");
-    EXPECT_EQ(graph_.GetAuthor(), "Test Author");
-}
-
-TEST_F(GraphTest, Metadata_UpdateModifiedTime_ChangesTimestamp) {
-    auto initial_time = graph_.GetModifiedAt();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    graph_.UpdateModifiedTime();
-    auto new_time = graph_.GetModifiedAt();
-    EXPECT_GT(new_time, initial_time);
-}
-
-// Serialization Tests
-
-TEST_F(GraphTest, Serialize_EmptyGraph_ReturnsValidJSON) {
-    auto json = graph_.Serialize();
+    // Create a node in this graph
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
     
+    // Try to link from unowned node
+    EXPECT_THROW({
+        graph_.Link(from_node, 0, to_node, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnUnownedToNode) {
+    // Create a node in this graph
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
+    
+    // Create a node in another graph
+    core::Graph other_graph;
+    auto *to_node = other_graph.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Try to link to unowned node
+    EXPECT_THROW({
+        graph_.Link(from_node, 0, to_node, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnInvalidOutputPin) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Try to link with invalid output pin (out of bounds)
+    uint8_t invalid_pin = from_node->GetOutputPinCount() + 10;
+    
+    EXPECT_THROW({
+        graph_.Link(from_node, invalid_pin, to_node, 0);
+    }, core::InvalidPinIndexException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnInvalidInputPin) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Try to link with invalid input pin (out of bounds)
+    uint8_t invalid_pin = to_node->GetInputPinCount() + 10;
+    
+    EXPECT_THROW({
+        graph_.Link(from_node, 0, to_node, invalid_pin);
+    }, core::InvalidPinIndexException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
+    // Create two nodes with incompatible types
+    // LiteralNode typically has one type, we need nodes with different pin types
+    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(literal_node, nullptr);
+    ASSERT_NE(variable_node, nullptr);
+    
+    // Set literal to Int type
+    literal_node->set_data(42.0f);
+    
+    // Set variable to Float type (incompatible with Int)
+    variable_node->set_type(core::NodeBase::PinDataType::kFloat);
+    
+    // Try to link incompatible types
+    EXPECT_THROW({
+        graph_.Link(literal_node, 0, variable_node, 0);
+    }, core::IncompatiblePinTypesException);
+}
+
+TEST_F(GraphTest, LinkThrowsOnCircularDependency) {
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(node, nullptr);
+    
+    // Try to link a node to itself
+    EXPECT_THROW({
+        graph_.Link(node, 0, node, 0);
+    }, core::CircularDependencyException);
+}
+
+TEST_F(GraphTest, LinkSeversPreviousConnection) {
+    // Create three nodes: A -> B, then A' -> B (severing A -> B)
+    auto *node_a = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node_a_prime = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node_b = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node_a, nullptr);
+    ASSERT_NE(node_a_prime, nullptr);
+    ASSERT_NE(node_b, nullptr);
+    
+    // Link A -> B
+    graph_.Link(node_a, 0, node_b, 0);
+    
+    // Verify connection exists
+    EXPECT_TRUE(node_b->IsInputPinConnected(0));
+    auto conn = node_b->parent(0);
+    EXPECT_EQ(conn.node, node_a);
+    
+    // Link A' -> B (should sever A -> B)
+    graph_.Link(node_a_prime, 0, node_b, 0);
+    
+    // Verify new connection
+    EXPECT_TRUE(node_b->IsInputPinConnected(0));
+    conn = node_b->parent(0);
+    EXPECT_EQ(conn.node, node_a_prime);
+    EXPECT_NE(conn.node, node_a);
+    
+    // Verify old connection was severed
+    EXPECT_FALSE(node_a->IsOutputPinConnected(0));
+}
+
+TEST_F(GraphTest, LinkUpdatesParentConnection) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify parent connection is set correctly
+    EXPECT_TRUE(to_node->IsInputPinConnected(0));
+    
+    auto parent_conn = to_node->parent(0);
+    EXPECT_EQ(parent_conn.node, from_node);
+    EXPECT_EQ(parent_conn.out_pin, 0);
+    EXPECT_EQ(parent_conn.in_pin, 0);
+    EXPECT_TRUE(parent_conn.IsConnected());
+}
+
+TEST_F(GraphTest, LinkUpdatesChildConnection) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify child connection is set correctly
+    EXPECT_TRUE(from_node->IsOutputPinConnected(0));
+    
+    auto children = from_node->childrens(0);
+    ASSERT_NE(children, nullptr);
+    ASSERT_FALSE(children->empty());
+    
+    const auto &child_conn = children->at(0);
+    EXPECT_EQ(child_conn.node, to_node);
+    EXPECT_EQ(child_conn.out_pin, 0);
+    EXPECT_EQ(child_conn.in_pin, 0);
+    EXPECT_TRUE(child_conn.IsConnected());
+}
+
+#pragma endregion Link
+
+#pragma region Unlink
+
+TEST_F(GraphTest, UnlinkDisconnectsTwoNodes) {
+    // Create and link two nodes
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify connection exists
+    EXPECT_TRUE(to_node->IsInputPinConnected(0));
+    EXPECT_TRUE(from_node->IsOutputPinConnected(0));
+    
+    // Unlink the nodes
+    graph_.Unlink(from_node, 0, to_node, 0);
+    
+    // Verify connection was removed
+    EXPECT_FALSE(to_node->IsInputPinConnected(0));
+    EXPECT_FALSE(from_node->IsOutputPinConnected(0));
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnNullFromNode) {
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
+    
+    EXPECT_THROW({
+        graph_.Unlink(nullptr, 0, to_node, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnNullToNode) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
+    
+    EXPECT_THROW({
+        graph_.Unlink(from_node, 0, nullptr, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnUnownedFromNode) {
+    // Create a node in another graph
+    core::Graph other_graph;
+    auto *from_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
+    
+    // Create a node in this graph
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Try to unlink from unowned node
+    EXPECT_THROW({
+        graph_.Unlink(from_node, 0, to_node, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnUnownedToNode) {
+    // Create a node in this graph
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(from_node, nullptr);
+    
+    // Create a node in another graph
+    core::Graph other_graph;
+    auto *to_node = other_graph.AddNode(core::NodeBase::NodeKind::kVariable);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Try to unlink to unowned node
+    EXPECT_THROW({
+        graph_.Unlink(from_node, 0, to_node, 0);
+    }, core::NodeNotFoundException);
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnInvalidOutputPin) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes first
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Try to unlink with invalid output pin (out of bounds)
+    uint8_t invalid_pin = from_node->GetOutputPinCount() + 10;
+    
+    EXPECT_THROW({
+        graph_.Unlink(from_node, invalid_pin, to_node, 0);
+    }, core::InvalidPinIndexException);
+}
+
+TEST_F(GraphTest, UnlinkThrowsOnInvalidInputPin) {
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes first
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Try to unlink with invalid input pin (out of bounds)
+    uint8_t invalid_pin = to_node->GetInputPinCount() + 10;
+    
+    EXPECT_THROW({
+        graph_.Unlink(from_node, 0, to_node, invalid_pin);
+    }, core::InvalidPinIndexException);
+}
+
+TEST_F(GraphTest, UnlinkClearsParentConnection) {
+    // Create and link two nodes
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify parent connection exists
+    EXPECT_TRUE(to_node->IsInputPinConnected(0));
+    auto parent_conn = to_node->parent(0);
+    EXPECT_EQ(parent_conn.node, from_node);
+    
+    // Unlink the nodes
+    graph_.Unlink(from_node, 0, to_node, 0);
+    
+    // Verify parent connection is cleared
+    EXPECT_FALSE(to_node->IsInputPinConnected(0));
+}
+
+TEST_F(GraphTest, UnlinkRemovesChildConnection) {
+    // Create and link two nodes
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(from_node, nullptr);
+    ASSERT_NE(to_node, nullptr);
+    
+    // Link the nodes
+    graph_.Link(from_node, 0, to_node, 0);
+    
+    // Verify child connection exists
+    EXPECT_TRUE(from_node->IsOutputPinConnected(0));
+    auto children = from_node->childrens(0);
+    ASSERT_NE(children, nullptr);
+    ASSERT_FALSE(children->empty());
+    EXPECT_EQ(children->at(0).node, to_node);
+    
+    // Unlink the nodes
+    graph_.Unlink(from_node, 0, to_node, 0);
+    
+    // Verify child connection is removed
+    EXPECT_FALSE(from_node->IsOutputPinConnected(0));
+}
+
+#pragma endregion Unlink
+
+#pragma region Serialization
+
+TEST_F(GraphTest, SerializeCreatesValidJson) {
+    // Add some nodes to the graph
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    
+    // Link the nodes
+    graph_.Link(node1, 0, node2, 0);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify JSON structure contains all required top-level fields
     EXPECT_TRUE(json.contains("metadata"));
     EXPECT_TRUE(json.contains("graph"));
+    
+    // Verify metadata section
+    EXPECT_TRUE(json["metadata"].contains("project_name"));
+    EXPECT_TRUE(json["metadata"].contains("version"));
+    EXPECT_TRUE(json["metadata"].contains("author"));
+    EXPECT_TRUE(json["metadata"].contains("created_at"));
+    EXPECT_TRUE(json["metadata"].contains("modified_at"));
+    
+    // Verify graph section
     EXPECT_TRUE(json["graph"].contains("next_id"));
     EXPECT_TRUE(json["graph"].contains("nodes"));
     EXPECT_TRUE(json["graph"].contains("connections"));
+    
+    // Verify arrays are actually arrays
     EXPECT_TRUE(json["graph"]["nodes"].is_array());
     EXPECT_TRUE(json["graph"]["connections"].is_array());
-    EXPECT_EQ(json["graph"]["nodes"].size(), 0);
-    EXPECT_EQ(json["graph"]["connections"].size(), 0);
 }
 
-TEST_F(GraphTest, Serialize_WithMetadata_IncludesMetadataFields) {
-    graph_.SetProjectName("My Project");
-    graph_.SetAuthor("John Doe");
+TEST_F(GraphTest, SerializeIncludesAllMetadata) {
+    // Set custom metadata
+    const std::string project_name = "Test Serialization Project";
+    const std::string author = "Test Author";
     
-    auto json = graph_.Serialize();
+    graph_.SetProjectName(project_name);
+    graph_.SetAuthor(author);
     
-    EXPECT_EQ(json["metadata"]["project_name"], "My Project");
-    EXPECT_EQ(json["metadata"]["author"], "John Doe");
-    EXPECT_EQ(json["metadata"]["version"], "1.0");
-    EXPECT_TRUE(json["metadata"].contains("created_at"));
-    EXPECT_TRUE(json["metadata"].contains("modified_at"));
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify all metadata fields are present and correct
+    EXPECT_EQ(json["metadata"]["project_name"].get<std::string>(), project_name);
+    EXPECT_EQ(json["metadata"]["version"].get<std::string>(), "1.0");
+    EXPECT_EQ(json["metadata"]["author"].get<std::string>(), author);
+    
+    // Verify timestamps are present and are strings
+    EXPECT_TRUE(json["metadata"]["created_at"].is_string());
+    EXPECT_TRUE(json["metadata"]["modified_at"].is_string());
+    
+    // Verify timestamp strings are not empty
+    EXPECT_FALSE(json["metadata"]["created_at"].get<std::string>().empty());
+    EXPECT_FALSE(json["metadata"]["modified_at"].get<std::string>().empty());
 }
 
-TEST_F(GraphTest, Serialize_WithNodes_IncludesAllNodes) {
+TEST_F(GraphTest, SerializeIncludesNextId) {
+    // Add multiple nodes to increment the ID counter
     graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    graph_.AddNode(core::NodeBase::NodeKind::kFunction);
     
-    auto json = graph_.Serialize();
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
     
+    // Verify next_id is present
+    EXPECT_TRUE(json["graph"].contains("next_id"));
+    EXPECT_TRUE(json["graph"]["next_id"].is_number_unsigned());
+    
+    // Next ID should be 3 (after IDs 0, 1, 2 have been used)
+    EXPECT_EQ(json["graph"]["next_id"].get<uint32_t>(), 3);
+}
+
+TEST_F(GraphTest, SerializeIncludesAllNodes) {
+    // Add multiple nodes of different types
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(literal_node, nullptr);
+    ASSERT_NE(variable_node, nullptr);
+    ASSERT_NE(function_node, nullptr);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify nodes array contains all nodes
+    EXPECT_TRUE(json["graph"]["nodes"].is_array());
     EXPECT_EQ(json["graph"]["nodes"].size(), 3);
-    EXPECT_EQ(json["graph"]["next_id"], 3);
+    
+    // Verify each node has required fields
+    for (const auto &node_json : json["graph"]["nodes"]) {
+        EXPECT_TRUE(node_json.contains("id"));
+        EXPECT_TRUE(node_json.contains("kind"));
+        EXPECT_TRUE(node_json["id"].is_number_unsigned());
+        EXPECT_TRUE(node_json["kind"].is_string());
+    }
+    
+    // Verify node IDs are present
+    std::vector<uint32_t> ids;
+    for (const auto &node_json : json["graph"]["nodes"]) {
+        ids.push_back(node_json["id"].get<uint32_t>());
+    }
+    
+    EXPECT_NE(std::find(ids.begin(), ids.end(), literal_node->id()), ids.end());
+    EXPECT_NE(std::find(ids.begin(), ids.end(), variable_node->id()), ids.end());
+    EXPECT_NE(std::find(ids.begin(), ids.end(), function_node->id()), ids.end());
 }
 
-TEST_F(GraphTest, Serialize_WithConnections_IncludesAllConnections) {
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+TEST_F(GraphTest, SerializeIncludesAllConnections) {
+    // Create a small graph with connections
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
     
-    // For now, just test that connections array exists in serialization structure
-    // Connection tests would require properly initialized literal nodes with compatible types
-    auto json = graph_.Serialize();
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    ASSERT_NE(node3, nullptr);
     
+    // Create connections: node1 -> node2, node1 -> node3
+    graph_.Link(node1, 0, node2, 0);
+    graph_.Link(node1, 0, node3, 0);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify connections array
     EXPECT_TRUE(json["graph"]["connections"].is_array());
+    EXPECT_EQ(json["graph"]["connections"].size(), 2);
+    
+    // Verify each connection has required fields
+    for (const auto &conn_json : json["graph"]["connections"]) {
+        EXPECT_TRUE(conn_json.contains("source_node_id"));
+        EXPECT_TRUE(conn_json.contains("source_pin"));
+        EXPECT_TRUE(conn_json.contains("target_node_id"));
+        EXPECT_TRUE(conn_json.contains("target_pin"));
+        
+        EXPECT_TRUE(conn_json["source_node_id"].is_number_unsigned());
+        EXPECT_TRUE(conn_json["source_pin"].is_number_unsigned());
+        EXPECT_TRUE(conn_json["target_node_id"].is_number_unsigned());
+        EXPECT_TRUE(conn_json["target_pin"].is_number_unsigned());
+    }
+    
+    // Verify the connections are correct
+    int connections_found = 0;
+    for (const auto &conn_json : json["graph"]["connections"]) {
+        uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
+        uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
+        
+        if (source_id == node1->id() && target_id == node2->id()) {
+            connections_found++;
+        }
+        if (source_id == node1->id() && target_id == node3->id()) {
+            connections_found++;
+        }
+    }
+    
+    EXPECT_EQ(connections_found, 2);
 }
 
-TEST_F(GraphTest, Serialize_NodeData_ContainsRequiredFields) {
-    auto* node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+TEST_F(GraphTest, SerializeTimestampsInISO8601Format) {
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
     
-    auto json = graph_.Serialize();
-    auto& node_json = json["graph"]["nodes"][0];
+    // Get timestamp strings
+    std::string created_at = json["metadata"]["created_at"].get<std::string>();
+    std::string modified_at = json["metadata"]["modified_at"].get<std::string>();
     
-    EXPECT_TRUE(node_json.contains("id"));
-    EXPECT_TRUE(node_json.contains("kind"));
-    EXPECT_EQ(node_json["id"], node->id());
-    EXPECT_EQ(node_json["kind"], "Literal");
-}
-
-// Deserialization Tests
-
-TEST_F(GraphTest, Deserialize_ValidJSON_ReturnsGraph) {
-    nlohmann::json json = {
-        {"metadata", {
-            {"project_name", "Test"},
-            {"version", "1.0"},
-            {"author", "Tester"},
-            {"created_at", "2026-03-04T10:00:00Z"},
-            {"modified_at", "2026-03-04T10:00:00Z"}
-        }},
-        {"graph", {
-            {"next_id", 0},
-            {"nodes", nlohmann::json::array()},
-            {"connections", nlohmann::json::array()}
-        }}
+    // ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+    // Basic validation of format (20 characters, proper separators)
+    EXPECT_EQ(created_at.length(), 20);
+    EXPECT_EQ(modified_at.length(), 20);
+    
+    // Verify format structure
+    EXPECT_EQ(created_at[4], '-');   // Year-Month separator
+    EXPECT_EQ(created_at[7], '-');   // Month-Day separator
+    EXPECT_EQ(created_at[10], 'T');  // Date-Time separator
+    EXPECT_EQ(created_at[13], ':');  // Hour-Minute separator
+    EXPECT_EQ(created_at[16], ':');  // Minute-Second separator
+    EXPECT_EQ(created_at[19], 'Z');  // UTC timezone marker
+    
+    EXPECT_EQ(modified_at[4], '-');
+    EXPECT_EQ(modified_at[7], '-');
+    EXPECT_EQ(modified_at[10], 'T');
+    EXPECT_EQ(modified_at[13], ':');
+    EXPECT_EQ(modified_at[16], ':');
+    EXPECT_EQ(modified_at[19], 'Z');
+    
+    // Verify that all other characters are digits (except separators and 'T', 'Z')
+    auto is_valid_char = [](char c, size_t pos) {
+        if (pos == 4 || pos == 7 || pos == 13 || pos == 16) return c == '-' || c == ':';
+        if (pos == 10) return c == 'T';
+        if (pos == 19) return c == 'Z';
+        return static_cast<bool>(std::isdigit(c));
     };
     
+    for (size_t i = 0; i < created_at.length(); ++i) {
+        EXPECT_TRUE(is_valid_char(created_at[i], i)) 
+            << "Invalid character at position " << i << " in created_at: " << created_at;
+    }
+    
+    for (size_t i = 0; i < modified_at.length(); ++i) {
+        EXPECT_TRUE(is_valid_char(modified_at[i], i))
+            << "Invalid character at position " << i << " in modified_at: " << modified_at;
+    }
+}
+
+#pragma endregion Serialization
+
+#pragma region Deserialization
+
+TEST_F(GraphTest, DeserializeRestoresEmptyGraph) {
+    // Set some metadata
+    graph_.SetProjectName("Empty Graph Test");
+    graph_.SetAuthor("Test Author");
+    
+    // Serialize the empty graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Deserialize it back
     auto result = core::Graph::Deserialize(json);
+    
     ASSERT_TRUE(result.has_value());
     
-    auto& graph = result.value();
-    EXPECT_EQ(graph.GetProjectName(), "Test");
-    EXPECT_EQ(graph.GetAuthor(), "Tester");
+    const auto &restored_graph = result.value();
+    
+    // Verify metadata was restored
+    EXPECT_EQ(restored_graph.GetProjectName(), "Empty Graph Test");
+    EXPECT_EQ(restored_graph.GetAuthor(), "Test Author");
+    EXPECT_EQ(restored_graph.GetVersion(), "1.0");
+    
+    // Verify graph is empty (no nodes)
+    EXPECT_EQ(restored_graph.GetNode(0), nullptr);
 }
 
-TEST_F(GraphTest, Deserialize_MissingMetadata_ReturnsError) {
-    nlohmann::json json = {
-        {"graph", {
-            {"next_id", 0},
-            {"nodes", nlohmann::json::array()},
-            {"connections", nlohmann::json::array()}
-        }}
-    };
+TEST_F(GraphTest, DeserializeRestoresGraphWithNodes) {
+    // Create a graph with multiple nodes
+    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *variable = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
     
-    auto result = core::Graph::Deserialize(json);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_TRUE(result.error().find("metadata") != std::string::npos);
-}
-
-TEST_F(GraphTest, Deserialize_MissingGraphSection_ReturnsError) {
-    nlohmann::json json = {
-        {"metadata", {
-            {"project_name", "Test"},
-            {"version", "1.0"},
-            {"created_at", "2026-03-04T10:00:00Z"},
-            {"modified_at", "2026-03-04T10:00:00Z"}
-        }}
-    };
+    ASSERT_NE(literal, nullptr);
+    ASSERT_NE(variable, nullptr);
+    ASSERT_NE(function, nullptr);
     
-    auto result = core::Graph::Deserialize(json);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_TRUE(result.error().find("graph") != std::string::npos);
-}
-
-TEST_F(GraphTest, Deserialize_WrongVersion_ReturnsError) {
-    nlohmann::json json = {
-        {"metadata", {
-            {"project_name", "Test"},
-            {"version", "2.0"},
-            {"created_at", "2026-03-04T10:00:00Z"},
-            {"modified_at", "2026-03-04T10:00:00Z"}
-        }},
-        {"graph", {
-            {"next_id", 0},
-            {"nodes", nlohmann::json::array()},
-            {"connections", nlohmann::json::array()}
-        }}
-    };
+    uint32_t literal_id = literal->id();
+    uint32_t variable_id = variable->id();
+    uint32_t function_id = function->id();
     
-    auto result = core::Graph::Deserialize(json);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_TRUE(result.error().find("version") != std::string::npos);
-}
-
-TEST_F(GraphTest, Deserialize_WithNodes_RestoresAllNodes) {
-    nlohmann::json json = {
-        {"metadata", {
-            {"project_name", "Test"},
-            {"version", "1.0"},
-            {"created_at", "2026-03-04T10:00:00Z"},
-            {"modified_at", "2026-03-04T10:00:00Z"}
-        }},
-        {"graph", {
-            {"next_id", 3},
-            {"nodes", nlohmann::json::array({
-                {{"id", 0}, {"kind", "Literal"}, {"type", "Int"}, {"name", "Node1"}},
-                {{"id", 1}, {"kind", "Literal"}, {"type", "Float"}, {"name", "Node2"}},
-                {{"id", 2}, {"kind", "Literal"}, {"type", "String"}, {"name", "Node3"}}
-            })},
-            {"connections", nlohmann::json::array()}
-        }}
-    };
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
     
+    // Deserialize it back
     auto result = core::Graph::Deserialize(json);
+    
     ASSERT_TRUE(result.has_value());
     
-    auto& graph = result.value();
-    EXPECT_NE(graph.GetNode(0), nullptr);
-    EXPECT_NE(graph.GetNode(1), nullptr);
-    EXPECT_NE(graph.GetNode(2), nullptr);
+    auto &restored_graph = result.value();
+    
+    // Verify all nodes were restored
+    auto *restored_literal = restored_graph.GetNode(literal_id);
+    auto *restored_variable = restored_graph.GetNode(variable_id);
+    auto *restored_function = restored_graph.GetNode(function_id);
+    
+    ASSERT_NE(restored_literal, nullptr);
+    ASSERT_NE(restored_variable, nullptr);
+    ASSERT_NE(restored_function, nullptr);
+    
+    // Verify node kinds
+    EXPECT_EQ(restored_literal->kind(), core::NodeBase::NodeKind::kLiteral);
+    EXPECT_EQ(restored_variable->kind(), core::NodeBase::NodeKind::kVariable);
+    EXPECT_EQ(restored_function->kind(), core::NodeBase::NodeKind::kFunction);
 }
 
-TEST_F(GraphTest, Deserialize_InvalidNodeKind_ReturnsError) {
-    nlohmann::json json = {
-        {"metadata", {
-            {"project_name", "Test"},
-            {"version", "1.0"},
-            {"created_at", "2026-03-04T10:00:00Z"},
-            {"modified_at", "2026-03-04T10:00:00Z"}
-        }},
-        {"graph", {
-            {"next_id", 1},
-            {"nodes", nlohmann::json::array({
-                {{"id", 0}, {"kind", "InvalidKind"}, {"type", "Int"}, {"name", "Node1"}}
-            })},
-            {"connections", nlohmann::json::array()}
-        }}
-    };
+TEST_F(GraphTest, DeserializeRestoresGraphWithConnections) {
+    // Create a graph with connections
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    ASSERT_NE(node3, nullptr);
+    
+    uint32_t id1 = node1->id();
+    uint32_t id2 = node2->id();
+    uint32_t id3 = node3->id();
+    
+    // Create connections: node1 -> node2, node2 -> node3
+    graph_.Link(node1, 0, node2, 0);
+    graph_.Link(node2, 0, node3, 0);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Deserialize it back
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    auto &restored_graph = result.value();
+    
+    // Get restored nodes
+    auto *restored1 = restored_graph.GetNode(id1);
+    auto *restored2 = restored_graph.GetNode(id2);
+    auto *restored3 = restored_graph.GetNode(id3);
+    
+    ASSERT_NE(restored1, nullptr);
+    ASSERT_NE(restored2, nullptr);
+    ASSERT_NE(restored3, nullptr);
+    
+    // Verify connections were restored
+    EXPECT_TRUE(restored2->IsInputPinConnected(0));
+    EXPECT_TRUE(restored3->IsInputPinConnected(0));
+    
+    // Verify parent connections
+    auto parent2 = restored2->parent(0);
+    EXPECT_EQ(parent2.node->id(), id1);
+    
+    auto parent3 = restored3->parent(0);
+    EXPECT_EQ(parent3.node->id(), id2);
+}
+
+TEST_F(GraphTest, DeserializeRestoresMetadata) {
+    // Set specific metadata
+    const std::string project_name = "Metadata Restore Test";
+    const std::string author = "Deserialization Tester";
+    
+    graph_.SetProjectName(project_name);
+    graph_.SetAuthor(author);
+    
+    auto original_created = graph_.GetCreatedAt();
+    auto original_modified = graph_.GetModifiedAt();
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Deserialize it back
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    const auto &restored_graph = result.value();
+    
+    // Verify all metadata fields
+    EXPECT_EQ(restored_graph.GetProjectName(), project_name);
+    EXPECT_EQ(restored_graph.GetVersion(), "1.0");
+    EXPECT_EQ(restored_graph.GetAuthor(), author);
+    
+    // Verify timestamps (converted to time_t for comparison to avoid precision issues)
+    auto restored_created = restored_graph.GetCreatedAt();
+    auto restored_modified = restored_graph.GetModifiedAt();
+    
+    auto original_created_t = std::chrono::system_clock::to_time_t(original_created);
+    auto restored_created_t = std::chrono::system_clock::to_time_t(restored_created);
+    
+    auto original_modified_t = std::chrono::system_clock::to_time_t(original_modified);
+    auto restored_modified_t = std::chrono::system_clock::to_time_t(restored_modified);
+    
+    EXPECT_EQ(original_created_t, restored_created_t);
+    EXPECT_EQ(original_modified_t, restored_modified_t);
+}
+
+TEST_F(GraphTest, DeserializeRestoresNextId) {
+    // Add some nodes to increment the ID counter
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify next_id in JSON
+    EXPECT_EQ(json["graph"]["next_id"].get<uint32_t>(), 3);
+    
+    // Deserialize it back
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    auto &restored_graph = result.value();
+    
+    // Add a new node to verify the ID counter was restored
+    auto *new_node = restored_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(new_node, nullptr);
+    
+    // The new node should get ID 3 (next available after 0, 1, 2)
+    EXPECT_EQ(new_node->id(), 3);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnMissingMetadata) {
+    nlohmann::json json;
+    
+    // Create JSON with missing metadata section
+    json["graph"]["next_id"] = 0;
+    json["graph"]["nodes"] = nlohmann::json::array();
+    json["graph"]["connections"] = nlohmann::json::array();
     
     auto result = core::Graph::Deserialize(json);
-    EXPECT_FALSE(result.has_value());
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("metadata"), std::string::npos);
 }
 
-// Round-trip Tests
+TEST_F(GraphTest, DeserializeFailsOnMissingGraph) {
+    nlohmann::json json;
+    
+    // Create JSON with missing graph section
+    json["metadata"]["project_name"] = "Test";
+    json["metadata"]["version"] = "1.0";
+    json["metadata"]["author"] = "Test";
+    json["metadata"]["created_at"] = "2026-01-01T00:00:00Z";
+    json["metadata"]["modified_at"] = "2026-01-01T00:00:00Z";
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("graph"), std::string::npos);
+}
 
-TEST_F(GraphTest, RoundTrip_EmptyGraph_PreservesData) {
+TEST_F(GraphTest, DeserializeFailsOnInvalidVersion) {
+    // Create a valid serialized graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Change version to unsupported value
+    json["metadata"]["version"] = "2.0";
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("version"), std::string::npos);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnMalformedNodes) {
+    nlohmann::json json = graph_.Serialize();
+    
+    // Make nodes not an array
+    json["graph"]["nodes"] = "not an array";
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("nodes"), std::string::npos);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnMalformedConnections) {
+    nlohmann::json json = graph_.Serialize();
+    
+    // Make connections not an array
+    json["graph"]["connections"] = "not an array";
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("connections"), std::string::npos);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnNonexistentConnectionNode) {
+    // Create a graph with a node
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    ASSERT_NE(node, nullptr);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Add a connection referencing a non-existent node
+    nlohmann::json fake_connection;
+    fake_connection["source_node_id"] = 999;
+    fake_connection["source_pin"] = 0;
+    fake_connection["target_node_id"] = node->id();
+    fake_connection["target_pin"] = 0;
+    
+    json["graph"]["connections"].push_back(fake_connection);
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("non-existent"), std::string::npos);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnInvalidPinIndex) {
+    // Create two nodes
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Add a connection with invalid pin index
+    nlohmann::json bad_connection;
+    bad_connection["source_node_id"] = node1->id();
+    bad_connection["source_pin"] = 255;  // Invalid pin index
+    bad_connection["target_node_id"] = node2->id();
+    bad_connection["target_pin"] = 0;
+    
+    json["graph"]["connections"].push_back(bad_connection);
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("pin"), std::string::npos);
+}
+
+TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
+    // Create two nodes with incompatible types
+    auto *literal = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+    auto *variable = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(literal, nullptr);
+    ASSERT_NE(variable, nullptr);
+    
+    // Set incompatible types
+    literal->set_data(42.0f);  // Float
+    variable->set_type(core::NodeBase::PinDataType::kInt);  // Int
+    
+    // Serialize the graph
+    nlohmann::json json = graph_.Serialize();
+    
+    // Manually add a connection with incompatible types
+    nlohmann::json bad_connection;
+    bad_connection["source_node_id"] = literal->id();
+    bad_connection["source_pin"] = 0;
+    bad_connection["target_node_id"] = variable->id();
+    bad_connection["target_pin"] = 0;
+    
+    json["graph"]["connections"].push_back(bad_connection);
+    
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("cannot be connected"), std::string::npos);
+}
+
+#pragma endregion Deserialization
+
+#pragma region File I/O
+
+TEST_F(GraphTest, SaveToFileCreatesFile) {
+    // Create a test file path
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "test_graph.nebula";
+    
+    // Ensure the file doesn't exist before the test
+    std::filesystem::remove(test_path);
+    
+    // Add some nodes and connections
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    
+    graph_.Link(node1, 0, node2, 0);
+    
+    // Save the graph
+    auto result = graph_.SaveToFile(test_path);
+    
+    ASSERT_TRUE(result.has_value()) << "SaveToFile failed: " << result.error();
+    
+    // Verify file exists
+    EXPECT_TRUE(std::filesystem::exists(test_path));
+    
+    // Verify file contains valid JSON
+    std::ifstream file(test_path);
+    ASSERT_TRUE(file.is_open());
+    
+    nlohmann::json json;
+    EXPECT_NO_THROW({
+        file >> json;
+    });
+    
+    file.close();
+    
+    // Verify JSON structure
+    EXPECT_TRUE(json.contains("metadata"));
+    EXPECT_TRUE(json.contains("graph"));
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, SaveToFileUpdatesModifiedTime) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "test_modified_time.nebula";
+    
+    auto initial_modified = graph_.GetModifiedAt();
+    
+    // Sleep to ensure time difference
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    
+    // Save the graph
+    auto result = graph_.SaveToFile(test_path);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    auto new_modified = graph_.GetModifiedAt();
+    
+    // Verify modified time was updated
+    EXPECT_GT(new_modified, initial_modified);
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, SaveToFilePrettyPrintsJson) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "test_pretty_print.nebula";
+    
+    // Add a node
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    
+    // Save the graph
+    auto result = graph_.SaveToFile(test_path);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    // Read the file as text
+    std::ifstream file(test_path);
+    ASSERT_TRUE(file.is_open());
+    
+    std::string content((std::istreambuf_iterator<char>(file)),
+                        std::istreambuf_iterator<char>());
+    file.close();
+    
+    // Verify pretty printing (indentation)
+    // Pretty printed JSON should contain newlines and spaces
+    EXPECT_NE(content.find('\n'), std::string::npos);
+    EXPECT_NE(content.find("  "), std::string::npos);  // Indentation (4 spaces)
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, SaveToFileFailsOnInvalidPath) {
+    // Try to save to an invalid/inaccessible path
+    std::filesystem::path invalid_path = "/root/nonexistent/directory/file.nebula";
+    
+    auto result = graph_.SaveToFile(invalid_path);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_FALSE(result.error().empty());
+}
+
+TEST_F(GraphTest, LoadFromFileRestoresGraph) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "test_load.nebula";
+    
+    // Create and save a graph
+    graph_.SetProjectName("Load Test Graph");
+    graph_.SetAuthor("Test Author");
+    
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    
+    uint32_t id1 = node1->id();
+    uint32_t id2 = node2->id();
+    
+    graph_.Link(node1, 0, node2, 0);
+    
+    auto save_result = graph_.SaveToFile(test_path);
+    ASSERT_TRUE(save_result.has_value());
+    
+    // Load the graph
+    auto load_result = core::Graph::LoadFromFile(test_path);
+    
+    ASSERT_TRUE(load_result.has_value()) << "LoadFromFile failed: " << load_result.error();
+    
+    const auto &loaded_graph = load_result.value();
+    
+    // Verify metadata
+    EXPECT_EQ(loaded_graph.GetProjectName(), "Load Test Graph");
+    EXPECT_EQ(loaded_graph.GetAuthor(), "Test Author");
+    
+    // Verify nodes
+    auto *loaded_node1 = loaded_graph.GetNode(id1);
+    auto *loaded_node2 = loaded_graph.GetNode(id2);
+    
+    ASSERT_NE(loaded_node1, nullptr);
+    ASSERT_NE(loaded_node2, nullptr);
+    
+    // Verify connection
+    EXPECT_TRUE(loaded_node2->IsInputPinConnected(0));
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, LoadFromFileFailsOnNonexistentFile) {
+    std::filesystem::path nonexistent_path = std::filesystem::temp_directory_path() / "nonexistent_file.nebula";
+    
+    // Ensure file doesn't exist
+    std::filesystem::remove(nonexistent_path);
+    
+    auto result = core::Graph::LoadFromFile(nonexistent_path);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("does not exist"), std::string::npos);
+}
+
+TEST_F(GraphTest, LoadFromFileFailsOnInvalidJson) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "invalid_json.nebula";
+    
+    // Create a file with invalid JSON
+    std::ofstream file(test_path);
+    ASSERT_TRUE(file.is_open());
+    file << "{ this is not valid json }";
+    file.close();
+    
+    auto result = core::Graph::LoadFromFile(test_path);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_NE(result.error().find("parse"), std::string::npos);
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, LoadFromFileFailsOnCorruptedData) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "corrupted_data.nebula";
+    
+    // Create a file with valid JSON but corrupted structure
+    std::ofstream file(test_path);
+    ASSERT_TRUE(file.is_open());
+    
+    nlohmann::json corrupted_json;
+    corrupted_json["metadata"]["project_name"] = "Test";
+    corrupted_json["metadata"]["version"] = "1.0";
+    // Missing other required fields
+    
+    file << corrupted_json.dump(4);
+    file.close();
+    
+    auto result = core::Graph::LoadFromFile(test_path);
+    
+    ASSERT_FALSE(result.has_value());
+    EXPECT_FALSE(result.error().empty());
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+#pragma endregion File I/O
+
+#pragma region Integration
+
+TEST_F(GraphTest, RoundTripSerializationPreservesGraph) {
+    // Create a complex graph
     graph_.SetProjectName("Round Trip Test");
-    graph_.SetAuthor("Test User");
+    graph_.SetAuthor("Integration Tester");
+    
+    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *variable1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *variable2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(literal, nullptr);
+    ASSERT_NE(variable1, nullptr);
+    ASSERT_NE(variable2, nullptr);
+    ASSERT_NE(function, nullptr);
+    
+    uint32_t literal_id = literal->id();
+    uint32_t var1_id = variable1->id();
+    uint32_t var2_id = variable2->id();
+    uint32_t func_id = function->id();
+    
+    // Create connections
+    graph_.Link(literal, 0, variable1, 0);
+    graph_.Link(variable1, 0, variable2, 0);
     
     // Serialize
-    auto json = graph_.Serialize();
+    nlohmann::json json = graph_.Serialize();
+    
+    // Deserialize
+    auto result = core::Graph::Deserialize(json);
+    
+    ASSERT_TRUE(result.has_value());
+    
+    auto &restored_graph = result.value();
+    
+    // Verify metadata
+    EXPECT_EQ(restored_graph.GetProjectName(), "Round Trip Test");
+    EXPECT_EQ(restored_graph.GetAuthor(), "Integration Tester");
+    EXPECT_EQ(restored_graph.GetVersion(), "1.0");
+    
+    // Verify all nodes exist
+    EXPECT_NE(restored_graph.GetNode(literal_id), nullptr);
+    EXPECT_NE(restored_graph.GetNode(var1_id), nullptr);
+    EXPECT_NE(restored_graph.GetNode(var2_id), nullptr);
+    EXPECT_NE(restored_graph.GetNode(func_id), nullptr);
+    
+    // Verify connections
+    auto *restored_var1 = restored_graph.GetNode(var1_id);
+    auto *restored_var2 = restored_graph.GetNode(var2_id);
+    
+    EXPECT_TRUE(restored_var1->IsInputPinConnected(0));
+    EXPECT_TRUE(restored_var2->IsInputPinConnected(0));
+    
+    auto parent1 = restored_var1->parent(0);
+    EXPECT_EQ(parent1.node->id(), literal_id);
+    
+    auto parent2 = restored_var2->parent(0);
+    EXPECT_EQ(parent2.node->id(), var1_id);
+}
+
+TEST_F(GraphTest, RoundTripFileIOPreservesGraph) {
+    std::filesystem::path test_path = std::filesystem::temp_directory_path() / "round_trip_file.nebula";
+    
+    // Create a graph
+    graph_.SetProjectName("File Round Trip Test");
+    graph_.SetAuthor("File Tester");
+    
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    ASSERT_NE(node3, nullptr);
+    
+    uint32_t id1 = node1->id();
+    uint32_t id2 = node2->id();
+    uint32_t id3 = node3->id();
+    
+    graph_.Link(node1, 0, node2, 0);
+    
+    // Save to file
+    auto save_result = graph_.SaveToFile(test_path);
+    ASSERT_TRUE(save_result.has_value());
+    
+    // Load from file
+    auto load_result = core::Graph::LoadFromFile(test_path);
+    ASSERT_TRUE(load_result.has_value());
+    
+    const auto &loaded_graph = load_result.value();
+    
+    // Verify metadata
+    EXPECT_EQ(loaded_graph.GetProjectName(), "File Round Trip Test");
+    EXPECT_EQ(loaded_graph.GetAuthor(), "File Tester");
+    
+    // Verify nodes
+    EXPECT_NE(loaded_graph.GetNode(id1), nullptr);
+    EXPECT_NE(loaded_graph.GetNode(id2), nullptr);
+    EXPECT_NE(loaded_graph.GetNode(id3), nullptr);
+    
+    // Verify connection
+    auto *loaded_node2 = loaded_graph.GetNode(id2);
+    ASSERT_NE(loaded_node2, nullptr);
+    EXPECT_TRUE(loaded_node2->IsInputPinConnected(0));
+    
+    auto parent = loaded_node2->parent(0);
+    EXPECT_EQ(parent.node->id(), id1);
+    
+    // Clean up
+    std::filesystem::remove(test_path);
+}
+
+TEST_F(GraphTest, ComplexGraphWithMultipleConnectionsSerialization) {
+    // Create a more complex graph with multiple connections
+    auto *lit1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *lit2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *var1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *var2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *var3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *func = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    
+    ASSERT_NE(lit1, nullptr);
+    ASSERT_NE(lit2, nullptr);
+    ASSERT_NE(var1, nullptr);
+    ASSERT_NE(var2, nullptr);
+    ASSERT_NE(var3, nullptr);
+    ASSERT_NE(func, nullptr);
+    
+    // Create a complex connection pattern
+    // lit1 -> var1, lit2 -> var2
+    // var1 -> var3, var2 -> var3
+    graph_.Link(lit1, 0, var1, 0);
+    graph_.Link(lit2, 0, var2, 0);
+    graph_.Link(var1, 0, var3, 0);
+    
+    // Serialize
+    nlohmann::json json = graph_.Serialize();
+    
+    // Verify all connections are serialized
+    EXPECT_EQ(json["graph"]["connections"].size(), 3);
     
     // Deserialize
     auto result = core::Graph::Deserialize(json);
     ASSERT_TRUE(result.has_value());
     
-    auto& restored_graph = result.value();
-    EXPECT_EQ(restored_graph.GetProjectName(), "Round Trip Test");
-    EXPECT_EQ(restored_graph.GetAuthor(), "Test User");
+    auto &restored = result.value();
+    
+    // Verify all nodes exist
+    EXPECT_EQ(restored.GetNode(0), nullptr);  // First node deleted, but IDs 0-5 should exist
+    EXPECT_NE(restored.GetNode(lit1->id()), nullptr);
+    EXPECT_NE(restored.GetNode(lit2->id()), nullptr);
+    EXPECT_NE(restored.GetNode(var1->id()), nullptr);
+    EXPECT_NE(restored.GetNode(var2->id()), nullptr);
+    EXPECT_NE(restored.GetNode(var3->id()), nullptr);
+    EXPECT_NE(restored.GetNode(func->id()), nullptr);
+    
+    // Verify connections
+    auto *restored_var1 = restored.GetNode(var1->id());
+    auto *restored_var2 = restored.GetNode(var2->id());
+    auto *restored_var3 = restored.GetNode(var3->id());
+    
+    EXPECT_TRUE(restored_var1->IsInputPinConnected(0));
+    EXPECT_TRUE(restored_var2->IsInputPinConnected(0));
+    EXPECT_TRUE(restored_var3->IsInputPinConnected(0));
 }
 
-TEST_F(GraphTest, RoundTrip_WithNodes_PreservesAllNodes) {
-    graph_.SetProjectName("Node Test");
-    auto* node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* node2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* node3 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+TEST_F(GraphTest, RemoveNodeFromConnectedGraphMaintainsIntegrity) {
+    // Create a chain of 5 nodes
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node4 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node5 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    
+    ASSERT_NE(node1, nullptr);
+    ASSERT_NE(node2, nullptr);
+    ASSERT_NE(node3, nullptr);
+    ASSERT_NE(node4, nullptr);
+    ASSERT_NE(node5, nullptr);
     
     uint32_t id1 = node1->id();
     uint32_t id2 = node2->id();
     uint32_t id3 = node3->id();
-    
-    // Serialize and deserialize
-    auto json = graph_.Serialize();
-    auto result = core::Graph::Deserialize(json);
-    ASSERT_TRUE(result.has_value());
-    
-    auto& restored_graph = result.value();
-    EXPECT_NE(restored_graph.GetNode(id1), nullptr);
-    EXPECT_NE(restored_graph.GetNode(id2), nullptr);
-    EXPECT_NE(restored_graph.GetNode(id3), nullptr);
-}
-
-TEST_F(GraphTest, RoundTrip_NextId_IsPreserved) {
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    
-    auto json = graph_.Serialize();
-    uint32_t original_next_id = json["graph"]["next_id"];
-    
-    auto result = core::Graph::Deserialize(json);
-    ASSERT_TRUE(result.has_value());
-    
-    auto& restored_graph = result.value();
-    // Adding a node should use the preserved next_id
-    auto* new_node = restored_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
-    EXPECT_EQ(new_node->id(), original_next_id);
-}
-
-// File I/O Tests
-
-TEST_F(GraphTest, SaveToFile_ValidPath_CreatesFile) {
-    graph_.SetProjectName("File Test");
-    std::filesystem::path temp_path = std::filesystem::temp_directory_path() / "test_graph.nebula";
-    
-    auto result = graph_.SaveToFile(temp_path);
-    ASSERT_TRUE(result.has_value()) << result.error();
-    EXPECT_TRUE(std::filesystem::exists(temp_path));
-    
-    // Cleanup
-    std::filesystem::remove(temp_path);
-}
-
-TEST_F(GraphTest, SaveToFile_UpdatesModifiedTime) {
-    auto initial_time = graph_.GetModifiedAt();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    
-    std::filesystem::path temp_path = std::filesystem::temp_directory_path() / "test_modified.nebula";
-    graph_.SaveToFile(temp_path);
-    
-    auto new_time = graph_.GetModifiedAt();
-    EXPECT_GT(new_time, initial_time);
-    
-    // Cleanup
-    std::filesystem::remove(temp_path);
-}
-
-TEST_F(GraphTest, LoadFromFile_NonExistentFile_ReturnsError) {
-    std::filesystem::path fake_path = "/tmp/nonexistent_file_xyz.nebula";
-    
-    auto result = core::Graph::LoadFromFile(fake_path);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_TRUE(result.error().find("does not exist") != std::string::npos);
-}
-
-TEST_F(GraphTest, LoadFromFile_InvalidJSON_ReturnsError) {
-    std::filesystem::path temp_path = std::filesystem::temp_directory_path() / "invalid.nebula";
-    
-    // Write invalid JSON
-    std::ofstream file(temp_path);
-    file << "{ this is not valid json }";
-    file.close();
-    
-    auto result = core::Graph::LoadFromFile(temp_path);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_TRUE(result.error().find("parse") != std::string::npos);
-    
-    // Cleanup
-    std::filesystem::remove(temp_path);
-}
-
-TEST_F(GraphTest, SaveAndLoad_RoundTrip_PreservesCompleteGraph) {
-    // Setup a complex graph
-    graph_.SetProjectName("Complete Test");
-    graph_.SetAuthor("Integration Tester");
-    auto* node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* node2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* node3 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    
-    uint32_t id1 = node1->id();
-    uint32_t id2 = node2->id();
-    uint32_t id3 = node3->id();
-    
-    std::filesystem::path temp_path = std::filesystem::temp_directory_path() / "roundtrip.nebula";
-    
-    // Save
-    auto save_result = graph_.SaveToFile(temp_path);
-    ASSERT_TRUE(save_result.has_value()) << save_result.error();
-    
-    // Load
-    auto load_result = core::Graph::LoadFromFile(temp_path);
-    ASSERT_TRUE(load_result.has_value()) << load_result.error();
-    
-    auto& loaded_graph = load_result.value();
-    EXPECT_EQ(loaded_graph.GetProjectName(), "Complete Test");
-    EXPECT_EQ(loaded_graph.GetAuthor(), "Integration Tester");
-    EXPECT_NE(loaded_graph.GetNode(id1), nullptr);
-    EXPECT_NE(loaded_graph.GetNode(id2), nullptr);
-    EXPECT_NE(loaded_graph.GetNode(id3), nullptr);
-    
-    // Cleanup
-    std::filesystem::remove(temp_path);
-}
-
-TEST_F(GraphTest, SavedFile_IsHumanReadable_JSON) {
-    graph_.SetProjectName("Readable Test");
-    std::filesystem::path temp_path = std::filesystem::temp_directory_path() / "readable.nebula";
-    
-    graph_.SaveToFile(temp_path);
-    
-    // Read file as text
-    std::ifstream file(temp_path);
-    std::string content((std::istreambuf_iterator<char>(file)),
-                        std::istreambuf_iterator<char>());
-    file.close();
-    
-    // Check it's pretty-printed (has newlines and indentation)
-    EXPECT_TRUE(content.find('\n') != std::string::npos);
-    EXPECT_TRUE(content.find("    ") != std::string::npos); // 4-space indentation
-    EXPECT_TRUE(content.find("\"metadata\"") != std::string::npos);
-    EXPECT_TRUE(content.find("\"graph\"") != std::string::npos);
-    
-    // Cleanup
-    std::filesystem::remove(temp_path);
-}
-
-
-TEST_F(GraphTest, Link_ValidConnection_ReturnsSuccess) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types for successful connection
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    auto result = graph_.Link(source, 0, target, 0);
-    EXPECT_TRUE(result.has_value());
-}
-
-TEST_F(GraphTest, Link_NullSourceNode_ReturnsError) {
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    auto result = graph_.Link(nullptr, 0, target, 0);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_FALSE(result.error().empty());
-}
-
-TEST_F(GraphTest, Link_NullTargetNode_ReturnsError) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    
-    auto result = graph_.Link(source, 0, nullptr, 0);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_FALSE(result.error().empty());
-}
-
-TEST_F(GraphTest, Link_InvalidOutputPin_ReturnsError) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // LiteralNode has only 1 output pin (index 0), so index 5 is out of bounds
-    auto result = graph_.Link(source, 5, target, 0);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_FALSE(result.error().empty());
-}
-
-TEST_F(GraphTest, Link_InvalidInputPin_ReturnsError) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // VariableNode has only 1 input pin (index 0), so index 5 is invalid
-    auto result = graph_.Link(source, 0, target, 5);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_FALSE(result.error().empty());
-}
-
-TEST_F(GraphTest, Link_IncompatibleTypes_ReturnsError) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set different types to make them incompatible
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kString);
-    
-    auto result = graph_.Link(source, 0, target, 0);
-    EXPECT_FALSE(result.has_value());
-    EXPECT_FALSE(result.error().empty());
-}
-
-TEST_F(GraphTest, Link_AlreadyConnectedInput_ReturnsError) {
-    auto* source1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* source2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::LiteralNode*>(source2)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Connect source1 to target
-    auto result1 = graph_.Link(source1, 0, target, 0);
-    ASSERT_TRUE(result1.has_value());
-    
-    // Try to connect source2 to the same input pin
-    // Current implementation allows overwriting, so this should succeed
-    auto result2 = graph_.Link(source2, 0, target, 0);
-    EXPECT_TRUE(result2.has_value());
-    
-    // Verify that source2 is now the parent (overwrote source1)
-    auto* parent_conn = target->parent(0);
-    ASSERT_NE(parent_conn, nullptr);
-    EXPECT_EQ(parent_conn->node, source2);
-}
-
-TEST_F(GraphTest, Link_EstablishesBidirectionalConnection) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    graph_.Link(source, 0, target, 0);
-    
-    // Check parent connection (target -> source)
-    auto* parent_conn = target->parent(0);
-    ASSERT_NE(parent_conn, nullptr);
-    EXPECT_EQ(parent_conn->node, source);
-    EXPECT_EQ(parent_conn->pin, 0);
-    
-    // Check child connection (source -> target)
-    const auto& children = source->childrens(0);
-    ASSERT_FALSE(children.empty());
-    EXPECT_EQ(children[0].node, target);
-    EXPECT_EQ(children[0].pin, 0);
-}
-
-TEST_F(GraphTest, Link_MultipleOutputConnections_AllowsMultipleChildren) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* target2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* target3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types for all nodes
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target2)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target3)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Connect one output to multiple inputs
-    auto result1 = graph_.Link(source, 0, target1, 0);
-    auto result2 = graph_.Link(source, 0, target2, 0);
-    auto result3 = graph_.Link(source, 0, target3, 0);
-    
-    EXPECT_TRUE(result1.has_value());
-    EXPECT_TRUE(result2.has_value());
-    EXPECT_TRUE(result3.has_value());
-    
-    // Verify all three children are connected
-    const auto& children = source->childrens(0);
-    EXPECT_EQ(children.size(), 3);
-}
-
-TEST_F(GraphTest, Unlink_ValidConnection_ReturnsSuccess) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    graph_.Link(source, 0, target, 0);
-    
-    auto result = graph_.Unlink(source, 0, target, 0);
-    EXPECT_TRUE(result.has_value());
-}
-
-TEST_F(GraphTest, Unlink_RemovesParentConnection) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    graph_.Link(source, 0, target, 0);
-    graph_.Unlink(source, 0, target, 0);
-    
-    // Check that parent connection is cleared
-    auto* parent_conn = target->parent(0);
-    EXPECT_TRUE(parent_conn == nullptr || !parent_conn->IsConnected());
-}
-
-TEST_F(GraphTest, Unlink_RemovesChildConnection) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    graph_.Link(source, 0, target, 0);
-    
-    // Verify connection exists
-    ASSERT_FALSE(source->childrens(0).empty());
-    
-    graph_.Unlink(source, 0, target, 0);
-    
-    // Check that child connection is removed
-    const auto& children = source->childrens(0);
-    
-    // Either the vector is empty, or all connections are disconnected
-    bool all_disconnected = true;
-    for (const auto& conn : children) {
-        if (conn.IsConnected() && conn.node == target && conn.pin == 0) {
-            all_disconnected = false;
-            break;
-        }
-    }
-    EXPECT_TRUE(all_disconnected);
-}
-
-TEST_F(GraphTest, Unlink_NullPointers_ReturnsError) {
-    auto* node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    auto result1 = graph_.Unlink(nullptr, 0, node, 0);
-    EXPECT_FALSE(result1.has_value());
-    
-    auto result2 = graph_.Unlink(node, 0, nullptr, 0);
-    EXPECT_FALSE(result2.has_value());
-    
-    auto result3 = graph_.Unlink(nullptr, 0, nullptr, 0);
-    EXPECT_FALSE(result3.has_value());
-}
-
-TEST_F(GraphTest, Unlink_NonExistentConnection_DoesNotCrash) {
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Try to unlink nodes that were never connected - should not crash
-    EXPECT_NO_THROW(graph_.Unlink(source, 0, target, 0));
-}
-
-#pragma endregion
-
-#pragma region Graph Integrity
-
-TEST_F(GraphTest, RemoveNode_WithConnections_UnlinksAllConnections) {
-    // Create a node with both input and output connections
-    auto* source = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* target = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(source)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(middle)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(target)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Create connections: source -> middle -> target
-    graph_.Link(source, 0, middle, 0);
-    graph_.Link(middle, 0, target, 0);
-    
-    // Remove the middle node
-    graph_.RemoveNode(middle);
-    
-    // Verify source's children list no longer references middle
-    const auto& source_children = source->childrens(0);
-    for (const auto& conn : source_children) {
-        if (conn.IsConnected()) {
-            EXPECT_NE(conn.node, middle);
-        }
-    }
-    
-    // Verify target's parent no longer references middle
-    auto* target_parent = target->parent(0);
-    if (target_parent != nullptr && target_parent->IsConnected()) {
-        EXPECT_NE(target_parent->node, middle);
-    }
-}
-
-TEST_F(GraphTest, RemoveNode_ParentNode_ClearsChildReferences) {
-    // Create parent -> child connection
-    auto* parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* child1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* child2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(parent)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(child1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(child2)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Connect parent to multiple children
-    graph_.Link(parent, 0, child1, 0);
-    graph_.Link(parent, 0, child2, 0);
-    
-    // Verify connections exist before removal
-    ASSERT_NE(child1->parent(0), nullptr);
-    ASSERT_NE(child2->parent(0), nullptr);
-    
-    // Remove parent node
-    graph_.RemoveNode(parent);
-    
-    // Verify children's parent pointers are cleared
-    auto* child1_parent = child1->parent(0);
-    EXPECT_TRUE(child1_parent == nullptr || !child1_parent->IsConnected());
-    
-    auto* child2_parent = child2->parent(0);
-    EXPECT_TRUE(child2_parent == nullptr || !child2_parent->IsConnected());
-}
-
-TEST_F(GraphTest, RemoveNode_ChildNode_RemovesFromParentChildList) {
-    // Create parent with multiple children
-    auto* parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* child1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* child2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* child3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types
-    static_cast<core::LiteralNode*>(parent)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(child1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(child2)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(child3)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Connect parent to all children
-    graph_.Link(parent, 0, child1, 0);
-    graph_.Link(parent, 0, child2, 0);
-    graph_.Link(parent, 0, child3, 0);
-    
-    // Verify all children are in parent's list
-    ASSERT_EQ(parent->childrens(0).size(), 3);
-    
-    // Remove child2
-    graph_.RemoveNode(child2);
-    
-    // Verify child2 is no longer in parent's child list
-    const auto& children = parent->childrens(0);
-    for (const auto& conn : children) {
-        if (conn.IsConnected()) {
-            EXPECT_NE(conn.node, child2);
-        }
-    }
-    
-    // Verify child1 and child3 are still connected
-    bool found_child1 = false;
-    bool found_child3 = false;
-    for (const auto& conn : children) {
-        if (conn.IsConnected()) {
-            if (conn.node == child1) found_child1 = true;
-            if (conn.node == child3) found_child3 = true;
-        }
-    }
-    EXPECT_TRUE(found_child1);
-    EXPECT_TRUE(found_child3);
-}
-
-TEST_F(GraphTest, ComplexGraph_MultipleNodesAndConnections_MaintainsIntegrity) {
-    // Create a complex graph structure:
-    //     lit1 ---|
-    //             |--> var1 --> var2
-    //     lit2 --/              /
-    //                          /
-    //     lit3 ---------------/
-    
-    auto* lit1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* lit2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* lit3 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto* var1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto* var2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    
-    // Set matching types for all connections
-    static_cast<core::LiteralNode*>(lit1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::LiteralNode*>(lit2)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::LiteralNode*>(lit3)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(var1)->set_type(core::NodeBase::PinDataType::kInt);
-    static_cast<core::VariableNode*>(var2)->set_type(core::NodeBase::PinDataType::kInt);
-    
-    // Create connections
-    ASSERT_TRUE(graph_.Link(lit1, 0, var1, 0).has_value());
-    // var1 input can only connect to one, so lit2 will overwrite lit1
-    ASSERT_TRUE(graph_.Link(lit2, 0, var1, 0).has_value());
-    ASSERT_TRUE(graph_.Link(var1, 0, var2, 0).has_value());
-    // var2 input will be overwritten by lit3
-    ASSERT_TRUE(graph_.Link(lit3, 0, var2, 0).has_value());
-    
-    // Verify initial connections
-    // var1's parent should be lit2 (overwrote lit1)
-    auto* var1_parent = var1->parent(0);
-    ASSERT_NE(var1_parent, nullptr);
-    EXPECT_EQ(var1_parent->node, lit2);
-    
-    // var2's parent should be lit3 (overwrote var1)
-    auto* var2_parent = var2->parent(0);
-    ASSERT_NE(var2_parent, nullptr);
-    EXPECT_EQ(var2_parent->node, lit3);
-    
-    // lit2 should have var1 as child
-    const auto& lit2_children = lit2->childrens(0);
-    bool found_var1_in_lit2 = false;
-    for (const auto& conn : lit2_children) {
-        if (conn.IsConnected() && conn.node == var1) {
-            found_var1_in_lit2 = true;
-            break;
-        }
-    }
-    EXPECT_TRUE(found_var1_in_lit2);
-    
-    // lit3 should have var2 as child
-    const auto& lit3_children = lit3->childrens(0);
-    bool found_var2_in_lit3 = false;
-    for (const auto& conn : lit3_children) {
-        if (conn.IsConnected() && conn.node == var2) {
-            found_var2_in_lit3 = true;
-            break;
-        }
-    }
-    EXPECT_TRUE(found_var2_in_lit3);
-    
-    // Remove var1 (middle node)
-    graph_.RemoveNode(var1);
-
-    // Verify var1 is gone
-    EXPECT_EQ(graph_.GetNode(var1->id()), nullptr);
-    
-    // Verify lit2 no longer has var1 in its children
-    const auto& lit2_children_after = lit2->childrens(0);
-    for (const auto& conn : lit2_children_after) {
-        if (conn.IsConnected()) {
-            EXPECT_NE(conn.node, var1);
-        }
-    }
+    uint32_t id4 = node4->id();
+    uint32_t id5 = node5->id();
+    
+    // Create chain: 1 -> 2 -> 3 -> 4 -> 5
+    graph_.Link(node1, 0, node2, 0);
+    graph_.Link(node2, 0, node3, 0);
+    graph_.Link(node3, 0, node4, 0);
+    graph_.Link(node4, 0, node5, 0);
+    
+    // Verify all connections exist
+    EXPECT_TRUE(node2->IsInputPinConnected(0));
+    EXPECT_TRUE(node3->IsInputPinConnected(0));
+    EXPECT_TRUE(node4->IsInputPinConnected(0));
+    EXPECT_TRUE(node5->IsInputPinConnected(0));
+    
+    // Remove middle node (node3)
+    graph_.RemoveNode(node3);
+    
+    // Verify node3 is gone
+    EXPECT_EQ(graph_.GetNode(id3), nullptr);
+    
+    // Verify node2 and node4 still exist
+    EXPECT_NE(graph_.GetNode(id2), nullptr);
+    EXPECT_NE(graph_.GetNode(id4), nullptr);
+    
+    // Verify node2's output connection was cleared
+    EXPECT_FALSE(node2->IsOutputPinConnected(0));
+    
+    // Verify node4's input connection was cleared
+    EXPECT_FALSE(node4->IsInputPinConnected(0));
     
     // Verify other connections remain intact
-    // var2 should still be connected to lit3
-    auto* var2_parent_after = var2->parent(0);
-    ASSERT_NE(var2_parent_after, nullptr);
-    EXPECT_EQ(var2_parent_after->node, lit3);
+    EXPECT_TRUE(node2->IsInputPinConnected(0));  // 1 -> 2 still connected
+    EXPECT_TRUE(node5->IsInputPinConnected(0));  // 4 -> 5 still connected
     
-    // lit3 should still have var2 as child
-    const auto& lit3_children_after = lit3->childrens(0);
-    bool still_found_var2 = false;
-    for (const auto& conn : lit3_children_after) {
-        if (conn.IsConnected() && conn.node == var2) {
-            still_found_var2 = true;
-            break;
-        }
-    }
-    EXPECT_TRUE(still_found_var2);
+    // Serialize to verify graph is still valid
+    nlohmann::json json = graph_.Serialize();
+    
+    // Should have 3 connections remaining (1->2, 4->5, and any others)
+    // Actually we have: 1->2 and 4->5, so 2 connections
+    EXPECT_EQ(json["graph"]["connections"].size(), 2);
+    
+    // Deserialize to verify integrity
+    auto result = core::Graph::Deserialize(json);
+    ASSERT_TRUE(result.has_value());
 }
 
-#pragma endregion
+#pragma endregion Integration
