@@ -1,6 +1,6 @@
 #include "literal_node.hpp"
 
-core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind)
+core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
     : NodeBase(id, kind) {}
 
 void core::LiteralNode::set_name(const std::string &name) { name_ = name; }

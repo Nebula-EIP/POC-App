@@ -1,6 +1,6 @@
 #include "variable_node.hpp"
 
-core::VariableNode::VariableNode(uint32_t id, NodeKind kind)
+core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
     : NodeBase(id, kind) {}
 
 void core::VariableNode::set_name(const std::string &name) { name_ = name; }

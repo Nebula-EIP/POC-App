@@ -74,7 +74,7 @@ const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
 
     childs.clear();
     for (auto conn : childrens_) {
-        childs.insert(childs.end(), childrens_.begin(), childrens_.end());
+        childs.insert(childs.end(), std::get<1>(conn).begin(), std::get<1>(conn).end());
     }
     return childs;
 }

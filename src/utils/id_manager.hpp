@@ -9,7 +9,7 @@ namespace utils {
 template<typename IdType>
 class IdManager {
  public:
-    IdManager(IdType starting_id = 0) = default;
+    IdManager(IdType starting_id = 0);
     ~IdManager() = default;
 
     /**

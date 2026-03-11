@@ -272,7 +272,7 @@ nlohmann::json core::Graph::Serialize() const {
     json["metadata"]["modified_at"] = to_iso8601(modified_at_);
 
     // Serialize graph data
-    json["graph"]["next_id"] = next_id_;
+    json["graph"]["next_id"] = id_manager_.current_id();
 
     // Serialize nodes
     nlohmann::json nodes_array = nlohmann::json::array();
@@ -287,15 +287,15 @@ nlohmann::json core::Graph::Serialize() const {
         // Iterate through all output pins
         for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount();
              ++out_pin) {
-            const auto &children = source_node->childrens(out_pin);
+            auto children = source_node->childrens(out_pin);
             // Iterate through all connections on this output pin
-            for (const auto &conn : children) {
+            for (const auto &conn : (*children)) {
                 if (conn.IsConnected()) {
                     nlohmann::json connection;
                     connection["source_node_id"] = source_node->id();
-                    connection["source_pin"] = out_pin;
+                    connection["source_pin"] = conn.out_pin;
                     connection["target_node_id"] = conn.node->id();
-                    connection["target_pin"] = conn.pin;
+                    connection["target_pin"] = conn.in_pin;
                     connections_array.push_back(connection);
                 }
             }
@@ -374,7 +374,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
 
     // Restore next_id
     try {
-        graph.next_id_ = graph_data["next_id"].get<uint32_t>();
+        graph.id_manager_ = utils::IdManager<uint32_t>(graph_data["next_id"].get<uint32_t>());
     } catch (const std::exception &e) {
         return std::unexpected(std::string("Failed to parse next_id: ") +
                                e.what());
