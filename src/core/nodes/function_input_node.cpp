@@ -7,17 +7,17 @@ void core::FunctionInputNode::set_name(const std::string &name) {
     name_ = name;
 }
 
-const std::string &core::FunctionInputNode::name() const { return name_; }
+const std::string &core::FunctionInputNode::name() const noexcept { return name_; }
 
 void core::FunctionInputNode::set_type(PinDataType type) { type_ = type; }
 
-core::NodeBase::PinDataType core::FunctionInputNode::type() const {
+core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
     return type_;
 }
 
-uint8_t core::FunctionInputNode::GetInputPinCount() const { return 0; }
+uint8_t core::FunctionInputNode::GetInputPinCount() const noexcept { return 0; }
 
-uint8_t core::FunctionInputNode::GetOutputPinCount() const { return 1; }
+uint8_t core::FunctionInputNode::GetOutputPinCount() const noexcept { return 1; }
 
 core::NodeBase::PinDataType core::FunctionInputNode::GetInputPinType(
     uint8_t /*pin*/) const {
@@ -33,7 +33,7 @@ core::NodeBase::PinDataType core::FunctionInputNode::GetOutputPinType(
 }
 
 std::expected<void, std::string> core::FunctionInputNode::CanConnectTo(
-    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (out_pin != 0) {
         return std::unexpected("Pin does not exist");
     }
@@ -60,9 +60,9 @@ std::string core::FunctionInputNode::GetOutputPinName(uint8_t pin) const {
     return "";
 }
 
-std::string core::FunctionInputNode::GetDisplayName() const { return name_; }
+std::string core::FunctionInputNode::GetDisplayName() const noexcept { return name_; }
 
-std::string core::FunctionInputNode::GetCategory() const { return "Functions"; }
+std::string core::FunctionInputNode::GetCategory() const noexcept { return "Functions"; }
 
 nlohmann::json core::FunctionInputNode::Serialize() const {
     nlohmann::json json;

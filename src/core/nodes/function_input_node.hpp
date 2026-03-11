@@ -23,7 +23,7 @@ class FunctionInputNode : public NodeBase {
     void set_name(const std::string &name);
     const std::string &name() const noexcept;
 
-    void set_type(PinDataType type) noexcept;
+    void set_type(PinDataType type);
     PinDataType type() const noexcept;
 
     // -- NodeBase overrides --
