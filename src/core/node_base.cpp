@@ -46,6 +46,10 @@ core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
     return (*it);
 }
 
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllParents() const noexcept {
+    return parents_;
+}
+
 // childrens_ vector already filled by the Graph class
 const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
@@ -63,6 +67,16 @@ const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     }
 
     return &(std::get<1>(*it));
+}
+
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens() const noexcept {
+    static std::vector<Connection> childs;
+
+    childs.clear();
+    for (auto conn : childrens_) {
+        childs.insert(childs.end(), childrens_.begin(), childrens_.end());
+    }
+    return childs;
 }
 
 // Internal API, the Graph is responsible for checking input values viability

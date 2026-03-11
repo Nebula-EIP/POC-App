@@ -102,6 +102,13 @@ class NodeBase {
     Connection parent(uint8_t input_pin) const;
 
     /**
+     * @brief Retreives all incoming connections of the node
+     * 
+     * @return A reference to a vector of all Connections
+     */
+    const std::vector<Connection> &GetAllParents() const noexcept;
+
+    /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
      * 
@@ -111,6 +118,14 @@ class NodeBase {
      * @return Pointer to a vector of Connection structs.
      */
     const std::vector<Connection> *childrens(uint8_t output_pin) const;
+
+    /**
+     * @brief Retreives all outgoing connections of the node
+     * 
+     * @return A reference to a vector of all Connections
+     */
+    const std::vector<Connection> &GetAllChildrens() const noexcept;
+    
 
     virtual uint8_t GetInputPinCount() const noexcept = 0;
     virtual uint8_t GetOutputPinCount() const noexcept = 0;
