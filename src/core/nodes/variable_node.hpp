@@ -56,7 +56,7 @@ class VariableNode : public NodeBase {
  private:
     friend Graph;
 
-    VariableNode(uint32_t id, NodeKind kind);
+    VariableNode(uint32_t id, NodeKind kind, std::pair<float, float> position);
 
  private:
     PinDataType type_ = PinDataType::kUndefined;

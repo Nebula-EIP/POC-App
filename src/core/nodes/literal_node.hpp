@@ -56,7 +56,7 @@ class LiteralNode : public NodeBase {
  private:
     friend Graph;
 
-    LiteralNode(uint32_t id, NodeKind kind);
+    LiteralNode(uint32_t id, NodeKind kind, std::pair<float, float> position);
 
  private:
     PinDataType type_ = PinDataType::kUndefined;

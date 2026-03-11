@@ -1,7 +1,7 @@
 #include "variable_node.hpp"
 
-core::VariableNode::VariableNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
+core::VariableNode::VariableNode(uint32_t id, NodeKind kind, std::pair<float, float> position)
+    : NodeBase(id, kind, position) {
     parents_.resize(GetInputPinCount());
     childrens_.resize(GetOutputPinCount());
 }
