@@ -107,14 +107,17 @@ class Graph {
      * @param out_pin The output pin index on the source node.
      * @param to The destination node.
      * @param in_pin The input pin index on the destination node.
-     * @return An expected containing void on success, or an error message on
-     * failure.
      *
      * @note This function validates pin compatibility and availability before
      * linking.
+     *
+     * @throws NodeNotFoundException if one of the node pointer is null
+     * @throws NodeNotFoundException if one of the node is not owned by this Graph
+     * @throws InvalidPinIndexException if one of the pin cannot be found
+     * @throws IncompatiblePinTypesException if the pins types don't matches
+     * @throws CircularDependencyException if from == to
      */
-    std::expected<void, std::string> Link(NodeBase *from, uint8_t out_pin,
-                                          NodeBase *to, uint8_t in_pin);
+    void Link(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
      * @brief Unlinks two nodes by disconnecting an output pin from an input
@@ -124,11 +127,10 @@ class Graph {
      * @param out_pin The output pin index on the source node.
      * @param to The destination node.
      * @param in_pin The input pin index on the destination node.
-     * @return An expected containing void on success, or an error message on
-     * failure.
+     *
+     * @throws
      */
-    std::expected<void, std::string> Unlink(NodeBase *from, uint8_t out_pin,
-                                            NodeBase *to, uint8_t in_pin);
+    void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
      * @brief Gets the project name.
