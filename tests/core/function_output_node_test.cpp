@@ -168,12 +168,12 @@ TEST_F(FunctionOutputNodeTest, Link_LiteralToOutput_Succeeds) {
         core::NodeBase::NodeKind::kFunctionOutput);
     output_node->set_type(core::NodeBase::PinDataType::kInt);
 
-    auto result = graph_.Link(literal, 0, output_node, 0);
-    EXPECT_TRUE(result.has_value());
+    EXPECT_NO_THROW({
+        graph_.Link(literal, 0, output_node, 0);
+    });
 
-    auto *parent = output_node->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, literal);
+    auto parent = output_node->parent(0);
+    EXPECT_EQ(parent.node, literal);
 }
 
 // ---------- Serialization ----------
@@ -251,12 +251,12 @@ TEST_F(FunctionOutputNodeTest, UsedInsideFunctionBody_CanReceiveInput) {
     out->set_type(core::NodeBase::PinDataType::kInt);
     out->set_name("Return");
 
-    auto result = body.Link(lit, 0, out, 0);
-    EXPECT_TRUE(result.has_value());
+    EXPECT_NO_THROW({
+        body.Link(lit, 0, out, 0);
+    });
 
-    auto *parent = out->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, lit);
+    auto parent = out->parent(0);
+    EXPECT_EQ(parent.node, lit);
 }
 
 }  // namespace

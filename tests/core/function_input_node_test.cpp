@@ -202,12 +202,15 @@ TEST_F(FunctionInputNodeTest, Link_ToVariable_Succeeds) {
         core::NodeBase::NodeKind::kVariable);
     var_node->set_type(core::NodeBase::PinDataType::kInt);
 
-    auto result = graph_.Link(input_node, 0, var_node, 0);
-    EXPECT_TRUE(result.has_value());
+    // Link now throws on error instead of returning expected
+    EXPECT_NO_THROW({
+        graph_.Link(input_node, 0, var_node, 0);
+    });
 
-    auto *parent = var_node->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, input_node);
+    // Verify connection was established
+    EXPECT_TRUE(var_node->IsInputPinConnected(0));
+    auto parent = var_node->parent(0);
+    EXPECT_EQ(parent.node, input_node);
 }
 
 // ---------- Serialization ----------

@@ -234,12 +234,12 @@ TEST_F(FunctionNodeTest, Link_LiteralToFunctionInput_Succeeds) {
     func->AddParameter("x", core::NodeBase::PinDataType::kInt);
     func->set_return_type(core::NodeBase::PinDataType::kInt);
 
-    auto result = graph_.Link(literal, 0, func, 0);
-    EXPECT_TRUE(result.has_value());
+    EXPECT_NO_THROW({
+        graph_.Link(literal, 0, func, 0);
+    });
 
-    auto *parent = func->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, literal);
+    auto parent = func->parent(0);
+    EXPECT_EQ(parent.node, literal);
 }
 
 TEST_F(FunctionNodeTest, Link_FunctionOutputToVariable_Succeeds) {
@@ -251,12 +251,12 @@ TEST_F(FunctionNodeTest, Link_FunctionOutputToVariable_Succeeds) {
         core::NodeBase::NodeKind::kVariable);
     var->set_type(core::NodeBase::PinDataType::kInt);
 
-    auto result = graph_.Link(func, 0, var, 0);
-    EXPECT_TRUE(result.has_value());
+    EXPECT_NO_THROW({
+        graph_.Link(func, 0, var, 0);
+    });
 
-    auto *parent = var->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, func);
+    auto parent = var->parent(0);
+    EXPECT_EQ(parent.node, func);
 }
 
 TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
@@ -274,14 +274,18 @@ TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
     func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
     func->set_return_type(core::NodeBase::PinDataType::kVoid);
 
-    EXPECT_TRUE(graph_.Link(lit_a, 0, func, 0).has_value());
-    EXPECT_TRUE(graph_.Link(lit_b, 0, func, 1).has_value());
+    EXPECT_NO_THROW({
+        graph_.Link(lit_a, 0, func, 0);
+    });
+    EXPECT_NO_THROW({
+        graph_.Link(lit_b, 0, func, 1);
+    });
 
-    ASSERT_NE(func->parent(0), nullptr);
-    EXPECT_EQ(func->parent(0)->node, lit_a);
+    auto parent_a = func->parent(0);
+    EXPECT_EQ(parent_a.node, lit_a);
 
-    ASSERT_NE(func->parent(1), nullptr);
-    EXPECT_EQ(func->parent(1)->node, lit_b);
+    auto parent_b = func->parent(1);
+    EXPECT_EQ(parent_b.node, lit_b);
 }
 
 // ---------- Inner graph (body) ----------
@@ -328,12 +332,12 @@ TEST_F(FunctionNodeTest, Body_CanLinkNodesInside) {
         core::NodeBase::NodeKind::kVariable);
     var->set_type(core::NodeBase::PinDataType::kInt);
 
-    auto result = body.Link(lit, 0, var, 0);
-    EXPECT_TRUE(result.has_value());
+    EXPECT_NO_THROW({
+        body.Link(lit, 0, var, 0);
+    });
 
-    auto *parent = var->parent(0);
-    ASSERT_NE(parent, nullptr);
-    EXPECT_EQ(parent->node, lit);
+    auto parent = var->parent(0);
+    EXPECT_EQ(parent.node, lit);
 }
 
 TEST_F(FunctionNodeTest, Body_IsIndependentFromOuterGraph) {
