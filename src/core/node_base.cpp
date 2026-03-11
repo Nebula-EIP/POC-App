@@ -79,6 +79,44 @@ const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
     return childs;
 }
 
+bool core::NodeBase::InputPinExists(uint8_t pin) const noexcept {
+    auto it = std::find_if(parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+    return it != parents_.end();
+}
+
+bool core::NodeBase::OutputPinExists(uint8_t pin) const noexcept {
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
+            return std::get<0>(conns) == pin;
+        });
+    return it != childrens_.end();
+}
+
+bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
+    auto it = std::find_if(parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+    
+    if (it == parents_.end()) {
+        return false;
+    }
+    
+    return it->IsConnected();
+}
+
+bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
+            return std::get<0>(conns) == pin;
+        });
+    
+    if (it == childrens_.end()) {
+        return false;
+    }
+    
+    return !std::get<1>(*it).empty();
+}
+
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
                                uint8_t parent_pin) noexcept {

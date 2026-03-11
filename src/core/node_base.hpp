@@ -130,6 +130,12 @@ class NodeBase {
     virtual uint8_t GetInputPinCount() const noexcept = 0;
     virtual uint8_t GetOutputPinCount() const noexcept = 0;
 
+    bool InputPinExists(uint8_t pin) const noexcept;
+    bool OutputPinExists(uint8_t pin) const noexcept;
+
+    bool IsInputPinConnected(uint8_t pin) const noexcept;
+    bool IsOutputPinConnected(uint8_t pin) const noexcept;
+
     virtual PinDataType GetInputPinType(uint8_t pin) const = 0;
     virtual PinDataType GetOutputPinType(uint8_t pin) const = 0;
 
