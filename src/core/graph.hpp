@@ -128,7 +128,9 @@ class Graph {
      * @param to The destination node.
      * @param in_pin The input pin index on the destination node.
      *
-     * @throws
+     * @throws NodeNotFoundException if one of the node pointer is null
+     * @throws NodeNotFoundException if one of the node is not owned by this Graph
+     * @throws InvalidPinIndexException if one of the pin cannot be found
      */
     void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 

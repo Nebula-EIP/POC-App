@@ -171,7 +171,35 @@ void core::Graph::Unlink(NodeBase *from,
                          NodeBase *to,
                          uint8_t in_pin) {
     if (!from || !to) {
-        return std::unexpected("invalid node pointers");
+        THROW_EXCEPTION(NodeNotFoundException, "{} node pointer is null",
+            ((from == nullptr) ? "1st" : "2nd"));
+    }
+
+    // Check if nodes are in the local array
+    auto from_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [from](const std::unique_ptr<NodeBase> &n) { return n->id() == from->id(); });
+    
+    if (from_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException, "from node is not owned by this Graph");
+    }
+
+    // Check if nodes are in the local array
+    auto to_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [to](const std::unique_ptr<NodeBase> &n) { return n->id() == to->id(); });
+    
+    if (to_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException, "to node is not owned by this Graph");
+    }
+
+    // Check if pins exists
+    if (!from->OutputPinExists(out_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException, "from node has no output pin with an id of {}", out_pin);
+    }
+
+    if (!from->InputPinExists(in_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException, "to node has no input pin with an id of {}", in_pin);
     }
 
     to->ClearParent(in_pin);
