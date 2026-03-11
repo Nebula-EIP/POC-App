@@ -17,8 +17,7 @@
 #include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
-    : next_id_(0),
-      project_name_("Untitled Project"),
+    : project_name_("Untitled Project"),
       version_("1.0"),
       author_(""),
       created_at_(std::chrono::system_clock::now()),

@@ -81,7 +81,7 @@ const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
-                               uint8_t parent_pin) {
+                               uint8_t parent_pin) noexcept {
     auto it = std::find_if(parents_.begin(), parents_.end(),
         [in_pin](Connection conn){return conn.in_pin == in_pin;});
 
@@ -92,7 +92,7 @@ void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
-                              uint8_t child_pin) {
+                              uint8_t child_pin) noexcept {
     auto it = std::find_if(childrens_.begin(), childrens_.end(),
         [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
             return std::get<0>(conns) == out_pin;
@@ -103,7 +103,7 @@ void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
 }
 
 // Internal API, the Graph is responsible for checking input values viability
-void core::NodeBase::ClearParent(uint8_t pin) {
+void core::NodeBase::ClearParent(uint8_t pin) noexcept {
     auto it = std::find_if(parents_.begin(), parents_.end(),
         [pin](Connection conn){return conn.in_pin == pin;});
 
@@ -114,7 +114,7 @@ void core::NodeBase::ClearParent(uint8_t pin) {
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
-                                 uint8_t in_pin) {
+                                 uint8_t in_pin) noexcept {
     auto v_it = std::find_if(childrens_.begin(), childrens_.end(),
         [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
             return std::get<0>(conns) == out_pin;
