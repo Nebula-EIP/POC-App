@@ -40,7 +40,22 @@ else
     exit 1
 fi
 
-echo -e "${GREEN}Building ${BUILD_TYPE} with format mode: ${FORMAT_MODE}${NC}\n"
+echo -e "${YELLOW}Select test mode:${NC}"
+echo "1) Don't run tests (default)"
+echo "2) Run tests"
+read -p "Enter choice (1 or 2): " test_choice
+test_choice=${test_choice:-1}
+
+if [ "$test_choice" = "1" ]; then
+    RUN_TESTS=false
+elif [ "$test_choice" = "2" ]; then
+    RUN_TESTS=true
+else
+    echo -e "${RED}Invalid choice${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}Building ${BUILD_TYPE} with format mode: ${FORMAT_MODE}${NC} and test mode: ${RUN_TESTS}${NC}\n"
 
 echo -e "${GREEN}[1/5] Configure...${NC}"
 ./scripts/linux/configure.sh ${BUILD_TYPE}
@@ -54,7 +69,11 @@ echo -e "${GREEN}[3/5] Lint...${NC}"
 echo -e "${GREEN}[4/5] Build (${BUILD_TYPE})...${NC}"
 ./scripts/linux/build.sh ${BUILD_TYPE}
 
-echo -e "${GREEN}[5/5] Test (${BUILD_TYPE})...${NC}"
-./scripts/linux/test.sh ${BUILD_TYPE}
+if [ "$RUN_TESTS" = true ]; then
+    echo -e "${GREEN}[5/5] Test (${BUILD_TYPE})...${NC}"
+    ./scripts/linux/test.sh ${BUILD_TYPE}
+else
+    echo -e "${YELLOW}[5/5] Skipping tests...${NC}"
+fi
 
 echo -e "${BLUE}=== Development Completed ===${NC}"
