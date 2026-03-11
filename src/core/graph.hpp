@@ -101,6 +101,13 @@ class Graph {
     T *GetNode(uint32_t id) const;
 
     /**
+     * @brief Gets all nodes in the graph.
+     * 
+     * @return A const reference to the vector of all nodes.
+     */
+    const std::vector<std::unique_ptr<NodeBase>> &GetAllNodes() const noexcept;
+
+    /**
      * @brief Links two nodes by connecting an output pin to an input pin.
      *
      * @param from The source node.
