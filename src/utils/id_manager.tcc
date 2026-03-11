@@ -14,7 +14,12 @@ IdType utils::IdManager<IdType>::NewId() {
    }
 }
 
-template<typename IdType>
+template <typename IdType>
+inline IdType utils::IdManager<IdType>::current_id() const noexcept {
+    return current_id_;
+}
+
+template <typename IdType>
 void utils::IdManager<IdType>::FreeId(IdType id) {
-   available_ids_.push_back(id);
+    available_ids_.push_back(id);
 }
