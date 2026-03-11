@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "node_base.hpp"
+#include "id_manager.hpp"
 
 namespace core {
 
@@ -36,6 +37,8 @@ class Graph {
      * NodeBase::NodeKind.
      * @return A pointer to the newly added node as NodeBase*.
      *
+     * @throws InvalidNodeKindException if kind == 0 (kUndefined)
+     * 
      * @note Prefer to use the templated version if you want to get back the
      * derived class.
      */
@@ -50,6 +53,8 @@ class Graph {
      * @param kind The kind of the node to be added, specified as a
      * NodeBase::NodeKind.
      * @return A pointer to the newly added node of type T.
+     * 
+     * @throws InvalidNodeKindException if kind == 0 (kUndefined)
      *
      * @note The caller is responsible for ensuring that the type T is
      * compatible with the specified NodeKind. Misuse will result in a
@@ -62,10 +67,11 @@ class Graph {
      * @brief Removes a node from the graph.
      *
      * @param node A pointer to the node to be removed.
+     * 
+     * @throws NodeNotFoundException if node is nullptr
+     * @throws NodeNotFoundException if the node is not owned by this Graph
      *
-     * @note The caller is responsible for ensuring that the node pointer is
-     * valid and belongs to this graph. Removing a node will also unlink it from
-     *       any connected nodes.
+     * @note Removing a node will also unlink it from any connected nodes.
      */
     void RemoveNode(NodeBase *node);
 
@@ -73,6 +79,9 @@ class Graph {
      * @brief Retrieves a node from the graph by its unique identifier.
      *
      * @param id The unique identifier of the node to retrieve.
+     * 
+     * @throws NodeNotFoundException if the Graph does not contains nodes with this id
+     * 
      * @return A pointer to the node with the specified ID, or nullptr if no
      * such node exists.
      */
@@ -231,7 +240,7 @@ class Graph {
      */
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind);
 
-    uint32_t next_id_ = 0;
+    utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
 
     // Project metadata

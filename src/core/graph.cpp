@@ -8,6 +8,8 @@
 #include <map>
 #include <sstream>
 
+#include "graph_exceptions.hpp"
+
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
@@ -52,53 +54,47 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
 
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
-        return nullptr;
+        THROW_EXCEPTION(InvalidNodeKindException, "kUndefined is not a valid node kind");
     }
 
-    uint32_t id = next_id_++;
-    auto node = CreateNode(id, kind);
-
-    if (!node) {
+    try {
+        nodes_.push_back(CreateNode(id_manager_.NewId(), kind));
+    } catch (std::exception &e) {
         return nullptr;
     }
-
-    nodes_.push_back(std::move(node));
     return nodes_.back().get();
 }
 
 void core::Graph::RemoveNode(NodeBase *node) {
-    if (!node) return;
-
-    // Disconnect all connections
-    for (uint8_t i = 0; i < node->GetInputPinCount(); i++) {
-        auto parent_conn = node->parent(i);
-        if (parent_conn && parent_conn->IsConnected()) {
-            Unlink(parent_conn->node, parent_conn->pin, node, i);
-        }
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    // Same for outputs
-    for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-        const auto &children = node->childrens(i);
-
-        // Copy to avoid iterator invalidation
-        std::vector<NodeBase::Connection> children_copy(children.begin(),
-                                                        children.end());
-        for (const auto &child_conn : children_copy) {
-            if (child_conn.IsConnected()) {
-                Unlink(node, i, child_conn.node, child_conn.pin);
-            }
-        }
-    }
-
-    // Remove from nodes vector
+    // Find the node in the local array
     auto it = std::find_if(
         nodes_.begin(), nodes_.end(),
-        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
-
-    if (it != nodes_.end()) {
-        nodes_.erase(it);
+        [node](const std::unique_ptr<NodeBase> &n) { return n->id() == node->id(); });
+    
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is not owned by this Graph");
     }
+
+    // Disconnect all parents
+    for (const NodeBase::Connection &conn : node->GetAllParents() ) {
+        Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+    }
+
+    // Disconnect all childrens
+    for (const NodeBase::Connection &conn : node->GetAllChildrens()) {
+        Unlink(node, conn.out_pin, conn.node, conn.in_pin);
+    }
+
+    // Free the id
+    id_manager_.FreeId(node->id());
+
+    // Delete the node
+    nodes_.erase(it);
+
 }
 
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
