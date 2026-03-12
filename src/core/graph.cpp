@@ -110,6 +110,10 @@ core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     return it != nodes_.end() ? it->get() : nullptr;
 }
 
+std::vector<std::unique_ptr<core::NodeBase>> &core::Graph::GetNodes() const {
+    return const_cast<std::vector<std::unique_ptr<NodeBase>> &>(nodes_);
+}
+
 std::expected<void, std::string> core::Graph::Link(NodeBase *from,
                                                    uint8_t out_pin,
                                                    NodeBase *to,

@@ -31,6 +31,15 @@ const core::NodeBase::Connection *core::NodeBase::parent(uint8_t in_pin) const {
     return conn.IsConnected() ? &conn : nullptr;
 }
 
+const std::vector<core::NodeBase::Connection> core::NodeBase::GetParents() const {
+    std::vector<Connection> connected_parents;
+    for (const auto& conn : parents_) {
+        if (conn.IsConnected())
+            connected_parents.push_back(conn);
+    }
+    return connected_parents;
+}
+
 // childrens_ vector already filled by the Graph class
 const std::vector<core::NodeBase::Connection> &core::NodeBase::childrens(
     uint8_t out_pin) const {

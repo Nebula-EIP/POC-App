@@ -93,6 +93,8 @@ class NodeBase {
      */
     const Connection *parent(uint8_t input_pin) const;
 
+    const std::vector<Connection> GetParents() const;
+
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
