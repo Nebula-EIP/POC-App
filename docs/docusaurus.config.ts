@@ -98,11 +98,11 @@ const config: Config = {
           items: [
             {
               label: 'User Guide',
-              to: '/docs/user',
+              to: '/docs/user/intro',
             },
             {
               label: 'Developers',
-              to: '/docs/dev',
+              to: '/docs/dev/intro',
             },
             {
               label: 'API Reference',
