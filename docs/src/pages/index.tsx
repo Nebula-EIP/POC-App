@@ -1,20 +1,16 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout>
-      <header className={clsx('hero hero--primary')}>
-        <div className="container">
-          <Heading as="h1" className="hero__title">
-            {siteConfig.title}
-          </Heading>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-        </div>
+      <header className="text--center padding-vert--xl">
+        <img className="only-on-light" style={{ margin: 'auto', padding: '1rem' }} src="/img/logo-light.png"/>
+        <img className="only-on-dark" style={{ margin: 'auto', padding: '1rem' }} src="/img/logo-dark.png"/>
+        <h1 className="hero__title">{siteConfig.title}</h1>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
       </header>
       <main>
       </main>
