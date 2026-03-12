@@ -6,7 +6,7 @@
 
 namespace utils {
 
-const char* to_color(LogLevel level) {
+const char *to_color(LogLevel level) {
     switch (level) {
         case LogLevel::Debug:
             return "\033[0;35m";  // Purple
@@ -22,7 +22,7 @@ const char* to_color(LogLevel level) {
     return "\033[0;37m";  // Default white
 }
 
-const char* to_string(LogLevel level) {
+const char *to_string(LogLevel level) {
     switch (level) {
         case LogLevel::Debug:
             return "DEBUG";
@@ -38,7 +38,7 @@ const char* to_string(LogLevel level) {
     return "UNKNOWN";
 }
 
-Logger& Logger::get_instance() {
+Logger &Logger::get_instance() {
     static Logger s_instance;
     return s_instance;
 }

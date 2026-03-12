@@ -9,18 +9,14 @@
 namespace utils {
 
 class BaseException : public std::exception {
- public:
+   public:
     BaseException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    BaseException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    BaseException(const std::source_location &location,
+                  std::format_string<Args...> fmt, Args &&...args);
 
     ~BaseException() = default;
 
@@ -35,17 +31,19 @@ class BaseException : public std::exception {
 
     /**
      * @brief Returns a formatted detailed error message.
-     * 
-     * Format: "Error: {fmt+args} at {function name} ({file_name}, {line}, {column})"
+     *
+     * Format: "Error: {fmt+args} at {function name} ({file_name}, {line},
+     * {column})"
      * @tparam Args Format argument types
      * @param fmt Format string
      * @param args Format arguments
      * @return Formatted detailed message with source location
      */
     template <typename... Args>
-    std::string GetFormattedMessage(std::format_string<Args...> fmt, Args &&...args) const;
+    std::string GetFormattedMessage(std::format_string<Args...> fmt,
+                                    Args &&...args) const;
 
- private:
+   private:
     const std::string what_;
     const std::source_location location_;
 };
@@ -55,11 +53,13 @@ class BaseException : public std::exception {
 #include "exception_base.tcc"
 
 /**
- * @brief Throws a BaseException with formatted message and automatic location capture.
- * @param ExceptionType The exception class to throw (must derive from BaseException)
+ * @brief Throws a BaseException with formatted message and automatic location
+ * capture.
+ * @param ExceptionType The exception class to throw (must derive from
+ * BaseException)
  * @param fmt Format string (std::format compatible)
  * @param ... Format arguments
- * 
+ *
  * Example:
  * @code
  * THROW_EXCEPTION(BaseException, "Failed to load node {}", node_id);

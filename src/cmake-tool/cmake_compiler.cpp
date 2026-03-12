@@ -1,5 +1,6 @@
 #include "cmake_compiler.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cstdio>
 #include <fstream>

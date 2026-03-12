@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <filesystem>
+#include <chrono>
 
 namespace fs = std::filesystem;
 
@@ -12,8 +13,16 @@ using ::testing::HasSubstr;
 class CMakeCompilerTest : public ::testing::Test {
 protected:
     void SetUp() override {
+        // Use a per-test unique directory so CTest parallel runs do not collide.
+        const auto* test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+        const auto timestamp = std::chrono::steady_clock::now().time_since_epoch().count();
+        const std::string unique_name = std::string("cmake_compiler_test_") +
+                                        test_info->test_suite_name() + "_" +
+                                        test_info->name() + "_" +
+                                        std::to_string(timestamp);
+
         // Create a temporary test directory
-        test_dir_ = fs::temp_directory_path() / "cmake_compiler_test";
+        test_dir_ = fs::temp_directory_path() / unique_name;
         fs::create_directories(test_dir_);
 
         // Create a simple test file
