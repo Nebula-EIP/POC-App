@@ -95,7 +95,6 @@ class NodeBase {
      * @param input_pin The index of the input pin.
      * 
      * @throws `InvalidPinIndexException` if the pin does not exists
-     * @throws `PinNotConnectedException` if the pin exists but is not connected 
      * 
      * @return Connection struct representing the pin's connection
      */
@@ -113,7 +112,6 @@ class NodeBase {
      * @param output_pin The index of the output pin.
      * 
      * @throws `InvalidPinIndexException` if the pin does not exists
-     * @throws `PinNotConnectedException` if the pin exists but is not connected 
      * 
      * @return Pointer to a vector of Connection structs.
      */

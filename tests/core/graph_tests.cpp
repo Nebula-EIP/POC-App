@@ -13,6 +13,7 @@
 #include "nodes/function_node.hpp"
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_output_node.hpp"
+#include "utils/logger.hpp"
 
 class GraphTest : public testing::Test {
  protected:
@@ -826,10 +827,11 @@ TEST_F(GraphTest, UnlinkRemovesChildConnection) {
 }
 
 #pragma endregion Unlink
-/*
+
 #pragma region Serialization
 
 TEST_F(GraphTest, SerializeCreatesValidJson) {
+    try {
     // Add some nodes to the graph
     auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
     auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
@@ -862,6 +864,9 @@ TEST_F(GraphTest, SerializeCreatesValidJson) {
     // Verify arrays are actually arrays
     EXPECT_TRUE(json["graph"]["nodes"].is_array());
     EXPECT_TRUE(json["graph"]["connections"].is_array());
+    } catch (utils::BaseException &e) {
+        LOG_FATAL(e.GetDetailedMessage());
+    }
 }
 
 TEST_F(GraphTest, SerializeIncludesAllMetadata) {
@@ -1041,7 +1046,7 @@ TEST_F(GraphTest, SerializeTimestampsInISO8601Format) {
 }
 
 #pragma endregion Serialization
-
+/*
 #pragma region Deserialization
 
 TEST_F(GraphTest, DeserializeRestoresEmptyGraph) {
@@ -1370,7 +1375,7 @@ TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
 }
 
 #pragma endregion Deserialization
-
+/*
 #pragma region File I/O
 
 TEST_F(GraphTest, SaveToFileCreatesFile) {

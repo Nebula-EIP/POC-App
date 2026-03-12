@@ -36,11 +36,6 @@ core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
         THROW_EXCEPTION(InvalidPinIndexException, "Input pin {} does not exists", in_pin);
     }
 
-
-    if (!it->IsConnected()) {
-        THROW_EXCEPTION(PinNotConnectedException, "Input pin {} is not connected", in_pin);
-    }
-
     return (*it);
 }
 
@@ -58,10 +53,6 @@ const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
 
     if (it == childrens_.end()) {
         THROW_EXCEPTION(InvalidPinIndexException, "Output pin {} does not exists", out_pin);
-    }
-
-    if (std::get<1>(*it).empty()) {
-        THROW_EXCEPTION(PinNotConnectedException, "Output pin {} has no connections", out_pin);
     }
 
     return &(std::get<1>(*it));

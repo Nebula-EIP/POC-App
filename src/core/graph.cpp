@@ -455,8 +455,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
             }
 
             // Establish the connection
-            target->SetParent(target_pin, source, source_pin);
-            source->AddChild(source_pin, target, target_pin);
+            graph.Link(source, source_pin, target, target_pin);
         } catch (const std::exception &e) {
             return std::unexpected(std::string("Failed to parse connection: ") +
                                    e.what());
