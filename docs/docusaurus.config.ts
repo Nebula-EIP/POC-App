@@ -52,14 +52,32 @@ const config: Config = {
     navbar: {
       logo: {
         alt: 'Nebula Logo',
-        src: 'img/nebula.png',
+        src: 'img/nebula-light.png',
+        srcDark: 'img/nebula-dark.png',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'aboutSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'About Nebula',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'userSidebar',
+          position: 'left',
+          label: 'User',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'devSidebar',
+          position: 'left',
+          label: 'Developers',
+        },
+        {
+          href: '/api/index.html',
+          label: 'API Reference',
+          position: 'left',
         },
       ],
     },
@@ -67,11 +85,28 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'About Nebula',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Introduction',
+              to: '/docs/about/intro',
+            },
+          ],
+        },
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'User Guide',
+              to: '/docs/user',
+            },
+            {
+              label: 'Developers',
+              to: '/docs/dev',
+            },
+            {
+              label: 'API Reference',
+              href: '/api/index.html',
             },
           ],
         },
