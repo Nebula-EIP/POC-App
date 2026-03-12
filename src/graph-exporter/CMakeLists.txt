@@ -22,7 +22,7 @@ if(GRAPH_EXPORTER_SOURCES)
     )
 
     # Link with dependencies
-    # target_link_libraries(graph-exporter PUBLIC core utils)
+    target_link_libraries(graph-exporter PUBLIC core utils)
 
     # Set properties
     set_target_properties(graph-exporter PROPERTIES

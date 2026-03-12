@@ -2,7 +2,11 @@
 
 #include <algorithm>
 
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
+#include "nodes/printf_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
@@ -26,6 +30,15 @@ const core::NodeBase::Connection *core::NodeBase::parent(uint8_t in_pin) const {
 
     const Connection &conn = parents_[in_pin];
     return conn.IsConnected() ? &conn : nullptr;
+}
+
+const std::vector<core::NodeBase::Connection> core::NodeBase::GetParents() const {
+    std::vector<Connection> connected_parents;
+    for (const auto& conn : parents_) {
+        if (conn.IsConnected())
+            connected_parents.push_back(conn);
+    }
+    return connected_parents;
 }
 
 // childrens_ vector already filled by the Graph class
@@ -132,6 +145,8 @@ std::string core::NodeKindToString(core::NodeBase::NodeKind kind) {
             return "FunctionInput";
         case core::NodeBase::NodeKind::kFunctionOutput:
             return "FunctionOutput";
+        case core::NodeBase::NodeKind::kPrintf:
+            return "Printf";
         case core::NodeBase::NodeKind::kOperator:
             return "Operator";
         case core::NodeBase::NodeKind::kCondition:
@@ -159,6 +174,9 @@ core::NodeBase::NodeKind core::StringToNodeKind(const std::string &str) {
     }
     if (str == "FunctionOutput") {
         return core::NodeBase::NodeKind::kFunctionOutput;
+    }
+    if (str == "Printf") {
+        return core::NodeBase::NodeKind::kPrintf;
     }
     if (str == "Operator") {
         return core::NodeBase::NodeKind::kOperator;
@@ -254,9 +272,54 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
-        case NodeKind::kFunction:
-        case NodeKind::kFunctionInput:
-        case NodeKind::kFunctionOutput:
+        case NodeKind::kFunction: {
+            auto function_node =
+                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            auto result = function_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            function_node->InitializeConnections();
+            node = std::move(function_node);
+            break;
+        }
+
+        case NodeKind::kFunctionInput: {
+            auto input_node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind));
+            auto result = input_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            input_node->InitializeConnections();
+            node = std::move(input_node);
+            break;
+        }
+
+        case NodeKind::kFunctionOutput: {
+            auto output_node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind));
+            auto result = output_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            output_node->InitializeConnections();
+            node = std::move(output_node);
+            break;
+        }
+
+        case NodeKind::kPrintf: {
+            auto printf_node =
+                std::unique_ptr<PrintfNode>(new PrintfNode(id, kind));
+            auto result = printf_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            printf_node->InitializeConnections();
+            node = std::move(printf_node);
+            break;
+        }
+
         case NodeKind::kOperator:
         case NodeKind::kCondition:
         case NodeKind::kLoop:

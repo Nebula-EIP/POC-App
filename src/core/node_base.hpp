@@ -35,6 +35,7 @@ class NodeBase {
         kFunctionInput,   ///< Function input parameter node
         kFunctionOutput,  ///< Function output/return node
         kOperator,        ///< Operator node (arithmetic, logical, etc.)
+        kPrintf,          ///< Printf output node (console display)
         kCondition,       ///< Conditional branching node (if/else)
         kLoop             ///< Loop control node (for/while)
     };
@@ -92,6 +93,8 @@ class NodeBase {
      * connected.
      */
     const Connection *parent(uint8_t input_pin) const;
+
+    const std::vector<Connection> GetParents() const;
 
     /**
      * @brief Retrieves all connections for a given output pin.

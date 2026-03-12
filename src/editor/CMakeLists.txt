@@ -21,7 +21,7 @@ if(EDITOR_SOURCES)
         core
         utils
         # graph-builder
-        # graph-exporter
+        graph-exporter
     )
 else()
     message(FATAL_ERROR "No source files found in editor!")

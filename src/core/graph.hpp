@@ -16,6 +16,8 @@
 
 namespace core {
 
+class FunctionNode;
+
 class Graph {
    public:
     Graph();
@@ -75,6 +77,8 @@ class Graph {
      * such node exists.
      */
     NodeBase *GetNode(uint32_t id) const;
+
+    std::vector<std::unique_ptr<NodeBase>> &GetNodes() const;
 
     /**
      * @brief Retrieves a node from the graph by its unique identifier with type

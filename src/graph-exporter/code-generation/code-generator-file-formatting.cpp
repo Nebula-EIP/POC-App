@@ -58,9 +58,8 @@ std::vector<std::string> SplitByNewlines(const std::string &s) {
 std::string GetNewLIneFormatted(const std::string &line, int indent_level,
                                 int current_indent) {
     std::string final_line = "";
-    for (int i = 0; i < current_indent; i++) {
+    for (int i = 0; i < current_indent; i++)
         final_line += std::string(indent_level, ' ');
-    }
     final_line += line + "\n";
     return final_line;
 }
