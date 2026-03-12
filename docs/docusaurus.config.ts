@@ -75,7 +75,7 @@ const config: Config = {
           label: 'Developers',
         },
         {
-          href: '/api/index.html',
+          href: 'pathname:///api/index.html',
           label: 'API Reference',
           position: 'left',
         },
@@ -106,7 +106,7 @@ const config: Config = {
             },
             {
               label: 'API Reference',
-              href: '/api/index.html',
+              href: 'pathname:///api/index.html',
             },
           ],
         },
