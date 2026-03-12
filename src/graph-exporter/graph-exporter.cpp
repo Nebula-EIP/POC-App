@@ -18,7 +18,7 @@ std::string GraphExporter::ParseContentNodeToNebula(const core::NodeBase *node) 
 
 void GraphExporter::ParseNode(const core::NodeBase *node, code_generation::CodeGeneratorFile &code_file)
 {
-    code_file.LineAt(ParseContentNodeToNebula(node), code_file.GetPositionStartBlock());
+    code_file.Line(ParseContentNodeToNebula(node));
     for (int i = 0; i < node->GetOutputPinCount(); i++) {
         for (const auto &childrens : node->childrens(i)) {
             if (childrens.node)

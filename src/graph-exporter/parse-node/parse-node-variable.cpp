@@ -47,7 +47,12 @@ std::string GraphExporter::ParseVariableNode(const core::NodeBase *node) {
             return "";
     }
     if (value_str.empty()) {
-        return code_line + variable_node->name() + ";";
+        if (node->parent(0)) {
+            std::string name = node->parent(0)->node->GetDisplayName();
+            return code_line + variable_node->name() + " = " + name + ";";
+        } else {
+            return code_line + variable_node->name() + ";";
+        }
     } else {
         return code_line + variable_node->name() + " = " + value_str + ";";
     }
