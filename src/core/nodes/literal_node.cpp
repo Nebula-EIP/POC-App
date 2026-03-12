@@ -1,13 +1,52 @@
 #include "literal_node.hpp"
+#include "../connection_exceptions.hpp"
 
 core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {}
+    : NodeBase(id, kind) {
+    InitializeConnections();
+}
+
+void core::LiteralNode::InitializeConnections() {
+    // LiteralNode has 0 input pins and 1 output pin
+    childrens_.resize(1);
+    uint32_t id = out_pin_id_manager_.NewId();
+    std::get<0>(childrens_[0]) = id;
+    std::get<1>(childrens_[0]).emplace_back(nullptr, id, 0, PinDataType::kInt);
+}
 
 void core::LiteralNode::set_name(const std::string &name) { name_ = name; }
 
 const std::string &core::LiteralNode::name() const noexcept { return name_; }
 
-void core::LiteralNode::set_type(PinDataType type) { type_ = type; }
+void core::LiteralNode::set_type(PinDataType type) {
+    // Check for still connected pins
+    for (auto child : GetAllChildrens()) {
+        if (child.IsConnected()) {
+            THROW_EXCEPTION(PinStillConnectedException, "Output pin n°{} is still connected",
+                child.out_pin);
+        }
+    }
+
+    for (auto parent : GetAllParents()) {
+        if (parent.IsConnected()) {
+            THROW_EXCEPTION(PinStillConnectedException, "Input pin n°{} is still connected",
+                parent.in_pin);
+        }
+    }
+
+    // Update pins types
+    for (auto &pin : childrens_) {
+        for (auto &child : std::get<1>(pin)) {
+            child.type = type;
+        }
+    }
+
+    for (auto &parent : parents_) {
+        parent.type = type;
+    }
+
+    type_ = type;
+}
 
 core::NodeBase::PinDataType core::LiteralNode::type() const noexcept { return type_; }
 

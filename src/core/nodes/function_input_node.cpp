@@ -1,7 +1,16 @@
 #include "function_input_node.hpp"
+#include "../connection_exceptions.hpp"
 
 core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {}
+    : NodeBase(id, kind) {
+    InitializeConnections();
+}
+
+void core::FunctionInputNode::InitializeConnections() {
+    // FunctionInputNode has 0 input pins and 1 output pin
+    parents_.resize(0);
+    childrens_.resize(1);
+}
 
 void core::FunctionInputNode::set_name(const std::string &name) {
     name_ = name;
@@ -9,7 +18,35 @@ void core::FunctionInputNode::set_name(const std::string &name) {
 
 const std::string &core::FunctionInputNode::name() const noexcept { return name_; }
 
-void core::FunctionInputNode::set_type(PinDataType type) { type_ = type; }
+void core::FunctionInputNode::set_type(PinDataType type) {
+    // Check for still connected pins
+    for (auto child : GetAllChildrens()) {
+        if (child.IsConnected()) {
+            THROW_EXCEPTION(PinStillConnectedException, "Output pin n°{} is still connected",
+                child.out_pin);
+        }
+    }
+
+    for (auto parent : GetAllParents()) {
+        if (parent.IsConnected()) {
+            THROW_EXCEPTION(PinStillConnectedException, "Input pin n°{} is still connected",
+                parent.in_pin);
+        }
+    }
+
+    // Update pins types
+    for (auto &pin : childrens_) {
+        for (auto &child : std::get<1>(pin)) {
+            child.type = type;
+        }
+    }
+
+    for (auto &parent : parents_) {
+        parent.type = type;
+    }
+    
+    type_ = type;
+}
 
 core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
     return type_;

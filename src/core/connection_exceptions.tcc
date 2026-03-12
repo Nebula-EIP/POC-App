@@ -42,3 +42,10 @@ core::SelfConnectionException::SelfConnectionException(
     const std::source_location &location, std::format_string<Args...> fmt,
     Args &&...args)
     : ConnectionException(location, fmt, std::forward<Args>(args)...) {}
+
+// PinStillConnectedException
+template <typename... Args>
+core::PinStillConnectedException::PinStillConnectedException(
+    const std::source_location &location, std::format_string<Args...> fmt,
+    Args &&...args)
+    : ConnectionException(location, fmt, std::forward<Args>(args)...) {}

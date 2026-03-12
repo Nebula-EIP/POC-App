@@ -148,6 +148,32 @@ class SelfConnectionException : public ConnectionException {
     ~SelfConnectionException() = default;
 };
 
+/**
+ * @class PinStillConnectedException
+ * @brief Exception thrown when attempting to modify pin metadata while pins are still connected.
+ *
+ * This exception is thrown when a node needs to edit its own pins metadata
+ * (such as changing pin count, types, or structure) but one or more pins
+ * still have active connections. All pins must be disconnected before
+ * modifying the node's pin configuration.
+ */
+class PinStillConnectedException : public ConnectionException {
+ public:
+    PinStillConnectedException(
+        const std::string &err_msg,
+        const std::source_location &location = std::source_location::current()
+    );
+
+    template <typename... Args>
+    PinStillConnectedException(
+        const std::source_location &location,
+        std::format_string<Args...> fmt,
+        Args &&...args
+    );
+
+    ~PinStillConnectedException() = default;
+};
+
 }  // namespace core
 
 #include "connection_exceptions.tcc"

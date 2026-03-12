@@ -2,14 +2,22 @@
 
 #include "../graph.hpp"
 #include "function_input_node.hpp"
-#include "function_node_errors.hpp"
+#include "function_node_exceptions.hpp"
 
 // ── Construction ────────────────────────────────────────────────────────────
 
 core::FunctionNode::~FunctionNode() = default;
 
 core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {}
+    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
+    InitializeConnections();
+}
+
+void core::FunctionNode::InitializeConnections() {
+    // FunctionNode has variable input pins (based on parameters) and 1 output pin
+    parents_.resize(GetInputPinCount());
+    childrens_.resize(1);
+}
 
 // ── Name ────────────────────────────────────────────────────────────────────
 
@@ -34,8 +42,7 @@ void core::FunctionNode::AddParameter(const std::string &name,
     auto *input_node =
         body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
     if (!input_node) {
-        throw function_node_errors::ParameterNodeCreationException(
-            "Failed to create FunctionInputNode for parameter");
+        THROW_EXCEPTION(FunctionNodeException, "Failed to create FunctionInputNode for parameter");
     }
     input_node->set_name(name);
     input_node->set_type(type);

@@ -19,9 +19,7 @@ bool core::NodeBase::Connection::IsConnected() const noexcept { return node != n
 
 
 
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {
-    InitializeConnections();
-}
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {}
 
 core::NodeBase::~NodeBase() noexcept = default;
 
@@ -170,20 +168,6 @@ void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
         });
     
     vec.erase(it);
-}
-
-void core::NodeBase::InitializeConnections() {
-    parents_.clear();
-    parents_.resize(GetInputPinCount());
-    for (uint8_t id = 0; id < parents_.size(); id = in_pin_id_manager_.NewId()) {
-        parents_[id].in_pin = id;
-    }
-
-    childrens_.clear();
-    childrens_.resize(GetOutputPinCount());
-    for (uint8_t id = 0; id < childrens_.size(); id = in_pin_id_manager_.NewId()) {
-        std::get<0>(childrens_[id]) = id;
-    }
 }
 
 // Helper functions for enum to/from string conversion

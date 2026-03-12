@@ -16,6 +16,11 @@ class LiteralNode : public NodeBase {
     void set_name(const std::string &name);
     const std::string &name() const noexcept;
 
+    /**
+     * @brief Change the type of the node & it's pins connections
+     * 
+     * @throws PinStillConnectedException if pins are already connected
+     */
     void set_type(PinDataType type);
     PinDataType type() const noexcept;
 
@@ -70,8 +75,10 @@ class LiteralNode : public NodeBase {
 
     LiteralNode(uint32_t id, NodeKind kind) noexcept;
 
+    void InitializeConnections() override;
+
    private:
-    PinDataType type_ = PinDataType::kUndefined;
+    PinDataType type_ = PinDataType::kInt;
     std::string name_ = "Literal";
     std::any data_;
 };

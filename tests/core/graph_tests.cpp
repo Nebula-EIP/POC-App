@@ -19,7 +19,7 @@ class GraphTest : public testing::Test {
     core::Graph graph_;
 };
 
-void DumpGraph(const core::Graph &graph) {
+static void DumpGraph(const core::Graph &graph) {
       printf("### DUMPING GRAPH ###\n");
     for (const auto &node : graph.GetAllNodes()) {
         printf("Node[%d]\n", node->id());
@@ -1731,11 +1731,11 @@ TEST_F(GraphTest, RemoveNodeFromConnectedGraphMaintainsIntegrity) {
     ASSERT_NE(node4, nullptr);
     ASSERT_NE(node5, nullptr);
     
-    uint32_t id1 = node1->id();
+    // uint32_t id1 = node1->id();
     uint32_t id2 = node2->id();
     uint32_t id3 = node3->id();
     uint32_t id4 = node4->id();
-    uint32_t id5 = node5->id();
+    // uint32_t id5 = node5->id();
     
     // Create chain: 1 -> 2 -> 3 -> 4 -> 5
     graph_.Link(node1, 0, node2, 0);

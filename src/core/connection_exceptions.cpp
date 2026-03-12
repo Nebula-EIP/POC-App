@@ -29,3 +29,8 @@ core::PinAlreadyConnectedException::PinAlreadyConnectedException(
 core::SelfConnectionException::SelfConnectionException(
     const std::string &err_msg, const std::source_location &location)
     : ConnectionException(err_msg, location) {}
+
+// PinStillConnectedException
+core::PinStillConnectedException::PinStillConnectedException(
+    const std::string &err_msg, const std::source_location &location)
+    : ConnectionException(err_msg, location) {}

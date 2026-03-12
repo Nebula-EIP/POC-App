@@ -4,7 +4,7 @@
 
 namespace core {
 
-class CoreException : utils::BaseException {
+class CoreException : public utils::BaseException {
  public:
     CoreException(
         const std::string &err_msg,

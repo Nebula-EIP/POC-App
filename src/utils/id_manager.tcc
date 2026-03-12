@@ -4,6 +4,10 @@
 #include "id_manager.hpp"
 
 template<typename IdType>
+utils::IdManager<IdType>::IdManager(IdType starting_id) 
+    : current_id_(starting_id), available_ids_() {}
+
+template<typename IdType>
 IdType utils::IdManager<IdType>::NewId() {
    if (available_ids_.empty()) {
       return current_id_++;

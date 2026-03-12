@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../node_base.hpp"
+#include "function_node_exceptions.hpp"
 
 namespace core {
 
@@ -118,6 +119,8 @@ class FunctionNode : public NodeBase {
     friend NodeBase;
 
     FunctionNode(uint32_t id, NodeKind kind) noexcept;
+
+    void InitializeConnections() override;
 
    private:
     std::string name_ = "Function";

@@ -8,9 +8,6 @@
 #include <map>
 #include <sstream>
 
-#include "graph_exceptions.hpp"
-#include "connection_exceptions.hpp"
-
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
@@ -141,7 +138,7 @@ void core::Graph::Link(NodeBase *from,
         THROW_EXCEPTION(InvalidPinIndexException, "from node has no output pin with an id of {}", out_pin);
     }
 
-    if (!from->InputPinExists(in_pin)) {
+    if (!to->InputPinExists(in_pin)) {
         THROW_EXCEPTION(InvalidPinIndexException, "to node has no input pin with an id of {}", in_pin);
     }
 
@@ -246,11 +243,6 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
         case NodeBase::NodeKind::kUndefined:
         default:
             return nullptr;
-    }
-
-    // Initialize connection vectors after construction
-    if (node) {
-        node->InitializeConnections();
     }
 
     return node;

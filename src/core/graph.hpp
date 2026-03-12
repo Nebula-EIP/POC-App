@@ -14,6 +14,8 @@
 
 #include "node_base.hpp"
 #include "id_manager.hpp"
+#include "connection_exceptions.hpp"
+#include "graph_exceptions.hpp"
 
 namespace core {
 
