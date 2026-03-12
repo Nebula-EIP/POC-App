@@ -20,21 +20,39 @@ class GraphTest : public testing::Test {
 };
 
 static void DumpGraph(const core::Graph &graph) {
-      printf("### DUMPING GRAPH ###\n");
+    printf("### DUMPING GRAPH ###\n");
     for (const auto &node : graph.GetAllNodes()) {
-        printf("Node[%d]\n", node->id());
+        printf("Node[%d:%s]\n", node->id(), core::NodeKindToString(node->kind()).c_str());
 
-        for (auto conn : node->GetAllChildrens()) {
-            printf("  IN[%d] <- Node[%d] Out[%d]\n", conn.in_pin, conn.node->id(), conn.out_pin);
+        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(), node->GetInputPinCount());
+        for (auto conn : node->GetAllParents()) {
+            if (conn.IsConnected()) {
+                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n",
+                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str(),
+                    conn.node->id(), node->GetDisplayName().c_str(),
+                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+            } else {
+                printf("    IN[%d:%s] <- Disconnected\n",
+                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+            }
         }
 
-        for (auto conn : node->GetAllParents()) {
-            printf("  OUT[%d] -> Node[%d] In[%d]\n", conn.out_pin,
-                (conn.node ? conn.node->id() : 0), conn.in_pin);
+        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
+        for (auto conn : node->GetAllChildrens()) {
+            if (conn.IsConnected())  {
+                printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
+                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str(),
+                    conn.node->id(), core::NodeKindToString(conn.node->kind()).c_str(),
+                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+            } else {
+                printf("    OUT[%d:%s] -> Disconnected\n",
+                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+            }
         }
     }
     printf("### COMPLETED ###\n");
 }
+
 
 /* ################################################################ */
 /* #################### Constructor & Metadata #################### */
@@ -290,13 +308,11 @@ TEST_F(GraphTest, RemoveNodeDisconnectsParentConnections) {
     
     // Link parent -> middle
     graph_.Link(parent, 0, middle, 0);
-    
     // Verify middle is connected to parent
     EXPECT_TRUE(middle->IsInputPinConnected(0));
     
     // Remove middle node
     graph_.RemoveNode(middle);
-    
     // Verify parent no longer has middle as a child
     EXPECT_FALSE(parent->IsOutputPinConnected(0));
 }

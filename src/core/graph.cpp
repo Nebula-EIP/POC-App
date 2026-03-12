@@ -94,7 +94,6 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
     // Delete the node
     nodes_.erase(it);
-
 }
 
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {

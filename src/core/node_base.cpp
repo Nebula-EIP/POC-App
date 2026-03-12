@@ -105,7 +105,13 @@ bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
 bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
     auto it = std::find_if(childrens_.begin(), childrens_.end(),
         [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
-            return std::get<0>(conns) == pin;
+            if (std::get<0>(conns) == pin) {
+                for (auto conn : std::get<1>(conns)) {
+                    if (conn.IsConnected()) {
+                        return true;
+                    }
+                }
+            }
         });
     
     if (it == childrens_.end()) {
@@ -143,7 +149,6 @@ void core::NodeBase::ClearParent(uint8_t pin) noexcept {
     auto it = std::find_if(parents_.begin(), parents_.end(),
         [pin](Connection conn){return conn.in_pin == pin;});
 
-    it->in_pin = 0;
     it->node = nullptr;
     it->out_pin = 0;
 }
@@ -158,7 +163,7 @@ void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
     
     std::vector<core::NodeBase::Connection> &vec = std::get<1>(*v_it);
 
-    auto it = std::find_if(vec.begin(), vec.begin(),
+    auto it = std::find_if(vec.begin(), vec.end(),
         [out_pin, node, in_pin](Connection conn){
             return (
                 (conn.in_pin == in_pin)
