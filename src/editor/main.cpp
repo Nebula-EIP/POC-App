@@ -27,7 +27,7 @@ static void DumpGraph(const core::Graph &graph) {
             }
         }
 
-        printf("  Inputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
+        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
         for (auto conn : node->GetAllChildrens()) {
             if (conn.IsConnected())  {
                 printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
@@ -53,6 +53,8 @@ int main(void) {
 
         DumpGraph(graph);
         graph.Link(lit1, 0, var1, 0);
+        DumpGraph(graph);
+        graph.Unlink(lit1, 0, var1, 0);
         DumpGraph(graph);
     } catch (const utils::BaseException &e) {
         LOG_FATAL(e.GetDetailedMessage());

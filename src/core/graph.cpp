@@ -77,12 +77,16 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
     // Disconnect all parents
     for (const NodeBase::Connection &conn : node->GetAllParents() ) {
-        Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        if (conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        }
     }
 
     // Disconnect all childrens
     for (const NodeBase::Connection &conn : node->GetAllChildrens()) {
-        Unlink(node, conn.out_pin, conn.node, conn.in_pin);
+        if (conn.IsConnected()) {
+            Unlink(node, conn.out_pin, conn.node, conn.in_pin);
+        }
     }
 
     // Free the id
@@ -199,7 +203,7 @@ void core::Graph::Unlink(NodeBase *from,
         THROW_EXCEPTION(InvalidPinIndexException, "from node has no output pin with an id of {}", out_pin);
     }
 
-    if (!from->InputPinExists(in_pin)) {
+    if (!to->InputPinExists(in_pin)) {
         THROW_EXCEPTION(InvalidPinIndexException, "to node has no input pin with an id of {}", in_pin);
     }
 

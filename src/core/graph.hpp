@@ -82,8 +82,6 @@ class Graph {
      *
      * @param id The unique identifier of the node to retrieve.
      * 
-     * @throws NodeNotFoundException if the Graph does not contains nodes with this id
-     * 
      * @return A pointer to the node with the specified ID, or nullptr if no
      * such node exists.
      */
