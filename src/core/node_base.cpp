@@ -103,22 +103,23 @@ bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
 }
 
 bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
+    printf("aaa\n");
     auto it = std::find_if(childrens_.begin(), childrens_.end(),
         [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
-            if (std::get<0>(conns) == pin) {
-                for (auto conn : std::get<1>(conns)) {
-                    if (conn.IsConnected()) {
-                        return true;
-                    }
-                }
-            }
+            return std::get<0>(conns) == pin;
         });
-    
+
+    // Pin don't exists
     if (it == childrens_.end()) {
         return false;
     }
-    
-    return !std::get<1>(*it).empty();
+
+    // Check for connections
+    const auto &connections = std::get<1>(*it);
+    return std::any_of(connections.begin(), connections.end(),
+        [](const Connection &conn){
+            return conn.IsConnected();
+        });
 }
 
 // Internal API, the Graph is responsible for checking input values viability
