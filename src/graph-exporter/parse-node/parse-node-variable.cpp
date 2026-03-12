@@ -57,5 +57,3 @@ std::string GraphExporter::ParseVariableNode(const core::NodeBase *node) {
         return code_line + variable_node->name() + " = " + value_str + ";";
     }
 }
-
-// TO DO : faire que ca assigne valeur si lié a un parent (monter en haut)
