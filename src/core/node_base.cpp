@@ -103,7 +103,6 @@ bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
 }
 
 bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
-    printf("aaa\n");
     auto it = std::find_if(childrens_.begin(), childrens_.end(),
         [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
             return std::get<0>(conns) == pin;

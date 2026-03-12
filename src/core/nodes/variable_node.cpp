@@ -13,7 +13,6 @@ void core::VariableNode::InitializeConnections() {
     childrens_.resize(1);
     uint32_t id = out_pin_id_manager_.NewId();
     std::get<0>(childrens_[0]) = id;
-    std::get<1>(childrens_[0]).emplace_back(nullptr, id, 0, PinDataType::kInt);
 }
 
 void core::VariableNode::set_name(const std::string &name) { name_ = name; }

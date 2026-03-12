@@ -121,7 +121,7 @@ void core::Graph::Link(NodeBase *from,
     // Check if nodes are in the local array
     auto from_it = std::find_if(
         nodes_.begin(), nodes_.end(),
-        [from](const std::unique_ptr<NodeBase> &n) { return n->id() == from->id(); });
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
     
     if (from_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException, "from node is not owned by this Graph");
@@ -130,7 +130,7 @@ void core::Graph::Link(NodeBase *from,
     // Check if nodes are in the local array
     auto to_it = std::find_if(
         nodes_.begin(), nodes_.end(),
-        [to](const std::unique_ptr<NodeBase> &n) { return n->id() == to->id(); });
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
     
     if (to_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException, "to node is not owned by this Graph");
@@ -182,7 +182,7 @@ void core::Graph::Unlink(NodeBase *from,
     // Check if nodes are in the local array
     auto from_it = std::find_if(
         nodes_.begin(), nodes_.end(),
-        [from](const std::unique_ptr<NodeBase> &n) { return n->id() == from->id(); });
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
     
     if (from_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException, "from node is not owned by this Graph");
@@ -191,7 +191,7 @@ void core::Graph::Unlink(NodeBase *from,
     // Check if nodes are in the local array
     auto to_it = std::find_if(
         nodes_.begin(), nodes_.end(),
-        [to](const std::unique_ptr<NodeBase> &n) { return n->id() == to->id(); });
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
     
     if (to_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException, "to node is not owned by this Graph");

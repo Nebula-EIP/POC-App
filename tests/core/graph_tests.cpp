@@ -365,7 +365,7 @@ TEST_F(GraphTest, RemoveNodeFreesNodeId) {
 }
 
 #pragma endregion RemoveNode
-/*
+
 #pragma region GetNode
 
 TEST_F(GraphTest, GetNodeReturnsExistingNode) {
@@ -455,7 +455,7 @@ TEST_F(GraphTest, GetNodeTemplatedVersionReturnsCorrectType) {
 }
 
 #pragma endregion GetNode
-/*
+
 #pragma region Link
 
 TEST_F(GraphTest, LinkConnectsTwoNodes) {
@@ -826,7 +826,7 @@ TEST_F(GraphTest, UnlinkRemovesChildConnection) {
 }
 
 #pragma endregion Unlink
-
+/*
 #pragma region Serialization
 
 TEST_F(GraphTest, SerializeCreatesValidJson) {
