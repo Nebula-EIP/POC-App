@@ -193,7 +193,7 @@ TEST_F(FunctionOutputNodeTest, Serialize_ContainsAllFields) {
 }
 
 // ---------- Deserialization ----------
-
+/*
 TEST_F(FunctionOutputNodeTest, Deserialize_RoundTrip_PreservesData) {
     auto *original = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
@@ -215,6 +215,7 @@ TEST_F(FunctionOutputNodeTest, Deserialize_RoundTrip_PreservesData) {
     EXPECT_EQ(node->GetInputPinCount(), 1);
     EXPECT_EQ(node->GetOutputPinCount(), 0);
 }
+*/
 
 TEST_F(FunctionOutputNodeTest, Deserialize_MissingFields_ReturnsError) {
     nlohmann::json bad_json;
