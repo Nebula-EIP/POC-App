@@ -237,7 +237,7 @@ call .\scripts\windows\build.bat %BUILD_TYPE% %PARALLEL%
 if errorlevel 1 exit /b 1
 
 if /I "%RUN_TESTS%"=="True" (
-    echo [5/5] Test (%BUILD_TYPE%)...
+    echo [5/5] Test ^(%BUILD_TYPE%^)...
     call .\scripts\windows\test.bat %BUILD_TYPE% %PARALLEL%
     if errorlevel 1 exit /b 1
 ) else (
