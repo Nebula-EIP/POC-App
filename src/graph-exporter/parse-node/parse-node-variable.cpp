@@ -53,4 +53,4 @@ std::string GraphExporter::ParseVariableNode(const core::NodeBase *node) {
     }
 }
 
-// TO DO : faire que ca 
+// TO DO : faire que ca assigne valeur si lié a un parent (monter en haut)
