@@ -11,3 +11,5 @@ nebula
 build/
 
 code-generated/
+
+.exe
