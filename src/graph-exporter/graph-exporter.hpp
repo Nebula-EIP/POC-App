@@ -9,7 +9,7 @@ class GraphExporter {
 public:
     GraphExporter();
 
-    void ExportToNebula(const core::Graph& graph, const std::string& filename);
+    code_generation::CodeGeneratorFile ExportToNebula(const core::Graph& graph, const std::string& filename);
 
 private:
     void ParseNode(const core::NodeBase* node, code_generation::CodeGeneratorFile& code_file);
@@ -19,4 +19,5 @@ private:
     // functions to parse different node kinds to nebula code
     std::string ParseLiteralNode(const core::NodeBase* node);
     std::string ParseVariableNode(const core::NodeBase* node);
+    std::string ParsePrintfNode(const core::NodeBase* node);
 };

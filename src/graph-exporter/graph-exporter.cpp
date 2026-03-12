@@ -5,6 +5,7 @@ GraphExporter::GraphExporter()
 {
     node_parsers[core::NodeBase::NodeKind::kLiteral] = std::bind(&GraphExporter::ParseLiteralNode, this, std::placeholders::_1);
     node_parsers[core::NodeBase::NodeKind::kVariable] = std::bind(&GraphExporter::ParseVariableNode, this, std::placeholders::_1);
+    node_parsers[core::NodeBase::NodeKind::kPrintf] = std::bind(&GraphExporter::ParsePrintfNode, this, std::placeholders::_1);
 }
 
 
@@ -27,7 +28,7 @@ void GraphExporter::ParseNode(const core::NodeBase *node, code_generation::CodeG
     }
 }
 
-void GraphExporter::ExportToNebula(const core::Graph &graph,
+code_generation::CodeGeneratorFile GraphExporter::ExportToNebula(const core::Graph &graph,
                                    const std::string &filename)
 {
     std::string path = "code-generated/" + filename;
@@ -41,9 +42,11 @@ void GraphExporter::ExportToNebula(const core::Graph &graph,
             nodes_heads.push_back(node.get());
         }
     }
+    code_file.Line("#include <string>\n");
+    code_file.Line("#include <stdio.h>\n");
     code_file.OpenBlock("int main()");
     for (const auto &head : nodes_heads)
         ParseNode(head, code_file);
     code_file.CloseAllBlocks();
-    printf("Exporting graph to \n%s\n", code_file.GetFormatedContent().c_str());
+    return code_file;
 }

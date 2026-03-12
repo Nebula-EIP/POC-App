@@ -3,7 +3,9 @@
 #include "graph.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
+#include "nodes/printf_node.hpp"
 #include "graph-exporter/graph-exporter.hpp"
+#include "file-writing/file-writer.hpp"
 
 int main(void) {
     core::Graph graph;
@@ -54,8 +56,41 @@ int main(void) {
         return 1;
     }
 
-    GraphExporter exporter;
-    exporter.ExportToNebula(graph, "output.nebula");
+    // Create printf nodes to display values
+    auto *print_int =
+        graph.AddNode<core::PrintfNode>(core::NodeBase::NodeKind::kPrintf);
+    print_int->set_type(core::NodeBase::PinDataType::kInt);
 
+    auto *print_float =
+        graph.AddNode<core::PrintfNode>(core::NodeBase::NodeKind::kPrintf);
+    print_float->set_type(core::NodeBase::PinDataType::kFloat);
+
+    auto *print_str =
+        graph.AddNode<core::PrintfNode>(core::NodeBase::NodeKind::kPrintf);
+    print_str->set_type(core::NodeBase::PinDataType::kString);
+
+    // Link variables/literals to printf nodes
+    auto link3 = graph.Link(int_var, 0, print_int, 0);
+    if (!link3) {
+        std::cerr << "Link error: " << link3.error() << std::endl;
+        return 1;
+    }
+
+    auto link4 = graph.Link(float_var, 0, print_float, 0);
+    if (!link4) {
+        std::cerr << "Link error: " << link4.error() << std::endl;
+        return 1;
+    }
+
+    auto link5 = graph.Link(str_literal, 0, print_str, 0);
+    if (!link5) {
+        std::cerr << "Link error: " << link5.error() << std::endl;
+        return 1;
+    }
+
+    GraphExporter exporter;
+    code_generation::CodeGeneratorFile cgf = exporter.ExportToNebula(graph, "output.nebula");
+    file_writing::FileWriter fw;
+    fw.WriteToFile("code-generated/main.cpp", cgf.GetFormatedContent());
     return 0;
 }

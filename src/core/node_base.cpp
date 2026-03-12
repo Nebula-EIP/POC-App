@@ -6,6 +6,7 @@
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
+#include "nodes/printf_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
@@ -144,6 +145,8 @@ std::string core::NodeKindToString(core::NodeBase::NodeKind kind) {
             return "FunctionInput";
         case core::NodeBase::NodeKind::kFunctionOutput:
             return "FunctionOutput";
+        case core::NodeBase::NodeKind::kPrintf:
+            return "Printf";
         case core::NodeBase::NodeKind::kOperator:
             return "Operator";
         case core::NodeBase::NodeKind::kCondition:
@@ -171,6 +174,9 @@ core::NodeBase::NodeKind core::StringToNodeKind(const std::string &str) {
     }
     if (str == "FunctionOutput") {
         return core::NodeBase::NodeKind::kFunctionOutput;
+    }
+    if (str == "Printf") {
+        return core::NodeBase::NodeKind::kPrintf;
     }
     if (str == "Operator") {
         return core::NodeBase::NodeKind::kOperator;
@@ -299,6 +305,18 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             }
             output_node->InitializeConnections();
             node = std::move(output_node);
+            break;
+        }
+
+        case NodeKind::kPrintf: {
+            auto printf_node =
+                std::unique_ptr<PrintfNode>(new PrintfNode(id, kind));
+            auto result = printf_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            printf_node->InitializeConnections();
+            node = std::move(printf_node);
             break;
         }
 

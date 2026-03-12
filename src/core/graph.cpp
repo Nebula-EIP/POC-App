@@ -12,6 +12,7 @@
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
+#include "nodes/printf_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
@@ -186,6 +187,10 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
         case NodeBase::NodeKind::kFunctionOutput:
             node = std::unique_ptr<FunctionOutputNode>(
                 new FunctionOutputNode(id, kind));
+            break;
+
+        case NodeBase::NodeKind::kPrintf:
+            node = std::unique_ptr<PrintfNode>(new PrintfNode(id, kind));
             break;
 
         case NodeBase::NodeKind::kOperator:
