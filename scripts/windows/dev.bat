@@ -229,7 +229,7 @@ call .\scripts\windows\format.bat %FORMAT_MODE%
 if errorlevel 1 exit /b 1
 
 echo [3/5] Lint...
-call .\scripts\windows\lint.bat %PARALLEL%
+call .\scripts\windows\lint.bat
 if errorlevel 1 exit /b 1
 
 echo [4/5] Build (%BUILD_TYPE%)...
