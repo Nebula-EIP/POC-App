@@ -4,8 +4,8 @@
 // GraphException
 template <typename... Args>
 core::GraphException::GraphException(const std::source_location &location,
-                                      std::format_string<Args...> fmt,
-                                      Args &&...args)
+                                     std::format_string<Args...> fmt,
+                                     Args &&...args)
     : CoreException(location, fmt, std::forward<Args>(args)...) {}
 
 // NodeNotFoundException

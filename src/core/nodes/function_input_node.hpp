@@ -25,7 +25,7 @@ class FunctionInputNode : public NodeBase {
 
     /**
      * @brief Change the type of the node & it's pins connections
-     * 
+     *
      * @throws PinStillConnectedException if pins are already connected
      */
     void set_type(PinDataType type);
@@ -40,7 +40,8 @@ class FunctionInputNode : public NodeBase {
     PinDataType GetOutputPinType(uint8_t pin) const override;
 
     std::expected<void, std::string> CanConnectTo(
-        uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept override;
+        uint8_t out_pin, const NodeBase *target,
+        uint8_t in_pin) const noexcept override;
 
     std::string GetInputPinName(uint8_t pin) const override;
     std::string GetOutputPinName(uint8_t pin) const override;

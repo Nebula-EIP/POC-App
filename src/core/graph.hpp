@@ -12,10 +12,10 @@
 #include <string>
 #include <vector>
 
-#include "node_base.hpp"
-#include "id_manager.hpp"
 #include "connection_exceptions.hpp"
 #include "graph_exceptions.hpp"
+#include "id_manager.hpp"
+#include "node_base.hpp"
 
 namespace core {
 
@@ -40,7 +40,7 @@ class Graph {
      * @return A pointer to the newly added node as NodeBase*.
      *
      * @throws InvalidNodeKindException if kind == 0 (kUndefined)
-     * 
+     *
      * @note Prefer to use the templated version if you want to get back the
      * derived class.
      */
@@ -55,7 +55,7 @@ class Graph {
      * @param kind The kind of the node to be added, specified as a
      * NodeBase::NodeKind.
      * @return A pointer to the newly added node of type T.
-     * 
+     *
      * @throws InvalidNodeKindException if kind == 0 (kUndefined)
      *
      * @note The caller is responsible for ensuring that the type T is
@@ -69,7 +69,7 @@ class Graph {
      * @brief Removes a node from the graph.
      *
      * @param node A pointer to the node to be removed.
-     * 
+     *
      * @throws NodeNotFoundException if node is nullptr
      * @throws NodeNotFoundException if the node is not owned by this Graph
      *
@@ -81,7 +81,7 @@ class Graph {
      * @brief Retrieves a node from the graph by its unique identifier.
      *
      * @param id The unique identifier of the node to retrieve.
-     * 
+     *
      * @return A pointer to the node with the specified ID, or nullptr if no
      * such node exists.
      */
@@ -102,7 +102,7 @@ class Graph {
 
     /**
      * @brief Gets all nodes in the graph.
-     * 
+     *
      * @return A const reference to the vector of all nodes.
      */
     const std::vector<std::unique_ptr<NodeBase>> &GetAllNodes() const noexcept;
@@ -119,7 +119,8 @@ class Graph {
      * linking.
      *
      * @throws NodeNotFoundException if one of the node pointer is null
-     * @throws NodeNotFoundException if one of the node is not owned by this Graph
+     * @throws NodeNotFoundException if one of the node is not owned by this
+     * Graph
      * @throws InvalidPinIndexException if one of the pin cannot be found
      * @throws IncompatiblePinTypesException if the pins types don't matches
      * @throws CircularDependencyException if from == to
@@ -136,7 +137,8 @@ class Graph {
      * @param in_pin The input pin index on the destination node.
      *
      * @throws NodeNotFoundException if one of the node pointer is null
-     * @throws NodeNotFoundException if one of the node is not owned by this Graph
+     * @throws NodeNotFoundException if one of the node is not owned by this
+     * Graph
      * @throws InvalidPinIndexException if one of the pin cannot be found
      */
     void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);

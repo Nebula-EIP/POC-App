@@ -12,18 +12,14 @@ namespace core {
  * deserialization, or file operations fail.
  */
 class SerializationException : public CoreException {
- public:
+   public:
     SerializationException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    SerializationException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    SerializationException(const std::source_location &location,
+                           std::format_string<Args...> fmt, Args &&...args);
 
     ~SerializationException() = default;
 };
@@ -36,18 +32,14 @@ class SerializationException : public CoreException {
  * data with version mismatches, or invalid structure.
  */
 class DeserializationException : public SerializationException {
- public:
+   public:
     DeserializationException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    DeserializationException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    DeserializationException(const std::source_location &location,
+                             std::format_string<Args...> fmt, Args &&...args);
 
     ~DeserializationException() = default;
 };
@@ -60,18 +52,14 @@ class DeserializationException : public SerializationException {
  * has fields with wrong types, or doesn't conform to the .nebula format.
  */
 class InvalidJsonSchemaException : public SerializationException {
- public:
+   public:
     InvalidJsonSchemaException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    InvalidJsonSchemaException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    InvalidJsonSchemaException(const std::source_location &location,
+                               std::format_string<Args...> fmt, Args &&...args);
 
     ~InvalidJsonSchemaException() = default;
 };
@@ -84,18 +72,14 @@ class InvalidJsonSchemaException : public SerializationException {
  * that doesn't exist or cannot be accessed.
  */
 class FileNotFoundException : public SerializationException {
- public:
+   public:
     FileNotFoundException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    FileNotFoundException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    FileNotFoundException(const std::source_location &location,
+                          std::format_string<Args...> fmt, Args &&...args);
 
     ~FileNotFoundException() = default;
 };
@@ -108,18 +92,14 @@ class FileNotFoundException : public SerializationException {
  * disk errors, or other I/O issues during save or load operations.
  */
 class FileAccessException : public SerializationException {
- public:
+   public:
     FileAccessException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    FileAccessException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    FileAccessException(const std::source_location &location,
+                        std::format_string<Args...> fmt, Args &&...args);
 
     ~FileAccessException() = default;
 };

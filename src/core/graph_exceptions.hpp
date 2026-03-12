@@ -12,18 +12,14 @@ namespace core {
  * node management, graph state violations, or structural issues.
  */
 class GraphException : public CoreException {
- public:
+   public:
     GraphException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    GraphException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    GraphException(const std::source_location &location,
+                   std::format_string<Args...> fmt, Args &&...args);
 
     ~GraphException() = default;
 };
@@ -36,42 +32,35 @@ class GraphException : public CoreException {
  * by ID that is not present in the graph.
  */
 class NodeNotFoundException : public GraphException {
- public:
+   public:
     NodeNotFoundException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    NodeNotFoundException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    NodeNotFoundException(const std::source_location &location,
+                          std::format_string<Args...> fmt, Args &&...args);
 
     ~NodeNotFoundException() = default;
 };
 
 /**
  * @class InvalidNodeKindException
- * @brief Exception thrown when attempting to create a node with an invalid kind.
+ * @brief Exception thrown when attempting to create a node with an invalid
+ * kind.
  *
- * This exception is thrown when trying to create a node with NodeKind::kUndefined
- * or an unsupported node kind.
+ * This exception is thrown when trying to create a node with
+ * NodeKind::kUndefined or an unsupported node kind.
  */
 class InvalidNodeKindException : public GraphException {
- public:
+   public:
     InvalidNodeKindException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    InvalidNodeKindException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    InvalidNodeKindException(const std::source_location &location,
+                             std::format_string<Args...> fmt, Args &&...args);
 
     ~InvalidNodeKindException() = default;
 };
@@ -84,18 +73,14 @@ class InvalidNodeKindException : public GraphException {
  * exists in the graph.
  */
 class DuplicateNodeIdException : public GraphException {
- public:
+   public:
     DuplicateNodeIdException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    DuplicateNodeIdException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    DuplicateNodeIdException(const std::source_location &location,
+                             std::format_string<Args...> fmt, Args &&...args);
 
     ~DuplicateNodeIdException() = default;
 };
@@ -108,18 +93,15 @@ class DuplicateNodeIdException : public GraphException {
  * would result in a cycle in the graph.
  */
 class CircularDependencyException : public GraphException {
- public:
+   public:
     CircularDependencyException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    CircularDependencyException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    CircularDependencyException(const std::source_location &location,
+                                std::format_string<Args...> fmt,
+                                Args &&...args);
 
     ~CircularDependencyException() = default;
 };
@@ -132,18 +114,14 @@ class CircularDependencyException : public GraphException {
  * like traversal or execution where modifications are not allowed.
  */
 class GraphModificationException : public GraphException {
- public:
+   public:
     GraphModificationException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    GraphModificationException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    GraphModificationException(const std::source_location &location,
+                               std::format_string<Args...> fmt, Args &&...args);
 
     ~GraphModificationException() = default;
 };
@@ -156,18 +134,14 @@ class GraphModificationException : public GraphException {
  * one node but the graph is empty.
  */
 class EmptyGraphException : public GraphException {
- public:
+   public:
     EmptyGraphException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    EmptyGraphException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    EmptyGraphException(const std::source_location &location,
+                        std::format_string<Args...> fmt, Args &&...args);
 
     ~EmptyGraphException() = default;
 };

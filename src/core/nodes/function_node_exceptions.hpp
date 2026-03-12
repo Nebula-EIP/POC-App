@@ -9,21 +9,18 @@ namespace core {
  * @brief Base exception class for all function node-related errors.
  *
  * This exception is thrown when operations on function nodes fail, such as
- * parameter management, return type validation, or function-specific operations.
+ * parameter management, return type validation, or function-specific
+ * operations.
  */
 class FunctionNodeException : public CoreException {
- public:
+   public:
     FunctionNodeException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    FunctionNodeException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    FunctionNodeException(const std::source_location &location,
+                          std::format_string<Args...> fmt, Args &&...args);
 
     ~FunctionNodeException() = default;
 };
@@ -36,18 +33,14 @@ class FunctionNodeException : public CoreException {
  * such as adding duplicate parameter names or invalid parameter indices.
  */
 class InvalidParameterException : public FunctionNodeException {
- public:
+   public:
     InvalidParameterException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    InvalidParameterException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    InvalidParameterException(const std::source_location &location,
+                              std::format_string<Args...> fmt, Args &&...args);
 
     ~InvalidParameterException() = default;
 };
@@ -60,18 +53,14 @@ class InvalidParameterException : public FunctionNodeException {
  * by name or index that doesn't exist in the function node.
  */
 class ParameterNotFoundException : public FunctionNodeException {
- public:
+   public:
     ParameterNotFoundException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    ParameterNotFoundException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    ParameterNotFoundException(const std::source_location &location,
+                               std::format_string<Args...> fmt, Args &&...args);
 
     ~ParameterNotFoundException() = default;
 };
@@ -84,18 +73,15 @@ class ParameterNotFoundException : public FunctionNodeException {
  * active connections. The parameter must be disconnected first before removal.
  */
 class ConnectedParameterException : public FunctionNodeException {
- public:
+   public:
     ConnectedParameterException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    ConnectedParameterException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    ConnectedParameterException(const std::source_location &location,
+                                std::format_string<Args...> fmt,
+                                Args &&...args);
 
     ~ConnectedParameterException() = default;
 };
@@ -108,18 +94,14 @@ class ConnectedParameterException : public FunctionNodeException {
  * return type for a function node.
  */
 class InvalidReturnTypeException : public FunctionNodeException {
- public:
+   public:
     InvalidReturnTypeException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    InvalidReturnTypeException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    InvalidReturnTypeException(const std::source_location &location,
+                               std::format_string<Args...> fmt, Args &&...args);
 
     ~InvalidReturnTypeException() = default;
 };

@@ -14,7 +14,8 @@ core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
 }
 
 void core::FunctionNode::InitializeConnections() {
-    // FunctionNode has variable input pins (based on parameters) and 1 output pin
+    // FunctionNode has variable input pins (based on parameters) and 1 output
+    // pin
     parents_.resize(GetInputPinCount());
     childrens_.resize(1);
 }
@@ -42,7 +43,8 @@ void core::FunctionNode::AddParameter(const std::string &name,
     auto *input_node =
         body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
     if (!input_node) {
-        THROW_EXCEPTION(FunctionNodeException, "Failed to create FunctionInputNode for parameter");
+        THROW_EXCEPTION(FunctionNodeException,
+                        "Failed to create FunctionInputNode for parameter");
     }
     input_node->set_name(name);
     input_node->set_type(type);
@@ -149,9 +151,13 @@ std::string core::FunctionNode::GetOutputPinName(uint8_t pin) const {
 
 // ── Display ─────────────────────────────────────────────────────────────────
 
-std::string core::FunctionNode::GetDisplayName() const noexcept { return name_; }
+std::string core::FunctionNode::GetDisplayName() const noexcept {
+    return name_;
+}
 
-std::string core::FunctionNode::GetCategory() const noexcept { return "Functions"; }
+std::string core::FunctionNode::GetCategory() const noexcept {
+    return "Functions";
+}
 
 // ── Serialization ───────────────────────────────────────────────────────────
 

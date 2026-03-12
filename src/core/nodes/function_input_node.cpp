@@ -1,4 +1,5 @@
 #include "function_input_node.hpp"
+
 #include "../connection_exceptions.hpp"
 
 core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
@@ -16,21 +17,24 @@ void core::FunctionInputNode::set_name(const std::string &name) {
     name_ = name;
 }
 
-const std::string &core::FunctionInputNode::name() const noexcept { return name_; }
+const std::string &core::FunctionInputNode::name() const noexcept {
+    return name_;
+}
 
 void core::FunctionInputNode::set_type(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {
-            THROW_EXCEPTION(PinStillConnectedException, "Output pin n°{} is still connected",
-                child.out_pin);
+            THROW_EXCEPTION(PinStillConnectedException,
+                            "Output pin n°{} is still connected",
+                            child.out_pin);
         }
     }
 
     for (auto parent : GetAllParents()) {
         if (parent.IsConnected()) {
-            THROW_EXCEPTION(PinStillConnectedException, "Input pin n°{} is still connected",
-                parent.in_pin);
+            THROW_EXCEPTION(PinStillConnectedException,
+                            "Input pin n°{} is still connected", parent.in_pin);
         }
     }
 
@@ -44,7 +48,7 @@ void core::FunctionInputNode::set_type(PinDataType type) {
     for (auto &parent : parents_) {
         parent.type = type;
     }
-    
+
     type_ = type;
 }
 
@@ -54,7 +58,9 @@ core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
 
 uint8_t core::FunctionInputNode::GetInputPinCount() const noexcept { return 0; }
 
-uint8_t core::FunctionInputNode::GetOutputPinCount() const noexcept { return 1; }
+uint8_t core::FunctionInputNode::GetOutputPinCount() const noexcept {
+    return 1;
+}
 
 core::NodeBase::PinDataType core::FunctionInputNode::GetInputPinType(
     uint8_t /*pin*/) const {
@@ -97,9 +103,13 @@ std::string core::FunctionInputNode::GetOutputPinName(uint8_t pin) const {
     return "";
 }
 
-std::string core::FunctionInputNode::GetDisplayName() const noexcept { return name_; }
+std::string core::FunctionInputNode::GetDisplayName() const noexcept {
+    return name_;
+}
 
-std::string core::FunctionInputNode::GetCategory() const noexcept { return "Functions"; }
+std::string core::FunctionInputNode::GetCategory() const noexcept {
+    return "Functions";
+}
 
 nlohmann::json core::FunctionInputNode::Serialize() const {
     nlohmann::json json;

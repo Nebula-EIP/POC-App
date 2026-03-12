@@ -5,8 +5,8 @@
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include "id_manager.hpp"
 
@@ -64,9 +64,9 @@ class NodeBase {
      * and the data type of the connection.
      */
     struct Connection {
-        NodeBase *node = nullptr;     ///< Pointer to the connected node
-        uint8_t out_pin = 0;          ///< Output pin of the connection
-        uint8_t in_pin = 0;           ///< Input pin of the connection
+        NodeBase *node = nullptr;  ///< Pointer to the connected node
+        uint8_t out_pin = 0;       ///< Output pin of the connection
+        uint8_t in_pin = 0;        ///< Input pin of the connection
         PinDataType type =
             PinDataType::kUndefined;  ///< Data type of the connection
 
@@ -79,7 +79,8 @@ class NodeBase {
          * @param in_pin Pin number on the connected node.
          * @param type Data type going trough the connection
          */
-        Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type) noexcept;
+        Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin,
+                   PinDataType type) noexcept;
 
         bool IsConnected() const noexcept;
     };
@@ -93,16 +94,16 @@ class NodeBase {
     /**
      * @brief Retrieves connection information for a given input pin.
      * @param input_pin The index of the input pin.
-     * 
+     *
      * @throws `InvalidPinIndexException` if the pin does not exists
-     * 
+     *
      * @return Connection struct representing the pin's connection
      */
     Connection parent(uint8_t input_pin) const;
 
     /**
      * @brief Retreives all incoming connections of the node
-     * 
+     *
      * @return A reference to a vector of all Connections
      */
     const std::vector<Connection> &GetAllParents() const noexcept;
@@ -110,20 +111,19 @@ class NodeBase {
     /**
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
-     * 
+     *
      * @throws `InvalidPinIndexException` if the pin does not exists
-     * 
+     *
      * @return Pointer to a vector of Connection structs.
      */
     const std::vector<Connection> *childrens(uint8_t output_pin) const;
 
     /**
      * @brief Retreives all outgoing connections of the node
-     * 
+     *
      * @return A reference to a vector of all Connections
      */
     const std::vector<Connection> &GetAllChildrens() const noexcept;
-    
 
     virtual uint8_t GetInputPinCount() const noexcept = 0;
     virtual uint8_t GetOutputPinCount() const noexcept = 0;
@@ -222,11 +222,12 @@ class NodeBase {
      *
      * @warning
      * If the input pin already has a connection, it will be overridden.
-     * 
-     * It is the caller responsibility to check the function's arguments before calling it and
-     * if said connection is a valid one.
+     *
+     * It is the caller responsibility to check the function's arguments before
+     * calling it and if said connection is a valid one.
      */
-    void SetParent(uint8_t input_pin, NodeBase *node, uint8_t parent_pin) noexcept;
+    void SetParent(uint8_t input_pin, NodeBase *node,
+                   uint8_t parent_pin) noexcept;
 
     /**
      * @brief Adds a child connection from an output pin.
@@ -237,12 +238,13 @@ class NodeBase {
      * @param output_pin The output pin index on this node.
      * @param node Pointer to the child node, must not be nullptr.
      * @param child_pin The input pin index on the child node.
-     * 
+     *
      * @warning
-     * It is the caller responsibility to check the function's arguments before calling it and
-     * if said connection is a valid one.
+     * It is the caller responsibility to check the function's arguments before
+     * calling it and if said connection is a valid one.
      */
-    void AddChild(uint8_t output_pin, NodeBase *node, uint8_t child_pin) noexcept;
+    void AddChild(uint8_t output_pin, NodeBase *node,
+                  uint8_t child_pin) noexcept;
 
     /**
      * @brief Resets an input pin connection.
@@ -251,8 +253,9 @@ class NodeBase {
      * only keeps the pin type in memory.
      *
      * @param pin The input pin index to clear.
-     * 
-     * @warning It is the caller responsibility to check the function's arguments before calling it.
+     *
+     * @warning It is the caller responsibility to check the function's
+     * arguments before calling it.
      */
     void ClearParent(uint8_t pin) noexcept;
 
@@ -262,8 +265,9 @@ class NodeBase {
      * @param output_pin The output pin index on this node.
      * @param node Pointer to the child node to disconnect, must not be nullptr.
      * @param input_pin The input pin index on the child node.
-     * 
-     * @warning It is the caller responsibility to check the function's arguments before calling it.
+     *
+     * @warning It is the caller responsibility to check the function's
+     * arguments before calling it.
      */
     void RemoveChild(uint8_t output_pin, const NodeBase *node,
                      uint8_t input_pin) noexcept;
@@ -271,8 +275,8 @@ class NodeBase {
     /**
      * @brief Initializes the connection vectors based on pin counts.
      *
-     * Must be implemented & called by class inheriting from this class in order to setup the
-     * pins properly.
+     * Must be implemented & called by class inheriting from this class in order
+     * to setup the pins properly.
      */
     virtual void InitializeConnections() = 0;
 

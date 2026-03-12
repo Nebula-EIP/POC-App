@@ -1,8 +1,8 @@
 #include "graph_exceptions.hpp"
 
 // GraphException
-core::GraphException::GraphException(
-    const std::string &err_msg, const std::source_location &location)
+core::GraphException::GraphException(const std::string &err_msg,
+                                     const std::source_location &location)
     : CoreException(err_msg, location) {}
 
 // NodeNotFoundException

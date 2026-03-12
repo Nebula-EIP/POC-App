@@ -1,4 +1,5 @@
 #include "literal_node.hpp"
+
 #include "../connection_exceptions.hpp"
 
 core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
@@ -21,15 +22,16 @@ void core::LiteralNode::set_type(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {
-            THROW_EXCEPTION(PinStillConnectedException, "Output pin n°{} is still connected",
-                child.out_pin);
+            THROW_EXCEPTION(PinStillConnectedException,
+                            "Output pin n°{} is still connected",
+                            child.out_pin);
         }
     }
 
     for (auto parent : GetAllParents()) {
         if (parent.IsConnected()) {
-            THROW_EXCEPTION(PinStillConnectedException, "Input pin n°{} is still connected",
-                parent.in_pin);
+            THROW_EXCEPTION(PinStillConnectedException,
+                            "Input pin n°{} is still connected", parent.in_pin);
         }
     }
 
@@ -47,7 +49,9 @@ void core::LiteralNode::set_type(PinDataType type) {
     type_ = type;
 }
 
-core::NodeBase::PinDataType core::LiteralNode::type() const noexcept { return type_; }
+core::NodeBase::PinDataType core::LiteralNode::type() const noexcept {
+    return type_;
+}
 
 void core::LiteralNode::set_data(std::any data) { data_ = data; }
 
@@ -102,7 +106,9 @@ std::string core::LiteralNode::GetOutputPinName(uint8_t pin) const {
 
 std::string core::LiteralNode::GetDisplayName() const noexcept { return name_; }
 
-std::string core::LiteralNode::GetCategory() const noexcept { return "Cool stuff~"; }
+std::string core::LiteralNode::GetCategory() const noexcept {
+    return "Cool stuff~";
+}
 
 nlohmann::json core::LiteralNode::Serialize() const {
     nlohmann::json json;

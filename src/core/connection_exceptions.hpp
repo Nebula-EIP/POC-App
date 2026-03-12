@@ -12,18 +12,14 @@ namespace core {
  * pin operations fail, such as invalid pin access or connection validation.
  */
 class ConnectionException : public CoreException {
- public:
+   public:
     ConnectionException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    ConnectionException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    ConnectionException(const std::source_location &location,
+                        std::format_string<Args...> fmt, Args &&...args);
 
     ~ConnectionException() = default;
 };
@@ -36,42 +32,35 @@ class ConnectionException : public CoreException {
  * that doesn't exist on the node.
  */
 class InvalidPinIndexException : public ConnectionException {
- public:
+   public:
     InvalidPinIndexException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    InvalidPinIndexException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    InvalidPinIndexException(const std::source_location &location,
+                             std::format_string<Args...> fmt, Args &&...args);
 
     ~InvalidPinIndexException() = default;
 };
 
 /**
  * @class PinNotConnectedException
- * @brief Exception thrown when accessing connection data from an unconnected pin.
+ * @brief Exception thrown when accessing connection data from an unconnected
+ * pin.
  *
  * This exception is thrown when trying to retrieve connection information
  * from a pin that has no active connection.
  */
 class PinNotConnectedException : public ConnectionException {
- public:
+   public:
     PinNotConnectedException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    PinNotConnectedException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    PinNotConnectedException(const std::source_location &location,
+                             std::format_string<Args...> fmt, Args &&...args);
 
     ~PinNotConnectedException() = default;
 };
@@ -84,42 +73,37 @@ class PinNotConnectedException : public ConnectionException {
  * pin with incompatible data types.
  */
 class IncompatiblePinTypesException : public ConnectionException {
- public:
+   public:
     IncompatiblePinTypesException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    IncompatiblePinTypesException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    IncompatiblePinTypesException(const std::source_location &location,
+                                  std::format_string<Args...> fmt,
+                                  Args &&...args);
 
     ~IncompatiblePinTypesException() = default;
 };
 
 /**
  * @class PinAlreadyConnectedException
- * @brief Exception thrown when attempting to connect an already-connected input pin.
+ * @brief Exception thrown when attempting to connect an already-connected input
+ * pin.
  *
  * This exception is thrown when trying to connect an input pin that already
  * has a parent connection (if strict single-parent enforcement is enabled).
  */
 class PinAlreadyConnectedException : public ConnectionException {
- public:
+   public:
     PinAlreadyConnectedException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    PinAlreadyConnectedException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    PinAlreadyConnectedException(const std::source_location &location,
+                                 std::format_string<Args...> fmt,
+                                 Args &&...args);
 
     ~PinAlreadyConnectedException() = default;
 };
@@ -132,25 +116,22 @@ class PinAlreadyConnectedException : public ConnectionException {
  * source and target nodes are the same.
  */
 class SelfConnectionException : public ConnectionException {
- public:
+   public:
     SelfConnectionException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    SelfConnectionException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    SelfConnectionException(const std::source_location &location,
+                            std::format_string<Args...> fmt, Args &&...args);
 
     ~SelfConnectionException() = default;
 };
 
 /**
  * @class PinStillConnectedException
- * @brief Exception thrown when attempting to modify pin metadata while pins are still connected.
+ * @brief Exception thrown when attempting to modify pin metadata while pins are
+ * still connected.
  *
  * This exception is thrown when a node needs to edit its own pins metadata
  * (such as changing pin count, types, or structure) but one or more pins
@@ -158,18 +139,14 @@ class SelfConnectionException : public ConnectionException {
  * modifying the node's pin configuration.
  */
 class PinStillConnectedException : public ConnectionException {
- public:
+   public:
     PinStillConnectedException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    PinStillConnectedException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    PinStillConnectedException(const std::source_location &location,
+                               std::format_string<Args...> fmt, Args &&...args);
 
     ~PinStillConnectedException() = default;
 };

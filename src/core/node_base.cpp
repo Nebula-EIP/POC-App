@@ -4,22 +4,23 @@
 #include <exception>
 
 #include "connection_exceptions.hpp"
-
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
-core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin, PinDataType type) noexcept
+core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin,
+                                       uint8_t in_pin,
+                                       PinDataType type) noexcept
     : node(node), out_pin(out_pin), in_pin(in_pin), type(type) {}
 
-bool core::NodeBase::Connection::IsConnected() const noexcept { return node != nullptr; }
+bool core::NodeBase::Connection::IsConnected() const noexcept {
+    return node != nullptr;
+}
 
-
-
-
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept : id_(id), kind_(kind) {}
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept
+    : id_(id), kind_(kind) {}
 
 core::NodeBase::~NodeBase() noexcept = default;
 
@@ -29,53 +30,63 @@ core::NodeBase::NodeKind core::NodeBase::kind() const noexcept { return kind_; }
 
 // parents_ vector already filled by the Graph class
 core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
-    auto it = std::find_if(parents_.begin(), parents_.end(),
-        [in_pin](Connection conn){return conn.in_pin == in_pin;});
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
 
     if (it == parents_.end()) {
-        THROW_EXCEPTION(InvalidPinIndexException, "Input pin {} does not exists", in_pin);
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "Input pin {} does not exists", in_pin);
     }
 
     return (*it);
 }
 
-const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllParents() const noexcept {
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllParents()
+    const noexcept {
     return parents_;
 }
 
 // childrens_ vector already filled by the Graph class
 const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
-    auto it = std::find_if(childrens_.begin(), childrens_.end(),
-        [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
             return std::get<0>(conns) == out_pin;
         });
 
     if (it == childrens_.end()) {
-        THROW_EXCEPTION(InvalidPinIndexException, "Output pin {} does not exists", out_pin);
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "Output pin {} does not exists", out_pin);
     }
 
     return &(std::get<1>(*it));
 }
 
-const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens() const noexcept {
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
+    const noexcept {
     static std::vector<Connection> childs;
 
     childs.clear();
     for (auto conn : childrens_) {
-        childs.insert(childs.end(), std::get<1>(conn).begin(), std::get<1>(conn).end());
+        childs.insert(childs.end(), std::get<1>(conn).begin(),
+                      std::get<1>(conn).end());
     }
     return childs;
 }
 
 bool core::NodeBase::InputPinExists(uint8_t pin) const noexcept {
-    auto it = std::find_if(parents_.begin(), parents_.end(),
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
         [pin](const Connection &conn) { return conn.in_pin == pin; });
     return it != parents_.end();
 }
 
 bool core::NodeBase::OutputPinExists(uint8_t pin) const noexcept {
-    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
         [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
             return std::get<0>(conns) == pin;
         });
@@ -83,18 +94,20 @@ bool core::NodeBase::OutputPinExists(uint8_t pin) const noexcept {
 }
 
 bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
-    auto it = std::find_if(parents_.begin(), parents_.end(),
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
         [pin](const Connection &conn) { return conn.in_pin == pin; });
-    
+
     if (it == parents_.end()) {
         return false;
     }
-    
+
     return it->IsConnected();
 }
 
 bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
-    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
         [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
             return std::get<0>(conns) == pin;
         });
@@ -106,17 +119,17 @@ bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
 
     // Check for connections
     const auto &connections = std::get<1>(*it);
-    return std::any_of(connections.begin(), connections.end(),
-        [](const Connection &conn){
-            return conn.IsConnected();
-        });
+    return std::any_of(
+        connections.begin(), connections.end(),
+        [](const Connection &conn) { return conn.IsConnected(); });
 }
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
                                uint8_t parent_pin) noexcept {
-    auto it = std::find_if(parents_.begin(), parents_.end(),
-        [in_pin](Connection conn){return conn.in_pin == in_pin;});
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
 
     it->in_pin = in_pin;
     it->node = parent;
@@ -126,19 +139,22 @@ void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
                               uint8_t child_pin) noexcept {
-    auto it = std::find_if(childrens_.begin(), childrens_.end(),
-        [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
             return std::get<0>(conns) == out_pin;
         });
-    
+
     Connection conn(child, out_pin, child_pin, GetOutputPinType(out_pin));
     std::get<1>(*it).push_back(conn);
 }
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::ClearParent(uint8_t pin) noexcept {
-    auto it = std::find_if(parents_.begin(), parents_.end(),
-        [pin](Connection conn){return conn.in_pin == pin;});
+    auto it =
+        std::find_if(parents_.begin(), parents_.end(),
+                     [pin](Connection conn) { return conn.in_pin == pin; });
 
     it->node = nullptr;
     it->out_pin = 0;
@@ -147,22 +163,21 @@ void core::NodeBase::ClearParent(uint8_t pin) noexcept {
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
                                  uint8_t in_pin) noexcept {
-    auto v_it = std::find_if(childrens_.begin(), childrens_.end(),
-        [out_pin](std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns){
+    auto v_it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
             return std::get<0>(conns) == out_pin;
         });
-    
+
     std::vector<core::NodeBase::Connection> &vec = std::get<1>(*v_it);
 
-    auto it = std::find_if(vec.begin(), vec.end(),
-        [out_pin, node, in_pin](Connection conn){
-            return (
-                (conn.in_pin == in_pin)
-                && (conn.node == node)
-                && (conn.out_pin == out_pin)
-            );
+    auto it = std::find_if(
+        vec.begin(), vec.end(), [out_pin, node, in_pin](Connection conn) {
+            return ((conn.in_pin == in_pin) && (conn.node == node) &&
+                    (conn.out_pin == out_pin));
         });
-    
+
     vec.erase(it);
 }
 

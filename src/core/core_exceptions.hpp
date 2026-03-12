@@ -5,24 +5,18 @@
 namespace core {
 
 class CoreException : public utils::BaseException {
- public:
+   public:
     CoreException(
         const std::string &err_msg,
-        const std::source_location &location = std::source_location::current()
-    );
+        const std::source_location &location = std::source_location::current());
 
     template <typename... Args>
-    CoreException(
-        const std::source_location &location,
-        std::format_string<Args...> fmt,
-        Args &&...args
-    );
+    CoreException(const std::source_location &location,
+                  std::format_string<Args...> fmt, Args &&...args);
 
     ~CoreException() = default;
 };
 
-
-
-} // namespace core
+}  // namespace core
 
 #include "core_exceptions.tcc"
