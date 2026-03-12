@@ -1,0 +1,75 @@
+# This workflow is run on every pull requests on dev and main.
+# It aims to check the format, the style, the build and the tests of the code.
+name: Continuous Integration
+
+run-name: Pull request from ${{ github.head_ref }} to ${{ github.base_ref }}
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main, dev]
+
+jobs:
+  ci:
+    name: CI (${{ matrix.os }} - ${{ matrix.build_type }})
+    runs-on: ${{ matrix.os }}
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Debug, Release]
+
+        include:
+          - os: ubuntu-latest
+            setup_script: ./scripts/linux/setup.sh
+            configure_script: ./scripts/linux/configure.sh
+            format_script: ./scripts/linux/format.sh
+            lint_script: ./scripts/linux/lint.sh
+            build_script: ./scripts/linux/build.sh
+            test_script: ./scripts/linux/test.sh
+            shell: bash
+
+          - os: windows-latest
+            setup_script: call .\scripts\windows\setup.bat
+            configure_script: call .\scripts\windows\configure.bat
+            format_script: call .\scripts\windows\format.bat
+            lint_script: call .\scripts\windows\lint.bat
+            build_script: call .\scripts\windows\build.bat
+            test_script: call .\scripts\windows\test.bat
+            shell: cmd
+
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        run: ${{ matrix.setup_script }}
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/CPM
+          key: ${{ runner.os }}-cpm-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: ${{ runner.os }}-cpm-
+
+      - name: Configure build
+        run: ${{ matrix.configure_script }} ${{ matrix.build_type }}
+
+      - name: Format check
+        run: ${{ matrix.format_script }}
+
+      - name: Lint check
+        run: ${{ matrix.lint_script }}
+
+      - name: Build project
+        run: ${{ matrix.build_script }} ${{ matrix.build_type }}
+
+      - name: Run tests
+        run: ${{ matrix.test_script }} ${{ matrix.build_type }}

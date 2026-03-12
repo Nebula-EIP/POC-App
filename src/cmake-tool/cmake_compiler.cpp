@@ -1,5 +1,6 @@
 #include "cmake_compiler.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cstdio>
 #include <fstream>
@@ -8,10 +9,12 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-    #define popen _popen
-    #define pclose _pclose
+#define POPEN _popen
+#define PCLOSE _pclose
 #else
-    #include <sys/wait.h>
+#define POPEN popen
+#define PCLOSE pclose
+#include <sys/wait.h>
 #endif
 
 namespace nebula::cmake {
@@ -83,8 +86,8 @@ std::string CMakeCompiler::generate_cmake_file(
     std::string source_path = std::filesystem::absolute(source_file).string();
     std::replace(source_path.begin(), source_path.end(), '\\', '/');
 
-    cmake_content << "add_executable(" << exec_name << " "
-                  << source_path << ")\n\n";
+    cmake_content << "add_executable(" << exec_name << " " << source_path
+                  << ")\n\n";
 
     if (!config.link_flags.empty()) {
         cmake_content << "target_link_options(" << exec_name << " PRIVATE ";
@@ -132,9 +135,9 @@ CompilationResult CMakeCompiler::execute_command(
     std::string output;
 
 #ifdef _WIN32
-    FILE *pipe = popen(command.c_str(), "r");
+    FILE *pipe = POPEN(command.c_str(), "r");
 #else
-    FILE *pipe = popen((command + " 2>&1").c_str(), "r");
+    FILE *pipe = POPEN((command + " 2>&1").c_str(), "r");
 #endif
 
     if (!pipe) {
@@ -147,7 +150,7 @@ CompilationResult CMakeCompiler::execute_command(
         output += buffer.data();
     }
 
-    int status = pclose(pipe);
+    int status = PCLOSE(pipe);
 
 #ifdef _WIN32
     // On Windows, _pclose returns the exit code directly
@@ -255,12 +258,10 @@ CompilationResult CMakeCompiler::compile_file(
     std::vector<std::filesystem::path> possible_paths = {
         build_dir_ / "bin" / exec_name,
         build_dir_ / "bin" / config.build_type / exec_name,
-        build_dir_ / config.build_type / exec_name,
-        build_dir_ / exec_name
-    };
+        build_dir_ / config.build_type / exec_name, build_dir_ / exec_name};
 
     bool found = false;
-    for (const auto& path : possible_paths) {
+    for (const auto &path : possible_paths) {
         if (std::filesystem::exists(path)) {
             final_result.executable_path = path;
             found = true;
