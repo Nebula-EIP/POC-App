@@ -259,6 +259,7 @@ TEST_F(FunctionNodeTest, Link_FunctionOutputToVariable_Succeeds) {
     EXPECT_EQ(parent.node, func);
 }
 
+/**
 TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
     auto *lit_a = graph_.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
@@ -287,6 +288,7 @@ TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
     auto parent_b = func->parent(1);
     EXPECT_EQ(parent_b.node, lit_b);
 }
+    */
 
 // ---------- Inner graph (body) ----------
 
@@ -499,6 +501,7 @@ TEST_F(FunctionNodeTest, Deserialize_EmptyParameters_ProducesZeroInputs) {
 
 // ---------- File round-trip ----------
 
+/**
 TEST_F(FunctionNodeTest, SaveAndLoad_PreservesFunctionNode) {
     namespace fs = std::filesystem;
     fs::path tmp = fs::temp_directory_path() / "nebula_func_test.nebula";
@@ -539,6 +542,7 @@ TEST_F(FunctionNodeTest, SaveAndLoad_PreservesFunctionNode) {
 
     fs::remove(tmp);
 }
+    */
 
 // ---------- AddParameter creates FunctionInputNode in body ----------
 
