@@ -8,12 +8,14 @@
 #include <map>
 #include <sstream>
 
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
-    : next_id_(0),
-      project_name_("Untitled Project"),
+    : project_name_("Untitled Project"),
       version_("1.0"),
       author_(""),
       created_at_(std::chrono::system_clock::now()),
@@ -49,53 +51,52 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
 
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     if (kind == NodeBase::NodeKind::kUndefined) {
-        return nullptr;
+        THROW_EXCEPTION(InvalidNodeKindException,
+                        "kUndefined is not a valid node kind");
     }
 
-    uint32_t id = next_id_++;
-    auto node = CreateNode(id, kind);
-
-    if (!node) {
+    try {
+        nodes_.push_back(CreateNode(id_manager_.NewId(), kind));
+    } catch (std::exception &e) {
         return nullptr;
     }
-
-    nodes_.push_back(std::move(node));
     return nodes_.back().get();
 }
 
 void core::Graph::RemoveNode(NodeBase *node) {
-    if (!node) return;
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
 
-    // Disconnect all connections
-    for (uint8_t i = 0; i < node->GetInputPinCount(); i++) {
-        auto parent_conn = node->parent(i);
-        if (parent_conn && parent_conn->IsConnected()) {
-            Unlink(parent_conn->node, parent_conn->pin, node, i);
+    auto it = std::find_if(nodes_.begin(), nodes_.end(),
+                           [node](const std::unique_ptr<NodeBase> &n) {
+                               return n->id() == node->id();
+                           });
+
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    // Disconnect all parents
+    for (const NodeBase::Connection &conn : node->GetAllParents()) {
+        if (conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
         }
     }
 
-    // Same for outputs
-    for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-        const auto &children = node->childrens(i);
-
-        // Copy to avoid iterator invalidation
-        std::vector<NodeBase::Connection> children_copy(children.begin(),
-                                                        children.end());
-        for (const auto &child_conn : children_copy) {
-            if (child_conn.IsConnected()) {
-                Unlink(node, i, child_conn.node, child_conn.pin);
-            }
+    // Disconnect all childrens
+    for (const NodeBase::Connection &conn : node->GetAllChildrens()) {
+        if (conn.IsConnected()) {
+            Unlink(node, conn.out_pin, conn.node, conn.in_pin);
         }
     }
 
-    // Remove from nodes vector
-    auto it = std::find_if(
-        nodes_.begin(), nodes_.end(),
-        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    // Free the id
+    id_manager_.FreeId(node->id());
 
-    if (it != nodes_.end()) {
-        nodes_.erase(it);
-    }
+    // Delete the node
+    nodes_.erase(it);
 }
 
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
@@ -107,51 +108,119 @@ core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     return it != nodes_.end() ? it->get() : nullptr;
 }
 
-std::expected<void, std::string> core::Graph::Link(NodeBase *from,
-                                                   uint8_t out_pin,
-                                                   NodeBase *to,
-                                                   uint8_t in_pin) {
-    if (!from || !to) {
-        return std::unexpected(std::format(
-            "{} pointer is null", ((from == nullptr) ? "1st" : "2nd")));
-    }
-
-    if (out_pin >= from->GetOutputPinCount()) {
-        return std::unexpected("Output pin out of bounds");
-    }
-
-    if (in_pin >= to->GetInputPinCount()) {
-        return std::unexpected("Input pin out of bounds");
-    }
-
-    auto res = from->CanConnectTo(out_pin, to, in_pin);
-    if (!res) {
-        return std::unexpected("{}");
-    }
-
-    if (to->parent(in_pin)) {
-        const NodeBase::Connection *conn = to->parent(in_pin);
-        Unlink(conn->node, conn->pin, to, in_pin);
-    }
-
-    to->SetParent(in_pin, from, out_pin);
-    from->AddChild(out_pin, to, in_pin);
-
-    return {};
+const std::vector<std::unique_ptr<core::NodeBase>> &core::Graph::GetAllNodes()
+    const noexcept {
+    return nodes_;
 }
 
-std::expected<void, std::string> core::Graph::Unlink(NodeBase *from,
-                                                     uint8_t out_pin,
-                                                     NodeBase *to,
-                                                     uint8_t in_pin) {
+void core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to,
+                       uint8_t in_pin) {
     if (!from || !to) {
-        return std::unexpected("Invalid node pointers");
+        THROW_EXCEPTION(NodeNotFoundException, "{} node pointer is null",
+                        ((from == nullptr) ? "1st" : "2nd"));
+    }
+
+    // Check if nodes are in the local array
+    auto from_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
+
+    if (from_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "from node is not owned by this Graph");
+    }
+
+    // Check if nodes are in the local array
+    auto to_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
+
+    if (to_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "to node is not owned by this Graph");
+    }
+
+    // Check if pins exists
+    if (!from->OutputPinExists(out_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "from node has no output pin with an id of {}",
+                        out_pin);
+    }
+
+    if (!to->InputPinExists(in_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "to node has no input pin with an id of {}", in_pin);
+    }
+
+    // Check that types matches
+    auto from_type = from->GetOutputPinType(out_pin);
+    auto to_type = to->GetInputPinType(in_pin);
+
+    if (from_type != to_type) {
+        THROW_EXCEPTION(IncompatiblePinTypesException,
+                        "trying to connect in({}) to out({})",
+                        PinDataTypeToString(from_type),
+                        PinDataTypeToString(to_type));
+    }
+
+    // Check for circular dependency
+    if (from == to) {
+        THROW_EXCEPTION(CircularDependencyException,
+                        "cannot link a node to itself");
+    }
+
+    // Severe previous links if required
+    if (to->IsInputPinConnected(in_pin)) {
+        auto conn = to->parent(in_pin);
+        Unlink(conn.node, conn.out_pin, to, conn.in_pin);
+    }
+
+    // Link !
+    to->SetParent(in_pin, from, out_pin);
+    from->AddChild(out_pin, to, in_pin);
+}
+
+void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
+                         uint8_t in_pin) {
+    if (!from || !to) {
+        THROW_EXCEPTION(NodeNotFoundException, "{} node pointer is null",
+                        ((from == nullptr) ? "1st" : "2nd"));
+    }
+
+    // Check if nodes are in the local array
+    auto from_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
+
+    if (from_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "from node is not owned by this Graph");
+    }
+
+    // Check if nodes are in the local array
+    auto to_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
+
+    if (to_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "to node is not owned by this Graph");
+    }
+
+    // Check if pins exists
+    if (!from->OutputPinExists(out_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "from node has no output pin with an id of {}",
+                        out_pin);
+    }
+
+    if (!to->InputPinExists(in_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "to node has no input pin with an id of {}", in_pin);
     }
 
     to->ClearParent(in_pin);
     from->RemoveChild(out_pin, to, in_pin);
-
-    return {};
 }
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
@@ -164,15 +233,24 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kVariable:
-            return std::unique_ptr<VariableNode>(new VariableNode(id, kind));
-
-        case NodeBase::NodeKind::kOperator:
+            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunction:
+            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunctionInput:
+            node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kFunctionOutput:
+            node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind));
+            break;
+
+        case NodeBase::NodeKind::kOperator:
 
         case NodeBase::NodeKind::kCondition:
 
@@ -181,11 +259,6 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
         case NodeBase::NodeKind::kUndefined:
         default:
             return nullptr;
-    }
-
-    // Initialize connection vectors after construction
-    if (node) {
-        node->InitializeConnections();
     }
 
     return node;
@@ -211,7 +284,7 @@ nlohmann::json core::Graph::Serialize() const {
     json["metadata"]["modified_at"] = to_iso8601(modified_at_);
 
     // Serialize graph data
-    json["graph"]["next_id"] = next_id_;
+    json["graph"]["next_id"] = id_manager_.current_id();
 
     // Serialize nodes
     nlohmann::json nodes_array = nlohmann::json::array();
@@ -226,15 +299,15 @@ nlohmann::json core::Graph::Serialize() const {
         // Iterate through all output pins
         for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount();
              ++out_pin) {
-            const auto &children = source_node->childrens(out_pin);
+            auto children = source_node->childrens(out_pin);
             // Iterate through all connections on this output pin
-            for (const auto &conn : children) {
+            for (const auto &conn : (*children)) {
                 if (conn.IsConnected()) {
                     nlohmann::json connection;
                     connection["source_node_id"] = source_node->id();
-                    connection["source_pin"] = out_pin;
+                    connection["source_pin"] = conn.out_pin;
                     connection["target_node_id"] = conn.node->id();
-                    connection["target_pin"] = conn.pin;
+                    connection["target_pin"] = conn.in_pin;
                     connections_array.push_back(connection);
                 }
             }
@@ -313,7 +386,8 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
 
     // Restore next_id
     try {
-        graph.next_id_ = graph_data["next_id"].get<uint32_t>();
+        graph.id_manager_ =
+            utils::IdManager<uint32_t>(graph_data["next_id"].get<uint32_t>());
     } catch (const std::exception &e) {
         return std::unexpected(std::string("Failed to parse next_id: ") +
                                e.what());
@@ -395,8 +469,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
             }
 
             // Establish the connection
-            target->SetParent(target_pin, source, source_pin);
-            source->AddChild(source_pin, target, target_pin);
+            graph.Link(source, source_pin, target, target_pin);
         } catch (const std::exception &e) {
             return std::unexpected(std::string("Failed to parse connection: ") +
                                    e.what());

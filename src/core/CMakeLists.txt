@@ -22,7 +22,7 @@ if(CORE_SOURCES)
     )
 
     # Add dependencies
-    target_link_libraries(core PUBLIC nlohmann_json::nlohmann_json)
+    target_link_libraries(core PUBLIC nlohmann_json::nlohmann_json utils)
 
     # Set properties
     set_target_properties(core PROPERTIES
