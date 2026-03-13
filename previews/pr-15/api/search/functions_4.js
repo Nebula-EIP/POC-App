@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initializeconnections_0',['InitializeConnections',['../classcore_1_1NodeBase.html#a880f13fec95f056f6f76cb469f6445b4',1,'core::NodeBase']]]
+  ['freeid_0',['FreeId',['../classutils_1_1IdManager.html#a74f32318568cfd1ba45fa26927b20245',1,'utils::IdManager']]]
 ];

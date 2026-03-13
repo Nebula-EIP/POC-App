@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['filewriter_0',['FileWriter',['../classfile__writing_1_1FileWriter.html',1,'file_writing']]]
+  ['deserializationexception_0',['DeserializationException',['../classcore_1_1DeserializationException.html',1,'core']]],
+  ['duplicatenodeidexception_1',['DuplicateNodeIdException',['../classcore_1_1DuplicateNodeIdException.html',1,'core']]]
 ];

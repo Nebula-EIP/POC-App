@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['filewriter_0',['FileWriter',['../classfile__writing_1_1FileWriter.html',1,'file_writing']]]
+  ['editorexception_0',['EditorException',['../classeditor_1_1EditorException.html',1,'editor']]],
+  ['emptygraphexception_1',['EmptyGraphException',['../classcore_1_1EmptyGraphException.html',1,'core']]]
 ];

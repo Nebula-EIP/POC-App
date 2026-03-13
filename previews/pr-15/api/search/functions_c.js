@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['unlink_0',['Unlink',['../classcore_1_1Graph.html#a47a5d2222e3694b2628ade6bc40b58bc',1,'core::Graph']]],
-  ['updatemodifiedtime_1',['UpdateModifiedTime',['../classcore_1_1Graph.html#a55f948f20d03cc29af50cbb5c3109bbf',1,'core::Graph']]]
+  ['removechild_0',['RemoveChild',['../classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7',1,'core::NodeBase']]],
+  ['removenode_1',['RemoveNode',['../classcore_1_1Graph.html#aeebc7f038b9f164ad66d34fadac9098a',1,'core::Graph']]],
+  ['removeparameter_2',['removeparameter',['../classcore_1_1FunctionNode.html#ae0d8fc5b76ae7d1d8794ae9a7dba6654',1,'core::FunctionNode::RemoveParameter(uint8_t index)'],['../classcore_1_1FunctionNode.html#ac604d592d163d31f42c0f3cb020b8f68',1,'core::FunctionNode::RemoveParameter(const std::string &amp;name)']]]
 ];

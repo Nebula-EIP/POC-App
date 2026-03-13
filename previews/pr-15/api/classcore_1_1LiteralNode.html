@@ -111,9 +111,11 @@ Collaboration diagram for core::LiteralNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1LiteralNode__coll__graph.png" border="0" usemap="#acore_1_1LiteralNode_coll__map" alt="Collaboration graph"/></div>
 <map name="acore_1_1LiteralNode_coll__map" id="acore_1_1LiteralNode_coll__map">
-<area shape="rect" title=" " alt="" coords="5,79,139,104"/>
-<area shape="rect" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="10,5,134,31"/>
-<area shape="poly" title=" " alt="" coords="75,44,75,79,69,79,69,44"/>
+<area shape="rect" title=" " alt="" coords="40,183,173,208"/>
+<area shape="rect" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="45,108,169,133"/>
+<area shape="poly" title=" " alt="" coords="109,148,109,182,104,182,104,148"/>
+<area shape="rect" href="classutils_1_1IdManager.html" title=" " alt="" coords="5,5,208,31"/>
+<area shape="poly" title=" " alt="" coords="109,45,109,108,104,108,104,45"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -122,41 +124,41 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ada95a437b58da3c78cfe987b9d0280a3" id="r_ada95a437b58da3c78cfe987b9d0280a3"><td class="memItemLeft" align="right" valign="top"><a id="ada95a437b58da3c78cfe987b9d0280a3" name="ada95a437b58da3c78cfe987b9d0280a3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set_name</b> (const std::string &amp;name)</td></tr>
 <tr class="separator:ada95a437b58da3c78cfe987b9d0280a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13d27519b1953fc006344341b698e20b" id="r_a13d27519b1953fc006344341b698e20b"><td class="memItemLeft" align="right" valign="top"><a id="a13d27519b1953fc006344341b698e20b" name="a13d27519b1953fc006344341b698e20b"></a>
-const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const</td></tr>
-<tr class="separator:a13d27519b1953fc006344341b698e20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa12c88174e43643e474502fd3f2b9eab" id="r_aa12c88174e43643e474502fd3f2b9eab"><td class="memItemLeft" align="right" valign="top"><a id="aa12c88174e43643e474502fd3f2b9eab" name="aa12c88174e43643e474502fd3f2b9eab"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_type</b> (<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
+<tr class="memitem:a5269e9e00dfe21a676fdc0b159989516" id="r_a5269e9e00dfe21a676fdc0b159989516"><td class="memItemLeft" align="right" valign="top"><a id="a5269e9e00dfe21a676fdc0b159989516" name="a5269e9e00dfe21a676fdc0b159989516"></a>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const noexcept</td></tr>
+<tr class="separator:a5269e9e00dfe21a676fdc0b159989516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa12c88174e43643e474502fd3f2b9eab" id="r_aa12c88174e43643e474502fd3f2b9eab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#aa12c88174e43643e474502fd3f2b9eab">set_type</a> (<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
+<tr class="memdesc:aa12c88174e43643e474502fd3f2b9eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the type of the node &amp; it's pins connections.  <br /></td></tr>
 <tr class="separator:aa12c88174e43643e474502fd3f2b9eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3a7a30c1d6ad7690eb61d2129ed6907" id="r_ad3a7a30c1d6ad7690eb61d2129ed6907"><td class="memItemLeft" align="right" valign="top"><a id="ad3a7a30c1d6ad7690eb61d2129ed6907" name="ad3a7a30c1d6ad7690eb61d2129ed6907"></a>
-<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> () const</td></tr>
-<tr class="separator:ad3a7a30c1d6ad7690eb61d2129ed6907"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdf258e2357bba1fd20f1c183d526150" id="r_acdf258e2357bba1fd20f1c183d526150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#acdf258e2357bba1fd20f1c183d526150">set_data</a> (std::any <a class="el" href="classcore_1_1LiteralNode.html#a0faf02223f48dc6f96f8754d25ded460">data</a>)</td></tr>
+<tr class="memitem:af5be5a5c7e3c40af53793389e322950d" id="r_af5be5a5c7e3c40af53793389e322950d"><td class="memItemLeft" align="right" valign="top"><a id="af5be5a5c7e3c40af53793389e322950d" name="af5be5a5c7e3c40af53793389e322950d"></a>
+<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> () const noexcept</td></tr>
+<tr class="separator:af5be5a5c7e3c40af53793389e322950d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf258e2357bba1fd20f1c183d526150" id="r_acdf258e2357bba1fd20f1c183d526150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#acdf258e2357bba1fd20f1c183d526150">set_data</a> (std::any <a class="el" href="classcore_1_1LiteralNode.html#aa29b08cbd821906d85837a86bd1b3276">data</a>)</td></tr>
 <tr class="memdesc:acdf258e2357bba1fd20f1c183d526150"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data to be stored in the node.  <br /></td></tr>
 <tr class="separator:acdf258e2357bba1fd20f1c183d526150"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0faf02223f48dc6f96f8754d25ded460" id="r_a0faf02223f48dc6f96f8754d25ded460"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a0faf02223f48dc6f96f8754d25ded460">data</a> () const</td></tr>
-<tr class="memdesc:a0faf02223f48dc6f96f8754d25ded460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the data stored in the literal node.  <br /></td></tr>
-<tr class="separator:a0faf02223f48dc6f96f8754d25ded460"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a165659d747eb74f33a7f5fe092b57f4f" id="r_a165659d747eb74f33a7f5fe092b57f4f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a165659d747eb74f33a7f5fe092b57f4f">GetInputPinCount</a> () const override</td></tr>
-<tr class="separator:a165659d747eb74f33a7f5fe092b57f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1769eb19a2c395da7be4ad055f29d752" id="r_a1769eb19a2c395da7be4ad055f29d752"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a1769eb19a2c395da7be4ad055f29d752">GetOutputPinCount</a> () const override</td></tr>
-<tr class="separator:a1769eb19a2c395da7be4ad055f29d752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29b08cbd821906d85837a86bd1b3276" id="r_aa29b08cbd821906d85837a86bd1b3276"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#aa29b08cbd821906d85837a86bd1b3276">data</a> () const noexcept</td></tr>
+<tr class="memdesc:aa29b08cbd821906d85837a86bd1b3276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the data stored in the literal node.  <br /></td></tr>
+<tr class="separator:aa29b08cbd821906d85837a86bd1b3276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6b5901488112e8eabb0699feaa8f5b1" id="r_ad6b5901488112e8eabb0699feaa8f5b1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#ad6b5901488112e8eabb0699feaa8f5b1">GetInputPinCount</a> () const noexcept override</td></tr>
+<tr class="separator:ad6b5901488112e8eabb0699feaa8f5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db341c7c3cdef219510fcef8cc8ec10" id="r_a9db341c7c3cdef219510fcef8cc8ec10"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a9db341c7c3cdef219510fcef8cc8ec10">GetOutputPinCount</a> () const noexcept override</td></tr>
+<tr class="separator:a9db341c7c3cdef219510fcef8cc8ec10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6a6a0794024034f075e95e3c4fcd5f" id="r_a0f6a6a0794024034f075e95e3c4fcd5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a0f6a6a0794024034f075e95e3c4fcd5f">GetInputPinType</a> (uint8_t pin) const override</td></tr>
 <tr class="separator:a0f6a6a0794024034f075e95e3c4fcd5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44cafa04622989eaa77237146ec48e29" id="r_a44cafa04622989eaa77237146ec48e29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a44cafa04622989eaa77237146ec48e29">GetOutputPinType</a> (uint8_t pin) const override</td></tr>
 <tr class="separator:a44cafa04622989eaa77237146ec48e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bb441997612185e59a4e275fbb3308d" id="r_a6bb441997612185e59a4e275fbb3308d"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a6bb441997612185e59a4e275fbb3308d">CanConnectTo</a> (uint8_t out_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *target, uint8_t in_pin) const override</td></tr>
-<tr class="memdesc:a6bb441997612185e59a4e275fbb3308d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates if this node's output pin can connect to a target node's input pin.  <br /></td></tr>
-<tr class="separator:a6bb441997612185e59a4e275fbb3308d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb0495761c57856ab14ad36a44b333b4" id="r_adb0495761c57856ab14ad36a44b333b4"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#adb0495761c57856ab14ad36a44b333b4">CanConnectTo</a> (uint8_t out_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *target, uint8_t in_pin) const noexcept override</td></tr>
+<tr class="memdesc:adb0495761c57856ab14ad36a44b333b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates if this node's output pin can connect to a target node's input pin.  <br /></td></tr>
+<tr class="separator:adb0495761c57856ab14ad36a44b333b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36fc7799abea4aff98aebdb2fa5f4548" id="r_a36fc7799abea4aff98aebdb2fa5f4548"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a36fc7799abea4aff98aebdb2fa5f4548">GetInputPinName</a> (uint8_t pin) const override</td></tr>
 <tr class="separator:a36fc7799abea4aff98aebdb2fa5f4548"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d9b3d65e3f13f54c2b99265344d2fc4" id="r_a2d9b3d65e3f13f54c2b99265344d2fc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a2d9b3d65e3f13f54c2b99265344d2fc4">GetOutputPinName</a> (uint8_t pin) const override</td></tr>
 <tr class="separator:a2d9b3d65e3f13f54c2b99265344d2fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0188d60cf54e2c81cc7c788c2aab014" id="r_ac0188d60cf54e2c81cc7c788c2aab014"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#ac0188d60cf54e2c81cc7c788c2aab014">GetDisplayName</a> () const override</td></tr>
-<tr class="separator:ac0188d60cf54e2c81cc7c788c2aab014"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb60228793a76b130f5c2422bcd826db" id="r_afb60228793a76b130f5c2422bcd826db"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#afb60228793a76b130f5c2422bcd826db">GetCategory</a> () const override</td></tr>
-<tr class="memdesc:afb60228793a76b130f5c2422bcd826db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the category of this node.  <br /></td></tr>
-<tr class="separator:afb60228793a76b130f5c2422bcd826db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab4d37cd55e400e570e05405a4c55938" id="r_aab4d37cd55e400e570e05405a4c55938"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#aab4d37cd55e400e570e05405a4c55938">GetDisplayName</a> () const noexcept override</td></tr>
+<tr class="separator:aab4d37cd55e400e570e05405a4c55938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe43aefe921ec306c709784cabbe7f5d" id="r_afe43aefe921ec306c709784cabbe7f5d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d">GetCategory</a> () const noexcept override</td></tr>
+<tr class="memdesc:afe43aefe921ec306c709784cabbe7f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the category of this node.  <br /></td></tr>
+<tr class="separator:afe43aefe921ec306c709784cabbe7f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c3ca6d98c7b43c1c90c69a854aad9cf" id="r_a1c3ca6d98c7b43c1c90c69a854aad9cf"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a1c3ca6d98c7b43c1c90c69a854aad9cf">Serialize</a> () const override</td></tr>
 <tr class="memdesc:a1c3ca6d98c7b43c1c90c69a854aad9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the node to JSON format.  <br /></td></tr>
 <tr class="separator:a1c3ca6d98c7b43c1c90c69a854aad9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,18 +166,36 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>set_type</b> (<a clas
 <tr class="memdesc:a4d3e29a2f9167261597a9830d73e9f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes this <a class="el" href="classcore_1_1LiteralNode.html">LiteralNode</a>'s data from JSON.  <br /></td></tr>
 <tr class="separator:a4d3e29a2f9167261597a9830d73e9f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1NodeBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1NodeBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a></td></tr>
-<tr class="memitem:ad9a1b9837c097a12b047f90a39e71ac7 inherit pub_methods_classcore_1_1NodeBase" id="r_ad9a1b9837c097a12b047f90a39e71ac7"><td class="memItemLeft" align="right" valign="top">
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> () const</td></tr>
-<tr class="separator:ad9a1b9837c097a12b047f90a39e71ac7 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6450cdc09821e4861a87bfc8df9412a7 inherit pub_methods_classcore_1_1NodeBase" id="r_a6450cdc09821e4861a87bfc8df9412a7"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kind</b> () const</td></tr>
-<tr class="separator:a6450cdc09821e4861a87bfc8df9412a7 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6248cbed73907ac71a8a7620ba4a0aaf inherit pub_methods_classcore_1_1NodeBase" id="r_a6248cbed73907ac71a8a7620ba4a0aaf"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a6248cbed73907ac71a8a7620ba4a0aaf">parent</a> (uint8_t input_pin) const</td></tr>
-<tr class="memdesc:a6248cbed73907ac71a8a7620ba4a0aaf inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves connection information for a given input pin.  <br /></td></tr>
-<tr class="separator:a6248cbed73907ac71a8a7620ba4a0aaf inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a523e8dcd847daf6272f8179d51c2ba62 inherit pub_methods_classcore_1_1NodeBase" id="r_a523e8dcd847daf6272f8179d51c2ba62"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a523e8dcd847daf6272f8179d51c2ba62">childrens</a> (uint8_t output_pin) const</td></tr>
-<tr class="memdesc:a523e8dcd847daf6272f8179d51c2ba62 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all connections for a given output pin.  <br /></td></tr>
-<tr class="separator:a523e8dcd847daf6272f8179d51c2ba62 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291bcb9bda1fd10c4e68f130feac2e32 inherit pub_methods_classcore_1_1NodeBase" id="r_a291bcb9bda1fd10c4e68f130feac2e32"><td class="memItemLeft" align="right" valign="top">
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> () const noexcept</td></tr>
+<tr class="separator:a291bcb9bda1fd10c4e68f130feac2e32 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f7f76b2120e6aa888eb192a329a4ccd inherit pub_methods_classcore_1_1NodeBase" id="r_a3f7f76b2120e6aa888eb192a329a4ccd"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kind</b> () const noexcept</td></tr>
+<tr class="separator:a3f7f76b2120e6aa888eb192a329a4ccd inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271c1860bbc40f589e771dbf6c02472a inherit pub_methods_classcore_1_1NodeBase" id="r_a271c1860bbc40f589e771dbf6c02472a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a">parent</a> (uint8_t input_pin) const</td></tr>
+<tr class="memdesc:a271c1860bbc40f589e771dbf6c02472a inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves connection information for a given input pin.  <br /></td></tr>
+<tr class="separator:a271c1860bbc40f589e771dbf6c02472a inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase" id="r_a1f086066d6a390e70712b5eedbf784e9"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a1f086066d6a390e70712b5eedbf784e9">GetAllParents</a> () const noexcept</td></tr>
+<tr class="memdesc:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives all incoming connections of the node.  <br /></td></tr>
+<tr class="separator:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase" id="r_a5e33bd4f625217bdbd1faf47b692f177"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177">childrens</a> (uint8_t output_pin) const</td></tr>
+<tr class="memdesc:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all connections for a given output pin.  <br /></td></tr>
+<tr class="separator:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase" id="r_a0f9cf29a4e842748a237656d95ec6e86"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a0f9cf29a4e842748a237656d95ec6e86">GetAllChildrens</a> () const noexcept</td></tr>
+<tr class="memdesc:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives all outgoing connections of the node.  <br /></td></tr>
+<tr class="separator:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac645dc5f621c53f0f118d87712bb7ca4 inherit pub_methods_classcore_1_1NodeBase" id="r_ac645dc5f621c53f0f118d87712bb7ca4"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>InputPinExists</b> (uint8_t pin) const noexcept</td></tr>
+<tr class="separator:ac645dc5f621c53f0f118d87712bb7ca4 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3e61c92d5012e5b66529c9f6ace0d2 inherit pub_methods_classcore_1_1NodeBase" id="r_a4d3e61c92d5012e5b66529c9f6ace0d2"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>OutputPinExists</b> (uint8_t pin) const noexcept</td></tr>
+<tr class="separator:a4d3e61c92d5012e5b66529c9f6ace0d2 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846cb7ddba5258f8183cf1c61b9af6e7 inherit pub_methods_classcore_1_1NodeBase" id="r_a846cb7ddba5258f8183cf1c61b9af6e7"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInputPinConnected</b> (uint8_t pin) const noexcept</td></tr>
+<tr class="separator:a846cb7ddba5258f8183cf1c61b9af6e7 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a529b681c2bf3ca5c5a808103dbb6e9cf inherit pub_methods_classcore_1_1NodeBase" id="r_a529b681c2bf3ca5c5a808103dbb6e9cf"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsOutputPinConnected</b> (uint8_t pin) const noexcept</td></tr>
+<tr class="separator:a529b681c2bf3ca5c5a808103dbb6e9cf inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -213,24 +233,21 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:ad3add568bd152376dff16efa8e9f7fd9 inherit pub_static_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory method to deserialize a node from JSON.  <br /></td></tr>
 <tr class="separator:ad3add568bd152376dff16efa8e9f7fd9 inherit pub_static_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classcore_1_1NodeBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcore_1_1NodeBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a></td></tr>
-<tr class="memitem:a67f189673dcc630fa69bedf27fd85ce5 inherit pro_methods_classcore_1_1NodeBase" id="r_a67f189673dcc630fa69bedf27fd85ce5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a67f189673dcc630fa69bedf27fd85ce5">SetParent</a> (uint8_t input_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t parent_pin)</td></tr>
-<tr class="memdesc:a67f189673dcc630fa69bedf27fd85ce5 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an input pin connection.  <br /></td></tr>
-<tr class="separator:a67f189673dcc630fa69bedf27fd85ce5 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a873928563c3dffa09705491249ab76a4 inherit pro_methods_classcore_1_1NodeBase" id="r_a873928563c3dffa09705491249ab76a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a873928563c3dffa09705491249ab76a4">AddChild</a> (uint8_t output_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t child_pin)</td></tr>
-<tr class="memdesc:a873928563c3dffa09705491249ab76a4 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a child connection from an output pin.  <br /></td></tr>
-<tr class="separator:a873928563c3dffa09705491249ab76a4 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f306179c5386d84182523846f77028c inherit pro_methods_classcore_1_1NodeBase" id="r_a8f306179c5386d84182523846f77028c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a8f306179c5386d84182523846f77028c">ClearParent</a> (uint8_t pin)</td></tr>
-<tr class="memdesc:a8f306179c5386d84182523846f77028c inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets an input pin connection.  <br /></td></tr>
-<tr class="separator:a8f306179c5386d84182523846f77028c inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec4faf8db1bd5992cd323d3ed6da10b8 inherit pro_methods_classcore_1_1NodeBase" id="r_aec4faf8db1bd5992cd323d3ed6da10b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aec4faf8db1bd5992cd323d3ed6da10b8">RemoveChild</a> (uint8_t output_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t input_pin)</td></tr>
-<tr class="memdesc:aec4faf8db1bd5992cd323d3ed6da10b8 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a specific child connection from an output pin.  <br /></td></tr>
-<tr class="separator:aec4faf8db1bd5992cd323d3ed6da10b8 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a880f13fec95f056f6f76cb469f6445b4 inherit pro_methods_classcore_1_1NodeBase" id="r_a880f13fec95f056f6f76cb469f6445b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a880f13fec95f056f6f76cb469f6445b4">InitializeConnections</a> ()</td></tr>
-<tr class="memdesc:a880f13fec95f056f6f76cb469f6445b4 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the connection vectors based on pin counts.  <br /></td></tr>
-<tr class="separator:a880f13fec95f056f6f76cb469f6445b4 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9883b5fa1ac8116d822cf9cdff64278c inherit pro_methods_classcore_1_1NodeBase" id="r_a9883b5fa1ac8116d822cf9cdff64278c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a9883b5fa1ac8116d822cf9cdff64278c">NodeBase</a> (uint32_t id, <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a> kind)</td></tr>
-<tr class="memdesc:a9883b5fa1ac8116d822cf9cdff64278c inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor to prevent direct instantiation.  <br /></td></tr>
-<tr class="separator:a9883b5fa1ac8116d822cf9cdff64278c inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439ff8f28e63c0672ce41b237e8b579c inherit pro_methods_classcore_1_1NodeBase" id="r_a439ff8f28e63c0672ce41b237e8b579c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a439ff8f28e63c0672ce41b237e8b579c">SetParent</a> (uint8_t input_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t parent_pin) noexcept</td></tr>
+<tr class="memdesc:a439ff8f28e63c0672ce41b237e8b579c inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an input pin connection.  <br /></td></tr>
+<tr class="separator:a439ff8f28e63c0672ce41b237e8b579c inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a131d31888a1ee9c5d04a89f54c227e86 inherit pro_methods_classcore_1_1NodeBase" id="r_a131d31888a1ee9c5d04a89f54c227e86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a131d31888a1ee9c5d04a89f54c227e86">AddChild</a> (uint8_t output_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t child_pin) noexcept</td></tr>
+<tr class="memdesc:a131d31888a1ee9c5d04a89f54c227e86 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a child connection from an output pin.  <br /></td></tr>
+<tr class="separator:a131d31888a1ee9c5d04a89f54c227e86 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547be1d12e45c30c65ed4fc10d19d74e inherit pro_methods_classcore_1_1NodeBase" id="r_a547be1d12e45c30c65ed4fc10d19d74e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e">ClearParent</a> (uint8_t pin) noexcept</td></tr>
+<tr class="memdesc:a547be1d12e45c30c65ed4fc10d19d74e inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets an input pin connection.  <br /></td></tr>
+<tr class="separator:a547be1d12e45c30c65ed4fc10d19d74e inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b326c8ca9f638f3f5cc342341672d7 inherit pro_methods_classcore_1_1NodeBase" id="r_a10b326c8ca9f638f3f5cc342341672d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7">RemoveChild</a> (uint8_t output_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t input_pin) noexcept</td></tr>
+<tr class="memdesc:a10b326c8ca9f638f3f5cc342341672d7 inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a specific child connection from an output pin.  <br /></td></tr>
+<tr class="separator:a10b326c8ca9f638f3f5cc342341672d7 inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad765848d6b5c5153640e55207084082a inherit pro_methods_classcore_1_1NodeBase" id="r_ad765848d6b5c5153640e55207084082a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ad765848d6b5c5153640e55207084082a">NodeBase</a> (uint32_t id, <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:ad765848d6b5c5153640e55207084082a inherit pro_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor to prevent direct instantiation.  <br /></td></tr>
+<tr class="separator:ad765848d6b5c5153640e55207084082a inherit pro_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classcore_1_1NodeBase"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcore_1_1NodeBase')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a></td></tr>
 <tr class="memitem:a6ccdfed42f953e8ca5ca2031086435c2 inherit pro_attribs_classcore_1_1NodeBase" id="r_a6ccdfed42f953e8ca5ca2031086435c2"><td class="memItemLeft" align="right" valign="top">
 const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id_</b></td></tr>
@@ -238,16 +255,22 @@ const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id_</b></td
 <tr class="memitem:ab7ba11526cc3fd1563e072d67f49a8e0 inherit pro_attribs_classcore_1_1NodeBase" id="r_ab7ba11526cc3fd1563e072d67f49a8e0"><td class="memItemLeft" align="right" valign="top">
 const <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kind_</b></td></tr>
 <tr class="separator:ab7ba11526cc3fd1563e072d67f49a8e0 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a551aba3aa39a8c519501cb8ff81dca10 inherit pro_attribs_classcore_1_1NodeBase" id="r_a551aba3aa39a8c519501cb8ff81dca10"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classutils_1_1IdManager.html">utils::IdManager</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin_id_manager_</b></td></tr>
+<tr class="separator:a551aba3aa39a8c519501cb8ff81dca10 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a820c4b37b54a4e7449584a4f54e54fe1 inherit pro_attribs_classcore_1_1NodeBase" id="r_a820c4b37b54a4e7449584a4f54e54fe1"><td class="memItemLeft" align="right" valign="top">
 std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>parents_</b></td></tr>
 <tr class="separator:a820c4b37b54a4e7449584a4f54e54fe1 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99a11e91e980e903ce1675ea3a910483 inherit pro_attribs_classcore_1_1NodeBase" id="r_a99a11e91e980e903ce1675ea3a910483"><td class="memItemLeft" align="right" valign="top">
-std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>childrens_</b></td></tr>
-<tr class="separator:a99a11e91e980e903ce1675ea3a910483 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afad8668d658d3956b9dd2e531b756bc0 inherit pro_attribs_classcore_1_1NodeBase" id="r_afad8668d658d3956b9dd2e531b756bc0"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classutils_1_1IdManager.html">utils::IdManager</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>out_pin_id_manager_</b></td></tr>
+<tr class="separator:afad8668d658d3956b9dd2e531b756bc0 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a593dd02df8eaa0d73a6788ec4b9952b8 inherit pro_attribs_classcore_1_1NodeBase" id="r_a593dd02df8eaa0d73a6788ec4b9952b8"><td class="memItemLeft" align="right" valign="top">
+std::vector&lt; std::pair&lt; uint8_t, std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>childrens_</b></td></tr>
+<tr class="separator:a593dd02df8eaa0d73a6788ec4b9952b8 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6bb441997612185e59a4e275fbb3308d" name="a6bb441997612185e59a4e275fbb3308d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bb441997612185e59a4e275fbb3308d">&#9670;&#160;</a></span>CanConnectTo()</h2>
+<a id="adb0495761c57856ab14ad36a44b333b4" name="adb0495761c57856ab14ad36a44b333b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb0495761c57856ab14ad36a44b333b4">&#9670;&#160;</a></span>CanConnectTo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +304,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -298,15 +321,18 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An expected containing void on success, or an error message on failure. </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1NodeBase.html#a9552d598a06f3ed096f8c68bf7b52872">core::NodeBase</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9">core::NodeBase</a>.</p>
 
 </div>
 </div>
-<a id="a0faf02223f48dc6f96f8754d25ded460" name="a0faf02223f48dc6f96f8754d25ded460"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0faf02223f48dc6f96f8754d25ded460">&#9670;&#160;</a></span>data()</h2>
+<a id="aa29b08cbd821906d85837a86bd1b3276" name="aa29b08cbd821906d85837a86bd1b3276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29b08cbd821906d85837a86bd1b3276">&#9670;&#160;</a></span>data()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::any core::LiteralNode::data </td>
@@ -315,6 +341,11 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Retrieves the data stored in the literal node. </p>
@@ -360,8 +391,8 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 
 </div>
 </div>
-<a id="afb60228793a76b130f5c2422bcd826db" name="afb60228793a76b130f5c2422bcd826db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb60228793a76b130f5c2422bcd826db">&#9670;&#160;</a></span>GetCategory()</h2>
+<a id="afe43aefe921ec306c709784cabbe7f5d" name="afe43aefe921ec306c709784cabbe7f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe43aefe921ec306c709784cabbe7f5d">&#9670;&#160;</a></span>GetCategory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -378,7 +409,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -387,12 +418,12 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 <p>Used for organizing nodes in the UI, such as grouping by library (e.g., "STL", "SDL2", "Math", etc.).</p>
 <dl class="section return"><dt>Returns</dt><dd>The category name for this node. </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1NodeBase.html#a1c3b34a9e4fbb0b0760c015e32aa6a49">core::NodeBase</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb">core::NodeBase</a>.</p>
 
 </div>
 </div>
-<a id="ac0188d60cf54e2c81cc7c788c2aab014" name="ac0188d60cf54e2c81cc7c788c2aab014"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0188d60cf54e2c81cc7c788c2aab014">&#9670;&#160;</a></span>GetDisplayName()</h2>
+<a id="aab4d37cd55e400e570e05405a4c55938" name="aab4d37cd55e400e570e05405a4c55938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab4d37cd55e400e570e05405a4c55938">&#9670;&#160;</a></span>GetDisplayName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +440,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -418,8 +449,8 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 
 </div>
 </div>
-<a id="a165659d747eb74f33a7f5fe092b57f4f" name="a165659d747eb74f33a7f5fe092b57f4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a165659d747eb74f33a7f5fe092b57f4f">&#9670;&#160;</a></span>GetInputPinCount()</h2>
+<a id="ad6b5901488112e8eabb0699feaa8f5b1" name="ad6b5901488112e8eabb0699feaa8f5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b5901488112e8eabb0699feaa8f5b1">&#9670;&#160;</a></span>GetInputPinCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +467,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -501,8 +532,8 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 
 </div>
 </div>
-<a id="a1769eb19a2c395da7be4ad055f29d752" name="a1769eb19a2c395da7be4ad055f29d752"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1769eb19a2c395da7be4ad055f29d752">&#9670;&#160;</a></span>GetOutputPinCount()</h2>
+<a id="a9db341c7c3cdef219510fcef8cc8ec10" name="a9db341c7c3cdef219510fcef8cc8ec10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db341c7c3cdef219510fcef8cc8ec10">&#9670;&#160;</a></span>GetOutputPinCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,7 +550,7 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -633,6 +664,32 @@ std::vector&lt; std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Co
 
 <p>Set the data to be stored in the node. </p>
 <p>It is the caller responsibility to store data that is the correct type which can be retreived with LiteralNode::type(). </p>
+
+</div>
+</div>
+<a id="aa12c88174e43643e474502fd3f2b9eab" name="aa12c88174e43643e474502fd3f2b9eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa12c88174e43643e474502fd3f2b9eab">&#9670;&#160;</a></span>set_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::LiteralNode::set_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change the type of the node &amp; it's pins connections. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1PinStillConnectedException.html" title="Exception thrown when attempting to modify pin metadata while pins are still connected.">PinStillConnectedException</a></td><td>if pins are already connected </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

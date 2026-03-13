@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pin_0',['pin',['../structcore_1_1NodeBase_1_1Connection.html#a661a5bfda787c6eb374021c3c0e747ad',1,'core::NodeBase::Connection']]]
+  ['node_0',['node',['../structcore_1_1NodeBase_1_1Connection.html#ad90a8713cd8cc49cf749d4b0135a548b',1,'core::NodeBase::Connection']]]
 ];

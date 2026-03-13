@@ -129,12 +129,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a13c1242bb90c85898ca9db0ff307dbe4"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4">GetNode</a> (uint32_t id) const</td></tr>
 <tr class="memdesc:a13c1242bb90c85898ca9db0ff307dbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a node from the graph by its unique identifier with type safety.  <br /></td></tr>
 <tr class="separator:a13c1242bb90c85898ca9db0ff307dbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a143bc8b7918697db33876151951beb52" id="r_a143bc8b7918697db33876151951beb52"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a143bc8b7918697db33876151951beb52">Link</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *from, uint8_t out_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *to, uint8_t in_pin)</td></tr>
-<tr class="memdesc:a143bc8b7918697db33876151951beb52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Links two nodes by connecting an output pin to an input pin.  <br /></td></tr>
-<tr class="separator:a143bc8b7918697db33876151951beb52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47a5d2222e3694b2628ade6bc40b58bc" id="r_a47a5d2222e3694b2628ade6bc40b58bc"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a47a5d2222e3694b2628ade6bc40b58bc">Unlink</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *from, uint8_t out_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *to, uint8_t in_pin)</td></tr>
-<tr class="memdesc:a47a5d2222e3694b2628ade6bc40b58bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks two nodes by disconnecting an output pin from an input pin.  <br /></td></tr>
-<tr class="separator:a47a5d2222e3694b2628ade6bc40b58bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16112a1e0b808902356852caeaa6cf2" id="r_ad16112a1e0b808902356852caeaa6cf2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::unique_ptr&lt; <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ad16112a1e0b808902356852caeaa6cf2">GetAllNodes</a> () const noexcept</td></tr>
+<tr class="memdesc:ad16112a1e0b808902356852caeaa6cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all nodes in the graph.  <br /></td></tr>
+<tr class="separator:ad16112a1e0b808902356852caeaa6cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207ca9ea6cd38e2bd6667b62376e765a" id="r_a207ca9ea6cd38e2bd6667b62376e765a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a207ca9ea6cd38e2bd6667b62376e765a">Link</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *from, uint8_t out_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *to, uint8_t in_pin)</td></tr>
+<tr class="memdesc:a207ca9ea6cd38e2bd6667b62376e765a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Links two nodes by connecting an output pin to an input pin.  <br /></td></tr>
+<tr class="separator:a207ca9ea6cd38e2bd6667b62376e765a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a3ac07fb91bed0a2e9779c7f32e1d52" id="r_a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52">Unlink</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *from, uint8_t out_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *to, uint8_t in_pin)</td></tr>
+<tr class="memdesc:a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks two nodes by disconnecting an output pin from an input pin.  <br /></td></tr>
+<tr class="separator:a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad94f2351350b82a034619d0e476eec43" id="r_ad94f2351350b82a034619d0e476eec43"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43">GetProjectName</a> () const</td></tr>
 <tr class="memdesc:ad94f2351350b82a034619d0e476eec43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the project name.  <br /></td></tr>
 <tr class="separator:ad94f2351350b82a034619d0e476eec43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,6 +204,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the newly added node as NodeBase*.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidNodeKindException.html" title="Exception thrown when attempting to create a node with an invalid kind.">InvalidNodeKindException</a></td><td>if kind == 0 (kUndefined)</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section note"><dt>Note</dt><dd>Prefer to use the templated version if you want to get back the derived class. </dd></dl>
 
 </div>
@@ -237,6 +246,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the newly added node of type T.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidNodeKindException.html" title="Exception thrown when attempting to create a node with an invalid kind.">InvalidNodeKindException</a></td><td>if kind == 0 (kUndefined)</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section note"><dt>Note</dt><dd>The caller is responsible for ensuring that the type T is compatible with the specified NodeKind. Misuse will result in a compilation error. </dd></dl>
 
 </div>
@@ -274,6 +289,34 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An expected containing the deserialized <a class="el" href="classcore_1_1Graph.html">Graph</a>, or an error message if deserialization fails. </dd></dl>
+
+</div>
+</div>
+<a id="ad16112a1e0b808902356852caeaa6cf2" name="ad16112a1e0b808902356852caeaa6cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16112a1e0b808902356852caeaa6cf2">&#9670;&#160;</a></span>GetAllNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::unique_ptr&lt; <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a> &gt; &gt; &amp; core::Graph::GetAllNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets all nodes in the graph. </p>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the vector of all nodes. </dd></dl>
 
 </div>
 </div>
@@ -356,7 +399,7 @@ template&lt;typename T &gt; </div>
 <p>Retrieves a node from the graph by its unique identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>The unique identifier of the node to retrieve. </td></tr>
+    <tr><td class="paramname">id</td><td>The unique identifier of the node to retrieve.</td></tr>
   </table>
   </dd>
 </dl>
@@ -439,14 +482,14 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a143bc8b7918697db33876151951beb52" name="a143bc8b7918697db33876151951beb52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a143bc8b7918697db33876151951beb52">&#9670;&#160;</a></span>Link()</h2>
+<a id="a207ca9ea6cd38e2bd6667b62376e765a" name="a207ca9ea6cd38e2bd6667b62376e765a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a207ca9ea6cd38e2bd6667b62376e765a">&#9670;&#160;</a></span>Link()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::expected&lt; void, std::string &gt; core::Graph::Link </td>
+          <td class="memname">void core::Graph::Link </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td>
           <td class="paramname"><em>from</em>, </td>
@@ -483,12 +526,21 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">from</td><td>The source node. </td></tr>
     <tr><td class="paramname">out_pin</td><td>The output pin index on the source node. </td></tr>
     <tr><td class="paramname">to</td><td>The destination node. </td></tr>
-    <tr><td class="paramname">in_pin</td><td>The input pin index on the destination node. </td></tr>
+    <tr><td class="paramname">in_pin</td><td>The input pin index on the destination node.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An expected containing void on success, or an error message on failure.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function validates pin compatibility and availability before linking. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function validates pin compatibility and availability before linking.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node pointer is null </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a> </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out-of-bounds index.">InvalidPinIndexException</a></td><td>if one of the pin cannot be found </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1IncompatiblePinTypesException.html" title="Exception thrown when attempting to link pins with incompatible types.">IncompatiblePinTypesException</a></td><td>if the pins types don't matches </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1CircularDependencyException.html" title="Exception thrown when a link would create a circular dependency.">CircularDependencyException</a></td><td>if from == to </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -551,7 +603,14 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The caller is responsible for ensuring that the node pointer is valid and belongs to this graph. Removing a node will also unlink it from any connected nodes. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if node is nullptr </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Removing a node will also unlink it from any connected nodes. </dd></dl>
 
 </div>
 </div>
@@ -656,14 +715,14 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a47a5d2222e3694b2628ade6bc40b58bc" name="a47a5d2222e3694b2628ade6bc40b58bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47a5d2222e3694b2628ade6bc40b58bc">&#9670;&#160;</a></span>Unlink()</h2>
+<a id="a9a3ac07fb91bed0a2e9779c7f32e1d52" name="a9a3ac07fb91bed0a2e9779c7f32e1d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a3ac07fb91bed0a2e9779c7f32e1d52">&#9670;&#160;</a></span>Unlink()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::expected&lt; void, std::string &gt; core::Graph::Unlink </td>
+          <td class="memname">void core::Graph::Unlink </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td>
           <td class="paramname"><em>from</em>, </td>
@@ -700,11 +759,18 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">from</td><td>The source node. </td></tr>
     <tr><td class="paramname">out_pin</td><td>The output pin index on the source node. </td></tr>
     <tr><td class="paramname">to</td><td>The destination node. </td></tr>
-    <tr><td class="paramname">in_pin</td><td>The input pin index on the destination node. </td></tr>
+    <tr><td class="paramname">in_pin</td><td>The input pin index on the destination node.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An expected containing void on success, or an error message on failure. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node pointer is null </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a> </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out-of-bounds index.">InvalidPinIndexException</a></td><td>if one of the pin cannot be found </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

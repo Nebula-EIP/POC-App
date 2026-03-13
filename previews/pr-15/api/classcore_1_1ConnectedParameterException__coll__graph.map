@@ -1,0 +1,11 @@
+<map id="core::ConnectedParameterException" name="core::ConnectedParameterException">
+<area shape="rect" id="Node000001" title="Exception thrown when attempting to remove a connected parameter." alt="" coords="13,299,208,339"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1FunctionNodeException.html" title="Base exception class for all function node&#45;related errors." alt="" coords="5,225,216,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,264,113,299,108,299,108,264"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1CoreException.html" title=" " alt="" coords="35,152,187,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,191,113,225,108,225,108,191"/>
+<area shape="rect" id="Node000004" href="$classutils_1_1BaseException.html" title=" " alt="" coords="33,79,188,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="113,118,113,152,108,152,108,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="53,5,168,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="113,44,113,79,108,79,108,44"/>
+</map>

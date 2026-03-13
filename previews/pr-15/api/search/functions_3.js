@@ -1,14 +1,6 @@
 var searchData=
 [
-  ['get_5fbuild_5fdirectory_0',['get_build_directory',['../classnebula_1_1cmake_1_1CMakeCompiler.html#af0d0d58afaff0f57400a4ddbf9cf8a16',1,'nebula::cmake::CMakeCompiler']]],
-  ['getauthor_1',['GetAuthor',['../classcore_1_1Graph.html#a0573c1c202b8fce4998285d78904ba1a',1,'core::Graph']]],
-  ['getcategory_2',['getcategory',['../classcore_1_1NodeBase.html#a1c3b34a9e4fbb0b0760c015e32aa6a49',1,'core::NodeBase::GetCategory()'],['../classcore_1_1LiteralNode.html#afb60228793a76b130f5c2422bcd826db',1,'core::LiteralNode::GetCategory()'],['../classcore_1_1VariableNode.html#a6055a0f623a9d5e3533ecfac54bdfd55',1,'core::VariableNode::GetCategory()']]],
-  ['getcontent_3',['GetContent',['../classcode__generation_1_1CodeGeneratorFile.html#aa842aa12eafdeb2e739557da358f838c',1,'code_generation::CodeGeneratorFile']]],
-  ['getcreatedat_4',['GetCreatedAt',['../classcore_1_1Graph.html#a13bc792dd37fc11853931a2dc7976786',1,'core::Graph']]],
-  ['getformatedcontent_5',['GetFormatedContent',['../classcode__generation_1_1CodeGeneratorFile.html#aa4413fca63a68dea84cfd38c04f1da21',1,'code_generation::CodeGeneratorFile']]],
-  ['getmodifiedat_6',['GetModifiedAt',['../classcore_1_1Graph.html#a15fb08b9f2fbcc9607bd25f2f27addfa',1,'core::Graph']]],
-  ['getnode_7',['getnode',['../classcore_1_1Graph.html#ad950f7401dd83e54aadbd9051e4de75d',1,'core::Graph::GetNode(uint32_t id) const'],['../classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4',1,'core::Graph::GetNode(uint32_t id) const']]],
-  ['getpositionstartblock_8',['GetPositionStartBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a31c9b1283c66813862ac44c41a660659',1,'code_generation::CodeGeneratorFile']]],
-  ['getprojectname_9',['GetProjectName',['../classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43',1,'core::Graph']]],
-  ['getversion_10',['GetVersion',['../classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89',1,'core::Graph']]]
+  ['data_0',['data',['../classcore_1_1LiteralNode.html#aa29b08cbd821906d85837a86bd1b3276',1,'core::LiteralNode::data()'],['../classcore_1_1VariableNode.html#a84a02d5af6f9d65eab57808ab5e47b35',1,'core::VariableNode::data()']]],
+  ['deserialize_1',['deserialize',['../classcore_1_1Graph.html#a82114df8312909515a95043ad3f20bdc',1,'core::Graph::Deserialize()'],['../classcore_1_1NodeBase.html#ab3f1e755f39a636fbd986cdc28b797c7',1,'core::NodeBase::Deserialize()'],['../classcore_1_1FunctionInputNode.html#ac36fd35ad044fa9935838972779b6dd5',1,'core::FunctionInputNode::Deserialize()'],['../classcore_1_1FunctionNode.html#a5fc62de3a9aef424c368947c7073ab99',1,'core::FunctionNode::Deserialize()'],['../classcore_1_1FunctionOutputNode.html#acd79f02a7ee77466858179f09301372f',1,'core::FunctionOutputNode::Deserialize()'],['../classcore_1_1LiteralNode.html#a4d3e29a2f9167261597a9830d73e9f50',1,'core::LiteralNode::Deserialize()'],['../classcore_1_1VariableNode.html#a8cec75ced143c46b2f84d73003a95e03',1,'core::VariableNode::Deserialize()']]],
+  ['deserializefactory_2',['DeserializeFactory',['../classcore_1_1NodeBase.html#ad3add568bd152376dff16efa8e9f7fd9',1,'core::NodeBase']]]
 ];
