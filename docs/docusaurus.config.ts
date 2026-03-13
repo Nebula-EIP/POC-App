@@ -11,16 +11,11 @@ const config: Config = {
     v4: true,
   },
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  url: 'https://nebula-eip.github.io',
+  baseUrl: '/POC-App/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Nebula-EIP', // Usually your GitHub org/user name.
-  projectName: 'POC-App', // Usually your repo name.
+  organizationName: 'Nebula-EIP',
+  projectName: 'POC-App',
 
   onBrokenLinks: 'throw',
 
@@ -66,7 +61,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'userSidebar',
           position: 'left',
-          label: 'User',
+          label: 'Users',
         },
         {
           type: 'docSidebar',
@@ -94,18 +89,28 @@ const config: Config = {
           ],
         },
         {
-          title: 'Documentation',
+          title: 'Users',
           items: [
             {
               label: 'User Guide',
               to: '/docs/user/intro',
             },
+          ],
+        },
+        {
+          title: 'Developers',
+          items: [
             {
-              label: 'Developers',
+              label: 'Developer Guide',
               to: '/docs/dev/intro',
             },
+          ],
+        },
+        {
+          title: 'API Reference',
+          items: [
             {
-              label: 'API Reference',
+              label: 'Doxygen API',
               href: 'pathname:///api/index.html',
             },
           ],
