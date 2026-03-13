@@ -60,7 +60,9 @@ int CodeGeneratorFile::MoveCursor(int offset) {
 
 std::string CodeGeneratorFile::GetContent() const {
     std::string content = "";
-    for (const std::string &line : content_) content += line;
+    for (const std::string &line : content_) {
+        content += line;
+    }
     return content;
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <any>
 #include <string>
 
 #include "../node_base.hpp"
@@ -9,9 +8,16 @@ namespace core {
 
 class Graph;
 
-class LiteralNode : public NodeBase {
+/**
+ * @class FunctionOutputNode
+ * @brief A node representing the return value inside the function's body graph.
+ *
+ * Each FunctionOutputNode has exactly one input pin whose data type
+ * matches the function's return type.
+ */
+class FunctionOutputNode : public NodeBase {
    public:
-    ~LiteralNode() = default;
+    ~FunctionOutputNode() = default;
 
     void set_name(const std::string &name);
     const std::string &name() const noexcept;
@@ -24,24 +30,7 @@ class LiteralNode : public NodeBase {
     void set_type(PinDataType type);
     PinDataType type() const noexcept;
 
-    /**
-     * @brief Set the data to be stored in the node.
-     *
-     * It is the caller responsibility to store data that is the correct
-     * type which can be retreived with LiteralNode::type().
-     */
-    void set_data(std::any data);
-
-    /**
-     * @brief Retrieves the data stored in the literal node.
-     *
-     * This function returns the data encapsulated within the literal node
-     * as a std::any object. The actual type of the data can be determined
-     * by the caller using std::any_cast along with LiteralNode::type().
-     *
-     * @return std::any The data stored in the literal node.
-     */
-    std::any data() const noexcept;
+    // -- NodeBase overrides --
 
     uint8_t GetInputPinCount() const noexcept override;
     uint8_t GetOutputPinCount() const noexcept override;
@@ -60,13 +49,6 @@ class LiteralNode : public NodeBase {
     std::string GetCategory() const noexcept override;
 
     nlohmann::json Serialize() const override;
-
-    /**
-     * @brief Deserializes this LiteralNode's data from JSON.
-     * @param json The JSON object containing the literal node data.
-     * @return An expected containing void on success, or an error message on
-     *         failure.
-     */
     std::expected<void, std::string> Deserialize(
         const nlohmann::json &json) override;
 
@@ -74,14 +56,13 @@ class LiteralNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    LiteralNode(uint32_t id, NodeKind kind) noexcept;
+    FunctionOutputNode(uint32_t id, NodeKind kind) noexcept;
 
     void InitializeConnections() override;
 
    private:
-    PinDataType type_ = PinDataType::kInt;
-    std::string name_ = "Literal";
-    std::any data_;
+    PinDataType type_ = PinDataType::kUndefined;
+    std::string name_ = "Output";
 };
 
 }  // namespace core

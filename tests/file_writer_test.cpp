@@ -10,21 +10,34 @@ namespace {
 namespace fs = std::filesystem;
 using file_writing::FileWriter;
 
-// Base directory for all test-generated files.
-static const fs::path kTestDir = fs::temp_directory_path() / "nebula_file_writer_tests";
-
 class FileWriterTest : public ::testing::Test {
  protected:
+    fs::path test_dir_;
+
+    fs::path GetTestDirectory() const
+    {
+        const auto* test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+        fs::path base_dir = fs::temp_directory_path() / "nebula_file_writer_tests";
+
+        if (test_info != nullptr) {
+            return base_dir / test_info->test_suite_name() / test_info->name();
+        }
+
+        return base_dir / "unknown_test";
+    }
+
     void SetUp() override
     {
-        // Ensure a clean test directory before each test.
-        fs::remove_all(kTestDir);
+        // Use an isolated temp folder per test to avoid cross-test races in parallel runs.
+        test_dir_ = GetTestDirectory();
+        fs::remove_all(test_dir_);
+        fs::create_directories(test_dir_);
     }
 
     void TearDown() override
     {
         // Clean up everything created during the test.
-        fs::remove_all(kTestDir);
+        fs::remove_all(test_dir_);
     }
 
     /// Helper: read back the entire contents of a file.
@@ -38,7 +51,7 @@ class FileWriterTest : public ::testing::Test {
 TEST_F(FileWriterTest, WritesContentToNewFile)
 {
     FileWriter writer;
-    fs::path file = kTestDir / "hello.txt";
+    fs::path file = test_dir_ / "hello.txt";
 
     EXPECT_TRUE(writer.WriteToFile(file.string(), "Hello, World!"));
     EXPECT_TRUE(fs::exists(file));
@@ -48,7 +61,7 @@ TEST_F(FileWriterTest, WritesContentToNewFile)
 TEST_F(FileWriterTest, OverwritesExistingFile)
 {
     FileWriter writer;
-    fs::path file = kTestDir / "overwrite.txt";
+    fs::path file = test_dir_ / "overwrite.txt";
 
     writer.WriteToFile(file.string(), "first");
     writer.WriteToFile(file.string(), "second");
@@ -59,7 +72,7 @@ TEST_F(FileWriterTest, OverwritesExistingFile)
 TEST_F(FileWriterTest, CreatesParentDirectories)
 {
     FileWriter writer;
-    fs::path file = kTestDir / "a" / "b" / "c" / "deep.txt";
+    fs::path file = test_dir_ / "a" / "b" / "c" / "deep.txt";
 
     EXPECT_TRUE(writer.WriteToFile(file.string(), "deep content"));
     EXPECT_TRUE(fs::exists(file));
@@ -69,7 +82,7 @@ TEST_F(FileWriterTest, CreatesParentDirectories)
 TEST_F(FileWriterTest, WritesEmptyContent)
 {
     FileWriter writer;
-    fs::path file = kTestDir / "empty.txt";
+    fs::path file = test_dir_ / "empty.txt";
 
     EXPECT_TRUE(writer.WriteToFile(file.string(), ""));
     EXPECT_TRUE(fs::exists(file));
@@ -79,7 +92,7 @@ TEST_F(FileWriterTest, WritesEmptyContent)
 TEST_F(FileWriterTest, WritesMultilineContent)
 {
     FileWriter writer;
-    fs::path file = kTestDir / "multi.cpp";
+    fs::path file = test_dir_ / "multi.cpp";
 
     const std::string code =
         "#include <iostream>\n"

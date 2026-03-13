@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set MODE=%1
 
 if "%MODE%"=="" (
-    set MODE=check
+    set MODE=Check
 )
 
 set FILES=
@@ -18,7 +18,7 @@ if "!FILES!"=="" (
     exit /b 0
 )
 
-if /I "%MODE%"=="fix" (
+if /I "%MODE%"=="Fix" (
     echo Running clang-format...
     clang-format -i !FILES!
     if %ERRORLEVEL% neq 0 (

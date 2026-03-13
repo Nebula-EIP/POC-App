@@ -2,7 +2,6 @@
 setlocal enabledelayedexpansion
 
 set BUILD_DIR=build
-
 echo Running clang-tidy...
 
 set FAILED=0
@@ -21,3 +20,4 @@ if %FAILED% neq 0 (
 )
 
 echo Lint passed.
+exit /b 0

@@ -2,14 +2,23 @@
 
 set BUILD_DIR=build
 set BUILD_TYPE=%1
+set PARALLEL=%2
 
 if "%BUILD_TYPE%"=="" (
     set BUILD_TYPE=Debug
 )
 
-echo Building Nebula (%BUILD_TYPE%)...
+if "%PARALLEL%"=="" (
+    set PARALLEL=%NUMBER_OF_PROCESSORS%
+)
 
-cmake --build %BUILD_DIR% --config %BUILD_TYPE% --parallel
+if "%PARALLEL%"=="" (
+    set PARALLEL=4
+)
+
+echo Building Nebula (%BUILD_TYPE%) with %PARALLEL% parallel jobs...
+
+cmake --build %BUILD_DIR% --config %BUILD_TYPE% --parallel %PARALLEL%
 
 if errorlevel 1 (
     echo Build failed
