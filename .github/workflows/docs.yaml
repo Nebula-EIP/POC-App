@@ -3,7 +3,14 @@
 # - On push to main: publishes the production docs at the root of GitHub Pages.
 name: Documentation
 
-run-name: ${{ github.event_name == 'push' && 'Deploy docs' || 'Build docs check' }}
+run-name: >-
+  ${{
+    github.event_name == 'pull_request' && github.event.action == 'closed'
+      && 'Clean preview'
+      || github.event_name == 'pull_request'
+      && 'Check build & deploy preview'
+      || 'Check build & deploy docs'
+  }}
 
 concurrency:
   group: docs-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -23,27 +30,26 @@ on:
       - 'src/**'
 
 jobs:
-  docs:
-    name: Build & Deploy Documentation
+  build-docs:
+    name: Build documentation
     if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-    permissions:
-      contents: write
-      pull-requests: write
+      BASE_URL: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && format('/POC-App/previews/pr-{0}/', github.event.number) || '/POC-App/' }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Doxygen
-        run: sudo apt-get install -y --no-install-recommends doxygen
+      - name: Install Doxygen and Graphviz
+        run: sudo apt-get install -y --no-install-recommends doxygen graphviz
 
       - name: Generate API documentation
         run: doxygen Doxyfile
-        working-directory: docs
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -54,36 +60,46 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: docs
 
       - name: Build documentation
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" = "${{ github.repository }}" ]; then
-            export BASE_URL="/POC-App/previews/pr-${{ github.event.number }}/"
-          else
-            export BASE_URL="/POC-App/"
-          fi
-          npm run build
-        working-directory: docs
+        run: npm run build
+
+      - name: Upload built documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: docs/build
+          if-no-files-found: error
+
+  deploy-preview:
+    name: Deploy PR preview
+    if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    needs: build-docs
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Download built documentation
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-site
+          path: docs/build
 
       - name: Deploy PR preview
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/build
           destination_dir: previews/pr-${{ github.event.number }}
           keep_files: true
-          commit_message: "🚀 Deploy preview for PR #${{ github.event.number }} at ${{ github.sha }}"
-
-      - name: Preview URL summary
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        run: |
-          echo "### Documentation Preview" >> "$GITHUB_STEP_SUMMARY"
-          echo "https://nebula-eip.github.io/POC-App/previews/pr-${{ github.event.number }}/" >> "$GITHUB_STEP_SUMMARY"
+          commit_message: "🚀 Deploy preview for pr-${{ github.event.number }} at"
 
       - name: Comment preview link on PR
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: docs-preview
@@ -91,14 +107,31 @@ jobs:
             🚀 **Docs Preview Available**
             https://nebula-eip.github.io/POC-App/previews/pr-${{ github.event.number }}/
 
+  deploy-production:
+    name: Deploy production documentation
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-docs
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download built documentation
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-site
+          path: docs/build
+
       - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/build
           keep_files: true
-          commit_message: "🚀 Deploy production docs from main at ${{ github.sha }}"
+          commit_message: "🚀 Deploy production docs from main at"
 
   cleanup-preview:
     name: Cleanup PR Preview
@@ -124,9 +157,9 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "🔥 Remove preview for PR #${{ github.event.number }}"
+            git commit -m "🔥 Remove preview for pr-${{ github.event.number }}"
             git pull --rebase origin gh-pages
             git push origin gh-pages
           else
-            echo "No preview directory found for PR #${{ github.event.number }}"
+            echo "No preview directory found for pr-${{ github.event.number }}"
           fi
