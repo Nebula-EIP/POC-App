@@ -20,22 +20,22 @@
 namespace nebula::cmake {
 
 void CMakeCompiler::SetBuildDirectory(const std::filesystem::path &dir) {
-    build_dir = dir;
+    build_dir_ = dir;
 }
 
 std::filesystem::path CMakeCompiler::GetBuildDirectory() const {
-    return build_dir;
+    return build_dir_;
 }
 
 void CMakeCompiler::EnsureBuildDirectory() {
-    if (!std::filesystem::exists(build_dir)) {
-        std::filesystem::create_directories(build_dir);
+    if (!std::filesystem::exists(build_dir_)) {
+        std::filesystem::create_directories(build_dir_);
     }
 }
 
 void CMakeCompiler::CleanBuildDirectory() {
-    if (std::filesystem::exists(build_dir)) {
-        std::filesystem::remove_all(build_dir);
+    if (std::filesystem::exists(build_dir_)) {
+        std::filesystem::remove_all(build_dir_);
     }
 }
 
@@ -189,7 +189,7 @@ CompilationResult CMakeCompiler::CompileFile(
 
     // Generate CMakeLists.txt
     std::string cmake_content = GenerateCmakeFile(source_file, config);
-    std::filesystem::path cmake_file = build_dir / "CMakeLists.txt";
+    std::filesystem::path cmake_file = build_dir_ / "CMakeLists.txt";
 
     std::ofstream cmake_out(cmake_file);
     if (!cmake_out) {
@@ -216,7 +216,7 @@ CompilationResult CMakeCompiler::CompileFile(
         final_result.output += "Command: " + cmake_command + "\n\n";
     }
 
-    CompilationResult cmake_result = ExecuteCommand(cmake_command, build_dir);
+    CompilationResult cmake_result = ExecuteCommand(cmake_command, build_dir_);
     if (!cmake_result.success) {
         final_result.error_output =
             "CMake configuration failed:\n" + cmake_result.error_output;
@@ -237,7 +237,7 @@ CompilationResult CMakeCompiler::CompileFile(
         final_result.output += "Command: " + build_command + "\n\n";
     }
 
-    CompilationResult build_result = ExecuteCommand(build_command, build_dir);
+    CompilationResult build_result = ExecuteCommand(build_command, build_dir_);
     if (!build_result.success) {
         final_result.error_output =
             "Build failed:\n" + build_result.error_output;
@@ -256,9 +256,9 @@ CompilationResult CMakeCompiler::CompileFile(
 #endif
 
     std::vector<std::filesystem::path> possible_paths = {
-        build_dir / "bin" / exec_name,
-        build_dir / "bin" / config.build_type / exec_name,
-        build_dir / config.build_type / exec_name, build_dir / exec_name};
+        build_dir_ / "bin" / exec_name,
+        build_dir_ / "bin" / config.build_type / exec_name,
+        build_dir_ / config.build_type / exec_name, build_dir_ / exec_name};
 
     bool found = false;
     for (const auto &path : possible_paths) {

@@ -72,7 +72,7 @@ class CMakeCompiler {
     void CleanBuildDirectory();
 
    private:
-    std::filesystem::path build_dir =
+    std::filesystem::path build_dir_ =
         std::filesystem::temp_directory_path() / "nebula_cmake_build";
 
     /**
