@@ -1,0 +1,132 @@
+# This workflow builds and deploys the Nebula documentation site.
+# - On pull requests: builds docs and publishes a preview under /previews/pr-<number>/.
+# - On push to main: publishes the production docs at the root of GitHub Pages.
+name: Documentation
+
+run-name: ${{ github.event_name == 'push' && 'Deploy docs' || 'Build docs check' }}
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, closed]
+    branches: [main, dev]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+
+jobs:
+  docs:
+    name: Build & Deploy Documentation
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get install -y --no-install-recommends doxygen
+
+      - name: Generate API documentation
+        run: doxygen Doxyfile
+        working-directory: docs
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: docs
+
+      - name: Build documentation
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" = "${{ github.repository }}" ]; then
+            export BASE_URL="/POC-App/previews/pr-${{ github.event.number }}/"
+          else
+            export BASE_URL="/POC-App/"
+          fi
+          npm run build
+        working-directory: docs
+
+      - name: Deploy PR preview
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build
+          destination_dir: previews/pr-${{ github.event.number }}
+          keep_files: true
+          commit_message: "🚀 Deploy preview for PR #${{ github.event.number }} at ${{ github.sha }}"
+
+      - name: Preview URL summary
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          echo "### Documentation Preview" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://nebula-eip.github.io/POC-App/previews/pr-${{ github.event.number }}/" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment preview link on PR
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: docs-preview
+          message: |
+            🚀 **Docs Preview Available**
+            https://nebula-eip.github.io/POC-App/previews/pr-${{ github.event.number }}/
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build
+          keep_files: true
+          commit_message: "🚀 Deploy production docs from main at ${{ github.sha }}"
+
+  cleanup-preview:
+    name: Cleanup PR Preview
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Remove preview directory
+        run: |
+          set -e
+          PREVIEW_DIR="previews/pr-${{ github.event.number }}"
+          if [ -d "$PREVIEW_DIR" ]; then
+            rm -rf "$PREVIEW_DIR"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "🔥 Remove preview for PR #${{ github.event.number }}"
+            git pull --rebase origin gh-pages
+            git push origin gh-pages
+          else
+            echo "No preview directory found for PR #${{ github.event.number }}"
+          fi
