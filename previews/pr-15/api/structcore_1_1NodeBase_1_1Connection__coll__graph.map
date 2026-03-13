@@ -1,5 +1,0 @@
-<map id="core::NodeBase::Connection" name="core::NodeBase::Connection">
-<area shape="rect" id="Node000001" title="Represents a connection between two nodes&#39; pins." alt="" coords="5,93,211,119"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="46,5,170,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,45,111,93,105,93,105,45"/>
-</map>
