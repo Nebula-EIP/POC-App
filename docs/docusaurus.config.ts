@@ -2,6 +2,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const baseUrl = process.env.BASE_URL ?? '/POC-App/';
+const apiReferencePath = `pathname://${baseUrl}api/index.html`;
+
 const config: Config = {
   title: 'Nebula Docs',
   tagline: 'The visual, high-performance, community-driven C++ editor.',
@@ -12,7 +15,7 @@ const config: Config = {
   },
 
   url: 'https://nebula-eip.github.io',
-  baseUrl: '/POC-App/',
+  baseUrl,
 
   organizationName: 'Nebula-EIP',
   projectName: 'POC-App',
@@ -70,7 +73,7 @@ const config: Config = {
           label: 'Developers',
         },
         {
-          href: 'pathname:///api/index.html',
+          href: apiReferencePath,
           label: 'API Reference',
           position: 'left',
         },
@@ -111,7 +114,7 @@ const config: Config = {
           items: [
             {
               label: 'Doxygen API',
-              href: 'pathname:///api/index.html',
+              href: apiReferencePath,
             },
           ],
         },
