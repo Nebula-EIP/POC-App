@@ -1,4 +1,5 @@
 # Build artifacts
+node_modules/
 build/
 *.o
 *.so
@@ -24,7 +25,12 @@ unit_tests
 CMakeFiles/
 _deps/
 __pycache__/
+.cache-loader/
+.docusaurus/
 
 # Nebula specific
 .nebula/
 code-generated/
+
+# Documentation build artifacts
+docs/static/api/
