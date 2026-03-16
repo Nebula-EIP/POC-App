@@ -14,10 +14,15 @@ class LiteralNode : public NodeBase {
     ~LiteralNode() = default;
 
     void set_name(const std::string &name);
-    const std::string &name() const;
+    const std::string &name() const noexcept;
 
+    /**
+     * @brief Change the type of the node & it's pins connections
+     *
+     * @throws PinStillConnectedException if pins are already connected
+     */
     void set_type(PinDataType type);
-    PinDataType type() const;
+    PinDataType type() const noexcept;
 
     /**
      * @brief Set the data to be stored in the node.
@@ -36,22 +41,23 @@ class LiteralNode : public NodeBase {
      *
      * @return std::any The data stored in the literal node.
      */
-    std::any data() const;
+    std::any data() const noexcept;
 
-    uint8_t GetInputPinCount() const override;
-    uint8_t GetOutputPinCount() const override;
+    uint8_t GetInputPinCount() const noexcept override;
+    uint8_t GetOutputPinCount() const noexcept override;
 
     PinDataType GetInputPinType(uint8_t pin) const override;
     PinDataType GetOutputPinType(uint8_t pin) const override;
 
     std::expected<void, std::string> CanConnectTo(
-        uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const override;
+        uint8_t out_pin, const NodeBase *target,
+        uint8_t in_pin) const noexcept override;
 
     std::string GetInputPinName(uint8_t pin) const override;
     std::string GetOutputPinName(uint8_t pin) const override;
 
-    std::string GetDisplayName() const override;
-    std::string GetCategory() const override;
+    std::string GetDisplayName() const noexcept override;
+    std::string GetCategory() const noexcept override;
 
     nlohmann::json Serialize() const override;
 
@@ -68,10 +74,12 @@ class LiteralNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    LiteralNode(uint32_t id, NodeKind kind);
+    LiteralNode(uint32_t id, NodeKind kind) noexcept;
+
+    void InitializeConnections() override;
 
    private:
-    PinDataType type_ = PinDataType::kUndefined;
+    PinDataType type_ = PinDataType::kInt;
     std::string name_ = "Literal";
     std::any data_;
 };

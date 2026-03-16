@@ -12,5 +12,5 @@ PointerAlignment: Right
 QualifierAlignment: Left
 
 # The Google Style Guide asks for 2 spaces indentation.
-# We do not approve this choice. 
+# We do not approve this choice.
 IndentWidth: 4

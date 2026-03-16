@@ -12,9 +12,14 @@
 #include <string>
 #include <vector>
 
+#include "connection_exceptions.hpp"
+#include "graph_exceptions.hpp"
+#include "id_manager.hpp"
 #include "node_base.hpp"
 
 namespace core {
+
+class FunctionNode;
 
 class Graph {
    public:
@@ -34,6 +39,8 @@ class Graph {
      * NodeBase::NodeKind.
      * @return A pointer to the newly added node as NodeBase*.
      *
+     * @throws InvalidNodeKindException if kind == 0 (kUndefined)
+     *
      * @note Prefer to use the templated version if you want to get back the
      * derived class.
      */
@@ -49,6 +56,8 @@ class Graph {
      * NodeBase::NodeKind.
      * @return A pointer to the newly added node of type T.
      *
+     * @throws InvalidNodeKindException if kind == 0 (kUndefined)
+     *
      * @note The caller is responsible for ensuring that the type T is
      * compatible with the specified NodeKind. Misuse will result in a
      * compilation error.
@@ -61,9 +70,10 @@ class Graph {
      *
      * @param node A pointer to the node to be removed.
      *
-     * @note The caller is responsible for ensuring that the node pointer is
-     * valid and belongs to this graph. Removing a node will also unlink it from
-     *       any connected nodes.
+     * @throws NodeNotFoundException if node is nullptr
+     * @throws NodeNotFoundException if the node is not owned by this Graph
+     *
+     * @note Removing a node will also unlink it from any connected nodes.
      */
     void RemoveNode(NodeBase *node);
 
@@ -71,6 +81,7 @@ class Graph {
      * @brief Retrieves a node from the graph by its unique identifier.
      *
      * @param id The unique identifier of the node to retrieve.
+     *
      * @return A pointer to the node with the specified ID, or nullptr if no
      * such node exists.
      */
@@ -90,20 +101,31 @@ class Graph {
     T *GetNode(uint32_t id) const;
 
     /**
+     * @brief Gets all nodes in the graph.
+     *
+     * @return A const reference to the vector of all nodes.
+     */
+    const std::vector<std::unique_ptr<NodeBase>> &GetAllNodes() const noexcept;
+
+    /**
      * @brief Links two nodes by connecting an output pin to an input pin.
      *
      * @param from The source node.
      * @param out_pin The output pin index on the source node.
      * @param to The destination node.
      * @param in_pin The input pin index on the destination node.
-     * @return An expected containing void on success, or an error message on
-     * failure.
      *
      * @note This function validates pin compatibility and availability before
      * linking.
+     *
+     * @throws NodeNotFoundException if one of the node pointer is null
+     * @throws NodeNotFoundException if one of the node is not owned by this
+     * Graph
+     * @throws InvalidPinIndexException if one of the pin cannot be found
+     * @throws IncompatiblePinTypesException if the pins types don't matches
+     * @throws CircularDependencyException if from == to
      */
-    std::expected<void, std::string> Link(NodeBase *from, uint8_t out_pin,
-                                          NodeBase *to, uint8_t in_pin);
+    void Link(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
      * @brief Unlinks two nodes by disconnecting an output pin from an input
@@ -113,11 +135,13 @@ class Graph {
      * @param out_pin The output pin index on the source node.
      * @param to The destination node.
      * @param in_pin The input pin index on the destination node.
-     * @return An expected containing void on success, or an error message on
-     * failure.
+     *
+     * @throws NodeNotFoundException if one of the node pointer is null
+     * @throws NodeNotFoundException if one of the node is not owned by this
+     * Graph
+     * @throws InvalidPinIndexException if one of the pin cannot be found
      */
-    std::expected<void, std::string> Unlink(NodeBase *from, uint8_t out_pin,
-                                            NodeBase *to, uint8_t in_pin);
+    void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
      * @brief Gets the project name.
@@ -229,7 +253,7 @@ class Graph {
      */
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind);
 
-    uint32_t next_id_ = 0;
+    utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
 
     // Project metadata

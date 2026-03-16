@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <filesystem>
+#include <chrono>
 
 namespace fs = std::filesystem;
 
@@ -12,8 +13,16 @@ using ::testing::HasSubstr;
 class CMakeCompilerTest : public ::testing::Test {
 protected:
     void SetUp() override {
+        // Use a per-test unique directory so CTest parallel runs do not collide.
+        const auto* test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+        const auto timestamp = std::chrono::steady_clock::now().time_since_epoch().count();
+        const std::string unique_name = std::string("cmake_compiler_test_") +
+                                        test_info->test_suite_name() + "_" +
+                                        test_info->name() + "_" +
+                                        std::to_string(timestamp);
+
         // Create a temporary test directory
-        test_dir_ = fs::temp_directory_path() / "cmake_compiler_test";
+        test_dir_ = fs::temp_directory_path() / unique_name;
         fs::create_directories(test_dir_);
 
         // Create a simple test file
@@ -55,8 +64,8 @@ TEST_F(CMakeCompilerTest, SetBuildDirectory) {
     nebula::cmake::CMakeCompiler compiler;
     fs::path custom_dir = test_dir_ / "custom_build";
 
-    compiler.set_build_directory(custom_dir);
-    EXPECT_EQ(compiler.get_build_directory(), custom_dir);
+    compiler.SetBuildDirectory(custom_dir);
+    EXPECT_EQ(compiler.GetBuildDirectory(), custom_dir);
 }
 
 // Test compilation with valid source file
@@ -65,9 +74,9 @@ TEST_F(CMakeCompilerTest, CompileValidSourceFile) {
     nebula::cmake::CompilerConfig config;
 
     auto build_dir = test_dir_ / "build";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success) << "Error: " << result.error_output;
     EXPECT_TRUE(fs::exists(result.executable_path));
@@ -81,7 +90,7 @@ TEST_F(CMakeCompilerTest, CompileNonExistentFile) {
 
     fs::path non_existent = test_dir_ / "does_not_exist.cpp";
 
-    auto result = compiler.compile_file(non_existent, config);
+    auto result = compiler.CompileFile(non_existent, config);
 
     EXPECT_FALSE(result.success);
     EXPECT_FALSE(result.error_output.empty());
@@ -95,9 +104,9 @@ TEST_F(CMakeCompilerTest, CustomCxxStandard) {
     config.cxx_standard = "17";
 
     auto build_dir = test_dir_ / "build_std17";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success);
 }
@@ -109,9 +118,9 @@ TEST_F(CMakeCompilerTest, DebugBuildType) {
     config.build_type = "Debug";
 
     auto build_dir = test_dir_ / "build_debug";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success);
 }
@@ -127,9 +136,9 @@ TEST_F(CMakeCompilerTest, WithCompileFlags) {
 #endif
 
     auto build_dir = test_dir_ / "build_flags";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success);
 }
@@ -141,9 +150,9 @@ TEST_F(CMakeCompilerTest, CustomOutputName) {
     config.output_name = "custom_test";
 
     auto build_dir = test_dir_ / "build_custom";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success);
     EXPECT_THAT(result.executable_path.string(), testing::HasSubstr("custom_test"));
@@ -170,9 +179,9 @@ TEST_F(CMakeCompilerTest, WithDefinitions) {
     config.definitions = {"MY_DEFINE"};
 
     auto build_dir = test_dir_ / "build_def";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(def_test_file, config);
+    auto result = compiler.CompileFile(def_test_file, config);
 
     EXPECT_TRUE(result.success);
 }
@@ -203,9 +212,9 @@ TEST_F(CMakeCompilerTest, WithIncludeDirectories) {
     config.include_directories = {include_dir.string()};
 
     auto build_dir = test_dir_ / "build_include";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(source_file, config);
+    auto result = compiler.CompileFile(source_file, config);
 
     EXPECT_TRUE(result.success);
 }
@@ -214,7 +223,7 @@ TEST_F(CMakeCompilerTest, WithIncludeDirectories) {
 TEST_F(CMakeCompilerTest, CleanBuildDirectory) {
     nebula::cmake::CMakeCompiler compiler;
     auto build_dir = test_dir_ / "build_clean";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
     // Create some files in the build directory
     fs::create_directories(build_dir);
@@ -224,7 +233,7 @@ TEST_F(CMakeCompilerTest, CleanBuildDirectory) {
 
     EXPECT_TRUE(fs::exists(build_dir / "dummy.txt"));
 
-    compiler.clean_build_directory();
+    compiler.CleanBuildDirectory();
 
     EXPECT_FALSE(fs::exists(build_dir / "dummy.txt"));
 }
@@ -244,9 +253,9 @@ TEST_F(CMakeCompilerTest, InvalidCppCode) {
     nebula::cmake::CompilerConfig config;
 
     auto build_dir = test_dir_ / "build_invalid";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(invalid_file, config);
+    auto result = compiler.CompileFile(invalid_file, config);
 
     EXPECT_FALSE(result.success);
     EXPECT_FALSE(result.error_output.empty());
@@ -258,13 +267,13 @@ TEST_F(CMakeCompilerTest, MultipleCompilations) {
     nebula::cmake::CompilerConfig config;
 
     auto build_dir1 = test_dir_ / "build1";
-    compiler.set_build_directory(build_dir1);
-    auto result1 = compiler.compile_file(test_file_, config);
+    compiler.SetBuildDirectory(build_dir1);
+    auto result1 = compiler.CompileFile(test_file_, config);
     EXPECT_TRUE(result1.success);
 
     auto build_dir2 = test_dir_ / "build2";
-    compiler.set_build_directory(build_dir2);
-    auto result2 = compiler.compile_file(test_file_, config);
+    compiler.SetBuildDirectory(build_dir2);
+    auto result2 = compiler.CompileFile(test_file_, config);
     EXPECT_TRUE(result2.success);
 
     // Both executables should exist
@@ -289,9 +298,9 @@ TEST_F(CMakeCompilerTest, AllOptionsCombined) {
     config.verbose = false;
 
     auto build_dir = test_dir_ / "build_all";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
 
     EXPECT_TRUE(result.success);
     EXPECT_THAT(result.executable_path.string(), testing::HasSubstr("full_test"));
@@ -305,9 +314,9 @@ TEST_F(CMakeCompilerTest, GeneratedCMakeListsContent) {
     config.compile_flags = {"-Wall"};
 
     auto build_dir = test_dir_ / "build_cmake";
-    compiler.set_build_directory(build_dir);
+    compiler.SetBuildDirectory(build_dir);
 
-    auto result = compiler.compile_file(test_file_, config);
+    auto result = compiler.CompileFile(test_file_, config);
     EXPECT_TRUE(result.success);
 
     // Check if CMakeLists.txt was created

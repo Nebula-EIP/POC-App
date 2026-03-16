@@ -1,122 +1,185 @@
 #include "node_base.hpp"
 
 #include <algorithm>
+#include <exception>
 
+#include "connection_exceptions.hpp"
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
-core::NodeBase::Connection::Connection(NodeBase *n, uint8_t p, PinDataType t)
-    : node(n), pin(p), type(t) {}
+core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin,
+                                       uint8_t in_pin,
+                                       PinDataType type) noexcept
+    : node(node), out_pin(out_pin), in_pin(in_pin), type(type) {}
 
-bool core::NodeBase::Connection::IsConnected() const { return node != nullptr; }
+bool core::NodeBase::Connection::IsConnected() const noexcept {
+    return node != nullptr;
+}
 
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind) : id_(id), kind_(kind) {}
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind) noexcept
+    : id_(id), kind_(kind) {}
 
-core::NodeBase::~NodeBase() = default;
+core::NodeBase::~NodeBase() noexcept = default;
 
-uint32_t core::NodeBase::id() const { return id_; }
+uint32_t core::NodeBase::id() const noexcept { return id_; }
 
-core::NodeBase::NodeKind core::NodeBase::kind() const { return kind_; }
+core::NodeBase::NodeKind core::NodeBase::kind() const noexcept { return kind_; }
 
 // parents_ vector already filled by the Graph class
-const core::NodeBase::Connection *core::NodeBase::parent(uint8_t in_pin) const {
-    if (GetInputPinCount() <= in_pin || parents_.size() <= in_pin) {
-        return nullptr;
+core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
+
+    if (it == parents_.end()) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "Input pin {} does not exists", in_pin);
     }
 
-    const Connection &conn = parents_[in_pin];
-    return conn.IsConnected() ? &conn : nullptr;
+    return (*it);
+}
+
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllParents()
+    const noexcept {
+    return parents_;
 }
 
 // childrens_ vector already filled by the Graph class
-const std::vector<core::NodeBase::Connection> &core::NodeBase::childrens(
+const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
-    static const std::vector<NodeBase::Connection> kEmptyVector;
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
+            return std::get<0>(conns) == out_pin;
+        });
 
-    if (GetOutputPinCount() <= out_pin || childrens_.size() <= out_pin) {
-        return kEmptyVector;
+    if (it == childrens_.end()) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "Output pin {} does not exists", out_pin);
     }
 
-    return childrens_[out_pin];
+    return &(std::get<1>(*it));
 }
 
+const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
+    const noexcept {
+    static std::vector<Connection> childs;
+
+    childs.clear();
+    for (auto conn : childrens_) {
+        childs.insert(childs.end(), std::get<1>(conn).begin(),
+                      std::get<1>(conn).end());
+    }
+    return childs;
+}
+
+bool core::NodeBase::InputPinExists(uint8_t pin) const noexcept {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+    return it != parents_.end();
+}
+
+bool core::NodeBase::OutputPinExists(uint8_t pin) const noexcept {
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
+            return std::get<0>(conns) == pin;
+        });
+    return it != childrens_.end();
+}
+
+bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+
+    if (it == parents_.end()) {
+        return false;
+    }
+
+    return it->IsConnected();
+}
+
+bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
+            return std::get<0>(conns) == pin;
+        });
+
+    // Pin don't exists
+    if (it == childrens_.end()) {
+        return false;
+    }
+
+    // Check for connections
+    const auto &connections = std::get<1>(*it);
+    return std::any_of(
+        connections.begin(), connections.end(),
+        [](const Connection &conn) { return conn.IsConnected(); });
+}
+
+// Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
-                               uint8_t parent_pin) {
-    if (parent == nullptr || GetInputPinCount() <= in_pin ||
-        parent->GetOutputPinCount() <= parent_pin) {
-        return;
-    }
+                               uint8_t parent_pin) noexcept {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
 
-    if (parents_.size() <= in_pin) {
-        parents_.resize(in_pin + 1);
-    }
-
-    parents_[in_pin].node = parent;
-    parents_[in_pin].pin = parent_pin;
-    parents_[in_pin].type = parent->GetOutputPinType(parent_pin);
+    it->in_pin = in_pin;
+    it->node = parent;
+    it->out_pin = parent_pin;
 }
 
+// Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
-                              uint8_t child_pin) {
-    if (child == nullptr || GetOutputPinCount() <= out_pin ||
-        child->GetInputPinCount() <= child_pin) {
-        return;
-    }
+                              uint8_t child_pin) noexcept {
+    auto it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
+            return std::get<0>(conns) == out_pin;
+        });
 
-    if (childrens_.size() <= out_pin) {
-        childrens_.resize(out_pin + 1);
-    }
-
-    auto &children = childrens_[out_pin];
-    auto reusable = std::find_if(
-        children.begin(), children.end(),
-        [](const Connection &connection) { return !connection.IsConnected(); });
-
-    if (reusable != children.end()) {
-        reusable->node = child;
-        reusable->pin = child_pin;
-        reusable->type = GetOutputPinType(out_pin);
-        return;
-    }
-
-    children.emplace_back(child, child_pin, GetOutputPinType(out_pin));
+    Connection conn(child, out_pin, child_pin, GetOutputPinType(out_pin));
+    std::get<1>(*it).push_back(conn);
 }
 
-void core::NodeBase::ClearParent(uint8_t pin) {
-    if (GetInputPinCount() <= pin || parents_.size() <= pin) {
-        return;
-    }
+// Internal API, the Graph is responsible for checking input values viability
+void core::NodeBase::ClearParent(uint8_t pin) noexcept {
+    auto it =
+        std::find_if(parents_.begin(), parents_.end(),
+                     [pin](Connection conn) { return conn.in_pin == pin; });
 
-    parents_[pin].node = nullptr;
-    parents_[pin].pin = 0;
-    parents_[pin].type = PinDataType::kUndefined;
+    it->node = nullptr;
+    it->out_pin = 0;
 }
 
+// Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
-                                 uint8_t in_pin) {
-    if (node == nullptr || GetOutputPinCount() <= out_pin ||
-        childrens_.size() <= out_pin) {
-        return;
-    }
+                                 uint8_t in_pin) noexcept {
+    auto v_it = std::find_if(
+        childrens_.begin(), childrens_.end(),
+        [out_pin](
+            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
+            return std::get<0>(conns) == out_pin;
+        });
 
-    auto &children = childrens_[out_pin];
-    for (auto &connection : children) {
-        if (connection.node == node && connection.pin == in_pin) {
-            connection.node = nullptr;
-            connection.pin = 0;
-            connection.type = PinDataType::kUndefined;
-            break;
-        }
-    }
-}
+    std::vector<core::NodeBase::Connection> &vec = std::get<1>(*v_it);
 
-void core::NodeBase::InitializeConnections() {
-    parents_.clear();
-    parents_.resize(GetInputPinCount());
+    auto it = std::find_if(
+        vec.begin(), vec.end(), [out_pin, node, in_pin](Connection conn) {
+            return ((conn.in_pin == in_pin) && (conn.node == node) &&
+                    (conn.out_pin == out_pin));
+        });
 
-    childrens_.clear();
-    childrens_.resize(GetOutputPinCount());
+    vec.erase(it);
 }
 
 // Helper functions for enum to/from string conversion
@@ -255,23 +318,54 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
+        case NodeKind::kFunction: {
+            auto function_node =
+                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            auto result = function_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            function_node->InitializeConnections();
+            node = std::move(function_node);
+            break;
+        }
+
+        case NodeKind::kFunctionInput: {
+            auto input_node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind));
+            auto result = input_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            input_node->InitializeConnections();
+            node = std::move(input_node);
+            break;
+        }
+
+        case NodeKind::kFunctionOutput: {
+            auto output_node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind));
+            auto result = output_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            output_node->InitializeConnections();
+            node = std::move(output_node);
+            break;
+        }
+
         case NodeKind::kOperator: {
             auto operator_node =
                 std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
-            // Deserialize the node's data
             auto result = operator_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
             }
-            // Initialize connections after deserialization
             operator_node->InitializeConnections();
             node = std::move(operator_node);
             break;
         }
 
-        case NodeKind::kFunction:
-        case NodeKind::kFunctionInput:
-        case NodeKind::kFunctionOutput:
         case NodeKind::kCondition:
         case NodeKind::kLoop:
             return std::unexpected(

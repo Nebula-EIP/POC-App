@@ -51,25 +51,25 @@ class CMakeCompiler {
      * @param config Compilation configuration
      * @return CompilationResult with success status and details
      */
-    CompilationResult compile_file(const std::filesystem::path &source_file,
-                                   const CompilerConfig &config);
+    CompilationResult CompileFile(const std::filesystem::path &source_file,
+                                  const CompilerConfig &config);
 
     /**
      * @brief Set the build directory for temporary CMake files
      * @param dir Build directory path
      */
-    void set_build_directory(const std::filesystem::path &dir);
+    void SetBuildDirectory(const std::filesystem::path &dir);
 
     /**
      * @brief Get the current build directory
      * @return Path to the build directory
      */
-    std::filesystem::path get_build_directory() const;
+    std::filesystem::path GetBuildDirectory() const;
 
     /**
      * @brief Clean the build directory
      */
-    void clean_build_directory();
+    void CleanBuildDirectory();
 
    private:
     std::filesystem::path build_dir_ =
@@ -78,19 +78,19 @@ class CMakeCompiler {
     /**
      * @brief Generate CMakeLists.txt for the source file
      */
-    std::string generate_cmake_file(const std::filesystem::path &source_file,
-                                    const CompilerConfig &config);
+    std::string GenerateCmakeFile(const std::filesystem::path &source_file,
+                                  const CompilerConfig &config);
 
     /**
      * @brief Execute a system command and capture output
      */
-    CompilationResult execute_command(const std::string &command,
-                                      const std::filesystem::path &working_dir);
+    CompilationResult ExecuteCommand(const std::string &command,
+                                     const std::filesystem::path &working_dir);
 
     /**
      * @brief Create the build directory if it doesn't exist
      */
-    void ensure_build_directory();
+    void EnsureBuildDirectory();
 };
 
 }  // namespace nebula::cmake
