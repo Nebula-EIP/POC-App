@@ -1,0 +1,38 @@
+var classcore_1_1NodeBase =
+[
+    [ "Connection", "structcore_1_1NodeBase_1_1Connection.html", "structcore_1_1NodeBase_1_1Connection" ],
+    [ "NodeKind", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e", [
+      [ "kUndefined", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea7934d40c7c17315d892e8d5d745b1c66", null ],
+      [ "kLiteral", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea8ea55e02792f5ffa4fe35b025ec485c8", null ],
+      [ "kVariable", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934eafb751f6ee1af15e773242f2accd2dbff", null ],
+      [ "kFunction", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ead77fcb77da3dc9a391cbdfd264f8d7d9", null ],
+      [ "kFunctionInput", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea35b2a8be6a44ff40e723173376bf0288", null ],
+      [ "kFunctionOutput", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934eaa032fe8970f7a4710e3b975f9c37663d", null ],
+      [ "kOperator", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea3f3cddac17da4ede2986d9186d66b308", null ],
+      [ "kCondition", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea9b8e66c4055bb016c58a8aecee37e343", null ],
+      [ "kLoop", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea5abf964b8f1290e57e3247b3c8b7d6ce", null ]
+    ] ],
+    [ "PinDataType", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c", [
+      [ "kUndefined", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca7934d40c7c17315d892e8d5d745b1c66", null ],
+      [ "kInt", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca355088fbd6ac81f051e0bd6ede5ab8e0", null ],
+      [ "kFloat", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca8425cd882e78bc9251db970b8a1da20e", null ],
+      [ "kBool", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca18268c9f691ba5a5f650049d9d0da8dc", null ],
+      [ "kString", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca302e56d566a2561033b27c13680ea4b2", null ],
+      [ "kVoid", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4cabd383557eb16fc23863cf3fc70b77ab3", null ]
+    ] ],
+    [ "NodeBase", "classcore_1_1NodeBase.html#ad765848d6b5c5153640e55207084082a", null ],
+    [ "AddChild", "classcore_1_1NodeBase.html#a131d31888a1ee9c5d04a89f54c227e86", null ],
+    [ "CanConnectTo", "classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9", null ],
+    [ "childrens", "classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177", null ],
+    [ "ClearParent", "classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e", null ],
+    [ "Deserialize", "classcore_1_1NodeBase.html#ab3f1e755f39a636fbd986cdc28b797c7", null ],
+    [ "GetAllChildrens", "classcore_1_1NodeBase.html#a0f9cf29a4e842748a237656d95ec6e86", null ],
+    [ "GetAllParents", "classcore_1_1NodeBase.html#a1f086066d6a390e70712b5eedbf784e9", null ],
+    [ "GetCategory", "classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb", null ],
+    [ "InitializeConnections", "classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a", null ],
+    [ "parent", "classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a", null ],
+    [ "RemoveChild", "classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7", null ],
+    [ "Serialize", "classcore_1_1NodeBase.html#a543244b749199a35758cb26967acb93b", null ],
+    [ "SetParent", "classcore_1_1NodeBase.html#a439ff8f28e63c0672ce41b237e8b579c", null ],
+    [ "Graph", "classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a", null ]
+];
