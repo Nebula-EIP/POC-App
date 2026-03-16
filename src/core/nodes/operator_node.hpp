@@ -60,20 +60,21 @@ class OperatorNode : public NodeBase {
     void set_name(const std::string &name);
     const std::string &name() const;
 
-    uint8_t GetInputPinCount() const override;
-    uint8_t GetOutputPinCount() const override;
+    uint8_t GetInputPinCount() const noexcept override;
+    uint8_t GetOutputPinCount() const noexcept override;
 
     PinDataType GetInputPinType(uint8_t pin) const override;
     PinDataType GetOutputPinType(uint8_t pin) const override;
 
     std::expected<void, std::string> CanConnectTo(
-        uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const override;
+        uint8_t out_pin, const NodeBase *target,
+        uint8_t in_pin) const noexcept override;
 
     std::string GetInputPinName(uint8_t pin) const override;
     std::string GetOutputPinName(uint8_t pin) const override;
 
-    std::string GetDisplayName() const override;
-    std::string GetCategory() const override;
+    std::string GetDisplayName() const noexcept override;
+    std::string GetCategory() const noexcept override;
 
     nlohmann::json Serialize() const override;
 
@@ -109,7 +110,9 @@ class OperatorNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    OperatorNode(uint32_t id, NodeKind kind);
+    OperatorNode(uint32_t id, NodeKind kind) noexcept;
+
+    void InitializeConnections() override;
 
    private:
     OperatorType operator_type_ = OperatorType::kAddition;

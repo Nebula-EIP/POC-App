@@ -4,9 +4,22 @@
 
 namespace core {
 
-OperatorNode::OperatorNode(uint32_t id, NodeKind kind) : NodeBase(id, kind) {
+OperatorNode::OperatorNode(uint32_t id, NodeKind kind) noexcept
+    : NodeBase(id, kind) {
+    InitializeConnections();
+}
+
+void OperatorNode::InitializeConnections() {
     parents_.resize(GetInputPinCount());
+    for (auto &parent : parents_) {
+        parent = Connection(nullptr, 0, in_pin_id_manager_.NewId(),
+                            GetOperatorInputType());
+    }
+
     childrens_.resize(GetOutputPinCount());
+    for (auto &children : childrens_) {
+        std::get<0>(children) = out_pin_id_manager_.NewId();
+    }
 }
 
 void OperatorNode::set_operator_type(OperatorType type) {
@@ -21,11 +34,11 @@ void OperatorNode::set_name(const std::string &name) { name_ = name; }
 
 const std::string &OperatorNode::name() const { return name_; }
 
-uint8_t OperatorNode::GetInputPinCount() const {
+uint8_t OperatorNode::GetInputPinCount() const noexcept {
     return IsUnaryOperator() ? 1 : 2;
 }
 
-uint8_t OperatorNode::GetOutputPinCount() const { return 1; }
+uint8_t OperatorNode::GetOutputPinCount() const noexcept { return 1; }
 
 NodeBase::PinDataType OperatorNode::GetInputPinType(uint8_t pin) const {
     if (pin >= GetInputPinCount()) {
@@ -42,7 +55,7 @@ NodeBase::PinDataType OperatorNode::GetOutputPinType(uint8_t pin) const {
 }
 
 std::expected<void, std::string> OperatorNode::CanConnectTo(
-    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const {
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (out_pin != 0) {
         return std::unexpected("Output pin does not exist");
     }
@@ -75,9 +88,9 @@ std::string OperatorNode::GetOutputPinName(uint8_t pin) const {
     return "";
 }
 
-std::string OperatorNode::GetDisplayName() const { return name_; }
+std::string OperatorNode::GetDisplayName() const noexcept { return name_; }
 
-std::string OperatorNode::GetCategory() const {
+std::string OperatorNode::GetCategory() const noexcept {
     switch (operator_type_) {
         case OperatorType::kAddition:
         case OperatorType::kSubtraction:

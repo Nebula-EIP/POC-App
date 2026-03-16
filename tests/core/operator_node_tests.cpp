@@ -242,11 +242,8 @@ TEST_F(OperatorNodeTest, ConnectLiteralsToOperator_ValidTypes_Success) {
     literal_b->set_type(core::NodeBase::PinDataType::kInt);
     op_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
 
-    auto result_a = graph_.Link(literal_a, 0, op_node, 0);
-    auto result_b = graph_.Link(literal_b, 0, op_node, 1);
-
-    EXPECT_TRUE(result_a.has_value());
-    EXPECT_TRUE(result_b.has_value());
+    EXPECT_NO_THROW(graph_.Link(literal_a, 0, op_node, 0));
+    EXPECT_NO_THROW(graph_.Link(literal_b, 0, op_node, 1));
 }
 
 TEST_F(OperatorNodeTest, ConnectWrongType_Fails) {
@@ -256,9 +253,8 @@ TEST_F(OperatorNodeTest, ConnectWrongType_Fails) {
     literal->set_type(core::NodeBase::PinDataType::kBool);
     op_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
 
-    auto result = graph_.Link(literal, 0, op_node, 0);
-
-    EXPECT_FALSE(result.has_value());
+    EXPECT_THROW(graph_.Link(literal, 0, op_node, 0),
+                 core::IncompatiblePinTypesException);
 }
 
 TEST_F(OperatorNodeTest, ChainOperators_Success) {
@@ -274,15 +270,10 @@ TEST_F(OperatorNodeTest, ChainOperators_Success) {
     add_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
     mul_node->set_operator_type(core::OperatorNode::OperatorType::kMultiplication);
 
-    auto r1 = graph_.Link(literal_a, 0, add_node, 0);
-    auto r2 = graph_.Link(literal_b, 0, add_node, 1);
-    auto r3 = graph_.Link(add_node, 0, mul_node, 0);
-    auto r4 = graph_.Link(literal_c, 0, mul_node, 1);
-
-    EXPECT_TRUE(r1.has_value());
-    EXPECT_TRUE(r2.has_value());
-    EXPECT_TRUE(r3.has_value());
-    EXPECT_TRUE(r4.has_value());
+    EXPECT_NO_THROW(graph_.Link(literal_a, 0, add_node, 0));
+    EXPECT_NO_THROW(graph_.Link(literal_b, 0, add_node, 1));
+    EXPECT_NO_THROW(graph_.Link(add_node, 0, mul_node, 0));
+    EXPECT_NO_THROW(graph_.Link(literal_c, 0, mul_node, 1));
 }
 
 TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
@@ -296,13 +287,9 @@ TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
     cmp_node->set_operator_type(core::OperatorNode::OperatorType::kEqual);
     not_node->set_operator_type(core::OperatorNode::OperatorType::kLogicalNot);
 
-    auto r1 = graph_.Link(literal_a, 0, cmp_node, 0);
-    auto r2 = graph_.Link(literal_b, 0, cmp_node, 1);
-    auto r3 = graph_.Link(cmp_node, 0, not_node, 0);
-
-    EXPECT_TRUE(r1.has_value());
-    EXPECT_TRUE(r2.has_value());
-    EXPECT_TRUE(r3.has_value());
+    EXPECT_NO_THROW(graph_.Link(literal_a, 0, cmp_node, 0));
+    EXPECT_NO_THROW(graph_.Link(literal_b, 0, cmp_node, 1));
+    EXPECT_NO_THROW(graph_.Link(cmp_node, 0, not_node, 0));
 }
 
 TEST_F(OperatorNodeTest, Serialize_ContainsRequiredFields) {
