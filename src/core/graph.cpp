@@ -12,6 +12,7 @@
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
+#include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
@@ -251,6 +252,8 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kOperator:
+            node = std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+            break;
 
         case NodeBase::NodeKind::kCondition:
 
