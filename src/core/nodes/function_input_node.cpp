@@ -4,7 +4,6 @@
 
 core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
     : NodeBase(id, kind) {
-    InitializeConnections();
 }
 
 void core::FunctionInputNode::InitializeConnections() {
