@@ -146,7 +146,6 @@ class NodeBase {
     std::string GetInputPinName(uint8_t pin) const;
     std::string GetOutputPinName(uint8_t pin) const;
 
-
     /**
      * @brief Validates if this node's output pin can connect to a target node's
      * input pin.

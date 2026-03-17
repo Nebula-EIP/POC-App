@@ -4,8 +4,7 @@
 
 core::FunctionOutputNode::FunctionOutputNode(uint32_t id,
                                              NodeKind kind) noexcept
-    : NodeBase(id, kind) {
-}
+    : NodeBase(id, kind) {}
 
 void core::FunctionOutputNode::InitializeConnections() {
     parents_.clear();

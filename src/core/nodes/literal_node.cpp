@@ -3,8 +3,7 @@
 #include "../connection_exceptions.hpp"
 
 core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {
-}
+    : NodeBase(id, kind) {}
 
 void core::LiteralNode::InitializeConnections() {
     parents_.clear();

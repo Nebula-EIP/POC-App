@@ -3,8 +3,7 @@
 #include "../connection_exceptions.hpp"
 
 core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {
-}
+    : NodeBase(id, kind) {}
 
 void core::VariableNode::InitializeConnections() {
     parents_.clear();

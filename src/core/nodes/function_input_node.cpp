@@ -3,8 +3,7 @@
 #include "../connection_exceptions.hpp"
 
 core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
-}
+    : NodeBase(id, kind) {}
 
 void core::FunctionInputNode::InitializeConnections() {
     parents_.clear();
