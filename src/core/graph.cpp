@@ -223,6 +223,93 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
     from->RemoveChild(out_pin, to, in_pin);
 }
 
+void core::Graph::AddParameter(FunctionNode *function_node,
+                               const std::string &name,
+                               NodeBase::PinDataType type) {
+    if (function_node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+    }
+
+    auto it = std::find_if(nodes_.begin(), nodes_.end(),
+                           [function_node](const std::unique_ptr<NodeBase> &n) {
+                               return n.get() == function_node;
+                           });
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "function_node is not owned by this Graph");
+    }
+
+    auto *input_node = function_node->body().AddNode<FunctionInputNode>(
+        NodeBase::NodeKind::kFunctionInput);
+    if (input_node == nullptr) {
+        THROW_EXCEPTION(FunctionNodeException,
+                        "Failed to create FunctionInputNode for parameter");
+    }
+
+    input_node->set_name(name);
+    input_node->set_type(type);
+
+    function_node->AddInputPin(name, type);
+    uint8_t pin_id = function_node->parents_.back().in_pin;
+
+    function_node->parameters_.push_back(
+        {name, type, pin_id, input_node->id()});
+}
+
+void core::Graph::RemoveParameter(FunctionNode *function_node, uint8_t index) {
+    if (function_node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+    }
+
+    auto owner_it =
+        std::find_if(nodes_.begin(), nodes_.end(),
+                     [function_node](const std::unique_ptr<NodeBase> &n) {
+                         return n.get() == function_node;
+                     });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "function_node is not owned by this Graph");
+    }
+
+    if (index >= function_node->parameters_.size()) {
+        return;
+    }
+
+    const auto kParam = function_node->parameters_[index];
+
+    for (const auto &conn : function_node->GetAllParents()) {
+        if (conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, function_node, conn.in_pin);
+        }
+    }
+
+    if (auto *node = function_node->body().GetNode(kParam.node_id)) {
+        function_node->body().RemoveNode(node);
+    }
+
+    function_node->parameters_.erase(function_node->parameters_.begin() +
+                                     index);
+    function_node->InitializeConnections();
+}
+
+void core::Graph::RemoveParameter(FunctionNode *function_node,
+                                  const std::string &name) {
+    if (function_node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+    }
+
+    auto it = std::find_if(
+        function_node->parameters_.begin(), function_node->parameters_.end(),
+        [&name](const FunctionParameter &param) { return param.name == name; });
+    if (it == function_node->parameters_.end()) {
+        return;
+    }
+
+    const auto kIndex = static_cast<uint8_t>(
+        std::distance(function_node->parameters_.begin(), it));
+    RemoveParameter(function_node, kIndex);
+}
+
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
     uint32_t id, NodeBase::NodeKind kind) {
     std::unique_ptr<NodeBase> node;
@@ -296,20 +383,14 @@ nlohmann::json core::Graph::Serialize() const {
     // Serialize connections
     nlohmann::json connections_array = nlohmann::json::array();
     for (const auto &source_node : nodes_) {
-        // Iterate through all output pins
-        for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount();
-             ++out_pin) {
-            auto children = source_node->childrens(out_pin);
-            // Iterate through all connections on this output pin
-            for (const auto &conn : (*children)) {
-                if (conn.IsConnected()) {
-                    nlohmann::json connection;
-                    connection["source_node_id"] = source_node->id();
-                    connection["source_pin"] = conn.out_pin;
-                    connection["target_node_id"] = conn.node->id();
-                    connection["target_pin"] = conn.in_pin;
-                    connections_array.push_back(connection);
-                }
+        for (const auto &conn : source_node->GetAllChildrens()) {
+            if (conn.IsConnected()) {
+                nlohmann::json connection;
+                connection["source_node_id"] = source_node->id();
+                connection["source_pin"] = conn.out_pin;
+                connection["target_node_id"] = conn.node->id();
+                connection["target_pin"] = conn.in_pin;
+                connections_array.push_back(connection);
             }
         }
     }
@@ -452,11 +533,11 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
             NodeBase *source = source_it->second;
             NodeBase *target = target_it->second;
 
-            // Validate pin indices
-            if (source_pin >= source->GetOutputPinCount()) {
+            // Validate pin ids
+            if (!source->OutputPinExists(source_pin)) {
                 return std::unexpected("Source pin index out of bounds");
             }
-            if (target_pin >= target->GetInputPinCount()) {
+            if (!target->InputPinExists(target_pin)) {
                 return std::unexpected("Target pin index out of bounds");
             }
 

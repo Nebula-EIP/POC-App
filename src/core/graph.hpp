@@ -144,6 +144,39 @@ class Graph {
     void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
+     * @brief Adds a parameter to a function node.
+     *
+     * This method owns pin topology changes for FunctionNode. It updates both
+     * the function node input pins and the function body graph by creating the
+     * matching FunctionInputNode.
+     *
+     * @param function_node The target function node.
+     * @param name Parameter name.
+     * @param type Parameter pin data type.
+     */
+    void AddParameter(FunctionNode *function_node, const std::string &name,
+                      NodeBase::PinDataType type);
+
+    /**
+     * @brief Removes a function parameter by index.
+     *
+     * If the corresponding function input pin is connected, this method
+     * disconnects it before removal.
+     *
+     * @param function_node The target function node.
+     * @param index Parameter index in FunctionNode::parameters().
+     */
+    void RemoveParameter(FunctionNode *function_node, uint8_t index);
+
+    /**
+     * @brief Removes a function parameter by name.
+     *
+     * @param function_node The target function node.
+     * @param name Parameter name.
+     */
+    void RemoveParameter(FunctionNode *function_node, const std::string &name);
+
+    /**
      * @brief Gets the project name.
      * @return The name of the project.
      */
