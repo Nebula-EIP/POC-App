@@ -11,7 +11,6 @@ core::FunctionNode::~FunctionNode() = default;
 
 core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
     : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
-    InitializeConnections();
 }
 
 void core::FunctionNode::InitializeConnections() {
