@@ -4,7 +4,6 @@
 
 core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
     : NodeBase(id, kind) {
-    InitializeConnections();
 }
 
 void core::LiteralNode::InitializeConnections() {
