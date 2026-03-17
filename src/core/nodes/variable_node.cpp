@@ -4,7 +4,6 @@
 
 core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
     : NodeBase(id, kind) {
-    InitializeConnections();
 }
 
 void core::VariableNode::InitializeConnections() {
