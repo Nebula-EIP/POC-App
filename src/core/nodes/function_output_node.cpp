@@ -5,7 +5,6 @@
 core::FunctionOutputNode::FunctionOutputNode(uint32_t id,
                                              NodeKind kind) noexcept
     : NodeBase(id, kind) {
-    InitializeConnections();
 }
 
 void core::FunctionOutputNode::InitializeConnections() {
