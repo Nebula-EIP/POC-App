@@ -146,51 +146,6 @@ class NodeBase {
     std::string GetInputPinName(uint8_t pin) const;
     std::string GetOutputPinName(uint8_t pin) const;
 
-    /**
-     * @brief Adds a new input pin to this node.
-     *
-     * Allocates a unique pin id and appends the pin to the input pin list.
-     * Should be called from InitializeConnections() or by the Graph when
-     * managing dynamic pin layouts (e.g. function parameters).
-     *
-     * @param name The display name of the input pin.
-     * @param type The data type accepted by this pin.
-     */
-    void AddInputPin(const std::string &name, PinDataType type);
-
-    /**
-     * @brief Removes an input pin by its id.
-     *
-     * @param pin The id of the input pin to remove.
-     *
-     * @throws `InvalidPinIndexException` if the pin does not exist.
-     * @throws `PinStillConnectedException` if the pin is still connected.
-     *         Use Graph::Unlink() to disconnect before removing.
-     */
-    void RemoveInputPin(uint8_t pin);
-
-    /**
-     * @brief Adds a new output pin to this node.
-     *
-     * Allocates a unique pin id and appends the pin to the output pin list.
-     * Should be called from InitializeConnections() or by the Graph when
-     * managing dynamic pin layouts.
-     *
-     * @param name The display name of the output pin.
-     * @param type The data type produced by this pin.
-     */
-    void AddOutputPin(const std::string &name, PinDataType type);
-
-    /**
-     * @brief Removes an output pin by its id.
-     *
-     * @param pin The id of the output pin to remove.
-     *
-     * @throws `InvalidPinIndexException` if the pin does not exist.
-     * @throws `PinStillConnectedException` if the pin still has connections.
-     *         Use Graph::Unlink() to disconnect before removing.
-     */
-    void RemoveOutputPin(uint8_t pin);
 
     /**
      * @brief Validates if this node's output pin can connect to a target node's
@@ -343,6 +298,50 @@ class NodeBase {
      * declare each pin with its name and type.
      */
     virtual void InitializeConnections() = 0;
+
+    /**
+     * @brief Adds a new input pin to this node.
+     *
+     * Allocates a unique pin id and appends the pin to the input pin list.
+     * Should be called from `InitializeConnections()` or by the `Graph` when
+     * managing dynamic pin layouts (e.g. function parameters).
+     *
+     * Note: These methods are `protected` to ensure only the node itself and
+     * the `Graph` (friend class) can modify pin topology. External callers
+     * must use `Graph` APIs to manage links/topology.
+     */
+    void AddInputPin(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes an input pin by its id.
+     *
+     * @param pin The id of the input pin to remove.
+     *
+     * @throws `InvalidPinIndexException` if the pin does not exist.
+     * @throws `PinStillConnectedException` if the pin is still connected.
+     *         Use `Graph::Unlink()` to disconnect before removing.
+     */
+    void RemoveInputPin(uint8_t pin);
+
+    /**
+     * @brief Adds a new output pin to this node.
+     *
+     * Allocates a unique pin id and appends the pin to the output pin list.
+     * Should be called from `InitializeConnections()` or by the `Graph` when
+     * managing dynamic pin layouts.
+     */
+    void AddOutputPin(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes an output pin by its id.
+     *
+     * @param pin The id of the output pin to remove.
+     *
+     * @throws `InvalidPinIndexException` if the pin does not exist.
+     * @throws `PinStillConnectedException` if the pin still has connections.
+     *         Use `Graph::Unlink()` to disconnect before removing.
+     */
+    void RemoveOutputPin(uint8_t pin);
 
    protected:
     /**
