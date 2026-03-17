@@ -228,18 +228,6 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetInputPinNam
 <tr class="memitem:a3af2aab64e135b34ce5e3181d53c05af" id="r_a3af2aab64e135b34ce5e3181d53c05af"><td class="memItemLeft" align="right" valign="top"><a id="a3af2aab64e135b34ce5e3181d53c05af" name="a3af2aab64e135b34ce5e3181d53c05af"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetOutputPinName</b> (uint8_t pin) const</td></tr>
 <tr class="separator:a3af2aab64e135b34ce5e3181d53c05af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a131b7b69ee133f3a255e6a6c748c7d62" id="r_a131b7b69ee133f3a255e6a6c748c7d62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62">AddInputPin</a> (const std::string &amp;name, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
-<tr class="memdesc:a131b7b69ee133f3a255e6a6c748c7d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new input pin to this node.  <br /></td></tr>
-<tr class="separator:a131b7b69ee133f3a255e6a6c748c7d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f91b3fca9e74748808ec85ee63bc0bb" id="r_a0f91b3fca9e74748808ec85ee63bc0bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a0f91b3fca9e74748808ec85ee63bc0bb">RemoveInputPin</a> (uint8_t pin)</td></tr>
-<tr class="memdesc:a0f91b3fca9e74748808ec85ee63bc0bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an input pin by its id.  <br /></td></tr>
-<tr class="separator:a0f91b3fca9e74748808ec85ee63bc0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0f4eb7fee35f1bb87af26efb968bdf5" id="r_ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5">AddOutputPin</a> (const std::string &amp;name, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
-<tr class="memdesc:ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new output pin to this node.  <br /></td></tr>
-<tr class="separator:ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2c7462fa852e9151c6d21e8d4f40fc5" id="r_aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5">RemoveOutputPin</a> (uint8_t pin)</td></tr>
-<tr class="memdesc:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an output pin by its id.  <br /></td></tr>
-<tr class="separator:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74d99b97476e73c3e13bfaabc7b746a9" id="r_a74d99b97476e73c3e13bfaabc7b746a9"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9">CanConnectTo</a> (uint8_t out_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *target, uint8_t target_in_pin) const noexcept=0</td></tr>
 <tr class="memdesc:a74d99b97476e73c3e13bfaabc7b746a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates if this node's output pin can connect to a target node's input pin.  <br /></td></tr>
 <tr class="separator:a74d99b97476e73c3e13bfaabc7b746a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,6 +267,18 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a58bf52c02efa76657614622e1508620a" id="r_a58bf52c02efa76657614622e1508620a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a">InitializeConnections</a> ()=0</td></tr>
 <tr class="memdesc:a58bf52c02efa76657614622e1508620a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the pin vectors based on the node's pin layout.  <br /></td></tr>
 <tr class="separator:a58bf52c02efa76657614622e1508620a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a131b7b69ee133f3a255e6a6c748c7d62" id="r_a131b7b69ee133f3a255e6a6c748c7d62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62">AddInputPin</a> (const std::string &amp;name, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
+<tr class="memdesc:a131b7b69ee133f3a255e6a6c748c7d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new input pin to this node.  <br /></td></tr>
+<tr class="separator:a131b7b69ee133f3a255e6a6c748c7d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f91b3fca9e74748808ec85ee63bc0bb" id="r_a0f91b3fca9e74748808ec85ee63bc0bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a0f91b3fca9e74748808ec85ee63bc0bb">RemoveInputPin</a> (uint8_t pin)</td></tr>
+<tr class="memdesc:a0f91b3fca9e74748808ec85ee63bc0bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an input pin by its id.  <br /></td></tr>
+<tr class="separator:a0f91b3fca9e74748808ec85ee63bc0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0f4eb7fee35f1bb87af26efb968bdf5" id="r_ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5">AddOutputPin</a> (const std::string &amp;name, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
+<tr class="memdesc:ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new output pin to this node.  <br /></td></tr>
+<tr class="separator:ad0f4eb7fee35f1bb87af26efb968bdf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2c7462fa852e9151c6d21e8d4f40fc5" id="r_aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5">RemoveOutputPin</a> (uint8_t pin)</td></tr>
+<tr class="memdesc:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an output pin by its id.  <br /></td></tr>
+<tr class="separator:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad765848d6b5c5153640e55207084082a" id="r_ad765848d6b5c5153640e55207084082a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ad765848d6b5c5153640e55207084082a">NodeBase</a> (uint32_t id, <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a> kind) noexcept</td></tr>
 <tr class="memdesc:ad765848d6b5c5153640e55207084082a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor to prevent direct instantiation.  <br /></td></tr>
 <tr class="separator:ad765848d6b5c5153640e55207084082a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -506,6 +506,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::NodeBase::AddInputPin </td>
@@ -525,17 +528,16 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a new input pin to this node. </p>
-<p>Allocates a unique pin id and appends the pin to the input pin list. Should be called from <a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a> or by the <a class="el" href="classcore_1_1Graph.html">Graph</a> when managing dynamic pin layouts (e.g. function parameters).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The display name of the input pin. </td></tr>
-    <tr><td class="paramname">type</td><td>The data type accepted by this pin. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Allocates a unique pin id and appends the pin to the input pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> when managing dynamic pin layouts (e.g. function parameters).</p>
+<p>Note: These methods are <code>protected</code> to ensure only the node itself and the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> (friend class) can modify pin topology. External callers must use <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> APIs to manage links/topology. </p>
 
 </div>
 </div>
@@ -544,6 +546,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::NodeBase::AddOutputPin </td>
@@ -563,17 +568,15 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a new output pin to this node. </p>
-<p>Allocates a unique pin id and appends the pin to the output pin list. Should be called from <a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a> or by the <a class="el" href="classcore_1_1Graph.html">Graph</a> when managing dynamic pin layouts.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The display name of the output pin. </td></tr>
-    <tr><td class="paramname">type</td><td>The data type produced by this pin. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Allocates a unique pin id and appends the pin to the output pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> when managing dynamic pin layouts. </p>
 
 </div>
 </div>
@@ -993,6 +996,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::NodeBase::RemoveInputPin </td>
@@ -1002,6 +1008,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes an input pin by its id. </p>
@@ -1014,7 +1025,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">`InvalidPinIndexException`</td><td>if the pin does not exist. </td></tr>
-    <tr><td class="paramname">`PinStillConnectedException`</td><td>if the pin is still connected. Use <a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52" title="Unlinks two nodes by disconnecting an output pin from an input pin.">Graph::Unlink()</a> to disconnect before removing. </td></tr>
+    <tr><td class="paramname">`PinStillConnectedException`</td><td>if the pin is still connected. Use <code><a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52" title="Unlinks two nodes by disconnecting an output pin from an input pin.">Graph::Unlink()</a></code> to disconnect before removing. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1026,6 +1037,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void core::NodeBase::RemoveOutputPin </td>
@@ -1035,6 +1049,11 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Removes an output pin by its id. </p>
@@ -1047,7 +1066,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">`InvalidPinIndexException`</td><td>if the pin does not exist. </td></tr>
-    <tr><td class="paramname">`PinStillConnectedException`</td><td>if the pin still has connections. Use <a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52" title="Unlinks two nodes by disconnecting an output pin from an input pin.">Graph::Unlink()</a> to disconnect before removing. </td></tr>
+    <tr><td class="paramname">`PinStillConnectedException`</td><td>if the pin still has connections. Use <code><a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52" title="Unlinks two nodes by disconnecting an output pin from an input pin.">Graph::Unlink()</a></code> to disconnect before removing. </td></tr>
   </table>
   </dd>
 </dl>
