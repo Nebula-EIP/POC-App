@@ -1375,7 +1375,7 @@ TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
 }
 
 #pragma endregion Deserialization
-/*
+
 #pragma region File I/O
 
 TEST_F(GraphTest, SaveToFileCreatesFile) {

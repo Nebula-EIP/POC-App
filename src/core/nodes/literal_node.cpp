@@ -8,10 +8,11 @@ core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
 }
 
 void core::LiteralNode::InitializeConnections() {
-    // LiteralNode has 0 input pins and 1 output pin
-    childrens_.resize(1);
-    uint32_t id = out_pin_id_manager_.NewId();
-    std::get<0>(childrens_[0]) = id;
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+    AddOutputPin("Kakou", type_);
 }
 
 void core::LiteralNode::set_name(const std::string &name) { name_ = name; }
@@ -37,8 +38,10 @@ void core::LiteralNode::set_type(PinDataType type) {
 
     // Update pins types
     for (auto &pin : childrens_) {
-        for (auto &child : std::get<1>(pin)) {
+        pin.type = type;
+        for (auto &child : pin.connections) {
             child.type = type;
+            child.out_pin_name = pin.name;
         }
     }
 
@@ -57,27 +60,9 @@ void core::LiteralNode::set_data(std::any data) { data_ = data; }
 
 std::any core::LiteralNode::data() const noexcept { return data_; }
 
-uint8_t core::LiteralNode::GetInputPinCount() const noexcept { return 0; }
-
-uint8_t core::LiteralNode::GetOutputPinCount() const noexcept { return 1; }
-
-core::NodeBase::PinDataType core::LiteralNode::GetInputPinType(
-    uint8_t /*pin*/) const {
-    return PinDataType::kUndefined;
-}
-
-core::NodeBase::PinDataType core::LiteralNode::GetOutputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return type_;
-    } else {
-        return PinDataType::kUndefined;
-    }
-}
-
 std::expected<void, std::string> core::LiteralNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
-    if (out_pin != 0) {
+    if (!OutputPinExists(out_pin)) {
         return std::unexpected("Pin does not exists");
     }
 
@@ -90,18 +75,6 @@ std::expected<void, std::string> core::LiteralNode::CanConnectTo(
     }
 
     return {};
-}
-
-std::string core::LiteralNode::GetInputPinName(uint8_t /*pin*/) const {
-    return "";
-}
-
-std::string core::LiteralNode::GetOutputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return "Kakou";
-    } else {
-        return "";
-    }
 }
 
 std::string core::LiteralNode::GetDisplayName() const noexcept { return name_; }

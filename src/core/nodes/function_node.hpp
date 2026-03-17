@@ -17,6 +17,7 @@ class Graph;
 struct FunctionParameter {
     std::string name;
     NodeBase::PinDataType type = NodeBase::PinDataType::kUndefined;
+    uint8_t pin_id = 0;
     uint32_t node_id = 0;
 };
 
@@ -44,34 +45,6 @@ class FunctionNode : public NodeBase {
 
     // -- Parameters (input pins) --
 
-    /**
-     * @brief Adds a parameter to the function.
-     *
-     * This increases the input pin count by one. The caller must call
-     * ReinitializeConnections() afterwards if the node is already connected.
-     *
-     * @param name  The parameter name.
-     * @param type  The parameter data type.
-     */
-    void AddParameter(const std::string &name, PinDataType type);
-
-    /**
-     * @brief Removes a parameter by index.
-     * (the caller must have unlinked beforehand)
-     * @param index The 0-based index of the parameter to remove.
-     */
-    void RemoveParameter(uint8_t index);
-
-    /**
-     * @brief Removes a parameter by name.
-     * (the caller must have unlinked beforehand)
-     * @param name The name of the parameter to remove.
-     */
-    void RemoveParameter(const std::string &name);
-
-    /**
-     * @brief Returns the parameter list.
-     */
     const std::vector<FunctionParameter> &parameters() const noexcept;
 
     // -- Inner graph (function body) --
@@ -88,18 +61,9 @@ class FunctionNode : public NodeBase {
 
     // -- NodeBase overrides --
 
-    uint8_t GetInputPinCount() const noexcept override;
-    uint8_t GetOutputPinCount() const noexcept override;
-
-    PinDataType GetInputPinType(uint8_t pin) const override;
-    PinDataType GetOutputPinType(uint8_t pin) const override;
-
     std::expected<void, std::string> CanConnectTo(
         uint8_t out_pin, const NodeBase *target,
         uint8_t in_pin) const noexcept override;
-
-    std::string GetInputPinName(uint8_t pin) const override;
-    std::string GetOutputPinName(uint8_t pin) const override;
 
     std::string GetDisplayName() const noexcept override;
     std::string GetCategory() const noexcept override;
