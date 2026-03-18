@@ -228,15 +228,14 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
 }
 
 uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
-                                  NodeBase::PinDataType type) {
+                                 NodeBase::PinDataType type) {
     if (node == nullptr) {
         THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    auto it = std::find_if(nodes_.begin(), nodes_.end(),
-                           [node](const std::unique_ptr<NodeBase> &n) {
-                               return n.get() == node;
-                           });
+    auto it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
     if (it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException,
                         "node is not owned by this Graph");
@@ -272,10 +271,9 @@ void core::Graph::RemoveInputPin(NodeBase *node, uint8_t index) {
         THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    auto owner_it = std::find_if(nodes_.begin(), nodes_.end(),
-                                 [node](const std::unique_ptr<NodeBase> &n) {
-                                     return n.get() == node;
-                                 });
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
     if (owner_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException,
                         "node is not owned by this Graph");
@@ -316,10 +314,9 @@ void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
         THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    auto owner_it = std::find_if(nodes_.begin(), nodes_.end(),
-                                 [node](const std::unique_ptr<NodeBase> &n) {
-                                     return n.get() == node;
-                                 });
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
     if (owner_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException,
                         "node is not owned by this Graph");
