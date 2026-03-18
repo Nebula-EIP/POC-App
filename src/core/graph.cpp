@@ -259,7 +259,6 @@ uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
     node->AddInputPin(name, type);
     uint8_t pin_id = node->parents_.back().in_pin;
 
-
     if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
         function_node->parameters_.push_back(
             {name, type, pin_id, input_node_id});
@@ -301,11 +300,10 @@ void core::Graph::RemoveInputPin(NodeBase *node, uint8_t index) {
         }
     }
 
-
     if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
         if (index < function_node->parameters_.size()) {
-            function_node->parameters_.erase(function_node->parameters_.begin() +
-                                             index);
+            function_node->parameters_.erase(
+                function_node->parameters_.begin() + index);
         }
     }
 
