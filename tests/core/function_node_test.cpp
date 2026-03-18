@@ -80,7 +80,7 @@ TEST_F(FunctionNodeTest, Parameters_AddOne_IncreasesInputPinCount) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    node->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(node, "x", core::NodeBase::PinDataType::kInt);
 
     EXPECT_EQ(node->GetInputPinCount(), 1);
     EXPECT_EQ(node->parameters().size(), 1);
@@ -92,9 +92,9 @@ TEST_F(FunctionNodeTest, Parameters_AddMultiple_CorrectPinCountAndTypes) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    node->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    node->AddParameter("b", core::NodeBase::PinDataType::kFloat);
-    node->AddParameter("c", core::NodeBase::PinDataType::kBool);
+    graph_.AddInputPin(node, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(node, "b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(node, "c", core::NodeBase::PinDataType::kBool);
 
     EXPECT_EQ(node->GetInputPinCount(), 3);
 
@@ -107,8 +107,8 @@ TEST_F(FunctionNodeTest, Parameters_InputPinNames_MatchParameterNames) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    node->AddParameter("alpha", core::NodeBase::PinDataType::kInt);
-    node->AddParameter("beta", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(node, "alpha", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(node, "beta", core::NodeBase::PinDataType::kFloat);
 
     EXPECT_EQ(node->GetInputPinName(0), "alpha");
     EXPECT_EQ(node->GetInputPinName(1), "beta");
@@ -118,11 +118,11 @@ TEST_F(FunctionNodeTest, Parameters_RemoveOne_DecreasesPinCount) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    node->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    node->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(node, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(node, "b", core::NodeBase::PinDataType::kFloat);
     EXPECT_EQ(node->GetInputPinCount(), 2);
 
-    node->RemoveParameter(0);
+    graph_.RemoveInputPin(node, static_cast<uint8_t>(0));
     EXPECT_EQ(node->GetInputPinCount(), 1);
     EXPECT_EQ(node->parameters()[0].name, "b");
 }
@@ -131,8 +131,8 @@ TEST_F(FunctionNodeTest, Parameters_RemoveOutOfRange_DoesNotCrash) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    EXPECT_NO_THROW(node->RemoveParameter(0));
-    EXPECT_NO_THROW(node->RemoveParameter(255));
+    EXPECT_NO_THROW(graph_.RemoveInputPin(node, static_cast<uint8_t>(0)));
+    EXPECT_NO_THROW(graph_.RemoveInputPin(node, static_cast<uint8_t>(255)));
 }
 
 // ---------- Output pin ----------
@@ -231,7 +231,7 @@ TEST_F(FunctionNodeTest, Link_LiteralToFunctionInput_Succeeds) {
 
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
-    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);
     func->set_return_type(core::NodeBase::PinDataType::kInt);
 
     EXPECT_NO_THROW({
@@ -271,8 +271,8 @@ TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
 
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
-    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(func, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "b", core::NodeBase::PinDataType::kFloat);
     func->set_return_type(core::NodeBase::PinDataType::kVoid);
 
     EXPECT_NO_THROW({
@@ -365,8 +365,8 @@ TEST_F(FunctionNodeTest, Serialize_ContainsAllFields) {
         core::NodeBase::NodeKind::kFunction);
     node->set_name("compute");
     node->set_return_type(core::NodeBase::PinDataType::kInt);
-    node->AddParameter("x", core::NodeBase::PinDataType::kInt);
-    node->AddParameter("y", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(node, "x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(node, "y", core::NodeBase::PinDataType::kFloat);
 
     auto json = node->Serialize();
 
@@ -409,8 +409,8 @@ TEST_F(FunctionNodeTest, Deserialize_RoundTrip_PreservesData) {
         core::NodeBase::NodeKind::kFunction);
     original->set_name("my_func");
     original->set_return_type(core::NodeBase::PinDataType::kFloat);
-    original->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    original->AddParameter("b", core::NodeBase::PinDataType::kString);
+    graph_.AddInputPin(original, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(original, "b", core::NodeBase::PinDataType::kString);
 
     auto *inner_lit = original->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
@@ -513,8 +513,8 @@ TEST_F(FunctionNodeTest, SaveAndLoad_PreservesFunctionNode) {
         core::NodeBase::NodeKind::kFunction);
     func->set_name("add");
     func->set_return_type(core::NodeBase::PinDataType::kInt);
-    func->AddParameter("lhs", core::NodeBase::PinDataType::kInt);
-    func->AddParameter("rhs", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "lhs", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "rhs", core::NodeBase::PinDataType::kInt);
 
     auto *inner = func->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
@@ -552,7 +552,7 @@ TEST_F(FunctionNodeTest, AddParameter_CreatesFunctionInputNodeInBody) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);
 
     const auto &params = func->parameters();
     ASSERT_EQ(params.size(), 1);
@@ -568,9 +568,9 @@ TEST_F(FunctionNodeTest, AddParameter_Multiple_CreatesOneNodePerParam) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
-    func->AddParameter("c", core::NodeBase::PinDataType::kBool);
+    graph_.AddInputPin(func, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(func, "c", core::NodeBase::PinDataType::kBool);
 
     const auto &params = func->parameters();
     ASSERT_EQ(params.size(), 3);
@@ -594,13 +594,13 @@ TEST_F(FunctionNodeTest, RemoveParameterByIndex_RemovesNodeFromBody) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(func, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "b", core::NodeBase::PinDataType::kFloat);
 
     uint32_t removed_node_id = func->parameters()[0].node_id;
     uint32_t kept_node_id = func->parameters()[1].node_id;
 
-    func->RemoveParameter(static_cast<uint8_t>(0));
+    graph_.RemoveInputPin(func, static_cast<uint8_t>(0));
 
     // The removed node should no longer exist in the body
     EXPECT_EQ(func->body().GetNode(removed_node_id), nullptr);
@@ -619,10 +619,10 @@ TEST_F(FunctionNodeTest, RemoveParameterByIndex_LastParam_LeavesEmptyBody) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);
     uint32_t node_id = func->parameters()[0].node_id;
 
-    func->RemoveParameter(static_cast<uint8_t>(0));
+    graph_.RemoveInputPin(func, static_cast<uint8_t>(0));
 
     EXPECT_EQ(func->body().GetNode(node_id), nullptr);
     EXPECT_TRUE(func->parameters().empty());
@@ -637,13 +637,13 @@ TEST_F(FunctionNodeTest, RemoveParameterByName_RemovesNodeFromBody) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("a", core::NodeBase::PinDataType::kInt);
-    func->AddParameter("b", core::NodeBase::PinDataType::kFloat);
-    func->AddParameter("c", core::NodeBase::PinDataType::kBool);
+    graph_.AddInputPin(func, "a", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "b", core::NodeBase::PinDataType::kFloat);
+    graph_.AddInputPin(func, "c", core::NodeBase::PinDataType::kBool);
 
     uint32_t removed_id = func->parameters()[1].node_id;  // "b"
 
-    func->RemoveParameter(std::string("b"));
+    graph_.RemoveInputPin(func, std::string("b"));
 
     // "b" node removed from body
     EXPECT_EQ(func->body().GetNode(removed_id), nullptr);
@@ -667,9 +667,9 @@ TEST_F(FunctionNodeTest, RemoveParameterByName_NonExistent_DoesNothing) {
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);
 
-    func->RemoveParameter(std::string("does_not_exist"));
+    graph_.RemoveInputPin(func, std::string("does_not_exist"));
 
     // Nothing changed
     ASSERT_EQ(func->parameters().size(), 1);
@@ -691,13 +691,13 @@ TEST_F(FunctionNodeTest, AddParameter_CoexistsWithManualBodyNodes) {
     lit->set_type(core::NodeBase::PinDataType::kInt);
 
     // Now add a parameter — creates another node
-    func->AddParameter("x", core::NodeBase::PinDataType::kInt);
+    graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);
 
     auto body_json = func->body().Serialize();
     EXPECT_EQ(body_json["graph"]["nodes"].size(), 2);
 
     // Remove the parameter — only its node is removed, literal stays
-    func->RemoveParameter(static_cast<uint8_t>(0));
+    graph_.RemoveInputPin(func, static_cast<uint8_t>(0));
 
     body_json = func->body().Serialize();
     EXPECT_EQ(body_json["graph"]["nodes"].size(), 1);

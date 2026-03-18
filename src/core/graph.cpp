@@ -60,6 +60,10 @@ core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     } catch (std::exception &e) {
         return nullptr;
     }
+    try {
+        nodes_.back()->InitializeConnections();
+    } catch (...) {
+    }
     return nodes_.back().get();
 }
 
@@ -223,6 +227,109 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
     from->RemoveChild(out_pin, to, in_pin);
 }
 
+uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
+                                 NodeBase::PinDataType type) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    uint32_t input_node_id = 0;
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        auto *input_node = function_node->body().AddNode<FunctionInputNode>(
+            NodeBase::NodeKind::kFunctionInput);
+        if (input_node == nullptr) {
+            THROW_EXCEPTION(FunctionNodeException,
+                            "Failed to create FunctionInputNode for pin");
+        }
+
+        input_node->set_name(name);
+        input_node->set_type(type);
+        input_node_id = input_node->id();
+    }
+
+    node->AddInputPin(name, type);
+    uint8_t pin_id = node->parents_.back().in_pin;
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        function_node->parameters_.push_back(
+            {name, type, pin_id, input_node_id});
+    }
+
+    return pin_id;
+}
+
+void core::Graph::RemoveInputPin(NodeBase *node, uint8_t index) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    if (index >= node->GetInputPinCount()) {
+        return;
+    }
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            uint32_t node_id = function_node->parameters_[index].node_id;
+            if (auto *input_node = function_node->body().GetNode(node_id)) {
+                function_node->body().RemoveNode(input_node);
+            }
+        }
+    }
+
+    for (const auto &conn : node->GetAllParents()) {
+        if (conn.in_pin == index && conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        }
+    }
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            function_node->parameters_.erase(
+                function_node->parameters_.begin() + index);
+        }
+    }
+
+    node->RemoveInputPin(index);
+    node->InitializeConnections();
+}
+
+void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    for (uint8_t i = 0; i < node->GetInputPinCount(); ++i) {
+        if (node->GetInputPinName(i) == name) {
+            RemoveInputPin(node, i);
+            return;
+        }
+    }
+}
+
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
     uint32_t id, NodeBase::NodeKind kind) {
     std::unique_ptr<NodeBase> node;
@@ -296,20 +403,14 @@ nlohmann::json core::Graph::Serialize() const {
     // Serialize connections
     nlohmann::json connections_array = nlohmann::json::array();
     for (const auto &source_node : nodes_) {
-        // Iterate through all output pins
-        for (uint8_t out_pin = 0; out_pin < source_node->GetOutputPinCount();
-             ++out_pin) {
-            auto children = source_node->childrens(out_pin);
-            // Iterate through all connections on this output pin
-            for (const auto &conn : (*children)) {
-                if (conn.IsConnected()) {
-                    nlohmann::json connection;
-                    connection["source_node_id"] = source_node->id();
-                    connection["source_pin"] = conn.out_pin;
-                    connection["target_node_id"] = conn.node->id();
-                    connection["target_pin"] = conn.in_pin;
-                    connections_array.push_back(connection);
-                }
+        for (const auto &conn : source_node->GetAllChildrens()) {
+            if (conn.IsConnected()) {
+                nlohmann::json connection;
+                connection["source_node_id"] = source_node->id();
+                connection["source_pin"] = conn.out_pin;
+                connection["target_node_id"] = conn.node->id();
+                connection["target_pin"] = conn.in_pin;
+                connections_array.push_back(connection);
             }
         }
     }
@@ -452,11 +553,11 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
             NodeBase *source = source_it->second;
             NodeBase *target = target_it->second;
 
-            // Validate pin indices
-            if (source_pin >= source->GetOutputPinCount()) {
+            // Validate pin ids
+            if (!source->OutputPinExists(source_pin)) {
                 return std::unexpected("Source pin index out of bounds");
             }
-            if (target_pin >= target->GetInputPinCount()) {
+            if (!target->InputPinExists(target_pin)) {
                 return std::unexpected("Target pin index out of bounds");
             }
 

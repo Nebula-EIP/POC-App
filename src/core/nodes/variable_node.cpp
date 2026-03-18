@@ -3,18 +3,15 @@
 #include "../connection_exceptions.hpp"
 
 core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {
-    InitializeConnections();
-}
+    : NodeBase(id, kind) {}
 
 void core::VariableNode::InitializeConnections() {
-    // VariableNode has 1 input pin and 1 output pin
-    parents_.resize(1);
-    parents_[0] =
-        Connection(nullptr, 0, in_pin_id_manager_.NewId(), PinDataType::kInt);
-    childrens_.resize(1);
-    uint32_t id = out_pin_id_manager_.NewId();
-    std::get<0>(childrens_[0]) = id;
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+    AddInputPin("Input", type_);
+    AddOutputPin("Output", type_);
 }
 
 void core::VariableNode::set_name(const std::string &name) { name_ = name; }
@@ -40,8 +37,10 @@ void core::VariableNode::set_type(PinDataType type) {
 
     // Update pins types
     for (auto &pin : childrens_) {
-        for (auto &child : std::get<1>(pin)) {
+        pin.type = type;
+        for (auto &child : pin.connections) {
             child.type = type;
+            child.out_pin_name = pin.name;
         }
     }
 
@@ -60,31 +59,9 @@ void core::VariableNode::set_data(std::any data) { data_ = data; }
 
 std::any core::VariableNode::data() const noexcept { return data_; }
 
-uint8_t core::VariableNode::GetInputPinCount() const noexcept { return 1; }
-
-uint8_t core::VariableNode::GetOutputPinCount() const noexcept { return 1; }
-
-core::NodeBase::PinDataType core::VariableNode::GetInputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return type_;
-    } else {
-        return PinDataType::kUndefined;
-    }
-}
-
-core::NodeBase::PinDataType core::VariableNode::GetOutputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return type_;
-    } else {
-        return PinDataType::kUndefined;
-    }
-}
-
 std::expected<void, std::string> core::VariableNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
-    if (out_pin != 0) {
+    if (!OutputPinExists(out_pin)) {
         return std::unexpected("Pin does not exists");
     }
 
@@ -97,22 +74,6 @@ std::expected<void, std::string> core::VariableNode::CanConnectTo(
     }
 
     return {};
-}
-
-std::string core::VariableNode::GetInputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return "Input";
-    } else {
-        return "";
-    }
-}
-
-std::string core::VariableNode::GetOutputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return "Output";
-    } else {
-        return "";
-    }
 }
 
 std::string core::VariableNode::GetDisplayName() const noexcept {
