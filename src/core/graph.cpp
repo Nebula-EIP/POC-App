@@ -227,91 +227,112 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
     from->RemoveChild(out_pin, to, in_pin);
 }
 
-void core::Graph::AddParameter(FunctionNode *function_node,
-                               const std::string &name,
-                               NodeBase::PinDataType type) {
-    if (function_node == nullptr) {
-        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
+                                  NodeBase::PinDataType type) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
     auto it = std::find_if(nodes_.begin(), nodes_.end(),
-                           [function_node](const std::unique_ptr<NodeBase> &n) {
-                               return n.get() == function_node;
+                           [node](const std::unique_ptr<NodeBase> &n) {
+                               return n.get() == node;
                            });
     if (it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException,
-                        "function_node is not owned by this Graph");
+                        "node is not owned by this Graph");
     }
 
-    auto *input_node = function_node->body().AddNode<FunctionInputNode>(
-        NodeBase::NodeKind::kFunctionInput);
-    if (input_node == nullptr) {
-        THROW_EXCEPTION(FunctionNodeException,
-                        "Failed to create FunctionInputNode for parameter");
+    uint32_t input_node_id = 0;
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        auto *input_node = function_node->body().AddNode<FunctionInputNode>(
+            NodeBase::NodeKind::kFunctionInput);
+        if (input_node == nullptr) {
+            THROW_EXCEPTION(FunctionNodeException,
+                            "Failed to create FunctionInputNode for pin");
+        }
+
+        input_node->set_name(name);
+        input_node->set_type(type);
+        input_node_id = input_node->id();
     }
 
-    input_node->set_name(name);
-    input_node->set_type(type);
+    node->AddInputPin(name, type);
+    uint8_t pin_id = node->parents_.back().in_pin;
 
-    function_node->AddInputPin(name, type);
-    uint8_t pin_id = function_node->parents_.back().in_pin;
 
-    function_node->parameters_.push_back(
-        {name, type, pin_id, input_node->id()});
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        function_node->parameters_.push_back(
+            {name, type, pin_id, input_node_id});
+    }
+
+    return pin_id;
 }
 
-void core::Graph::RemoveParameter(FunctionNode *function_node, uint8_t index) {
-    if (function_node == nullptr) {
-        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+void core::Graph::RemoveInputPin(NodeBase *node, uint8_t index) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    auto owner_it =
-        std::find_if(nodes_.begin(), nodes_.end(),
-                     [function_node](const std::unique_ptr<NodeBase> &n) {
-                         return n.get() == function_node;
-                     });
+    auto owner_it = std::find_if(nodes_.begin(), nodes_.end(),
+                                 [node](const std::unique_ptr<NodeBase> &n) {
+                                     return n.get() == node;
+                                 });
     if (owner_it == nodes_.end()) {
         THROW_EXCEPTION(NodeNotFoundException,
-                        "function_node is not owned by this Graph");
+                        "node is not owned by this Graph");
     }
 
-    if (index >= function_node->parameters_.size()) {
+    if (index >= node->GetInputPinCount()) {
         return;
     }
 
-    const auto kParam = function_node->parameters_[index];
-
-    for (const auto &conn : function_node->GetAllParents()) {
-        if (conn.IsConnected()) {
-            Unlink(conn.node, conn.out_pin, function_node, conn.in_pin);
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            uint32_t node_id = function_node->parameters_[index].node_id;
+            if (auto *input_node = function_node->body().GetNode(node_id)) {
+                function_node->body().RemoveNode(input_node);
+            }
         }
     }
 
-    if (auto *node = function_node->body().GetNode(kParam.node_id)) {
-        function_node->body().RemoveNode(node);
+    for (const auto &conn : node->GetAllParents()) {
+        if (conn.in_pin == index && conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        }
     }
 
-    function_node->parameters_.erase(function_node->parameters_.begin() +
-                                     index);
-    function_node->InitializeConnections();
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            function_node->parameters_.erase(function_node->parameters_.begin() +
+                                             index);
+        }
+    }
+
+    node->RemoveInputPin(index);
+    node->InitializeConnections();
 }
 
-void core::Graph::RemoveParameter(FunctionNode *function_node,
-                                  const std::string &name) {
-    if (function_node == nullptr) {
-        THROW_EXCEPTION(NodeNotFoundException, "function_node is nullptr");
+void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
-    auto it = std::find_if(
-        function_node->parameters_.begin(), function_node->parameters_.end(),
-        [&name](const FunctionParameter &param) { return param.name == name; });
-    if (it == function_node->parameters_.end()) {
-        return;
+    auto owner_it = std::find_if(nodes_.begin(), nodes_.end(),
+                                 [node](const std::unique_ptr<NodeBase> &n) {
+                                     return n.get() == node;
+                                 });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
     }
 
-    const auto kIndex = static_cast<uint8_t>(
-        std::distance(function_node->parameters_.begin(), it));
-    RemoveParameter(function_node, kIndex);
+    for (uint8_t i = 0; i < node->GetInputPinCount(); ++i) {
+        if (node->GetInputPinName(i) == name) {
+            RemoveInputPin(node, i);
+            return;
+        }
+    }
 }
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(

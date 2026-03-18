@@ -144,37 +144,36 @@ class Graph {
     void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
-     * @brief Adds a parameter to a function node.
+     * @brief Adds an input pin to a node.
      *
-     * This method owns pin topology changes for FunctionNode. It updates both
-     * the function node input pins and the function body graph by creating the
-     * matching FunctionInputNode.
+     * For FunctionNode, this updates both the input pins and creates a matching
+     * FunctionInputNode in the function body graph.
      *
-     * @param function_node The target function node.
-     * @param name Parameter name.
-     * @param type Parameter pin data type.
+     * @param node The target node.
+     * @param name Pin name.
+     * @param type Pin data type.
+     * @return The pin ID of the newly added input pin.
      */
-    void AddParameter(FunctionNode *function_node, const std::string &name,
-                      NodeBase::PinDataType type);
+    uint8_t AddInputPin(NodeBase *node, const std::string &name,
+                        NodeBase::PinDataType type);
 
     /**
-     * @brief Removes a function parameter by index.
+     * @brief Removes an input pin from a node by index.
      *
-     * If the corresponding function input pin is connected, this method
-     * disconnects it before removal.
+     * If the input pin is connected, this method disconnects it before removal.
      *
-     * @param function_node The target function node.
-     * @param index Parameter index in FunctionNode::parameters().
+     * @param node The target node.
+     * @param index Input pin index.
      */
-    void RemoveParameter(FunctionNode *function_node, uint8_t index);
+    void RemoveInputPin(NodeBase *node, uint8_t index);
 
     /**
-     * @brief Removes a function parameter by name.
+     * @brief Removes an input pin from a node by name.
      *
-     * @param function_node The target function node.
-     * @param name Parameter name.
+     * @param node The target node.
+     * @param name Input pin name.
      */
-    void RemoveParameter(FunctionNode *function_node, const std::string &name);
+    void RemoveInputPin(NodeBase *node, const std::string &name);
 
     /**
      * @brief Gets the project name.
@@ -196,7 +195,7 @@ class Graph {
 
     /**
      * @brief Gets the project creation timestamp.
-     * @return The time point when the project was created.
+     * @return The time point when the project was created.j
      */
     std::chrono::system_clock::time_point GetCreatedAt() const;
 
