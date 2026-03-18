@@ -60,6 +60,10 @@ core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
     } catch (std::exception &e) {
         return nullptr;
     }
+    try {
+        nodes_.back()->InitializeConnections();
+    } catch (...) {
+    }
     return nodes_.back().get();
 }
 
