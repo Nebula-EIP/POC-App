@@ -8,8 +8,6 @@ file(GLOB_RECURSE EDITOR_HEADERS "*.hpp" "*.h")
 if(EDITOR_SOURCES)
     add_executable(Nebula ${EDITOR_SOURCES} ${EDITOR_HEADERS})
 
-    target_compile_features(Nebula PRIVATE cxx_std_20)
-
     target_include_directories(Nebula
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}
@@ -19,7 +17,7 @@ if(EDITOR_SOURCES)
     # Link with all project libraries when available
     target_link_libraries(Nebula PRIVATE
         core
-        # utils
+        utils
         # graph-builder
         # graph-exporter
     )
