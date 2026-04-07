@@ -73,9 +73,9 @@ class VariableNode : public NodeBase {
    private:
     friend Graph;
     friend NodeBase;
-
-    VariableNode(uint32_t id, NodeKind kind) noexcept;
-
+  
+    VariableNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept;
+  
     void InitializeConnections() override;
 
    private:

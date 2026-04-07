@@ -7,6 +7,9 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <utility>
+#include <raylib.h>
+#include <tuple>
 
 #include "id_manager.hpp"
 
@@ -90,6 +93,12 @@ class NodeBase {
     uint32_t id() const noexcept;
 
     NodeKind kind() const noexcept;
+
+    std::pair<float, float> GetPosition() const;
+
+    bool IsMouseOver() const;
+
+    std::tuple<unsigned char, unsigned char, unsigned char> GetInitialColor() const;
 
     /**
      * @brief Retrieves connection information for a given input pin.
@@ -210,6 +219,32 @@ class NodeBase {
     static std::expected<std::unique_ptr<NodeBase>, std::string>
     DeserializeFactory(const nlohmann::json &json, Graph *graph);
 
+
+    /**
+     *@brief Draws the node in the editor. 
+     */
+    virtual void Draw();
+
+    /**
+     * @brief Select the node
+     */
+    void ClickNode();
+
+    /**
+     * @brief Updates the node position
+     */
+    void MoveNode();
+
+    /**
+     * @brief Set the node color
+     */
+    void SetColor(unsigned char r, unsigned char g, unsigned char b);
+
+    /**
+     * @brief prepare the node for dragging
+     */
+    void PrepareDrag();
+
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
 
@@ -290,10 +325,17 @@ class NodeBase {
      * @param id Unique identifier for this node.
      * @param kind The type/kind of this node.
      */
-    NodeBase(uint32_t id, NodeKind kind) noexcept;
+    NodeBase(uint32_t id, NodeKind kind, std::pair<float, float> position = {0.0f, 0.0f}) noexcept;
 
     const uint32_t id_;
     const NodeKind kind_;
+    std::pair<float, float> position_ = {0.0f, 0.0f};  ///< Position in the editor
+    std::pair<float, float> drag_offset_ = {0.0f, 0.0f};  ///< Offset used for dragging the node
+    std::pair<float, float> initial_position_cursor_ = {0.0f, 0.0f};  ///< Initial position for resetting
+    std::pair<float, float> initial_position_ = {0.0f, 0.0f};  ///< Initial position for resetting
+    bool follow_mouse_ = false;
+    std::tuple <unsigned char, unsigned char, unsigned char> color_ = {130, 130, 130};
+    std::tuple <unsigned char, unsigned char, unsigned char> initial_color_ = {130, 130, 130};
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;

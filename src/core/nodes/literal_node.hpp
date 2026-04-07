@@ -74,8 +74,7 @@ class LiteralNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    LiteralNode(uint32_t id, NodeKind kind) noexcept;
-
+    LiteralNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept;
     void InitializeConnections() override;
 
    private:

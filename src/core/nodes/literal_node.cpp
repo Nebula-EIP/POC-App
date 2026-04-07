@@ -2,9 +2,10 @@
 
 #include "../connection_exceptions.hpp"
 
-core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {
-    InitializeConnections();
+core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind, std::pair<float, float> position)
+    : NodeBase(id, kind, position) {
+    parents_.resize(GetInputPinCount());
+    childrens_.resize(GetOutputPinCount());
 }
 
 void core::LiteralNode::InitializeConnections() {

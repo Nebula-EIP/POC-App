@@ -1,9 +1,7 @@
 #include "variable_node.hpp"
 
-#include "../connection_exceptions.hpp"
-
-core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {
+core::VariableNode::VariableNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
     InitializeConnections();
 }
 
