@@ -25,8 +25,8 @@ var classcore_1_1OperatorNode =
     [ "CanConnectTo", "classcore_1_1OperatorNode.html#ac60d78c3e4e52fc66f576eefd6f146d1", null ],
     [ "Deserialize", "classcore_1_1OperatorNode.html#a16385e083ee265444912cd6357b9cf03", null ],
     [ "GetCategory", "classcore_1_1OperatorNode.html#aa6eb042216fdb25dd178b8e33bf0296c", null ],
-    [ "GetOperatorInputType", "classcore_1_1OperatorNode.html#ab72fd2cd8f42127939849a7d46f210f4", null ],
-    [ "GetOperatorOutputType", "classcore_1_1OperatorNode.html#a246f46a15281841d06b57b22bce518d8", null ],
+    [ "GetOperatorInputType", "classcore_1_1OperatorNode.html#a34c96bf034ba46db1b4f39355dc93d38", null ],
+    [ "GetOperatorOutputType", "classcore_1_1OperatorNode.html#a30a56595564437b9d24aa4accffc0a38", null ],
     [ "IsUnaryOperator", "classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b", null ],
     [ "Serialize", "classcore_1_1OperatorNode.html#aa42fbf99576ae57a0416f19c81fb1c6d", null ]
 ];

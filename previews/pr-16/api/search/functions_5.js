@@ -14,8 +14,8 @@ var searchData=
   ['getformattedmessage_11',['GetFormattedMessage',['../classutils_1_1BaseException.html#a5c33af9650789bba60d1a59664d7b214',1,'utils::BaseException']]],
   ['getmodifiedat_12',['GetModifiedAt',['../classcore_1_1Graph.html#a15fb08b9f2fbcc9607bd25f2f27addfa',1,'core::Graph']]],
   ['getnode_13',['getnode',['../classcore_1_1Graph.html#ad950f7401dd83e54aadbd9051e4de75d',1,'core::Graph::GetNode(uint32_t id) const'],['../classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4',1,'core::Graph::GetNode(uint32_t id) const']]],
-  ['getoperatorinputtype_14',['GetOperatorInputType',['../classcore_1_1OperatorNode.html#ab72fd2cd8f42127939849a7d46f210f4',1,'core::OperatorNode']]],
-  ['getoperatoroutputtype_15',['GetOperatorOutputType',['../classcore_1_1OperatorNode.html#a246f46a15281841d06b57b22bce518d8',1,'core::OperatorNode']]],
+  ['getoperatorinputtype_14',['GetOperatorInputType',['../classcore_1_1OperatorNode.html#a34c96bf034ba46db1b4f39355dc93d38',1,'core::OperatorNode']]],
+  ['getoperatoroutputtype_15',['GetOperatorOutputType',['../classcore_1_1OperatorNode.html#a30a56595564437b9d24aa4accffc0a38',1,'core::OperatorNode']]],
   ['getpositionstartblock_16',['GetPositionStartBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a31c9b1283c66813862ac44c41a660659',1,'code_generation::CodeGeneratorFile']]],
   ['getprojectname_17',['GetProjectName',['../classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43',1,'core::Graph']]],
   ['getversion_18',['GetVersion',['../classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89',1,'core::Graph']]]
