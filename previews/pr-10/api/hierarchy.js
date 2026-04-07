@@ -51,6 +51,7 @@ var hierarchy =
       [ "core::FunctionNode", "classcore_1_1FunctionNode.html", null ],
       [ "core::FunctionOutputNode", "classcore_1_1FunctionOutputNode.html", null ],
       [ "core::LiteralNode", "classcore_1_1LiteralNode.html", null ],
+      [ "core::OperatorNode", "classcore_1_1OperatorNode.html", null ],
       [ "core::VariableNode", "classcore_1_1VariableNode.html", null ]
     ] ],
     [ "std::runtime_error", null, [

@@ -33,6 +33,7 @@ var annotated_dup =
       [ "LiteralNode", "classcore_1_1LiteralNode.html", "classcore_1_1LiteralNode" ],
       [ "NodeBase", "classcore_1_1NodeBase.html", "classcore_1_1NodeBase" ],
       [ "NodeNotFoundException", "classcore_1_1NodeNotFoundException.html", null ],
+      [ "OperatorNode", "classcore_1_1OperatorNode.html", "classcore_1_1OperatorNode" ],
       [ "ParameterNotFoundException", "classcore_1_1ParameterNotFoundException.html", null ],
       [ "PinAlreadyConnectedException", "classcore_1_1PinAlreadyConnectedException.html", null ],
       [ "PinNotConnectedException", "classcore_1_1PinNotConnectedException.html", null ],

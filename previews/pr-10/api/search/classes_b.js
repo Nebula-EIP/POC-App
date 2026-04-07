@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['variablenode_0',['VariableNode',['../classcore_1_1VariableNode.html',1,'core']]]
+  ['selfconnectionexception_0',['SelfConnectionException',['../classcore_1_1SelfConnectionException.html',1,'core']]],
+  ['serializationexception_1',['SerializationException',['../classcore_1_1SerializationException.html',1,'core']]]
 ];

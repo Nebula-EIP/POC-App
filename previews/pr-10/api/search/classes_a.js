@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['selfconnectionexception_0',['SelfConnectionException',['../classcore_1_1SelfConnectionException.html',1,'core']]],
-  ['serializationexception_1',['SerializationException',['../classcore_1_1SerializationException.html',1,'core']]]
+  ['parameternotfoundexception_0',['ParameterNotFoundException',['../classcore_1_1ParameterNotFoundException.html',1,'core']]],
+  ['pinalreadyconnectedexception_1',['PinAlreadyConnectedException',['../classcore_1_1PinAlreadyConnectedException.html',1,'core']]],
+  ['pinnotconnectedexception_2',['PinNotConnectedException',['../classcore_1_1PinNotConnectedException.html',1,'core']]],
+  ['pinstillconnectedexception_3',['PinStillConnectedException',['../classcore_1_1PinStillConnectedException.html',1,'core']]]
 ];

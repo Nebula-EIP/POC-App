@@ -11,5 +11,6 @@ var searchData=
   ['invalidnodekindexception_8',['InvalidNodeKindException',['../classcore_1_1InvalidNodeKindException.html',1,'core']]],
   ['invalidparameterexception_9',['InvalidParameterException',['../classcore_1_1InvalidParameterException.html',1,'core']]],
   ['invalidpinindexexception_10',['InvalidPinIndexException',['../classcore_1_1InvalidPinIndexException.html',1,'core']]],
-  ['invalidreturntypeexception_11',['InvalidReturnTypeException',['../classcore_1_1InvalidReturnTypeException.html',1,'core']]]
+  ['invalidreturntypeexception_11',['InvalidReturnTypeException',['../classcore_1_1InvalidReturnTypeException.html',1,'core']]],
+  ['isunaryoperator_12',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]]
 ];
