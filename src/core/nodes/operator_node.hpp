@@ -60,9 +60,18 @@ class OperatorNode : public NodeBase {
     void set_name(const std::string &name);
     const std::string &name() const;
 
+    uint8_t GetInputPinCount() const noexcept override;
+    uint8_t GetOutputPinCount() const noexcept override;
+
+    PinDataType GetInputPinType(uint8_t pin) const override;
+    PinDataType GetOutputPinType(uint8_t pin) const override;
+
     std::expected<void, std::string> CanConnectTo(
         uint8_t out_pin, const NodeBase *target,
         uint8_t in_pin) const noexcept override;
+
+    std::string GetInputPinName(uint8_t pin) const override;
+    std::string GetOutputPinName(uint8_t pin) const override;
 
     std::string GetDisplayName() const noexcept override;
     std::string GetCategory() const noexcept override;

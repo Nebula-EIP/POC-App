@@ -8,6 +8,7 @@
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
+#include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin,
@@ -443,7 +444,18 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             break;
         }
 
-        case NodeKind::kOperator:
+        case NodeKind::kOperator: {
+            auto operator_node =
+                std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+            auto result = operator_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            operator_node->InitializeConnections();
+            node = std::move(operator_node);
+            break;
+        }
+
         case NodeKind::kCondition:
         case NodeKind::kLoop:
             return std::unexpected(
