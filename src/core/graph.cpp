@@ -170,7 +170,6 @@ void core::Graph::LinkingWithMouse() {
                     linking_from_node_ = node.get();
                 } else {
                     if (node.get() == linking_from_node_) {
-                        // Cancel linking if the same node is clicked again
                         linking_from_node_ = nullptr;
                         break;
                     }
