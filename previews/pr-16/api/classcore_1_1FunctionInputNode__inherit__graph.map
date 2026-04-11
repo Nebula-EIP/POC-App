@@ -1,5 +1,0 @@
-<map id="core::FunctionInputNode" name="core::FunctionInputNode">
-<area shape="rect" id="Node000001" title="A node representing a single function input parameter inside the function&#39;s body graph." alt="" coords="5,79,185,104"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="33,5,157,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,44,98,79,93,79,93,44"/>
-</map>
