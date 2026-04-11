@@ -1,5 +1,6 @@
 #include "function_node.hpp"
 
+#include "../connection_exceptions.hpp"
 #include "../graph.hpp"
 #include "function_input_node.hpp"
 #include "function_node_exceptions.hpp"
@@ -9,15 +10,20 @@
 core::FunctionNode::~FunctionNode() = default;
 
 core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
-    InitializeConnections();
-}
+    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {}
 
 void core::FunctionNode::InitializeConnections() {
-    // FunctionNode has variable input pins (based on parameters) and 1 output
-    // pin
-    parents_.resize(GetInputPinCount());
-    childrens_.resize(1);
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+
+    for (auto &param : parameters_) {
+        AddInputPin(param.name, param.type);
+        param.pin_id = parents_.back().in_pin;
+    }
+
+    AddOutputPin("Result", return_type_);
 }
 
 // ── Name ────────────────────────────────────────────────────────────────────
@@ -30,51 +36,23 @@ const std::string &core::FunctionNode::name() const noexcept { return name_; }
 
 void core::FunctionNode::set_return_type(PinDataType type) {
     return_type_ = type;
+
+    if (GetOutputPinCount() == 0) {
+        AddOutputPin("Result", return_type_);
+        return;
+    }
+
+    auto out_pin_id = childrens_.front().id;
+    if (IsOutputPinConnected(out_pin_id)) {
+        THROW_EXCEPTION(PinStillConnectedException,
+                        "Output pin n°{} is still connected", out_pin_id);
+    }
+
+    childrens_.front().type = return_type_;
 }
 
 core::NodeBase::PinDataType core::FunctionNode::return_type() const noexcept {
     return return_type_;
-}
-
-// ── Parameters ──────────────────────────────────────────────────────────────
-
-void core::FunctionNode::AddParameter(const std::string &name,
-                                      PinDataType type) {
-    auto *input_node =
-        body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput);
-    if (!input_node) {
-        THROW_EXCEPTION(FunctionNodeException,
-                        "Failed to create FunctionInputNode for parameter");
-    }
-    input_node->set_name(name);
-    input_node->set_type(type);
-    parameters_.push_back({name, type, input_node->id()});
-    // Resize connection vectors to match new pin count
-    parents_.resize(GetInputPinCount());
-}
-
-void core::FunctionNode::RemoveParameter(uint8_t index) {
-    if (index >= parameters_.size()) return;
-    if (auto *node = body_->GetNode(parameters_[index].node_id)) {
-        body_->RemoveNode(node);
-    }
-    parameters_.erase(parameters_.begin() + index);
-    // Rebuild connections – the caller should have unlinked beforehand
-    parents_.resize(GetInputPinCount());
-}
-
-void core::FunctionNode::RemoveParameter(const std::string &name) {
-    auto it = std::find_if(
-        parameters_.begin(), parameters_.end(),
-        [&name](const FunctionParameter &param) { return param.name == name; });
-    if (it != parameters_.end()) {
-        if (auto *node = body_->GetNode(it->node_id)) {
-            body_->RemoveNode(node);
-        }
-        parameters_.erase(it);
-        // Rebuild connections – the caller should have unlinked beforehand
-        parents_.resize(GetInputPinCount());
-    }
 }
 
 const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
@@ -87,32 +65,6 @@ const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
 core::Graph &core::FunctionNode::body() { return *body_; }
 
 const core::Graph &core::FunctionNode::body() const { return *body_; }
-
-// ── Pin counts ──────────────────────────────────────────────────────────────
-
-uint8_t core::FunctionNode::GetInputPinCount() const noexcept {
-    return static_cast<uint8_t>(parameters_.size());
-}
-
-uint8_t core::FunctionNode::GetOutputPinCount() const noexcept { return 1; }
-
-// ── Pin types ───────────────────────────────────────────────────────────────
-
-core::NodeBase::PinDataType core::FunctionNode::GetInputPinType(
-    uint8_t pin) const {
-    if (pin < parameters_.size()) {
-        return parameters_[pin].type;
-    }
-    return PinDataType::kUndefined;
-}
-
-core::NodeBase::PinDataType core::FunctionNode::GetOutputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return return_type_;
-    }
-    return PinDataType::kUndefined;
-}
 
 // ── Connection validation ───────────────────────────────────────────────────
 
@@ -131,22 +83,6 @@ std::expected<void, std::string> core::FunctionNode::CanConnectTo(
     }
 
     return {};
-}
-
-// ── Pin names ───────────────────────────────────────────────────────────────
-
-std::string core::FunctionNode::GetInputPinName(uint8_t pin) const {
-    if (pin < parameters_.size()) {
-        return parameters_[pin].name;
-    }
-    return "";
-}
-
-std::string core::FunctionNode::GetOutputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return "Result";
-    }
-    return "";
 }
 
 // ── Display ─────────────────────────────────────────────────────────────────
@@ -174,6 +110,7 @@ nlohmann::json core::FunctionNode::Serialize() const {
         nlohmann::json p;
         p["name"] = param.name;
         p["type"] = core::PinDataTypeToString(param.type);
+        p["pin_id"] = param.pin_id;
         p["node_id"] = param.node_id;
         params.push_back(p);
     }
@@ -214,15 +151,16 @@ std::expected<void, std::string> core::FunctionNode::Deserialize(
             FunctionParameter param;
             param.name = p["name"].get<std::string>();
             param.type = StringToPinDataType(p["type"].get<std::string>());
+            if (p.contains("pin_id")) {
+                param.pin_id = p["pin_id"].get<uint8_t>();
+            }
             if (p.contains("node_id")) {
                 param.node_id = p["node_id"].get<uint32_t>();
             }
             parameters_.push_back(param);
         }
 
-        // Resize connection vectors to match parameter count
-        parents_.resize(GetInputPinCount());
-        childrens_.resize(GetOutputPinCount());
+        InitializeConnections();
 
         // Deserialize inner graph if present
         if (json.contains("body")) {

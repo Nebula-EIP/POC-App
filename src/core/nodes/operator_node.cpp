@@ -10,15 +10,19 @@ OperatorNode::OperatorNode(uint32_t id, NodeKind kind) noexcept
 }
 
 void OperatorNode::InitializeConnections() {
-    parents_.resize(GetInputPinCount());
-    for (auto &parent : parents_) {
-        parent = Connection(nullptr, 0, in_pin_id_manager_.NewId(),
-                            GetOperatorInputType());
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+
+    const uint8_t kInputPinCount = GetInputPinCount();
+    for (uint8_t pin = 0; pin < kInputPinCount; ++pin) {
+        AddInputPin(GetInputPinName(pin), GetInputPinType(pin));
     }
 
-    childrens_.resize(GetOutputPinCount());
-    for (auto &children : childrens_) {
-        std::get<0>(children) = out_pin_id_manager_.NewId();
+    const uint8_t kOutputPinCount = GetOutputPinCount();
+    for (uint8_t pin = 0; pin < kOutputPinCount; ++pin) {
+        AddOutputPin(GetOutputPinName(pin), GetOutputPinType(pin));
     }
 }
 
