@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['in_5fpin_0',['in_pin',['../structcore_1_1NodeBase_1_1Connection.html#a0fd4dadecb3888362e5104fc82bcc6de',1,'core::NodeBase::Connection']]]
+  ['childrens_5f_0',['childrens_',['../classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac',1,'core::NodeBase']]],
+  ['connections_1',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]]
 ];

@@ -117,9 +117,9 @@ Collaboration diagram for core::NodeBase::Connection:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad8120fde3636e21e04d83931587e2905" id="r_ad8120fde3636e21e04d83931587e2905"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ad8120fde3636e21e04d83931587e2905">Connection</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *<a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ad90a8713cd8cc49cf749d4b0135a548b">node</a>, uint8_t <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ac792bf1e566a5ab993041952c985ea09">out_pin</a>, uint8_t <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#a0fd4dadecb3888362e5104fc82bcc6de">in_pin</a>, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#aa65f811851d6ebd027701d8ab745a6d5">type</a>) noexcept</td></tr>
-<tr class="memdesc:ad8120fde3636e21e04d83931587e2905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a connection with specified node and pin.  <br /></td></tr>
-<tr class="separator:ad8120fde3636e21e04d83931587e2905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70df37603e68ab0e4f4efbc7c6d03a18" id="r_a70df37603e68ab0e4f4efbc7c6d03a18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18">Connection</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *<a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ad90a8713cd8cc49cf749d4b0135a548b">node</a>, uint8_t <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ac792bf1e566a5ab993041952c985ea09">out_pin</a>, uint8_t <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#a0fd4dadecb3888362e5104fc82bcc6de">in_pin</a>, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#aa65f811851d6ebd027701d8ab745a6d5">type</a>, std::string <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#a5b293716b0245a496d0eb01c84fd4f8f">out_pin_name</a>=&quot;&quot;, std::string <a class="el" href="structcore_1_1NodeBase_1_1Connection.html#ab6b052e8d88915cd589e4725d2ceb66f">in_pin_name</a>=&quot;&quot;) noexcept</td></tr>
+<tr class="memdesc:a70df37603e68ab0e4f4efbc7c6d03a18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a connection with specified node, pin, type and names.  <br /></td></tr>
+<tr class="separator:a70df37603e68ab0e4f4efbc7c6d03a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abae547f3c3977efa2202375bb046712d" id="r_abae547f3c3977efa2202375bb046712d"><td class="memItemLeft" align="right" valign="top"><a id="abae547f3c3977efa2202375bb046712d" name="abae547f3c3977efa2202375bb046712d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsConnected</b> () const noexcept</td></tr>
 <tr class="separator:abae547f3c3977efa2202375bb046712d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,13 +141,21 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin</b> = 0</td
 <tr class="memitem:aa65f811851d6ebd027701d8ab745a6d5" id="r_aa65f811851d6ebd027701d8ab745a6d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1NodeBase_1_1Connection.html#aa65f811851d6ebd027701d8ab745a6d5">type</a></td></tr>
 <tr class="memdesc:aa65f811851d6ebd027701d8ab745a6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data type of the connection.  <br /></td></tr>
 <tr class="separator:aa65f811851d6ebd027701d8ab745a6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b293716b0245a496d0eb01c84fd4f8f" id="r_a5b293716b0245a496d0eb01c84fd4f8f"><td class="memItemLeft" align="right" valign="top"><a id="a5b293716b0245a496d0eb01c84fd4f8f" name="a5b293716b0245a496d0eb01c84fd4f8f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>out_pin_name</b></td></tr>
+<tr class="memdesc:a5b293716b0245a496d0eb01c84fd4f8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the source output pin. <br /></td></tr>
+<tr class="separator:a5b293716b0245a496d0eb01c84fd4f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6b052e8d88915cd589e4725d2ceb66f" id="r_ab6b052e8d88915cd589e4725d2ceb66f"><td class="memItemLeft" align="right" valign="top"><a id="ab6b052e8d88915cd589e4725d2ceb66f" name="ab6b052e8d88915cd589e4725d2ceb66f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin_name</b></td></tr>
+<tr class="memdesc:ab6b052e8d88915cd589e4725d2ceb66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the destination input pin. <br /></td></tr>
+<tr class="separator:ab6b052e8d88915cd589e4725d2ceb66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a connection between two nodes' pins. </p>
-<p>Stores information about the connected node, the specific pin number, and the data type of the connection. </p>
+<p>Stores information about the connected node, the specific pin numbers, the data type, and the names of both involved pins. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad8120fde3636e21e04d83931587e2905" name="ad8120fde3636e21e04d83931587e2905"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8120fde3636e21e04d83931587e2905">&#9670;&#160;</a></span>Connection()</h2>
+<a id="a70df37603e68ab0e4f4efbc7c6d03a18" name="a70df37603e68ab0e4f4efbc7c6d03a18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70df37603e68ab0e4f4efbc7c6d03a18">&#9670;&#160;</a></span>Connection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +185,19 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin</b> = 0</td
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>out_pin_name</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>in_pin_name</em> = <code>&quot;&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -192,13 +212,15 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin</b> = 0</td
 </table>
 </div><div class="memdoc">
 
-<p>Constructs a connection with specified node and pin. </p>
+<p>Constructs a connection with specified node, pin, type and names. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>Pointer to the connected node. </td></tr>
     <tr><td class="paramname">out_pin</td><td>Pin number on the node who owns the connection </td></tr>
     <tr><td class="paramname">in_pin</td><td>Pin number on the connected node. </td></tr>
-    <tr><td class="paramname">type</td><td>Data type going trough the connection </td></tr>
+    <tr><td class="paramname">type</td><td>Data type going through the connection </td></tr>
+    <tr><td class="paramname">out_pin_name</td><td>Name of the source output pin </td></tr>
+    <tr><td class="paramname">in_pin_name</td><td>Name of the destination input pin </td></tr>
   </table>
   </dd>
 </dl>

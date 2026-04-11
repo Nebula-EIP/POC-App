@@ -1,6 +1,7 @@
 var classcore_1_1NodeBase =
 [
     [ "Connection", "structcore_1_1NodeBase_1_1Connection.html", "structcore_1_1NodeBase_1_1Connection" ],
+    [ "OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", "structcore_1_1NodeBase_1_1OutputPin" ],
     [ "NodeKind", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e", [
       [ "kUndefined", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea7934d40c7c17315d892e8d5d745b1c66", null ],
       [ "kLiteral", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea8ea55e02792f5ffa4fe35b025ec485c8", null ],
@@ -22,6 +23,8 @@ var classcore_1_1NodeBase =
     ] ],
     [ "NodeBase", "classcore_1_1NodeBase.html#ad765848d6b5c5153640e55207084082a", null ],
     [ "AddChild", "classcore_1_1NodeBase.html#a131d31888a1ee9c5d04a89f54c227e86", null ],
+    [ "AddInputPin", "classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62", null ],
+    [ "AddOutputPin", "classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5", null ],
     [ "CanConnectTo", "classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9", null ],
     [ "childrens", "classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177", null ],
     [ "ClearParent", "classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e", null ],
@@ -32,7 +35,11 @@ var classcore_1_1NodeBase =
     [ "InitializeConnections", "classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a", null ],
     [ "parent", "classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a", null ],
     [ "RemoveChild", "classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7", null ],
+    [ "RemoveInputPin", "classcore_1_1NodeBase.html#a0f91b3fca9e74748808ec85ee63bc0bb", null ],
+    [ "RemoveOutputPin", "classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5", null ],
     [ "Serialize", "classcore_1_1NodeBase.html#a543244b749199a35758cb26967acb93b", null ],
     [ "SetParent", "classcore_1_1NodeBase.html#a439ff8f28e63c0672ce41b237e8b579c", null ],
-    [ "Graph", "classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a", null ]
+    [ "Graph", "classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a", null ],
+    [ "childrens_", "classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac", null ],
+    [ "parents_", "classcore_1_1NodeBase.html#a820c4b37b54a4e7449584a4f54e54fe1", null ]
 ];
