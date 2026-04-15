@@ -15,6 +15,8 @@
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
+#include "logger.hpp"
+
 core::Graph::Graph()
     : project_name_("Untitled Project"),
       version_("1.0"),
@@ -50,14 +52,14 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
     return modified_at_;
 }
 
-core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
+core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind, std::pair<float, float> position) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         THROW_EXCEPTION(InvalidNodeKindException,
                         "kUndefined is not a valid node kind");
     }
 
     try {
-        nodes_.push_back(CreateNode(id_manager_.NewId(), kind));
+        nodes_.push_back(CreateNode(id_manager_.NewId(), kind, position));
     } catch (std::exception &e) {
         return nullptr;
     }
@@ -226,14 +228,16 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
     uint32_t id, NodeBase::NodeKind kind, std::pair<float, float> position) {
+    std::unique_ptr<NodeBase> node;
+
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
-            return std::unique_ptr<LiteralNode>(new LiteralNode(id, kind, position));
+            node = std::unique_ptr<LiteralNode>(new LiteralNode(id, kind, position));
+            break;
 
         case NodeBase::NodeKind::kVariable:
-            return std::unique_ptr<VariableNode>(new VariableNode(id, kind, position));
-
-        case NodeBase::NodeKind::kOperator:
+            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind, position));
+            break;
 
         case NodeBase::NodeKind::kFunction:
             node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
@@ -553,13 +557,16 @@ void core::Graph::Draw() {
     for (const auto &node : nodes_) {
         for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
             const auto &childrens = node->childrens(i);
-            for (const auto &child_conn : childrens) {
-                Vector2 start = {node->GetPosition().first + 100,
-                                 node->GetPosition().second + 25 + i * 15};
-                Vector2 end = {child_conn.node->GetPosition().first,
-                               child_conn.node->GetPosition().second +
-                                   25 + child_conn.pin * 15};
-                DrawLineBezier(start, end, 3, BLACK);
+            if (childrens) {
+                for (const auto &conn : (*childrens)) {
+                    if (conn.IsConnected()) {
+                        Vector2 start = {node->GetPosition().first + 100,
+                                         node->GetPosition().second + 25};
+                        Vector2 end = {conn.node->GetPosition().first,
+                                       conn.node->GetPosition().second + 25};
+                        DrawLineEx(start, end, 2, GRAY);
+                    }
+                }
             }
         }
     }
@@ -583,9 +590,10 @@ void core::Graph::LinkingWithMouse() {
                         linking_from_node_ = nullptr;
                         break;
                     }
-                    auto res = Link(linking_from_node_, 0, node.get(), 0);
-                    if (!res) {
-                        std::cerr << "Failed to link nodes: " << res.error() << std::endl;
+                    try {
+                        Link(linking_from_node_, 0, node.get(), 0);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
                     }
                     linking_from_node_ = nullptr;
                 }

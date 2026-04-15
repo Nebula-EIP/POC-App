@@ -279,6 +279,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
     uint32_t id;
     std::string kind_str;
 
+    std::pair<float, float> position = {0.0f, 0.0f};
+
     try {
         id = json["id"].get<uint32_t>();
         kind_str = json["kind"].get<std::string>();
@@ -297,7 +299,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
     switch (kind) {
         case NodeKind::kLiteral: {
             auto literal_node =
-                std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
+                std::unique_ptr<LiteralNode>(new LiteralNode(id, kind, position));
             // Deserialize the node's data
             auto result = literal_node->Deserialize(json);
             if (!result) {
@@ -311,7 +313,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
         case NodeKind::kVariable: {
             auto variable_node =
-                std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+                std::unique_ptr<VariableNode>(new VariableNode(id, kind, position));
             // Deserialize the node's data
             auto result = variable_node->Deserialize(json);
             if (!result) {
