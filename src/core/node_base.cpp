@@ -327,7 +327,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
         case NodeKind::kFunction: {
             auto function_node =
-                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind, position));
             auto result = function_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
@@ -339,7 +339,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
         case NodeKind::kFunctionInput: {
             auto input_node = std::unique_ptr<FunctionInputNode>(
-                new FunctionInputNode(id, kind));
+                new FunctionInputNode(id, kind, position));
             auto result = input_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
@@ -351,7 +351,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
         case NodeKind::kFunctionOutput: {
             auto output_node = std::unique_ptr<FunctionOutputNode>(
-                new FunctionOutputNode(id, kind));
+                new FunctionOutputNode(id, kind, position));
             auto result = output_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
@@ -363,7 +363,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
         case NodeKind::kOperator: {
             auto operator_node =
-                std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+                std::unique_ptr<OperatorNode>(new OperatorNode(id, kind, position));
             auto result = operator_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());

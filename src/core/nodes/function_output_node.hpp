@@ -56,7 +56,7 @@ class FunctionOutputNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionOutputNode(uint32_t id, NodeKind kind) noexcept;
+    FunctionOutputNode(uint32_t id, NodeKind kind, std::pair<float, float> postion) noexcept;
 
     void InitializeConnections() override;
 

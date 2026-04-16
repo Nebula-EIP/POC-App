@@ -8,8 +8,8 @@
 
 core::FunctionNode::~FunctionNode() = default;
 
-core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {
+core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position), body_(std::make_unique<Graph>()) {
     InitializeConnections();
 }
 

@@ -3,8 +3,8 @@
 #include "../connection_exceptions.hpp"
 
 core::FunctionOutputNode::FunctionOutputNode(uint32_t id,
-                                             NodeKind kind) noexcept
-    : NodeBase(id, kind) {
+                                             NodeKind kind, std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
     InitializeConnections();
 }
 

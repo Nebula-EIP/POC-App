@@ -2,8 +2,8 @@
 
 #include "../connection_exceptions.hpp"
 
-core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {
+core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
     InitializeConnections();
 }
 

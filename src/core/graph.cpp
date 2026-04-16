@@ -240,21 +240,21 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kFunction:
-            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunctionInput:
             node = std::unique_ptr<FunctionInputNode>(
-                new FunctionInputNode(id, kind));
+                new FunctionInputNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunctionOutput:
             node = std::unique_ptr<FunctionOutputNode>(
-                new FunctionOutputNode(id, kind));
+                new FunctionOutputNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kOperator:
-            node = std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+            node = std::unique_ptr<OperatorNode>(new OperatorNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kCondition:
@@ -564,7 +564,7 @@ void core::Graph::Draw() {
                                          node->GetPosition().second + 25};
                         Vector2 end = {conn.node->GetPosition().first,
                                        conn.node->GetPosition().second + 25};
-                        DrawLineEx(start, end, 2, GRAY);
+                        DrawLineBezier(start, end, 2, BLACK);
                     }
                 }
             }

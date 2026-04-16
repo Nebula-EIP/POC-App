@@ -110,7 +110,7 @@ class OperatorNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    OperatorNode(uint32_t id, NodeKind kind) noexcept;
+    OperatorNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept;
 
     void InitializeConnections() override;
 
