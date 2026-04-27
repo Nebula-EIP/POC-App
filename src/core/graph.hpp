@@ -195,7 +195,7 @@ class Graph {
 
     /**
      * @brief Gets the project creation timestamp.
-     * @return The time point when the project was created.j
+     * @return The time point when the project was created.
      */
     std::chrono::system_clock::time_point GetCreatedAt() const;
 

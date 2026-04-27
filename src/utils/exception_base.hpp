@@ -32,8 +32,7 @@ class BaseException : public std::exception {
     /**
      * @brief Returns a formatted detailed error message.
      *
-     * Format: "Error: {fmt+args} at {function name} ({file_name}, {line},
-     * {column})"
+     * Format: "Error: {fmt+args} at <function> (<file>:<line>:<column>)"
      * @tparam Args Format argument types
      * @param fmt Format string
      * @param args Format arguments
