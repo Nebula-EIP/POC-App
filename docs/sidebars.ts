@@ -27,7 +27,7 @@ const sidebars: SidebarsConfig = {
             id: 'dev/architecture/core/intro'
           },
           items: [
-            
+            'dev/architecture/core/graph'
           ]
         }
       ]
