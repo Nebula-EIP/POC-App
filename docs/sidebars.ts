@@ -38,6 +38,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'dev/to-sort/cmake-tool',
         'dev/to-sort/nebula-format',
+        'dev/to-sort/exceptions',
       ]
     },
   ],
