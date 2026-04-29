@@ -34,7 +34,7 @@ TEST_F(FunctionInputNodeTest, Name_DefaultIsInput) {
     auto *node = graph_.AddNode<core::FunctionInputNode>(
         core::NodeBase::NodeKind::kFunctionInput, {0, 0});
 
-    EXPECT_EQ(node->name(), "Input");
+    EXPECT_EQ(node->Name(), "Input");
     EXPECT_EQ(node->GetDisplayName(), "Input");
 }
 
@@ -43,7 +43,7 @@ TEST_F(FunctionInputNodeTest, Name_SetAndGet) {
         core::NodeBase::NodeKind::kFunctionInput, {0, 0});
 
     node->SetName("x");
-    EXPECT_EQ(node->name(), "x");
+    EXPECT_EQ(node->Name(), "x");
     EXPECT_EQ(node->GetDisplayName(), "x");
 }
 
@@ -53,7 +53,7 @@ TEST_F(FunctionInputNodeTest, Type_DefaultIsUndefined) {
     auto *node = graph_.AddNode<core::FunctionInputNode>(
         core::NodeBase::NodeKind::kFunctionInput, {0, 0});
 
-    EXPECT_EQ(node->type(), core::NodeBase::PinDataType::kUndefined);
+    EXPECT_EQ(node->Type(), core::NodeBase::PinDataType::kUndefined);
 }
 
 TEST_F(FunctionInputNodeTest, Type_SetAndGet) {
@@ -61,7 +61,7 @@ TEST_F(FunctionInputNodeTest, Type_SetAndGet) {
         core::NodeBase::NodeKind::kFunctionInput, {0, 0});
 
     node->SetType(core::NodeBase::PinDataType::kInt);
-    EXPECT_EQ(node->type(), core::NodeBase::PinDataType::kInt);
+    EXPECT_EQ(node->Type(), core::NodeBase::PinDataType::kInt);
 }
 
 // ---------- Pin counts ----------
@@ -248,7 +248,7 @@ TEST_F(FunctionInputNodeTest, Deserialize_RoundTrip_PreservesData) {
         restored.GetNode<core::FunctionInputNode>(original->id());
     ASSERT_NE(node, nullptr);
 
-    EXPECT_EQ(node->name(), "x_coord");
+    EXPECT_EQ(node->Name(), "x_coord");
     EXPECT_EQ(node->type(), core::NodeBase::PinDataType::kFloat);
     EXPECT_EQ(node->GetInputPinCount(), 0);
     EXPECT_EQ(node->GetOutputPinCount(), 1);

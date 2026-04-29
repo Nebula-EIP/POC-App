@@ -29,7 +29,7 @@ class FunctionInputNode : public NodeBase {
      * @throws PinStillConnectedException if pins are already connected
      */
     void SetType(PinDataType type);
-    PinDataType type() const noexcept;
+    PinDataType Type() const noexcept;
 
     // -- NodeBase overrides --
 

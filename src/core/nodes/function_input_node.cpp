@@ -63,7 +63,7 @@ void core::FunctionInputNode::SetType(PinDataType type) {
     type_ = type;
 }
 
-core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
+core::NodeBase::PinDataType core::FunctionInputNode::Type() const noexcept {
     return type_;
 }
 

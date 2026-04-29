@@ -53,8 +53,6 @@ int main(void) {
 
         auto lit1 = graph.AddNode<core::LiteralNode>(
             core::NodeBase::NodeKind::kLiteral, {0, 0});
-        auto lit2 = graph.AddNode<core::LiteralNode>(
-            core::NodeBase::NodeKind::kLiteral, {0, 0});
         auto var1 = graph.AddNode<core::VariableNode>(
             core::NodeBase::NodeKind::kVariable, {0, 0});
 
