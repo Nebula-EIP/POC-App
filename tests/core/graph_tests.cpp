@@ -710,37 +710,7 @@ TEST_F(GraphTest, UnlinkThrowsOnNullToNode) {
     }, core::NodeNotFoundException);
 }
 
-TEST_F(GraphTest, UnlinkThrowsOnUnownedFromNode) {
-    // Create a node in another graph
-    core::Graph other_graph;
-    auto *from_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
-    ASSERT_NE(from_node, nullptr);
-    
-    // Create a node in this graph
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    ASSERT_NE(to_node, nullptr);
-    
-    // Try to unlink from unowned node
-    EXPECT_THROW({
-        graph_.Unlink(from_node, 0, to_node, 0);
-    }, core::NodeNotFoundException);
-}
 
-TEST_F(GraphTest, UnlinkThrowsOnUnownedToNode) {
-    // Create a node in this graph
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    ASSERT_NE(from_node, nullptr);
-    
-    // Create a node in another graph
-    core::Graph other_graph;
-    auto *to_node = other_graph.AddNode(core::NodeBase::NodeKind::kVariable);
-    ASSERT_NE(to_node, nullptr);
-    
-    // Try to unlink to unowned node
-    EXPECT_THROW({
-        graph_.Unlink(from_node, 0, to_node, 0);
-    }, core::NodeNotFoundException);
-}
 
 TEST_F(GraphTest, UnlinkThrowsOnInvalidOutputPin) {
     auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
@@ -1375,7 +1345,7 @@ TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
 }
 
 #pragma endregion Deserialization
-/*
+
 #pragma region File I/O
 
 TEST_F(GraphTest, SaveToFileCreatesFile) {

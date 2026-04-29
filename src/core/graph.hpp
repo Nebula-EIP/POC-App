@@ -153,6 +153,38 @@ class Graph {
     void Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to, uint8_t in_pin);
 
     /**
+     * @brief Adds an input pin to a node.
+     *
+     * For FunctionNode, this updates both the input pins and creates a matching
+     * FunctionInputNode in the function body graph.
+     *
+     * @param node The target node.
+     * @param name Pin name.
+     * @param type Pin data type.
+     * @return The pin ID of the newly added input pin.
+     */
+    uint8_t AddInputPin(NodeBase *node, const std::string &name,
+                        NodeBase::PinDataType type);
+
+    /**
+     * @brief Removes an input pin from a node by index.
+     *
+     * If the input pin is connected, this method disconnects it before removal.
+     *
+     * @param node The target node.
+     * @param index Input pin index.
+     */
+    void RemoveInputPin(NodeBase *node, uint8_t index);
+
+    /**
+     * @brief Removes an input pin from a node by name.
+     *
+     * @param node The target node.
+     * @param name Input pin name.
+     */
+    void RemoveInputPin(NodeBase *node, const std::string &name);
+
+    /**
      * @brief Gets the project name.
      * @return The name of the project.
      */
@@ -172,7 +204,7 @@ class Graph {
 
     /**
      * @brief Gets the project creation timestamp.
-     * @return The time point when the project was created.
+     * @return The time point when the project was created.j
      */
     std::chrono::system_clock::time_point GetCreatedAt() const;
 

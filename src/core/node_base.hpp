@@ -63,8 +63,8 @@ class NodeBase {
      * @struct Connection
      * @brief Represents a connection between two nodes' pins.
      *
-     * Stores information about the connected node, the specific pin number,
-     * and the data type of the connection.
+     * Stores information about the connected node, the specific pin numbers,
+     * the data type, and the names of both involved pins.
      */
     struct Connection {
         NodeBase *node = nullptr;  ///< Pointer to the connected node
@@ -72,18 +72,24 @@ class NodeBase {
         uint8_t in_pin = 0;        ///< Input pin of the connection
         PinDataType type =
             PinDataType::kUndefined;  ///< Data type of the connection
+        std::string out_pin_name;     ///< Name of the source output pin
+        std::string in_pin_name;      ///< Name of the destination input pin
 
         Connection() noexcept = default;
 
         /**
-         * @brief Constructs a connection with specified node and pin.
+         * @brief Constructs a connection with specified node, pin, type and
+         * names.
          * @param node Pointer to the connected node.
          * @param out_pin Pin number on the node who owns the connection
          * @param in_pin Pin number on the connected node.
-         * @param type Data type going trough the connection
+         * @param type Data type going through the connection
+         * @param out_pin_name Name of the source output pin
+         * @param in_pin_name Name of the destination input pin
          */
         Connection(NodeBase *node, uint8_t out_pin, uint8_t in_pin,
-                   PinDataType type) noexcept;
+                   PinDataType type, std::string out_pin_name = "",
+                   std::string in_pin_name = "") noexcept;
 
         bool IsConnected() const noexcept;
     };
@@ -134,8 +140,8 @@ class NodeBase {
      */
     const std::vector<Connection> &GetAllChildrens() const noexcept;
 
-    virtual uint8_t GetInputPinCount() const noexcept = 0;
-    virtual uint8_t GetOutputPinCount() const noexcept = 0;
+    uint8_t GetInputPinCount() const noexcept;
+    uint8_t GetOutputPinCount() const noexcept;
 
     bool InputPinExists(uint8_t pin) const noexcept;
     bool OutputPinExists(uint8_t pin) const noexcept;
@@ -143,11 +149,11 @@ class NodeBase {
     bool IsInputPinConnected(uint8_t pin) const noexcept;
     bool IsOutputPinConnected(uint8_t pin) const noexcept;
 
-    virtual PinDataType GetInputPinType(uint8_t pin) const = 0;
-    virtual PinDataType GetOutputPinType(uint8_t pin) const = 0;
+    PinDataType GetInputPinType(uint8_t pin) const;
+    PinDataType GetOutputPinType(uint8_t pin) const;
 
-    virtual std::string GetInputPinName(uint8_t pin) const = 0;
-    virtual std::string GetOutputPinName(uint8_t pin) const = 0;
+    std::string GetInputPinName(uint8_t pin) const;
+    std::string GetOutputPinName(uint8_t pin) const;
 
     /**
      * @brief Validates if this node's output pin can connect to a target node's
@@ -249,6 +255,17 @@ class NodeBase {
     friend class Graph;  ///< Graph class manages the lifetime of nodes
 
     /**
+     * @struct OutputPin
+     * @brief Stores the metadata and connections for a single output pin.
+     */
+    struct OutputPin {
+        uint8_t id = 0;    ///< Unique pin id on this node
+        std::string name;  ///< Display name of this output pin
+        PinDataType type = PinDataType::kUndefined;  ///< Data type of this pin
+        std::vector<Connection> connections;  ///< Active outgoing connections
+    };
+
+    /**
      * @brief Sets an input pin connection.
      *
      * @param input_pin The input pin index on this node.
@@ -285,7 +302,7 @@ class NodeBase {
      * @brief Resets an input pin connection.
      *
      * Disconnects the specified input pin and cleans up the connection data,
-     * only keeps the pin type in memory.
+     * only keeps the pin metadata (type and name) in memory.
      *
      * @param pin The input pin index to clear.
      *
@@ -308,12 +325,57 @@ class NodeBase {
                      uint8_t input_pin) noexcept;
 
     /**
-     * @brief Initializes the connection vectors based on pin counts.
+     * @brief Initializes the pin vectors based on the node's pin layout.
      *
      * Must be implemented & called by class inheriting from this class in order
-     * to setup the pins properly.
+     * to setup the pins properly. Uses AddInputPin() / AddOutputPin() to
+     * declare each pin with its name and type.
      */
     virtual void InitializeConnections() = 0;
+
+    /**
+     * @brief Adds a new input pin to this node.
+     *
+     * Allocates a unique pin id and appends the pin to the input pin list.
+     * Should be called from `InitializeConnections()` or by the `Graph` when
+     * managing dynamic pin layouts (e.g. function parameters).
+     *
+     * Note: These methods are `protected` to ensure only the node itself and
+     * the `Graph` (friend class) can modify pin topology. External callers
+     * must use `Graph` APIs to manage links/topology.
+     */
+    void AddInputPin(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes an input pin by its id.
+     *
+     * @param pin The id of the input pin to remove.
+     *
+     * @throws `InvalidPinIndexException` if the pin does not exist.
+     * @throws `PinStillConnectedException` if the pin is still connected.
+     *         Use `Graph::Unlink()` to disconnect before removing.
+     */
+    void RemoveInputPin(uint8_t pin);
+
+    /**
+     * @brief Adds a new output pin to this node.
+     *
+     * Allocates a unique pin id and appends the pin to the output pin list.
+     * Should be called from `InitializeConnections()` or by the `Graph` when
+     * managing dynamic pin layouts.
+     */
+    void AddOutputPin(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes an output pin by its id.
+     *
+     * @param pin The id of the output pin to remove.
+     *
+     * @throws `InvalidPinIndexException` if the pin does not exist.
+     * @throws `PinStillConnectedException` if the pin still has connections.
+     *         Use `Graph::Unlink()` to disconnect before removing.
+     */
+    void RemoveOutputPin(uint8_t pin);
 
    protected:
     /**
@@ -338,9 +400,10 @@ class NodeBase {
     std::tuple <unsigned char, unsigned char, unsigned char> initial_color_ = {130, 130, 130};
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
-    std::vector<Connection> parents_;
+    std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)
+
     utils::IdManager<uint8_t> out_pin_id_manager_;
-    std::vector<std::pair<uint8_t, std::vector<Connection>>> childrens_;
+    std::vector<OutputPin> childrens_;  ///< Output pins with their connections
 };
 
 // Helper functions for enum to/from string conversion

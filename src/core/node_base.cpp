@@ -13,9 +13,15 @@
 #include "nodes/variable_node.hpp"
 
 core::NodeBase::Connection::Connection(NodeBase *node, uint8_t out_pin,
-                                       uint8_t in_pin,
-                                       PinDataType type) noexcept
-    : node(node), out_pin(out_pin), in_pin(in_pin), type(type) {}
+                                       uint8_t in_pin, PinDataType type,
+                                       std::string out_pin_name,
+                                       std::string in_pin_name) noexcept
+    : node(node),
+      out_pin(out_pin),
+      in_pin(in_pin),
+      type(type),
+      out_pin_name(std::move(out_pin_name)),
+      in_pin_name(std::move(in_pin_name)) {}
 
 bool core::NodeBase::Connection::IsConnected() const noexcept {
     return node != nullptr;
@@ -38,7 +44,7 @@ std::pair<float, float> core::NodeBase::GetPosition() const {
 core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
     auto it = std::find_if(
         parents_.begin(), parents_.end(),
-        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
+        [in_pin](const Connection &conn) { return conn.in_pin == in_pin; });
 
     if (it == parents_.end()) {
         THROW_EXCEPTION(InvalidPinIndexException,
@@ -58,17 +64,14 @@ const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
     uint8_t out_pin) const {
     auto it = std::find_if(
         childrens_.begin(), childrens_.end(),
-        [out_pin](
-            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
-            return std::get<0>(conns) == out_pin;
-        });
+        [out_pin](const OutputPin &op) { return op.id == out_pin; });
 
     if (it == childrens_.end()) {
         THROW_EXCEPTION(InvalidPinIndexException,
                         "Output pin {} does not exists", out_pin);
     }
 
-    return &(std::get<1>(*it));
+    return &(it->connections);
 }
 
 const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
@@ -76,9 +79,9 @@ const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllChildrens()
     static std::vector<Connection> childs;
 
     childs.clear();
-    for (auto conn : childrens_) {
-        childs.insert(childs.end(), std::get<1>(conn).begin(),
-                      std::get<1>(conn).end());
+    for (const auto &op : childrens_) {
+        childs.insert(childs.end(), op.connections.begin(),
+                      op.connections.end());
     }
     return childs;
 }
@@ -91,11 +94,8 @@ bool core::NodeBase::InputPinExists(uint8_t pin) const noexcept {
 }
 
 bool core::NodeBase::OutputPinExists(uint8_t pin) const noexcept {
-    auto it = std::find_if(
-        childrens_.begin(), childrens_.end(),
-        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
-            return std::get<0>(conns) == pin;
-        });
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+                           [pin](const OutputPin &op) { return op.id == pin; });
     return it != childrens_.end();
 }
 
@@ -112,22 +112,112 @@ bool core::NodeBase::IsInputPinConnected(uint8_t pin) const noexcept {
 }
 
 bool core::NodeBase::IsOutputPinConnected(uint8_t pin) const noexcept {
-    auto it = std::find_if(
-        childrens_.begin(), childrens_.end(),
-        [pin](const std::pair<uint8_t, std::vector<Connection>> &conns) {
-            return std::get<0>(conns) == pin;
-        });
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+                           [pin](const OutputPin &op) { return op.id == pin; });
 
-    // Pin don't exists
     if (it == childrens_.end()) {
         return false;
     }
 
-    // Check for connections
-    const auto &connections = std::get<1>(*it);
     return std::any_of(
-        connections.begin(), connections.end(),
+        it->connections.begin(), it->connections.end(),
         [](const Connection &conn) { return conn.IsConnected(); });
+}
+
+uint8_t core::NodeBase::GetInputPinCount() const noexcept {
+    return static_cast<uint8_t>(parents_.size());
+}
+
+uint8_t core::NodeBase::GetOutputPinCount() const noexcept {
+    return static_cast<uint8_t>(childrens_.size());
+}
+
+core::NodeBase::PinDataType core::NodeBase::GetInputPinType(uint8_t pin) const {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+    if (it == parents_.end()) return PinDataType::kUndefined;
+    return it->type;
+}
+
+core::NodeBase::PinDataType core::NodeBase::GetOutputPinType(
+    uint8_t pin) const {
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+                           [pin](const OutputPin &op) { return op.id == pin; });
+    if (it == childrens_.end()) return PinDataType::kUndefined;
+    return it->type;
+}
+
+std::string core::NodeBase::GetInputPinName(uint8_t pin) const {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+    if (it == parents_.end()) return "";
+    return it->in_pin_name;
+}
+
+std::string core::NodeBase::GetOutputPinName(uint8_t pin) const {
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+                           [pin](const OutputPin &op) { return op.id == pin; });
+    if (it == childrens_.end()) return "";
+    return it->name;
+}
+
+void core::NodeBase::AddInputPin(const std::string &name, PinDataType type) {
+    uint8_t pin_id = in_pin_id_manager_.NewId();
+    Connection conn;
+    conn.in_pin = pin_id;
+    conn.in_pin_name = name;
+    conn.type = type;
+    parents_.push_back(conn);
+}
+
+void core::NodeBase::RemoveInputPin(uint8_t pin) {
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
+
+    if (it == parents_.end()) {
+        THROW_EXCEPTION(InvalidPinIndexException, "Input pin {} does not exist",
+                        pin);
+    }
+
+    if (it->IsConnected()) {
+        THROW_EXCEPTION(PinStillConnectedException,
+                        "Input pin {} is still connected – unlink it first",
+                        pin);
+    }
+
+    in_pin_id_manager_.FreeId(pin);
+    parents_.erase(it);
+}
+
+void core::NodeBase::AddOutputPin(const std::string &name, PinDataType type) {
+    uint8_t pin_id = out_pin_id_manager_.NewId();
+    OutputPin op;
+    op.id = pin_id;
+    op.name = name;
+    op.type = type;
+    childrens_.push_back(std::move(op));
+}
+
+void core::NodeBase::RemoveOutputPin(uint8_t pin) {
+    auto it = std::find_if(childrens_.begin(), childrens_.end(),
+                           [pin](const OutputPin &op) { return op.id == pin; });
+
+    if (it == childrens_.end()) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "Output pin {} does not exist", pin);
+    }
+
+    if (IsOutputPinConnected(pin)) {
+        THROW_EXCEPTION(PinStillConnectedException,
+                        "Output pin {} is still connected – unlink it first",
+                        pin);
+    }
+
+    out_pin_id_manager_.FreeId(pin);
+    childrens_.erase(it);
 }
 
 // Internal API, the Graph is responsible for checking input values viability
@@ -135,11 +225,11 @@ void core::NodeBase::SetParent(uint8_t in_pin, NodeBase *parent,
                                uint8_t parent_pin) noexcept {
     auto it = std::find_if(
         parents_.begin(), parents_.end(),
-        [in_pin](Connection conn) { return conn.in_pin == in_pin; });
+        [in_pin](const Connection &conn) { return conn.in_pin == in_pin; });
 
-    it->in_pin = in_pin;
     it->node = parent;
     it->out_pin = parent_pin;
+    it->out_pin_name = parent->GetOutputPinName(parent_pin);
 }
 
 // Internal API, the Graph is responsible for checking input values viability
@@ -147,23 +237,22 @@ void core::NodeBase::AddChild(uint8_t out_pin, NodeBase *child,
                               uint8_t child_pin) noexcept {
     auto it = std::find_if(
         childrens_.begin(), childrens_.end(),
-        [out_pin](
-            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
-            return std::get<0>(conns) == out_pin;
-        });
+        [out_pin](const OutputPin &op) { return op.id == out_pin; });
 
-    Connection conn(child, out_pin, child_pin, GetOutputPinType(out_pin));
-    std::get<1>(*it).push_back(conn);
+    Connection conn(child, out_pin, child_pin, it->type, it->name,
+                    child->GetInputPinName(child_pin));
+    it->connections.push_back(conn);
 }
 
 // Internal API, the Graph is responsible for checking input values viability
 void core::NodeBase::ClearParent(uint8_t pin) noexcept {
-    auto it =
-        std::find_if(parents_.begin(), parents_.end(),
-                     [pin](Connection conn) { return conn.in_pin == pin; });
+    auto it = std::find_if(
+        parents_.begin(), parents_.end(),
+        [pin](const Connection &conn) { return conn.in_pin == pin; });
 
     it->node = nullptr;
     it->out_pin = 0;
+    it->out_pin_name = "";
 }
 
 // Internal API, the Graph is responsible for checking input values viability
@@ -171,18 +260,16 @@ void core::NodeBase::RemoveChild(uint8_t out_pin, const NodeBase *node,
                                  uint8_t in_pin) noexcept {
     auto v_it = std::find_if(
         childrens_.begin(), childrens_.end(),
-        [out_pin](
-            std::pair<uint8_t, std::vector<core::NodeBase::Connection>> conns) {
-            return std::get<0>(conns) == out_pin;
-        });
+        [out_pin](const OutputPin &op) { return op.id == out_pin; });
 
-    std::vector<core::NodeBase::Connection> &vec = std::get<1>(*v_it);
+    std::vector<Connection> &vec = v_it->connections;
 
-    auto it = std::find_if(
-        vec.begin(), vec.end(), [out_pin, node, in_pin](Connection conn) {
-            return ((conn.in_pin == in_pin) && (conn.node == node) &&
-                    (conn.out_pin == out_pin));
-        });
+    auto it = std::find_if(vec.begin(), vec.end(),
+                           [out_pin, node, in_pin](const Connection &conn) {
+                               return ((conn.in_pin == in_pin) &&
+                                       (conn.node == node) &&
+                                       (conn.out_pin == out_pin));
+                           });
 
     vec.erase(it);
 }
@@ -305,7 +392,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             if (!result) {
                 return std::unexpected(result.error());
             }
-            // Initialize connections after deserialization
+            // Re-initialize connections so pin types match deserialized type
             literal_node->InitializeConnections();
             node = std::move(literal_node);
             break;
@@ -319,7 +406,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             if (!result) {
                 return std::unexpected(result.error());
             }
-            // Initialize connections after deserialization
+            // Re-initialize connections so pin types match deserialized type
             variable_node->InitializeConnections();
             node = std::move(variable_node);
             break;
@@ -332,6 +419,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             if (!result) {
                 return std::unexpected(result.error());
             }
+            // Re-initialize output pin with deserialized return type
             function_node->InitializeConnections();
             node = std::move(function_node);
             break;
@@ -344,6 +432,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             if (!result) {
                 return std::unexpected(result.error());
             }
+            // Re-initialize so pin type/name match deserialized values
             input_node->InitializeConnections();
             node = std::move(input_node);
             break;
@@ -356,6 +445,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
             if (!result) {
                 return std::unexpected(result.error());
             }
+            // Re-initialize so pin type/name match deserialized values
             output_node->InitializeConnections();
             node = std::move(output_node);
             break;

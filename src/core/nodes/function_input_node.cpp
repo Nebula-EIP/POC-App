@@ -8,13 +8,21 @@ core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind, std::pair
 }
 
 void core::FunctionInputNode::InitializeConnections() {
-    // FunctionInputNode has 0 input pins and 1 output pin
-    parents_.resize(0);
-    childrens_.resize(1);
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+    AddOutputPin(name_, type_);
 }
 
 void core::FunctionInputNode::set_name(const std::string &name) {
     name_ = name;
+    if (!childrens_.empty()) {
+        childrens_.front().name = name_;
+        for (auto &conn : childrens_.front().connections) {
+            conn.out_pin_name = name_;
+        }
+    }
 }
 
 const std::string &core::FunctionInputNode::name() const noexcept {
@@ -40,8 +48,10 @@ void core::FunctionInputNode::set_type(PinDataType type) {
 
     // Update pins types
     for (auto &pin : childrens_) {
-        for (auto &child : std::get<1>(pin)) {
+        pin.type = type;
+        for (auto &child : pin.connections) {
             child.type = type;
+            child.out_pin_name = pin.name;
         }
     }
 
@@ -56,28 +66,9 @@ core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
     return type_;
 }
 
-uint8_t core::FunctionInputNode::GetInputPinCount() const noexcept { return 0; }
-
-uint8_t core::FunctionInputNode::GetOutputPinCount() const noexcept {
-    return 1;
-}
-
-core::NodeBase::PinDataType core::FunctionInputNode::GetInputPinType(
-    uint8_t /*pin*/) const {
-    return PinDataType::kUndefined;
-}
-
-core::NodeBase::PinDataType core::FunctionInputNode::GetOutputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return type_;
-    }
-    return PinDataType::kUndefined;
-}
-
 std::expected<void, std::string> core::FunctionInputNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
-    if (out_pin != 0) {
+    if (!OutputPinExists(out_pin)) {
         return std::unexpected("Pin does not exist");
     }
 
@@ -90,17 +81,6 @@ std::expected<void, std::string> core::FunctionInputNode::CanConnectTo(
     }
 
     return {};
-}
-
-std::string core::FunctionInputNode::GetInputPinName(uint8_t /*pin*/) const {
-    return "";
-}
-
-std::string core::FunctionInputNode::GetOutputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return name_;
-    }
-    return "";
 }
 
 std::string core::FunctionInputNode::GetDisplayName() const noexcept {

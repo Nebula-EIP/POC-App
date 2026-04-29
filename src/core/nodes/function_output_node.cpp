@@ -9,13 +9,18 @@ core::FunctionOutputNode::FunctionOutputNode(uint32_t id,
 }
 
 void core::FunctionOutputNode::InitializeConnections() {
-    // FunctionOutputNode has 1 input pin and 0 output pins
-    parents_.resize(1);
-    childrens_.resize(0);
+    parents_.clear();
+    childrens_.clear();
+    in_pin_id_manager_ = utils::IdManager<uint8_t>();
+    out_pin_id_manager_ = utils::IdManager<uint8_t>();
+    AddInputPin(name_, type_);
 }
 
 void core::FunctionOutputNode::set_name(const std::string &name) {
     name_ = name;
+    if (!parents_.empty()) {
+        parents_.front().in_pin_name = name_;
+    }
 }
 
 const std::string &core::FunctionOutputNode::name() const noexcept {
@@ -40,14 +45,9 @@ void core::FunctionOutputNode::set_type(PinDataType type) {
     }
 
     // Update pins types
-    for (auto &pin : childrens_) {
-        for (auto &child : std::get<1>(pin)) {
-            child.type = type;
-        }
-    }
-
     for (auto &parent : parents_) {
         parent.type = type;
+        parent.in_pin_name = name_;
     }
 
     type_ = type;
@@ -57,42 +57,10 @@ core::NodeBase::PinDataType core::FunctionOutputNode::type() const noexcept {
     return type_;
 }
 
-uint8_t core::FunctionOutputNode::GetInputPinCount() const noexcept {
-    return 1;
-}
-
-uint8_t core::FunctionOutputNode::GetOutputPinCount() const noexcept {
-    return 0;
-}
-
-core::NodeBase::PinDataType core::FunctionOutputNode::GetInputPinType(
-    uint8_t pin) const {
-    if (pin == 0) {
-        return type_;
-    }
-    return PinDataType::kUndefined;
-}
-
-core::NodeBase::PinDataType core::FunctionOutputNode::GetOutputPinType(
-    uint8_t /*pin*/) const {
-    return PinDataType::kUndefined;
-}
-
 std::expected<void, std::string> core::FunctionOutputNode::CanConnectTo(
     uint8_t /*out_pin*/, const NodeBase * /*target*/,
     uint8_t /*in_pin*/) const noexcept {
     return std::unexpected("FunctionOutputNode has no output pins");
-}
-
-std::string core::FunctionOutputNode::GetInputPinName(uint8_t pin) const {
-    if (pin == 0) {
-        return name_;
-    }
-    return "";
-}
-
-std::string core::FunctionOutputNode::GetOutputPinName(uint8_t /*pin*/) const {
-    return "";
 }
 
 std::string core::FunctionOutputNode::GetDisplayName() const noexcept {
