@@ -497,17 +497,17 @@ void core::NodeBase::Draw() {
 }
 
 void core::NodeBase::PrepareDrag() {
-    Vector2 cursorPosition = GetMousePosition();
+    Vector2 cursor_position = GetMousePosition();
     drag_offset_.first = 0;
     drag_offset_.second = 0;
-    initial_position_cursor_.first = cursorPosition.x;
-    initial_position_cursor_.second = cursorPosition.y;
+    initial_position_cursor_.first = cursor_position.x;
+    initial_position_cursor_.second = cursor_position.y;
     initial_position_ = position_;
 }
 
 void core::NodeBase::ClickNode() {
-    Vector2 cursorPosition = GetMousePosition();
-    if (CheckCollisionPointRec(cursorPosition, {position_.first, position_.second, 100, 50})) {
+    Vector2 cursor_position = GetMousePosition();
+    if (CheckCollisionPointRec(cursor_position, {position_.first, position_.second, 100, 50})) {
         color_ = {0.0, 255.0, 0.0}; // Change color when hovering
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             follow_mouse_ = !follow_mouse_;
@@ -523,20 +523,20 @@ void core::NodeBase::ClickNode() {
 
 
 void core::NodeBase::MoveNode() {
-    Vector2 cursorPosition = GetMousePosition();
+    Vector2 cursor_position = GetMousePosition();
     if (follow_mouse_) {
         color_ = {0.0, 0.0, 255.0}; // Change color when following mouse
-        drag_offset_.first = cursorPosition.x - initial_position_cursor_.first;
-        drag_offset_.second = cursorPosition.y - initial_position_cursor_.second;
+        drag_offset_.first = cursor_position.x - initial_position_cursor_.first;
+        drag_offset_.second = cursor_position.y - initial_position_cursor_.second;
         position_.first = initial_position_.first + drag_offset_.first;
         position_.second = initial_position_.second + drag_offset_.second;
     }
 }
 
 bool core::NodeBase::IsMouseOver() const {
-    Vector2 cursorPosition = GetMousePosition();
+    Vector2 cursor_position = GetMousePosition();
 
-    return CheckCollisionPointRec(cursorPosition, {position_.first, position_.second, 100, 50});
+    return CheckCollisionPointRec(cursor_position, {position_.first, position_.second, 100, 50});
 }
 
 void core::NodeBase::SetColor(unsigned char r, unsigned char g, unsigned char b) {

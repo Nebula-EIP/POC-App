@@ -1,5 +1,3 @@
-#include "graph.hpp"
-
 #include <algorithm>
 #include <ctime>
 #include <format>
@@ -15,6 +13,7 @@
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
+#include "graph.hpp"
 #include "logger.hpp"
 
 core::Graph::Graph()
@@ -704,9 +703,9 @@ void core::Graph::LinkingWithMouse() {
     }
 
     if (linking_from_node_) {
-        Vector2 cursorPos = GetMousePosition();
+        Vector2 cursor_pos = GetMousePosition();
         DrawLineEx({linking_from_node_->GetPosition().first + 100, linking_from_node_->GetPosition().second + 25},
-                   cursorPos, 2, GRAY);
+                   cursor_pos, 2, GRAY);
     }
 }
 
@@ -722,15 +721,15 @@ void core::Graph::SelectWithMouse() {
             //Select the nodes within the selection rectangle
             Vector2 end = GetMousePosition();
             for (const auto &node : nodes_) {
-                Vector2 nodePos = {node->GetPosition().first, node->GetPosition().second};
+                Vector2 node_pos = {node->GetPosition().first, node->GetPosition().second};
 
                 float left   = std::min(selection_start_.first, end.x);
                 float top    = std::min(selection_start_.second, end.y);
                 float right  = std::max(selection_start_.first, end.x);
                 float bottom = std::max(selection_start_.second, end.y);
 
-                Rectangle selectionRect = {left, top, right - left, bottom - top};
-                if (CheckCollisionPointRec(nodePos, selectionRect)) {
+                Rectangle selection_rect = {left, top, right - left, bottom - top};
+                if (CheckCollisionPointRec(node_pos, selection_rect)) {
                     node->follow_mouse_ = true;
                     node->PrepareDrag();
                 } else {
@@ -749,7 +748,7 @@ void core::Graph::SelectWithMouse() {
                            current.x - selection_start_.first, current.y - selection_start_.second, GRAY);
 
         for (const auto &node : nodes_) {
-            Vector2 nodePos = {node->GetPosition().first, node->GetPosition().second};
+            Vector2 node_pos = {node->GetPosition().first, node->GetPosition().second};
             
             float left   = std::min(selection_start_.first, current.x);
             float top    = std::min(selection_start_.second, current.y);
@@ -757,8 +756,8 @@ void core::Graph::SelectWithMouse() {
             float bottom = std::max(selection_start_.second, current.y);
 
             
-            Rectangle selectionRect = {left, top, right - left, bottom - top};
-            if (CheckCollisionPointRec(nodePos, selectionRect)) {
+            Rectangle selection_rect = {left, top, right - left, bottom - top};
+            if (CheckCollisionPointRec(node_pos, selection_rect)) {
                 node->SetColor(255, 255, 0);
             } else {
                 std::tuple<unsigned char, unsigned char, unsigned char> init_color = node->GetInitialColor();
