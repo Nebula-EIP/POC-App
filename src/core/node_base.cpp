@@ -1,8 +1,8 @@
 #include "node_base.hpp"
 
-#include <iostream>
 #include <algorithm>
 #include <exception>
+#include <iostream>
 
 #include "connection_exceptions.hpp"
 #include "nodes/function_input_node.hpp"
@@ -27,7 +27,8 @@ bool core::NodeBase::Connection::IsConnected() const noexcept {
     return node != nullptr;
 }
 
-core::NodeBase::NodeBase(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+core::NodeBase::NodeBase(uint32_t id, NodeKind kind,
+                         std::pair<float, float> position) noexcept
     : id_(id), kind_(kind), position_(position) {}
 
 core::NodeBase::~NodeBase() noexcept = default;
@@ -385,8 +386,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
     std::unique_ptr<NodeBase> node;
     switch (kind) {
         case NodeKind::kLiteral: {
-            auto literal_node =
-                std::unique_ptr<LiteralNode>(new LiteralNode(id, kind, position));
+            auto literal_node = std::unique_ptr<LiteralNode>(
+                new LiteralNode(id, kind, position));
             // Deserialize the node's data
             auto result = literal_node->Deserialize(json);
             if (!result) {
@@ -399,8 +400,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
         }
 
         case NodeKind::kVariable: {
-            auto variable_node =
-                std::unique_ptr<VariableNode>(new VariableNode(id, kind, position));
+            auto variable_node = std::unique_ptr<VariableNode>(
+                new VariableNode(id, kind, position));
             // Deserialize the node's data
             auto result = variable_node->Deserialize(json);
             if (!result) {
@@ -413,8 +414,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
         }
 
         case NodeKind::kFunction: {
-            auto function_node =
-                std::unique_ptr<FunctionNode>(new FunctionNode(id, kind, position));
+            auto function_node = std::unique_ptr<FunctionNode>(
+                new FunctionNode(id, kind, position));
             auto result = function_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
@@ -452,8 +453,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
         }
 
         case NodeKind::kOperator: {
-            auto operator_node =
-                std::unique_ptr<OperatorNode>(new OperatorNode(id, kind, position));
+            auto operator_node = std::unique_ptr<OperatorNode>(
+                new OperatorNode(id, kind, position));
             auto result = operator_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
@@ -483,16 +484,17 @@ void core::NodeBase::Draw() {
     DrawRectangle(position_.first, position_.second, 100, 50, color);
     // Draw Node number
     DrawText(("Node " + std::to_string(id_)).c_str(), position_.first + 10,
-            position_.second + 15, 10, BLACK);
+             position_.second + 15, 10, BLACK);
     // Draw Node kind
     DrawText(("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
-            position_.first + 10, position_.second + 30, 10, BLACK);
+             position_.first + 10, position_.second + 30, 10, BLACK);
     // Draw pin
     for (uint8_t i = 0; i < GetInputPinCount(); i++) {
         DrawCircle(position_.first, position_.second + 25 + i * 15, 5, RED);
     }
     for (uint8_t i = 0; i < GetOutputPinCount(); i++) {
-        DrawCircle(position_.first + 100, position_.second + 25 + i * 15, 5, BLUE);
+        DrawCircle(position_.first + 100, position_.second + 25 + i * 15, 5,
+                   BLUE);
     }
 }
 
@@ -507,27 +509,28 @@ void core::NodeBase::PrepareDrag() {
 
 void core::NodeBase::ClickNode() {
     Vector2 cursor_position = GetMousePosition();
-    if (CheckCollisionPointRec(cursor_position, {position_.first, position_.second, 100, 50})) {
-        color_ = {0.0, 255.0, 0.0}; // Change color when hovering
+    if (CheckCollisionPointRec(cursor_position,
+                               {position_.first, position_.second, 100, 50})) {
+        color_ = {0.0, 255.0, 0.0};  // Change color when hovering
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             follow_mouse_ = !follow_mouse_;
             PrepareDrag();
         }
     } else {
-        color_ = initial_color_; // Default color
+        color_ = initial_color_;  // Default color
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             follow_mouse_ = false;
         }
     }
 }
 
-
 void core::NodeBase::MoveNode() {
     Vector2 cursor_position = GetMousePosition();
     if (follow_mouse_) {
-        color_ = {0.0, 0.0, 255.0}; // Change color when following mouse
+        color_ = {0.0, 0.0, 255.0};  // Change color when following mouse
         drag_offset_.first = cursor_position.x - initial_position_cursor_.first;
-        drag_offset_.second = cursor_position.y - initial_position_cursor_.second;
+        drag_offset_.second =
+            cursor_position.y - initial_position_cursor_.second;
         position_.first = initial_position_.first + drag_offset_.first;
         position_.second = initial_position_.second + drag_offset_.second;
     }
@@ -536,13 +539,16 @@ void core::NodeBase::MoveNode() {
 bool core::NodeBase::IsMouseOver() const {
     Vector2 cursor_position = GetMousePosition();
 
-    return CheckCollisionPointRec(cursor_position, {position_.first, position_.second, 100, 50});
+    return CheckCollisionPointRec(cursor_position,
+                                  {position_.first, position_.second, 100, 50});
 }
 
-void core::NodeBase::SetColor(unsigned char r, unsigned char g, unsigned char b) {
+void core::NodeBase::SetColor(unsigned char r, unsigned char g,
+                              unsigned char b) {
     color_ = {r, g, b};
 }
 
-std::tuple<unsigned char, unsigned char, unsigned char> core::NodeBase::GetInitialColor() const {
+std::tuple<unsigned char, unsigned char, unsigned char>
+core::NodeBase::GetInitialColor() const {
     return initial_color_;
 }

@@ -9,7 +9,8 @@
 
 core::FunctionNode::~FunctionNode() = default;
 
-core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind,
+                                 std::pair<float, float> position) noexcept
     : NodeBase(id, kind, position), body_(std::make_unique<Graph>()) {
     InitializeConnections();
 }
@@ -61,9 +62,9 @@ core::NodeBase::PinDataType core::FunctionNode::return_type() const noexcept {
 
 void core::FunctionNode::AddParameter(const std::string &name,
                                       PinDataType type) {
-    
-    auto *input_node = body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput, {0, 0});
-    
+    auto *input_node =
+        body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput, {0, 0});
+
     if (!input_node) {
         THROW_EXCEPTION(FunctionNodeException,
                         "Failed to create FunctionInputNode for parameter");

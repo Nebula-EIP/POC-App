@@ -1,3 +1,5 @@
+#include "graph.hpp"
+
 #include <algorithm>
 #include <ctime>
 #include <format>
@@ -6,15 +8,13 @@
 #include <map>
 #include <sstream>
 
+#include "logger.hpp"
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
-
-#include "graph.hpp"
-#include "logger.hpp"
 
 core::Graph::Graph()
     : project_name_("Untitled Project"),
@@ -51,7 +51,8 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
     return modified_at_;
 }
 
-core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind, std::pair<float, float> position) {
+core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind,
+                                     std::pair<float, float> position) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         THROW_EXCEPTION(InvalidNodeKindException,
                         "kUndefined is not a valid node kind");
@@ -338,15 +339,18 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
 
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
-            node = std::unique_ptr<LiteralNode>(new LiteralNode(id, kind, position));
+            node = std::unique_ptr<LiteralNode>(
+                new LiteralNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kVariable:
-            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind, position));
+            node = std::unique_ptr<VariableNode>(
+                new VariableNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunction:
-            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind, position));
+            node = std::unique_ptr<FunctionNode>(
+                new FunctionNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunctionInput:
@@ -360,7 +364,8 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kOperator:
-            node = std::unique_ptr<OperatorNode>(new OperatorNode(id, kind, position));
+            node = std::unique_ptr<OperatorNode>(
+                new OperatorNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kCondition:
@@ -704,7 +709,8 @@ void core::Graph::LinkingWithMouse() {
 
     if (linking_from_node_) {
         Vector2 cursor_pos = GetMousePosition();
-        DrawLineEx({linking_from_node_->GetPosition().first + 100, linking_from_node_->GetPosition().second + 25},
+        DrawLineEx({linking_from_node_->GetPosition().first + 100,
+                    linking_from_node_->GetPosition().second + 25},
                    cursor_pos, 2, GRAY);
     }
 }
@@ -717,51 +723,59 @@ void core::Graph::SelectWithMouse() {
             is_selecting_ = true;
         }
     } else {
-        if (is_selecting_){
-            //Select the nodes within the selection rectangle
+        if (is_selecting_) {
+            // Select the nodes within the selection rectangle
             Vector2 end = GetMousePosition();
             for (const auto &node : nodes_) {
-                Vector2 node_pos = {node->GetPosition().first, node->GetPosition().second};
+                Vector2 node_pos = {node->GetPosition().first,
+                                    node->GetPosition().second};
 
-                float left   = std::min(selection_start_.first, end.x);
-                float top    = std::min(selection_start_.second, end.y);
-                float right  = std::max(selection_start_.first, end.x);
+                float left = std::min(selection_start_.first, end.x);
+                float top = std::min(selection_start_.second, end.y);
+                float right = std::max(selection_start_.first, end.x);
                 float bottom = std::max(selection_start_.second, end.y);
 
-                Rectangle selection_rect = {left, top, right - left, bottom - top};
+                Rectangle selection_rect = {left, top, right - left,
+                                            bottom - top};
                 if (CheckCollisionPointRec(node_pos, selection_rect)) {
                     node->follow_mouse_ = true;
                     node->PrepareDrag();
                 } else {
-                    std::tuple<unsigned char, unsigned char, unsigned char> init_color = node->GetInitialColor();
-                    node->SetColor(std::get<0>(init_color), std::get<1>(init_color), std::get<2>(init_color));
+                    std::tuple<unsigned char, unsigned char, unsigned char>
+                        init_color = node->GetInitialColor();
+                    node->SetColor(std::get<0>(init_color),
+                                   std::get<1>(init_color),
+                                   std::get<2>(init_color));
                 }
             }
         }
         is_selecting_ = false;
     }
 
-    //Draw the square and color the nodes
+    // Draw the square and color the nodes
     if (is_selecting_) {
         Vector2 current = GetMousePosition();
         DrawRectangleLines(selection_start_.first, selection_start_.second,
-                           current.x - selection_start_.first, current.y - selection_start_.second, GRAY);
+                           current.x - selection_start_.first,
+                           current.y - selection_start_.second, GRAY);
 
         for (const auto &node : nodes_) {
-            Vector2 node_pos = {node->GetPosition().first, node->GetPosition().second};
-            
-            float left   = std::min(selection_start_.first, current.x);
-            float top    = std::min(selection_start_.second, current.y);
-            float right  = std::max(selection_start_.first, current.x);
+            Vector2 node_pos = {node->GetPosition().first,
+                                node->GetPosition().second};
+
+            float left = std::min(selection_start_.first, current.x);
+            float top = std::min(selection_start_.second, current.y);
+            float right = std::max(selection_start_.first, current.x);
             float bottom = std::max(selection_start_.second, current.y);
 
-            
             Rectangle selection_rect = {left, top, right - left, bottom - top};
             if (CheckCollisionPointRec(node_pos, selection_rect)) {
                 node->SetColor(255, 255, 0);
             } else {
-                std::tuple<unsigned char, unsigned char, unsigned char> init_color = node->GetInitialColor();
-                node->SetColor(std::get<0>(init_color), std::get<1>(init_color), std::get<2>(init_color));
+                std::tuple<unsigned char, unsigned char, unsigned char>
+                    init_color = node->GetInitialColor();
+                node->SetColor(std::get<0>(init_color), std::get<1>(init_color),
+                               std::get<2>(init_color));
             }
         }
     }

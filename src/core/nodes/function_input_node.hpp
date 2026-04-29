@@ -48,7 +48,8 @@ class FunctionInputNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionInputNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept;
+    FunctionInputNode(uint32_t id, NodeKind kind,
+                      std::pair<float, float> position) noexcept;
 
     void InitializeConnections() override;
 

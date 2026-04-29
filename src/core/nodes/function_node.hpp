@@ -111,7 +111,8 @@ class FunctionNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionNode(uint32_t id, NodeKind kind, std::pair<float, float> postion) noexcept;
+    FunctionNode(uint32_t id, NodeKind kind,
+                 std::pair<float, float> postion) noexcept;
 
     void InitializeConnections() override;
 

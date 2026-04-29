@@ -4,7 +4,8 @@
 
 namespace core {
 
-OperatorNode::OperatorNode(uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+OperatorNode::OperatorNode(uint32_t id, NodeKind kind,
+                           std::pair<float, float> position) noexcept
     : NodeBase(id, kind, position) {
     InitializeConnections();
 }
