@@ -6,5 +6,5 @@ var classcore_1_1LiteralNode =
     [ "GetCategory", "classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d", null ],
     [ "Serialize", "classcore_1_1LiteralNode.html#a1c3ca6d98c7b43c1c90c69a854aad9cf", null ],
     [ "set_data", "classcore_1_1LiteralNode.html#acdf258e2357bba1fd20f1c183d526150", null ],
-    [ "set_type", "classcore_1_1LiteralNode.html#aa12c88174e43643e474502fd3f2b9eab", null ]
+    [ "SetType", "classcore_1_1LiteralNode.html#a442eb258f406d87ed0a3c0660d291310", null ]
 ];

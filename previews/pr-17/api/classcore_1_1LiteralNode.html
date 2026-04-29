@@ -121,15 +121,15 @@ Collaboration diagram for core::LiteralNode:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ada95a437b58da3c78cfe987b9d0280a3" id="r_ada95a437b58da3c78cfe987b9d0280a3"><td class="memItemLeft" align="right" valign="top"><a id="ada95a437b58da3c78cfe987b9d0280a3" name="ada95a437b58da3c78cfe987b9d0280a3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_name</b> (const std::string &amp;name)</td></tr>
-<tr class="separator:ada95a437b58da3c78cfe987b9d0280a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af040d601522e7bdabf192585f4353136" id="r_af040d601522e7bdabf192585f4353136"><td class="memItemLeft" align="right" valign="top"><a id="af040d601522e7bdabf192585f4353136" name="af040d601522e7bdabf192585f4353136"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:af040d601522e7bdabf192585f4353136"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5269e9e00dfe21a676fdc0b159989516" id="r_a5269e9e00dfe21a676fdc0b159989516"><td class="memItemLeft" align="right" valign="top"><a id="a5269e9e00dfe21a676fdc0b159989516" name="a5269e9e00dfe21a676fdc0b159989516"></a>
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const noexcept</td></tr>
 <tr class="separator:a5269e9e00dfe21a676fdc0b159989516"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa12c88174e43643e474502fd3f2b9eab" id="r_aa12c88174e43643e474502fd3f2b9eab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#aa12c88174e43643e474502fd3f2b9eab">set_type</a> (<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
-<tr class="memdesc:aa12c88174e43643e474502fd3f2b9eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the type of the node &amp; it's pins connections.  <br /></td></tr>
-<tr class="separator:aa12c88174e43643e474502fd3f2b9eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a442eb258f406d87ed0a3c0660d291310" id="r_a442eb258f406d87ed0a3c0660d291310"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LiteralNode.html#a442eb258f406d87ed0a3c0660d291310">SetType</a> (<a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a> type)</td></tr>
+<tr class="memdesc:a442eb258f406d87ed0a3c0660d291310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the type of the node &amp; it's pins connections.  <br /></td></tr>
+<tr class="separator:a442eb258f406d87ed0a3c0660d291310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5be5a5c7e3c40af53793389e322950d" id="r_af5be5a5c7e3c40af53793389e322950d"><td class="memItemLeft" align="right" valign="top"><a id="af5be5a5c7e3c40af53793389e322950d" name="af5be5a5c7e3c40af53793389e322950d"></a>
 <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> () const noexcept</td></tr>
 <tr class="separator:af5be5a5c7e3c40af53793389e322950d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,9 +175,9 @@ std::tuple&lt; unsigned char, unsigned char, unsigned char &gt;&#160;</td><td cl
 <tr class="memitem:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase" id="r_a1f086066d6a390e70712b5eedbf784e9"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a1f086066d6a390e70712b5eedbf784e9">GetAllParents</a> () const noexcept</td></tr>
 <tr class="memdesc:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives all incoming connections of the node.  <br /></td></tr>
 <tr class="separator:a1f086066d6a390e70712b5eedbf784e9 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase" id="r_a5e33bd4f625217bdbd1faf47b692f177"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177">childrens</a> (uint8_t output_pin) const</td></tr>
-<tr class="memdesc:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all connections for a given output pin.  <br /></td></tr>
-<tr class="separator:a5e33bd4f625217bdbd1faf47b692f177 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7132cef9af65e163475c564e4ad88e17 inherit pub_methods_classcore_1_1NodeBase" id="r_a7132cef9af65e163475c564e4ad88e17"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a7132cef9af65e163475c564e4ad88e17">Childrens</a> (uint8_t output_pin) const</td></tr>
+<tr class="memdesc:a7132cef9af65e163475c564e4ad88e17 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all connections for a given output pin.  <br /></td></tr>
+<tr class="separator:a7132cef9af65e163475c564e4ad88e17 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase" id="r_a0f9cf29a4e842748a237656d95ec6e86"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a0f9cf29a4e842748a237656d95ec6e86">GetAllChildrens</a> () const noexcept</td></tr>
 <tr class="memdesc:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreives all outgoing connections of the node.  <br /></td></tr>
 <tr class="separator:a0f9cf29a4e842748a237656d95ec6e86 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -569,14 +569,14 @@ std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1OutputPin.html">Ou
 
 </div>
 </div>
-<a id="aa12c88174e43643e474502fd3f2b9eab" name="aa12c88174e43643e474502fd3f2b9eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa12c88174e43643e474502fd3f2b9eab">&#9670;&#160;</a></span>set_type()</h2>
+<a id="a442eb258f406d87ed0a3c0660d291310" name="a442eb258f406d87ed0a3c0660d291310"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a442eb258f406d87ed0a3c0660d291310">&#9670;&#160;</a></span>SetType()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::LiteralNode::set_type </td>
+          <td class="memname">void core::LiteralNode::SetType </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">PinDataType</a>&#160;</td>
           <td class="paramname"><em>type</em></td><td>)</td>

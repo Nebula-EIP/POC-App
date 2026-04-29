@@ -26,7 +26,7 @@ var classcore_1_1NodeBase =
     [ "AddInputPin", "classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62", null ],
     [ "AddOutputPin", "classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5", null ],
     [ "CanConnectTo", "classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9", null ],
-    [ "childrens", "classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177", null ],
+    [ "Childrens", "classcore_1_1NodeBase.html#a7132cef9af65e163475c564e4ad88e17", null ],
     [ "ClearParent", "classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e", null ],
     [ "ClickNode", "classcore_1_1NodeBase.html#a7a53aa9631b7ecf5b854a6eb682ff134", null ],
     [ "Deserialize", "classcore_1_1NodeBase.html#ab3f1e755f39a636fbd986cdc28b797c7", null ],
