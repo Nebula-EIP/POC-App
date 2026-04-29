@@ -44,7 +44,7 @@ TEST_F(FunctionNodeTest, Name_SetAndGet) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
 
-    node->set_name("my_add");
+    node->SetName("my_add");
     EXPECT_EQ(node->name(), "my_add");
     EXPECT_EQ(node->GetDisplayName(), "my_add");
 }
@@ -193,7 +193,7 @@ TEST_F(FunctionNodeTest, CanConnectTo_MatchingTypes_Succeeds) {
 
     auto *var_node = graph_.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    var_node->set_type(core::NodeBase::PinDataType::kInt);
+    var_node->SetType(core::NodeBase::PinDataType::kInt);
 
     auto result = func_node->CanConnectTo(0, var_node, 0);
     EXPECT_TRUE(result.has_value());
@@ -206,7 +206,7 @@ TEST_F(FunctionNodeTest, CanConnectTo_MismatchedTypes_Fails) {
 
     auto *var_node = graph_.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    var_node->set_type(core::NodeBase::PinDataType::kFloat);
+    var_node->SetType(core::NodeBase::PinDataType::kFloat);
 
     auto result = func_node->CanConnectTo(0, var_node, 0);
     EXPECT_FALSE(result.has_value());
@@ -227,7 +227,7 @@ TEST_F(FunctionNodeTest, CanConnectTo_InvalidOutputPin_Fails) {
 TEST_F(FunctionNodeTest, Link_LiteralToFunctionInput_Succeeds) {
     auto *literal = graph_.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    literal->set_type(core::NodeBase::PinDataType::kInt);
+    literal->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
@@ -249,7 +249,7 @@ TEST_F(FunctionNodeTest, Link_FunctionOutputToVariable_Succeeds) {
 
     auto *var = graph_.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    var->set_type(core::NodeBase::PinDataType::kInt);
+    var->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_NO_THROW({
         graph_.Link(func, 0, var, 0);
@@ -263,11 +263,11 @@ TEST_F(FunctionNodeTest, Link_FunctionOutputToVariable_Succeeds) {
 TEST_F(FunctionNodeTest, Link_MultipleInputs_AllConnected) {
     auto *lit_a = graph_.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    lit_a->set_type(core::NodeBase::PinDataType::kInt);
+    lit_a->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *lit_b = graph_.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    lit_b->set_type(core::NodeBase::PinDataType::kFloat);
+    lit_b->SetType(core::NodeBase::PinDataType::kFloat);
 
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
@@ -311,11 +311,11 @@ TEST_F(FunctionNodeTest, Body_CanAddNodesInside) {
     core::Graph &body = func->body();
     auto *inner_lit = body.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    inner_lit->set_type(core::NodeBase::PinDataType::kInt);
+    inner_lit->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *inner_var = body.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    inner_var->set_type(core::NodeBase::PinDataType::kInt);
+    inner_var->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_NE(body.GetNode(inner_lit->id()), nullptr);
     EXPECT_NE(body.GetNode(inner_var->id()), nullptr);
@@ -328,11 +328,11 @@ TEST_F(FunctionNodeTest, Body_CanLinkNodesInside) {
     core::Graph &body = func->body();
     auto *lit = body.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    lit->set_type(core::NodeBase::PinDataType::kInt);
+    lit->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *var = body.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    var->set_type(core::NodeBase::PinDataType::kInt);
+    var->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_NO_THROW({
         body.Link(lit, 0, var, 0);
@@ -363,7 +363,7 @@ TEST_F(FunctionNodeTest, Body_IsIndependentFromOuterGraph) {
 TEST_F(FunctionNodeTest, Serialize_ContainsAllFields) {
     auto *node = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
-    node->set_name("compute");
+    node->SetName("compute");
     node->set_return_type(core::NodeBase::PinDataType::kInt);
     graph_.AddInputPin(node, "x", core::NodeBase::PinDataType::kInt);
     graph_.AddInputPin(node, "y", core::NodeBase::PinDataType::kFloat);
@@ -391,8 +391,8 @@ TEST_F(FunctionNodeTest, Serialize_BodyIncludesInnerNodes) {
 
     auto *inner = func->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    inner->set_type(core::NodeBase::PinDataType::kInt);
-    inner->set_name("Constant42");
+    inner->SetType(core::NodeBase::PinDataType::kInt);
+    inner->SetName("Constant42");
 
     auto json = func->Serialize();
 
@@ -407,15 +407,15 @@ TEST_F(FunctionNodeTest, Deserialize_RoundTrip_PreservesData) {
     // Build a function node with parameters and inner graph
     auto *original = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
-    original->set_name("my_func");
+    original->SetName("my_func");
     original->set_return_type(core::NodeBase::PinDataType::kFloat);
     graph_.AddInputPin(original, "a", core::NodeBase::PinDataType::kInt);
     graph_.AddInputPin(original, "b", core::NodeBase::PinDataType::kString);
 
     auto *inner_lit = original->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    inner_lit->set_type(core::NodeBase::PinDataType::kFloat);
-    inner_lit->set_name("pi");
+    inner_lit->SetType(core::NodeBase::PinDataType::kFloat);
+    inner_lit->SetName("pi");
 
     // Serialize the entire graph
     auto json = graph_.Serialize();
@@ -511,15 +511,15 @@ TEST_F(FunctionNodeTest, SaveAndLoad_PreservesFunctionNode) {
     graph_.SetProjectName("FuncTest");
     auto *func = graph_.AddNode<core::FunctionNode>(
         core::NodeBase::NodeKind::kFunction);
-    func->set_name("add");
+    func->SetName("add");
     func->set_return_type(core::NodeBase::PinDataType::kInt);
     graph_.AddInputPin(func, "lhs", core::NodeBase::PinDataType::kInt);
     graph_.AddInputPin(func, "rhs", core::NodeBase::PinDataType::kInt);
 
     auto *inner = func->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    inner->set_type(core::NodeBase::PinDataType::kInt);
-    inner->set_name("result");
+    inner->SetType(core::NodeBase::PinDataType::kInt);
+    inner->SetName("result");
 
     auto save_result = graph_.SaveToFile(tmp);
     ASSERT_TRUE(save_result.has_value()) << save_result.error();
@@ -688,7 +688,7 @@ TEST_F(FunctionNodeTest, AddParameter_CoexistsWithManualBodyNodes) {
     // Manually add a literal node to the body
     auto *lit = func->body().AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    lit->set_type(core::NodeBase::PinDataType::kInt);
+    lit->SetType(core::NodeBase::PinDataType::kInt);
 
     // Now add a parameter — creates another node
     graph_.AddInputPin(func, "x", core::NodeBase::PinDataType::kInt);

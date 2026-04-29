@@ -572,7 +572,7 @@ TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
     literal_node->set_data(42.0f);
     
     // Set variable to Float type (incompatible with Int)
-    variable_node->set_type(core::NodeBase::PinDataType::kFloat);
+    variable_node->SetType(core::NodeBase::PinDataType::kFloat);
     
     // Try to link incompatible types
     EXPECT_THROW({
@@ -1324,7 +1324,7 @@ TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
     
     // Set incompatible types
     literal->set_data(42.0f);  // Float
-    variable->set_type(core::NodeBase::PinDataType::kInt);  // Int
+    variable->SetType(core::NodeBase::PinDataType::kInt);  // Int
     
     // Serialize the graph
     nlohmann::json json = graph_.Serialize();

@@ -36,7 +36,7 @@ TEST_F(OperatorNodeTest, SetOperatorType_Changes) {
 TEST_F(OperatorNodeTest, SetName_ChangesName) {
     auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
 
-    node->set_name("CustomAdd");
+    node->SetName("CustomAdd");
     EXPECT_EQ(node->name(), "CustomAdd");
     EXPECT_EQ(node->GetDisplayName(), "CustomAdd");
 }
@@ -238,8 +238,8 @@ TEST_F(OperatorNodeTest, ConnectLiteralsToOperator_ValidTypes_Success) {
     auto* literal_b = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
     auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
 
-    literal_a->set_type(core::NodeBase::PinDataType::kInt);
-    literal_b->set_type(core::NodeBase::PinDataType::kInt);
+    literal_a->SetType(core::NodeBase::PinDataType::kInt);
+    literal_b->SetType(core::NodeBase::PinDataType::kInt);
     op_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
 
     EXPECT_NO_THROW(graph_.Link(literal_a, 0, op_node, 0));
@@ -250,7 +250,7 @@ TEST_F(OperatorNodeTest, ConnectWrongType_Fails) {
     auto* literal = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
     auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
 
-    literal->set_type(core::NodeBase::PinDataType::kBool);
+    literal->SetType(core::NodeBase::PinDataType::kBool);
     op_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
 
     EXPECT_THROW(graph_.Link(literal, 0, op_node, 0),
@@ -264,9 +264,9 @@ TEST_F(OperatorNodeTest, ChainOperators_Success) {
     auto* add_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
     auto* mul_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
 
-    literal_a->set_type(core::NodeBase::PinDataType::kInt);
-    literal_b->set_type(core::NodeBase::PinDataType::kInt);
-    literal_c->set_type(core::NodeBase::PinDataType::kInt);
+    literal_a->SetType(core::NodeBase::PinDataType::kInt);
+    literal_b->SetType(core::NodeBase::PinDataType::kInt);
+    literal_c->SetType(core::NodeBase::PinDataType::kInt);
     add_node->set_operator_type(core::OperatorNode::OperatorType::kAddition);
     mul_node->set_operator_type(core::OperatorNode::OperatorType::kMultiplication);
 
@@ -282,8 +282,8 @@ TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
     auto* cmp_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
     auto* not_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
 
-    literal_a->set_type(core::NodeBase::PinDataType::kInt);
-    literal_b->set_type(core::NodeBase::PinDataType::kInt);
+    literal_a->SetType(core::NodeBase::PinDataType::kInt);
+    literal_b->SetType(core::NodeBase::PinDataType::kInt);
     cmp_node->set_operator_type(core::OperatorNode::OperatorType::kEqual);
     not_node->set_operator_type(core::OperatorNode::OperatorType::kLogicalNot);
 
@@ -295,7 +295,7 @@ TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
 TEST_F(OperatorNodeTest, Serialize_ContainsRequiredFields) {
     auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
     node->set_operator_type(core::OperatorNode::OperatorType::kMultiplication);
-    node->set_name("Multiply");
+    node->SetName("Multiply");
 
     nlohmann::json json = node->Serialize();
 
@@ -313,7 +313,7 @@ TEST_F(OperatorNodeTest, Serialize_ContainsRequiredFields) {
 TEST_F(OperatorNodeTest, SerializeDeserialize_PreservesData) {
     auto* original = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
     original->set_operator_type(core::OperatorNode::OperatorType::kLogicalAnd);
-    original->set_name("MyAndOperator");
+    original->SetName("MyAndOperator");
 
     nlohmann::json json = original->Serialize();
 

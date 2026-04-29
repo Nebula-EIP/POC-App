@@ -43,7 +43,7 @@ TEST_F(FunctionOutputNodeTest, Name_SetAndGet) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
 
-    node->set_name("Return");
+    node->SetName("Return");
     EXPECT_EQ(node->name(), "Return");
     EXPECT_EQ(node->GetDisplayName(), "Return");
 }
@@ -61,7 +61,7 @@ TEST_F(FunctionOutputNodeTest, Type_SetAndGet) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
 
-    node->set_type(core::NodeBase::PinDataType::kInt);
+    node->SetType(core::NodeBase::PinDataType::kInt);
     EXPECT_EQ(node->type(), core::NodeBase::PinDataType::kInt);
 }
 
@@ -86,7 +86,7 @@ TEST_F(FunctionOutputNodeTest, OutputPinCount_IsZero) {
 TEST_F(FunctionOutputNodeTest, InputPinType_MatchesNodeType) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    node->set_type(core::NodeBase::PinDataType::kFloat);
+    node->SetType(core::NodeBase::PinDataType::kFloat);
 
     EXPECT_EQ(node->GetInputPinType(0), core::NodeBase::PinDataType::kFloat);
 }
@@ -94,7 +94,7 @@ TEST_F(FunctionOutputNodeTest, InputPinType_MatchesNodeType) {
 TEST_F(FunctionOutputNodeTest, InputPinType_InvalidIndex_ReturnsUndefined) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    node->set_type(core::NodeBase::PinDataType::kInt);
+    node->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_EQ(node->GetInputPinType(1),
               core::NodeBase::PinDataType::kUndefined);
@@ -103,7 +103,7 @@ TEST_F(FunctionOutputNodeTest, InputPinType_InvalidIndex_ReturnsUndefined) {
 TEST_F(FunctionOutputNodeTest, OutputPinType_AlwaysUndefined) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    node->set_type(core::NodeBase::PinDataType::kInt);
+    node->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_EQ(node->GetOutputPinType(0),
               core::NodeBase::PinDataType::kUndefined);
@@ -114,7 +114,7 @@ TEST_F(FunctionOutputNodeTest, OutputPinType_AlwaysUndefined) {
 TEST_F(FunctionOutputNodeTest, InputPinName_MatchesNodeName) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    node->set_name("Result");
+    node->SetName("Result");
 
     EXPECT_EQ(node->GetInputPinName(0), "Result");
 }
@@ -147,11 +147,11 @@ TEST_F(FunctionOutputNodeTest, Category_ReturnsFunctions) {
 TEST_F(FunctionOutputNodeTest, CanConnectTo_AlwaysFails) {
     auto *output_node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    output_node->set_type(core::NodeBase::PinDataType::kInt);
+    output_node->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *var_node = graph_.AddNode<core::VariableNode>(
         core::NodeBase::NodeKind::kVariable);
-    var_node->set_type(core::NodeBase::PinDataType::kInt);
+    var_node->SetType(core::NodeBase::PinDataType::kInt);
 
     auto result = output_node->CanConnectTo(0, var_node, 0);
     EXPECT_FALSE(result.has_value());
@@ -162,11 +162,11 @@ TEST_F(FunctionOutputNodeTest, CanConnectTo_AlwaysFails) {
 TEST_F(FunctionOutputNodeTest, Link_LiteralToOutput_Succeeds) {
     auto *literal = graph_.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    literal->set_type(core::NodeBase::PinDataType::kInt);
+    literal->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *output_node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    output_node->set_type(core::NodeBase::PinDataType::kInt);
+    output_node->SetType(core::NodeBase::PinDataType::kInt);
 
     EXPECT_NO_THROW({
         graph_.Link(literal, 0, output_node, 0);
@@ -181,8 +181,8 @@ TEST_F(FunctionOutputNodeTest, Link_LiteralToOutput_Succeeds) {
 TEST_F(FunctionOutputNodeTest, Serialize_ContainsAllFields) {
     auto *node = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    node->set_name("Return");
-    node->set_type(core::NodeBase::PinDataType::kInt);
+    node->SetName("Return");
+    node->SetType(core::NodeBase::PinDataType::kInt);
 
     auto json = node->Serialize();
 
@@ -197,8 +197,8 @@ TEST_F(FunctionOutputNodeTest, Serialize_ContainsAllFields) {
 TEST_F(FunctionOutputNodeTest, Deserialize_RoundTrip_PreservesData) {
     auto *original = graph_.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    original->set_name("ReturnVal");
-    original->set_type(core::NodeBase::PinDataType::kFloat);
+    original->SetName("ReturnVal");
+    original->SetType(core::NodeBase::PinDataType::kFloat);
 
     auto json = graph_.Serialize();
 
@@ -245,12 +245,12 @@ TEST_F(FunctionOutputNodeTest, UsedInsideFunctionBody_CanReceiveInput) {
 
     auto *lit = body.AddNode<core::LiteralNode>(
         core::NodeBase::NodeKind::kLiteral);
-    lit->set_type(core::NodeBase::PinDataType::kInt);
+    lit->SetType(core::NodeBase::PinDataType::kInt);
 
     auto *out = body.AddNode<core::FunctionOutputNode>(
         core::NodeBase::NodeKind::kFunctionOutput);
-    out->set_type(core::NodeBase::PinDataType::kInt);
-    out->set_name("Return");
+    out->SetType(core::NodeBase::PinDataType::kInt);
+    out->SetName("Return");
 
     EXPECT_NO_THROW({
         body.Link(lit, 0, out, 0);
