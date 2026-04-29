@@ -13,7 +13,7 @@ class VariableNode : public NodeBase {
    public:
     ~VariableNode() = default;
 
-    void set_name(const std::string &name);
+    void SetName(const std::string &name);
     const std::string &name() const noexcept;
 
     /**
@@ -21,7 +21,7 @@ class VariableNode : public NodeBase {
      *
      * @throws PinStillConnectedException if pins are already connected
      */
-    void set_type(PinDataType type);
+    void SetType(PinDataType type);
     PinDataType type() const noexcept;
 
     /**

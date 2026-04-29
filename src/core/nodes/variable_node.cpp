@@ -17,11 +17,11 @@ void core::VariableNode::InitializeConnections() {
     AddOutputPin("Output", type_);
 }
 
-void core::VariableNode::set_name(const std::string &name) { name_ = name; }
+void core::VariableNode::SetName(const std::string &name) { name_ = name; }
 
 const std::string &core::VariableNode::name() const noexcept { return name_; }
 
-void core::VariableNode::set_type(PinDataType type) {
+void core::VariableNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <raylib.h>
 
 #include <chrono>
@@ -132,7 +133,7 @@ class NodeBase {
      *
      * @return Pointer to a vector of Connection structs.
      */
-    const std::vector<Connection> *childrens(uint8_t output_pin) const;
+    const std::vector<Connection> *Childrens(uint8_t output_pin) const;
 
     /**
      * @brief Retreives all outgoing connections of the node

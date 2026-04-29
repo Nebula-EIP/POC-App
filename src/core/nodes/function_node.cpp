@@ -31,7 +31,7 @@ void core::FunctionNode::InitializeConnections() {
 
 // ── Name ────────────────────────────────────────────────────────────────────
 
-void core::FunctionNode::set_name(const std::string &name) { name_ = name; }
+void core::FunctionNode::SetName(const std::string &name) { name_ = name; }
 
 const std::string &core::FunctionNode::name() const noexcept { return name_; }
 
@@ -69,8 +69,8 @@ void core::FunctionNode::AddParameter(const std::string &name,
         THROW_EXCEPTION(FunctionNodeException,
                         "Failed to create FunctionInputNode for parameter");
     }
-    input_node->set_name(name);
-    input_node->set_type(type);
+    input_node->SetName(name);
+    input_node->SetType(type);
     parameters_.push_back({name, type, 0, input_node->id()});
     // Resize connection vectors to match new pin count
     parents_.resize(GetInputPinCount());
@@ -100,7 +100,7 @@ void core::FunctionNode::RemoveParameter(const std::string &name) {
     }
 }
 
-const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
+const std::vector<core::FunctionParameter> &core::FunctionNode::Parameters()
     const noexcept {
     return parameters_;
 }

@@ -17,11 +17,11 @@ void core::LiteralNode::InitializeConnections() {
     AddOutputPin("Kakou", type_);
 }
 
-void core::LiteralNode::set_name(const std::string &name) { name_ = name; }
+void core::LiteralNode::SetName(const std::string &name) { name_ = name; }
 
 const std::string &core::LiteralNode::name() const noexcept { return name_; }
 
-void core::LiteralNode::set_type(PinDataType type) {
+void core::LiteralNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {

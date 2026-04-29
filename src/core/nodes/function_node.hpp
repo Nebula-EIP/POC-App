@@ -35,7 +35,7 @@ class FunctionNode : public NodeBase {
 
     // -- Name --
 
-    void set_name(const std::string &name);
+    void SetName(const std::string &name);
     const std::string &name() const noexcept;
 
     // -- Return type (single output) --
@@ -73,7 +73,7 @@ class FunctionNode : public NodeBase {
     /**
      * @brief Returns the parameter list.
      */
-    const std::vector<FunctionParameter> &parameters() const noexcept;
+    const std::vector<FunctionParameter> &Parameters() const noexcept;
 
     // -- Inner graph (function body) --
 

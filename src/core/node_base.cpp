@@ -61,7 +61,7 @@ const std::vector<core::NodeBase::Connection> &core::NodeBase::GetAllParents()
 }
 
 // childrens_ vector already filled by the Graph class
-const std::vector<core::NodeBase::Connection> *core::NodeBase::childrens(
+const std::vector<core::NodeBase::Connection> *core::NodeBase::Childrens(
     uint8_t out_pin) const {
     auto it = std::find_if(
         childrens_.begin(), childrens_.end(),

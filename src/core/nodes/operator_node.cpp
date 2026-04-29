@@ -27,17 +27,15 @@ void OperatorNode::InitializeConnections() {
     }
 }
 
-void OperatorNode::set_operator_type(OperatorType type) {
-    operator_type_ = type;
-}
+void OperatorNode::SetOperatorType(OperatorType type) { operator_type_ = type; }
 
 OperatorNode::OperatorType OperatorNode::operator_type() const {
     return operator_type_;
 }
 
-void OperatorNode::set_name(const std::string &name) { name_ = name; }
+void OperatorNode::SetName(const std::string &name) { name_ = name; }
 
-const std::string &OperatorNode::name() const { return name_; }
+const std::string &OperatorNode::Name() const { return name_; }
 
 uint8_t OperatorNode::GetInputPinCount() const noexcept {
     return IsUnaryOperator() ? 1 : 2;

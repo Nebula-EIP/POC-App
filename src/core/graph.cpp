@@ -253,8 +253,8 @@ uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
                             "Failed to create FunctionInputNode for pin");
         }
 
-        input_node->set_name(name);
-        input_node->set_type(type);
+        input_node->SetName(name);
+        input_node->SetType(type);
         input_node_id = input_node->id();
     }
 
@@ -661,7 +661,7 @@ void core::Graph::Draw() {
     // Draw connections
     for (const auto &node : nodes_) {
         for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
-            const auto &childrens = node->childrens(i);
+            const auto &childrens = node->Childrens(i);
             if (childrens) {
                 for (const auto &conn : (*childrens)) {
                     if (conn.IsConnected()) {

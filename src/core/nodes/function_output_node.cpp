@@ -16,7 +16,7 @@ void core::FunctionOutputNode::InitializeConnections() {
     AddInputPin(name_, type_);
 }
 
-void core::FunctionOutputNode::set_name(const std::string &name) {
+void core::FunctionOutputNode::SetName(const std::string &name) {
     name_ = name;
     if (!parents_.empty()) {
         parents_.front().in_pin_name = name_;
@@ -27,7 +27,7 @@ const std::string &core::FunctionOutputNode::name() const noexcept {
     return name_;
 }
 
-void core::FunctionOutputNode::set_type(PinDataType type) {
+void core::FunctionOutputNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {
