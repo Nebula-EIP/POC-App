@@ -36,7 +36,7 @@ class FunctionNode : public NodeBase {
     // -- Name --
 
     void SetName(const std::string &name);
-    const std::string &name() const noexcept;
+    const std::string &Name() const noexcept;
 
     // -- Return type (single output) --
 

@@ -33,7 +33,7 @@ void core::FunctionNode::InitializeConnections() {
 
 void core::FunctionNode::SetName(const std::string &name) { name_ = name; }
 
-const std::string &core::FunctionNode::name() const noexcept { return name_; }
+const std::string &core::FunctionNode::Name() const noexcept { return name_; }
 
 // ── Return type ─────────────────────────────────────────────────────────────
 

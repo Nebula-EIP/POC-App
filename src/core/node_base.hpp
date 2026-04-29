@@ -1,7 +1,7 @@
 #pragma once
 
-#include <raylib.h>
 
+#include <raylib.h>
 #include <chrono>
 #include <cstdint>
 #include <expected>
