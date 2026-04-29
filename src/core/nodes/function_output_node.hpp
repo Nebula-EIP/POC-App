@@ -20,7 +20,7 @@ class FunctionOutputNode : public NodeBase {
     ~FunctionOutputNode() = default;
 
     void SetName(const std::string &name);
-    const std::string &name() const noexcept;
+    const std::string &Name() const noexcept;
 
     /**
      * @brief Change the type of the node & it's pins connections

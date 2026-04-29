@@ -23,7 +23,7 @@ void core::FunctionOutputNode::SetName(const std::string &name) {
     }
 }
 
-const std::string &core::FunctionOutputNode::name() const noexcept {
+const std::string &core::FunctionOutputNode::Name() const noexcept {
     return name_;
 }
 

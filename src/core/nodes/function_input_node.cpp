@@ -26,7 +26,7 @@ void core::FunctionInputNode::SetName(const std::string &name) {
     }
 }
 
-const std::string &core::FunctionInputNode::name() const noexcept {
+const std::string &core::FunctionInputNode::Name() const noexcept {
     return name_;
 }
 
