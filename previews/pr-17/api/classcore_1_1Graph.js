@@ -1,6 +1,7 @@
 var classcore_1_1Graph =
 [
-    [ "AddNode", "classcore_1_1Graph.html#ad80f008b79112eedcd98f83ba7e79c29", null ],
+    [ "AddInputPin", "classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740", null ],
+    [ "AddNode", "classcore_1_1Graph.html#aa7cac90af9196fc6d40576302b1d47ef", null ],
     [ "AddNode", "classcore_1_1Graph.html#aa6e9bbf92b0cd9900460e7cb434fbba3", null ],
     [ "CheckNodeMovement", "classcore_1_1Graph.html#a78091e8976052a76671806bdcb6d2b61", null ],
     [ "Draw", "classcore_1_1Graph.html#a2cbee336bf4fd9a6db1b45ec30fa2f96", null ],
@@ -14,6 +15,8 @@ var classcore_1_1Graph =
     [ "GetVersion", "classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89", null ],
     [ "Link", "classcore_1_1Graph.html#a207ca9ea6cd38e2bd6667b62376e765a", null ],
     [ "LinkingWithMouse", "classcore_1_1Graph.html#aeed4458e3cd29d7ece39d1d2643bb0c3", null ],
+    [ "RemoveInputPin", "classcore_1_1Graph.html#a7bd2ea23fc0a80ca9b6126d461ad0e1b", null ],
+    [ "RemoveInputPin", "classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b", null ],
     [ "RemoveNode", "classcore_1_1Graph.html#aeebc7f038b9f164ad66d34fadac9098a", null ],
     [ "SaveToFile", "classcore_1_1Graph.html#a8934d9981c1b5390a5cfbbb5aff455fe", null ],
     [ "SelectWithMouse", "classcore_1_1Graph.html#ab6d5d5053cfde924dbb4844c0fdb5083", null ],

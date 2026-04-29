@@ -112,9 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae3d8648a311abbc3cd722cea9f36ecc8" id="r_ae3d8648a311abbc3cd722cea9f36ecc8"><td class="memItemLeft" align="right" valign="top"><a id="ae3d8648a311abbc3cd722cea9f36ecc8" name="ae3d8648a311abbc3cd722cea9f36ecc8"></a>
 <a class="el" href="classcore_1_1Graph.html">Graph</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classcore_1_1Graph.html">Graph</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:ae3d8648a311abbc3cd722cea9f36ecc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad80f008b79112eedcd98f83ba7e79c29" id="r_ad80f008b79112eedcd98f83ba7e79c29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ad80f008b79112eedcd98f83ba7e79c29">AddNode</a> (<a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeBase::NodeKind</a> kind, std::pair&lt; float, float &gt; position)</td></tr>
-<tr class="memdesc:ad80f008b79112eedcd98f83ba7e79c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new node of the specified kind to the graph.  <br /></td></tr>
-<tr class="separator:ad80f008b79112eedcd98f83ba7e79c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7cac90af9196fc6d40576302b1d47ef" id="r_aa7cac90af9196fc6d40576302b1d47ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#aa7cac90af9196fc6d40576302b1d47ef">AddNode</a> (<a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeBase::NodeKind</a> kind, std::pair&lt; float, float &gt; position)</td></tr>
+<tr class="memdesc:aa7cac90af9196fc6d40576302b1d47ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new node of the specified kind to the graph.  <br /></td></tr>
+<tr class="separator:aa7cac90af9196fc6d40576302b1d47ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6e9bbf92b0cd9900460e7cb434fbba3" id="r_aa6e9bbf92b0cd9900460e7cb434fbba3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa6e9bbf92b0cd9900460e7cb434fbba3"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#aa6e9bbf92b0cd9900460e7cb434fbba3">AddNode</a> (<a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeBase::NodeKind</a> kind, std::pair&lt; float, float &gt; position)</td></tr>
 <tr class="memdesc:aa6e9bbf92b0cd9900460e7cb434fbba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new node of the specified kind to the graph with type safety.  <br /></td></tr>
@@ -142,6 +142,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>LinkingWithMouse</b> 
 <tr class="memitem:a9a3ac07fb91bed0a2e9779c7f32e1d52" id="r_a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52">Unlink</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *from, uint8_t out_pin, <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *to, uint8_t in_pin)</td></tr>
 <tr class="memdesc:a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks two nodes by disconnecting an output pin from an input pin.  <br /></td></tr>
 <tr class="separator:a9a3ac07fb91bed0a2e9779c7f32e1d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaca244a70477893198854e5cb7ed9740" id="r_aaca244a70477893198854e5cb7ed9740"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740">AddInputPin</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, const std::string &amp;name, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">NodeBase::PinDataType</a> type)</td></tr>
+<tr class="memdesc:aaca244a70477893198854e5cb7ed9740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an input pin to a node.  <br /></td></tr>
+<tr class="separator:aaca244a70477893198854e5cb7ed9740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4d92fa09b408e50d70420e8887b91b" id="r_a7e4d92fa09b408e50d70420e8887b91b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b">RemoveInputPin</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, uint8_t index)</td></tr>
+<tr class="memdesc:a7e4d92fa09b408e50d70420e8887b91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an input pin from a node by index.  <br /></td></tr>
+<tr class="separator:a7e4d92fa09b408e50d70420e8887b91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd2ea23fc0a80ca9b6126d461ad0e1b" id="r_a7bd2ea23fc0a80ca9b6126d461ad0e1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a7bd2ea23fc0a80ca9b6126d461ad0e1b">RemoveInputPin</a> (<a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *node, const std::string &amp;name)</td></tr>
+<tr class="memdesc:a7bd2ea23fc0a80ca9b6126d461ad0e1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an input pin from a node by name.  <br /></td></tr>
+<tr class="separator:a7bd2ea23fc0a80ca9b6126d461ad0e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad94f2351350b82a034619d0e476eec43" id="r_ad94f2351350b82a034619d0e476eec43"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43">GetProjectName</a> () const</td></tr>
 <tr class="memdesc:ad94f2351350b82a034619d0e476eec43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the project name.  <br /></td></tr>
 <tr class="separator:ad94f2351350b82a034619d0e476eec43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,14 +205,60 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ab9e289d8ecfaf65a7d95982580ba6c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad80f008b79112eedcd98f83ba7e79c29" name="ad80f008b79112eedcd98f83ba7e79c29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad80f008b79112eedcd98f83ba7e79c29">&#9670;&#160;</a></span>AddNode() <span class="overload">[1/2]</span></h2>
+<a id="aaca244a70477893198854e5cb7ed9740" name="aaca244a70477893198854e5cb7ed9740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca244a70477893198854e5cb7ed9740">&#9670;&#160;</a></span>AddInputPin()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> * core::Graph::AddNode </td>
+          <td class="memname">uint8_t core::Graph::AddInputPin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">NodeBase::PinDataType</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds an input pin to a node. </p>
+<p>For <a class="el" href="classcore_1_1FunctionNode.html" title="A node that represents a user-defined function.">FunctionNode</a>, this updates both the input pins and creates a matching <a class="el" href="classcore_1_1FunctionInputNode.html" title="A node representing a single function input parameter inside the function&#39;s body graph.">FunctionInputNode</a> in the function body graph.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The target node. </td></tr>
+    <tr><td class="paramname">name</td><td>Pin name. </td></tr>
+    <tr><td class="paramname">type</td><td>Pin data type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The pin ID of the newly added input pin. </dd></dl>
+
+</div>
+</div>
+<a id="aa7cac90af9196fc6d40576302b1d47ef" name="aa7cac90af9196fc6d40576302b1d47ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7cac90af9196fc6d40576302b1d47ef">&#9670;&#160;</a></span>AddNode() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a> * core::Graph::AddNode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeBase::NodeKind</a>&#160;</td>
           <td class="paramname"><em>kind</em>, </td>
@@ -394,7 +449,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Gets the project creation timestamp. </p>
-<dl class="section return"><dt>Returns</dt><dd>The time point when the project was created. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The time point when the project was created.j </dd></dl>
 
 </div>
 </div>
@@ -615,6 +670,81 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An expected containing the loaded <a class="el" href="classcore_1_1Graph.html">Graph</a> on success, or an error message if loading fails (file not found, corrupted, invalid format). </dd></dl>
+
+</div>
+</div>
+<a id="a7bd2ea23fc0a80ca9b6126d461ad0e1b" name="a7bd2ea23fc0a80ca9b6126d461ad0e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bd2ea23fc0a80ca9b6126d461ad0e1b">&#9670;&#160;</a></span>RemoveInputPin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::Graph::RemoveInputPin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes an input pin from a node by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The target node. </td></tr>
+    <tr><td class="paramname">name</td><td>Input pin name. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7e4d92fa09b408e50d70420e8887b91b" name="a7e4d92fa09b408e50d70420e8887b91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e4d92fa09b408e50d70420e8887b91b">&#9670;&#160;</a></span>RemoveInputPin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::Graph::RemoveInputPin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes an input pin from a node by index. </p>
+<p>If the input pin is connected, this method disconnects it before removal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The target node. </td></tr>
+    <tr><td class="paramname">index</td><td>Input pin index. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -1,6 +1,7 @@
 var classcore_1_1NodeBase =
 [
     [ "Connection", "structcore_1_1NodeBase_1_1Connection.html", "structcore_1_1NodeBase_1_1Connection" ],
+    [ "OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", "structcore_1_1NodeBase_1_1OutputPin" ],
     [ "NodeKind", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e", [
       [ "kUndefined", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea7934d40c7c17315d892e8d5d745b1c66", null ],
       [ "kLiteral", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea8ea55e02792f5ffa4fe35b025ec485c8", null ],
@@ -22,6 +23,8 @@ var classcore_1_1NodeBase =
     ] ],
     [ "NodeBase", "classcore_1_1NodeBase.html#adc6238a44844076c514e530c10dd8e39", null ],
     [ "AddChild", "classcore_1_1NodeBase.html#a131d31888a1ee9c5d04a89f54c227e86", null ],
+    [ "AddInputPin", "classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62", null ],
+    [ "AddOutputPin", "classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5", null ],
     [ "CanConnectTo", "classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9", null ],
     [ "childrens", "classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177", null ],
     [ "ClearParent", "classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e", null ],
@@ -36,12 +39,16 @@ var classcore_1_1NodeBase =
     [ "parent", "classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a", null ],
     [ "PrepareDrag", "classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb", null ],
     [ "RemoveChild", "classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7", null ],
+    [ "RemoveInputPin", "classcore_1_1NodeBase.html#a0f91b3fca9e74748808ec85ee63bc0bb", null ],
+    [ "RemoveOutputPin", "classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5", null ],
     [ "Serialize", "classcore_1_1NodeBase.html#a543244b749199a35758cb26967acb93b", null ],
     [ "SetColor", "classcore_1_1NodeBase.html#a63d7e7b9663a31d5c3c09765684d21cc", null ],
     [ "SetParent", "classcore_1_1NodeBase.html#a439ff8f28e63c0672ce41b237e8b579c", null ],
     [ "Graph", "classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a", null ],
+    [ "childrens_", "classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac", null ],
     [ "drag_offset_", "classcore_1_1NodeBase.html#a80740b7936ee4ae1d2d49d993b12023f", null ],
     [ "initial_position_", "classcore_1_1NodeBase.html#a026eaad63d46e68b8622f1ee0a36b065", null ],
     [ "initial_position_cursor_", "classcore_1_1NodeBase.html#a6f115278a95844d75e07d04d843684dd", null ],
+    [ "parents_", "classcore_1_1NodeBase.html#a820c4b37b54a4e7449584a4f54e54fe1", null ],
     [ "position_", "classcore_1_1NodeBase.html#aa3b4ddc26e1fbbceafd91f2c4fbf70a8", null ]
 ];

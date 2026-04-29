@@ -10,6 +10,6 @@ var searchData=
   ['closeandopenblock_7',['CloseAndOpenBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a20e2a154dcccb5d803f766758a362d48',1,'code_generation::CodeGeneratorFile']]],
   ['closeblock_8',['CloseBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a3f1db29be7bd81a10446091c8b633651',1,'code_generation::CodeGeneratorFile']]],
   ['compilefile_9',['CompileFile',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a5f66403adc6f0e910c892090c06dbb6b',1,'nebula::cmake::CMakeCompiler']]],
-  ['connection_10',['Connection',['../structcore_1_1NodeBase_1_1Connection.html#ad8120fde3636e21e04d83931587e2905',1,'core::NodeBase::Connection']]],
+  ['connection_10',['Connection',['../structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18',1,'core::NodeBase::Connection']]],
   ['current_5fid_11',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
 ];

@@ -54,6 +54,7 @@ var hierarchy =
       [ "core::OperatorNode", "classcore_1_1OperatorNode.html", null ],
       [ "core::VariableNode", "classcore_1_1VariableNode.html", null ]
     ] ],
+    [ "core::NodeBase::OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", null ],
     [ "std::runtime_error", null, [
       [ "editor::EditorException", "classeditor_1_1EditorException.html", [
         [ "code_generation::CodeGenerationError", "classcode__generation_1_1CodeGenerationError.html", [
