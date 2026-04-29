@@ -247,7 +247,7 @@ uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
     uint32_t input_node_id = 0;
     if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
         auto *input_node = function_node->body().AddNode<FunctionInputNode>(
-            NodeBase::NodeKind::kFunctionInput);
+            NodeBase::NodeKind::kFunctionInput, {0, 0});
         if (input_node == nullptr) {
             THROW_EXCEPTION(FunctionNodeException,
                             "Failed to create FunctionInputNode for pin");

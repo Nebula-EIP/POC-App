@@ -70,7 +70,7 @@ void core::FunctionNode::AddParameter(const std::string &name,
     }
     input_node->set_name(name);
     input_node->set_type(type);
-    parameters_.push_back({name, type, input_node->id()});
+    parameters_.push_back({name, type, 0, input_node->id()});
     // Resize connection vectors to match new pin count
     parents_.resize(GetInputPinCount());
 }

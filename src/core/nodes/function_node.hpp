@@ -45,6 +45,34 @@ class FunctionNode : public NodeBase {
 
     // -- Parameters (input pins) --
 
+    /**
+     * @brief Adds a parameter to the function.
+     *
+     * This increases the input pin count by one. The caller must call
+     * ReinitializeConnections() afterwards if the node is already connected.
+     *
+     * @param name  The parameter name.
+     * @param type  The parameter data type.
+     */
+    void AddParameter(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes a parameter by index.
+     * (the caller must have unlinked beforehand)
+     * @param index The 0-based index of the parameter to remove.
+     */
+    void RemoveParameter(uint8_t index);
+
+    /**
+     * @brief Removes a parameter by name.
+     * (the caller must have unlinked beforehand)
+     * @param name The name of the parameter to remove.
+     */
+    void RemoveParameter(const std::string &name);
+
+    /**
+     * @brief Returns the parameter list.
+     */
     const std::vector<FunctionParameter> &parameters() const noexcept;
 
     // -- Inner graph (function body) --
@@ -89,7 +117,7 @@ class FunctionNode : public NodeBase {
 
    private:
     std::string name_ = "Function";
-    PinDataType return_type_ = PinDataType::kVoid;
+    PinDataType return_type_ = PinDataType::kInt;
     std::vector<FunctionParameter> parameters_;
     std::unique_ptr<Graph> body_;
 };
