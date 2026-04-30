@@ -118,7 +118,7 @@ class FunctionNode : public NodeBase {
 
    private:
     std::string name_ = "Function";
-    PinDataType return_type_ = PinDataType::kInt;
+    PinDataType return_type_ = PinDataType::kVoid;
     std::vector<FunctionParameter> parameters_;
     std::unique_ptr<Graph> body_;
 };
