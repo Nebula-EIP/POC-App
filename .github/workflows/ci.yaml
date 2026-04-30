@@ -75,9 +75,13 @@ jobs:
       
       - name: Install raylib (Windows)
         if: runner.os == 'Windows'
+        shell: cmd
         run: |
-          vcpkg install raylib:x64-windows
-          vcpkg integrate install
+          git clone --depth 1 https://github.com/raysan5/raylib.git
+          cd raylib
+          cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
+          cmake --build build --parallel
+          cmake --install build --prefix C:\raylib
 
       - name: Setup environment
         run: ${{ matrix.setup_script }}

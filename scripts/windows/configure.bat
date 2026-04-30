@@ -15,8 +15,7 @@ cmake -B %BUILD_DIR% ^
       -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ^
       -DCPM_SOURCE_CACHE=%CD%\.cache\CPM
       -DCMAKE_BUILD_TYPE=%1 ^
-      -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake ^
-      -DVCPKG_TARGET_TRIPLET=x64-windows
+      -DCMAKE_PREFIX_PATH=C:\raylib
 
 if errorlevel 1 (
     echo CMake configuration failed
