@@ -31,9 +31,14 @@ if(CORE_SOURCES)
         raylib
     )
 
-    # Linux-specific system libs raylib depends on
     if(UNIX AND NOT APPLE)
         target_link_libraries(core PUBLIC m dl pthread GL X11)
+    elseif(WIN32)
+        target_link_libraries(core PUBLIC
+            winmm        # audio
+            gdi32        # graphics
+            opengl32     # OpenGL
+        )
     endif()
 
     # Set properties
