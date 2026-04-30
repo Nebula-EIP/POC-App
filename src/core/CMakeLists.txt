@@ -21,8 +21,20 @@ if(CORE_SOURCES)
             $<INSTALL_INTERFACE:include>
     )
 
+    # Find Raylib
+    find_package(raylib REQUIRED)
+
     # Add dependencies
-    target_link_libraries(core PUBLIC nlohmann_json::nlohmann_json utils)
+    target_link_libraries(core PUBLIC
+        nlohmann_json::nlohmann_json
+        utils
+        raylib
+    )
+
+    # Linux-specific system libs raylib depends on
+    if(UNIX AND NOT APPLE)
+        target_link_libraries(core PUBLIC m dl pthread GL X11)
+    endif()
 
     # Set properties
     set_target_properties(core PROPERTIES

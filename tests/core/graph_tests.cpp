@@ -20,39 +20,39 @@ class GraphTest : public testing::Test {
     core::Graph graph_;
 };
 
-static void DumpGraph(const core::Graph &graph) {
-    printf("### DUMPING GRAPH ###\n");
-    for (const auto &node : graph.GetAllNodes()) {
-        printf("Node[%d:%s]\n", node->id(), core::NodeKindToString(node->kind()).c_str());
-
-        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(), node->GetInputPinCount());
-        for (auto conn : node->GetAllParents()) {
-            if (conn.IsConnected()) {
-                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n",
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str(),
-                    conn.node->id(), node->GetDisplayName().c_str(),
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    IN[%d:%s] <- Disconnected\n",
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
-            }
-        }
-
-        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
-        for (auto conn : node->GetAllChildrens()) {
-            if (conn.IsConnected())  {
-                printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str(),
-                    conn.node->id(), core::NodeKindToString(conn.node->kind()).c_str(),
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    OUT[%d:%s] -> Disconnected\n",
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
-            }
-        }
-    }
-    printf("### COMPLETED ###\n");
-}
+//static void DumpGraph(const core::Graph &graph) {
+//    printf("### DUMPING GRAPH ###\n");
+//    for (const auto &node : graph.GetAllNodes()) {
+//        printf("Node[%d:%s]\n", node->id(), core::NodeKindToString(node->kind()).c_str());
+//
+//        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(), node->GetInputPinCount());
+//        for (auto conn : node->GetAllParents()) {
+//            if (conn.IsConnected()) {
+//                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n",
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str(),
+//                    conn.node->id(), node->GetDisplayName().c_str(),
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+//            } else {
+//                printf("    IN[%d:%s] <- Disconnected\n",
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+//            }
+//        }
+//
+//        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
+//        for (auto conn : node->GetAllChildrens()) {
+//            if (conn.IsConnected())  {
+//                printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str(),
+//                    conn.node->id(), core::NodeKindToString(conn.node->kind()).c_str(),
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+//            } else {
+//                printf("    OUT[%d:%s] -> Disconnected\n",
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+//            }
+//        }
+//    }
+//    printf("### COMPLETED ###\n");
+//}
 
 
 /* ################################################################ */
