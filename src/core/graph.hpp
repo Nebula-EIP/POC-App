@@ -246,6 +246,17 @@ class Graph {
     static std::expected<Graph, std::string> Deserialize(
         const nlohmann::json &json);
 
+    // Public Edge type for external inspection (read-only via GetEdges)
+    struct Edge {
+        uint32_t source_node_id;
+        uint8_t source_pin;
+        uint32_t target_node_id;
+        uint8_t target_pin;
+    };
+
+    // Accessor for explicit edge storage (read-only)
+    const std::vector<Edge> &GetEdges() const noexcept { return edges_; }
+
     /**
      * @brief Saves the graph to a .nebula file.
      *
@@ -287,6 +298,9 @@ class Graph {
 
     utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
+
+    // Non-invasive explicit edge storage for Phase 1
+    std::vector<Edge> edges_;
 
     // Project metadata
     std::string project_name_;
