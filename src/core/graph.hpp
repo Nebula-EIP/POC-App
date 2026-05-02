@@ -37,6 +37,8 @@ class Graph {
      *
      * @param kind The kind of the node to be added, specified as a
      * NodeBase::NodeKind.
+     * @param position The position of the node in the editor, specified as a
+     * pair of floats
      * @return A pointer to the newly added node as NodeBase*.
      *
      * @throws InvalidNodeKindException if kind == 0 (kUndefined)
@@ -44,7 +46,8 @@ class Graph {
      * @note Prefer to use the templated version if you want to get back the
      * derived class.
      */
-    NodeBase *AddNode(NodeBase::NodeKind kind);
+    NodeBase *AddNode(NodeBase::NodeKind kind,
+                      std::pair<float, float> position);
 
     /**
      * @brief Adds a new node of the specified kind to the graph with type
@@ -54,6 +57,8 @@ class Graph {
      * NodeBase.
      * @param kind The kind of the node to be added, specified as a
      * NodeBase::NodeKind.
+     * @param position The position of the node in the editor, specified as a
+     * pair of floats
      * @return A pointer to the newly added node of type T.
      *
      * @throws InvalidNodeKindException if kind == 0 (kUndefined)
@@ -63,7 +68,7 @@ class Graph {
      * compilation error.
      */
     template <typename T>
-    T *AddNode(NodeBase::NodeKind kind);
+    T *AddNode(NodeBase::NodeKind kind, std::pair<float, float> position);
 
     /**
      * @brief Removes a node from the graph.
@@ -99,6 +104,12 @@ class Graph {
      */
     template <typename T>
     T *GetNode(uint32_t id) const;
+
+    /**
+     * @brief Verify is the user has right clicked on a node
+     * then on another node to link them together
+     */
+    void LinkingWithMouse();
 
     /**
      * @brief Gets all nodes in the graph.
@@ -275,18 +286,42 @@ class Graph {
     static std::expected<Graph, std::string> LoadFromFile(
         const std::filesystem::path &path);
 
+    /**
+     * @brief Draws the graph and all its nodes.
+     */
+    void Draw();
+
+    /**
+     * @brief Check if a node is moved
+     */
+    void CheckNodeMovement();
+
+    /**
+     * @brief Draw a square from the selection start to the current mouse
+     * position to select multiple nodes then move them together
+     */
+    void SelectWithMouse();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
      *
      * @param id The unique identifier for the new node.
      * @param kind The kind of node to create.
+     * @param position The position of the node in the editor.
      * @return A unique pointer to the newly created node.
      */
-    std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind);
+    std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
+                                         std::pair<float, float> position);
 
     utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
+    NodeBase *linking_from_node_ =
+        nullptr;  ///< Temporary pointer for linking with mouse
+    bool is_selecting_ =
+        false;  ///< Flag to indicate if the user is currently selecting nodes
+    std::pair<float, float>
+        selection_start_;  ///< Starting position of the selection box
 
     // Project metadata
     std::string project_name_;

@@ -5,10 +5,10 @@
 namespace core {
 
 template <typename T>
-T *Graph::AddNode(NodeBase::NodeKind kind) {
+T *Graph::AddNode(NodeBase::NodeKind kind, std::pair<float, float> position) {
     static_assert(std::is_base_of_v<NodeBase, T>,
                   "T must derive from core::NodeBase");
-    return static_cast<T *>(AddNode(kind));
+    return static_cast<T *>(AddNode(kind, position));
 }
 
 template <typename T>

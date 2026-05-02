@@ -8,6 +8,7 @@
 #include <map>
 #include <sstream>
 
+#include "logger.hpp"
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
@@ -50,14 +51,15 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
     return modified_at_;
 }
 
-core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind) {
+core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind,
+                                     std::pair<float, float> position) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         THROW_EXCEPTION(InvalidNodeKindException,
                         "kUndefined is not a valid node kind");
     }
 
     try {
-        nodes_.push_back(CreateNode(id_manager_.NewId(), kind));
+        nodes_.push_back(CreateNode(id_manager_.NewId(), kind, position));
     } catch (std::exception &e) {
         return nullptr;
     }
@@ -245,14 +247,14 @@ uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
     uint32_t input_node_id = 0;
     if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
         auto *input_node = function_node->body().AddNode<FunctionInputNode>(
-            NodeBase::NodeKind::kFunctionInput);
+            NodeBase::NodeKind::kFunctionInput, {0, 0});
         if (input_node == nullptr) {
             THROW_EXCEPTION(FunctionNodeException,
                             "Failed to create FunctionInputNode for pin");
         }
 
-        input_node->set_name(name);
-        input_node->set_type(type);
+        input_node->SetName(name);
+        input_node->SetType(type);
         input_node_id = input_node->id();
     }
 
@@ -332,34 +334,38 @@ void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
 }
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
-    uint32_t id, NodeBase::NodeKind kind) {
+    uint32_t id, NodeBase::NodeKind kind, std::pair<float, float> position) {
     std::unique_ptr<NodeBase> node;
 
     switch (kind) {
         case NodeBase::NodeKind::kLiteral:
-            node = std::unique_ptr<LiteralNode>(new LiteralNode(id, kind));
+            node = std::unique_ptr<LiteralNode>(
+                new LiteralNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kVariable:
-            node = std::unique_ptr<VariableNode>(new VariableNode(id, kind));
+            node = std::unique_ptr<VariableNode>(
+                new VariableNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunction:
-            node = std::unique_ptr<FunctionNode>(new FunctionNode(id, kind));
+            node = std::unique_ptr<FunctionNode>(
+                new FunctionNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunctionInput:
             node = std::unique_ptr<FunctionInputNode>(
-                new FunctionInputNode(id, kind));
+                new FunctionInputNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kFunctionOutput:
             node = std::unique_ptr<FunctionOutputNode>(
-                new FunctionOutputNode(id, kind));
+                new FunctionOutputNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kOperator:
-            node = std::unique_ptr<OperatorNode>(new OperatorNode(id, kind));
+            node = std::unique_ptr<OperatorNode>(
+                new OperatorNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kCondition:
@@ -644,5 +650,133 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
     } catch (const std::exception &e) {
         return std::unexpected(std::string("Failed to load graph: ") +
                                e.what());
+    }
+}
+
+void core::Graph::Draw() {
+    // Draw nodes
+    for (const auto &node : nodes_) {
+        node->Draw();
+    }
+    // Draw connections
+    for (const auto &node : nodes_) {
+        for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
+            const auto &childrens = node->Childrens(i);
+            if (childrens) {
+                for (const auto &conn : (*childrens)) {
+                    if (conn.IsConnected()) {
+                        Vector2 start = {node->GetPosition().first + 100,
+                                         node->GetPosition().second + 25};
+                        Vector2 end = {conn.node->GetPosition().first,
+                                       conn.node->GetPosition().second + 25};
+                        DrawLineBezier(start, end, 2, BLACK);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void core::Graph::CheckNodeMovement() {
+    for (const auto &node : nodes_) {
+        node->ClickNode();
+        node->MoveNode();
+    }
+}
+
+void core::Graph::LinkingWithMouse() {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+        for (const auto &node : nodes_) {
+            if (node->IsMouseOver()) {
+                if (linking_from_node_ == nullptr) {
+                    linking_from_node_ = node.get();
+                } else {
+                    if (node.get() == linking_from_node_) {
+                        linking_from_node_ = nullptr;
+                        break;
+                    }
+                    try {
+                        Link(linking_from_node_, 0, node.get(), 0);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
+                    }
+                    linking_from_node_ = nullptr;
+                }
+                break;
+            }
+        }
+    }
+
+    if (linking_from_node_) {
+        Vector2 cursor_pos = GetMousePosition();
+        DrawLineEx({linking_from_node_->GetPosition().first + 100,
+                    linking_from_node_->GetPosition().second + 25},
+                   cursor_pos, 2, GRAY);
+    }
+}
+
+void core::Graph::SelectWithMouse() {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (!is_selecting_) {
+            Vector2 start = GetMousePosition();
+            selection_start_ = {start.x, start.y};
+            is_selecting_ = true;
+        }
+    } else {
+        if (is_selecting_) {
+            // Select the nodes within the selection rectangle
+            Vector2 end = GetMousePosition();
+            for (const auto &node : nodes_) {
+                Vector2 node_pos = {node->GetPosition().first,
+                                    node->GetPosition().second};
+
+                float left = std::min(selection_start_.first, end.x);
+                float top = std::min(selection_start_.second, end.y);
+                float right = std::max(selection_start_.first, end.x);
+                float bottom = std::max(selection_start_.second, end.y);
+
+                Rectangle selection_rect = {left, top, right - left,
+                                            bottom - top};
+                if (CheckCollisionPointRec(node_pos, selection_rect)) {
+                    node->follow_mouse_ = true;
+                    node->PrepareDrag();
+                } else {
+                    std::tuple<unsigned char, unsigned char, unsigned char>
+                        init_color = node->GetInitialColor();
+                    node->SetColor(std::get<0>(init_color),
+                                   std::get<1>(init_color),
+                                   std::get<2>(init_color));
+                }
+            }
+        }
+        is_selecting_ = false;
+    }
+
+    // Draw the square and color the nodes
+    if (is_selecting_) {
+        Vector2 current = GetMousePosition();
+        DrawRectangleLines(selection_start_.first, selection_start_.second,
+                           current.x - selection_start_.first,
+                           current.y - selection_start_.second, GRAY);
+
+        for (const auto &node : nodes_) {
+            Vector2 node_pos = {node->GetPosition().first,
+                                node->GetPosition().second};
+
+            float left = std::min(selection_start_.first, current.x);
+            float top = std::min(selection_start_.second, current.y);
+            float right = std::max(selection_start_.first, current.x);
+            float bottom = std::max(selection_start_.second, current.y);
+
+            Rectangle selection_rect = {left, top, right - left, bottom - top};
+            if (CheckCollisionPointRec(node_pos, selection_rect)) {
+                node->SetColor(255, 255, 0);
+            } else {
+                std::tuple<unsigned char, unsigned char, unsigned char>
+                    init_color = node->GetInitialColor();
+                node->SetColor(std::get<0>(init_color), std::get<1>(init_color),
+                               std::get<2>(init_color));
+            }
+        }
     }
 }

@@ -1,9 +1,12 @@
 #include "variable_node.hpp"
 
-#include "../connection_exceptions.hpp"
+#include "connection_exceptions.hpp"
 
-core::VariableNode::VariableNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {}
+core::VariableNode::VariableNode(uint32_t id, NodeKind kind,
+                                 std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
+    InitializeConnections();
+}
 
 void core::VariableNode::InitializeConnections() {
     parents_.clear();
@@ -14,11 +17,11 @@ void core::VariableNode::InitializeConnections() {
     AddOutputPin("Output", type_);
 }
 
-void core::VariableNode::set_name(const std::string &name) { name_ = name; }
+void core::VariableNode::SetName(const std::string &name) { name_ = name; }
 
 const std::string &core::VariableNode::name() const noexcept { return name_; }
 
-void core::VariableNode::set_type(PinDataType type) {
+void core::VariableNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {

@@ -19,15 +19,15 @@ class FunctionOutputNode : public NodeBase {
    public:
     ~FunctionOutputNode() = default;
 
-    void set_name(const std::string &name);
-    const std::string &name() const noexcept;
+    void SetName(const std::string &name);
+    const std::string &Name() const noexcept;
 
     /**
      * @brief Change the type of the node & it's pins connections
      *
      * @throws PinStillConnectedException if pins are already connected
      */
-    void set_type(PinDataType type);
+    void SetType(PinDataType type);
     PinDataType type() const noexcept;
 
     // -- NodeBase overrides --
@@ -47,7 +47,8 @@ class FunctionOutputNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionOutputNode(uint32_t id, NodeKind kind) noexcept;
+    FunctionOutputNode(uint32_t id, NodeKind kind,
+                       std::pair<float, float> postion) noexcept;
 
     void InitializeConnections() override;
 

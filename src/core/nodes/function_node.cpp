@@ -9,8 +9,11 @@
 
 core::FunctionNode::~FunctionNode() = default;
 
-core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind), body_(std::make_unique<Graph>()) {}
+core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind,
+                                 std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position), body_(std::make_unique<Graph>()) {
+    InitializeConnections();
+}
 
 void core::FunctionNode::InitializeConnections() {
     parents_.clear();
@@ -28,9 +31,9 @@ void core::FunctionNode::InitializeConnections() {
 
 // ── Name ────────────────────────────────────────────────────────────────────
 
-void core::FunctionNode::set_name(const std::string &name) { name_ = name; }
+void core::FunctionNode::SetName(const std::string &name) { name_ = name; }
 
-const std::string &core::FunctionNode::name() const noexcept { return name_; }
+const std::string &core::FunctionNode::Name() const noexcept { return name_; }
 
 // ── Return type ─────────────────────────────────────────────────────────────
 
@@ -55,7 +58,49 @@ core::NodeBase::PinDataType core::FunctionNode::return_type() const noexcept {
     return return_type_;
 }
 
-const std::vector<core::FunctionParameter> &core::FunctionNode::parameters()
+// ── Parameters ──────────────────────────────────────────────────────────────
+
+void core::FunctionNode::AddParameter(const std::string &name,
+                                      PinDataType type) {
+    auto *input_node =
+        body_->AddNode<FunctionInputNode>(NodeKind::kFunctionInput, {0, 0});
+
+    if (!input_node) {
+        THROW_EXCEPTION(FunctionNodeException,
+                        "Failed to create FunctionInputNode for parameter");
+    }
+    input_node->SetName(name);
+    input_node->SetType(type);
+    parameters_.push_back({name, type, 0, input_node->id()});
+    // Resize connection vectors to match new pin count
+    parents_.resize(GetInputPinCount());
+}
+
+void core::FunctionNode::RemoveParameter(uint8_t index) {
+    if (index >= parameters_.size()) return;
+    if (auto *node = body_->GetNode(parameters_[index].node_id)) {
+        body_->RemoveNode(node);
+    }
+    parameters_.erase(parameters_.begin() + index);
+    // Rebuild connections – the caller should have unlinked beforehand
+    parents_.resize(GetInputPinCount());
+}
+
+void core::FunctionNode::RemoveParameter(const std::string &name) {
+    auto it = std::find_if(
+        parameters_.begin(), parameters_.end(),
+        [&name](const FunctionParameter &param) { return param.name == name; });
+    if (it != parameters_.end()) {
+        if (auto *node = body_->GetNode(it->node_id)) {
+            body_->RemoveNode(node);
+        }
+        parameters_.erase(it);
+        // Rebuild connections – the caller should have unlinked beforehand
+        parents_.resize(GetInputPinCount());
+    }
+}
+
+const std::vector<core::FunctionParameter> &core::FunctionNode::Parameters()
     const noexcept {
     return parameters_;
 }

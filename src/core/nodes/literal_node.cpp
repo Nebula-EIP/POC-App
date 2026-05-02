@@ -2,8 +2,12 @@
 
 #include "../connection_exceptions.hpp"
 
-core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind) noexcept
-    : NodeBase(id, kind) {}
+core::LiteralNode::LiteralNode(uint32_t id, NodeKind kind,
+                               std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
+    parents_.resize(GetInputPinCount());
+    childrens_.resize(GetOutputPinCount());
+}
 
 void core::LiteralNode::InitializeConnections() {
     parents_.clear();
@@ -13,11 +17,11 @@ void core::LiteralNode::InitializeConnections() {
     AddOutputPin("Kakou", type_);
 }
 
-void core::LiteralNode::set_name(const std::string &name) { name_ = name; }
+void core::LiteralNode::SetName(const std::string &name) { name_ = name; }
 
 const std::string &core::LiteralNode::name() const noexcept { return name_; }
 
-void core::LiteralNode::set_type(PinDataType type) {
+void core::LiteralNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {

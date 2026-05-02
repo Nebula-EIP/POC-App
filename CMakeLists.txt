@@ -41,6 +41,17 @@ CPMAddPackage(
     OPTIONS "JSON_BuildTests OFF" "JSON_Install OFF"
 )
 
+# Add raylib for rendering and window management
+CPMAddPackage(
+    NAME raylib
+    GITHUB_REPOSITORY raysan5/raylib
+    GIT_TAG 5.0
+    OPTIONS
+        "BUILD_EXAMPLES OFF"
+        "BUILD_GAMES OFF"
+        "BUILD_SHARED_LIBS OFF"
+)
+
 # Testing support
 enable_testing()
 CPMAddPackage(

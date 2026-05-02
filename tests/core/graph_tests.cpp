@@ -20,39 +20,39 @@ class GraphTest : public testing::Test {
     core::Graph graph_;
 };
 
-static void DumpGraph(const core::Graph &graph) {
-    printf("### DUMPING GRAPH ###\n");
-    for (const auto &node : graph.GetAllNodes()) {
-        printf("Node[%d:%s]\n", node->id(), core::NodeKindToString(node->kind()).c_str());
-
-        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(), node->GetInputPinCount());
-        for (auto conn : node->GetAllParents()) {
-            if (conn.IsConnected()) {
-                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n",
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str(),
-                    conn.node->id(), node->GetDisplayName().c_str(),
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    IN[%d:%s] <- Disconnected\n",
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
-            }
-        }
-
-        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
-        for (auto conn : node->GetAllChildrens()) {
-            if (conn.IsConnected())  {
-                printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str(),
-                    conn.node->id(), core::NodeKindToString(conn.node->kind()).c_str(),
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    OUT[%d:%s] -> Disconnected\n",
-                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
-            }
-        }
-    }
-    printf("### COMPLETED ###\n");
-}
+//static void DumpGraph(const core::Graph &graph) {
+//    printf("### DUMPING GRAPH ###\n");
+//    for (const auto &node : graph.GetAllNodes()) {
+//        printf("Node[%d:%s]\n", node->id(), core::NodeKindToString(node->kind()).c_str());
+//
+//        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(), node->GetInputPinCount());
+//        for (auto conn : node->GetAllParents()) {
+//            if (conn.IsConnected()) {
+//                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n",
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str(),
+//                    conn.node->id(), node->GetDisplayName().c_str(),
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+//            } else {
+//                printf("    IN[%d:%s] <- Disconnected\n",
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+//            }
+//        }
+//
+//        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(), node->GetOutputPinCount());
+//        for (auto conn : node->GetAllChildrens()) {
+//            if (conn.IsConnected())  {
+//                printf("    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n",
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str(),
+//                    conn.node->id(), core::NodeKindToString(conn.node->kind()).c_str(),
+//                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
+//            } else {
+//                printf("    OUT[%d:%s] -> Disconnected\n",
+//                    conn.out_pin, core::PinDataTypeToString(conn.type).c_str());
+//            }
+//        }
+//    }
+//    printf("### COMPLETED ###\n");
+//}
 
 
 /* ################################################################ */
@@ -166,7 +166,7 @@ TEST_F(GraphTest, GettersReturnCorrectMetadata) {
 #pragma region AddNode
 
 TEST_F(GraphTest, AddNodeCreatesLiteralNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kLiteral);
@@ -174,7 +174,7 @@ TEST_F(GraphTest, AddNodeCreatesLiteralNode) {
 }
 
 TEST_F(GraphTest, AddNodeCreatesVariableNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kVariable);
@@ -182,7 +182,7 @@ TEST_F(GraphTest, AddNodeCreatesVariableNode) {
 }
 
 TEST_F(GraphTest, AddNodeCreatesFunctionNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunction);
@@ -190,7 +190,7 @@ TEST_F(GraphTest, AddNodeCreatesFunctionNode) {
 }
 
 TEST_F(GraphTest, AddNodeCreatesFunctionInputNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput, {0, 0});
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunctionInput);
@@ -198,7 +198,7 @@ TEST_F(GraphTest, AddNodeCreatesFunctionInputNode) {
 }
 
 TEST_F(GraphTest, AddNodeCreatesFunctionOutputNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {0, 0});
     
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->kind(), core::NodeBase::NodeKind::kFunctionOutput);
@@ -207,14 +207,14 @@ TEST_F(GraphTest, AddNodeCreatesFunctionOutputNode) {
 
 TEST_F(GraphTest, AddNodeThrowsOnUndefinedKind) {
     EXPECT_THROW({
-        graph_.AddNode(core::NodeBase::NodeKind::kUndefined);
+        graph_.AddNode(core::NodeBase::NodeKind::kUndefined, {0, 0});
     }, core::InvalidNodeKindException);
 }
 
 TEST_F(GraphTest, AddNodeAssignsUniqueIds) {
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -233,27 +233,27 @@ TEST_F(GraphTest, AddNodeAssignsUniqueIds) {
 
 TEST_F(GraphTest, AddNodeTemplatedVersionReturnsCorrectType) {
     // Test with LiteralNode
-    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(literal_node, nullptr);
     EXPECT_EQ(literal_node->kind(), core::NodeBase::NodeKind::kLiteral);
     
     // Test with VariableNode
-    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(variable_node, nullptr);
     EXPECT_EQ(variable_node->kind(), core::NodeBase::NodeKind::kVariable);
     
     // Test with FunctionNode
-    auto *function_node = graph_.AddNode<core::FunctionNode>(core::NodeBase::NodeKind::kFunction);
+    auto *function_node = graph_.AddNode<core::FunctionNode>(core::NodeBase::NodeKind::kFunction, {0, 0});
     ASSERT_NE(function_node, nullptr);
     EXPECT_EQ(function_node->kind(), core::NodeBase::NodeKind::kFunction);
     
     // Test with FunctionInputNode
-    auto *input_node = graph_.AddNode<core::FunctionInputNode>(core::NodeBase::NodeKind::kFunctionInput);
+    auto *input_node = graph_.AddNode<core::FunctionInputNode>(core::NodeBase::NodeKind::kFunctionInput, {0, 0});
     ASSERT_NE(input_node, nullptr);
     EXPECT_EQ(input_node->kind(), core::NodeBase::NodeKind::kFunctionInput);
     
     // Test with FunctionOutputNode
-    auto *output_node = graph_.AddNode<core::FunctionOutputNode>(core::NodeBase::NodeKind::kFunctionOutput);
+    auto *output_node = graph_.AddNode<core::FunctionOutputNode>(core::NodeBase::NodeKind::kFunctionOutput, {0, 0});
     ASSERT_NE(output_node, nullptr);
     EXPECT_EQ(output_node->kind(), core::NodeBase::NodeKind::kFunctionOutput);
 }
@@ -267,7 +267,7 @@ TEST_F(GraphTest, AddNodeTemplatedVersionReturnsCorrectType) {
 #pragma region RemoveNode
 
 TEST_F(GraphTest, RemoveNodeDeletesExistingNode) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(node, nullptr);
     
     uint32_t node_id = node->id();
@@ -288,7 +288,7 @@ TEST_F(GraphTest, RemoveNodeThrowsOnNullptr) {
 TEST_F(GraphTest, RemoveNodeThrowsOnUnownedNode) {
     // Create a separate graph with its own node
     core::Graph other_graph;
-    auto *other_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *other_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(other_node, nullptr);
     
     // Try to remove the other graph's node from this graph
@@ -299,9 +299,9 @@ TEST_F(GraphTest, RemoveNodeThrowsOnUnownedNode) {
 
 TEST_F(GraphTest, RemoveNodeDisconnectsParentConnections) {
     // Create three nodes: parent -> middle -> child
-    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(parent, nullptr);
     ASSERT_NE(middle, nullptr);
@@ -321,9 +321,9 @@ TEST_F(GraphTest, RemoveNodeDisconnectsParentConnections) {
 
 TEST_F(GraphTest, RemoveNodeDisconnectsChildConnections) {
     // Create three nodes: parent -> middle -> child
-    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *parent = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *middle = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *child = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(parent, nullptr);
     ASSERT_NE(middle, nullptr);
@@ -344,13 +344,13 @@ TEST_F(GraphTest, RemoveNodeDisconnectsChildConnections) {
 
 TEST_F(GraphTest, RemoveNodeFreesNodeId) {
     // Add a node
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(node1, nullptr);
     uint32_t first_id = node1->id();
     EXPECT_EQ(first_id, 0);
     
     // Add another node
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(node2, nullptr);
     EXPECT_EQ(node2->id(), 1);
     
@@ -358,7 +358,7 @@ TEST_F(GraphTest, RemoveNodeFreesNodeId) {
     graph_.RemoveNode(node1);
     
     // Add a new node - it should reuse the freed ID
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     ASSERT_NE(node3, nullptr);
     
     // The new node should have reused the freed ID (0)
@@ -371,9 +371,9 @@ TEST_F(GraphTest, RemoveNodeFreesNodeId) {
 
 TEST_F(GraphTest, GetNodeReturnsExistingNode) {
     // Add nodes with different kinds
-    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(literal_node, nullptr);
     ASSERT_NE(variable_node, nullptr);
@@ -406,8 +406,8 @@ TEST_F(GraphTest, GetNodeReturnsNullptrForNonexistentId) {
     EXPECT_EQ(node, nullptr);
     
     // Add some nodes
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     // Try to get a node with an ID that still doesn't exist
     node = graph_.GetNode(100);
@@ -417,11 +417,11 @@ TEST_F(GraphTest, GetNodeReturnsNullptrForNonexistentId) {
 
 TEST_F(GraphTest, GetNodeTemplatedVersionReturnsCorrectType) {
     // Add nodes of specific types
-    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
-    auto *input_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput);
-    auto *output_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput);
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
+    auto *input_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput, {0, 0});
+    auto *output_node = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {0, 0});
     
     ASSERT_NE(literal_node, nullptr);
     ASSERT_NE(variable_node, nullptr);
@@ -461,8 +461,8 @@ TEST_F(GraphTest, GetNodeTemplatedVersionReturnsCorrectType) {
 
 TEST_F(GraphTest, LinkConnectsTwoNodes) {
     // Create two nodes with compatible pin types
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -480,7 +480,7 @@ TEST_F(GraphTest, LinkConnectsTwoNodes) {
 }
 
 TEST_F(GraphTest, LinkThrowsOnNullFromNode) {
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(to_node, nullptr);
     
     EXPECT_THROW({
@@ -489,7 +489,7 @@ TEST_F(GraphTest, LinkThrowsOnNullFromNode) {
 }
 
 TEST_F(GraphTest, LinkThrowsOnNullToNode) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(from_node, nullptr);
     
     EXPECT_THROW({
@@ -500,11 +500,11 @@ TEST_F(GraphTest, LinkThrowsOnNullToNode) {
 TEST_F(GraphTest, LinkThrowsOnUnownedFromNode) {
     // Create a node in another graph
     core::Graph other_graph;
-    auto *from_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *from_node = other_graph.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(from_node, nullptr);
     
     // Create a node in this graph
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(to_node, nullptr);
     
     // Try to link from unowned node
@@ -515,12 +515,12 @@ TEST_F(GraphTest, LinkThrowsOnUnownedFromNode) {
 
 TEST_F(GraphTest, LinkThrowsOnUnownedToNode) {
     // Create a node in this graph
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(from_node, nullptr);
     
     // Create a node in another graph
     core::Graph other_graph;
-    auto *to_node = other_graph.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *to_node = other_graph.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(to_node, nullptr);
     
     // Try to link to unowned node
@@ -530,8 +530,8 @@ TEST_F(GraphTest, LinkThrowsOnUnownedToNode) {
 }
 
 TEST_F(GraphTest, LinkThrowsOnInvalidOutputPin) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -545,8 +545,8 @@ TEST_F(GraphTest, LinkThrowsOnInvalidOutputPin) {
 }
 
 TEST_F(GraphTest, LinkThrowsOnInvalidInputPin) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -562,8 +562,8 @@ TEST_F(GraphTest, LinkThrowsOnInvalidInputPin) {
 TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
     // Create two nodes with incompatible types
     // LiteralNode typically has one type, we need nodes with different pin types
-    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(literal_node, nullptr);
     ASSERT_NE(variable_node, nullptr);
@@ -572,7 +572,7 @@ TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
     literal_node->set_data(42.0f);
     
     // Set variable to Float type (incompatible with Int)
-    variable_node->set_type(core::NodeBase::PinDataType::kFloat);
+    variable_node->SetType(core::NodeBase::PinDataType::kFloat);
     
     // Try to link incompatible types
     EXPECT_THROW({
@@ -581,7 +581,7 @@ TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
 }
 
 TEST_F(GraphTest, LinkThrowsOnCircularDependency) {
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(node, nullptr);
     
     // Try to link a node to itself
@@ -592,9 +592,9 @@ TEST_F(GraphTest, LinkThrowsOnCircularDependency) {
 
 TEST_F(GraphTest, LinkSeversPreviousConnection) {
     // Create three nodes: A -> B, then A' -> B (severing A -> B)
-    auto *node_a = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node_a_prime = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node_b = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node_a = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node_a_prime = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node_b = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node_a, nullptr);
     ASSERT_NE(node_a_prime, nullptr);
@@ -622,8 +622,8 @@ TEST_F(GraphTest, LinkSeversPreviousConnection) {
 }
 
 TEST_F(GraphTest, LinkUpdatesParentConnection) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -642,8 +642,8 @@ TEST_F(GraphTest, LinkUpdatesParentConnection) {
 }
 
 TEST_F(GraphTest, LinkUpdatesChildConnection) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -654,7 +654,7 @@ TEST_F(GraphTest, LinkUpdatesChildConnection) {
     // Verify child connection is set correctly
     EXPECT_TRUE(from_node->IsOutputPinConnected(0));
     
-    auto children = from_node->childrens(0);
+    auto children = from_node->Childrens(0);
     ASSERT_NE(children, nullptr);
     ASSERT_FALSE(children->empty());
     
@@ -671,8 +671,8 @@ TEST_F(GraphTest, LinkUpdatesChildConnection) {
 
 TEST_F(GraphTest, UnlinkDisconnectsTwoNodes) {
     // Create and link two nodes
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -693,7 +693,7 @@ TEST_F(GraphTest, UnlinkDisconnectsTwoNodes) {
 }
 
 TEST_F(GraphTest, UnlinkThrowsOnNullFromNode) {
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     ASSERT_NE(to_node, nullptr);
     
     EXPECT_THROW({
@@ -702,7 +702,7 @@ TEST_F(GraphTest, UnlinkThrowsOnNullFromNode) {
 }
 
 TEST_F(GraphTest, UnlinkThrowsOnNullToNode) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(from_node, nullptr);
     
     EXPECT_THROW({
@@ -713,8 +713,8 @@ TEST_F(GraphTest, UnlinkThrowsOnNullToNode) {
 
 
 TEST_F(GraphTest, UnlinkThrowsOnInvalidOutputPin) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -731,8 +731,8 @@ TEST_F(GraphTest, UnlinkThrowsOnInvalidOutputPin) {
 }
 
 TEST_F(GraphTest, UnlinkThrowsOnInvalidInputPin) {
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -750,8 +750,8 @@ TEST_F(GraphTest, UnlinkThrowsOnInvalidInputPin) {
 
 TEST_F(GraphTest, UnlinkClearsParentConnection) {
     // Create and link two nodes
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -773,8 +773,8 @@ TEST_F(GraphTest, UnlinkClearsParentConnection) {
 
 TEST_F(GraphTest, UnlinkRemovesChildConnection) {
     // Create and link two nodes
-    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *from_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *to_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(from_node, nullptr);
     ASSERT_NE(to_node, nullptr);
@@ -784,7 +784,7 @@ TEST_F(GraphTest, UnlinkRemovesChildConnection) {
     
     // Verify child connection exists
     EXPECT_TRUE(from_node->IsOutputPinConnected(0));
-    auto children = from_node->childrens(0);
+    auto children = from_node->Childrens(0);
     ASSERT_NE(children, nullptr);
     ASSERT_FALSE(children->empty());
     EXPECT_EQ(children->at(0).node, to_node);
@@ -803,8 +803,8 @@ TEST_F(GraphTest, UnlinkRemovesChildConnection) {
 TEST_F(GraphTest, SerializeCreatesValidJson) {
     try {
     // Add some nodes to the graph
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -866,9 +866,9 @@ TEST_F(GraphTest, SerializeIncludesAllMetadata) {
 
 TEST_F(GraphTest, SerializeIncludesNextId) {
     // Add multiple nodes to increment the ID counter
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     // Serialize the graph
     nlohmann::json json = graph_.Serialize();
@@ -883,9 +883,9 @@ TEST_F(GraphTest, SerializeIncludesNextId) {
 
 TEST_F(GraphTest, SerializeIncludesAllNodes) {
     // Add multiple nodes of different types
-    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *literal_node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable_node = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *function_node = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(literal_node, nullptr);
     ASSERT_NE(variable_node, nullptr);
@@ -919,9 +919,9 @@ TEST_F(GraphTest, SerializeIncludesAllNodes) {
 
 TEST_F(GraphTest, SerializeIncludesAllConnections) {
     // Create a small graph with connections
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1045,9 +1045,9 @@ TEST_F(GraphTest, DeserializeRestoresEmptyGraph) {
 
 TEST_F(GraphTest, DeserializeRestoresGraphWithNodes) {
     // Create a graph with multiple nodes
-    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *variable = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(literal, nullptr);
     ASSERT_NE(variable, nullptr);
@@ -1084,9 +1084,9 @@ TEST_F(GraphTest, DeserializeRestoresGraphWithNodes) {
 
 TEST_F(GraphTest, DeserializeRestoresGraphWithConnections) {
     // Create a graph with connections
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1173,9 +1173,9 @@ TEST_F(GraphTest, DeserializeRestoresMetadata) {
 
 TEST_F(GraphTest, DeserializeRestoresNextId) {
     // Add some nodes to increment the ID counter
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     // Serialize the graph
     nlohmann::json json = graph_.Serialize();
@@ -1191,7 +1191,7 @@ TEST_F(GraphTest, DeserializeRestoresNextId) {
     auto &restored_graph = result.value();
     
     // Add a new node to verify the ID counter was restored
-    auto *new_node = restored_graph.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *new_node = restored_graph.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(new_node, nullptr);
     
     // The new node should get ID 3 (next available after 0, 1, 2)
@@ -1267,7 +1267,7 @@ TEST_F(GraphTest, DeserializeFailsOnMalformedConnections) {
 
 TEST_F(GraphTest, DeserializeFailsOnNonexistentConnectionNode) {
     // Create a graph with a node
-    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    auto *node = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(node, nullptr);
     
     // Serialize the graph
@@ -1290,8 +1290,8 @@ TEST_F(GraphTest, DeserializeFailsOnNonexistentConnectionNode) {
 
 TEST_F(GraphTest, DeserializeFailsOnInvalidPinIndex) {
     // Create two nodes
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1324,7 +1324,7 @@ TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
     
     // Set incompatible types
     literal->set_data(42.0f);  // Float
-    variable->set_type(core::NodeBase::PinDataType::kInt);  // Int
+    variable->SetType(core::NodeBase::PinDataType::kInt);  // Int
     
     // Serialize the graph
     nlohmann::json json = graph_.Serialize();
@@ -1356,8 +1356,8 @@ TEST_F(GraphTest, SaveToFileCreatesFile) {
     std::filesystem::remove(test_path);
     
     // Add some nodes and connections
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1417,7 +1417,7 @@ TEST_F(GraphTest, SaveToFilePrettyPrintsJson) {
     std::filesystem::path test_path = std::filesystem::temp_directory_path() / "test_pretty_print.nebula";
     
     // Add a node
-    graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
+    graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
     
     // Save the graph
     auto result = graph_.SaveToFile(test_path);
@@ -1458,8 +1458,8 @@ TEST_F(GraphTest, LoadFromFileRestoresGraph) {
     graph_.SetProjectName("Load Test Graph");
     graph_.SetAuthor("Test Author");
     
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1560,10 +1560,10 @@ TEST_F(GraphTest, RoundTripSerializationPreservesGraph) {
     graph_.SetProjectName("Round Trip Test");
     graph_.SetAuthor("Integration Tester");
     
-    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *variable1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *variable2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *literal = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *variable2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *function = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(literal, nullptr);
     ASSERT_NE(variable1, nullptr);
@@ -1621,9 +1621,9 @@ TEST_F(GraphTest, RoundTripFileIOPreservesGraph) {
     graph_.SetProjectName("File Round Trip Test");
     graph_.SetAuthor("File Tester");
     
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);
@@ -1668,12 +1668,12 @@ TEST_F(GraphTest, RoundTripFileIOPreservesGraph) {
 
 TEST_F(GraphTest, ComplexGraphWithMultipleConnectionsSerialization) {
     // Create a more complex graph with multiple connections
-    auto *lit1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *lit2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *var1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *var2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *var3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *func = graph_.AddNode(core::NodeBase::NodeKind::kFunction);
+    auto *lit1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *lit2 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *var1 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *var2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *var3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *func = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {0, 0});
     
     ASSERT_NE(lit1, nullptr);
     ASSERT_NE(lit2, nullptr);
@@ -1722,11 +1722,11 @@ TEST_F(GraphTest, ComplexGraphWithMultipleConnectionsSerialization) {
 
 TEST_F(GraphTest, RemoveNodeFromConnectedGraphMaintainsIntegrity) {
     // Create a chain of 5 nodes
-    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral);
-    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node4 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
-    auto *node5 = graph_.AddNode(core::NodeBase::NodeKind::kVariable);
+    auto *node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node3 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node4 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
+    auto *node5 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(node1, nullptr);
     ASSERT_NE(node2, nullptr);

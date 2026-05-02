@@ -2,8 +2,11 @@
 
 #include "../connection_exceptions.hpp"
 
-core::FunctionInputNode::FunctionInputNode(uint32_t id, NodeKind kind)
-    : NodeBase(id, kind) {}
+core::FunctionInputNode::FunctionInputNode(
+    uint32_t id, NodeKind kind, std::pair<float, float> position) noexcept
+    : NodeBase(id, kind, position) {
+    InitializeConnections();
+}
 
 void core::FunctionInputNode::InitializeConnections() {
     parents_.clear();
@@ -13,7 +16,7 @@ void core::FunctionInputNode::InitializeConnections() {
     AddOutputPin(name_, type_);
 }
 
-void core::FunctionInputNode::set_name(const std::string &name) {
+void core::FunctionInputNode::SetName(const std::string &name) {
     name_ = name;
     if (!childrens_.empty()) {
         childrens_.front().name = name_;
@@ -23,11 +26,11 @@ void core::FunctionInputNode::set_name(const std::string &name) {
     }
 }
 
-const std::string &core::FunctionInputNode::name() const noexcept {
+const std::string &core::FunctionInputNode::Name() const noexcept {
     return name_;
 }
 
-void core::FunctionInputNode::set_type(PinDataType type) {
+void core::FunctionInputNode::SetType(PinDataType type) {
     // Check for still connected pins
     for (auto child : GetAllChildrens()) {
         if (child.IsConnected()) {
@@ -60,7 +63,7 @@ void core::FunctionInputNode::set_type(PinDataType type) {
     type_ = type;
 }
 
-core::NodeBase::PinDataType core::FunctionInputNode::type() const noexcept {
+core::NodeBase::PinDataType core::FunctionInputNode::Type() const noexcept {
     return type_;
 }
 

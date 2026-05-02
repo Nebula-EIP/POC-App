@@ -35,8 +35,8 @@ class FunctionNode : public NodeBase {
 
     // -- Name --
 
-    void set_name(const std::string &name);
-    const std::string &name() const noexcept;
+    void SetName(const std::string &name);
+    const std::string &Name() const noexcept;
 
     // -- Return type (single output) --
 
@@ -45,7 +45,35 @@ class FunctionNode : public NodeBase {
 
     // -- Parameters (input pins) --
 
-    const std::vector<FunctionParameter> &parameters() const noexcept;
+    /**
+     * @brief Adds a parameter to the function.
+     *
+     * This increases the input pin count by one. The caller must call
+     * ReinitializeConnections() afterwards if the node is already connected.
+     *
+     * @param name  The parameter name.
+     * @param type  The parameter data type.
+     */
+    void AddParameter(const std::string &name, PinDataType type);
+
+    /**
+     * @brief Removes a parameter by index.
+     * (the caller must have unlinked beforehand)
+     * @param index The 0-based index of the parameter to remove.
+     */
+    void RemoveParameter(uint8_t index);
+
+    /**
+     * @brief Removes a parameter by name.
+     * (the caller must have unlinked beforehand)
+     * @param name The name of the parameter to remove.
+     */
+    void RemoveParameter(const std::string &name);
+
+    /**
+     * @brief Returns the parameter list.
+     */
+    const std::vector<FunctionParameter> &Parameters() const noexcept;
 
     // -- Inner graph (function body) --
 
@@ -83,7 +111,8 @@ class FunctionNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionNode(uint32_t id, NodeKind kind) noexcept;
+    FunctionNode(uint32_t id, NodeKind kind,
+                 std::pair<float, float> postion) noexcept;
 
     void InitializeConnections() override;
 

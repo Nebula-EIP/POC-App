@@ -54,11 +54,11 @@ class OperatorNode : public NodeBase {
 
     ~OperatorNode() = default;
 
-    void set_operator_type(OperatorType type);
+    void SetOperatorType(OperatorType type);
     OperatorType operator_type() const;
 
-    void set_name(const std::string &name);
-    const std::string &name() const;
+    void SetName(const std::string &name);
+    const std::string &Name() const;
 
     uint8_t GetInputPinCount() const noexcept;
     uint8_t GetOutputPinCount() const noexcept;
@@ -110,7 +110,8 @@ class OperatorNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    OperatorNode(uint32_t id, NodeKind kind) noexcept;
+    OperatorNode(uint32_t id, NodeKind kind,
+                 std::pair<float, float> position) noexcept;
 
     void InitializeConnections() override;
 

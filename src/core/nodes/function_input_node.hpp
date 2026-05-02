@@ -20,16 +20,16 @@ class FunctionInputNode : public NodeBase {
    public:
     ~FunctionInputNode() = default;
 
-    void set_name(const std::string &name);
-    const std::string &name() const noexcept;
+    void SetName(const std::string &name);
+    const std::string &Name() const noexcept;
 
     /**
      * @brief Change the type of the node & it's pins connections
      *
      * @throws PinStillConnectedException if pins are already connected
      */
-    void set_type(PinDataType type);
-    PinDataType type() const noexcept;
+    void SetType(PinDataType type);
+    PinDataType Type() const noexcept;
 
     // -- NodeBase overrides --
 
@@ -48,7 +48,8 @@ class FunctionInputNode : public NodeBase {
     friend Graph;
     friend NodeBase;
 
-    FunctionInputNode(uint32_t id, NodeKind kind);
+    FunctionInputNode(uint32_t id, NodeKind kind,
+                      std::pair<float, float> position) noexcept;
 
     void InitializeConnections() override;
 
