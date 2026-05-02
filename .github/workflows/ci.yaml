@@ -47,42 +47,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cache raylib
-        if: runner.os == 'Linux'
-        uses: actions/cache@v4
-        id: cache-raylib
-        with:
-          path: /usr/local/lib/libraylib*
-          key: raylib-${{ runner.os }}-${{ hashFiles('**/CMakeLists.txt') }}
-
-      - name: Install raylib dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y \
-            git cmake build-essential \
-            libasound2-dev \
-            mesa-common-dev \
-            libx11-dev libxrandr-dev libxi-dev \
-            libgl1-mesa-dev libglu1-mesa-dev \
-            libxcursor-dev libxinerama-dev \
-            libxkbcommon-dev   # often missing and causes silent failures
-          git clone --depth 1 https://github.com/raysan5/raylib.git
-          cd raylib
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
-          cmake --build build --parallel
-          sudo cmake --install build
-      
-      - name: Install raylib (Windows)
-        if: runner.os == 'Windows'
-        shell: cmd
-        run: |
-          git clone --depth 1 https://github.com/raysan5/raylib.git
-          cd raylib
-          cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
-          cmake --build build --parallel
-          cmake --install build --prefix C:\raylib
-
       - name: Setup environment
         run: ${{ matrix.setup_script }}
 
