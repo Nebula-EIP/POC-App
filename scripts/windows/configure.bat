@@ -13,9 +13,7 @@ cmake -B %BUILD_DIR% ^
       -S . ^
       -G Ninja ^
       -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ^
-      -DCPM_SOURCE_CACHE=%CD%\.cache\CPM ^
-      -DCMAKE_BUILD_TYPE=%1 ^
-      -DCMAKE_PREFIX_PATH=C:\raylib
+      -DCPM_SOURCE_CACHE=%CD%\.cache\CPM
 
 if errorlevel 1 (
     echo CMake configuration failed

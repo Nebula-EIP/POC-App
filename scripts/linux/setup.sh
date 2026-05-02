@@ -20,6 +20,7 @@ sudo apt-get install -y \
     libxi-dev \
     libgl1-mesa-dev \
     libasound2-dev \
-    mesa-common-dev
+    mesa-common-dev \
+    libxkbcommon-dev
 
 echo "Environment ready."
