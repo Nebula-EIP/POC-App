@@ -13,6 +13,7 @@
 #include "core/node_base.hpp"
 #include "core/nodes/literal_node.hpp"
 #include "core/nodes/operator_node.hpp"
+#include "codegen-optimizer.hpp"
 
 namespace {
 
@@ -564,6 +565,10 @@ static const core::NodeBase::Connection *FindParentConnection(const core::NodeBa
     file.Line("int main() {");
 
     // Get topological order of nodes (same logic as Generate)
+        // Analyze graph for dead code and type information
+        CodegenOptimizer optimizer;
+        auto analysis = optimizer.AnalyzeGraph(graph);
+
     std::vector<const core::NodeBase *> nodes;
     nodes.reserve(graph.GetAllNodes().size());
     for (const auto &node_ptr : graph.GetAllNodes()) {
