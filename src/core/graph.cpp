@@ -183,6 +183,8 @@ void core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to,
     // Link !
     to->SetParent(in_pin, from, out_pin);
     from->AddChild(out_pin, to, in_pin);
+    // Record explicit edge in Graph storage
+    edges_.push_back({from->id(), out_pin, to->id(), in_pin});
 }
 
 void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
@@ -226,6 +228,15 @@ void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
 
     to->ClearParent(in_pin);
     from->RemoveChild(out_pin, to, in_pin);
+    // Remove any explicit edge matching this connection
+    edges_.erase(std::remove_if(edges_.begin(), edges_.end(),
+                                [&](const Graph::Edge &e) {
+                                    return e.source_node_id == from->id() &&
+                                           e.source_pin == out_pin &&
+                                           e.target_node_id == to->id() &&
+                                           e.target_pin == in_pin;
+                                }),
+                 edges_.end());
 }
 
 uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
@@ -419,6 +430,18 @@ nlohmann::json core::Graph::Serialize() const {
     }
     json["graph"]["connections"] = connections_array;
 
+    // Serialize explicit edges vector (new in Phase 1)
+    nlohmann::json edges_array = nlohmann::json::array();
+    for (const auto &e : edges_) {
+        nlohmann::json je;
+        je["source_node_id"] = e.source_node_id;
+        je["source_pin"] = e.source_pin;
+        je["target_node_id"] = e.target_node_id;
+        je["target_pin"] = e.target_pin;
+        edges_array.push_back(je);
+    }
+    json["graph"]["edges"] = edges_array;
+
     return json;
 }
 
@@ -518,65 +541,145 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         graph.nodes_.push_back(std::move(node_ptr));
     }
 
-    // Restore connections
+    // Restore connections. If an explicit "edges" array is provided,
+    // prefer it and use that to link nodes; otherwise fall back to the
+    // legacy "connections" array.
     const auto &connections_array = graph_data["connections"];
     if (!connections_array.is_array()) {
         return std::unexpected("Field 'connections' is not an array");
     }
 
-    for (const auto &conn_json : connections_array) {
-        if (!conn_json.contains("source_node_id") ||
-            !conn_json.contains("source_pin") ||
-            !conn_json.contains("target_node_id") ||
-            !conn_json.contains("target_pin")) {
-            return std::unexpected("Connection missing required fields");
+    bool has_explicit_edges = graph_data.contains("edges") &&
+                              graph_data["edges"].is_array();
+
+    if (!has_explicit_edges) {
+        // Legacy: use connections array to establish links (this will also
+        // populate graph.edges_ via Graph::Link).
+        for (const auto &conn_json : connections_array) {
+            if (!conn_json.contains("source_node_id") ||
+                !conn_json.contains("source_pin") ||
+                !conn_json.contains("target_node_id") ||
+                !conn_json.contains("target_pin")) {
+                return std::unexpected("Connection missing required fields");
+            }
+
+            try {
+                uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
+                uint8_t source_pin = conn_json["source_pin"].get<uint8_t>();
+                uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
+                uint8_t target_pin = conn_json["target_pin"].get<uint8_t>();
+
+                // Find nodes by ID
+                auto source_it = id_to_node_map.find(source_id);
+                auto target_it = id_to_node_map.find(target_id);
+
+                if (source_it == id_to_node_map.end()) {
+                    return std::unexpected(
+                        "Connection references non-existent source node ID: " +
+                        std::to_string(source_id));
+                }
+                if (target_it == id_to_node_map.end()) {
+                    return std::unexpected(
+                        "Connection references non-existent target node ID: " +
+                        std::to_string(target_id));
+                }
+
+                NodeBase *source = source_it->second;
+                NodeBase *target = target_it->second;
+
+                // Validate pin ids
+                if (!source->OutputPinExists(source_pin)) {
+                    return std::unexpected("Source pin index out of bounds");
+                }
+                if (!target->InputPinExists(target_pin)) {
+                    return std::unexpected("Target pin index out of bounds");
+                }
+
+                // Validate pin type compatibility
+                auto type_result =
+                    source->CanConnectTo(source_pin, target, target_pin);
+                if (!type_result) {
+                    return std::unexpected("Nodes cannot be connected: " +
+                                           type_result.error());
+                }
+
+                // Establish the connection
+                graph.Link(source, source_pin, target, target_pin);
+            } catch (const std::exception &e) {
+                return std::unexpected(std::string("Failed to parse connection: ") +
+                                       e.what());
+            }
         }
+    }
 
+    // Populate explicit edges_ storage: prefer explicit "edges" field if
+    // present, otherwise reconstruct from connections array for backward
+    // compatibility.
+    if (graph_data.contains("edges") && graph_data["edges"].is_array()) {
+        // Use explicit edges array to establish links and populate edges_.
         try {
-            uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
-            uint8_t source_pin = conn_json["source_pin"].get<uint8_t>();
-            uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
-            uint8_t target_pin = conn_json["target_pin"].get<uint8_t>();
+            for (const auto &ejson : graph_data["edges"]) {
+                if (!ejson.contains("source_node_id") ||
+                    !ejson.contains("source_pin") ||
+                    !ejson.contains("target_node_id") ||
+                    !ejson.contains("target_pin")) {
+                    return std::unexpected("Edge missing required fields");
+                }
 
-            // Find nodes by ID
-            auto source_it = id_to_node_map.find(source_id);
-            auto target_it = id_to_node_map.find(target_id);
+                uint32_t source_id = ejson["source_node_id"].get<uint32_t>();
+                uint8_t source_pin = ejson["source_pin"].get<uint8_t>();
+                uint32_t target_id = ejson["target_node_id"].get<uint32_t>();
+                uint8_t target_pin = ejson["target_pin"].get<uint8_t>();
 
-            if (source_it == id_to_node_map.end()) {
-                return std::unexpected(
-                    "Connection references non-existent source node ID: " +
-                    std::to_string(source_id));
+                auto source_it = id_to_node_map.find(source_id);
+                auto target_it = id_to_node_map.find(target_id);
+
+                if (source_it == id_to_node_map.end()) {
+                    return std::unexpected(
+                        "Edge references non-existent source node ID: " +
+                        std::to_string(source_id));
+                }
+                if (target_it == id_to_node_map.end()) {
+                    return std::unexpected(
+                        "Edge references non-existent target node ID: " +
+                        std::to_string(target_id));
+                }
+
+                NodeBase *source = source_it->second;
+                NodeBase *target = target_it->second;
+
+                // Validate pin ids
+                if (!source->OutputPinExists(source_pin)) {
+                    return std::unexpected("Source pin index out of bounds");
+                }
+                if (!target->InputPinExists(target_pin)) {
+                    return std::unexpected("Target pin index out of bounds");
+                }
+
+                // Validate pin type compatibility
+                auto type_result =
+                    source->CanConnectTo(source_pin, target, target_pin);
+                if (!type_result) {
+                    return std::unexpected("Nodes cannot be connected: " +
+                                           type_result.error());
+                }
+
+                // Establish the connection (this will also populate graph.edges_)
+                graph.Link(source, source_pin, target, target_pin);
             }
-            if (target_it == id_to_node_map.end()) {
-                return std::unexpected(
-                    "Connection references non-existent target node ID: " +
-                    std::to_string(target_id));
-            }
-
-            NodeBase *source = source_it->second;
-            NodeBase *target = target_it->second;
-
-            // Validate pin ids
-            if (!source->OutputPinExists(source_pin)) {
-                return std::unexpected("Source pin index out of bounds");
-            }
-            if (!target->InputPinExists(target_pin)) {
-                return std::unexpected("Target pin index out of bounds");
-            }
-
-            // Validate pin type compatibility
-            auto type_result =
-                source->CanConnectTo(source_pin, target, target_pin);
-            if (!type_result) {
-                return std::unexpected("Nodes cannot be connected: " +
-                                       type_result.error());
-            }
-
-            // Establish the connection
-            graph.Link(source, source_pin, target, target_pin);
         } catch (const std::exception &e) {
-            return std::unexpected(std::string("Failed to parse connection: ") +
+            return std::unexpected(std::string("Failed to parse edges: ") +
                                    e.what());
+        }
+    } else {
+        // Reconstruct from connections_array for older files
+        for (const auto &conn_json : connections_array) {
+            Graph::Edge e;
+            e.source_node_id = conn_json["source_node_id"].get<uint32_t>();
+            e.source_pin = conn_json["source_pin"].get<uint8_t>();
+            e.target_node_id = conn_json["target_node_id"].get<uint32_t>();
+            e.target_pin = conn_json["target_pin"].get<uint8_t>();
+            graph.edges_.push_back(e);
         }
     }
 
