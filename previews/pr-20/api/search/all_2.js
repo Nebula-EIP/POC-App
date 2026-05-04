@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['canconnectto_0',['canconnectto',['../classcore_1_1VariableNode.html#a37c41db4c012aba65095596be844f7fc',1,'core::VariableNode::CanConnectTo()'],['../classcore_1_1OperatorNode.html#ac60d78c3e4e52fc66f576eefd6f146d1',1,'core::OperatorNode::CanConnectTo()'],['../classcore_1_1LiteralNode.html#adb0495761c57856ab14ad36a44b333b4',1,'core::LiteralNode::CanConnectTo()'],['../classcore_1_1FunctionOutputNode.html#af1cb2949639591046ff2602f24a3c1f0',1,'core::FunctionOutputNode::CanConnectTo()'],['../classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9',1,'core::NodeBase::CanConnectTo()'],['../classcore_1_1FunctionInputNode.html#a3e3f4b15ae37c0a6ac8e9bb7dc7c8ece',1,'core::FunctionInputNode::CanConnectTo()'],['../classcore_1_1FunctionNode.html#a265877d1da8688a09049e5b6faab3167',1,'core::FunctionNode::CanConnectTo()']]],
+  ['canconnectto_0',['canconnectto',['../classcore_1_1VariableNode.html#a37c41db4c012aba65095596be844f7fc',1,'core::VariableNode::CanConnectTo()'],['../classcore_1_1OperatorNode.html#ac60d78c3e4e52fc66f576eefd6f146d1',1,'core::OperatorNode::CanConnectTo()'],['../classcore_1_1LiteralNode.html#adb0495761c57856ab14ad36a44b333b4',1,'core::LiteralNode::CanConnectTo()'],['../classcore_1_1FunctionOutputNode.html#af1cb2949639591046ff2602f24a3c1f0',1,'core::FunctionOutputNode::CanConnectTo()'],['../classcore_1_1FunctionNode.html#a265877d1da8688a09049e5b6faab3167',1,'core::FunctionNode::CanConnectTo()'],['../classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9',1,'core::NodeBase::CanConnectTo()'],['../classcore_1_1FunctionInputNode.html#a3e3f4b15ae37c0a6ac8e9bb7dc7c8ece',1,'core::FunctionInputNode::CanConnectTo()']]],
   ['childrens_1',['childrens',['../classcore_1_1NodeBase.html#a5e33bd4f625217bdbd1faf47b692f177',1,'core::NodeBase']]],
   ['childrens_5f_2',['childrens_',['../classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac',1,'core::NodeBase']]],
   ['circulardependencyexception_3',['CircularDependencyException',['../classcore_1_1CircularDependencyException.html',1,'core']]],
@@ -13,15 +13,16 @@ var searchData=
   ['codegencontext_10',['CodegenContext',['../classeditor_1_1code__generation_1_1CodegenContext.html',1,'editor::code_generation']]],
   ['codegenerationerror_11',['CodeGenerationError',['../classcode__generation_1_1CodeGenerationError.html',1,'code_generation']]],
   ['codegeneratorfile_12',['CodeGeneratorFile',['../classcode__generation_1_1CodeGeneratorFile.html',1,'code_generation']]],
-  ['compilationresult_13',['CompilationResult',['../structnebula_1_1cmake_1_1CompilationResult.html',1,'nebula::cmake']]],
-  ['compilefile_14',['CompileFile',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a5f66403adc6f0e910c892090c06dbb6b',1,'nebula::cmake::CMakeCompiler']]],
-  ['compilerconfig_15',['CompilerConfig',['../structnebula_1_1cmake_1_1CompilerConfig.html',1,'nebula::cmake']]],
-  ['connectedparameterexception_16',['ConnectedParameterException',['../classcore_1_1ConnectedParameterException.html',1,'core']]],
-  ['connection_17',['connection',['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase::Connection'],['../structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18',1,'core::NodeBase::Connection::Connection()']]],
-  ['connectionexception_18',['ConnectionException',['../classcore_1_1ConnectionException.html',1,'core']]],
-  ['connections_19',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]],
-  ['core_20',['core',['../namespacecore.html',1,'']]],
-  ['coreexception_21',['CoreException',['../classcore_1_1CoreException.html',1,'core']]],
-  ['current_5fid_22',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]],
-  ['cursoroutofboundserror_23',['CursorOutOfBoundsError',['../classcode__generation_1_1CursorOutOfBoundsError.html',1,'code_generation']]]
+  ['codegenoptimizer_13',['CodegenOptimizer',['../classeditor_1_1code__generation_1_1CodegenOptimizer.html',1,'editor::code_generation']]],
+  ['compilationresult_14',['CompilationResult',['../structnebula_1_1cmake_1_1CompilationResult.html',1,'nebula::cmake']]],
+  ['compilefile_15',['CompileFile',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a5f66403adc6f0e910c892090c06dbb6b',1,'nebula::cmake::CMakeCompiler']]],
+  ['compilerconfig_16',['CompilerConfig',['../structnebula_1_1cmake_1_1CompilerConfig.html',1,'nebula::cmake']]],
+  ['connectedparameterexception_17',['ConnectedParameterException',['../classcore_1_1ConnectedParameterException.html',1,'core']]],
+  ['connection_18',['connection',['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase::Connection'],['../structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18',1,'core::NodeBase::Connection::Connection()']]],
+  ['connectionexception_19',['ConnectionException',['../classcore_1_1ConnectionException.html',1,'core']]],
+  ['connections_20',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]],
+  ['core_21',['core',['../namespacecore.html',1,'']]],
+  ['coreexception_22',['CoreException',['../classcore_1_1CoreException.html',1,'core']]],
+  ['current_5fid_23',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]],
+  ['cursoroutofboundserror_24',['CursorOutOfBoundsError',['../classcode__generation_1_1CursorOutOfBoundsError.html',1,'code_generation']]]
 ];

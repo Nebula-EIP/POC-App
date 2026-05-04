@@ -44,7 +44,10 @@ var annotated_dup =
     ] ],
     [ "editor", null, [
       [ "code_generation", null, [
-        [ "CodegenContext", "classeditor_1_1code__generation_1_1CodegenContext.html", null ]
+        [ "CodegenContext", "classeditor_1_1code__generation_1_1CodegenContext.html", null ],
+        [ "CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", null ],
+        [ "DeadCodeAnalysis", "structeditor_1_1code__generation_1_1DeadCodeAnalysis.html", null ],
+        [ "TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ]
       ] ],
       [ "EditorException", "classeditor_1_1EditorException.html", null ]
     ] ],

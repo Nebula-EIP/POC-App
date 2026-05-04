@@ -3,9 +3,11 @@ var hierarchy =
     [ "nebula::cmake::CMakeCompiler", "classnebula_1_1cmake_1_1CMakeCompiler.html", null ],
     [ "editor::code_generation::CodegenContext", "classeditor_1_1code__generation_1_1CodegenContext.html", null ],
     [ "code_generation::CodeGeneratorFile", "classcode__generation_1_1CodeGeneratorFile.html", null ],
+    [ "editor::code_generation::CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", null ],
     [ "nebula::cmake::CompilationResult", "structnebula_1_1cmake_1_1CompilationResult.html", null ],
     [ "nebula::cmake::CompilerConfig", "structnebula_1_1cmake_1_1CompilerConfig.html", null ],
     [ "core::NodeBase::Connection", "structcore_1_1NodeBase_1_1Connection.html", null ],
+    [ "editor::code_generation::DeadCodeAnalysis", "structeditor_1_1code__generation_1_1DeadCodeAnalysis.html", null ],
     [ "core::Graph::Edge", "structcore_1_1Graph_1_1Edge.html", null ],
     [ "std::exception", null, [
       [ "utils::BaseException", "classutils_1_1BaseException.html", [
@@ -64,5 +66,6 @@ var hierarchy =
           [ "code_generation::IndentationError", "classcode__generation_1_1IndentationError.html", null ]
         ] ]
       ] ]
-    ] ]
+    ] ],
+    [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ]
 ];
