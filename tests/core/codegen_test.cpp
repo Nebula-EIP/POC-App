@@ -20,8 +20,8 @@ TEST(CodegenTest, SimpleAddProducesCpp) {
     editor::code_generation::CodegenContext ctx;
     auto file = ctx.Generate(g);
     auto content = file.GetFormatedContent();
-    EXPECT_NE(content.find("auto v" + std::to_string(l1->id())), std::string::npos);
-    EXPECT_NE(content.find("auto v" + std::to_string(op->id())), std::string::npos);
-    EXPECT_NE(content.find("3"), std::string::npos);
-    EXPECT_NE(content.find("4"), std::string::npos);
+    EXPECT_NE(content.find("auto lit_" + std::to_string(l1->id())), std::string::npos);
+    EXPECT_NE(content.find("auto lit_" + std::to_string(l2->id())), std::string::npos);
+    EXPECT_EQ(content.find("tmp_"), std::string::npos);
+    EXPECT_EQ(content.find("auto v"), std::string::npos);
 }
