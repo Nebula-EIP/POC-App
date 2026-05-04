@@ -13,6 +13,7 @@ if(TEST_SOURCES)
         ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file-formatting.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/code-generation/codegen-context.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/codegen-optimizer.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/file-writing/file-writer.cpp
     )
 
