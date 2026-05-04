@@ -552,3 +552,189 @@ static const core::NodeBase::Connection *FindParentConnection(const core::NodeBa
 
     return file;
 }
+
+::code_generation::CodeGeneratorFile editor::code_generation::CodegenContext::GenerateWithOutputs(
+    const core::Graph &graph,
+    bool print_all_results) {
+    ::code_generation::CodeGeneratorFile file;
+
+    file.Line("#include <iostream>");
+    file.Line("#include <string>");
+    file.Line("");
+    file.Line("int main() {");
+
+    // Get topological order of nodes (same logic as Generate)
+    std::vector<const core::NodeBase *> nodes;
+    nodes.reserve(graph.GetAllNodes().size());
+    for (const auto &node_ptr : graph.GetAllNodes()) {
+        nodes.push_back(node_ptr.get());
+    }
+
+    std::unordered_map<uint32_t, int> indegree;
+    for (const auto *node : nodes) {
+        indegree[node->id()] = 0;
+    }
+
+    for (const auto *node : nodes) {
+        for (const auto &parent : node->GetAllParents()) {
+            if (parent.IsConnected() && parent.node != nullptr) {
+                ++indegree[node->id()];
+            }
+        }
+    }
+
+    std::queue<const core::NodeBase *> ready;
+    for (const auto *node : nodes) {
+        if (indegree[node->id()] == 0) {
+            ready.push(node);
+        }
+    }
+
+    std::vector<const core::NodeBase *> order;
+    while (!ready.empty()) {
+        const core::NodeBase *node = ready.front();
+        ready.pop();
+        order.push_back(node);
+
+        for (const auto &child : node->GetAllChildrens()) {
+            if (!child.IsConnected() || child.node == nullptr) {
+                continue;
+            }
+            auto &current = indegree[child.node->id()];
+            --current;
+            if (current == 0) {
+                ready.push(child.node);
+            }
+        }
+    }
+
+    if (order.size() < nodes.size()) {
+        for (const auto *node : nodes) {
+            if (std::find(order.begin(), order.end(), node) == order.end()) {
+                order.push_back(node);
+            }
+        }
+    }
+
+    std::unordered_map<uint32_t, std::string> symbol_for_node;
+    std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
+    uint32_t output_count = 0;
+
+    auto GetOperandExpr = [&](const core::NodeBase *node, uint8_t pin) -> std::string {
+        const auto *connection = FindParentConnection(*node, pin);
+        if (connection == nullptr || !connection->IsConnected() || connection->node == nullptr) {
+            return DefaultCppExprFor(node->GetInputPinType(pin));
+        }
+
+        const auto it = symbol_for_node.find(connection->node->id());
+        if (it != symbol_for_node.end()) {
+            return it->second;
+        }
+
+        return DefaultCppExprFor(node->GetInputPinType(pin));
+    };
+
+    // Computation section
+    file.Line("    // ===== Computation =====");
+    for (const auto *node : order) {
+        switch (node->kind()) {
+            case core::NodeBase::NodeKind::kLiteral: {
+                const auto *literal = static_cast<const core::LiteralNode *>(node);
+                std::ostringstream line;
+                line << "const " << CppTypeFor(literal->type()) << " lit_" << literal->id()
+                     << " = " << LiteralToCpp(*literal) << ";";
+                file.Line("    " + line.str());
+
+                symbol_for_node[node->id()] = "lit_" + std::to_string(node->id());
+                if (auto constant = GetLiteralConstant(*literal)) {
+                    folded_value_for_node[node->id()] = *constant;
+                }
+                break;
+            }
+            case core::NodeBase::NodeKind::kOperator: {
+                const auto *op = static_cast<const core::OperatorNode *>(node);
+                const PinDataType output_type = op->GetOutputPinType(0);
+                const std::string symbol = "result_" + std::to_string(output_count++);
+
+                std::optional<ConstantValue> folded_value;
+                if (op->IsUnaryOperator()) {
+                    const auto *parent = FindParentConnection(*op, 0);
+                    if (parent != nullptr && parent->IsConnected() && parent->node != nullptr) {
+                        const auto it = folded_value_for_node.find(parent->node->id());
+                        if (it != folded_value_for_node.end()) {
+                            folded_value = FoldUnary(op->operator_type(), it->second);
+                        }
+                    }
+                } else {
+                    const auto *left_parent = FindParentConnection(*op, 0);
+                    const auto *right_parent = FindParentConnection(*op, 1);
+                    if (left_parent != nullptr && right_parent != nullptr &&
+                        left_parent->IsConnected() && right_parent->IsConnected() &&
+                        left_parent->node != nullptr && right_parent->node != nullptr) {
+                        const auto left_it = folded_value_for_node.find(left_parent->node->id());
+                        const auto right_it = folded_value_for_node.find(right_parent->node->id());
+                        if (left_it != folded_value_for_node.end() &&
+                            right_it != folded_value_for_node.end()) {
+                            folded_value = FoldBinary(op->operator_type(), left_it->second,
+                                                     right_it->second);
+                        }
+                    }
+                }
+
+                if (folded_value.has_value()) {
+                    std::ostringstream line;
+                    line << "const " << CppTypeFor(output_type) << " " << symbol
+                         << " = " << ConstantToCpp(*folded_value) << ";";
+                    file.Line("    " + line.str());
+                    folded_value_for_node[node->id()] = *folded_value;
+                    symbol_for_node[node->id()] = symbol;
+                    break;
+                }
+
+                if (op->IsUnaryOperator()) {
+                    const std::string operand = GetOperandExpr(op, 0);
+                    std::ostringstream line;
+                    line << CppTypeFor(output_type) << " " << symbol << " = "
+                         << OpSymbol(op->operator_type()) << operand << ";";
+                    file.Line("    " + line.str());
+                } else {
+                    const std::string left = GetOperandExpr(op, 0);
+                    const std::string right = GetOperandExpr(op, 1);
+                    std::ostringstream line;
+                    line << CppTypeFor(output_type) << " " << symbol << " = " << left
+                         << " " << OpSymbol(op->operator_type()) << " " << right << ";";
+                    file.Line("    " + line.str());
+                }
+
+                symbol_for_node[node->id()] = symbol;
+                break;
+            }
+            default: {
+                symbol_for_node[node->id()] = "v" + std::to_string(node->id());
+                break;
+            }
+        }
+    }
+
+    // Output section
+    if (print_all_results && output_count > 0) {
+        file.Line("");
+        file.Line("    // ===== Results =====");
+        uint32_t result_idx = 0;
+        for (const auto *node : order) {
+            if (node->kind() == core::NodeBase::NodeKind::kOperator) {
+                const std::string symbol = "result_" + std::to_string(result_idx++);
+                
+                std::ostringstream line;
+                line << "std::cout << \"" << symbol << ": \" << " << symbol << " << std::endl;";
+                file.Line("    " + line.str());
+            }
+        }
+    }
+
+    file.Line("");
+    file.Line("    return 0;");
+    file.Line("}");
+
+    return file;
+}
