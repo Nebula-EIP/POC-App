@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"classcore_1_1NodeBase.html#aa3b4ddc26e1fbbceafd91f2c4fbf70a8":[0,0,0,24,33],
+"classcore_1_1NodeBase.html#ab3f1e755f39a636fbd986cdc28b797c7":[0,0,0,24,12],
+"classcore_1_1NodeBase.html#ab3f1e755f39a636fbd986cdc28b797c7":[1,0,1,24,12],
+"classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5":[1,0,1,24,7],
 "classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5":[0,0,0,24,7],
 "classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb":[1,0,1,24,16],
 "classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb":[0,0,0,24,16],
@@ -17,8 +21,8 @@ var NAVTREEINDEX1 =
 "classcore_1_1NodeNotFoundException.html":[1,0,1,25],
 "classcore_1_1OperatorNode.html":[0,0,0,26],
 "classcore_1_1OperatorNode.html":[1,0,1,26],
-"classcore_1_1OperatorNode.html#a16385e083ee265444912cd6357b9cf03":[1,0,1,26,2],
 "classcore_1_1OperatorNode.html#a16385e083ee265444912cd6357b9cf03":[0,0,0,26,2],
+"classcore_1_1OperatorNode.html#a16385e083ee265444912cd6357b9cf03":[1,0,1,26,2],
 "classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4":[0,0,0,26,0],
 "classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4":[1,0,1,26,0],
 "classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4a0257bd7c53d8e1249304a2a020836e08":[1,0,1,26,0,19],

@@ -6,5 +6,6 @@ var searchData=
   ['deserializefactory_3',['DeserializeFactory',['../classcore_1_1NodeBase.html#ad3add568bd152376dff16efa8e9f7fd9',1,'core::NodeBase']]],
   ['drag_5foffset_5f_4',['drag_offset_',['../classcore_1_1NodeBase.html#a80740b7936ee4ae1d2d49d993b12023f',1,'core::NodeBase']]],
   ['draw_5',['draw',['../classcore_1_1Graph.html#a2cbee336bf4fd9a6db1b45ec30fa2f96',1,'core::Graph::Draw()'],['../classcore_1_1NodeBase.html#a7462871226558dfe3472356a666fd20a',1,'core::NodeBase::Draw()']]],
-  ['duplicatenodeidexception_6',['DuplicateNodeIdException',['../classcore_1_1DuplicateNodeIdException.html',1,'core']]]
+  ['drawconnections_6',['DrawConnections',['../classcore_1_1Graph.html#a53847a2d601bee4706d8fc482cbca46f',1,'core::Graph']]],
+  ['duplicatenodeidexception_7',['DuplicateNodeIdException',['../classcore_1_1DuplicateNodeIdException.html',1,'core']]]
 ];

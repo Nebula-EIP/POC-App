@@ -129,10 +129,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a13c1242bb90c85898ca9db0ff307dbe4"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4">GetNode</a> (uint32_t id) const</td></tr>
 <tr class="memdesc:a13c1242bb90c85898ca9db0ff307dbe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a node from the graph by its unique identifier with type safety.  <br /></td></tr>
 <tr class="separator:a13c1242bb90c85898ca9db0ff307dbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeed4458e3cd29d7ece39d1d2643bb0c3" id="r_aeed4458e3cd29d7ece39d1d2643bb0c3"><td class="memItemLeft" align="right" valign="top"><a id="aeed4458e3cd29d7ece39d1d2643bb0c3" name="aeed4458e3cd29d7ece39d1d2643bb0c3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>LinkingWithMouse</b> ()</td></tr>
-<tr class="memdesc:aeed4458e3cd29d7ece39d1d2643bb0c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify is the user has right clicked on a node then on another node to link them together. <br /></td></tr>
-<tr class="separator:aeed4458e3cd29d7ece39d1d2643bb0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accec50d9da4e41cc23a0011c10c5a890" id="r_accec50d9da4e41cc23a0011c10c5a890"><td class="memItemLeft" align="right" valign="top"><a id="accec50d9da4e41cc23a0011c10c5a890" name="accec50d9da4e41cc23a0011c10c5a890"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SelectForLink</b> ()</td></tr>
+<tr class="memdesc:accec50d9da4e41cc23a0011c10c5a890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify is the user has right clicked on a node then on another node to link them together. <br /></td></tr>
+<tr class="separator:accec50d9da4e41cc23a0011c10c5a890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83f0807477e04bc36aed8d5740fe96f1" id="r_a83f0807477e04bc36aed8d5740fe96f1"><td class="memItemLeft" align="right" valign="top"><a id="a83f0807477e04bc36aed8d5740fe96f1" name="a83f0807477e04bc36aed8d5740fe96f1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>LinkNodes</b> (const std::unique_ptr&lt; <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a> &gt; &amp;node)</td></tr>
+<tr class="memdesc:a83f0807477e04bc36aed8d5740fe96f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link two nodes. <br /></td></tr>
+<tr class="separator:a83f0807477e04bc36aed8d5740fe96f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad16112a1e0b808902356852caeaa6cf2" id="r_ad16112a1e0b808902356852caeaa6cf2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::unique_ptr&lt; <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ad16112a1e0b808902356852caeaa6cf2">GetAllNodes</a> () const noexcept</td></tr>
 <tr class="memdesc:ad16112a1e0b808902356852caeaa6cf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all nodes in the graph.  <br /></td></tr>
 <tr class="separator:ad16112a1e0b808902356852caeaa6cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +190,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateModifiedTime</b
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()</td></tr>
 <tr class="memdesc:a2cbee336bf4fd9a6db1b45ec30fa2f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the graph and all its nodes. <br /></td></tr>
 <tr class="separator:a2cbee336bf4fd9a6db1b45ec30fa2f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53847a2d601bee4706d8fc482cbca46f" id="r_a53847a2d601bee4706d8fc482cbca46f"><td class="memItemLeft" align="right" valign="top"><a id="a53847a2d601bee4706d8fc482cbca46f" name="a53847a2d601bee4706d8fc482cbca46f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawConnections</b> (const std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1Connection.html">core::NodeBase::Connection</a> &gt; *const &amp;children, const std::unique_ptr&lt; <a class="el" href="classcore_1_1NodeBase.html">core::NodeBase</a> &gt; &amp;node)</td></tr>
+<tr class="memdesc:a53847a2d601bee4706d8fc482cbca46f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the connections between nodes. <br /></td></tr>
+<tr class="separator:a53847a2d601bee4706d8fc482cbca46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78091e8976052a76671806bdcb6d2b61" id="r_a78091e8976052a76671806bdcb6d2b61"><td class="memItemLeft" align="right" valign="top"><a id="a78091e8976052a76671806bdcb6d2b61" name="a78091e8976052a76671806bdcb6d2b61"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CheckNodeMovement</b> ()</td></tr>
 <tr class="memdesc:a78091e8976052a76671806bdcb6d2b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a node is moved. <br /></td></tr>
