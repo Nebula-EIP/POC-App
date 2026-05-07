@@ -653,6 +653,22 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
     }
 }
 
+void core::Graph::DrawConnections(
+    const std::vector<core::NodeBase::Connection> *const &childrens,
+    const std::unique_ptr<core::NodeBase> &node) {
+    if (childrens) {
+        for (const auto &conn : (*childrens)) {
+            if (conn.IsConnected()) {
+                Vector2 start = {node->GetPosition().first + 100,
+                                 node->GetPosition().second + 25};
+                Vector2 end = {conn.node->GetPosition().first,
+                               conn.node->GetPosition().second + 25};
+                DrawLineBezier(start, end, 2, BLACK);
+            }
+        }
+    }
+}
+
 void core::Graph::Draw() {
     // Draw nodes
     for (const auto &node : nodes_) {
@@ -662,17 +678,7 @@ void core::Graph::Draw() {
     for (const auto &node : nodes_) {
         for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
             const auto &childrens = node->Childrens(i);
-            if (childrens) {
-                for (const auto &conn : (*childrens)) {
-                    if (conn.IsConnected()) {
-                        Vector2 start = {node->GetPosition().first + 100,
-                                         node->GetPosition().second + 25};
-                        Vector2 end = {conn.node->GetPosition().first,
-                                       conn.node->GetPosition().second + 25};
-                        DrawLineBezier(start, end, 2, BLACK);
-                    }
-                }
-            }
+            DrawConnections(childrens, node);
         }
     }
 }
@@ -684,24 +690,28 @@ void core::Graph::CheckNodeMovement() {
     }
 }
 
-void core::Graph::LinkingWithMouse() {
+void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
+    if (linking_from_node_ == nullptr) {
+        linking_from_node_ = node.get();
+    } else {
+        if (node.get() == linking_from_node_) {
+            linking_from_node_ = nullptr;
+            return;
+        }
+        try {
+            Link(linking_from_node_, 0, node.get(), 0);
+        } catch (const std::exception &e) {
+            LOG_ERROR("Failed to link nodes: {}", e.what());
+        }
+        linking_from_node_ = nullptr;
+    }
+}
+
+void core::Graph::SelectForLink() {
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         for (const auto &node : nodes_) {
             if (node->IsMouseOver()) {
-                if (linking_from_node_ == nullptr) {
-                    linking_from_node_ = node.get();
-                } else {
-                    if (node.get() == linking_from_node_) {
-                        linking_from_node_ = nullptr;
-                        break;
-                    }
-                    try {
-                        Link(linking_from_node_, 0, node.get(), 0);
-                    } catch (const std::exception &e) {
-                        LOG_ERROR("Failed to link nodes: {}", e.what());
-                    }
-                    linking_from_node_ = nullptr;
-                }
+                LinkNodes(node);
                 break;
             }
         }

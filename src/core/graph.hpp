@@ -109,7 +109,12 @@ class Graph {
      * @brief Verify is the user has right clicked on a node
      * then on another node to link them together
      */
-    void LinkingWithMouse();
+    void SelectForLink();
+
+    /**
+     * @brief Link two nodes
+     */
+    void LinkNodes(const std::unique_ptr<core::NodeBase> &node);
 
     /**
      * @brief Gets all nodes in the graph.
@@ -290,6 +295,13 @@ class Graph {
      * @brief Draws the graph and all its nodes.
      */
     void Draw();
+
+    /**
+     * @brief Draws the connections between nodes
+     */
+    void DrawConnections(
+        const std::vector<core::NodeBase::Connection> *const &children,
+        const std::unique_ptr<core::NodeBase> &node);
 
     /**
      * @brief Check if a node is moved
