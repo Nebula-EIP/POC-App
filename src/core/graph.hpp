@@ -16,6 +16,7 @@
 #include "graph_exceptions.hpp"
 #include "id_manager.hpp"
 #include "node_base.hpp"
+#include "raylib_wrapper.hpp"
 
 namespace core {
 

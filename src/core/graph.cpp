@@ -659,11 +659,13 @@ void core::Graph::DrawConnections(
     if (childrens) {
         for (const auto &conn : (*childrens)) {
             if (conn.IsConnected()) {
-                Vector2 start = {node->GetPosition().first + 100,
-                                 node->GetPosition().second + 25};
-                Vector2 end = {conn.node->GetPosition().first,
-                               conn.node->GetPosition().second + 25};
-                DrawLineBezier(start, end, 2, BLACK);
+                utils::WrappedVector2 start = 
+                                {node->GetPosition().x + 100,
+                                 node->GetPosition().y + 25};
+                utils::WrappedVector2 end = 
+                                {conn.node->GetPosition().x,
+                                 conn.node->GetPosition().y + 25};
+                utils::DrawLineBezierWrapped(start, end, 50, utils::GRAY);
             }
         }
     }
@@ -708,7 +710,7 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
 }
 
 void core::Graph::SelectForLink() {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
+    if (utils::isRightClicked()) {
         for (const auto &node : nodes_) {
             if (node->IsMouseOver()) {
                 LinkNodes(node);
@@ -718,36 +720,36 @@ void core::Graph::SelectForLink() {
     }
 
     if (linking_from_node_) {
-        Vector2 cursor_pos = GetMousePosition();
-        DrawLineEx({linking_from_node_->GetPosition().first + 100,
-                    linking_from_node_->GetPosition().second + 25},
-                   cursor_pos, 2, GRAY);
+        utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+        utils::DrawLineWrapped({linking_from_node_->GetPosition().x + 100,
+                                linking_from_node_->GetPosition().y + 25},
+                                cursor_pos, 2, utils::GRAY);
     }
 }
 
 void core::Graph::SelectWithMouse() {
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (utils::isLeftClicked()) {
         if (!is_selecting_) {
-            Vector2 start = GetMousePosition();
+            utils::WrappedVector2 start = utils::GetCursorPositionWrapped();
             selection_start_ = {start.x, start.y};
             is_selecting_ = true;
         }
     } else {
         if (is_selecting_) {
             // Select the nodes within the selection rectangle
-            Vector2 end = GetMousePosition();
+            utils::WrappedVector2 end = utils::GetCursorPositionWrapped();
             for (const auto &node : nodes_) {
-                Vector2 node_pos = {node->GetPosition().first,
-                                    node->GetPosition().second};
+                utils::WrappedVector2 node_pos = {node->GetPosition().x,
+                                                  node->GetPosition().y};
 
                 float left = std::min(selection_start_.first, end.x);
                 float top = std::min(selection_start_.second, end.y);
                 float right = std::max(selection_start_.first, end.x);
                 float bottom = std::max(selection_start_.second, end.y);
 
-                Rectangle selection_rect = {left, top, right - left,
+                utils::WrappedRectangle selection_rect = {left, top, right - left,
                                             bottom - top};
-                if (CheckCollisionPointRec(node_pos, selection_rect)) {
+                if (utils::CheckCollisionPointRecWrapped(node_pos, selection_rect)) {
                     node->follow_mouse_ = true;
                     node->PrepareDrag();
                 } else {
@@ -764,22 +766,24 @@ void core::Graph::SelectWithMouse() {
 
     // Draw the square and color the nodes
     if (is_selecting_) {
-        Vector2 current = GetMousePosition();
-        DrawRectangleLines(selection_start_.first, selection_start_.second,
-                           current.x - selection_start_.first,
-                           current.y - selection_start_.second, GRAY);
+        utils::WrappedVector2 current = utils::GetCursorPositionWrapped();
+        utils::DrawRectangleLinesWrapped(std::min(selection_start_.first, current.x),
+                                        std::min(selection_start_.second, current.y),
+                                        std::abs(current.x - selection_start_.first),
+                                        std::abs(current.y - selection_start_.second),
+                                        utils::GRAY);
 
         for (const auto &node : nodes_) {
-            Vector2 node_pos = {node->GetPosition().first,
-                                node->GetPosition().second};
+            utils::WrappedVector2 node_pos = {node->GetPosition().x,
+                                node->GetPosition().y};
 
             float left = std::min(selection_start_.first, current.x);
             float top = std::min(selection_start_.second, current.y);
             float right = std::max(selection_start_.first, current.x);
             float bottom = std::max(selection_start_.second, current.y);
 
-            Rectangle selection_rect = {left, top, right - left, bottom - top};
-            if (CheckCollisionPointRec(node_pos, selection_rect)) {
+            utils::WrappedRectangle selection_rect = {left, top, right - left, bottom - top};
+            if (utils::CheckCollisionPointRecWrapped(node_pos, selection_rect)) {
                 node->SetColor(255, 255, 0);
             } else {
                 std::tuple<unsigned char, unsigned char, unsigned char>

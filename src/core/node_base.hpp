@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "id_manager.hpp"
+#include "raylib_wrapper.hpp"
 
 namespace core {
 
@@ -101,7 +102,7 @@ class NodeBase {
 
     NodeKind kind() const noexcept;
 
-    std::pair<float, float> GetPosition() const;
+    utils::WrappedVector2 GetPosition() const;
 
     bool IsMouseOver() const;
 
@@ -389,23 +390,21 @@ class NodeBase {
      * @param kind The type/kind of this node.
      */
     NodeBase(uint32_t id, NodeKind kind,
-             std::pair<float, float> position = {0.0f, 0.0f}) noexcept;
+             utils::WrappedVector2 position = {0.0f, 0.0f}) noexcept;
 
     const uint32_t id_;
     const NodeKind kind_;
-    std::pair<float, float> position_ = {0.0f,
+    utils::WrappedVector2 position_ = {0.0f,
                                          0.0f};  ///< Position in the editor
-    std::pair<float, float> drag_offset_ = {
+    utils::WrappedVector2 drag_offset_ = {
         0.0f, 0.0f};  ///< Offset used for dragging the node
-    std::pair<float, float> initial_position_cursor_ = {
+    utils::WrappedVector2 initial_position_cursor_ = {
         0.0f, 0.0f};  ///< Initial position for resetting
-    std::pair<float, float> initial_position_ = {
+    utils::WrappedVector2 initial_position_ = {
         0.0f, 0.0f};  ///< Initial position for resetting
     bool follow_mouse_ = false;
-    std::tuple<unsigned char, unsigned char, unsigned char> color_ = {130, 130,
-                                                                      130};
-    std::tuple<unsigned char, unsigned char, unsigned char> initial_color_ = {
-        130, 130, 130};
+    utils::WrappedColor color_ = {130, 130, 130};
+    utils::WrappedColor initial_color_ = {130, 130, 130};
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)
