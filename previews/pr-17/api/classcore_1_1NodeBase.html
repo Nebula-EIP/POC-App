@@ -132,9 +132,13 @@ Collaboration diagram for core::NodeBase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore_1_1NodeBase__coll__graph.png" border="0" usemap="#acore_1_1NodeBase_coll__map" alt="Collaboration graph"/></div>
 <map name="acore_1_1NodeBase_coll__map" id="acore_1_1NodeBase_coll__map">
-<area shape="rect" title="Abstract base class for all nodes in the graph system." alt="" coords="45,108,169,133"/>
-<area shape="rect" href="classutils_1_1IdManager.html" title=" " alt="" coords="5,5,208,31"/>
-<area shape="poly" title=" " alt="" coords="109,45,109,108,104,108,104,45"/>
+<area shape="rect" title="Abstract base class for all nodes in the graph system." alt="" coords="209,167,333,192"/>
+<area shape="rect" href="structutils_1_1WrappedVector2.html" title=" " alt="" coords="5,5,171,31"/>
+<area shape="poly" title=" " alt="" coords="100,42,127,92,146,118,170,141,192,154,217,164,215,169,190,159,166,145,142,122,123,95,95,45"/>
+<area shape="rect" href="structutils_1_1WrappedColor.html" title=" " alt="" coords="195,5,346,31"/>
+<area shape="poly" title=" " alt="" coords="273,44,273,166,268,166,268,44"/>
+<area shape="rect" href="classutils_1_1IdManager.html" title=" " alt="" coords="371,5,573,31"/>
+<area shape="poly" title=" " alt="" coords="459,44,418,94,391,121,361,145,337,159,311,169,309,164,335,154,359,140,388,117,414,90,454,40"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -187,7 +191,7 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> () const n
 <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kind</b> () const noexcept</td></tr>
 <tr class="separator:a3f7f76b2120e6aa888eb192a329a4ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06aa65179127727b4156fe70a6cf9fab" id="r_a06aa65179127727b4156fe70a6cf9fab"><td class="memItemLeft" align="right" valign="top"><a id="a06aa65179127727b4156fe70a6cf9fab" name="a06aa65179127727b4156fe70a6cf9fab"></a>
-std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPosition</b> () const</td></tr>
+<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetPosition</b> () const</td></tr>
 <tr class="separator:a06aa65179127727b4156fe70a6cf9fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf5ed71ba19f76715d55d5630a750d00" id="r_aaf5ed71ba19f76715d55d5630a750d00"><td class="memItemLeft" align="right" valign="top"><a id="aaf5ed71ba19f76715d55d5630a750d00" name="aaf5ed71ba19f76715d55d5630a750d00"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsMouseOver</b> () const</td></tr>
@@ -308,9 +312,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa2c7462fa852e9151c6d21e8d4f40fc5" id="r_aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5">RemoveOutputPin</a> (uint8_t pin)</td></tr>
 <tr class="memdesc:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an output pin by its id.  <br /></td></tr>
 <tr class="separator:aa2c7462fa852e9151c6d21e8d4f40fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc6238a44844076c514e530c10dd8e39" id="r_adc6238a44844076c514e530c10dd8e39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#adc6238a44844076c514e530c10dd8e39">NodeBase</a> (uint32_t id, <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a> kind, std::pair&lt; float, float &gt; position={0.0f, 0.0f}) noexcept</td></tr>
-<tr class="memdesc:adc6238a44844076c514e530c10dd8e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor to prevent direct instantiation.  <br /></td></tr>
-<tr class="separator:adc6238a44844076c514e530c10dd8e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ac57f0faa7668730a9557249829691" id="r_a92ac57f0faa7668730a9557249829691"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a92ac57f0faa7668730a9557249829691">NodeBase</a> (uint32_t id, <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a> kind, <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> position={0.0f, 0.0f}) noexcept</td></tr>
+<tr class="memdesc:a92ac57f0faa7668730a9557249829691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protected constructor to prevent direct instantiation.  <br /></td></tr>
+<tr class="separator:a92ac57f0faa7668730a9557249829691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -320,25 +324,27 @@ const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>id_</b></td
 <tr class="memitem:ab7ba11526cc3fd1563e072d67f49a8e0" id="r_ab7ba11526cc3fd1563e072d67f49a8e0"><td class="memItemLeft" align="right" valign="top"><a id="ab7ba11526cc3fd1563e072d67f49a8e0" name="ab7ba11526cc3fd1563e072d67f49a8e0"></a>
 const <a class="el" href="classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e">NodeKind</a>&#160;</td><td class="memItemRight" valign="bottom"><b>kind_</b></td></tr>
 <tr class="separator:ab7ba11526cc3fd1563e072d67f49a8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3b4ddc26e1fbbceafd91f2c4fbf70a8" id="r_aa3b4ddc26e1fbbceafd91f2c4fbf70a8"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aa3b4ddc26e1fbbceafd91f2c4fbf70a8">position_</a></td></tr>
-<tr class="memdesc:aa3b4ddc26e1fbbceafd91f2c4fbf70a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in the editor.  <br /></td></tr>
-<tr class="separator:aa3b4ddc26e1fbbceafd91f2c4fbf70a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80740b7936ee4ae1d2d49d993b12023f" id="r_a80740b7936ee4ae1d2d49d993b12023f"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a80740b7936ee4ae1d2d49d993b12023f">drag_offset_</a></td></tr>
-<tr class="memdesc:a80740b7936ee4ae1d2d49d993b12023f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset used for dragging the node.  <br /></td></tr>
-<tr class="separator:a80740b7936ee4ae1d2d49d993b12023f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f115278a95844d75e07d04d843684dd" id="r_a6f115278a95844d75e07d04d843684dd"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a6f115278a95844d75e07d04d843684dd">initial_position_cursor_</a></td></tr>
-<tr class="memdesc:a6f115278a95844d75e07d04d843684dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial position for resetting.  <br /></td></tr>
-<tr class="separator:a6f115278a95844d75e07d04d843684dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a026eaad63d46e68b8622f1ee0a36b065" id="r_a026eaad63d46e68b8622f1ee0a36b065"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a026eaad63d46e68b8622f1ee0a36b065">initial_position_</a></td></tr>
-<tr class="memdesc:a026eaad63d46e68b8622f1ee0a36b065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial position for resetting.  <br /></td></tr>
-<tr class="separator:a026eaad63d46e68b8622f1ee0a36b065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47f921a9621c7353ab7b7c548190d0de" id="r_a47f921a9621c7353ab7b7c548190d0de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a47f921a9621c7353ab7b7c548190d0de">position_</a></td></tr>
+<tr class="memdesc:a47f921a9621c7353ab7b7c548190d0de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position in the editor.  <br /></td></tr>
+<tr class="separator:a47f921a9621c7353ab7b7c548190d0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75d3ee53587d63e4385a435bcf3737d" id="r_aa75d3ee53587d63e4385a435bcf3737d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#aa75d3ee53587d63e4385a435bcf3737d">drag_offset_</a></td></tr>
+<tr class="memdesc:aa75d3ee53587d63e4385a435bcf3737d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset used for dragging the node.  <br /></td></tr>
+<tr class="separator:aa75d3ee53587d63e4385a435bcf3737d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3adb48938f12a8eeac6b9c51e884471a" id="r_a3adb48938f12a8eeac6b9c51e884471a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a3adb48938f12a8eeac6b9c51e884471a">initial_position_cursor_</a></td></tr>
+<tr class="memdesc:a3adb48938f12a8eeac6b9c51e884471a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial position for resetting.  <br /></td></tr>
+<tr class="separator:a3adb48938f12a8eeac6b9c51e884471a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a419c1870c35a7048332fa47c37b1fce8" id="r_a419c1870c35a7048332fa47c37b1fce8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a419c1870c35a7048332fa47c37b1fce8">initial_position_</a></td></tr>
+<tr class="memdesc:a419c1870c35a7048332fa47c37b1fce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial position for resetting.  <br /></td></tr>
+<tr class="separator:a419c1870c35a7048332fa47c37b1fce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3ab20afdef5b63659e875ee258461dc" id="r_ae3ab20afdef5b63659e875ee258461dc"><td class="memItemLeft" align="right" valign="top"><a id="ae3ab20afdef5b63659e875ee258461dc" name="ae3ab20afdef5b63659e875ee258461dc"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>follow_mouse_</b> = false</td></tr>
 <tr class="separator:ae3ab20afdef5b63659e875ee258461dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b9a28bfd675f7989a92339cf43f374e" id="r_a6b9a28bfd675f7989a92339cf43f374e"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; unsigned char, unsigned char, unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a6b9a28bfd675f7989a92339cf43f374e">color_</a></td></tr>
-<tr class="separator:a6b9a28bfd675f7989a92339cf43f374e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8322248acb71da2f35a78de6b3af5b3" id="r_ae8322248acb71da2f35a78de6b3af5b3"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; unsigned char, unsigned char, unsigned char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ae8322248acb71da2f35a78de6b3af5b3">initial_color_</a></td></tr>
-<tr class="separator:ae8322248acb71da2f35a78de6b3af5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a4e86bed1b4d7c5c659239f73a57f9" id="r_a71a4e86bed1b4d7c5c659239f73a57f9"><td class="memItemLeft" align="right" valign="top"><a id="a71a4e86bed1b4d7c5c659239f73a57f9" name="a71a4e86bed1b4d7c5c659239f73a57f9"></a>
+<a class="el" href="structutils_1_1WrappedColor.html">utils::WrappedColor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>color_</b> = {130, 130, 130}</td></tr>
+<tr class="separator:a71a4e86bed1b4d7c5c659239f73a57f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e252191032a6478742e6a2bfae3ccc5" id="r_a9e252191032a6478742e6a2bfae3ccc5"><td class="memItemLeft" align="right" valign="top"><a id="a9e252191032a6478742e6a2bfae3ccc5" name="a9e252191032a6478742e6a2bfae3ccc5"></a>
+<a class="el" href="structutils_1_1WrappedColor.html">utils::WrappedColor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>initial_color_</b> = {130, 130, 130}</td></tr>
+<tr class="separator:a9e252191032a6478742e6a2bfae3ccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a551aba3aa39a8c519501cb8ff81dca10" id="r_a551aba3aa39a8c519501cb8ff81dca10"><td class="memItemLeft" align="right" valign="top"><a id="a551aba3aa39a8c519501cb8ff81dca10" name="a551aba3aa39a8c519501cb8ff81dca10"></a>
 <a class="el" href="classutils_1_1IdManager.html">utils::IdManager</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin_id_manager_</b></td></tr>
 <tr class="separator:a551aba3aa39a8c519501cb8ff81dca10"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -448,8 +454,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adc6238a44844076c514e530c10dd8e39" name="adc6238a44844076c514e530c10dd8e39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc6238a44844076c514e530c10dd8e39">&#9670;&#160;</a></span>NodeBase()</h2>
+<a id="a92ac57f0faa7668730a9557249829691" name="a92ac57f0faa7668730a9557249829691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ac57f0faa7668730a9557249829691">&#9670;&#160;</a></span>NodeBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,7 +478,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::pair&lt; float, float &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
           <td class="paramname"><em>position</em> = <code>{0.0f,&#160;0.0f}</code>&#160;</td>
         </tr>
         <tr>
@@ -1213,8 +1219,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6b9a28bfd675f7989a92339cf43f374e" name="a6b9a28bfd675f7989a92339cf43f374e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b9a28bfd675f7989a92339cf43f374e">&#9670;&#160;</a></span>color_</h2>
+<a id="aa75d3ee53587d63e4385a435bcf3737d" name="aa75d3ee53587d63e4385a435bcf3737d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa75d3ee53587d63e4385a435bcf3737d">&#9670;&#160;</a></span>drag_offset_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1223,31 +1229,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::tuple&lt;unsigned char, unsigned char, unsigned char&gt; core::NodeBase::color_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {130, 130,</div>
-<div class="line">                                                                      130}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a80740b7936ee4ae1d2d49d993b12023f" name="a80740b7936ee4ae1d2d49d993b12023f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80740b7936ee4ae1d2d49d993b12023f">&#9670;&#160;</a></span>drag_offset_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;float, float&gt; core::NodeBase::drag_offset_</td>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> core::NodeBase::drag_offset_</td>
         </tr>
       </table>
   </td>
@@ -1263,8 +1245,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 </div>
 </div>
-<a id="ae8322248acb71da2f35a78de6b3af5b3" name="ae8322248acb71da2f35a78de6b3af5b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8322248acb71da2f35a78de6b3af5b3">&#9670;&#160;</a></span>initial_color_</h2>
+<a id="a419c1870c35a7048332fa47c37b1fce8" name="a419c1870c35a7048332fa47c37b1fce8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a419c1870c35a7048332fa47c37b1fce8">&#9670;&#160;</a></span>initial_position_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1273,31 +1255,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::tuple&lt;unsigned char, unsigned char, unsigned char&gt; core::NodeBase::initial_color_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">        130, 130, 130}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a026eaad63d46e68b8622f1ee0a36b065" name="a026eaad63d46e68b8622f1ee0a36b065"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a026eaad63d46e68b8622f1ee0a36b065">&#9670;&#160;</a></span>initial_position_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt;float, float&gt; core::NodeBase::initial_position_</td>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> core::NodeBase::initial_position_</td>
         </tr>
       </table>
   </td>
@@ -1313,8 +1271,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 </div>
 </div>
-<a id="a6f115278a95844d75e07d04d843684dd" name="a6f115278a95844d75e07d04d843684dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f115278a95844d75e07d04d843684dd">&#9670;&#160;</a></span>initial_position_cursor_</h2>
+<a id="a3adb48938f12a8eeac6b9c51e884471a" name="a3adb48938f12a8eeac6b9c51e884471a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3adb48938f12a8eeac6b9c51e884471a">&#9670;&#160;</a></span>initial_position_cursor_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1323,7 +1281,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;float, float&gt; core::NodeBase::initial_position_cursor_</td>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> core::NodeBase::initial_position_cursor_</td>
         </tr>
       </table>
   </td>
@@ -1339,8 +1297,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 
 </div>
 </div>
-<a id="aa3b4ddc26e1fbbceafd91f2c4fbf70a8" name="aa3b4ddc26e1fbbceafd91f2c4fbf70a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3b4ddc26e1fbbceafd91f2c4fbf70a8">&#9670;&#160;</a></span>position_</h2>
+<a id="a47f921a9621c7353ab7b7c548190d0de" name="a47f921a9621c7353ab7b7c548190d0de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47f921a9621c7353ab7b7c548190d0de">&#9670;&#160;</a></span>position_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1349,7 +1307,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;float, float&gt; core::NodeBase::position_</td>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> core::NodeBase::position_</td>
         </tr>
       </table>
   </td>

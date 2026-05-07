@@ -21,7 +21,7 @@ var classcore_1_1NodeBase =
       [ "kString", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca302e56d566a2561033b27c13680ea4b2", null ],
       [ "kVoid", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4cabd383557eb16fc23863cf3fc70b77ab3", null ]
     ] ],
-    [ "NodeBase", "classcore_1_1NodeBase.html#adc6238a44844076c514e530c10dd8e39", null ],
+    [ "NodeBase", "classcore_1_1NodeBase.html#a92ac57f0faa7668730a9557249829691", null ],
     [ "AddChild", "classcore_1_1NodeBase.html#a131d31888a1ee9c5d04a89f54c227e86", null ],
     [ "AddInputPin", "classcore_1_1NodeBase.html#a131b7b69ee133f3a255e6a6c748c7d62", null ],
     [ "AddOutputPin", "classcore_1_1NodeBase.html#ad0f4eb7fee35f1bb87af26efb968bdf5", null ],
@@ -46,9 +46,9 @@ var classcore_1_1NodeBase =
     [ "SetParent", "classcore_1_1NodeBase.html#a439ff8f28e63c0672ce41b237e8b579c", null ],
     [ "Graph", "classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a", null ],
     [ "childrens_", "classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac", null ],
-    [ "drag_offset_", "classcore_1_1NodeBase.html#a80740b7936ee4ae1d2d49d993b12023f", null ],
-    [ "initial_position_", "classcore_1_1NodeBase.html#a026eaad63d46e68b8622f1ee0a36b065", null ],
-    [ "initial_position_cursor_", "classcore_1_1NodeBase.html#a6f115278a95844d75e07d04d843684dd", null ],
+    [ "drag_offset_", "classcore_1_1NodeBase.html#aa75d3ee53587d63e4385a435bcf3737d", null ],
+    [ "initial_position_", "classcore_1_1NodeBase.html#a419c1870c35a7048332fa47c37b1fce8", null ],
+    [ "initial_position_cursor_", "classcore_1_1NodeBase.html#a3adb48938f12a8eeac6b9c51e884471a", null ],
     [ "parents_", "classcore_1_1NodeBase.html#a820c4b37b54a4e7449584a4f54e54fe1", null ],
-    [ "position_", "classcore_1_1NodeBase.html#aa3b4ddc26e1fbbceafd91f2c4fbf70a8", null ]
+    [ "position_", "classcore_1_1NodeBase.html#a47f921a9621c7353ab7b7c548190d0de", null ]
 ];
