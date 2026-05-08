@@ -28,7 +28,7 @@ bool core::NodeBase::Connection::IsConnected() const noexcept {
 }
 
 core::NodeBase::NodeBase(uint32_t id, NodeKind kind,
-                         std::pair<float, float> position) noexcept
+                         utils::WrappedVector2 position) noexcept
     : id_(id), kind_(kind), position_(position) {}
 
 core::NodeBase::~NodeBase() noexcept = default;
@@ -37,9 +37,7 @@ uint32_t core::NodeBase::id() const noexcept { return id_; }
 
 core::NodeBase::NodeKind core::NodeBase::kind() const noexcept { return kind_; }
 
-std::pair<float, float> core::NodeBase::GetPosition() const {
-    return position_;
-}
+utils::WrappedVector2 core::NodeBase::GetPosition() const { return position_; }
 
 // parents_ vector already filled by the Graph class
 core::NodeBase::Connection core::NodeBase::parent(uint8_t in_pin) const {
@@ -367,7 +365,7 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
     uint32_t id;
     std::string kind_str;
 
-    std::pair<float, float> position = {0.0f, 0.0f};
+    utils::WrappedVector2 position = {0.0f, 0.0f};
 
     try {
         id = json["id"].get<uint32_t>();
@@ -478,47 +476,50 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 }
 
 void core::NodeBase::Draw() {
-    const auto [r, g, b] = color_;
-    Color color = {r, g, b, 255};
+    const auto [r, g, b, a] = color_;
+    utils::WrappedColor color = {r, g, b, a};
     // Draw Node body
-    DrawRectangle(position_.first, position_.second, 100, 50, color);
+    utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50, utils::GRAY);
     // Draw Node number
-    DrawText(("Node " + std::to_string(id_)).c_str(), position_.first + 10,
-             position_.second + 15, 10, BLACK);
+    utils::DrawTextWrapped(("Node " + std::to_string(id_)).c_str(),
+                           position_.x + 10, position_.y + 15, 10,
+                           utils::BLACK);
     // Draw Node kind
-    DrawText(("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
-             position_.first + 10, position_.second + 30, 10, BLACK);
+    utils::DrawTextWrapped(
+        ("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
+        position_.x + 10, position_.y + 30, 10, utils::BLACK);
     // Draw pin
     for (uint8_t i = 0; i < GetInputPinCount(); i++) {
-        DrawCircle(position_.first, position_.second + 25 + i * 15, 5, RED);
+        utils::DrawCircleWrapped(position_.x, position_.y + 25 + i * 15, 5,
+                                 utils::RED);
     }
     for (uint8_t i = 0; i < GetOutputPinCount(); i++) {
-        DrawCircle(position_.first + 100, position_.second + 25 + i * 15, 5,
-                   BLUE);
+        utils::DrawCircleWrapped(position_.x + 100, position_.y + 25 + i * 15,
+                                 5, utils::BLUE);
     }
 }
 
 void core::NodeBase::PrepareDrag() {
-    Vector2 cursor_position = GetMousePosition();
-    drag_offset_.first = 0;
-    drag_offset_.second = 0;
-    initial_position_cursor_.first = cursor_position.x;
-    initial_position_cursor_.second = cursor_position.y;
+    utils::WrappedVector2 cursor_position = utils::GetCursorPositionWrapped();
+    drag_offset_.x = 0;
+    drag_offset_.y = 0;
+    initial_position_cursor_.x = cursor_position.x;
+    initial_position_cursor_.y = cursor_position.y;
     initial_position_ = position_;
 }
 
 void core::NodeBase::ClickNode() {
-    Vector2 cursor_position = GetMousePosition();
-    if (CheckCollisionPointRec(cursor_position,
-                               {position_.first, position_.second, 100, 50})) {
-        color_ = {0.0, 255.0, 0.0};  // Change color when hovering
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    utils::WrappedVector2 cursor_position = utils::GetCursorPositionWrapped();
+    if (utils::CheckCollisionPointRecWrapped(
+            cursor_position, {position_.x, position_.y, 100, 50})) {
+        color_ = utils::GREEN;  // Change color when hovered
+        if (utils::isLeftClicked()) {
             follow_mouse_ = !follow_mouse_;
             PrepareDrag();
         }
     } else {
         color_ = initial_color_;  // Default color
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if (utils::isLeftClicked()) {
             follow_mouse_ = false;
         }
     }
@@ -527,12 +528,11 @@ void core::NodeBase::ClickNode() {
 void core::NodeBase::MoveNode() {
     Vector2 cursor_position = GetMousePosition();
     if (follow_mouse_) {
-        color_ = {0.0, 0.0, 255.0};  // Change color when following mouse
-        drag_offset_.first = cursor_position.x - initial_position_cursor_.first;
-        drag_offset_.second =
-            cursor_position.y - initial_position_cursor_.second;
-        position_.first = initial_position_.first + drag_offset_.first;
-        position_.second = initial_position_.second + drag_offset_.second;
+        color_ = utils::BLUE;  // Change color when following mouse
+        drag_offset_.x = cursor_position.x - initial_position_cursor_.x;
+        drag_offset_.y = cursor_position.y - initial_position_cursor_.y;
+        position_.x = initial_position_.x + drag_offset_.x;
+        position_.y = initial_position_.y + drag_offset_.y;
     }
 }
 
@@ -540,7 +540,7 @@ bool core::NodeBase::IsMouseOver() const {
     Vector2 cursor_position = GetMousePosition();
 
     return CheckCollisionPointRec(cursor_position,
-                                  {position_.first, position_.second, 100, 50});
+                                  {position_.x, position_.y, 100, 50});
 }
 
 void core::NodeBase::SetColor(unsigned char r, unsigned char g,
@@ -548,7 +548,6 @@ void core::NodeBase::SetColor(unsigned char r, unsigned char g,
     color_ = {r, g, b};
 }
 
-std::tuple<unsigned char, unsigned char, unsigned char>
-core::NodeBase::GetInitialColor() const {
+utils::WrappedColor core::NodeBase::GetInitialColor() const {
     return initial_color_;
 }

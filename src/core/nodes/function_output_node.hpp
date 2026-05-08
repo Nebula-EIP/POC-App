@@ -48,7 +48,7 @@ class FunctionOutputNode : public NodeBase {
     friend NodeBase;
 
     FunctionOutputNode(uint32_t id, NodeKind kind,
-                       std::pair<float, float> postion) noexcept;
+                       utils::WrappedVector2 postion) noexcept;
 
     void InitializeConnections() override;
 

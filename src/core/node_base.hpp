@@ -1,7 +1,5 @@
 #pragma once
 
-#include <raylib.h>
-
 #include <chrono>
 #include <cstdint>
 #include <expected>
@@ -106,8 +104,7 @@ class NodeBase {
 
     bool IsMouseOver() const;
 
-    std::tuple<unsigned char, unsigned char, unsigned char> GetInitialColor()
-        const;
+    utils::WrappedColor GetInitialColor() const;
 
     /**
      * @brief Retrieves connection information for a given input pin.
@@ -394,8 +391,7 @@ class NodeBase {
 
     const uint32_t id_;
     const NodeKind kind_;
-    utils::WrappedVector2 position_ = {0.0f,
-                                         0.0f};  ///< Position in the editor
+    utils::WrappedVector2 position_ = {0.0f, 0.0f};  ///< Position in the editor
     utils::WrappedVector2 drag_offset_ = {
         0.0f, 0.0f};  ///< Offset used for dragging the node
     utils::WrappedVector2 initial_position_cursor_ = {

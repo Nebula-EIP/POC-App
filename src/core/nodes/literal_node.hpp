@@ -66,7 +66,7 @@ class LiteralNode : public NodeBase {
     friend NodeBase;
 
     LiteralNode(uint32_t id, NodeKind kind,
-                std::pair<float, float> position) noexcept;
+                utils::WrappedVector2 position) noexcept;
     void InitializeConnections() override;
 
    private:

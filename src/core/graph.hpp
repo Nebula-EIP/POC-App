@@ -47,8 +47,7 @@ class Graph {
      * @note Prefer to use the templated version if you want to get back the
      * derived class.
      */
-    NodeBase *AddNode(NodeBase::NodeKind kind,
-                      std::pair<float, float> position);
+    NodeBase *AddNode(NodeBase::NodeKind kind, utils::WrappedVector2 position);
 
     /**
      * @brief Adds a new node of the specified kind to the graph with type
@@ -69,7 +68,7 @@ class Graph {
      * compilation error.
      */
     template <typename T>
-    T *AddNode(NodeBase::NodeKind kind, std::pair<float, float> position);
+    T *AddNode(NodeBase::NodeKind kind, utils::WrappedVector2 position);
 
     /**
      * @brief Removes a node from the graph.
@@ -325,7 +324,7 @@ class Graph {
      * @return A unique pointer to the newly created node.
      */
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
-                                         std::pair<float, float> position);
+                                         utils::WrappedVector2 position);
 
     utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
@@ -333,7 +332,7 @@ class Graph {
         nullptr;  ///< Temporary pointer for linking with mouse
     bool is_selecting_ =
         false;  ///< Flag to indicate if the user is currently selecting nodes
-    std::pair<float, float>
+    utils::WrappedVector2
         selection_start_;  ///< Starting position of the selection box
 
     // Project metadata

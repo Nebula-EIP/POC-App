@@ -66,7 +66,7 @@ class VariableNode : public NodeBase {
     friend NodeBase;
 
     VariableNode(uint32_t id, NodeKind kind,
-                 std::pair<float, float> position) noexcept;
+                 utils::WrappedVector2 position) noexcept;
 
     void InitializeConnections() override;
 

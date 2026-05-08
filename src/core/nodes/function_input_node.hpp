@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../node_base.hpp"
+#include "raylib_wrapper.hpp"
 
 namespace core {
 
@@ -49,7 +50,7 @@ class FunctionInputNode : public NodeBase {
     friend NodeBase;
 
     FunctionInputNode(uint32_t id, NodeKind kind,
-                      std::pair<float, float> position) noexcept;
+                      utils::WrappedVector2 position) noexcept;
 
     void InitializeConnections() override;
 

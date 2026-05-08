@@ -52,7 +52,7 @@ std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
 }
 
 core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind,
-                                     std::pair<float, float> position) {
+                                     utils::WrappedVector2 position) {
     if (kind == NodeBase::NodeKind::kUndefined) {
         THROW_EXCEPTION(InvalidNodeKindException,
                         "kUndefined is not a valid node kind");
@@ -334,7 +334,7 @@ void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
 }
 
 std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
-    uint32_t id, NodeBase::NodeKind kind, std::pair<float, float> position) {
+    uint32_t id, NodeBase::NodeKind kind, utils::WrappedVector2 position) {
     std::unique_ptr<NodeBase> node;
 
     switch (kind) {
@@ -659,12 +659,10 @@ void core::Graph::DrawConnections(
     if (childrens) {
         for (const auto &conn : (*childrens)) {
             if (conn.IsConnected()) {
-                utils::WrappedVector2 start = 
-                                {node->GetPosition().x + 100,
-                                 node->GetPosition().y + 25};
-                utils::WrappedVector2 end = 
-                                {conn.node->GetPosition().x,
-                                 conn.node->GetPosition().y + 25};
+                utils::WrappedVector2 start = {node->GetPosition().x + 100,
+                                               node->GetPosition().y + 25};
+                utils::WrappedVector2 end = {conn.node->GetPosition().x,
+                                             conn.node->GetPosition().y + 25};
                 utils::DrawLineBezierWrapped(start, end, 50, utils::GRAY);
             }
         }
@@ -723,7 +721,7 @@ void core::Graph::SelectForLink() {
         utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
         utils::DrawLineWrapped({linking_from_node_->GetPosition().x + 100,
                                 linking_from_node_->GetPosition().y + 25},
-                                cursor_pos, 2, utils::GRAY);
+                               cursor_pos, 2, utils::GRAY);
     }
 }
 
@@ -742,22 +740,20 @@ void core::Graph::SelectWithMouse() {
                 utils::WrappedVector2 node_pos = {node->GetPosition().x,
                                                   node->GetPosition().y};
 
-                float left = std::min(selection_start_.first, end.x);
-                float top = std::min(selection_start_.second, end.y);
-                float right = std::max(selection_start_.first, end.x);
-                float bottom = std::max(selection_start_.second, end.y);
+                float left = std::min(selection_start_.x, end.x);
+                float top = std::min(selection_start_.y, end.y);
+                float right = std::max(selection_start_.x, end.x);
+                float bottom = std::max(selection_start_.y, end.y);
 
-                utils::WrappedRectangle selection_rect = {left, top, right - left,
-                                            bottom - top};
-                if (utils::CheckCollisionPointRecWrapped(node_pos, selection_rect)) {
+                utils::WrappedRectangle selection_rect = {
+                    left, top, right - left, bottom - top};
+                if (utils::CheckCollisionPointRecWrapped(node_pos,
+                                                         selection_rect)) {
                     node->follow_mouse_ = true;
                     node->PrepareDrag();
                 } else {
-                    std::tuple<unsigned char, unsigned char, unsigned char>
-                        init_color = node->GetInitialColor();
-                    node->SetColor(std::get<0>(init_color),
-                                   std::get<1>(init_color),
-                                   std::get<2>(init_color));
+                    utils::WrappedColor init_color = node->GetInitialColor();
+                    node->SetColor(init_color.r, init_color.g, init_color.b);
                 }
             }
         }
@@ -767,29 +763,29 @@ void core::Graph::SelectWithMouse() {
     // Draw the square and color the nodes
     if (is_selecting_) {
         utils::WrappedVector2 current = utils::GetCursorPositionWrapped();
-        utils::DrawRectangleLinesWrapped(std::min(selection_start_.first, current.x),
-                                        std::min(selection_start_.second, current.y),
-                                        std::abs(current.x - selection_start_.first),
-                                        std::abs(current.y - selection_start_.second),
-                                        utils::GRAY);
+        utils::DrawRectangleLinesWrapped(
+            std::min(selection_start_.x, current.x),
+            std::min(selection_start_.y, current.y),
+            std::abs(current.x - selection_start_.x),
+            std::abs(current.y - selection_start_.y), utils::GRAY);
 
         for (const auto &node : nodes_) {
             utils::WrappedVector2 node_pos = {node->GetPosition().x,
-                                node->GetPosition().y};
+                                              node->GetPosition().y};
 
-            float left = std::min(selection_start_.first, current.x);
-            float top = std::min(selection_start_.second, current.y);
-            float right = std::max(selection_start_.first, current.x);
-            float bottom = std::max(selection_start_.second, current.y);
+            float left = std::min(selection_start_.x, current.x);
+            float top = std::min(selection_start_.y, current.y);
+            float right = std::max(selection_start_.x, current.x);
+            float bottom = std::max(selection_start_.y, current.y);
 
-            utils::WrappedRectangle selection_rect = {left, top, right - left, bottom - top};
-            if (utils::CheckCollisionPointRecWrapped(node_pos, selection_rect)) {
+            utils::WrappedRectangle selection_rect = {left, top, right - left,
+                                                      bottom - top};
+            if (utils::CheckCollisionPointRecWrapped(node_pos,
+                                                     selection_rect)) {
                 node->SetColor(255, 255, 0);
             } else {
-                std::tuple<unsigned char, unsigned char, unsigned char>
-                    init_color = node->GetInitialColor();
-                node->SetColor(std::get<0>(init_color), std::get<1>(init_color),
-                               std::get<2>(init_color));
+                utils::WrappedColor init_color = node->GetInitialColor();
+                node->SetColor(init_color.r, init_color.g, init_color.b);
             }
         }
     }

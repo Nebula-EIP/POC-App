@@ -10,7 +10,7 @@
 core::FunctionNode::~FunctionNode() = default;
 
 core::FunctionNode::FunctionNode(uint32_t id, NodeKind kind,
-                                 std::pair<float, float> position) noexcept
+                                 utils::WrappedVector2 position) noexcept
     : NodeBase(id, kind, position), body_(std::make_unique<Graph>()) {
     InitializeConnections();
 }

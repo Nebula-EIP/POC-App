@@ -5,7 +5,7 @@
 namespace core {
 
 OperatorNode::OperatorNode(uint32_t id, NodeKind kind,
-                           std::pair<float, float> position) noexcept
+                           utils::WrappedVector2 position) noexcept
     : NodeBase(id, kind, position) {
     InitializeConnections();
 }
