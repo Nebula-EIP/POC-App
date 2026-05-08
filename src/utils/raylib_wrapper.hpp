@@ -6,56 +6,56 @@
 
 namespace utils {
 #define LIGHTGRAY \
-    CLITERAL(WrappedColor) { 200, 200, 200, 255 }  // Light Gray
+    CLITERAL(WrappedColor) { 200, 200, 200, 255 }
 #define GRAY \
-    CLITERAL(WrappedColor) { 130, 130, 130, 255 }  // Gray
+    CLITERAL(WrappedColor) { 130, 130, 130, 255 }
 #define DARKGRAY \
-    CLITERAL(WrappedColor) { 80, 80, 80, 255 }  // Dark Gray
+    CLITERAL(WrappedColor) { 80, 80, 80, 255 }
 #define YELLOW \
-    CLITERAL(WrappedColor) { 253, 249, 0, 255 }  // Yellow
+    CLITERAL(WrappedColor) { 253, 249, 0, 255 }
 #define GOLD \
-    CLITERAL(WrappedColor) { 255, 203, 0, 255 }  // Gold
+    CLITERAL(WrappedColor) { 255, 203, 0, 255 }
 #define ORANGE \
-    CLITERAL(WrappedColor) { 255, 161, 0, 255 }  // Orange
+    CLITERAL(WrappedColor) { 255, 161, 0, 255 }
 #define PINK \
-    CLITERAL(WrappedColor) { 255, 109, 194, 255 }  // Pink
+    CLITERAL(WrappedColor) { 255, 109, 194, 255 }
 #define RED \
-    CLITERAL(WrappedColor) { 230, 41, 55, 255 }  // Red
+    CLITERAL(WrappedColor) { 230, 41, 55, 255 }
 #define MAROON \
-    CLITERAL(WrappedColor) { 190, 33, 55, 255 }  // Maroon
+    CLITERAL(WrappedColor) { 190, 33, 55, 255 }
 #define GREEN \
-    CLITERAL(WrappedColor) { 0, 228, 48, 255 }  // Green
+    CLITERAL(WrappedColor) { 0, 228, 48, 255 }
 #define LIME \
-    CLITERAL(WrappedColor) { 0, 158, 47, 255 }  // Lime
+    CLITERAL(WrappedColor) { 0, 158, 47, 255 }
 #define DARKGREEN \
-    CLITERAL(WrappedColor) { 0, 117, 44, 255 }  // Dark Green
+    CLITERAL(WrappedColor) { 0, 117, 44, 255 }
 #define SKYBLUE \
-    CLITERAL(WrappedColor) { 102, 191, 255, 255 }  // Sky Blue
+    CLITERAL(WrappedColor) { 102, 191, 255, 255 }
 #define BLUE \
-    CLITERAL(WrappedColor) { 0, 121, 241, 255 }  // Blue
+    CLITERAL(WrappedColor) { 0, 121, 241, 255 }
 #define DARKBLUE \
-    CLITERAL(WrappedColor) { 0, 82, 172, 255 }  // Dark Blue
+    CLITERAL(WrappedColor) { 0, 82, 172, 255 }
 #define PURPLE \
-    CLITERAL(WrappedColor) { 200, 122, 255, 255 }  // Purple
+    CLITERAL(WrappedColor) { 200, 122, 255, 255 }
 #define VIOLET \
-    CLITERAL(WrappedColor) { 135, 60, 190, 255 }  // Violet
+    CLITERAL(WrappedColor) { 135, 60, 190, 255 }
 #define DARKPURPLE \
-    CLITERAL(WrappedColor) { 112, 31, 126, 255 }  // Dark Purple
+    CLITERAL(WrappedColor) { 112, 31, 126, 255 }
 #define BEIGE \
-    CLITERAL(WrappedColor) { 211, 176, 131, 255 }  // Beige
+    CLITERAL(WrappedColor) { 211, 176, 131, 255 }
 #define BROWN \
-    CLITERAL(WrappedColor) { 127, 106, 79, 255 }  // Brown
+    CLITERAL(WrappedColor) { 127, 106, 79, 255 }
 #define DARKBROWN \
-    CLITERAL(WrappedColor) { 76, 63, 47, 255 }  // Dark Brown
+    CLITERAL(WrappedColor) { 76, 63, 47, 255 }
 
 #define WHITE \
-    CLITERAL(WrappedColor) { 255, 255, 255, 255 }  // White
+    CLITERAL(WrappedColor) { 255, 255, 255, 255 }
 #define BLACK \
-    CLITERAL(WrappedColor) { 0, 0, 0, 255 }  // Black
+    CLITERAL(WrappedColor) { 0, 0, 0, 255 }
 #define BLANK \
-    CLITERAL(WrappedColor) { 0, 0, 0, 0 }  // Blank (Transparent)
+    CLITERAL(WrappedColor) { 0, 0, 0, 0 }
 #define MAGENTA \
-    CLITERAL(WrappedColor) { 255, 0, 255, 255 }  // Magenta
+    CLITERAL(WrappedColor) { 255, 0, 255, 255 }
 
 typedef struct WrappedColor {
     unsigned char r;
