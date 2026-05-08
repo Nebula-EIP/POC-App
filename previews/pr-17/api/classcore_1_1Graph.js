@@ -1,8 +1,8 @@
 var classcore_1_1Graph =
 [
     [ "AddInputPin", "classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740", null ],
-    [ "AddNode", "classcore_1_1Graph.html#aa7cac90af9196fc6d40576302b1d47ef", null ],
-    [ "AddNode", "classcore_1_1Graph.html#aa6e9bbf92b0cd9900460e7cb434fbba3", null ],
+    [ "AddNode", "classcore_1_1Graph.html#aa994f46d5ee6d2f3f1dba93a0a4e05d6", null ],
+    [ "AddNode", "classcore_1_1Graph.html#af109b8aaad8ac1cc03afdb748adaa136", null ],
     [ "CheckNodeMovement", "classcore_1_1Graph.html#a78091e8976052a76671806bdcb6d2b61", null ],
     [ "Draw", "classcore_1_1Graph.html#a2cbee336bf4fd9a6db1b45ec30fa2f96", null ],
     [ "DrawConnections", "classcore_1_1Graph.html#a53847a2d601bee4706d8fc482cbca46f", null ],
