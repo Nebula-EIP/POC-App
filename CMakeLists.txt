@@ -45,7 +45,7 @@ CPMAddPackage(
 CPMAddPackage(
     NAME raylib
     GITHUB_REPOSITORY raysan5/raylib
-    GIT_TAG 5.6
+    GIT_TAG 5.5
     OPTIONS
         "BUILD_EXAMPLES OFF"
         "BUILD_GAMES OFF"
