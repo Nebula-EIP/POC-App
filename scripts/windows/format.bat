@@ -28,7 +28,7 @@ if /I "%MODE%"=="Fix" (
     echo Formatting applied.
 ) else (
     echo Running clang-format check...
-    clang-format --dry-run -Werror !FILES!
+    clang-format --dry-run --Werror !FILES!
     if %ERRORLEVEL% neq 0 (
         echo Format errors detected
         exit /b 1
