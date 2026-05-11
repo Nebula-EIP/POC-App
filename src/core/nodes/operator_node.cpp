@@ -27,9 +27,7 @@ void OperatorNode::InitializeConnections() {
     }
 }
 
-void OperatorNode::SetOperatorType(OperatorType type) {
-    operator_type_ = type;
-}
+void OperatorNode::SetOperatorType(OperatorType type) { operator_type_ = type; }
 
 OperatorNode::OperatorType OperatorNode::operator_type() const {
     return operator_type_;
