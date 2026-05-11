@@ -1316,8 +1316,8 @@ TEST_F(GraphTest, DeserializeFailsOnInvalidPinIndex) {
 
 TEST_F(GraphTest, DeserializeFailsOnIncompatiblePinTypes) {
     // Create two nodes with incompatible types
-    auto *literal = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *variable = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable);
+    auto *literal = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *variable = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable, {0, 0});
     
     ASSERT_NE(literal, nullptr);
     ASSERT_NE(variable, nullptr);
