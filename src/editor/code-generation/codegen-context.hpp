@@ -6,6 +6,8 @@
 namespace core {
 class Graph;
 class NodeBase;
+class GraphValidator;
+class TopologicalSorter;
 }
 
 namespace editor::code_generation {
