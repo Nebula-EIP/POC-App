@@ -13,7 +13,7 @@ class GraphBasicTest : public testing::Test {
 };
 
 TEST_F(GraphBasicTest, CreateLiteralNode) {
-    auto *node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
+    auto *node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->GetDisplayName(), node->name());
     EXPECT_EQ(node->GetCategory(), "Cool stuff~");
@@ -21,7 +21,7 @@ TEST_F(GraphBasicTest, CreateLiteralNode) {
 }
 
 TEST_F(GraphBasicTest, CreateOperatorNode) {
-    auto *node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(node->GetDisplayName(), node->name());
     EXPECT_EQ(node->GetCategory(), std::string("Arithmetic"));
@@ -30,8 +30,8 @@ TEST_F(GraphBasicTest, CreateOperatorNode) {
 }
 
 TEST_F(GraphBasicTest, LinkAndUnlinkCreatesAndRemovesConnection) {
-    auto *lit = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *lit = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     ASSERT_NE(lit, nullptr);
     ASSERT_NE(op, nullptr);
 
@@ -48,12 +48,12 @@ TEST_F(GraphBasicTest, LinkAndUnlinkCreatesAndRemovesConnection) {
 
 TEST_F(GraphBasicTest, SerializeDeserializeRoundTrip) {
     core::Graph g;
-    auto *l1 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *l2 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *l1 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *l2 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
-    l1->set_name("L1");
-    l2->set_name("L2");
+    l1->SetName("L1");
+    l2->SetName("L2");
 
     // link l1 -> op.A, l2 -> op.B
     g.Link(l1, 0, op, 0);
