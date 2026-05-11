@@ -10,8 +10,8 @@ class EdgeStorageTest : public testing::Test {
 };
 
 TEST_F(EdgeStorageTest, LinkRecordsEdge) {
-    auto *l = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *l = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     ASSERT_NE(l, nullptr);
     ASSERT_NE(op, nullptr);
 
@@ -27,9 +27,9 @@ TEST_F(EdgeStorageTest, LinkRecordsEdge) {
 
 TEST_F(EdgeStorageTest, SerializeIncludesEdgesAndDeserializeRestoresThem) {
     core::Graph g2;
-    auto *l1 = g2.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *l2 = g2.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = g2.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *l1 = g2.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *l2 = g2.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g2.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     g2.Link(l1, 0, op, 0);
     g2.Link(l2, 0, op, 1);
