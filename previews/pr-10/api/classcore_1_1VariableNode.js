@@ -6,5 +6,5 @@ var classcore_1_1VariableNode =
     [ "GetCategory", "classcore_1_1VariableNode.html#a05c7d50ce124feb84353eb0e546a3fde", null ],
     [ "Serialize", "classcore_1_1VariableNode.html#a8e573100593beb8518cf31acc1190dbb", null ],
     [ "set_data", "classcore_1_1VariableNode.html#a92a6a011fad29c533ef2b3540b5b20e1", null ],
-    [ "set_type", "classcore_1_1VariableNode.html#a6a8257e59c6071920fdec66bf3602eed", null ]
+    [ "SetType", "classcore_1_1VariableNode.html#a7f7716378b87dd8f0d532f655a3e8e37", null ]
 ];

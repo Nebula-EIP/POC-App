@@ -62,5 +62,9 @@ var hierarchy =
           [ "code_generation::IndentationError", "classcode__generation_1_1IndentationError.html", null ]
         ] ]
       ] ]
-    ] ]
+    ] ],
+    [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
+    [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],
+    [ "utils::WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],
+    [ "utils::WrappedVector2", "structutils_1_1WrappedVector2.html", null ]
 ];
