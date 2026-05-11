@@ -13,6 +13,8 @@
 #include "core/node_base.hpp"
 #include "core/nodes/literal_node.hpp"
 #include "core/nodes/operator_node.hpp"
+#include "core/graph_validator.hpp"
+#include "core/topological_sorter.hpp"
 #include "codegen-optimizer.hpp"
 
 namespace {
@@ -393,62 +395,30 @@ static const core::NodeBase::Connection *FindParentConnection(const core::NodeBa
     const core::Graph &graph) {
     ::code_generation::CodeGeneratorFile file;
 
+    // Validate the graph
+    core::GraphValidator validator;
+    const auto validation_result = validator.Validate(graph);
+    if (!validation_result.is_valid) {
+        // Graph is invalid, return empty file with error comment
+        file.Line("// ERROR: Graph validation failed");
+        for (const auto &error : validation_result.errors) {
+            file.Line("// " + error.message);
+        }
+        return file;
+    }
+
+    // Get topologically sorted nodes
+    auto sorted_nodes = core::TopologicalSorter::Sort(const_cast<core::Graph &>(graph));
+    std::vector<const core::NodeBase *> order;
+    order.reserve(sorted_nodes.size());
+    for (const auto *node : sorted_nodes) {
+        order.push_back(node);
+    }
+
     file.Line("#include <iostream>");
     file.Line("#include <string>");
     file.Line("");
     file.Line("int main() {");
-
-    std::vector<const core::NodeBase *> nodes;
-    nodes.reserve(graph.GetAllNodes().size());
-    for (const auto &node_ptr : graph.GetAllNodes()) {
-        nodes.push_back(node_ptr.get());
-    }
-
-    std::unordered_map<uint32_t, int> indegree;
-    for (const auto *node : nodes) {
-        indegree[node->id()] = 0;
-    }
-
-    for (const auto *node : nodes) {
-        for (const auto &parent : node->GetAllParents()) {
-            if (parent.IsConnected() && parent.node != nullptr) {
-                ++indegree[node->id()];
-            }
-        }
-    }
-
-    std::queue<const core::NodeBase *> ready;
-    for (const auto *node : nodes) {
-        if (indegree[node->id()] == 0) {
-            ready.push(node);
-        }
-    }
-
-    std::vector<const core::NodeBase *> order;
-    while (!ready.empty()) {
-        const core::NodeBase *node = ready.front();
-        ready.pop();
-        order.push_back(node);
-
-        for (const auto &child : node->GetAllChildrens()) {
-            if (!child.IsConnected() || child.node == nullptr) {
-                continue;
-            }
-            auto &current = indegree[child.node->id()];
-            --current;
-            if (current == 0) {
-                ready.push(child.node);
-            }
-        }
-    }
-
-    if (order.size() < nodes.size()) {
-        for (const auto *node : nodes) {
-            if (std::find(order.begin(), order.end(), node) == order.end()) {
-                order.push_back(node);
-            }
-        }
-    }
 
     std::unordered_map<uint32_t, std::string> symbol_for_node;
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
@@ -559,67 +529,34 @@ static const core::NodeBase::Connection *FindParentConnection(const core::NodeBa
     bool print_all_results) {
     ::code_generation::CodeGeneratorFile file;
 
+    // Validate the graph
+    core::GraphValidator validator;
+    const auto validation_result = validator.Validate(graph);
+    if (!validation_result.is_valid) {
+        // Graph is invalid, return empty file with error comment
+        file.Line("// ERROR: Graph validation failed");
+        for (const auto &error : validation_result.errors) {
+            file.Line("// " + error.message);
+        }
+        return file;
+    }
+
+    // Analyze graph for dead code and type information
+    CodegenOptimizer optimizer;
+    auto analysis = optimizer.AnalyzeGraph(graph);
+
+    // Get topologically sorted nodes
+    auto sorted_nodes = core::TopologicalSorter::Sort(const_cast<core::Graph &>(graph));
+    std::vector<const core::NodeBase *> order;
+    order.reserve(sorted_nodes.size());
+    for (const auto *node : sorted_nodes) {
+        order.push_back(node);
+    }
+
     file.Line("#include <iostream>");
     file.Line("#include <string>");
     file.Line("");
     file.Line("int main() {");
-
-    // Get topological order of nodes (same logic as Generate)
-        // Analyze graph for dead code and type information
-        CodegenOptimizer optimizer;
-        auto analysis = optimizer.AnalyzeGraph(graph);
-
-    std::vector<const core::NodeBase *> nodes;
-    nodes.reserve(graph.GetAllNodes().size());
-    for (const auto &node_ptr : graph.GetAllNodes()) {
-        nodes.push_back(node_ptr.get());
-    }
-
-    std::unordered_map<uint32_t, int> indegree;
-    for (const auto *node : nodes) {
-        indegree[node->id()] = 0;
-    }
-
-    for (const auto *node : nodes) {
-        for (const auto &parent : node->GetAllParents()) {
-            if (parent.IsConnected() && parent.node != nullptr) {
-                ++indegree[node->id()];
-            }
-        }
-    }
-
-    std::queue<const core::NodeBase *> ready;
-    for (const auto *node : nodes) {
-        if (indegree[node->id()] == 0) {
-            ready.push(node);
-        }
-    }
-
-    std::vector<const core::NodeBase *> order;
-    while (!ready.empty()) {
-        const core::NodeBase *node = ready.front();
-        ready.pop();
-        order.push_back(node);
-
-        for (const auto &child : node->GetAllChildrens()) {
-            if (!child.IsConnected() || child.node == nullptr) {
-                continue;
-            }
-            auto &current = indegree[child.node->id()];
-            --current;
-            if (current == 0) {
-                ready.push(child.node);
-            }
-        }
-    }
-
-    if (order.size() < nodes.size()) {
-        for (const auto *node : nodes) {
-            if (std::find(order.begin(), order.end(), node) == order.end()) {
-                order.push_back(node);
-            }
-        }
-    }
 
     std::unordered_map<uint32_t, std::string> symbol_for_node;
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
