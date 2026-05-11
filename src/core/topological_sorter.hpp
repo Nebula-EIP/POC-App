@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace core {
 
@@ -20,7 +20,8 @@ class NodeBase;
  *    - Dequeue node, add to sorted list
  *    - For each neighbor, decrease in-degree
  *    - If neighbor's in-degree becomes 0, enqueue it
- * 4. If sorted list size != graph size, graph has cycle (shouldn't happen after validation)
+ * 4. If sorted list size != graph size, graph has cycle (shouldn't happen after
+ * validation)
  *
  * Time complexity: O(V + E) where V = vertices, E = edges
  * Space complexity: O(V)
@@ -37,7 +38,7 @@ class TopologicalSorter {
      * @note Graph must be validated before sorting (no cycles)
      * @note Empty graph returns empty vector
      */
-    static std::vector<NodeBase*> Sort(const Graph& graph);
+    static std::vector<NodeBase *> Sort(const Graph &graph);
 
    private:
     /**
@@ -48,7 +49,7 @@ class TopologicalSorter {
      * @param node The node to analyze
      * @return Number of incoming edges
      */
-    static uint32_t CalculateInDegree(NodeBase* node);
+    static uint32_t CalculateInDegree(NodeBase *node);
 
     /**
      * @brief Get all neighbors of a node (nodes it points to).
@@ -57,7 +58,8 @@ class TopologicalSorter {
      * @param graph The graph context
      * @return Vector of unique neighbor NodeBase pointers
      */
-    static std::vector<NodeBase*> GetNeighbors(NodeBase* node, const Graph& graph);
+    static std::vector<NodeBase *> GetNeighbors(NodeBase *node,
+                                                const Graph &graph);
 };
 
 }  // namespace core
