@@ -7,9 +7,9 @@
 
 TEST(CodegenTest, SimpleAddProducesCpp) {
     core::Graph g;
-    auto *l1 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *l2 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *l1 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *l2 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     l1->set_data(3);
     l2->set_data(4);
@@ -29,8 +29,8 @@ TEST(CodegenTest, SimpleAddProducesCpp) {
 
 TEST(CodegenTest, FloatLiteralUsesDoubleType) {
     core::Graph g;
-    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    literal->set_type(core::NodeBase::PinDataType::kFloat);
+    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    literal->SetType(core::NodeBase::PinDataType::kFloat);
     literal->set_data(2.5);
 
     editor::code_generation::CodegenContext ctx;
@@ -41,8 +41,8 @@ TEST(CodegenTest, FloatLiteralUsesDoubleType) {
 
 TEST(CodegenTest, StringLiteralUsesStdStringType) {
     core::Graph g;
-    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    literal->set_type(core::NodeBase::PinDataType::kString);
+    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    literal->SetType(core::NodeBase::PinDataType::kString);
     literal->set_data(std::string("hello"));
 
     editor::code_generation::CodegenContext ctx;
@@ -53,12 +53,12 @@ TEST(CodegenTest, StringLiteralUsesStdStringType) {
 
 TEST(CodegenTest, LogicalNotFoldedFromBoolLiteral) {
     core::Graph g;
-    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral);
-    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator);
+    auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
-    literal->set_type(core::NodeBase::PinDataType::kBool);
+    literal->SetType(core::NodeBase::PinDataType::kBool);
     literal->set_data(true);
-    op->set_operator_type(core::OperatorNode::OperatorType::kLogicalNot);
+    op->SetOperatorType(core::OperatorNode::OperatorType::kLogicalNot);
 
     g.Link(literal, 0, op, 0);
 
