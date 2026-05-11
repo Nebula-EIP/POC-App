@@ -64,6 +64,10 @@ var annotated_dup =
     [ "utils", null, [
       [ "BaseException", "classutils_1_1BaseException.html", "classutils_1_1BaseException" ],
       [ "IdManager", "classutils_1_1IdManager.html", "classutils_1_1IdManager" ],
-      [ "Logger", "classutils_1_1Logger.html", "classutils_1_1Logger" ]
+      [ "Logger", "classutils_1_1Logger.html", "classutils_1_1Logger" ],
+      [ "WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
+      [ "WrappedColor", "structutils_1_1WrappedColor.html", null ],
+      [ "WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],
+      [ "WrappedVector2", "structutils_1_1WrappedVector2.html", null ]
     ] ]
 ];

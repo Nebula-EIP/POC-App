@@ -67,5 +67,9 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
-    [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ]
+    [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ],
+    [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
+    [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],
+    [ "utils::WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],
+    [ "utils::WrappedVector2", "structutils_1_1WrappedVector2.html", null ]
 ];
