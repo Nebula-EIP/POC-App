@@ -555,8 +555,8 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         return std::unexpected("Field 'connections' is not an array");
     }
 
-    bool has_explicit_edges = graph_data.contains("edges") &&
-                              graph_data["edges"].is_array();
+    bool has_explicit_edges =
+        graph_data.contains("edges") && graph_data["edges"].is_array();
 
     if (!has_explicit_edges) {
         // Legacy: use connections array to establish links (this will also
@@ -570,9 +570,11 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
             }
 
             try {
-                uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
+                uint32_t source_id =
+                    conn_json["source_node_id"].get<uint32_t>();
                 uint8_t source_pin = conn_json["source_pin"].get<uint8_t>();
-                uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
+                uint32_t target_id =
+                    conn_json["target_node_id"].get<uint32_t>();
                 uint8_t target_pin = conn_json["target_pin"].get<uint8_t>();
 
                 // Find nodes by ID
@@ -612,8 +614,8 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
                 // Establish the connection
                 graph.Link(source, source_pin, target, target_pin);
             } catch (const std::exception &e) {
-                return std::unexpected(std::string("Failed to parse connection: ") +
-                                       e.what());
+                return std::unexpected(
+                    std::string("Failed to parse connection: ") + e.what());
             }
         }
     }
@@ -670,7 +672,8 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
                                            type_result.error());
                 }
 
-                // Establish the connection (this will also populate graph.edges_)
+                // Establish the connection (this will also populate
+                // graph.edges_)
                 graph.Link(source, source_pin, target, target_pin);
             }
         } catch (const std::exception &e) {
