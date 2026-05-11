@@ -1,14 +1,17 @@
 #pragma once
+
 #include <chrono>
 #include <cstdint>
 #include <expected>
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
 #include "id_manager.hpp"
+#include "raylib_wrapper.hpp"
 
 namespace core {
 
@@ -97,6 +100,12 @@ class NodeBase {
 
     NodeKind kind() const noexcept;
 
+    utils::WrappedVector2 GetPosition() const;
+
+    bool IsMouseOver() const;
+
+    utils::WrappedColor GetInitialColor() const;
+
     /**
      * @brief Retrieves connection information for a given input pin.
      * @param input_pin The index of the input pin.
@@ -122,7 +131,7 @@ class NodeBase {
      *
      * @return Pointer to a vector of Connection structs.
      */
-    const std::vector<Connection> *childrens(uint8_t output_pin) const;
+    const std::vector<Connection> *Childrens(uint8_t output_pin) const;
 
     /**
      * @brief Retreives all outgoing connections of the node
@@ -215,6 +224,31 @@ class NodeBase {
      */
     static std::expected<std::unique_ptr<NodeBase>, std::string>
     DeserializeFactory(const nlohmann::json &json, Graph *graph);
+
+    /**
+     *@brief Draws the node in the editor.
+     */
+    virtual void Draw();
+
+    /**
+     * @brief Select the node
+     */
+    void ClickNode();
+
+    /**
+     * @brief Updates the node position
+     */
+    void MoveNode();
+
+    /**
+     * @brief Set the node color
+     */
+    void SetColor(unsigned char r, unsigned char g, unsigned char b);
+
+    /**
+     * @brief prepare the node for dragging
+     */
+    void PrepareDrag();
 
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
@@ -352,10 +386,21 @@ class NodeBase {
      * @param id Unique identifier for this node.
      * @param kind The type/kind of this node.
      */
-    NodeBase(uint32_t id, NodeKind kind) noexcept;
+    NodeBase(uint32_t id, NodeKind kind,
+             utils::WrappedVector2 position = {0.0f, 0.0f}) noexcept;
 
     const uint32_t id_;
     const NodeKind kind_;
+    utils::WrappedVector2 position_ = {0.0f, 0.0f};  ///< Position in the editor
+    utils::WrappedVector2 drag_offset_ = {
+        0.0f, 0.0f};  ///< Offset used for dragging the node
+    utils::WrappedVector2 initial_position_cursor_ = {
+        0.0f, 0.0f};  ///< Initial position for resetting
+    utils::WrappedVector2 initial_position_ = {
+        0.0f, 0.0f};  ///< Initial position for resetting
+    bool follow_mouse_ = false;
+    utils::WrappedColor color_ = {130, 130, 130};
+    utils::WrappedColor initial_color_ = {130, 130, 130};
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)

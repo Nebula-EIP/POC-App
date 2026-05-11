@@ -52,11 +52,9 @@ int main(void) {
         core::Graph graph;
 
         auto lit1 = graph.AddNode<core::LiteralNode>(
-            core::NodeBase::NodeKind::kLiteral);
-        auto lit2 = graph.AddNode<core::LiteralNode>(
-            core::NodeBase::NodeKind::kLiteral);
+            core::NodeBase::NodeKind::kLiteral, {0, 0});
         auto var1 = graph.AddNode<core::VariableNode>(
-            core::NodeBase::NodeKind::kVariable);
+            core::NodeBase::NodeKind::kVariable, {0, 0});
 
         DumpGraph(graph);
         graph.Link(lit1, 0, var1, 0);

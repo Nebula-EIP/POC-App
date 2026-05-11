@@ -22,8 +22,10 @@ if(UTILS_SOURCES)
             $<INSTALL_INTERFACE:include>
     )
 
-    # Link with core if needed
-    # target_link_libraries(utils PUBLIC core)
+    # Find Raylib
+    find_package(raylib REQUIRED)
+
+    target_link_libraries(utils PUBLIC raylib)
 
     # Set properties
     set_target_properties(utils PROPERTIES

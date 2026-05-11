@@ -1,4 +1,4 @@
-#include "utils/string-splitter.hpp"
+#include "string-splitter.hpp"
 
 namespace utils {
 std::vector<std::string> SplitByDelims(const std::string &input,
