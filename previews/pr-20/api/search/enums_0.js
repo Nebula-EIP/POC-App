@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nodekind_0',['NodeKind',['../classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e',1,'core::NodeBase']]]
+  ['errortype_0',['ErrorType',['../structcore_1_1GraphValidator_1_1ValidationError.html#ae02a61e00ad488f66e869b9107a97385',1,'core::GraphValidator::ValidationError']]]
 ];

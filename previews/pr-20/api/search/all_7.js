@@ -16,5 +16,8 @@ var searchData=
   ['invalidparameterexception_13',['InvalidParameterException',['../classcore_1_1InvalidParameterException.html',1,'core']]],
   ['invalidpinindexexception_14',['InvalidPinIndexException',['../classcore_1_1InvalidPinIndexException.html',1,'core']]],
   ['invalidreturntypeexception_15',['InvalidReturnTypeException',['../classcore_1_1InvalidReturnTypeException.html',1,'core']]],
-  ['isunaryoperator_16',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]]
+  ['involved_5fnode_5fids_16',['involved_node_ids',['../structcore_1_1GraphValidator_1_1ValidationError.html#a55657bb26252d8e78d17cf3da5d64766',1,'core::GraphValidator::ValidationError']]],
+  ['involved_5fpins_17',['involved_pins',['../structcore_1_1GraphValidator_1_1ValidationError.html#a6878887e349a5aaf32fa88a89b20c3fd',1,'core::GraphValidator::ValidationError']]],
+  ['is_5fvalid_18',['is_valid',['../structcore_1_1GraphValidator_1_1ValidationResult.html#a6166238129621e692d3f72b600cff378',1,'core::GraphValidator::ValidationResult']]],
+  ['isunaryoperator_19',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]]
 ];

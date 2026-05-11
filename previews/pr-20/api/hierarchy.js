@@ -46,6 +46,7 @@ var hierarchy =
     [ "file_writing::FileWriter", "classfile__writing_1_1FileWriter.html", null ],
     [ "core::FunctionParameter", "structcore_1_1FunctionParameter.html", null ],
     [ "core::Graph", "classcore_1_1Graph.html", null ],
+    [ "core::GraphValidator", "classcore_1_1GraphValidator.html", null ],
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
@@ -67,7 +68,10 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "core::TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],
     [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ],
+    [ "core::GraphValidator::ValidationError", "structcore_1_1GraphValidator_1_1ValidationError.html", null ],
+    [ "core::GraphValidator::ValidationResult", "structcore_1_1GraphValidator_1_1ValidationResult.html", null ],
     [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
     [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],
     [ "utils::WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],

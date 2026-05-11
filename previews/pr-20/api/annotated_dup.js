@@ -24,6 +24,7 @@ var annotated_dup =
       [ "Graph", "classcore_1_1Graph.html", "classcore_1_1Graph" ],
       [ "GraphException", "classcore_1_1GraphException.html", null ],
       [ "GraphModificationException", "classcore_1_1GraphModificationException.html", null ],
+      [ "GraphValidator", "classcore_1_1GraphValidator.html", "classcore_1_1GraphValidator" ],
       [ "IncompatiblePinTypesException", "classcore_1_1IncompatiblePinTypesException.html", null ],
       [ "InvalidJsonSchemaException", "classcore_1_1InvalidJsonSchemaException.html", null ],
       [ "InvalidNodeKindException", "classcore_1_1InvalidNodeKindException.html", null ],
@@ -40,6 +41,7 @@ var annotated_dup =
       [ "PinStillConnectedException", "classcore_1_1PinStillConnectedException.html", null ],
       [ "SelfConnectionException", "classcore_1_1SelfConnectionException.html", null ],
       [ "SerializationException", "classcore_1_1SerializationException.html", null ],
+      [ "TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],
       [ "VariableNode", "classcore_1_1VariableNode.html", "classcore_1_1VariableNode" ]
     ] ],
     [ "editor", null, [

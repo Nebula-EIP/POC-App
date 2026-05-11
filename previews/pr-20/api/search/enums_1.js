@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operatortype_0',['OperatorType',['../classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4',1,'core::OperatorNode']]]
+  ['nodekind_0',['NodeKind',['../classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934e',1,'core::NodeBase']]]
 ];

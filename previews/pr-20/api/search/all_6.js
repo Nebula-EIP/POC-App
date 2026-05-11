@@ -6,7 +6,7 @@ var searchData=
   ['getallparents_3',['GetAllParents',['../classcore_1_1NodeBase.html#a1f086066d6a390e70712b5eedbf784e9',1,'core::NodeBase']]],
   ['getauthor_4',['GetAuthor',['../classcore_1_1Graph.html#a0573c1c202b8fce4998285d78904ba1a',1,'core::Graph']]],
   ['getbuilddirectory_5',['GetBuildDirectory',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a1d0f0913c76e0b9feeb18f680fdffcfc',1,'nebula::cmake::CMakeCompiler']]],
-  ['getcategory_6',['getcategory',['../classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb',1,'core::NodeBase::GetCategory()'],['../classcore_1_1FunctionInputNode.html#a2b8a4cf303d163af1afca5fb3f6a46eb',1,'core::FunctionInputNode::GetCategory()'],['../classcore_1_1FunctionNode.html#a6cf102cf8ddfdb2f98cbe17c583e6f93',1,'core::FunctionNode::GetCategory()'],['../classcore_1_1FunctionOutputNode.html#acfceaa5e3d30df9fe4a2bfef61c0b872',1,'core::FunctionOutputNode::GetCategory()'],['../classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d',1,'core::LiteralNode::GetCategory()'],['../classcore_1_1OperatorNode.html#aa6eb042216fdb25dd178b8e33bf0296c',1,'core::OperatorNode::GetCategory()'],['../classcore_1_1VariableNode.html#a05c7d50ce124feb84353eb0e546a3fde',1,'core::VariableNode::GetCategory()']]],
+  ['getcategory_6',['getcategory',['../classcore_1_1VariableNode.html#a05c7d50ce124feb84353eb0e546a3fde',1,'core::VariableNode::GetCategory()'],['../classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb',1,'core::NodeBase::GetCategory()'],['../classcore_1_1FunctionInputNode.html#a2b8a4cf303d163af1afca5fb3f6a46eb',1,'core::FunctionInputNode::GetCategory()'],['../classcore_1_1FunctionNode.html#a6cf102cf8ddfdb2f98cbe17c583e6f93',1,'core::FunctionNode::GetCategory()'],['../classcore_1_1FunctionOutputNode.html#acfceaa5e3d30df9fe4a2bfef61c0b872',1,'core::FunctionOutputNode::GetCategory()'],['../classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d',1,'core::LiteralNode::GetCategory()'],['../classcore_1_1OperatorNode.html#aa6eb042216fdb25dd178b8e33bf0296c',1,'core::OperatorNode::GetCategory()']]],
   ['getcontent_7',['GetContent',['../classcode__generation_1_1CodeGeneratorFile.html#aa842aa12eafdeb2e739557da358f838c',1,'code_generation::CodeGeneratorFile']]],
   ['getcreatedat_8',['GetCreatedAt',['../classcore_1_1Graph.html#a13bc792dd37fc11853931a2dc7976786',1,'core::Graph']]],
   ['getdetailedmessage_9',['GetDetailedMessage',['../classutils_1_1BaseException.html#aaa6d0635701d34a349aa159be024987f',1,'utils::BaseException']]],
@@ -21,5 +21,6 @@ var searchData=
   ['getversion_18',['GetVersion',['../classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89',1,'core::Graph']]],
   ['graph_19',['graph',['../classcore_1_1Graph.html',1,'core::Graph'],['../classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a',1,'core::NodeBase::Graph']]],
   ['graphexception_20',['GraphException',['../classcore_1_1GraphException.html',1,'core']]],
-  ['graphmodificationexception_21',['GraphModificationException',['../classcore_1_1GraphModificationException.html',1,'core']]]
+  ['graphmodificationexception_21',['GraphModificationException',['../classcore_1_1GraphModificationException.html',1,'core']]],
+  ['graphvalidator_22',['GraphValidator',['../classcore_1_1GraphValidator.html',1,'core']]]
 ];

@@ -5,6 +5,8 @@ var dir_aebb8dcc11953d78e620bbef0b9e2183 =
     [ "core_exceptions.hpp", "core__exceptions_8hpp_source.html", null ],
     [ "graph.hpp", "graph_8hpp_source.html", null ],
     [ "graph_exceptions.hpp", "graph__exceptions_8hpp_source.html", null ],
+    [ "graph_validator.hpp", "graph__validator_8hpp_source.html", null ],
     [ "node_base.hpp", "node__base_8hpp_source.html", null ],
-    [ "serialization_exceptions.hpp", "serialization__exceptions_8hpp_source.html", null ]
+    [ "serialization_exceptions.hpp", "serialization__exceptions_8hpp_source.html", null ],
+    [ "topological_sorter.hpp", "topological__sorter_8hpp_source.html", null ]
 ];
