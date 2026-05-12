@@ -399,8 +399,8 @@ class NodeBase {
     utils::WrappedVector2 initial_position_ = {
         0.0f, 0.0f};  ///< Initial position for resetting
     bool follow_mouse_ = false;
-    utils::WrappedColor color_ = {130, 130, 130};
-    utils::WrappedColor initial_color_ = {130, 130, 130};
+    utils::WrappedColor color_ = {130, 130, 130, 255};
+    utils::WrappedColor initial_color_ = {130, 130, 130, 255};
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)
