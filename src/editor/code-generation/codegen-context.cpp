@@ -26,7 +26,7 @@ using ConstantScalar = std::variant<int64_t, double, bool, std::string>;
 
 struct ConstantValue {
     PinDataType type_ = PinDataType::kUndefined;
-    ConstantScalar value_{};\
+    ConstantScalar value_{};
 };
 
 static std::string EscapeString(const std::string &value) {
@@ -483,10 +483,11 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
 static const core::NodeBase::Connection *FindParentConnection(
     const core::NodeBase &node, uint8_t pin) {
     const auto &parents = node.GetAllParents();
-    const auto kIt = std::find_if(parents.begin(), parents.end(),
-                                 [pin](const core::NodeBase::Connection &conn) {
-                                     return conn.in_pin == pin;
-                                 });
+    const auto kIt =
+        std::find_if(parents.begin(), parents.end(),
+                     [pin](const core::NodeBase::Connection &conn) {
+                         return conn.in_pin == pin;
+                     });
     if (kIt == parents.end()) {
         return nullptr;
     }
@@ -529,7 +530,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
 
     auto get_operand_expr = [&](const core::NodeBase *node,
-                              uint8_t pin) -> std::string {
+                                uint8_t pin) -> std::string {
         const auto *connection = FindParentConnection(*node, pin);
         if (connection == nullptr || !connection->IsConnected() ||
             connection->node == nullptr) {
@@ -601,8 +602,9 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
 
                 if (folded_value.has_value()) {
                     std::ostringstream line;
-                    line << "const " << CppTypeFor(kOutputType) << " " << kSymbol
-                         << " = " << ConstantToCpp(*folded_value) << ";";
+                    line << "const " << CppTypeFor(kOutputType) << " "
+                         << kSymbol << " = " << ConstantToCpp(*folded_value)
+                         << ";";
                     file.Line("    " + line.str());
                     folded_value_for_node[node->id()] = *folded_value;
                     symbol_for_node[node->id()] = kSymbol;
@@ -682,7 +684,7 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
     uint32_t output_count = 0;
 
     auto get_operand_expr = [&](const core::NodeBase *node,
-                              uint8_t pin) -> std::string {
+                                uint8_t pin) -> std::string {
         const auto *connection = FindParentConnection(*node, pin);
         if (connection == nullptr || !connection->IsConnected() ||
             connection->node == nullptr) {
@@ -757,8 +759,9 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
 
                 if (folded_value.has_value()) {
                     std::ostringstream line;
-                    line << "const " << CppTypeFor(kOutputType) << " " << kSymbol
-                         << " = " << ConstantToCpp(*folded_value) << ";";
+                    line << "const " << CppTypeFor(kOutputType) << " "
+                         << kSymbol << " = " << ConstantToCpp(*folded_value)
+                         << ";";
                     file.Line("    " + line.str());
                     folded_value_for_node[node->id()] = *folded_value;
                     symbol_for_node[node->id()] = kSymbol;
