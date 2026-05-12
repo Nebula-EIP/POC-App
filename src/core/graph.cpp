@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <map>
 #include <sstream>
+#include <unordered_set>
 
 #include "logger.hpp"
 #include "nodes/function_input_node.hpp"
@@ -115,6 +116,89 @@ core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     return it != nodes_.end() ? it->get() : nullptr;
 }
 
+namespace {
+
+bool IsNumericType(core::NodeBase::PinDataType type) {
+    return type == core::NodeBase::PinDataType::kInt ||
+           type == core::NodeBase::PinDataType::kFloat;
+}
+
+bool AreTypesCompatibleForLink(core::NodeBase::PinDataType source_type,
+                               core::NodeBase::PinDataType target_type) {
+    if (source_type == target_type) {
+        return true;
+    }
+
+    if (IsNumericType(source_type) && IsNumericType(target_type)) {
+        return true;
+    }
+
+    if (source_type == core::NodeBase::PinDataType::kVoid ||
+        target_type == core::NodeBase::PinDataType::kVoid) {
+        return true;
+    }
+
+    return false;
+}
+
+core::NodeBase::PinDataType GetOutputPinTypeForLink(const core::NodeBase *node,
+                                                    uint8_t pin) {
+    if (const auto *operator_node = dynamic_cast<const core::OperatorNode *>(node)) {
+        return operator_node->GetOutputPinType(pin);
+    }
+
+    return node->GetOutputPinType(pin);
+}
+
+core::NodeBase::PinDataType GetInputPinTypeForLink(const core::NodeBase *node,
+                                                   uint8_t pin) {
+    if (const auto *operator_node = dynamic_cast<const core::OperatorNode *>(node)) {
+        return operator_node->GetInputPinType(pin);
+    }
+
+    return node->GetInputPinType(pin);
+}
+
+bool HasPathToNode(core::Graph *graph, core::NodeBase *start,
+                   uint32_t target_id) {
+    if (graph == nullptr || start == nullptr) {
+        return false;
+    }
+
+    std::unordered_set<uint32_t> visited;
+    std::vector<core::NodeBase *> stack{start};
+
+    while (!stack.empty()) {
+        core::NodeBase *current = stack.back();
+        stack.pop_back();
+
+        if (current == nullptr || !visited.insert(current->id()).second) {
+            continue;
+        }
+
+        if (current->id() == target_id) {
+            return true;
+        }
+
+        for (uint8_t out_pin = 0; out_pin < current->GetOutputPinCount(); ++out_pin) {
+            const auto *children = current->Childrens(out_pin);
+            if (children == nullptr) {
+                continue;
+            }
+
+            for (const auto &child_conn : *children) {
+                if (child_conn.IsConnected() && child_conn.node != nullptr) {
+                    stack.push_back(child_conn.node);
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+}  // namespace
+
 const std::vector<std::unique_ptr<core::NodeBase>> &core::Graph::GetAllNodes()
     const noexcept {
     return nodes_;
@@ -160,10 +244,10 @@ void core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to,
     }
 
     // Check that types matches
-    auto from_type = from->GetOutputPinType(out_pin);
-    auto to_type = to->GetInputPinType(in_pin);
+    auto from_type = GetOutputPinTypeForLink(from, out_pin);
+    auto to_type = GetInputPinTypeForLink(to, in_pin);
 
-    if (from_type != to_type) {
+    if (!AreTypesCompatibleForLink(from_type, to_type)) {
         THROW_EXCEPTION(IncompatiblePinTypesException,
                         "trying to connect in({}) to out({})",
                         PinDataTypeToString(from_type),
@@ -171,7 +255,7 @@ void core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to,
     }
 
     // Check for circular dependency
-    if (from == to) {
+    if (from == to || HasPathToNode(this, to, from->id())) {
         THROW_EXCEPTION(CircularDependencyException,
                         "cannot link a node to itself");
     }
