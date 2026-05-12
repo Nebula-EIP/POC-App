@@ -561,23 +561,24 @@ TEST_F(GraphTest, LinkThrowsOnInvalidInputPin) {
 
 TEST_F(GraphTest, LinkThrowsOnIncompatiblePinTypes) {
     // Create two nodes with incompatible types
-    // LiteralNode typically has one type, we need nodes with different pin types
-    auto *literal_node = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
-    auto *variable_node = graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable, {0, 0});
-    
+    auto *literal_node =
+        graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral,
+                                          {0, 0});
+    auto *variable_node =
+        graph_.AddNode<core::VariableNode>(core::NodeBase::NodeKind::kVariable,
+                                           {0, 0});
+
     ASSERT_NE(literal_node, nullptr);
     ASSERT_NE(variable_node, nullptr);
-    
-    // Set literal to Int type
-    literal_node->set_data(42.0f);
-    
-    // Set variable to Float type (incompatible with Int)
-    variable_node->SetType(core::NodeBase::PinDataType::kFloat);
-    
+
+    // Bool -> Int must be rejected
+    literal_node->SetType(core::NodeBase::PinDataType::kBool);
+    literal_node->set_data(true);
+    variable_node->SetType(core::NodeBase::PinDataType::kInt);
+
     // Try to link incompatible types
-    EXPECT_THROW({
-        graph_.Link(literal_node, 0, variable_node, 0);
-    }, core::IncompatiblePinTypesException);
+    EXPECT_THROW({ graph_.Link(literal_node, 0, variable_node, 0); },
+                 core::IncompatiblePinTypesException);
 }
 
 TEST_F(GraphTest, LinkThrowsOnCircularDependency) {
