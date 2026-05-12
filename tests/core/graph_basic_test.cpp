@@ -23,7 +23,7 @@ TEST_F(GraphBasicTest, CreateLiteralNode) {
 TEST_F(GraphBasicTest, CreateOperatorNode) {
     auto *node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     ASSERT_NE(node, nullptr);
-    EXPECT_EQ(node->GetDisplayName(), node->name());
+    EXPECT_EQ(node->GetDisplayName(), node->Name());
     EXPECT_EQ(node->GetCategory(), std::string("Arithmetic"));
     EXPECT_EQ(node->GetInputPinCount(), 2);
     EXPECT_EQ(node->GetOutputPinCount(), 1);
