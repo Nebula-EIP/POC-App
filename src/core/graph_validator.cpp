@@ -6,8 +6,55 @@
 #include "graph.hpp"
 #include "logger.hpp"
 #include "node_base.hpp"
+#include "nodes/operator_node.hpp"
 
 namespace core {
+
+namespace {
+
+uint8_t GetInputPinCountForValidation(const NodeBase *node) {
+    if (const auto *operator_node = dynamic_cast<const OperatorNode *>(node)) {
+        return operator_node->GetInputPinCount();
+    }
+
+    return node->GetInputPinCount();
+}
+
+uint8_t GetOutputPinCountForValidation(const NodeBase *node) {
+    if (const auto *operator_node = dynamic_cast<const OperatorNode *>(node)) {
+        return operator_node->GetOutputPinCount();
+    }
+
+    return node->GetOutputPinCount();
+}
+
+NodeBase::PinDataType GetInputPinTypeForValidation(const NodeBase *node,
+                                                   uint8_t pin) {
+    if (const auto *operator_node = dynamic_cast<const OperatorNode *>(node)) {
+        return operator_node->GetInputPinType(pin);
+    }
+
+    return node->GetInputPinType(pin);
+}
+
+NodeBase::PinDataType GetOutputPinTypeForValidation(const NodeBase *node,
+                                                    uint8_t pin) {
+    if (const auto *operator_node = dynamic_cast<const OperatorNode *>(node)) {
+        return operator_node->GetOutputPinType(pin);
+    }
+
+    return node->GetOutputPinType(pin);
+}
+
+std::string GetInputPinNameForValidation(const NodeBase *node, uint8_t pin) {
+    if (const auto *operator_node = dynamic_cast<const OperatorNode *>(node)) {
+        return operator_node->GetInputPinName(pin);
+    }
+
+    return node->GetInputPinName(pin);
+}
+
+}  // namespace
 
 // ============================================================================
 // ValidationResult helper methods
@@ -166,9 +213,10 @@ GraphValidator::CheckPinCompatibility(const Graph &graph) {
             }
 
             // Get source and target pin types
-            auto source_type = node->GetOutputPinType(child_conn.out_pin);
-            auto target_type =
-                child_conn.node->GetInputPinType(child_conn.in_pin);
+            auto source_type =
+                GetOutputPinTypeForValidation(node.get(), child_conn.out_pin);
+            auto target_type = GetInputPinTypeForValidation(
+                child_conn.node, child_conn.in_pin);
 
             // Check compatibility
             if (!AreTypesCompatible(static_cast<int>(source_type),
@@ -209,10 +257,15 @@ bool GraphValidator::AreTypesCompatible(int source_type_int,
         return true;
     }
 
-    // Implicit conversions
-    // int → float (promotion)
-    if (source_type == NodeBase::PinDataType::kInt &&
-        target_type == NodeBase::PinDataType::kFloat) {
+    const bool source_is_numeric =
+        source_type == NodeBase::PinDataType::kInt ||
+        source_type == NodeBase::PinDataType::kFloat;
+    const bool target_is_numeric =
+        target_type == NodeBase::PinDataType::kInt ||
+        target_type == NodeBase::PinDataType::kFloat;
+
+    // Any numeric combination is acceptable for graph linking/validation.
+    if (source_is_numeric && target_is_numeric) {
         return true;
     }
 
@@ -259,7 +312,7 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
         }
 
         // Check all input pins
-        uint8_t input_count = node->GetInputPinCount();
+        uint8_t input_count = GetInputPinCountForValidation(node.get());
         for (uint8_t pin = 0; pin < input_count; ++pin) {
             // Note: For now, we check all input pins. Some nodes may have
             // optional inputs, but that's a more advanced feature.
@@ -287,7 +340,8 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
                     std::ostringstream oss;
                     oss << "Required input pin not connected: node "
                         << node->id() << ", pin " << static_cast<int>(pin)
-                        << " (" << node->GetInputPinName(pin) << ")";
+                        << " (" << GetInputPinNameForValidation(node.get(), pin)
+                        << ")";
                     error.message = oss.str();
 
                     error.involved_node_ids.push_back(node->id());
@@ -299,7 +353,7 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
         }
 
         // Check all output pins (most nodes require outputs to be used)
-        uint8_t output_count = node->GetOutputPinCount();
+        uint8_t output_count = GetOutputPinCountForValidation(node.get());
         for (uint8_t pin = 0; pin < output_count; ++pin) {
             if (!node->IsOutputPinConnected(pin)) {
                 // Note: In many cases, unused outputs are acceptable (dead
