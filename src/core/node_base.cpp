@@ -545,7 +545,7 @@ bool core::NodeBase::IsMouseOver() const {
 
 void core::NodeBase::SetColor(unsigned char r, unsigned char g,
                               unsigned char b) {
-    color_ = {r, g, b};
+    color_ = {r, g, b, 255};
 }
 
 utils::WrappedColor core::NodeBase::GetInitialColor() const {
