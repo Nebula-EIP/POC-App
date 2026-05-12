@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <queue>
 #include <unordered_map>
-#include <unordered_set>
 
 #include "graph.hpp"
 #include "node_base.hpp"
@@ -91,7 +90,6 @@ uint32_t TopologicalSorter::CalculateInDegree(NodeBase *node) {
 std::vector<NodeBase *> TopologicalSorter::GetNeighbors(NodeBase *node,
                                                         const Graph &graph) {
     std::vector<NodeBase *> neighbors;
-    std::unordered_set<uint32_t> seen_neighbors;  // To avoid duplicates
 
     if (!node) {
         return neighbors;
@@ -108,13 +106,7 @@ std::vector<NodeBase *> TopologicalSorter::GetNeighbors(NodeBase *node,
 
         for (const auto &child_conn : *children) {
             if (child_conn.IsConnected() && child_conn.node) {
-                uint32_t neighbor_id = child_conn.node->id();
-
-                // Add neighbor only if we haven't seen it yet
-                if (seen_neighbors.find(neighbor_id) == seen_neighbors.end()) {
-                    neighbors.push_back(child_conn.node);
-                    seen_neighbors.insert(neighbor_id);
-                }
+                neighbors.push_back(child_conn.node);
             }
         }
     }
