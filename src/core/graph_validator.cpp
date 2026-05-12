@@ -257,13 +257,13 @@ bool GraphValidator::AreTypesCompatible(int source_type_int,
         return true;
     }
 
-    const bool source_is_numeric = source_type == NodeBase::PinDataType::kInt ||
-                                   source_type == NodeBase::PinDataType::kFloat;
-    const bool target_is_numeric = target_type == NodeBase::PinDataType::kInt ||
-                                   target_type == NodeBase::PinDataType::kFloat;
+    const bool kSourceIsNumeric = source_type == NodeBase::PinDataType::kInt ||
+                                  source_type == NodeBase::PinDataType::kFloat;
+    const bool kTargetIsNumeric = target_type == NodeBase::PinDataType::kInt ||
+                                  target_type == NodeBase::PinDataType::kFloat;
 
     // Any numeric combination is acceptable for graph linking/validation.
-    if (source_is_numeric && target_is_numeric) {
+    if (kSourceIsNumeric && kTargetIsNumeric) {
         return true;
     }
 
