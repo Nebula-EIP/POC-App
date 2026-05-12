@@ -143,7 +143,8 @@ bool AreTypesCompatibleForLink(core::NodeBase::PinDataType source_type,
 
 core::NodeBase::PinDataType GetOutputPinTypeForLink(const core::NodeBase *node,
                                                     uint8_t pin) {
-    if (const auto *operator_node = dynamic_cast<const core::OperatorNode *>(node)) {
+    if (const auto *operator_node =
+            dynamic_cast<const core::OperatorNode *>(node)) {
         return operator_node->GetOutputPinType(pin);
     }
 
@@ -152,7 +153,8 @@ core::NodeBase::PinDataType GetOutputPinTypeForLink(const core::NodeBase *node,
 
 core::NodeBase::PinDataType GetInputPinTypeForLink(const core::NodeBase *node,
                                                    uint8_t pin) {
-    if (const auto *operator_node = dynamic_cast<const core::OperatorNode *>(node)) {
+    if (const auto *operator_node =
+            dynamic_cast<const core::OperatorNode *>(node)) {
         return operator_node->GetInputPinType(pin);
     }
 
@@ -180,7 +182,8 @@ bool HasPathToNode(core::Graph *graph, core::NodeBase *start,
             return true;
         }
 
-        for (uint8_t out_pin = 0; out_pin < current->GetOutputPinCount(); ++out_pin) {
+        for (uint8_t out_pin = 0; out_pin < current->GetOutputPinCount();
+             ++out_pin) {
             const auto *children = current->Childrens(out_pin);
             if (children == nullptr) {
                 continue;
