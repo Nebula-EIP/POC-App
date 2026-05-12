@@ -35,7 +35,7 @@ TEST_F(CodegenOptimizerTest, FindUsedNodes_AllNodesContributeToResult) {
     lit2->set_data(3);
     
     auto *add = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    add->set_operator_type(OperatorNode::OperatorType::kAddition);
+    add->SetOperatorType(OperatorNode::OperatorType::kAddition);
     
     graph_.Link(lit1, 0, add, 0);
     graph_.Link(lit2, 0, add, 1);
@@ -53,15 +53,15 @@ TEST_F(CodegenOptimizerTest, FindUsedNodes_AllNodesContributeToResult) {
 TEST_F(CodegenOptimizerTest, InferTypes_LiteralTypesAreCorrect) {
     // Create literals of different types
     auto *int_lit = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    int_lit->set_type(NodeBase::PinDataType::kInt);
+    int_lit->SetType(NodeBase::PinDataType::kInt);
     int_lit->set_data(42);
     
     auto *float_lit = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    float_lit->set_type(NodeBase::PinDataType::kFloat);
+    float_lit->SetType(NodeBase::PinDataType::kFloat);
     float_lit->set_data(3.14);
     
     auto *bool_lit = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    bool_lit->set_type(NodeBase::PinDataType::kBool);
+    bool_lit->SetType(NodeBase::PinDataType::kBool);
     bool_lit->set_data(true);
     
     CodegenOptimizer optimizer;
@@ -82,7 +82,7 @@ TEST_F(CodegenOptimizerTest, InferTypes_ComparisonReturnsBoolean) {
     lit2->set_data(3);
     
     auto *cmp = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    cmp->set_operator_type(OperatorNode::OperatorType::kEqual);
+    cmp->SetOperatorType(OperatorNode::OperatorType::kEqual);
     
     graph_.Link(lit1, 0, cmp, 0);
     graph_.Link(lit2, 0, cmp, 1);
@@ -98,15 +98,15 @@ TEST_F(CodegenOptimizerTest, InferTypes_ComparisonReturnsBoolean) {
 TEST_F(CodegenOptimizerTest, InferTypes_TypePromotion_IntTimesInt) {
     // Create: int_lit1 = 5, int_lit2 = 3, mul = int_lit1 * int_lit2
     auto *int_lit1 = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    int_lit1->set_type(NodeBase::PinDataType::kInt);
+    int_lit1->SetType(NodeBase::PinDataType::kInt);
     int_lit1->set_data(5);
     
     auto *int_lit2 = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    int_lit2->set_type(NodeBase::PinDataType::kInt);
+    int_lit2->SetType(NodeBase::PinDataType::kInt);
     int_lit2->set_data(3);
     
     auto *mul = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    mul->set_operator_type(OperatorNode::OperatorType::kMultiplication);
+    mul->SetOperatorType(OperatorNode::OperatorType::kMultiplication);
     
     graph_.Link(int_lit1, 0, mul, 0);
     graph_.Link(int_lit2, 0, mul, 1);
@@ -128,7 +128,7 @@ TEST_F(CodegenOptimizerTest, AnalyzeGraph_ReturnsCompleteAnalysis) {
     lit2->set_data(3);
     
     auto *add = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    add->set_operator_type(OperatorNode::OperatorType::kAddition);
+    add->SetOperatorType(OperatorNode::OperatorType::kAddition);
     
     graph_.Link(lit1, 0, add, 0);
     graph_.Link(lit2, 0, add, 1);
@@ -150,11 +150,11 @@ TEST_F(CodegenOptimizerTest, AnalyzeGraph_ReturnsCompleteAnalysis) {
 TEST_F(CodegenOptimizerTest, LogicalNotUnaryOperator) {
     // Create: bool_lit = true, not_op = !bool_lit
     auto *bool_lit = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    bool_lit->set_type(NodeBase::PinDataType::kBool);
+    bool_lit->SetType(NodeBase::PinDataType::kBool);
     bool_lit->set_data(true);
     
     auto *not_op = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    not_op->set_operator_type(OperatorNode::OperatorType::kLogicalNot);
+    not_op->SetOperatorType(OperatorNode::OperatorType::kLogicalNot);
     
     graph_.Link(bool_lit, 0, not_op, 0);
     
@@ -172,7 +172,7 @@ TEST_F(CodegenOptimizerTest, BitwiseNotUnaryOperator) {
     int_lit->set_data(5);
     
     auto *bitnot_op = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    bitnot_op->set_operator_type(OperatorNode::OperatorType::kBitwiseNot);
+    bitnot_op->SetOperatorType(OperatorNode::OperatorType::kBitwiseNot);
     
     graph_.Link(int_lit, 0, bitnot_op, 0);
     
@@ -187,15 +187,15 @@ TEST_F(CodegenOptimizerTest, BitwiseNotUnaryOperator) {
 TEST_F(CodegenOptimizerTest, LogicalAnd_ReturnsBool) {
     // Create: lit1 = true, lit2 = false, and_op = lit1 && lit2
     auto *lit1 = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    lit1->set_type(NodeBase::PinDataType::kBool);
+    lit1->SetType(NodeBase::PinDataType::kBool);
     lit1->set_data(true);
     
     auto *lit2 = graph_.AddNode<LiteralNode>(NodeBase::NodeKind::kLiteral, {0, 0});
-    lit2->set_type(NodeBase::PinDataType::kBool);
+    lit2->SetType(NodeBase::PinDataType::kBool);
     lit2->set_data(false);
     
     auto *and_op = graph_.AddNode<OperatorNode>(NodeBase::NodeKind::kOperator, {0, 0});
-    and_op->set_operator_type(OperatorNode::OperatorType::kLogicalAnd);
+    and_op->SetOperatorType(OperatorNode::OperatorType::kLogicalAnd);
     
     graph_.Link(lit1, 0, and_op, 0);
     graph_.Link(lit2, 0, and_op, 1);
