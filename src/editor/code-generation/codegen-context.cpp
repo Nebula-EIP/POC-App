@@ -22,11 +22,11 @@ namespace {
 using PinDataType = core::NodeBase::PinDataType;
 using OperatorType = core::OperatorNode::OperatorType;
 
-using ConstantScalar = std::variant<long long, double, bool, std::string>;
+using ConstantScalar = std::variant<int64_t, double, bool, std::string>;
 
 struct ConstantValue {
-    PinDataType type = PinDataType::kUndefined;
-    ConstantScalar value{};
+    PinDataType type_ = PinDataType::kUndefined;
+    ConstantScalar value_{};\
 };
 
 static std::string EscapeString(const std::string &value) {
@@ -103,18 +103,18 @@ static std::string LiteralToCpp(const core::LiteralNode &lit) {
 
 static std::string ConstantToCpp(const ConstantValue &value) {
     std::ostringstream oss;
-    switch (value.type) {
+    switch (value.type_) {
         case PinDataType::kInt:
-            oss << std::get<long long>(value.value);
+            oss << std::get<int64_t>(value.value_);
             break;
         case PinDataType::kFloat:
-            oss << std::get<double>(value.value);
+            oss << std::get<double>(value.value_);
             break;
         case PinDataType::kBool:
-            oss << (std::get<bool>(value.value) ? "true" : "false");
+            oss << (std::get<bool>(value.value_) ? "true" : "false");
             break;
         case PinDataType::kString:
-            oss << '"' << EscapeString(std::get<std::string>(value.value))
+            oss << '"' << EscapeString(std::get<std::string>(value.value_))
                 << '"';
             break;
         default:
@@ -208,7 +208,7 @@ static std::optional<ConstantValue> GetLiteralConstant(
             case PinDataType::kInt:
                 return ConstantValue{
                     PinDataType::kInt,
-                    static_cast<long long>(std::any_cast<int>(lit.data()))};
+                    static_cast<int64_t>(std::any_cast<int>(lit.data()))};
             case PinDataType::kFloat:
                 return ConstantValue{PinDataType::kFloat,
                                      std::any_cast<double>(lit.data())};
@@ -231,27 +231,27 @@ static bool IsNumeric(PinDataType type) {
 }
 
 static double AsDouble(const ConstantValue &value) {
-    if (value.type == PinDataType::kInt) {
-        return static_cast<double>(std::get<long long>(value.value));
+    if (value.type_ == PinDataType::kInt) {
+        return static_cast<double>(std::get<int64_t>(value.value_));
     }
-    return std::get<double>(value.value);
+    return std::get<double>(value.value_);
 }
 
-static long long AsInt(const ConstantValue &value) {
-    if (value.type == PinDataType::kInt) {
-        return std::get<long long>(value.value);
+static int64_t AsInt(const ConstantValue &value) {
+    if (value.type_ == PinDataType::kInt) {
+        return std::get<int64_t>(value.value_);
     }
-    return static_cast<long long>(std::get<double>(value.value));
+    return static_cast<int64_t>(std::get<double>(value.value_));
 }
 
 static bool ToBool(const ConstantValue &value) {
-    switch (value.type) {
+    switch (value.type_) {
         case PinDataType::kBool:
-            return std::get<bool>(value.value);
+            return std::get<bool>(value.value_);
         case PinDataType::kInt:
-            return std::get<long long>(value.value) != 0;
+            return std::get<int64_t>(value.value_) != 0;
         case PinDataType::kFloat:
-            return std::get<double>(value.value) != 0.0;
+            return std::get<double>(value.value_) != 0.0;
         default:
             return false;
     }
@@ -261,12 +261,12 @@ static std::optional<ConstantValue> FoldUnary(OperatorType type,
                                               const ConstantValue &value) {
     switch (type) {
         case OperatorType::kBitwiseNot:
-            if (value.type == PinDataType::kInt) {
+            if (value.type_ == PinDataType::kInt) {
                 return ConstantValue{PinDataType::kInt, ~AsInt(value)};
             }
             return std::nullopt;
         case OperatorType::kLogicalNot:
-            if (value.type == PinDataType::kBool || IsNumeric(value.type)) {
+            if (value.type_ == PinDataType::kBool || IsNumeric(value.type_)) {
                 return ConstantValue{PinDataType::kBool, !ToBool(value)};
             }
             return std::nullopt;
@@ -283,52 +283,52 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
         case OperatorType::kSubtraction:
         case OperatorType::kMultiplication:
         case OperatorType::kDivision: {
-            if (!IsNumeric(left.type) || !IsNumeric(right.type)) {
+            if (!IsNumeric(left.type_) || !IsNumeric(right.type_)) {
                 return std::nullopt;
             }
 
-            const bool use_float = left.type == PinDataType::kFloat ||
-                                   right.type == PinDataType::kFloat;
-            if (use_float) {
-                const double lhs = AsDouble(left);
-                const double rhs = AsDouble(right);
+            const bool kUseFloat = left.type_ == PinDataType::kFloat ||
+                                   right.type_ == PinDataType::kFloat;
+            if (kUseFloat) {
+                const double kLhs = AsDouble(left);
+                const double kRhs = AsDouble(right);
                 switch (type) {
                     case OperatorType::kAddition:
-                        return ConstantValue{PinDataType::kFloat, lhs + rhs};
+                        return ConstantValue{PinDataType::kFloat, kLhs + kRhs};
                     case OperatorType::kSubtraction:
-                        return ConstantValue{PinDataType::kFloat, lhs - rhs};
+                        return ConstantValue{PinDataType::kFloat, kLhs - kRhs};
                     case OperatorType::kMultiplication:
-                        return ConstantValue{PinDataType::kFloat, lhs * rhs};
+                        return ConstantValue{PinDataType::kFloat, kLhs * kRhs};
                     case OperatorType::kDivision:
-                        if (rhs == 0.0) return std::nullopt;
-                        return ConstantValue{PinDataType::kFloat, lhs / rhs};
+                        if (kRhs == 0.0) return std::nullopt;
+                        return ConstantValue{PinDataType::kFloat, kLhs / kRhs};
                     default:
                         return std::nullopt;
                 }
             }
 
-            const long long lhs = AsInt(left);
-            const long long rhs = AsInt(right);
+            const int64_t kLhs = AsInt(left);
+            const int64_t kRhs = AsInt(right);
             switch (type) {
                 case OperatorType::kAddition:
-                    return ConstantValue{PinDataType::kInt, lhs + rhs};
+                    return ConstantValue{PinDataType::kInt, kLhs + kRhs};
                 case OperatorType::kSubtraction:
-                    return ConstantValue{PinDataType::kInt, lhs - rhs};
+                    return ConstantValue{PinDataType::kInt, kLhs - kRhs};
                 case OperatorType::kMultiplication:
-                    return ConstantValue{PinDataType::kInt, lhs * rhs};
+                    return ConstantValue{PinDataType::kInt, kLhs * kRhs};
                 case OperatorType::kDivision:
-                    if (rhs == 0) return std::nullopt;
-                    return ConstantValue{PinDataType::kInt, lhs / rhs};
+                    if (kRhs == 0) return std::nullopt;
+                    return ConstantValue{PinDataType::kInt, kLhs / kRhs};
                 default:
                     return std::nullopt;
             }
         }
         case OperatorType::kModulo:
-            if (left.type == PinDataType::kInt &&
-                right.type == PinDataType::kInt) {
-                const long long rhs = AsInt(right);
-                if (rhs == 0) return std::nullopt;
-                return ConstantValue{PinDataType::kInt, AsInt(left) % rhs};
+            if (left.type_ == PinDataType::kInt &&
+                right.type_ == PinDataType::kInt) {
+                const int64_t kRhs = AsInt(right);
+                if (kRhs == 0) return std::nullopt;
+                return ConstantValue{PinDataType::kInt, AsInt(left) % kRhs};
             }
             return std::nullopt;
         case OperatorType::kBitwiseAnd:
@@ -336,21 +336,21 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
         case OperatorType::kBitwiseXor:
         case OperatorType::kLeftShift:
         case OperatorType::kRightShift:
-            if (left.type == PinDataType::kInt &&
-                right.type == PinDataType::kInt) {
-                const long long lhs = AsInt(left);
-                const long long rhs = AsInt(right);
+            if (left.type_ == PinDataType::kInt &&
+                right.type_ == PinDataType::kInt) {
+                const int64_t kLhs = AsInt(left);
+                const int64_t kRhs = AsInt(right);
                 switch (type) {
                     case OperatorType::kBitwiseAnd:
-                        return ConstantValue{PinDataType::kInt, lhs & rhs};
+                        return ConstantValue{PinDataType::kInt, kLhs & kRhs};
                     case OperatorType::kBitwiseOr:
-                        return ConstantValue{PinDataType::kInt, lhs | rhs};
+                        return ConstantValue{PinDataType::kInt, kLhs | kRhs};
                     case OperatorType::kBitwiseXor:
-                        return ConstantValue{PinDataType::kInt, lhs ^ rhs};
+                        return ConstantValue{PinDataType::kInt, kLhs ^ kRhs};
                     case OperatorType::kLeftShift:
-                        return ConstantValue{PinDataType::kInt, lhs << rhs};
+                        return ConstantValue{PinDataType::kInt, kLhs << kRhs};
                     case OperatorType::kRightShift:
-                        return ConstantValue{PinDataType::kInt, lhs >> rhs};
+                        return ConstantValue{PinDataType::kInt, kLhs >> kRhs};
                     default:
                         return std::nullopt;
                 }
@@ -362,97 +362,98 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
         case OperatorType::kGreaterThan:
         case OperatorType::kLessOrEqual:
         case OperatorType::kGreaterOrEqual: {
-            if (left.type != right.type &&
-                !(IsNumeric(left.type) && IsNumeric(right.type))) {
+            if (left.type_ != right.type_ &&
+                !(IsNumeric(left.type_) && IsNumeric(right.type_))) {
                 return std::nullopt;
             }
 
             bool result = false;
-            if (left.type == PinDataType::kString &&
-                right.type == PinDataType::kString) {
-                const auto &lhs = std::get<std::string>(left.value);
-                const auto &rhs = std::get<std::string>(right.value);
-                if (type == OperatorType::kEqual)
-                    result = lhs == rhs;
-                else if (type == OperatorType::kNotEqual)
-                    result = lhs != rhs;
-                else
+            if (left.type_ == PinDataType::kString &&
+                right.type_ == PinDataType::kString) {
+                const auto &k_lhs = std::get<std::string>(left.value_);
+                const auto &k_rhs = std::get<std::string>(right.value_);
+                if (type == OperatorType::kEqual) {
+                    result = k_lhs == k_rhs;
+                } else if (type == OperatorType::kNotEqual) {
+                    result = k_lhs != k_rhs;
+                } else {
                     return std::nullopt;
-            } else if (left.type == PinDataType::kBool &&
-                       right.type == PinDataType::kBool) {
-                const bool lhs = std::get<bool>(left.value);
-                const bool rhs = std::get<bool>(right.value);
+                }
+            } else if (left.type_ == PinDataType::kBool &&
+                       right.type_ == PinDataType::kBool) {
+                const bool kLhs = std::get<bool>(left.value_);
+                const bool kRhs = std::get<bool>(right.value_);
                 switch (type) {
                     case OperatorType::kEqual:
-                        result = lhs == rhs;
+                        result = kLhs == kRhs;
                         break;
                     case OperatorType::kNotEqual:
-                        result = lhs != rhs;
+                        result = kLhs != kRhs;
                         break;
                     case OperatorType::kLessThan:
-                        result = lhs < rhs;
+                        result = kLhs < kRhs;
                         break;
                     case OperatorType::kGreaterThan:
-                        result = lhs > rhs;
+                        result = kLhs > kRhs;
                         break;
                     case OperatorType::kLessOrEqual:
-                        result = lhs <= rhs;
+                        result = kLhs <= kRhs;
                         break;
                     case OperatorType::kGreaterOrEqual:
-                        result = lhs >= rhs;
+                        result = kLhs >= kRhs;
                         break;
                     default:
                         return std::nullopt;
                 }
             } else {
-                const bool use_float = left.type == PinDataType::kFloat ||
-                                       right.type == PinDataType::kFloat;
-                if (use_float) {
-                    const double lhs = AsDouble(left);
-                    const double rhs = AsDouble(right);
+                const bool kUseFloat = left.type_ == PinDataType::kFloat ||
+                                       right.type_ == PinDataType::kFloat;
+                if (kUseFloat) {
+                    const double kLhs = AsDouble(left);
+                    const double kRhs = AsDouble(right);
                     switch (type) {
                         case OperatorType::kEqual:
-                            result = lhs == rhs;
+                            result = kLhs == kRhs;
                             break;
                         case OperatorType::kNotEqual:
-                            result = lhs != rhs;
+                            result = kLhs != kRhs;
                             break;
                         case OperatorType::kLessThan:
-                            result = lhs < rhs;
+                            result = kLhs < kRhs;
                             break;
                         case OperatorType::kGreaterThan:
-                            result = lhs > rhs;
+                            result = kLhs > kRhs;
                             break;
                         case OperatorType::kLessOrEqual:
-                            result = lhs <= rhs;
+                            result = kLhs <= kRhs;
                             break;
                         case OperatorType::kGreaterOrEqual:
-                            result = lhs >= rhs;
+                            result = kLhs >= kRhs;
                             break;
                         default:
                             return std::nullopt;
                     }
                 } else {
-                    const long long lhs = AsInt(left);
-                    const long long rhs = AsInt(right);
+                    const int64_t kLhs = AsInt(left);
+                    const int64_t kRhs = AsInt(right);
                     switch (type) {
                         case OperatorType::kEqual:
-                            result = lhs == rhs;
+                            result = kLhs == kRhs;
                             break;
                         case OperatorType::kNotEqual:
-                            result = lhs != rhs;
+                            result = kLhs != kRhs;
                             break;
                         case OperatorType::kLessThan:
-                            result = lhs < rhs;
+                            result = kLhs < kRhs;
                             break;
                         case OperatorType::kGreaterThan:
-                            result = lhs > rhs;
+                            result = kLhs > kRhs;
                             break;
                         case OperatorType::kLessOrEqual:
-                            result = lhs <= rhs;
+                            result = kLhs <= kRhs;
                             break;
                         case OperatorType::kGreaterOrEqual:
-                            result = lhs >= rhs;
+                            result = kLhs >= kRhs;
                             break;
                         default:
                             return std::nullopt;
@@ -464,14 +465,14 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
         }
         case OperatorType::kLogicalAnd:
         case OperatorType::kLogicalOr:
-            if ((left.type == PinDataType::kBool || IsNumeric(left.type)) &&
-                (right.type == PinDataType::kBool || IsNumeric(right.type))) {
-                const bool lhs = ToBool(left);
-                const bool rhs = ToBool(right);
+            if ((left.type_ == PinDataType::kBool || IsNumeric(left.type_)) &&
+                (right.type_ == PinDataType::kBool || IsNumeric(right.type_))) {
+                const bool kLhs = ToBool(left);
+                const bool kRhs = ToBool(right);
                 if (type == OperatorType::kLogicalAnd) {
-                    return ConstantValue{PinDataType::kBool, lhs && rhs};
+                    return ConstantValue{PinDataType::kBool, kLhs && kRhs};
                 }
-                return ConstantValue{PinDataType::kBool, lhs || rhs};
+                return ConstantValue{PinDataType::kBool, kLhs || kRhs};
             }
             return std::nullopt;
         default:
@@ -482,14 +483,14 @@ static std::optional<ConstantValue> FoldBinary(OperatorType type,
 static const core::NodeBase::Connection *FindParentConnection(
     const core::NodeBase &node, uint8_t pin) {
     const auto &parents = node.GetAllParents();
-    const auto it = std::find_if(parents.begin(), parents.end(),
+    const auto kIt = std::find_if(parents.begin(), parents.end(),
                                  [pin](const core::NodeBase::Connection &conn) {
                                      return conn.in_pin == pin;
                                  });
-    if (it == parents.end()) {
+    if (kIt == parents.end()) {
         return nullptr;
     }
-    return &(*it);
+    return &(*kIt);
 }
 
 }  // namespace
@@ -500,11 +501,11 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
 
     // Validate the graph
     core::GraphValidator validator;
-    const auto validation_result = validator.Validate(graph);
-    if (!validation_result.is_valid) {
+    const auto kValidationResult = validator.Validate(graph);
+    if (!kValidationResult.is_valid) {
         // Graph is invalid, return empty file with error comment
         file.Line("// ERROR: Graph validation failed");
-        for (const auto &error : validation_result.errors) {
+        for (const auto &error : kValidationResult.errors) {
             file.Line("// " + error.message);
         }
         return file;
@@ -527,7 +528,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
     std::unordered_map<uint32_t, std::string> symbol_for_node;
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
 
-    auto GetOperandExpr = [&](const core::NodeBase *node,
+    auto get_operand_expr = [&](const core::NodeBase *node,
                               uint8_t pin) -> std::string {
         const auto *connection = FindParentConnection(*node, pin);
         if (connection == nullptr || !connection->IsConnected() ||
@@ -535,9 +536,9 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
             return DefaultCppExprFor(node->GetInputPinType(pin));
         }
 
-        const auto it = symbol_for_node.find(connection->node->id());
-        if (it != symbol_for_node.end()) {
-            return it->second;
+        const auto kIt = symbol_for_node.find(connection->node->id());
+        if (kIt != symbol_for_node.end()) {
+            return kIt->second;
         }
 
         return DefaultCppExprFor(node->GetInputPinType(pin));
@@ -562,19 +563,19 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
             }
             case core::NodeBase::NodeKind::kOperator: {
                 const auto *op = static_cast<const core::OperatorNode *>(node);
-                const PinDataType output_type = op->GetOutputPinType(0);
-                const std::string symbol = "tmp_" + std::to_string(op->id());
+                const PinDataType kOutputType = op->GetOutputPinType(0);
+                const std::string kSymbol = "tmp_" + std::to_string(op->id());
 
                 std::optional<ConstantValue> folded_value;
                 if (op->IsUnaryOperator()) {
                     const auto *parent = FindParentConnection(*op, 0);
                     if (parent != nullptr && parent->IsConnected() &&
                         parent->node != nullptr) {
-                        const auto it =
+                        const auto kIt =
                             folded_value_for_node.find(parent->node->id());
-                        if (it != folded_value_for_node.end()) {
+                        if (kIt != folded_value_for_node.end()) {
                             folded_value =
-                                FoldUnary(op->operator_type(), it->second);
+                                FoldUnary(op->operator_type(), kIt->second);
                         }
                     }
                 } else {
@@ -585,46 +586,46 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                         right_parent->IsConnected() &&
                         left_parent->node != nullptr &&
                         right_parent->node != nullptr) {
-                        const auto left_it =
+                        const auto kLeftIt =
                             folded_value_for_node.find(left_parent->node->id());
-                        const auto right_it = folded_value_for_node.find(
+                        const auto kRightIt = folded_value_for_node.find(
                             right_parent->node->id());
-                        if (left_it != folded_value_for_node.end() &&
-                            right_it != folded_value_for_node.end()) {
+                        if (kLeftIt != folded_value_for_node.end() &&
+                            kRightIt != folded_value_for_node.end()) {
                             folded_value =
-                                FoldBinary(op->operator_type(), left_it->second,
-                                           right_it->second);
+                                FoldBinary(op->operator_type(), kLeftIt->second,
+                                           kRightIt->second);
                         }
                     }
                 }
 
                 if (folded_value.has_value()) {
                     std::ostringstream line;
-                    line << "const " << CppTypeFor(output_type) << " " << symbol
+                    line << "const " << CppTypeFor(kOutputType) << " " << kSymbol
                          << " = " << ConstantToCpp(*folded_value) << ";";
                     file.Line("    " + line.str());
                     folded_value_for_node[node->id()] = *folded_value;
-                    symbol_for_node[node->id()] = symbol;
+                    symbol_for_node[node->id()] = kSymbol;
                     break;
                 }
 
                 if (op->IsUnaryOperator()) {
-                    const std::string operand = GetOperandExpr(op, 0);
+                    const std::string kOperand = get_operand_expr(op, 0);
                     std::ostringstream line;
-                    line << CppTypeFor(output_type) << " " << symbol << " = "
-                         << OpSymbol(op->operator_type()) << operand << ";";
+                    line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
+                         << OpSymbol(op->operator_type()) << kOperand << ";";
                     file.Line("    " + line.str());
                 } else {
-                    const std::string left = GetOperandExpr(op, 0);
-                    const std::string right = GetOperandExpr(op, 1);
+                    const std::string kLeft = get_operand_expr(op, 0);
+                    const std::string kRight = get_operand_expr(op, 1);
                     std::ostringstream line;
-                    line << CppTypeFor(output_type) << " " << symbol << " = "
-                         << left << " " << OpSymbol(op->operator_type()) << " "
-                         << right << ";";
+                    line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
+                         << kLeft << " " << OpSymbol(op->operator_type()) << " "
+                         << kRight << ";";
                     file.Line("    " + line.str());
                 }
 
-                symbol_for_node[node->id()] = symbol;
+                symbol_for_node[node->id()] = kSymbol;
                 break;
             }
             default: {
@@ -648,11 +649,11 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
 
     // Validate the graph
     core::GraphValidator validator;
-    const auto validation_result = validator.Validate(graph);
-    if (!validation_result.is_valid) {
+    const auto kValidationResult = validator.Validate(graph);
+    if (!kValidationResult.is_valid) {
         // Graph is invalid, return empty file with error comment
         file.Line("// ERROR: Graph validation failed");
-        for (const auto &error : validation_result.errors) {
+        for (const auto &error : kValidationResult.errors) {
             file.Line("// " + error.message);
         }
         return file;
@@ -680,7 +681,7 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
     uint32_t output_count = 0;
 
-    auto GetOperandExpr = [&](const core::NodeBase *node,
+    auto get_operand_expr = [&](const core::NodeBase *node,
                               uint8_t pin) -> std::string {
         const auto *connection = FindParentConnection(*node, pin);
         if (connection == nullptr || !connection->IsConnected() ||
@@ -688,9 +689,9 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
             return DefaultCppExprFor(node->GetInputPinType(pin));
         }
 
-        const auto it = symbol_for_node.find(connection->node->id());
-        if (it != symbol_for_node.end()) {
-            return it->second;
+        const auto kIt = symbol_for_node.find(connection->node->id());
+        if (kIt != symbol_for_node.end()) {
+            return kIt->second;
         }
 
         return DefaultCppExprFor(node->GetInputPinType(pin));
@@ -717,8 +718,8 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
             }
             case core::NodeBase::NodeKind::kOperator: {
                 const auto *op = static_cast<const core::OperatorNode *>(node);
-                const PinDataType output_type = op->GetOutputPinType(0);
-                const std::string symbol =
+                const PinDataType kOutputType = op->GetOutputPinType(0);
+                const std::string kSymbol =
                     "result_" + std::to_string(output_count++);
 
                 std::optional<ConstantValue> folded_value;
@@ -726,11 +727,11 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
                     const auto *parent = FindParentConnection(*op, 0);
                     if (parent != nullptr && parent->IsConnected() &&
                         parent->node != nullptr) {
-                        const auto it =
+                        const auto kIt =
                             folded_value_for_node.find(parent->node->id());
-                        if (it != folded_value_for_node.end()) {
+                        if (kIt != folded_value_for_node.end()) {
                             folded_value =
-                                FoldUnary(op->operator_type(), it->second);
+                                FoldUnary(op->operator_type(), kIt->second);
                         }
                     }
                 } else {
@@ -741,46 +742,46 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
                         right_parent->IsConnected() &&
                         left_parent->node != nullptr &&
                         right_parent->node != nullptr) {
-                        const auto left_it =
+                        const auto kLeftIt =
                             folded_value_for_node.find(left_parent->node->id());
-                        const auto right_it = folded_value_for_node.find(
+                        const auto kRightIt = folded_value_for_node.find(
                             right_parent->node->id());
-                        if (left_it != folded_value_for_node.end() &&
-                            right_it != folded_value_for_node.end()) {
+                        if (kLeftIt != folded_value_for_node.end() &&
+                            kRightIt != folded_value_for_node.end()) {
                             folded_value =
-                                FoldBinary(op->operator_type(), left_it->second,
-                                           right_it->second);
+                                FoldBinary(op->operator_type(), kLeftIt->second,
+                                           kRightIt->second);
                         }
                     }
                 }
 
                 if (folded_value.has_value()) {
                     std::ostringstream line;
-                    line << "const " << CppTypeFor(output_type) << " " << symbol
+                    line << "const " << CppTypeFor(kOutputType) << " " << kSymbol
                          << " = " << ConstantToCpp(*folded_value) << ";";
                     file.Line("    " + line.str());
                     folded_value_for_node[node->id()] = *folded_value;
-                    symbol_for_node[node->id()] = symbol;
+                    symbol_for_node[node->id()] = kSymbol;
                     break;
                 }
 
                 if (op->IsUnaryOperator()) {
-                    const std::string operand = GetOperandExpr(op, 0);
+                    const std::string kOperand = get_operand_expr(op, 0);
                     std::ostringstream line;
-                    line << CppTypeFor(output_type) << " " << symbol << " = "
-                         << OpSymbol(op->operator_type()) << operand << ";";
+                    line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
+                         << OpSymbol(op->operator_type()) << kOperand << ";";
                     file.Line("    " + line.str());
                 } else {
-                    const std::string left = GetOperandExpr(op, 0);
-                    const std::string right = GetOperandExpr(op, 1);
+                    const std::string kLeft = get_operand_expr(op, 0);
+                    const std::string kRight = get_operand_expr(op, 1);
                     std::ostringstream line;
-                    line << CppTypeFor(output_type) << " " << symbol << " = "
-                         << left << " " << OpSymbol(op->operator_type()) << " "
-                         << right << ";";
+                    line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
+                         << kLeft << " " << OpSymbol(op->operator_type()) << " "
+                         << kRight << ";";
                     file.Line("    " + line.str());
                 }
 
-                symbol_for_node[node->id()] = symbol;
+                symbol_for_node[node->id()] = kSymbol;
                 break;
             }
             default: {
@@ -797,11 +798,11 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
         uint32_t result_idx = 0;
         for (const auto *node : order) {
             if (node->kind() == core::NodeBase::NodeKind::kOperator) {
-                const std::string symbol =
+                const std::string kSymbol =
                     "result_" + std::to_string(result_idx++);
 
                 std::ostringstream line;
-                line << "std::cout << \"" << symbol << ": \" << " << symbol
+                line << "std::cout << \"" << kSymbol << ": \" << " << kSymbol
                      << " << std::endl;";
                 file.Line("    " + line.str());
             }

@@ -24,14 +24,14 @@ std::vector<NodeBase *> TopologicalSorter::Sort(const Graph &graph) {
     // Step 1: Calculate in-degree for each node
     std::unordered_map<uint32_t, uint32_t> in_degree;
     for (const auto &node : all_nodes) {
-        in_degree[node->id()] = CalculateInDegree(node);
+        in_degree[node->id()] = CalculateInDegree(node.get());
     }
 
     // Step 2: Initialize queue with nodes having in-degree 0
     std::queue<NodeBase *> zero_in_degree_queue;
     for (const auto &node : all_nodes) {
         if (in_degree[node->id()] == 0) {
-            zero_in_degree_queue.push(node);
+            zero_in_degree_queue.push(node.get());
         }
     }
 
