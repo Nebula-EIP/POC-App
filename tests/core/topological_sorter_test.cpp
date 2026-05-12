@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <unordered_set>
 
 #include "core/graph.hpp"
 #include "core/topological_sorter.hpp"
