@@ -66,7 +66,8 @@ TEST_F(GraphBasicTest, SerializeDeserializeRoundTrip) {
     EXPECT_TRUE(json["graph"].contains("connections"));
 
     // save to temp file and reload
-    std::filesystem::path p = "/tmp/graph_basic_test_graph.nebula";
+    std::filesystem::path p = std::filesystem::temp_directory_path() /
+                               "graph_basic_test_graph.nebula";
     auto res = g.SaveToFile(p);
     EXPECT_TRUE(res.has_value());
     auto loaded = core::Graph::LoadFromFile(p);
