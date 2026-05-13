@@ -267,10 +267,16 @@ bool GraphValidator::AreTypesCompatible(int source_type_int,
         return true;
     }
 
-    // void is compatible with anything (for control flow)
+    // Print nodes accept any printable value on their value pin.
+    if (target_type == NodeBase::PinDataType::kString) {
+        return true;
+    }
+
+    // Void is only compatible with void for control-flow pins.
     if (source_type == NodeBase::PinDataType::kVoid ||
         target_type == NodeBase::PinDataType::kVoid) {
-        return true;
+        return source_type == NodeBase::PinDataType::kVoid &&
+               target_type == NodeBase::PinDataType::kVoid;
     }
 
     // No other implicit conversions allowed
