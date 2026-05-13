@@ -67,6 +67,13 @@ std::expected<void, std::string> OperatorNode::CanConnectTo(
         return std::unexpected("Target input pin does not exist");
     }
 
+    if (target->kind() == NodeKind::kPrint && in_pin == 1) {
+        if (GetOutputPinType(out_pin) == PinDataType::kVoid) {
+            return std::unexpected("Type mismatch between output and target input");
+        }
+        return {};
+    }
+
     if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin)) {
         return std::unexpected("Type mismatch between output and target input");
     }
