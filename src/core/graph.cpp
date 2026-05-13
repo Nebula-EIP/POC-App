@@ -10,15 +10,15 @@
 #include <unordered_set>
 
 #include "logger.hpp"
+#include "nodes/condition_node.hpp"
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
 #include "nodes/literal_node.hpp"
-#include "nodes/operator_node.hpp"
-#include "nodes/variable_node.hpp"
-#include "nodes/print_node.hpp"
-#include "nodes/condition_node.hpp"
 #include "nodes/loop_node.hpp"
+#include "nodes/operator_node.hpp"
+#include "nodes/print_node.hpp"
+#include "nodes/variable_node.hpp"
 
 core::Graph::Graph()
     : project_name_("Untitled Project"),
@@ -470,11 +470,13 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
             break;
 
         case NodeBase::NodeKind::kPrint:
-            node = std::unique_ptr<PrintNode>(new PrintNode(id, kind, position));
+            node =
+                std::unique_ptr<PrintNode>(new PrintNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kCondition:
-            node = std::unique_ptr<ConditionNode>(new ConditionNode(id, kind, position));
+            node = std::unique_ptr<ConditionNode>(
+                new ConditionNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kLoop:
