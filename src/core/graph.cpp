@@ -16,6 +16,9 @@
 #include "nodes/literal_node.hpp"
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
+#include "nodes/print_node.hpp"
+#include "nodes/condition_node.hpp"
+#include "nodes/loop_node.hpp"
 
 core::Graph::Graph()
     : project_name_("Untitled Project"),
@@ -466,9 +469,17 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
                 new OperatorNode(id, kind, position));
             break;
 
+        case NodeBase::NodeKind::kPrint:
+            node = std::unique_ptr<PrintNode>(new PrintNode(id, kind, position));
+            break;
+
         case NodeBase::NodeKind::kCondition:
+            node = std::unique_ptr<ConditionNode>(new ConditionNode(id, kind, position));
+            break;
 
         case NodeBase::NodeKind::kLoop:
+            node = std::unique_ptr<LoopNode>(new LoopNode(id, kind, position));
+            break;
 
         case NodeBase::NodeKind::kUndefined:
         default:
