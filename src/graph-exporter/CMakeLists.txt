@@ -16,13 +16,14 @@ if(GRAPH_EXPORTER_SOURCES)
 
     target_include_directories(graph-exporter
         PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+            $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src/editor>
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
             $<INSTALL_INTERFACE:include>
     )
 
     # Link with dependencies
-    # target_link_libraries(graph-exporter PUBLIC core utils)
+    target_link_libraries(graph-exporter PUBLIC core utils)
 
     # Set properties
     set_target_properties(graph-exporter PROPERTIES
