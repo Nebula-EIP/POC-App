@@ -14,6 +14,7 @@
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
+#include "nodes/for_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/loop_node.hpp"
 #include "nodes/operator_node.hpp"
@@ -136,9 +137,15 @@ bool AreTypesCompatibleForLink(core::NodeBase::PinDataType source_type,
         return true;
     }
 
+    if (target_type == core::NodeBase::PinDataType::kString &&
+        source_type != core::NodeBase::PinDataType::kVoid) {
+        return true;
+    }
+
     if (source_type == core::NodeBase::PinDataType::kVoid ||
         target_type == core::NodeBase::PinDataType::kVoid) {
-        return true;
+        return source_type == core::NodeBase::PinDataType::kVoid &&
+               target_type == core::NodeBase::PinDataType::kVoid;
     }
 
     return false;
@@ -481,6 +488,10 @@ std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
 
         case NodeBase::NodeKind::kLoop:
             node = std::unique_ptr<LoopNode>(new LoopNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kFor:
+            node = std::unique_ptr<ForNode>(new ForNode(id, kind, position));
             break;
 
         case NodeBase::NodeKind::kUndefined:
