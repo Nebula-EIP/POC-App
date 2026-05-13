@@ -8,6 +8,7 @@
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
+#include "nodes/for_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
@@ -293,6 +294,8 @@ std::string core::NodeKindToString(core::NodeBase::NodeKind kind) {
             return "Condition";
         case core::NodeBase::NodeKind::kLoop:
             return "Loop";
+        case core::NodeBase::NodeKind::kFor:
+            return "For";
         case core::NodeBase::NodeKind::kUndefined:
         default:
             return "Undefined";
@@ -323,6 +326,9 @@ core::NodeBase::NodeKind core::StringToNodeKind(const std::string &str) {
     }
     if (str == "Loop") {
         return core::NodeBase::NodeKind::kLoop;
+    }
+    if (str == "For") {
+        return core::NodeBase::NodeKind::kFor;
     }
     return core::NodeBase::NodeKind::kUndefined;
 }
@@ -466,6 +472,17 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
         case NodeKind::kLoop:
             return std::unexpected(
                 std::string("Node kind not yet implemented: ") + kind_str);
+
+        case NodeKind::kFor: {
+            auto for_node = std::unique_ptr<ForNode>(new ForNode(id, kind, position));
+            auto result = for_node->Deserialize(json);
+            if (!result) {
+                return std::unexpected(result.error());
+            }
+            for_node->InitializeConnections();
+            node = std::move(for_node);
+            break;
+        }
 
         case NodeKind::kUndefined:
         default:
