@@ -27,6 +27,28 @@ TEST(CodegenTest, SimpleAddProducesCpp) {
     EXPECT_EQ(content.find("auto "), std::string::npos);
 }
 
+TEST(CodegenTest, GenerateWithoutConstantFoldingPreservesOperatorExpression) {
+    core::Graph g;
+    auto *l1 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *l2 = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
+    auto *op = g.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
+
+    l1->set_data(3);
+    l2->set_data(4);
+
+    g.Link(l1, 0, op, 0);
+    g.Link(l2, 0, op, 1);
+
+    editor::code_generation::CodegenContext ctx;
+    auto file = ctx.Generate(g, false);
+    auto content = file.GetFormatedContent();
+
+    EXPECT_NE(content.find("lit_" + std::to_string(l1->id())), std::string::npos);
+    EXPECT_NE(content.find("lit_" + std::to_string(l2->id())), std::string::npos);
+    EXPECT_NE(content.find("tmp_" + std::to_string(op->id())), std::string::npos);
+    EXPECT_NE(content.find(" + "), std::string::npos);
+}
+
 TEST(CodegenTest, FloatLiteralUsesDoubleType) {
     core::Graph g;
     auto *literal = g.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
