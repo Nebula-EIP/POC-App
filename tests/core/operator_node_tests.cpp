@@ -34,7 +34,7 @@ TEST_F(OperatorNodeTest, SetOperatorType_Changes) {
 }
 
 TEST_F(OperatorNodeTest, SetName_ChangesName) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetName("CustomAdd");
     EXPECT_EQ(node->Name(), "CustomAdd");
@@ -42,7 +42,7 @@ TEST_F(OperatorNodeTest, SetName_ChangesName) {
 }
 
 TEST_F(OperatorNodeTest, BinaryOperator_HasTwoInputs) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
     EXPECT_EQ(node->GetInputPinCount(), 2);
@@ -55,7 +55,7 @@ TEST_F(OperatorNodeTest, BinaryOperator_HasTwoInputs) {
 }
 
 TEST_F(OperatorNodeTest, UnaryOperator_HasOneInput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kBitwiseNot);
     EXPECT_EQ(node->GetInputPinCount(), 1);
@@ -65,7 +65,7 @@ TEST_F(OperatorNodeTest, UnaryOperator_HasOneInput) {
 }
 
 TEST_F(OperatorNodeTest, AllOperators_HaveOneOutput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
     EXPECT_EQ(node->GetOutputPinCount(), 1);
@@ -78,7 +78,7 @@ TEST_F(OperatorNodeTest, AllOperators_HaveOneOutput) {
 }
 
 TEST_F(OperatorNodeTest, ArithmeticOperators_IntInputIntOutput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     std::vector<core::OperatorNode::OperatorType> arithmetic_ops = {
         core::OperatorNode::OperatorType::kAddition,
@@ -97,7 +97,7 @@ TEST_F(OperatorNodeTest, ArithmeticOperators_IntInputIntOutput) {
 }
 
 TEST_F(OperatorNodeTest, BitwiseOperators_IntInputIntOutput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     std::vector<core::OperatorNode::OperatorType> bitwise_ops = {
         core::OperatorNode::OperatorType::kBitwiseAnd,
@@ -116,7 +116,7 @@ TEST_F(OperatorNodeTest, BitwiseOperators_IntInputIntOutput) {
 }
 
 TEST_F(OperatorNodeTest, BitwiseNot_UnaryIntToInt) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kBitwiseNot);
     EXPECT_EQ(node->GetInputPinCount(), 1);
@@ -125,7 +125,7 @@ TEST_F(OperatorNodeTest, BitwiseNot_UnaryIntToInt) {
 }
 
 TEST_F(OperatorNodeTest, ComparisonOperators_IntInputBoolOutput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     std::vector<core::OperatorNode::OperatorType> comparison_ops = {
         core::OperatorNode::OperatorType::kEqual,
@@ -145,7 +145,7 @@ TEST_F(OperatorNodeTest, ComparisonOperators_IntInputBoolOutput) {
 }
 
 TEST_F(OperatorNodeTest, LogicalBinaryOperators_BoolInputBoolOutput) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     std::vector<core::OperatorNode::OperatorType> logical_ops = {
         core::OperatorNode::OperatorType::kLogicalAnd,
@@ -161,7 +161,7 @@ TEST_F(OperatorNodeTest, LogicalBinaryOperators_BoolInputBoolOutput) {
 }
 
 TEST_F(OperatorNodeTest, LogicalNot_UnaryBoolToBool) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kLogicalNot);
     EXPECT_EQ(node->GetInputPinCount(), 1);
@@ -170,7 +170,7 @@ TEST_F(OperatorNodeTest, LogicalNot_UnaryBoolToBool) {
 }
 
 TEST_F(OperatorNodeTest, BinaryOperator_InputPinNames) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
     EXPECT_EQ(node->GetInputPinName(0), "A");
@@ -179,7 +179,7 @@ TEST_F(OperatorNodeTest, BinaryOperator_InputPinNames) {
 }
 
 TEST_F(OperatorNodeTest, UnaryOperator_InputPinName) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kLogicalNot);
     EXPECT_EQ(node->GetInputPinName(0), "Input");
@@ -187,14 +187,14 @@ TEST_F(OperatorNodeTest, UnaryOperator_InputPinName) {
 }
 
 TEST_F(OperatorNodeTest, OutputPinName_IsResult) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     EXPECT_EQ(node->GetOutputPinName(0), "Result");
     EXPECT_EQ(node->GetOutputPinName(1), "");
 }
 
 TEST_F(OperatorNodeTest, ArithmeticOperators_ArithmeticCategory) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
     EXPECT_EQ(node->GetCategory(), "Arithmetic");
@@ -204,7 +204,7 @@ TEST_F(OperatorNodeTest, ArithmeticOperators_ArithmeticCategory) {
 }
 
 TEST_F(OperatorNodeTest, BitwiseOperators_BitwiseCategory) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kBitwiseAnd);
     EXPECT_EQ(node->GetCategory(), "Bitwise");
@@ -214,7 +214,7 @@ TEST_F(OperatorNodeTest, BitwiseOperators_BitwiseCategory) {
 }
 
 TEST_F(OperatorNodeTest, ComparisonOperators_ComparisonCategory) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kEqual);
     EXPECT_EQ(node->GetCategory(), "Comparison");
@@ -224,7 +224,7 @@ TEST_F(OperatorNodeTest, ComparisonOperators_ComparisonCategory) {
 }
 
 TEST_F(OperatorNodeTest, LogicalOperators_LogicalCategory) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kLogicalAnd);
     EXPECT_EQ(node->GetCategory(), "Logical");
@@ -236,7 +236,7 @@ TEST_F(OperatorNodeTest, LogicalOperators_LogicalCategory) {
 TEST_F(OperatorNodeTest, ConnectLiteralsToOperator_ValidTypes_Success) {
     auto* literal_a = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     auto* literal_b = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
-    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     literal_a->SetType(core::NodeBase::PinDataType::kInt);
     literal_b->SetType(core::NodeBase::PinDataType::kInt);
@@ -248,7 +248,7 @@ TEST_F(OperatorNodeTest, ConnectLiteralsToOperator_ValidTypes_Success) {
 
 TEST_F(OperatorNodeTest, ConnectWrongType_Fails) {
     auto* literal = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
-    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     literal->SetType(core::NodeBase::PinDataType::kBool);
     op_node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
@@ -261,8 +261,8 @@ TEST_F(OperatorNodeTest, ChainOperators_Success) {
     auto* literal_a = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     auto* literal_b = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     auto* literal_c = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
-    auto* add_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
-    auto* mul_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* add_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
+    auto* mul_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     literal_a->SetType(core::NodeBase::PinDataType::kInt);
     literal_b->SetType(core::NodeBase::PinDataType::kInt);
@@ -279,8 +279,8 @@ TEST_F(OperatorNodeTest, ChainOperators_Success) {
 TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
     auto* literal_a = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
     auto* literal_b = graph_.AddNode<core::LiteralNode>(core::NodeBase::NodeKind::kLiteral, {0, 0});
-    auto* cmp_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
-    auto* not_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* cmp_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
+    auto* not_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     literal_a->SetType(core::NodeBase::PinDataType::kInt);
     literal_b->SetType(core::NodeBase::PinDataType::kInt);
@@ -293,7 +293,7 @@ TEST_F(OperatorNodeTest, ComparisonChain_IntToBool_Success) {
 }
 
 TEST_F(OperatorNodeTest, Serialize_ContainsRequiredFields) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     node->SetOperatorType(core::OperatorNode::OperatorType::kMultiplication);
     node->SetName("Multiply");
 
@@ -311,7 +311,7 @@ TEST_F(OperatorNodeTest, Serialize_ContainsRequiredFields) {
 }
 
 TEST_F(OperatorNodeTest, SerializeDeserialize_PreservesData) {
-    auto* original = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* original = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     original->SetOperatorType(core::OperatorNode::OperatorType::kLogicalAnd);
     original->SetName("MyAndOperator");
 
@@ -334,14 +334,14 @@ TEST_F(OperatorNodeTest, Deserialize_MissingFields_Fails) {
     json["kind"] = "Operator";
 
     core::Graph new_graph;
-    auto* node = new_graph.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = new_graph.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     auto result = node->Deserialize(json);
 
     EXPECT_FALSE(result.has_value());
 }
 
 TEST_F(OperatorNodeTest, IsUnaryOperator_CorrectForAllTypes) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
     EXPECT_FALSE(node->IsUnaryOperator());
@@ -377,22 +377,22 @@ TEST_F(OperatorNodeTest, StringToOperatorType_InvalidString_Throws) {
 }
 
 TEST_F(OperatorNodeTest, GetInputPinType_InvalidPin_ReturnsUndefined) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
     node->SetOperatorType(core::OperatorNode::OperatorType::kAddition);
 
     EXPECT_EQ(node->GetInputPinType(10), core::NodeBase::PinDataType::kUndefined);
 }
 
 TEST_F(OperatorNodeTest, GetOutputPinType_InvalidPin_ReturnsUndefined) {
-    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     EXPECT_EQ(node->GetOutputPinType(1), core::NodeBase::PinDataType::kUndefined);
     EXPECT_EQ(node->GetOutputPinType(10), core::NodeBase::PinDataType::kUndefined);
 }
 
 TEST_F(OperatorNodeTest, CanConnectTo_InvalidOutputPin_Fails) {
-    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
-    auto* target = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
+    auto* target = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     auto result = op_node->CanConnectTo(1, target, 0);
 
@@ -400,8 +400,8 @@ TEST_F(OperatorNodeTest, CanConnectTo_InvalidOutputPin_Fails) {
 }
 
 TEST_F(OperatorNodeTest, CanConnectTo_InvalidTargetPin_Fails) {
-    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
-    auto* target = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+    auto* op_node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
+    auto* target = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
 
     auto result = op_node->CanConnectTo(0, target, 10);
 
@@ -437,7 +437,7 @@ TEST_F(OperatorNodeTest, AllOperatorTypes_CanBeCreatedAndUsed) {
     };
 
     for (auto op_type : all_ops) {
-        auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0 ,0});
+        auto* node = graph_.AddNode<core::OperatorNode>(core::NodeBase::NodeKind::kOperator, {0, 0});
         node->SetOperatorType(op_type);
 
         EXPECT_NE(node, nullptr);
