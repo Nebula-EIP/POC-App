@@ -43,7 +43,8 @@ class NodeBase {
         kOperator,        ///< Operator node (arithmetic, logical, etc.)
         kPrint,           ///< Print / I/O node
         kCondition,       ///< Conditional branching node (if/else)
-        kLoop             ///< Loop control node (for/while)
+        kLoop,            ///< Loop control node (while)
+        kFor              ///< Loop control node (for)
     };
 
     /**
