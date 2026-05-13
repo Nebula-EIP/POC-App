@@ -15,7 +15,7 @@ class PrintNode : public NodeBase {
     void SetName(const std::string &name);
     const std::string &Name() const noexcept;
 
-    // Single input pin that will be printed
+    // Pin 0: control flow, pin 1: printable value
     uint8_t GetInputPinCount() const noexcept;
 
     PinDataType GetInputPinType(uint8_t pin) const;
