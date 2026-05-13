@@ -13,8 +13,10 @@
 #include "core/graph.hpp"
 #include "core/graph_validator.hpp"
 #include "core/node_base.hpp"
+#include "core/nodes/for_node.hpp"
 #include "core/nodes/literal_node.hpp"
 #include "core/nodes/operator_node.hpp"
+#include "core/nodes/variable_node.hpp"
 #include "core/topological_sorter.hpp"
 
 namespace {
@@ -199,6 +201,32 @@ static std::string DefaultCppExprFor(PinDataType type) {
         default:
             return "0";
     }
+}
+
+static std::string LiteralDataToCpp(PinDataType type, const std::any &data) {
+    std::ostringstream oss;
+    try {
+        switch (type) {
+            case PinDataType::kInt:
+                oss << std::any_cast<int>(data);
+                break;
+            case PinDataType::kFloat:
+                oss << std::any_cast<double>(data);
+                break;
+            case PinDataType::kBool:
+                oss << (std::any_cast<bool>(data) ? "true" : "false");
+                break;
+            case PinDataType::kString:
+                oss << '"' << EscapeString(std::any_cast<std::string>(data)) << '"';
+                break;
+            default:
+                oss << 0;
+                break;
+        }
+    } catch (...) {
+        oss << DefaultCppExprFor(type);
+    }
+    return oss.str();
 }
 
 static std::optional<ConstantValue> GetLiteralConstant(
@@ -496,8 +524,8 @@ static const core::NodeBase::Connection *FindParentConnection(
 
 }  // namespace
 
-::code_generation::CodeGeneratorFile
-editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
+::code_generation::CodeGeneratorFile editor::code_generation::CodegenContext::Generate(
+    const core::Graph &graph, bool fold_constants) {
     ::code_generation::CodeGeneratorFile file;
 
     // Validate the graph
@@ -548,16 +576,25 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
     // emitted set prevents duplicate emission when emitting branch bodies
     std::unordered_set<uint32_t> emitted;
 
+    auto make_indent = [](int level) { return std::string(level * 4, ' '); };
+
     // Recursive emitter: ensures parents are emitted before a node
-    std::function<void(const core::NodeBase *)> emit_subtree;
-    emit_subtree = [&](const core::NodeBase *n) {
+    std::function<void(const core::NodeBase *, int)> emit_subtree;
+    emit_subtree = [&](const core::NodeBase *n, int indent_level) {
         if (!n || emitted.count(n->id())) return;
+        const std::string kIndent = make_indent(indent_level);
 
         // Emit parents first
         for (const auto &p : n->GetAllParents()) {
             if (p.IsConnected() && p.node != nullptr) {
+                const auto parent_kind = p.node->kind();
+                if (parent_kind == core::NodeBase::NodeKind::kCondition ||
+                    parent_kind == core::NodeBase::NodeKind::kLoop ||
+                    parent_kind == core::NodeBase::NodeKind::kFor) {
+                    continue;
+                }
                 if (!emitted.count(p.node->id())) {
-                    emit_subtree(p.node);
+                    emit_subtree(p.node, indent_level);
                 }
             }
         }
@@ -569,7 +606,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 std::ostringstream line;
                 line << "const " << CppTypeFor(literal->type()) << " lit_"
                      << literal->id() << " = " << LiteralToCpp(*literal) << ";";
-                file.Line("    " + line.str());
+                file.Line(kIndent + line.str());
                 symbol_for_node[n->id()] = "lit_" + std::to_string(n->id());
                 if (auto constant = GetLiteralConstant(*literal)) {
                     folded_value_for_node[n->id()] = *constant;
@@ -577,13 +614,16 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 break;
             }
             case core::NodeBase::NodeKind::kPrint: {
-                const auto *connection = FindParentConnection(*n, 0);
-                std::string expr = DefaultCppExprFor(n->GetInputPinType(0));
+                const auto *connection = FindParentConnection(*n, 1);
+                std::string expr = DefaultCppExprFor(n->GetInputPinType(1));
                 if (connection != nullptr && connection->IsConnected() &&
-                    connection->node != nullptr) {
+                    connection->node != nullptr &&
+                    connection->node->kind() != core::NodeBase::NodeKind::kCondition &&
+                    connection->node->kind() != core::NodeBase::NodeKind::kLoop &&
+                    connection->node->kind() != core::NodeBase::NodeKind::kFor) {
                     const auto kConstIt =
                         folded_value_for_node.find(connection->node->id());
-                    if (kConstIt != folded_value_for_node.end() &&
+                    if (fold_constants && kConstIt != folded_value_for_node.end() &&
                         kConstIt->second.type_ == PinDataType::kString) {
                         expr = ConstantToCpp(kConstIt->second);
                     } else {
@@ -594,7 +634,19 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 }
                 std::ostringstream line;
                 line << "std::cout << " << expr << " << std::endl;";
-                file.Line("    " + line.str());
+                file.Line(kIndent + line.str());
+                break;
+            }
+            case core::NodeBase::NodeKind::kVariable: {
+                const auto *variable = static_cast<const core::VariableNode *>(n);
+                symbol_for_node[n->id()] = variable->name();
+                if (variable->data().has_value()) {
+                    std::ostringstream line;
+                    line << CppTypeFor(variable->type()) << " " << variable->name()
+                         << " = " << LiteralDataToCpp(variable->type(), variable->data())
+                         << ";";
+                    file.Line(kIndent + line.str());
+                }
                 break;
             }
             case core::NodeBase::NodeKind::kOperator: {
@@ -603,34 +655,36 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 const std::string kSymbol = "tmp_" + std::to_string(op->id());
 
                 std::optional<ConstantValue> folded_value;
-                if (op->IsUnaryOperator()) {
-                    const auto *parent = FindParentConnection(*op, 0);
-                    if (parent != nullptr && parent->IsConnected() &&
-                        parent->node != nullptr) {
-                        const auto kIt =
-                            folded_value_for_node.find(parent->node->id());
-                        if (kIt != folded_value_for_node.end()) {
-                            folded_value =
-                                FoldUnary(op->operator_type(), kIt->second);
+                if (fold_constants) {
+                    if (op->IsUnaryOperator()) {
+                        const auto *parent = FindParentConnection(*op, 0);
+                        if (parent != nullptr && parent->IsConnected() &&
+                            parent->node != nullptr) {
+                            const auto kIt =
+                                folded_value_for_node.find(parent->node->id());
+                            if (kIt != folded_value_for_node.end()) {
+                                folded_value =
+                                    FoldUnary(op->operator_type(), kIt->second);
+                            }
                         }
-                    }
-                } else {
-                    const auto *left_parent = FindParentConnection(*op, 0);
-                    const auto *right_parent = FindParentConnection(*op, 1);
-                    if (left_parent != nullptr && right_parent != nullptr &&
-                        left_parent->IsConnected() &&
-                        right_parent->IsConnected() &&
-                        left_parent->node != nullptr &&
-                        right_parent->node != nullptr) {
-                        const auto kLeftIt =
-                            folded_value_for_node.find(left_parent->node->id());
-                        const auto kRightIt = folded_value_for_node.find(
-                            right_parent->node->id());
-                        if (kLeftIt != folded_value_for_node.end() &&
-                            kRightIt != folded_value_for_node.end()) {
-                            folded_value =
-                                FoldBinary(op->operator_type(), kLeftIt->second,
-                                           kRightIt->second);
+                    } else {
+                        const auto *left_parent = FindParentConnection(*op, 0);
+                        const auto *right_parent = FindParentConnection(*op, 1);
+                        if (left_parent != nullptr && right_parent != nullptr &&
+                            left_parent->IsConnected() &&
+                            right_parent->IsConnected() &&
+                            left_parent->node != nullptr &&
+                            right_parent->node != nullptr) {
+                            const auto kLeftIt =
+                                folded_value_for_node.find(left_parent->node->id());
+                            const auto kRightIt = folded_value_for_node.find(
+                                right_parent->node->id());
+                            if (kLeftIt != folded_value_for_node.end() &&
+                                kRightIt != folded_value_for_node.end()) {
+                                folded_value = FoldBinary(op->operator_type(),
+                                                          kLeftIt->second,
+                                                          kRightIt->second);
+                            }
                         }
                     }
                 }
@@ -640,7 +694,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                     line << "const " << CppTypeFor(kOutputType) << " "
                          << kSymbol << " = " << ConstantToCpp(*folded_value)
                          << ";";
-                    file.Line("    " + line.str());
+                    file.Line(kIndent + line.str());
                     folded_value_for_node[n->id()] = *folded_value;
                     symbol_for_node[n->id()] = kSymbol;
                     break;
@@ -651,7 +705,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                     std::ostringstream line;
                     line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
                          << OpSymbol(op->operator_type()) << kOperand << ";";
-                    file.Line("    " + line.str());
+                    file.Line(kIndent + line.str());
                 } else {
                     const std::string kLeft = get_operand_expr(op, 0);
                     const std::string kRight = get_operand_expr(op, 1);
@@ -659,7 +713,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                     line << CppTypeFor(kOutputType) << " " << kSymbol << " = "
                          << kLeft << " " << OpSymbol(op->operator_type()) << " "
                          << kRight << ";";
-                    file.Line("    " + line.str());
+                    file.Line(kIndent + line.str());
                 }
 
                 symbol_for_node[n->id()] = kSymbol;
@@ -686,7 +740,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 cond_conn->node != nullptr) {
                 const auto kConstIt =
                     folded_value_for_node.find(cond_conn->node->id());
-                if (kConstIt != folded_value_for_node.end() &&
+                if (fold_constants && kConstIt != folded_value_for_node.end() &&
                     kConstIt->second.type_ == PinDataType::kBool) {
                     cond_expr = ConstantToCpp(kConstIt->second);
                 } else {
@@ -703,7 +757,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
             if (children) {
                 for (const auto &c : *children) {
                     if (c.IsConnected() && c.node != nullptr) {
-                        emit_subtree(c.node);
+                        emit_subtree(c.node, 2);
                     }
                 }
             }
@@ -714,7 +768,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 file.Line("    } else {");
                 for (const auto &c : *else_children) {
                     if (c.IsConnected() && c.node != nullptr) {
-                        emit_subtree(c.node);
+                        emit_subtree(c.node, 2);
                     }
                 }
                 file.Line("    }");
@@ -726,6 +780,59 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
             continue;
         }
 
+        if (node->kind() == core::NodeBase::NodeKind::kFor) {
+            const auto *init_conn = FindParentConnection(*node, 0);
+            const auto *cond_conn = FindParentConnection(*node, 1);
+            const auto *step_conn = FindParentConnection(*node, 2);
+
+            auto resolve_expr = [&](const core::NodeBase *source_node,
+                                    PinDataType fallback_type) -> std::string {
+                if (source_node == nullptr) return DefaultCppExprFor(fallback_type);
+
+                const auto kSymbolIt = symbol_for_node.find(source_node->id());
+                if (kSymbolIt != symbol_for_node.end()) return kSymbolIt->second;
+
+                const auto kConstIt = folded_value_for_node.find(source_node->id());
+                if (fold_constants && kConstIt != folded_value_for_node.end()) {
+                    return ConstantToCpp(kConstIt->second);
+                }
+
+                return DefaultCppExprFor(fallback_type);
+            };
+
+            std::string init_expr = DefaultCppExprFor(node->GetInputPinType(0));
+            std::string cond_expr = DefaultCppExprFor(node->GetInputPinType(1));
+            std::string step_expr = DefaultCppExprFor(node->GetInputPinType(2));
+
+            if (init_conn != nullptr && init_conn->IsConnected() && init_conn->node != nullptr) {
+                init_expr = resolve_expr(init_conn->node, node->GetInputPinType(0));
+            }
+            if (cond_conn != nullptr && cond_conn->IsConnected() && cond_conn->node != nullptr) {
+                cond_expr = resolve_expr(cond_conn->node, node->GetInputPinType(1));
+            }
+            if (step_conn != nullptr && step_conn->IsConnected() && step_conn->node != nullptr) {
+                step_expr = resolve_expr(step_conn->node, node->GetInputPinType(2));
+            }
+
+            const auto *for_node = static_cast<const core::ForNode *>(node);
+            const std::string kLoopVar = for_node->Name().empty() ? "i"
+                                                                  : for_node->Name();
+            file.Line("    for (int " + kLoopVar + " = " + init_expr + "; " +
+                      cond_expr + "; " + kLoopVar + " += " + step_expr + ") {");
+            emitted.insert(node->id());
+
+            const auto *children = node->Childrens(0);
+            if (children) {
+                for (const auto &c : *children) {
+                    if (c.IsConnected() && c.node != nullptr) {
+                        emit_subtree(c.node, 2);
+                    }
+                }
+            }
+            file.Line("    }");
+            continue;
+        }
+
         if (node->kind() == core::NodeBase::NodeKind::kLoop) {
             // loop condition input is pin 0
             const auto *cond_conn = FindParentConnection(*node, 0);
@@ -734,7 +841,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
                 cond_conn->node != nullptr) {
                 const auto kConstIt =
                     folded_value_for_node.find(cond_conn->node->id());
-                if (kConstIt != folded_value_for_node.end() &&
+                if (fold_constants && kConstIt != folded_value_for_node.end() &&
                     kConstIt->second.type_ == PinDataType::kBool) {
                     cond_expr = ConstantToCpp(kConstIt->second);
                 } else {
@@ -750,7 +857,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
             if (children) {
                 for (const auto &c : *children) {
                     if (c.IsConnected() && c.node != nullptr) {
-                        emit_subtree(c.node);
+                        emit_subtree(c.node, 2);
                     }
                 }
             }
@@ -760,7 +867,7 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
         }
 
         // default: emit node normally
-        emit_subtree(node);
+        emit_subtree(node, 1);
     }
 
     file.Line("");
@@ -770,9 +877,8 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph) {
     return file;
 }
 
-::code_generation::CodeGeneratorFile
-editor::code_generation::CodegenContext::GenerateWithOutputs(
-    const core::Graph &graph, bool print_all_results) {
+::code_generation::CodeGeneratorFile editor::code_generation::CodegenContext::GenerateWithOutputs(
+    const core::Graph &graph, bool print_all_results, bool fold_constants) {
     ::code_generation::CodeGeneratorFile file;
 
     // Validate the graph
@@ -851,34 +957,36 @@ editor::code_generation::CodegenContext::GenerateWithOutputs(
                     "result_" + std::to_string(output_count++);
 
                 std::optional<ConstantValue> folded_value;
-                if (op->IsUnaryOperator()) {
-                    const auto *parent = FindParentConnection(*op, 0);
-                    if (parent != nullptr && parent->IsConnected() &&
-                        parent->node != nullptr) {
-                        const auto kIt =
-                            folded_value_for_node.find(parent->node->id());
-                        if (kIt != folded_value_for_node.end()) {
-                            folded_value =
-                                FoldUnary(op->operator_type(), kIt->second);
+                if (fold_constants) {
+                    if (op->IsUnaryOperator()) {
+                        const auto *parent = FindParentConnection(*op, 0);
+                        if (parent != nullptr && parent->IsConnected() &&
+                            parent->node != nullptr) {
+                            const auto kIt =
+                                folded_value_for_node.find(parent->node->id());
+                            if (kIt != folded_value_for_node.end()) {
+                                folded_value =
+                                    FoldUnary(op->operator_type(), kIt->second);
+                            }
                         }
-                    }
-                } else {
-                    const auto *left_parent = FindParentConnection(*op, 0);
-                    const auto *right_parent = FindParentConnection(*op, 1);
-                    if (left_parent != nullptr && right_parent != nullptr &&
-                        left_parent->IsConnected() &&
-                        right_parent->IsConnected() &&
-                        left_parent->node != nullptr &&
-                        right_parent->node != nullptr) {
-                        const auto kLeftIt =
-                            folded_value_for_node.find(left_parent->node->id());
-                        const auto kRightIt = folded_value_for_node.find(
-                            right_parent->node->id());
-                        if (kLeftIt != folded_value_for_node.end() &&
-                            kRightIt != folded_value_for_node.end()) {
-                            folded_value =
-                                FoldBinary(op->operator_type(), kLeftIt->second,
-                                           kRightIt->second);
+                    } else {
+                        const auto *left_parent = FindParentConnection(*op, 0);
+                        const auto *right_parent = FindParentConnection(*op, 1);
+                        if (left_parent != nullptr && right_parent != nullptr &&
+                            left_parent->IsConnected() &&
+                            right_parent->IsConnected() &&
+                            left_parent->node != nullptr &&
+                            right_parent->node != nullptr) {
+                            const auto kLeftIt =
+                                folded_value_for_node.find(left_parent->node->id());
+                            const auto kRightIt = folded_value_for_node.find(
+                                right_parent->node->id());
+                            if (kLeftIt != folded_value_for_node.end() &&
+                                kRightIt != folded_value_for_node.end()) {
+                                folded_value =
+                                    FoldBinary(op->operator_type(), kLeftIt->second,
+                                               kRightIt->second);
+                            }
                         }
                     }
                 }
