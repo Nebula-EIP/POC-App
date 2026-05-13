@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-dev/codegen-algorithm" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Pipeline de génération C++ | Nebula Docs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://nebula-eip.github.io/POC-App/previews/pr-20/img/nebula-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://nebula-eip.github.io/POC-App/previews/pr-20/img/nebula-social-card.jpg"><meta data-rh="true" property="og:url" content="https://nebula-eip.github.io/POC-App/previews/pr-20/docs/dev/codegen-algorithm"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Pipeline de génération C++ | Nebula Docs"><meta data-rh="true" name="description" content="Cette page décrit l’algorithme utilisé pour transformer un graphe Nebula en code C++ généré."><meta data-rh="true" property="og:description" content="Cette page décrit l’algorithme utilisé pour transformer un graphe Nebula en code C++ généré."><link data-rh="true" rel="icon" href="/POC-App/previews/pr-20/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://nebula-eip.github.io/POC-App/previews/pr-20/docs/dev/codegen-algorithm"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-20/docs/dev/codegen-algorithm" hreflang="en"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-20/docs/dev/codegen-algorithm" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Pipeline de génération C++","item":"https://nebula-eip.github.io/POC-App/previews/pr-20/docs/dev/codegen-algorithm"}]}</script><link rel="stylesheet" href="/POC-App/previews/pr-20/assets/css/styles.c360c6f3.css">
+<script src="/POC-App/previews/pr-20/assets/js/runtime~main.09262a60.js" defer="defer"></script>
+<script src="/POC-App/previews/pr-20/assets/js/main.d1fb8fb4.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/POC-App/previews/pr-20/img/nebula-light.png"><link rel="preload" as="image" href="/POC-App/previews/pr-20/img/nebula-dark.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/POC-App/previews/pr-20/"><div class="navbar__logo"><img src="/POC-App/previews/pr-20/img/nebula-light.png" alt="Nebula Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/POC-App/previews/pr-20/img/nebula-dark.png" alt="Nebula Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div></a><a class="navbar__item navbar__link" href="/POC-App/previews/pr-20/docs/about/intro">About Nebula</a><a class="navbar__item navbar__link" href="/POC-App/previews/pr-20/docs/user/intro">Users</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/POC-App/previews/pr-20/docs/dev/intro">Developers</a><a href="/POC-App/previews/pr-20/api/index.html" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">API Reference<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/POC-App/previews/pr-20/docs/dev/intro"><span title="Developer Guide" class="linkLabel_WmDU">Developer Guide</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/POC-App/previews/pr-20/docs/dev/codegen-algorithm"><span title="Pipeline de génération C++" class="linkLabel_WmDU">Pipeline de génération C++</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/POC-App/previews/pr-20/docs/dev/cmake-tool"><span title="Guide Utilisateur - Outil de Compilation CMake" class="linkLabel_WmDU">Guide Utilisateur - Outil de Compilation CMake</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/POC-App/previews/pr-20/docs/dev/nebula-format"><span title=".nebula File Format Specification" class="linkLabel_WmDU">.nebula File Format Specification</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/POC-App/previews/pr-20/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Pipeline de génération C++</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Pipeline de génération C++</h1></header>
+<p>Cette page décrit l’algorithme utilisé pour transformer un graphe Nebula en code C++ généré.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="objectif">Objectif<a href="#objectif" class="hash-link" aria-label="Direct link to Objectif" title="Direct link to Objectif" translate="no">​</a></h2>
+<p>Le but est simple : prendre un graphe de nœuds connecté, vérifier qu’il est valide, ordonner ses dépendances, puis produire un fichier C++ compilable.</p>
+<p>L’algorithme essaie de respecter deux priorités :</p>
+<ol>
+<li class="">générer un code correct et compilable</li>
+<li class="">garder un code lisible quand on veut exporter un exemple humainement compréhensible</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="vue-densemble">Vue d’ensemble<a href="#vue-densemble" class="hash-link" aria-label="Direct link to Vue d’ensemble" title="Direct link to Vue d’ensemble" translate="no">​</a></h2>
+<p>Le pipeline complet suit ces étapes :</p>
+<ol>
+<li class="">validation du graphe</li>
+<li class="">tri topologique des nœuds</li>
+<li class="">génération des expressions et des instructions</li>
+<li class="">gestion des blocs de contrôle (<code>if</code>, <code>while</code>, <code>for</code>)</li>
+<li class="">option de pliage de constantes</li>
+<li class="">export du résultat en fichier <code>.cpp</code></li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-validation-du-graphe">1. Validation du graphe<a href="#1-validation-du-graphe" class="hash-link" aria-label="Direct link to 1. Validation du graphe" title="Direct link to 1. Validation du graphe" translate="no">​</a></h2>
+<p>Avant toute génération, le graphe est validé par <code>GraphValidator</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ce-que-cette-phase-vérifie">Ce que cette phase vérifie<a href="#ce-que-cette-phase-vérifie" class="hash-link" aria-label="Direct link to Ce que cette phase vérifie" title="Direct link to Ce que cette phase vérifie" translate="no">​</a></h3>
+<ul>
+<li class="">absence de cycle dans les dépendances</li>
+<li class="">compatibilité des types entre pins connectés</li>
+<li class="">présence des connexions obligatoires</li>
+<li class="">cohérence des entrées et sorties attendues par chaque nœud</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pourquoi-cest-important">Pourquoi c’est important<a href="#pourquoi-cest-important" class="hash-link" aria-label="Direct link to Pourquoi c’est important" title="Direct link to Pourquoi c’est important" translate="no">​</a></h3>
+<p>Sans cette étape, le générateur pourrait produire un code incohérent, voire entrer dans une boucle infinie lors de l’analyse des dépendances.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-tri-topologique">2. Tri topologique<a href="#2-tri-topologique" class="hash-link" aria-label="Direct link to 2. Tri topologique" title="Direct link to 2. Tri topologique" translate="no">​</a></h2>
+<p>Une fois le graphe valide, les nœuds sont ordonnés avec un tri topologique de type Kahn.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rôle-du-tri-topologique">Rôle du tri topologique<a href="#rôle-du-tri-topologique" class="hash-link" aria-label="Direct link to Rôle du tri topologique" title="Direct link to Rôle du tri topologique" translate="no">​</a></h3>
+<ul>
+<li class="">garantir qu’un nœud est généré après ses dépendances</li>
+<li class="">éviter de référencer une variable C++ avant sa déclaration</li>
+<li class="">stabiliser l’ordre d’émission du code</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="résultat">Résultat<a href="#résultat" class="hash-link" aria-label="Direct link to Résultat" title="Direct link to Résultat" translate="no">​</a></h3>
+<p>Le générateur reçoit une liste ordonnée de nœuds dans un ordre compatible avec l’émission séquentielle du C++.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-émission-du-code">3. Émission du code<a href="#3-émission-du-code" class="hash-link" aria-label="Direct link to 3. Émission du code" title="Direct link to 3. Émission du code" translate="no">​</a></h2>
+<p><code>CodegenContext</code> transforme ensuite les nœuds en lignes C++.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="types-de-nœuds-gérés">Types de nœuds gérés<a href="#types-de-nœuds-gérés" class="hash-link" aria-label="Direct link to Types de nœuds gérés" title="Direct link to Types de nœuds gérés" translate="no">​</a></h3>
+<ul>
+<li class=""><code>Literal</code> : produit une constante C++</li>
+<li class=""><code>Operator</code> : produit une expression arithmétique, logique ou comparative</li>
+<li class=""><code>Print</code> : produit un <code>std::cout</code></li>
+<li class=""><code>Condition</code> : produit un bloc <code>if</code> / <code>else</code></li>
+<li class=""><code>Loop</code> : produit un bloc <code>while</code></li>
+<li class=""><code>For</code> : produit un bloc <code>for</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="principe-démission">Principe d’émission<a href="#principe-démission" class="hash-link" aria-label="Direct link to Principe d’émission" title="Direct link to Principe d’émission" translate="no">​</a></h3>
+<p>Le générateur parcourt les nœuds ordonnés et crée un symbole C++ par nœud, par exemple :</p>
+<ul>
+<li class=""><code>lit_0</code> pour une constante</li>
+<li class=""><code>tmp_3</code> pour un opérateur intermédiaire</li>
+<li class=""><code>result_0</code> pour un résultat visible dans la version avec sorties</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-gestion-des-blocs-de-contrôle">4. Gestion des blocs de contrôle<a href="#4-gestion-des-blocs-de-contrôle" class="hash-link" aria-label="Direct link to 4. Gestion des blocs de contrôle" title="Direct link to 4. Gestion des blocs de contrôle" translate="no">​</a></h2>
+<p>Les nœuds de contrôle ont un traitement spécial.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="condition"><code>Condition</code><a href="#condition" class="hash-link" aria-label="Direct link to condition" title="Direct link to condition" translate="no">​</a></h3>
+<ul>
+<li class="">lit la condition booléenne depuis l’entrée</li>
+<li class="">émet <code>if (...) {</code></li>
+<li class="">émet les nœuds de la branche vraie</li>
+<li class="">émet éventuellement <code>else { ... }</code></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="loop"><code>Loop</code><a href="#loop" class="hash-link" aria-label="Direct link to loop" title="Direct link to loop" translate="no">​</a></h3>
+<ul>
+<li class="">lit la condition booléenne depuis l’entrée</li>
+<li class="">émet <code>while (...) {</code></li>
+<li class="">émet les nœuds du corps de boucle</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for"><code>For</code><a href="#for" class="hash-link" aria-label="Direct link to for" title="Direct link to for" translate="no">​</a></h3>
+<ul>
+<li class="">lit l’initialisation, la condition et l’incrément</li>
+<li class="">émet <code>for (init; condition; increment) {</code></li>
+<li class="">émet les nœuds du corps de boucle</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="indentation">Indentation<a href="#indentation" class="hash-link" aria-label="Direct link to Indentation" title="Direct link to Indentation" translate="no">​</a></h3>
+<p>Les instructions à l’intérieur des blocs sont émises avec un niveau d’indentation supplémentaire pour rester lisibles.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-pliage-de-constantes">5. Pliage de constantes<a href="#5-pliage-de-constantes" class="hash-link" aria-label="Direct link to 5. Pliage de constantes" title="Direct link to 5. Pliage de constantes" translate="no">​</a></h2>
+<p>Le générateur peut simplifier certaines expressions si toutes les entrées sont connues à la génération.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="exemple">Exemple<a href="#exemple" class="hash-link" aria-label="Direct link to Exemple" title="Direct link to Exemple" translate="no">​</a></h3>
+<p>Si le graphe contient <code>3 + 4</code>, le générateur peut produire directement <code>7</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mode-configurable">Mode configurable<a href="#mode-configurable" class="hash-link" aria-label="Direct link to Mode configurable" title="Direct link to Mode configurable" translate="no">​</a></h3>
+<p>Le pliage de constantes est optionnel :</p>
+<ul>
+<li class="">activé : code plus compact et plus optimisé</li>
+<li class="">désactivé : code plus fidèle visuellement au graphe d’origine</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-export-du-fichier">6. Export du fichier<a href="#6-export-du-fichier" class="hash-link" aria-label="Direct link to 6. Export du fichier" title="Direct link to 6. Export du fichier" translate="no">​</a></h2>
+<p><code>GraphExporter</code> prend le code généré et l’écrit dans <code>examples/output/</code>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="étapes-de-lexport">Étapes de l’export<a href="#étapes-de-lexport" class="hash-link" aria-label="Direct link to Étapes de l’export" title="Direct link to Étapes de l’export" translate="no">​</a></h3>
+<ul>
+<li class="">validation de la requête d’export</li>
+<li class="">génération du contenu C++</li>
+<li class="">écriture du fichier sur disque</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="algo-utilisés">Algo utilisés<a href="#algo-utilisés" class="hash-link" aria-label="Direct link to Algo utilisés" title="Direct link to Algo utilisés" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>DFS</strong> : détection de cycles dans le graphe</li>
+<li class=""><strong>Tri topologique de Kahn</strong> : ordonnancement des nœuds</li>
+<li class=""><strong>Traversal récursif</strong> : émission des sous-arbres et des branches</li>
+<li class=""><strong>Constant Folding</strong> : calcul anticipé des expressions constantes</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="limites-actuelles">Limites actuelles<a href="#limites-actuelles" class="hash-link" aria-label="Direct link to Limites actuelles" title="Direct link to Limites actuelles" translate="no">​</a></h2>
+<p>Le système fonctionne bien pour les cas déjà supportés, mais il a encore des limites.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="types-supportés">Types supportés<a href="#types-supportés" class="hash-link" aria-label="Direct link to Types supportés" title="Direct link to Types supportés" translate="no">​</a></h3>
+<ul>
+<li class=""><code>int</code></li>
+<li class=""><code>float</code> / <code>double</code></li>
+<li class=""><code>bool</code></li>
+<li class=""><code>string</code></li>
+<li class=""><code>void</code> pour les flux de contrôle</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="types-non-supportés-pour-linstant">Types non supportés pour l’instant<a href="#types-non-supportés-pour-linstant" class="hash-link" aria-label="Direct link to Types non supportés pour l’instant" title="Direct link to Types non supportés pour l’instant" translate="no">​</a></h3>
+<ul>
+<li class=""><code>char</code></li>
+<li class=""><code>long</code>, <code>unsigned</code>, <code>size_t</code></li>
+<li class="">tableaux et conteneurs (<code>std::vector</code>, etc.)</li>
+<li class="">structs et objets métier</li>
+<li class="">pointeurs et références</li>
+<li class="">types génériques ou templates utilisateur</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="limites-fonctionnelles">Limites fonctionnelles<a href="#limites-fonctionnelles" class="hash-link" aria-label="Direct link to Limites fonctionnelles" title="Direct link to Limites fonctionnelles" translate="no">​</a></h3>
+<ul>
+<li class="">pas de <code>break</code> / <code>continue</code></li>
+<li class="">pas de variables mutables de type SSA ou d’assignation avancée</li>
+<li class="">pas de pipeline IR intermédiaire</li>
+<li class="">pas d’optimisations globales avancées</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="pistes-damélioration">Pistes d’amélioration<a href="#pistes-damélioration" class="hash-link" aria-label="Direct link to Pistes d’amélioration" title="Direct link to Pistes d’amélioration" translate="no">​</a></h2>
+<p>Voici ce qu’on pourrait ajouter plus tard :</p>
+<ol>
+<li class="">support de nouveaux types C++</li>
+<li class="">vraie gestion des variables mutables et des affectations</li>
+<li class="">nœud <code>for</code> dédié</li>
+<li class=""><code>break</code> et <code>continue</code></li>
+<li class="">transformations intermédiaires avant émission C++</li>
+<li class="">optimisations plus avancées comme la suppression de code mort globale</li>
+<li class="">meilleure prise en charge des fonctions utilisateur et des scopes</li>
+<li class="">génération de code encore plus structurée avec une IR interne</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="résumé">Résumé<a href="#résumé" class="hash-link" aria-label="Direct link to Résumé" title="Direct link to Résumé" translate="no">​</a></h2>
+<p>Le générateur suit donc une chaîne assez classique :</p>
+<p><strong>validation → tri topologique → émission C++ → export</strong></p>
+<p>Le cœur de l’algorithme est déjà solide pour les graphes simples, les opérateurs, l’affichage, les conditions et les boucles. Les prochaines étapes naturelles sont surtout l’extension des types, des contrôles de flux et des optimisations.</p></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/POC-App/previews/pr-20/docs/dev/intro"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Developer Guide</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/POC-App/previews/pr-20/docs/dev/cmake-tool"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Guide Utilisateur - Outil de Compilation CMake</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#objectif" class="table-of-contents__link toc-highlight">Objectif</a></li><li><a href="#vue-densemble" class="table-of-contents__link toc-highlight">Vue d’ensemble</a></li><li><a href="#1-validation-du-graphe" class="table-of-contents__link toc-highlight">1. Validation du graphe</a><ul><li><a href="#ce-que-cette-phase-vérifie" class="table-of-contents__link toc-highlight">Ce que cette phase vérifie</a></li><li><a href="#pourquoi-cest-important" class="table-of-contents__link toc-highlight">Pourquoi c’est important</a></li></ul></li><li><a href="#2-tri-topologique" class="table-of-contents__link toc-highlight">2. Tri topologique</a><ul><li><a href="#rôle-du-tri-topologique" class="table-of-contents__link toc-highlight">Rôle du tri topologique</a></li><li><a href="#résultat" class="table-of-contents__link toc-highlight">Résultat</a></li></ul></li><li><a href="#3-émission-du-code" class="table-of-contents__link toc-highlight">3. Émission du code</a><ul><li><a href="#types-de-nœuds-gérés" class="table-of-contents__link toc-highlight">Types de nœuds gérés</a></li><li><a href="#principe-démission" class="table-of-contents__link toc-highlight">Principe d’émission</a></li></ul></li><li><a href="#4-gestion-des-blocs-de-contrôle" class="table-of-contents__link toc-highlight">4. Gestion des blocs de contrôle</a><ul><li><a href="#condition" class="table-of-contents__link toc-highlight"><code>Condition</code></a></li><li><a href="#loop" class="table-of-contents__link toc-highlight"><code>Loop</code></a></li><li><a href="#for" class="table-of-contents__link toc-highlight"><code>For</code></a></li><li><a href="#indentation" class="table-of-contents__link toc-highlight">Indentation</a></li></ul></li><li><a href="#5-pliage-de-constantes" class="table-of-contents__link toc-highlight">5. Pliage de constantes</a><ul><li><a href="#exemple" class="table-of-contents__link toc-highlight">Exemple</a></li><li><a href="#mode-configurable" class="table-of-contents__link toc-highlight">Mode configurable</a></li></ul></li><li><a href="#6-export-du-fichier" class="table-of-contents__link toc-highlight">6. Export du fichier</a><ul><li><a href="#étapes-de-lexport" class="table-of-contents__link toc-highlight">Étapes de l’export</a></li></ul></li><li><a href="#algo-utilisés" class="table-of-contents__link toc-highlight">Algo utilisés</a></li><li><a href="#limites-actuelles" class="table-of-contents__link toc-highlight">Limites actuelles</a><ul><li><a href="#types-supportés" class="table-of-contents__link toc-highlight">Types supportés</a></li><li><a href="#types-non-supportés-pour-linstant" class="table-of-contents__link toc-highlight">Types non supportés pour l’instant</a></li><li><a href="#limites-fonctionnelles" class="table-of-contents__link toc-highlight">Limites fonctionnelles</a></li></ul></li><li><a href="#pistes-damélioration" class="table-of-contents__link toc-highlight">Pistes d’amélioration</a></li><li><a href="#résumé" class="table-of-contents__link toc-highlight">Résumé</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">About Nebula</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/POC-App/previews/pr-20/docs/about/intro">Introduction</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Users</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/POC-App/previews/pr-20/docs/user/intro">User Guide</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Developers</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/POC-App/previews/pr-20/docs/dev/intro">Developer Guide</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">API Reference</div><ul class="footer__items clean-list"><li class="footer__item"><a href="/POC-App/previews/pr-20/api/index.html" target="_blank" rel="noopener noreferrer" class="footer__link-item">Doxygen API<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Nebula.</div></div></div></footer></div>
+</body>
+</html>

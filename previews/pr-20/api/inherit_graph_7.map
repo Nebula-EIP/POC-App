@@ -1,21 +1,23 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="5,203,129,228"/>
+<area shape="rect" id="Node000000" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="5,228,129,253"/>
 <area shape="rect" id="Node000001" href="$classcore_1_1ConditionNode.html" title=" " alt="" coords="195,5,350,31"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="75,189,90,155,111,114,140,74,176,40,197,28,199,33,179,44,144,78,116,117,94,157,80,191"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1FunctionInputNode.html" title="A node representing a single function input parameter inside the function&#39;s body graph." alt="" coords="183,55,363,80"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="81,189,120,138,146,112,176,89,200,78,203,82,179,94,150,116,124,142,86,193"/>
-<area shape="rect" id="Node000003" href="$classcore_1_1FunctionNode.html" title="A node that represents a user&#45;defined function." alt="" coords="199,104,346,129"/>
-<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="92,192,131,164,176,138,208,127,209,132,178,143,133,169,96,196"/>
-<area shape="rect" id="Node000004" href="$classcore_1_1FunctionOutputNode.html" title="A node representing the return value inside the function&#39;s body graph." alt="" coords="177,153,368,179"/>
-<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="133,197,218,176,220,181,135,202"/>
-<area shape="rect" id="Node000005" href="$classcore_1_1LiteralNode.html" title=" " alt="" coords="206,203,339,228"/>
-<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="143,213,206,213,206,218,143,218"/>
-<area shape="rect" id="Node000006" href="$classcore_1_1LoopNode.html" title=" " alt="" coords="211,252,334,277"/>
-<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="135,229,220,249,218,255,133,234"/>
-<area shape="rect" id="Node000007" href="$classcore_1_1OperatorNode.html" title="Represents all binary operators (arithmetic, logical, bitwise, comparison)" alt="" coords="198,301,347,327"/>
-<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="96,234,134,261,178,286,213,299,211,304,176,291,131,266,93,239"/>
-<area shape="rect" id="Node000008" href="$classcore_1_1PrintNode.html" title=" " alt="" coords="211,351,334,376"/>
-<area shape="poly" id="edge8_Node000000_Node000008" title=" " alt="" coords="86,238,124,288,150,314,179,336,212,350,210,355,176,340,146,318,120,292,82,241"/>
-<area shape="rect" id="Node000009" href="$classcore_1_1VariableNode.html" title=" " alt="" coords="200,400,345,425"/>
-<area shape="poly" id="edge9_Node000000_Node000009" title=" " alt="" coords="80,240,95,274,116,313,144,352,179,385,202,398,200,402,176,389,140,356,112,316,90,276,76,242"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="73,213,86,175,107,128,137,80,176,40,195,28,198,33,179,44,141,83,112,130,91,177,78,215"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ForNode.html" title=" " alt="" coords="217,55,329,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="78,214,115,151,143,118,176,89,195,79,216,72,217,77,197,84,179,94,147,121,119,154,82,217"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1FunctionInputNode.html" title="A node representing a single function input parameter inside the function&#39;s body graph." alt="" coords="183,104,363,129"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="86,216,125,176,149,156,176,138,203,127,205,132,179,143,152,160,128,180,89,219"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1FunctionNode.html" title="A node that represents a user&#45;defined function." alt="" coords="199,153,346,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="104,219,176,187,213,176,215,181,178,193,106,224"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1FunctionOutputNode.html" title="A node representing the return value inside the function&#39;s body graph." alt="" coords="177,203,368,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="143,229,177,224,178,230,143,234"/>
+<area shape="rect" id="Node000006" href="$classcore_1_1LiteralNode.html" title=" " alt="" coords="206,252,339,277"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="143,247,206,254,206,260,142,252"/>
+<area shape="rect" id="Node000007" href="$classcore_1_1LoopNode.html" title=" " alt="" coords="211,301,334,327"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="108,257,178,286,219,299,218,304,176,291,106,262"/>
+<area shape="rect" id="Node000008" href="$classcore_1_1OperatorNode.html" title="Represents all binary operators (arithmetic, logical, bitwise, comparison)" alt="" coords="198,351,347,376"/>
+<area shape="poly" id="edge8_Node000000_Node000008" title=" " alt="" coords="91,262,129,300,179,336,209,348,207,353,176,340,126,304,87,266"/>
+<area shape="rect" id="Node000009" href="$classcore_1_1PrintNode.html" title=" " alt="" coords="211,400,334,425"/>
+<area shape="poly" id="edge9_Node000000_Node000009" title=" " alt="" coords="83,264,120,325,147,358,179,385,212,400,210,405,176,390,143,362,116,329,78,267"/>
+<area shape="rect" id="Node000010" href="$classcore_1_1VariableNode.html" title=" " alt="" coords="200,449,345,475"/>
+<area shape="poly" id="edge10_Node000000_Node000010" title=" " alt="" coords="78,266,92,304,112,349,141,396,179,435,201,447,198,452,176,439,137,399,108,352,87,306,73,267"/>
 </map>

@@ -133,6 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa842aa12eafdeb2e739557da358f838c" id="r_aa842aa12eafdeb2e739557da358f838c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html#aa842aa12eafdeb2e739557da358f838c">GetContent</a> () const</td></tr>
 <tr class="memdesc:aa842aa12eafdeb2e739557da358f838c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the current content of the code file.  <br /></td></tr>
 <tr class="separator:aa842aa12eafdeb2e739557da358f838c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa72485ba0c4e9e78840ec213e184f14e" id="r_aa72485ba0c4e9e78840ec213e184f14e"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html#aa72485ba0c4e9e78840ec213e184f14e">GetLines</a> () const noexcept</td></tr>
+<tr class="memdesc:aa72485ba0c4e9e78840ec213e184f14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the raw lines stored in the code file.  <br /></td></tr>
+<tr class="separator:aa72485ba0c4e9e78840ec213e184f14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4413fca63a68dea84cfd38c04f1da21" id="r_aa4413fca63a68dea84cfd38c04f1da21"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html#aa4413fca63a68dea84cfd38c04f1da21">GetFormatedContent</a> () const</td></tr>
 <tr class="memdesc:aa4413fca63a68dea84cfd38c04f1da21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the formatted content of the code file, applying indentation, carriage returns, and other formatting rules as necessary.  <br /></td></tr>
 <tr class="separator:aa4413fca63a68dea84cfd38c04f1da21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,6 +245,34 @@ Public Member Functions</h2></td></tr>
 
 <p>Retrieves the formatted content of the code file, applying indentation, carriage returns, and other formatting rules as necessary. </p>
 <dl class="section return"><dt>Returns</dt><dd>A string representing the formatted content of the code file with proper indentation. </dd></dl>
+
+</div>
+</div>
+<a id="aa72485ba0c4e9e78840ec213e184f14e" name="aa72485ba0c4e9e78840ec213e184f14e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72485ba0c4e9e78840ec213e184f14e">&#9670;&#160;</a></span>GetLines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::string &gt; &amp; code_generation::CodeGeneratorFile::GetLines </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retrieves the raw lines stored in the code file. </p>
+<dl class="section return"><dt>Returns</dt><dd>Const reference to the underlying line list. </dd></dl>
 
 </div>
 </div>

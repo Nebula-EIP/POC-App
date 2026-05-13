@@ -10,6 +10,7 @@ var namespacecore =
     [ "EmptyGraphException", "classcore_1_1EmptyGraphException.html", null ],
     [ "FileAccessException", "classcore_1_1FileAccessException.html", null ],
     [ "FileNotFoundException", "classcore_1_1FileNotFoundException.html", null ],
+    [ "ForNode", "classcore_1_1ForNode.html", "classcore_1_1ForNode" ],
     [ "FunctionInputNode", "classcore_1_1FunctionInputNode.html", "classcore_1_1FunctionInputNode" ],
     [ "FunctionNode", "classcore_1_1FunctionNode.html", "classcore_1_1FunctionNode" ],
     [ "FunctionNodeException", "classcore_1_1FunctionNodeException.html", null ],

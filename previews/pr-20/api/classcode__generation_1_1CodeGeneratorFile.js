@@ -5,6 +5,7 @@ var classcode__generation_1_1CodeGeneratorFile =
     [ "CloseBlock", "classcode__generation_1_1CodeGeneratorFile.html#a3f1db29be7bd81a10446091c8b633651", null ],
     [ "GetContent", "classcode__generation_1_1CodeGeneratorFile.html#aa842aa12eafdeb2e739557da358f838c", null ],
     [ "GetFormatedContent", "classcode__generation_1_1CodeGeneratorFile.html#aa4413fca63a68dea84cfd38c04f1da21", null ],
+    [ "GetLines", "classcode__generation_1_1CodeGeneratorFile.html#aa72485ba0c4e9e78840ec213e184f14e", null ],
     [ "GetPositionStartBlock", "classcode__generation_1_1CodeGeneratorFile.html#a31c9b1283c66813862ac44c41a660659", null ],
     [ "Line", "classcode__generation_1_1CodeGeneratorFile.html#a706166b5cd96c79113e9f6e24d4d2a22", null ],
     [ "LineAt", "classcode__generation_1_1CodeGeneratorFile.html#afa41ccfcf023ac3072442ce51974c221", null ],

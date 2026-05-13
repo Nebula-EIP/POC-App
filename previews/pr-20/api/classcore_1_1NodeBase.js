@@ -12,7 +12,8 @@ var classcore_1_1NodeBase =
       [ "kOperator", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea3f3cddac17da4ede2986d9186d66b308", null ],
       [ "kPrint", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ead4d82e1088c137abf05863d20f04c4df", null ],
       [ "kCondition", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea9b8e66c4055bb016c58a8aecee37e343", null ],
-      [ "kLoop", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea5abf964b8f1290e57e3247b3c8b7d6ce", null ]
+      [ "kLoop", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+      [ "kFor", "classcore_1_1NodeBase.html#a7a37bc942dfb1b307307d7bc7a5b934ea00aed91ba8f65ebf362937d9f1e15c16", null ]
     ] ],
     [ "PinDataType", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c", [
       [ "kUndefined", "classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4ca7934d40c7c17315d892e8d5d745b1c66", null ],
