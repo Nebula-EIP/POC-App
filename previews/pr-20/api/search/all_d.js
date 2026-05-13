@@ -9,5 +9,6 @@ var searchData=
   ['pinnotconnectedexception_6',['PinNotConnectedException',['../classcore_1_1PinNotConnectedException.html',1,'core']]],
   ['pinstillconnectedexception_7',['PinStillConnectedException',['../classcore_1_1PinStillConnectedException.html',1,'core']]],
   ['position_5f_8',['position_',['../classcore_1_1NodeBase.html#a47f921a9621c7353ab7b7c548190d0de',1,'core::NodeBase']]],
-  ['preparedrag_9',['PrepareDrag',['../classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb',1,'core::NodeBase']]]
+  ['preparedrag_9',['PrepareDrag',['../classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb',1,'core::NodeBase']]],
+  ['printnode_10',['PrintNode',['../classcore_1_1PrintNode.html',1,'core']]]
 ];

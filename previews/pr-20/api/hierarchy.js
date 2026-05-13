@@ -52,11 +52,14 @@ var hierarchy =
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
     [ "core::NodeBase", "classcore_1_1NodeBase.html", [
+      [ "core::ConditionNode", "classcore_1_1ConditionNode.html", null ],
       [ "core::FunctionInputNode", "classcore_1_1FunctionInputNode.html", null ],
       [ "core::FunctionNode", "classcore_1_1FunctionNode.html", null ],
       [ "core::FunctionOutputNode", "classcore_1_1FunctionOutputNode.html", null ],
       [ "core::LiteralNode", "classcore_1_1LiteralNode.html", null ],
+      [ "core::LoopNode", "classcore_1_1LoopNode.html", null ],
       [ "core::OperatorNode", "classcore_1_1OperatorNode.html", null ],
+      [ "core::PrintNode", "classcore_1_1PrintNode.html", null ],
       [ "core::VariableNode", "classcore_1_1VariableNode.html", null ]
     ] ],
     [ "core::NodeBase::OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", null ],

@@ -1,6 +1,7 @@
 var namespacecore =
 [
     [ "CircularDependencyException", "classcore_1_1CircularDependencyException.html", null ],
+    [ "ConditionNode", "classcore_1_1ConditionNode.html", "classcore_1_1ConditionNode" ],
     [ "ConnectedParameterException", "classcore_1_1ConnectedParameterException.html", null ],
     [ "ConnectionException", "classcore_1_1ConnectionException.html", null ],
     [ "CoreException", "classcore_1_1CoreException.html", null ],
@@ -25,6 +26,7 @@ var namespacecore =
     [ "InvalidPinIndexException", "classcore_1_1InvalidPinIndexException.html", null ],
     [ "InvalidReturnTypeException", "classcore_1_1InvalidReturnTypeException.html", null ],
     [ "LiteralNode", "classcore_1_1LiteralNode.html", "classcore_1_1LiteralNode" ],
+    [ "LoopNode", "classcore_1_1LoopNode.html", "classcore_1_1LoopNode" ],
     [ "NodeBase", "classcore_1_1NodeBase.html", "classcore_1_1NodeBase" ],
     [ "NodeNotFoundException", "classcore_1_1NodeNotFoundException.html", null ],
     [ "OperatorNode", "classcore_1_1OperatorNode.html", "classcore_1_1OperatorNode" ],
@@ -32,6 +34,7 @@ var namespacecore =
     [ "PinAlreadyConnectedException", "classcore_1_1PinAlreadyConnectedException.html", null ],
     [ "PinNotConnectedException", "classcore_1_1PinNotConnectedException.html", null ],
     [ "PinStillConnectedException", "classcore_1_1PinStillConnectedException.html", null ],
+    [ "PrintNode", "classcore_1_1PrintNode.html", "classcore_1_1PrintNode" ],
     [ "SelfConnectionException", "classcore_1_1SelfConnectionException.html", null ],
     [ "SerializationException", "classcore_1_1SerializationException.html", null ],
     [ "TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],

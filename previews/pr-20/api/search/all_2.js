@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['canconnectto_0',['canconnectto',['../classcore_1_1FunctionOutputNode.html#af1cb2949639591046ff2602f24a3c1f0',1,'core::FunctionOutputNode::CanConnectTo()'],['../classcore_1_1FunctionNode.html#a265877d1da8688a09049e5b6faab3167',1,'core::FunctionNode::CanConnectTo()'],['../classcore_1_1FunctionInputNode.html#a3e3f4b15ae37c0a6ac8e9bb7dc7c8ece',1,'core::FunctionInputNode::CanConnectTo()'],['../classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9',1,'core::NodeBase::CanConnectTo()'],['../classcore_1_1LiteralNode.html#adb0495761c57856ab14ad36a44b333b4',1,'core::LiteralNode::CanConnectTo()'],['../classcore_1_1OperatorNode.html#ac60d78c3e4e52fc66f576eefd6f146d1',1,'core::OperatorNode::CanConnectTo()'],['../classcore_1_1VariableNode.html#a37c41db4c012aba65095596be844f7fc',1,'core::VariableNode::CanConnectTo()']]],
+  ['canconnectto_0',['canconnectto',['../classcore_1_1LiteralNode.html#adb0495761c57856ab14ad36a44b333b4',1,'core::LiteralNode::CanConnectTo()'],['../classcore_1_1FunctionOutputNode.html#af1cb2949639591046ff2602f24a3c1f0',1,'core::FunctionOutputNode::CanConnectTo()'],['../classcore_1_1FunctionNode.html#a265877d1da8688a09049e5b6faab3167',1,'core::FunctionNode::CanConnectTo()'],['../classcore_1_1FunctionInputNode.html#a3e3f4b15ae37c0a6ac8e9bb7dc7c8ece',1,'core::FunctionInputNode::CanConnectTo()'],['../classcore_1_1ConditionNode.html#a950b026df5bedd6b9f67a31d50f8da4a',1,'core::ConditionNode::CanConnectTo()'],['../classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9',1,'core::NodeBase::CanConnectTo()'],['../classcore_1_1LoopNode.html#a2b70eba08e699434af0477423135516c',1,'core::LoopNode::CanConnectTo()'],['../classcore_1_1OperatorNode.html#ac60d78c3e4e52fc66f576eefd6f146d1',1,'core::OperatorNode::CanConnectTo()'],['../classcore_1_1PrintNode.html#a2ec01ed201a8f57dabe704cb42c41da3',1,'core::PrintNode::CanConnectTo()'],['../classcore_1_1VariableNode.html#a37c41db4c012aba65095596be844f7fc',1,'core::VariableNode::CanConnectTo()']]],
   ['checknodemovement_1',['CheckNodeMovement',['../classcore_1_1Graph.html#a78091e8976052a76671806bdcb6d2b61',1,'core::Graph']]],
   ['childrens_2',['Childrens',['../classcore_1_1NodeBase.html#a7132cef9af65e163475c564e4ad88e17',1,'core::NodeBase']]],
   ['childrens_5f_3',['childrens_',['../classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac',1,'core::NodeBase']]],
@@ -19,12 +19,13 @@ var searchData=
   ['compilationresult_16',['CompilationResult',['../structnebula_1_1cmake_1_1CompilationResult.html',1,'nebula::cmake']]],
   ['compilefile_17',['CompileFile',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a5f66403adc6f0e910c892090c06dbb6b',1,'nebula::cmake::CMakeCompiler']]],
   ['compilerconfig_18',['CompilerConfig',['../structnebula_1_1cmake_1_1CompilerConfig.html',1,'nebula::cmake']]],
-  ['connectedparameterexception_19',['ConnectedParameterException',['../classcore_1_1ConnectedParameterException.html',1,'core']]],
-  ['connection_20',['connection',['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase::Connection'],['../structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18',1,'core::NodeBase::Connection::Connection()']]],
-  ['connectionexception_21',['ConnectionException',['../classcore_1_1ConnectionException.html',1,'core']]],
-  ['connections_22',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]],
-  ['core_23',['core',['../namespacecore.html',1,'']]],
-  ['coreexception_24',['CoreException',['../classcore_1_1CoreException.html',1,'core']]],
-  ['current_5fid_25',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]],
-  ['cursoroutofboundserror_26',['CursorOutOfBoundsError',['../classcode__generation_1_1CursorOutOfBoundsError.html',1,'code_generation']]]
+  ['conditionnode_19',['ConditionNode',['../classcore_1_1ConditionNode.html',1,'core']]],
+  ['connectedparameterexception_20',['ConnectedParameterException',['../classcore_1_1ConnectedParameterException.html',1,'core']]],
+  ['connection_21',['connection',['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase::Connection'],['../structcore_1_1NodeBase_1_1Connection.html#a70df37603e68ab0e4f4efbc7c6d03a18',1,'core::NodeBase::Connection::Connection()']]],
+  ['connectionexception_22',['ConnectionException',['../classcore_1_1ConnectionException.html',1,'core']]],
+  ['connections_23',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]],
+  ['core_24',['core',['../namespacecore.html',1,'']]],
+  ['coreexception_25',['CoreException',['../classcore_1_1CoreException.html',1,'core']]],
+  ['current_5fid_26',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]],
+  ['cursoroutofboundserror_27',['CursorOutOfBoundsError',['../classcode__generation_1_1CursorOutOfBoundsError.html',1,'code_generation']]]
 ];

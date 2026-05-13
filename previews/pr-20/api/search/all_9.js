@@ -7,5 +7,6 @@ var searchData=
   ['literalnode_4',['LiteralNode',['../classcore_1_1LiteralNode.html',1,'core']]],
   ['loadfromfile_5',['LoadFromFile',['../classcore_1_1Graph.html#ab9e289d8ecfaf65a7d95982580ba6c16',1,'core::Graph']]],
   ['log_6',['log',['../classutils_1_1Logger.html#a185799578c02eaa8321525ae312326c3',1,'utils::Logger']]],
-  ['logger_7',['Logger',['../classutils_1_1Logger.html',1,'utils']]]
+  ['logger_7',['Logger',['../classutils_1_1Logger.html',1,'utils']]],
+  ['loopnode_8',['LoopNode',['../classcore_1_1LoopNode.html',1,'core']]]
 ];
