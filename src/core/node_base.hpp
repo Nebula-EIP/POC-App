@@ -41,6 +41,7 @@ class NodeBase {
         kFunctionInput,   ///< Function input parameter node
         kFunctionOutput,  ///< Function output/return node
         kOperator,        ///< Operator node (arithmetic, logical, etc.)
+        kPrint,           ///< Print / I/O node
         kCondition,       ///< Conditional branching node (if/else)
         kLoop             ///< Loop control node (for/while)
     };
