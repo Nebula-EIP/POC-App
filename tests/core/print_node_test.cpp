@@ -15,7 +15,7 @@ TEST(PrintNodeTest, GeneratesPrintStatementForStringLiteral) {
     lit->SetType(core::NodeBase::PinDataType::kString);
     lit->set_data(std::string("hello"));
 
-    g.Link(lit, 0, print, 0);
+    g.Link(lit, 0, print, 1);
 
     editor::code_generation::CodegenContext ctx;
     auto content = ctx.Generate(g).GetFormatedContent();
