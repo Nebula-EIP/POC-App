@@ -72,6 +72,13 @@ std::expected<void, std::string> core::VariableNode::CanConnectTo(
         return std::unexpected("Target pin does not exists");
     }
 
+    if (target->kind() == NodeKind::kPrint && in_pin == 1) {
+        if (GetOutputPinType(out_pin) == PinDataType::kVoid) {
+            return std::unexpected("Types don't match");
+        }
+        return {};
+    }
+
     if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin)) {
         return std::unexpected("Types don't match");
     }
