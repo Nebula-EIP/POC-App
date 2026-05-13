@@ -13,16 +13,19 @@ PrintNode::PrintNode(uint32_t id, NodeKind kind,
 }
 
 void PrintNode::InitializeConnections() {
-    // Single input pin of string type for simplicity
+    AddInputPin("control", PinDataType::kVoid);
     AddInputPin("value", PinDataType::kString);
 }
 
 void PrintNode::SetName(const std::string &name) { name_ = name; }
 const std::string &PrintNode::Name() const noexcept { return name_; }
 
-uint8_t PrintNode::GetInputPinCount() const noexcept { return 1; }
+uint8_t PrintNode::GetInputPinCount() const noexcept { return 2; }
 
 NodeBase::PinDataType PrintNode::GetInputPinType(uint8_t pin) const {
+    if (pin == 0) {
+        return PinDataType::kVoid;
+    }
     return PinDataType::kString;
 }
 
@@ -32,9 +35,17 @@ std::expected<void, std::string> PrintNode::CanConnectTo(
     if (!target) {
         return std::unexpected(std::string("Target node is null"));
     }
-    if (GetInputPinType(in_pin) != target->GetOutputPinType(out_pin)) {
+    if (in_pin == 0) {
+        if (target->GetOutputPinType(out_pin) != PinDataType::kVoid) {
+            return std::unexpected(
+                std::string("Incompatible pin types for PrintNode control"));
+        }
+        return {};
+    }
+
+    if (target->GetOutputPinType(out_pin) == PinDataType::kVoid) {
         return std::unexpected(
-            std::string("Incompatible pin types for PrintNode"));
+            std::string("Incompatible pin types for PrintNode value"));
     }
     return {};
 }
