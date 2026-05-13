@@ -4,7 +4,8 @@
 
 namespace core {
 
-ConditionNode::ConditionNode(uint32_t id, NodeKind kind, utils::WrappedVector2 position) noexcept
+ConditionNode::ConditionNode(uint32_t id, NodeKind kind,
+                             utils::WrappedVector2 position) noexcept
     : NodeBase(id, kind, position) {
     InitializeConnections();
 }
@@ -24,14 +25,20 @@ const std::string &ConditionNode::Name() const noexcept { return name_; }
 uint8_t ConditionNode::GetInputPinCount() const noexcept { return 1; }
 uint8_t ConditionNode::GetOutputPinCount() const noexcept { return 2; }
 
-NodeBase::PinDataType ConditionNode::GetInputPinType(uint8_t pin) const { return PinDataType::kBool; }
-NodeBase::PinDataType ConditionNode::GetOutputPinType(uint8_t pin) const { return PinDataType::kVoid; }
+NodeBase::PinDataType ConditionNode::GetInputPinType(uint8_t pin) const {
+    return PinDataType::kBool;
+}
+NodeBase::PinDataType ConditionNode::GetOutputPinType(uint8_t pin) const {
+    return PinDataType::kVoid;
+}
 
-std::expected<void, std::string> ConditionNode::CanConnectTo(uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
+std::expected<void, std::string> ConditionNode::CanConnectTo(
+    uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (!target) return std::unexpected(std::string("Target node is null"));
     // allow connections where types match or target expects anything
     if (target->GetInputPinType(in_pin) != GetOutputPinType(out_pin)) {
-        return std::unexpected(std::string("Incompatible pin types for ConditionNode output"));
+        return std::unexpected(
+            std::string("Incompatible pin types for ConditionNode output"));
     }
     return {};
 }
@@ -47,11 +54,12 @@ nlohmann::json ConditionNode::Serialize() const {
     return j;
 }
 
-std::expected<void, std::string> ConditionNode::Deserialize(const nlohmann::json &json) {
+std::expected<void, std::string> ConditionNode::Deserialize(
+    const nlohmann::json &json) {
     if (json.contains("name") && json["name"].is_string()) {
         name_ = json["name"].get<std::string>();
     }
     return {};
 }
 
-} // namespace core
+}  // namespace core
