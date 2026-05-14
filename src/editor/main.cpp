@@ -31,6 +31,9 @@ int main()
         if (IsKeyPressed(KEY_W)) {
             graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {cursorPostion.x - 50, cursorPostion.y - 25});
         }
+        if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
+            graph_.DuplicateSelectedNode();
+        }
 
         cursorPostion = GetMousePosition();
 

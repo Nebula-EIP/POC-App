@@ -332,6 +332,11 @@ class Graph {
      */
     void HandleContextMenu();
 
+    /**
+     * @brief Duplicates the currently selected node.
+     */
+    void DuplicateSelectedNode();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -350,6 +355,8 @@ class Graph {
     bool IsMouseOverAnyNode() const;
     NodeBase *GetNodeUnderMouse() const;
     void ClearSelection();
+    NodeBase *GetFirstSelectedNode() const;
+    NodeBase *DuplicateNode(NodeBase *node);
     utils::WrappedVector2 GetInputPinPosition(const NodeBase &node,
                                               uint8_t pin) const;
     utils::WrappedVector2 GetOutputPinPosition(const NodeBase &node,
@@ -360,6 +367,7 @@ class Graph {
     NodeBase *linking_from_node_ =
         nullptr;  ///< Temporary pointer for linking with mouse
     uint8_t linking_from_pin_ = 0;
+    NodeBase *active_drag_node_ = nullptr;
     NodeBase *context_menu_node_ = nullptr;
     utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};
     bool context_menu_open_ = false;

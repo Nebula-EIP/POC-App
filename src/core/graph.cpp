@@ -172,7 +172,8 @@ bool core::Graph::IsMouseOverAnyNode() const {
 }
 
 core::NodeBase *core::Graph::GetNodeUnderMouse() const {
-    for (const auto &node : nodes_) {
+    for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+        const auto &node = *it;
         if (node->IsMouseOver()) {
             return node.get();
         }
@@ -185,6 +186,42 @@ void core::Graph::ClearSelection() {
     for (const auto &node : nodes_) {
         node->SetSelected(false);
     }
+}
+
+core::NodeBase *core::Graph::GetFirstSelectedNode() const {
+    for (const auto &node : nodes_) {
+        if (node->IsSelected()) {
+            return node.get();
+        }
+    }
+
+    return nullptr;
+}
+
+core::NodeBase *core::Graph::DuplicateNode(NodeBase *node) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    utils::WrappedVector2 position = node->GetPosition();
+    position.x += 20.0f;
+    position.y += 20.0f;
+
+    NodeBase *new_node = AddNode(node->kind(), position);
+    if (new_node == nullptr) {
+        return nullptr;
+    }
+
+    try {
+        auto serialized = node->Serialize();
+        new_node->Deserialize(serialized);
+        new_node->SetSelected(true);
+    } catch (const std::exception &e) {
+        LOG_ERROR("Failed to duplicate node: {}", e.what());
+        return nullptr;
+    }
+
+    return new_node;
 }
 
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
@@ -767,14 +804,31 @@ void core::Graph::CheckNodeMovement() {
         return;
     }
 
-    if (utils::isLeftClicked()) {
-        for (const auto &node : nodes_) {
-            if (node->IsMouseOver() && !IsMouseOverAnyPin(*node)) {
-                ClearSelection();
-                node->SetSelected(true);
-                break;
-            }
+    if (active_drag_node_ != nullptr) {
+        if (!utils::isLeftDown()) {
+            active_drag_node_->follow_mouse_ = false;
+            active_drag_node_ = nullptr;
+            return;
         }
+
+        active_drag_node_->MoveNode();
+        return;
+    }
+
+    if (utils::isLeftClicked()) {
+        NodeBase *node = GetNodeUnderMouse();
+        if (node != nullptr && !IsMouseOverAnyPin(*node)) {
+            ClearSelection();
+            node->SetSelected(true);
+            node->follow_mouse_ = true;
+            node->PrepareDrag();
+            active_drag_node_ = node;
+        }
+    }
+
+    if (active_drag_node_ != nullptr) {
+        active_drag_node_->MoveNode();
+        return;
     }
 
     for (const auto &node : nodes_) {
@@ -782,7 +836,15 @@ void core::Graph::CheckNodeMovement() {
             continue;
         }
         node->ClickNode();
-        node->MoveNode();
+
+        if (node->follow_mouse_) {
+            active_drag_node_ = node.get();
+            break;
+        }
+    }
+
+    if (active_drag_node_ != nullptr && utils::isLeftDown()) {
+        active_drag_node_->MoveNode();
     }
 }
 
@@ -804,7 +866,7 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
 }
 
 void core::Graph::SelectForLink() {
-    if (context_menu_open_) {
+    if (context_menu_open_ || active_drag_node_ != nullptr) {
         return;
     }
 
@@ -864,7 +926,7 @@ void core::Graph::SelectForLink() {
 }
 
 void core::Graph::SelectWithMouse() {
-    if (context_menu_open_) {
+    if (context_menu_open_ || active_drag_node_ != nullptr) {
         return;
     }
 
@@ -948,7 +1010,7 @@ void core::Graph::SelectWithMouse() {
 }
 
 void core::Graph::DeleteWithMouse() {
-    if (context_menu_open_) {
+    if (context_menu_open_ || active_drag_node_ != nullptr) {
         return;
     }
 
@@ -976,7 +1038,21 @@ void core::Graph::DeleteWithMouse() {
 
 void core::Graph::LinkingWithMouse() { SelectForLink(); }
 
+void core::Graph::DuplicateSelectedNode() {
+    NodeBase *selected_node = GetFirstSelectedNode();
+    if (selected_node == nullptr) {
+        return;
+    }
+
+    ClearSelection();
+    DuplicateNode(selected_node);
+}
+
 void core::Graph::HandleContextMenu() {
+    if (active_drag_node_ != nullptr) {
+        return;
+    }
+
     if (utils::isRightClicked()) {
         NodeBase *node = GetNodeUnderMouse();
         if (node != nullptr && !IsMouseOverAnyPin(*node)) {
@@ -994,7 +1070,8 @@ void core::Graph::HandleContextMenu() {
     }
 
     constexpr float menu_width = 120.0f;
-    constexpr float menu_height = 28.0f;
+    constexpr float menu_item_height = 28.0f;
+    constexpr float menu_height = menu_item_height * 2.0f;
 
     utils::WrappedRectangle menu_rect = {context_menu_position_.x,
                                          context_menu_position_.y,
@@ -1002,19 +1079,46 @@ void core::Graph::HandleContextMenu() {
     utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
     bool is_hovered = utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
 
-    utils::WrappedColor background_color = is_hovered ? utils::GRAY
-                                                      : utils::DARKGRAY;
-
     utils::DrawRectangleWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
-                                menu_rect.height, background_color);
+                                menu_rect.height, utils::DARKGRAY);
     utils::DrawRectangleLinesWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
                                      menu_rect.height, utils::WHITE);
-    utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
+
+    utils::WrappedRectangle duplicate_rect = {menu_rect.x, menu_rect.y,
+                                              menu_rect.width,
+                                              menu_item_height};
+    utils::WrappedRectangle delete_rect = {menu_rect.x,
+                                           menu_rect.y + menu_item_height,
+                                           menu_rect.width,
+                                           menu_item_height};
+
+    bool is_hover_duplicate = utils::CheckCollisionPointRecWrapped(
+        cursor_pos, duplicate_rect);
+    bool is_hover_delete = utils::CheckCollisionPointRecWrapped(cursor_pos,
+                                                                delete_rect);
+
+    if (is_hover_duplicate) {
+        utils::DrawRectangleWrapped(duplicate_rect.x, duplicate_rect.y,
+                                    duplicate_rect.width,
+                                    duplicate_rect.height, utils::GRAY);
+    }
+    if (is_hover_delete) {
+        utils::DrawRectangleWrapped(delete_rect.x, delete_rect.y,
+                                    delete_rect.width, delete_rect.height,
+                                    utils::GRAY);
+    }
+
+    utils::DrawTextWrapped("Duplicate", menu_rect.x + 10.0f,
                            menu_rect.y + 7.0f, 14,
-                           is_hovered ? utils::YELLOW : utils::WHITE);
+                           is_hover_duplicate ? utils::YELLOW : utils::WHITE);
+    utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
+                           menu_rect.y + menu_item_height + 7.0f, 14,
+                           is_hover_delete ? utils::YELLOW : utils::WHITE);
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        if (is_hovered && context_menu_node_ != nullptr) {
+        if (is_hover_duplicate) {
+            DuplicateSelectedNode();
+        } else if (is_hover_delete && context_menu_node_ != nullptr) {
             try {
                 RemoveNode(context_menu_node_);
             } catch (const std::exception &e) {
