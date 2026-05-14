@@ -224,9 +224,33 @@ core::NodeBase *core::Graph::DuplicateNode(NodeBase *node) {
 
     try {
         auto serialized = node->Serialize();
-        new_node->Deserialize(serialized);
+        auto deserialize_result = new_node->Deserialize(serialized);
+        if (!deserialize_result) {
+            auto new_node_it = std::find_if(
+                nodes_.begin(), nodes_.end(),
+                [new_node](const std::unique_ptr<NodeBase> &candidate) {
+                    return candidate.get() == new_node;
+                });
+            if (new_node_it != nodes_.end()) {
+                nodes_.erase(new_node_it);
+            }
+
+            LOG_ERROR("Failed to duplicate node: deserialization failed.");
+            return nullptr;
+        }
+
+        new_node->InitializeConnections();
         new_node->SetSelected(true);
     } catch (const std::exception &e) {
+        auto new_node_it = std::find_if(
+            nodes_.begin(), nodes_.end(),
+            [new_node](const std::unique_ptr<NodeBase> &candidate) {
+                return candidate.get() == new_node;
+            });
+        if (new_node_it != nodes_.end()) {
+            nodes_.erase(new_node_it);
+        }
+
         LOG_ERROR("Failed to duplicate node: {}", e.what());
         return nullptr;
     }
