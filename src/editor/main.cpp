@@ -45,6 +45,7 @@ int main()
         graph_.Draw();
 
         graph_.LinkingWithMouse();
+        graph_.HandleContextMenu();
 
         EndDrawing();
     }

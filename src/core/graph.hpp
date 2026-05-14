@@ -327,6 +327,11 @@ class Graph {
      */
     void LinkingWithMouse();
 
+    /**
+     * @brief Handles node context menu interactions.
+     */
+    void HandleContextMenu();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -343,6 +348,7 @@ class Graph {
     bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverAnyPin(const NodeBase &node) const;
     bool IsMouseOverAnyNode() const;
+    NodeBase *GetNodeUnderMouse() const;
     void ClearSelection();
     utils::WrappedVector2 GetInputPinPosition(const NodeBase &node,
                                               uint8_t pin) const;
@@ -354,6 +360,9 @@ class Graph {
     NodeBase *linking_from_node_ =
         nullptr;  ///< Temporary pointer for linking with mouse
     uint8_t linking_from_pin_ = 0;
+    NodeBase *context_menu_node_ = nullptr;
+    utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};
+    bool context_menu_open_ = false;
     bool is_selecting_ =
         false;  ///< Flag to indicate if the user is currently selecting nodes
     utils::WrappedVector2

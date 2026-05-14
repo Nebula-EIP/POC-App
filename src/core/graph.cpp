@@ -171,6 +171,16 @@ bool core::Graph::IsMouseOverAnyNode() const {
     return false;
 }
 
+core::NodeBase *core::Graph::GetNodeUnderMouse() const {
+    for (const auto &node : nodes_) {
+        if (node->IsMouseOver()) {
+            return node.get();
+        }
+    }
+
+    return nullptr;
+}
+
 void core::Graph::ClearSelection() {
     for (const auto &node : nodes_) {
         node->SetSelected(false);
@@ -753,6 +763,10 @@ void core::Graph::Draw() {
 }
 
 void core::Graph::CheckNodeMovement() {
+    if (context_menu_open_) {
+        return;
+    }
+
     if (utils::isLeftClicked()) {
         for (const auto &node : nodes_) {
             if (node->IsMouseOver() && !IsMouseOverAnyPin(*node)) {
@@ -790,6 +804,10 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
 }
 
 void core::Graph::SelectForLink() {
+    if (context_menu_open_) {
+        return;
+    }
+
     if (utils::isLeftClicked()) {
         bool consumed = false;
 
@@ -846,6 +864,10 @@ void core::Graph::SelectForLink() {
 }
 
 void core::Graph::SelectWithMouse() {
+    if (context_menu_open_) {
+        return;
+    }
+
     if (utils::isLeftClicked()) {
         for (const auto &node : nodes_) {
             if (IsMouseOverAnyPin(*node)) {
@@ -926,6 +948,10 @@ void core::Graph::SelectWithMouse() {
 }
 
 void core::Graph::DeleteWithMouse() {
+    if (context_menu_open_) {
+        return;
+    }
+
     if (!IsKeyPressed(KEY_DELETE) && !IsKeyPressed(KEY_BACKSPACE)) {
         return;
     }
@@ -949,3 +975,55 @@ void core::Graph::DeleteWithMouse() {
 }
 
 void core::Graph::LinkingWithMouse() { SelectForLink(); }
+
+void core::Graph::HandleContextMenu() {
+    if (utils::isRightClicked()) {
+        NodeBase *node = GetNodeUnderMouse();
+        if (node != nullptr && !IsMouseOverAnyPin(*node)) {
+            ClearSelection();
+            node->SetSelected(true);
+            context_menu_node_ = node;
+            context_menu_position_ = utils::GetCursorPositionWrapped();
+            context_menu_open_ = true;
+            return;
+        }
+    }
+
+    if (!context_menu_open_) {
+        return;
+    }
+
+    constexpr float menu_width = 120.0f;
+    constexpr float menu_height = 28.0f;
+
+    utils::WrappedRectangle menu_rect = {context_menu_position_.x,
+                                         context_menu_position_.y,
+                                         menu_width, menu_height};
+    utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+    bool is_hovered = utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
+
+    utils::WrappedColor background_color = is_hovered ? utils::GRAY
+                                                      : utils::DARKGRAY;
+
+    utils::DrawRectangleWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
+                                menu_rect.height, background_color);
+    utils::DrawRectangleLinesWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
+                                     menu_rect.height, utils::WHITE);
+    utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
+                           menu_rect.y + 7.0f, 14,
+                           is_hovered ? utils::YELLOW : utils::WHITE);
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (is_hovered && context_menu_node_ != nullptr) {
+            try {
+                RemoveNode(context_menu_node_);
+            } catch (const std::exception &e) {
+                LOG_ERROR("Failed to delete node from context menu: {}",
+                          e.what());
+            }
+        }
+
+        context_menu_node_ = nullptr;
+        context_menu_open_ = false;
+    }
+}
