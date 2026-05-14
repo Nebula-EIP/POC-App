@@ -34,6 +34,7 @@ int main()
 
         cursorPostion = GetMousePosition();
 
+        graph_.DeleteWithMouse();
         graph_.CheckNodeMovement();
 
         BeginDrawing();

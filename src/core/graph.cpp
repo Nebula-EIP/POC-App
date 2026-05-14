@@ -75,6 +75,10 @@ void core::Graph::RemoveNode(NodeBase *node) {
         THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
     }
 
+    if (linking_from_node_ == node) {
+        linking_from_node_ = nullptr;
+    }
+
     auto it = std::find_if(nodes_.begin(), nodes_.end(),
                            [node](const std::unique_ptr<NodeBase> &n) {
                                return n->id() == node->id();
@@ -790,4 +794,22 @@ void core::Graph::SelectWithMouse() {
         }
     }
 }
+
+void core::Graph::DeleteWithMouse() {
+    if (!IsKeyPressed(KEY_DELETE) && !IsKeyPressed(KEY_BACKSPACE)) {
+        return;
+    }
+
+    for (const auto &node : nodes_) {
+        if (node->IsMouseOver()) {
+            try {
+                RemoveNode(node.get());
+            } catch (const std::exception &e) {
+                LOG_ERROR("Failed to delete node: {}", e.what());
+            }
+            break;
+        }
+    }
+}
+
 void core::Graph::LinkingWithMouse() { SelectForLink(); }

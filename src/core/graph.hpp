@@ -315,6 +315,11 @@ class Graph {
     void SelectWithMouse();
 
     /**
+     * @brief Deletes the node under the mouse when the delete key is pressed.
+     */
+    void DeleteWithMouse();
+
+    /**
      * @brief Handles linking nodes with the mouse.
      * 
      * Processes right-click input to link nodes together, drawing a line
