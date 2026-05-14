@@ -161,6 +161,16 @@ bool core::Graph::IsMouseOverAnyPin(const NodeBase &node) const {
     return false;
 }
 
+bool core::Graph::IsMouseOverAnyPin() const {
+    for (const auto &node : nodes_) {
+        if (IsMouseOverAnyPin(*node)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool core::Graph::IsMouseOverAnyNode() const {
     for (const auto &node : nodes_) {
         if (node->IsMouseOver()) {
@@ -800,7 +810,7 @@ void core::Graph::Draw() {
 }
 
 void core::Graph::CheckNodeMovement() {
-    if (context_menu_open_) {
+    if (context_menu_open_ || linking_from_node_ != nullptr) {
         return;
     }
 
@@ -815,9 +825,9 @@ void core::Graph::CheckNodeMovement() {
         return;
     }
 
-    if (utils::isLeftClicked()) {
+    if (utils::isLeftClicked() && !IsMouseOverAnyPin()) {
         NodeBase *node = GetNodeUnderMouse();
-        if (node != nullptr && !IsMouseOverAnyPin(*node)) {
+        if (node != nullptr) {
             ClearSelection();
             node->SetSelected(true);
             node->follow_mouse_ = true;
@@ -831,10 +841,11 @@ void core::Graph::CheckNodeMovement() {
         return;
     }
 
+    if (IsMouseOverAnyPin()) {
+        return;
+    }
+
     for (const auto &node : nodes_) {
-        if (IsMouseOverAnyPin(*node)) {
-            continue;
-        }
         node->ClickNode();
 
         if (node->follow_mouse_) {
@@ -870,49 +881,21 @@ void core::Graph::SelectForLink() {
         return;
     }
 
-    if (utils::isLeftClicked()) {
-        bool consumed = false;
-
-        for (const auto &node : nodes_) {
-            for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
-                 ++out_pin) {
-                if (IsMouseOverOutputPin(*node, out_pin)) {
-                    linking_from_node_ = node.get();
-                    linking_from_pin_ = out_pin;
-                    consumed = true;
-                    break;
-                }
-            }
-
-            if (consumed) {
-                break;
-            }
-        }
-
-        if (!consumed && linking_from_node_ != nullptr) {
+    if (linking_from_node_ == nullptr) {
+        if (utils::isLeftClicked()) {
             for (const auto &node : nodes_) {
-                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
-                     ++in_pin) {
-                    if (IsMouseOverInputPin(*node, in_pin)) {
-                        try {
-                            Link(linking_from_node_, linking_from_pin_,
-                                 node.get(), in_pin);
-                        } catch (const std::exception &e) {
-                            LOG_ERROR("Failed to link nodes: {}", e.what());
-                        }
-                        linking_from_node_ = nullptr;
-                        consumed = true;
+                for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
+                     ++out_pin) {
+                    if (IsMouseOverOutputPin(*node, out_pin)) {
+                        linking_from_node_ = node.get();
+                        linking_from_pin_ = out_pin;
                         break;
                     }
                 }
 
-                if (consumed) {
+                if (linking_from_node_ != nullptr) {
                     break;
                 }
-            }
-
-            if (!consumed) {
-                linking_from_node_ = nullptr;
             }
         }
     }
@@ -922,25 +905,53 @@ void core::Graph::SelectForLink() {
         utils::DrawLineWrapped(GetOutputPinPosition(*linking_from_node_,
                                                     linking_from_pin_),
                                cursor_pos, 2, utils::GRAY);
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            NodeBase *target_node = nullptr;
+            uint8_t target_pin = 0;
+
+            for (const auto &node : nodes_) {
+                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                     ++in_pin) {
+                    if (IsMouseOverInputPin(*node, in_pin)) {
+                        target_node = node.get();
+                        target_pin = in_pin;
+                        break;
+                    }
+                }
+
+                if (target_node != nullptr) {
+                    break;
+                }
+            }
+
+            if (target_node != nullptr) {
+                try {
+                    Link(linking_from_node_, linking_from_pin_, target_node,
+                         target_pin);
+                } catch (const std::exception &e) {
+                    LOG_ERROR("Failed to link nodes: {}", e.what());
+                }
+            }
+
+            linking_from_node_ = nullptr;
+        }
     }
 }
 
 void core::Graph::SelectWithMouse() {
-    if (context_menu_open_ || active_drag_node_ != nullptr) {
+    if (context_menu_open_ || active_drag_node_ != nullptr ||
+        linking_from_node_ != nullptr) {
+        return;
+    }
+
+    if (utils::isLeftClicked() && IsMouseOverAnyPin()) {
         return;
     }
 
     if (utils::isLeftClicked()) {
         for (const auto &node : nodes_) {
-            if (IsMouseOverAnyPin(*node)) {
-                return;
-            }
-        }
-    }
-
-    if (utils::isLeftClicked()) {
-        for (const auto &node : nodes_) {
-            if (node->IsMouseOver() || IsMouseOverAnyPin(*node)) {
+            if (node->IsMouseOver()) {
                 return;
             }
         }
@@ -1010,7 +1021,8 @@ void core::Graph::SelectWithMouse() {
 }
 
 void core::Graph::DeleteWithMouse() {
-    if (context_menu_open_ || active_drag_node_ != nullptr) {
+    if (context_menu_open_ || active_drag_node_ != nullptr ||
+        linking_from_node_ != nullptr) {
         return;
     }
 
@@ -1049,13 +1061,13 @@ void core::Graph::DuplicateSelectedNode() {
 }
 
 void core::Graph::HandleContextMenu() {
-    if (active_drag_node_ != nullptr) {
+    if (active_drag_node_ != nullptr || linking_from_node_ != nullptr) {
         return;
     }
 
     if (utils::isRightClicked()) {
         NodeBase *node = GetNodeUnderMouse();
-        if (node != nullptr && !IsMouseOverAnyPin(*node)) {
+        if (node != nullptr && !IsMouseOverAnyPin()) {
             ClearSelection();
             node->SetSelected(true);
             context_menu_node_ = node;
