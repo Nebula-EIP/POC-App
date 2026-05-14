@@ -1146,13 +1146,13 @@ void core::Graph::HandleContextMenu() {
         return;
     }
 
-    constexpr float menu_width = 120.0f;
-    constexpr float menu_item_height = 28.0f;
-    constexpr float menu_height = menu_item_height * 2.0f;
+    constexpr float kMenuWidth = 120.0f;
+    constexpr float kMenuItemHeight = 28.0f;
+    constexpr float kMenuHeight = kMenuItemHeight * 2.0f;
 
     utils::WrappedRectangle menu_rect = {context_menu_position_.x,
-                                         context_menu_position_.y, menu_width,
-                                         menu_height};
+                                         context_menu_position_.y, kMenuWidth,
+                                         kMenuHeight};
     utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
     bool is_hovered =
         utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
@@ -1163,10 +1163,10 @@ void core::Graph::HandleContextMenu() {
                                      menu_rect.height, utils::WHITE);
 
     utils::WrappedRectangle duplicate_rect = {
-        menu_rect.x, menu_rect.y, menu_rect.width, menu_item_height};
+        menu_rect.x, menu_rect.y, menu_rect.width, kMenuItemHeight};
     utils::WrappedRectangle delete_rect = {menu_rect.x,
-                                           menu_rect.y + menu_item_height,
-                                           menu_rect.width, menu_item_height};
+                                           menu_rect.y + kMenuItemHeight,
+                                           menu_rect.width, kMenuItemHeight};
 
     bool is_hover_duplicate =
         utils::CheckCollisionPointRecWrapped(cursor_pos, duplicate_rect);
@@ -1188,7 +1188,7 @@ void core::Graph::HandleContextMenu() {
                            14,
                            is_hover_duplicate ? utils::YELLOW : utils::WHITE);
     utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
-                           menu_rect.y + menu_item_height + 7.0f, 14,
+                           menu_rect.y + kMenuItemHeight + 7.0f, 14,
                            is_hover_delete ? utils::YELLOW : utils::WHITE);
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {

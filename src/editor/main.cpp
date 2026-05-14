@@ -4,60 +4,62 @@
 
 int main() {
     InitWindow(800, 600, "Nebula Test");
-    Vector2 cursorPostion = {0, 0};
+    Vector2 cursor_postion = {0, 0};
 
     // Create graph
-    core::Graph graph_;
+    core::Graph graph;
 
     // Create a visual node
-    auto node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {500, 100});
+    auto node1 = graph.AddNode(core::NodeBase::NodeKind::kLiteral, {500, 100});
     auto node2 =
-        graph_.AddNode(core::NodeBase::NodeKind::kVariable, {500, 200});
+        graph.AddNode(core::NodeBase::NodeKind::kVariable, {500, 200});
     auto node3 =
-        graph_.AddNode(core::NodeBase::NodeKind::kFunction, {200, 200});
+        graph.AddNode(core::NodeBase::NodeKind::kFunction, {200, 200});
     auto node4 =
-        graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput, {200, 100});
+        graph.AddNode(core::NodeBase::NodeKind::kFunctionInput, {200, 100});
     auto node5 =
-        graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {200, 300});
+        graph.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {200, 300});
     auto node6 =
-        graph_.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
+        graph.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         if (IsKeyPressed(KEY_H)) {
-            if (IsCursorHidden())
+            if (IsCursorHidden()) {
                 ShowCursor();
-            else
+            }
+            else {
                 HideCursor();
+            }
         }
 
         if (IsKeyPressed(KEY_Q)) {
-            graph_.AddNode(core::NodeBase::NodeKind::kVariable,
-                           {cursorPostion.x - 50, cursorPostion.y - 25});
+            graph.AddNode(core::NodeBase::NodeKind::kVariable,
+                           {cursor_postion.x - 50, cursor_postion.y - 25});
         }
         if (IsKeyPressed(KEY_W)) {
-            graph_.AddNode(core::NodeBase::NodeKind::kLiteral,
-                           {cursorPostion.x - 50, cursorPostion.y - 25});
+            graph.AddNode(core::NodeBase::NodeKind::kLiteral,
+                           {cursor_postion.x - 50, cursor_postion.y - 25});
         }
         if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
-            graph_.DuplicateSelectedNode();
+            graph.DuplicateSelectedNode();
         }
 
-        cursorPostion = GetMousePosition();
+        cursor_postion = GetMousePosition();
 
-        graph_.DeleteWithMouse();
-        graph_.CheckNodeMovement();
+        graph.DeleteWithMouse();
+        graph.CheckNodeMovement();
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
         // Draw visual nodes in the graph
-        graph_.SelectWithMouse();
-        graph_.Draw();
+        graph.SelectWithMouse();
+        graph.Draw();
 
-        graph_.LinkingWithMouse();
-        graph_.HandleContextMenu();
+        graph.LinkingWithMouse();
+        graph.HandleContextMenu();
 
         EndDrawing();
     }
