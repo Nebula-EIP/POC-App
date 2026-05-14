@@ -16,6 +16,13 @@
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
 
+namespace {
+constexpr float kNodeWidth = 100.0f;
+constexpr float kPinRadius = 5.0f;
+constexpr float kPinSpacing = 15.0f;
+constexpr float kPinOffsetY = 25.0f;
+}  // namespace
+
 core::Graph::Graph()
     : project_name_("Untitled Project"),
       version_("1.0"),
@@ -108,6 +115,34 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
     // Delete the node
     nodes_.erase(it);
+}
+
+utils::WrappedVector2 core::Graph::GetInputPinPosition(const NodeBase &node,
+                                                      uint8_t pin) const {
+    return {node.GetPosition().x, node.GetPosition().y + kPinOffsetY +
+                                      static_cast<float>(pin) * kPinSpacing};
+}
+
+utils::WrappedVector2 core::Graph::GetOutputPinPosition(const NodeBase &node,
+                                                       uint8_t pin) const {
+    return {node.GetPosition().x + kNodeWidth,
+            node.GetPosition().y + kPinOffsetY +
+                static_cast<float>(pin) * kPinSpacing};
+}
+
+bool core::Graph::IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const {
+    return utils::CheckCollisionPointCircleWrapped(
+        utils::GetCursorPositionWrapped(),
+        {GetInputPinPosition(node, pin).x, GetInputPinPosition(node, pin).y,
+         kPinRadius});
+}
+
+bool core::Graph::IsMouseOverOutputPin(const NodeBase &node,
+                                       uint8_t pin) const {
+    return utils::CheckCollisionPointCircleWrapped(
+        utils::GetCursorPositionWrapped(),
+        {GetOutputPinPosition(node, pin).x, GetOutputPinPosition(node, pin).y,
+         kPinRadius});
 }
 
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
@@ -663,10 +698,8 @@ void core::Graph::DrawConnections(
     if (childrens) {
         for (const auto &conn : (*childrens)) {
             if (conn.IsConnected()) {
-                utils::WrappedVector2 start = {node->GetPosition().x + 100,
-                                               node->GetPosition().y + 25};
-                utils::WrappedVector2 end = {conn.node->GetPosition().x,
-                                             conn.node->GetPosition().y + 25};
+                utils::WrappedVector2 start = GetOutputPinPosition(*node, conn.out_pin);
+                utils::WrappedVector2 end = GetInputPinPosition(*conn.node, conn.in_pin);
                 utils::DrawLineBezierWrapped(start, end, 50, utils::GRAY);
             }
         }
@@ -703,7 +736,7 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
             return;
         }
         try {
-            Link(linking_from_node_, 0, node.get(), 0);
+            Link(linking_from_node_, linking_from_pin_, node.get(), 0);
         } catch (const std::exception &e) {
             LOG_ERROR("Failed to link nodes: {}", e.what());
         }
@@ -713,18 +746,56 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
 
 void core::Graph::SelectForLink() {
     if (utils::isRightClicked()) {
+        bool consumed = false;
+
         for (const auto &node : nodes_) {
-            if (node->IsMouseOver()) {
-                LinkNodes(node);
+            for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
+                 ++out_pin) {
+                if (IsMouseOverOutputPin(*node, out_pin)) {
+                    linking_from_node_ = node.get();
+                    linking_from_pin_ = out_pin;
+                    consumed = true;
+                    break;
+                }
+            }
+
+            if (consumed) {
                 break;
+            }
+        }
+
+        if (!consumed && linking_from_node_ != nullptr) {
+            for (const auto &node : nodes_) {
+                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                     ++in_pin) {
+                    if (IsMouseOverInputPin(*node, in_pin)) {
+                        try {
+                            Link(linking_from_node_, linking_from_pin_,
+                                 node.get(), in_pin);
+                        } catch (const std::exception &e) {
+                            LOG_ERROR("Failed to link nodes: {}", e.what());
+                        }
+                        linking_from_node_ = nullptr;
+                        consumed = true;
+                        break;
+                    }
+                }
+
+                if (consumed) {
+                    break;
+                }
+            }
+
+            if (!consumed) {
+                linking_from_node_ = nullptr;
             }
         }
     }
 
     if (linking_from_node_) {
         utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
-        utils::DrawLineWrapped({linking_from_node_->GetPosition().x + 100,
-                                linking_from_node_->GetPosition().y + 25},
+        utils::DrawLineWrapped(GetOutputPinPosition(*linking_from_node_,
+                                                    linking_from_pin_),
                                cursor_pos, 2, utils::GRAY);
     }
 }

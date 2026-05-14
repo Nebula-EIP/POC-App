@@ -339,10 +339,18 @@ class Graph {
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
                                          utils::WrappedVector2 position);
 
+    bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
+    bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
+    utils::WrappedVector2 GetInputPinPosition(const NodeBase &node,
+                                              uint8_t pin) const;
+    utils::WrappedVector2 GetOutputPinPosition(const NodeBase &node,
+                                               uint8_t pin) const;
+
     utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
     NodeBase *linking_from_node_ =
         nullptr;  ///< Temporary pointer for linking with mouse
+    uint8_t linking_from_pin_ = 0;
     bool is_selecting_ =
         false;  ///< Flag to indicate if the user is currently selecting nodes
     utils::WrappedVector2
