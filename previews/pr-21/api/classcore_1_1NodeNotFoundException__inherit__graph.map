@@ -1,0 +1,11 @@
+<map id="core::NodeNotFoundException" name="core::NodeNotFoundException">
+<area shape="rect" id="Node000001" title="Exception thrown when attempting to access a node that doesn&#39;t exist." alt="" coords="5,299,224,324"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1GraphException.html" title="Base exception class for all graph&#45;related errors." alt="" coords="34,225,195,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,264,117,299,112,299,112,264"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1CoreException.html" title=" " alt="" coords="39,152,191,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,191,117,225,112,225,112,191"/>
+<area shape="rect" id="Node000004" href="$classutils_1_1BaseException.html" title=" " alt="" coords="37,79,192,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="117,118,117,152,112,152,112,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="57,5,172,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="117,44,117,79,112,79,112,44"/>
+</map>

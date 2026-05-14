@@ -1,0 +1,11 @@
+<map id="core::CircularDependencyException" name="core::CircularDependencyException">
+<area shape="rect" id="Node000001" title="Exception thrown when a link would create a circular dependency." alt="" coords="5,299,195,339"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1GraphException.html" title="Base exception class for all graph&#45;related errors." alt="" coords="19,225,181,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,264,103,299,97,299,97,264"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1CoreException.html" title=" " alt="" coords="24,152,176,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,191,103,225,97,225,97,191"/>
+<area shape="rect" id="Node000004" href="$classutils_1_1BaseException.html" title=" " alt="" coords="23,79,177,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="103,118,103,152,97,152,97,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="43,5,157,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="103,44,103,79,97,79,97,44"/>
+</map>
