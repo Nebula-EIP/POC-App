@@ -485,8 +485,7 @@ void core::NodeBase::DrawBody() {
     const auto [r, g, b, a] = color_;
     utils::WrappedColor color = {r, g, b, a};
     // Draw Node body
-    utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50,
-                                utils::GRAY);
+    utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50, utils::GRAY);
     if (selected_) {
         utils::DrawRectangleLinesWrapped(position_.x, position_.y, 100, 50,
                                          utils::YELLOW);

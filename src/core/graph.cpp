@@ -118,13 +118,13 @@ void core::Graph::RemoveNode(NodeBase *node) {
 }
 
 utils::WrappedVector2 core::Graph::GetInputPinPosition(const NodeBase &node,
-                                                      uint8_t pin) const {
+                                                       uint8_t pin) const {
     return {node.GetPosition().x, node.GetPosition().y + kPinOffsetY +
                                       static_cast<float>(pin) * kPinSpacing};
 }
 
 utils::WrappedVector2 core::Graph::GetOutputPinPosition(const NodeBase &node,
-                                                       uint8_t pin) const {
+                                                        uint8_t pin) const {
     return {node.GetPosition().x + kNodeWidth,
             node.GetPosition().y + kPinOffsetY +
                 static_cast<float>(pin) * kPinSpacing};
@@ -787,8 +787,10 @@ void core::Graph::DrawConnections(
     if (childrens) {
         for (const auto &conn : (*childrens)) {
             if (conn.IsConnected()) {
-                utils::WrappedVector2 start = GetOutputPinPosition(*node, conn.out_pin);
-                utils::WrappedVector2 end = GetInputPinPosition(*conn.node, conn.in_pin);
+                utils::WrappedVector2 start =
+                    GetOutputPinPosition(*node, conn.out_pin);
+                utils::WrappedVector2 end =
+                    GetInputPinPosition(*conn.node, conn.in_pin);
                 utils::DrawLineBezierWrapped(start, end, 2, utils::GRAY);
             }
         }
@@ -931,7 +933,8 @@ void core::Graph::SelectForLink() {
         if (linking_from_is_input_) {
             start = GetInputPinPosition(*linking_from_node_, linking_from_pin_);
         } else {
-            start = GetOutputPinPosition(*linking_from_node_, linking_from_pin_);
+            start =
+                GetOutputPinPosition(*linking_from_node_, linking_from_pin_);
         }
 
         // Draw dynamic Bezier preview matching permanent connection style
@@ -945,8 +948,8 @@ void core::Graph::SelectForLink() {
                 // We started from an input pin: look for an output under cursor
                 for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
                     const auto &node = *it;
-                    for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
-                         ++out_pin) {
+                    for (uint8_t out_pin = 0;
+                         out_pin < node->GetOutputPinCount(); ++out_pin) {
                         if (IsMouseOverOutputPin(*node, out_pin)) {
                             target_node = node.get();
                             target_pin = out_pin;
@@ -1148,33 +1151,32 @@ void core::Graph::HandleContextMenu() {
     constexpr float menu_height = menu_item_height * 2.0f;
 
     utils::WrappedRectangle menu_rect = {context_menu_position_.x,
-                                         context_menu_position_.y,
-                                         menu_width, menu_height};
+                                         context_menu_position_.y, menu_width,
+                                         menu_height};
     utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
-    bool is_hovered = utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
+    bool is_hovered =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
 
     utils::DrawRectangleWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
                                 menu_rect.height, utils::DARKGRAY);
     utils::DrawRectangleLinesWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
                                      menu_rect.height, utils::WHITE);
 
-    utils::WrappedRectangle duplicate_rect = {menu_rect.x, menu_rect.y,
-                                              menu_rect.width,
-                                              menu_item_height};
+    utils::WrappedRectangle duplicate_rect = {
+        menu_rect.x, menu_rect.y, menu_rect.width, menu_item_height};
     utils::WrappedRectangle delete_rect = {menu_rect.x,
                                            menu_rect.y + menu_item_height,
-                                           menu_rect.width,
-                                           menu_item_height};
+                                           menu_rect.width, menu_item_height};
 
-    bool is_hover_duplicate = utils::CheckCollisionPointRecWrapped(
-        cursor_pos, duplicate_rect);
-    bool is_hover_delete = utils::CheckCollisionPointRecWrapped(cursor_pos,
-                                                                delete_rect);
+    bool is_hover_duplicate =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, duplicate_rect);
+    bool is_hover_delete =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, delete_rect);
 
     if (is_hover_duplicate) {
         utils::DrawRectangleWrapped(duplicate_rect.x, duplicate_rect.y,
-                                    duplicate_rect.width,
-                                    duplicate_rect.height, utils::GRAY);
+                                    duplicate_rect.width, duplicate_rect.height,
+                                    utils::GRAY);
     }
     if (is_hover_delete) {
         utils::DrawRectangleWrapped(delete_rect.x, delete_rect.y,
@@ -1182,8 +1184,8 @@ void core::Graph::HandleContextMenu() {
                                     utils::GRAY);
     }
 
-    utils::DrawTextWrapped("Duplicate", menu_rect.x + 10.0f,
-                           menu_rect.y + 7.0f, 14,
+    utils::DrawTextWrapped("Duplicate", menu_rect.x + 10.0f, menu_rect.y + 7.0f,
+                           14,
                            is_hover_duplicate ? utils::YELLOW : utils::WHITE);
     utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
                            menu_rect.y + menu_item_height + 7.0f, 14,

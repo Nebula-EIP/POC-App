@@ -321,7 +321,7 @@ class Graph {
 
     /**
      * @brief Handles linking nodes with the mouse.
-     * 
+     *
      * Processes right-click input to link nodes together, drawing a line
      * from the selected node to the cursor position during the linking process.
      */
@@ -368,7 +368,8 @@ class Graph {
     NodeBase *linking_from_node_ =
         nullptr;  ///< Temporary pointer for linking with mouse
     uint8_t linking_from_pin_ = 0;
-    bool linking_from_is_input_ = false; ///< true if link started from input pin
+    bool linking_from_is_input_ =
+        false;  ///< true if link started from input pin
     NodeBase *active_drag_node_ = nullptr;
     NodeBase *context_menu_node_ = nullptr;
     utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};
