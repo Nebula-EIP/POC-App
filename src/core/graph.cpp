@@ -145,6 +145,22 @@ bool core::Graph::IsMouseOverOutputPin(const NodeBase &node,
          kPinRadius});
 }
 
+bool core::Graph::IsMouseOverAnyPin(const NodeBase &node) const {
+    for (uint8_t in_pin = 0; in_pin < node.GetInputPinCount(); ++in_pin) {
+        if (IsMouseOverInputPin(node, in_pin)) {
+            return true;
+        }
+    }
+
+    for (uint8_t out_pin = 0; out_pin < node.GetOutputPinCount(); ++out_pin) {
+        if (IsMouseOverOutputPin(node, out_pin)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     auto it = std::find_if(nodes_.begin(), nodes_.end(),
                            [id](const std::unique_ptr<NodeBase> &node) {
@@ -722,6 +738,9 @@ void core::Graph::Draw() {
 
 void core::Graph::CheckNodeMovement() {
     for (const auto &node : nodes_) {
+        if (IsMouseOverAnyPin(*node)) {
+            continue;
+        }
         node->ClickNode();
         node->MoveNode();
     }
@@ -745,7 +764,7 @@ void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
 }
 
 void core::Graph::SelectForLink() {
-    if (utils::isRightClicked()) {
+    if (utils::isLeftClicked()) {
         bool consumed = false;
 
         for (const auto &node : nodes_) {
@@ -801,6 +820,14 @@ void core::Graph::SelectForLink() {
 }
 
 void core::Graph::SelectWithMouse() {
+    if (utils::isLeftClicked()) {
+        for (const auto &node : nodes_) {
+            if (IsMouseOverAnyPin(*node)) {
+                return;
+            }
+        }
+    }
+
     if (utils::isLeftClicked()) {
         if (!is_selecting_) {
             utils::WrappedVector2 start = utils::GetCursorPositionWrapped();

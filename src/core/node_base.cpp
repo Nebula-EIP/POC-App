@@ -513,13 +513,17 @@ void core::NodeBase::ClickNode() {
     if (utils::CheckCollisionPointRecWrapped(
             cursor_position, {position_.x, position_.y, 100, 50})) {
         color_ = utils::GREEN;  // Change color when hovered
-        if (utils::isLeftClicked()) {
-            follow_mouse_ = !follow_mouse_;
-            PrepareDrag();
+        if (utils::isLeftDown()) {
+            if (!follow_mouse_) {
+                follow_mouse_ = true;
+                PrepareDrag();
+            }
+        } else {
+            follow_mouse_ = false;
         }
     } else {
         color_ = initial_color_;  // Default color
-        if (utils::isLeftClicked()) {
+        if (!utils::isLeftDown()) {
             follow_mouse_ = false;
         }
     }
