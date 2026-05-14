@@ -1186,8 +1186,8 @@ void core::Graph::HandleContextMenu() {
     utils::DrawRectangleLinesWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
                                      menu_rect.height, utils::WHITE);
 
-    utils::WrappedRectangle duplicate_rect = {
-        menu_rect.x, menu_rect.y, menu_rect.width, kMenuItemHeight};
+    utils::WrappedRectangle duplicate_rect = {menu_rect.x, menu_rect.y,
+                                              menu_rect.width, kMenuItemHeight};
     utils::WrappedRectangle delete_rect = {menu_rect.x,
                                            menu_rect.y + kMenuItemHeight,
                                            menu_rect.width, kMenuItemHeight};

@@ -11,16 +11,13 @@ int main() {
 
     // Create a visual node
     auto node1 = graph.AddNode(core::NodeBase::NodeKind::kLiteral, {500, 100});
-    auto node2 =
-        graph.AddNode(core::NodeBase::NodeKind::kVariable, {500, 200});
-    auto node3 =
-        graph.AddNode(core::NodeBase::NodeKind::kFunction, {200, 200});
+    auto node2 = graph.AddNode(core::NodeBase::NodeKind::kVariable, {500, 200});
+    auto node3 = graph.AddNode(core::NodeBase::NodeKind::kFunction, {200, 200});
     auto node4 =
         graph.AddNode(core::NodeBase::NodeKind::kFunctionInput, {200, 100});
     auto node5 =
         graph.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {200, 300});
-    auto node6 =
-        graph.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
+    auto node6 = graph.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
 
     SetTargetFPS(60);
 
@@ -28,19 +25,18 @@ int main() {
         if (IsKeyPressed(KEY_H)) {
             if (IsCursorHidden()) {
                 ShowCursor();
-            }
-            else {
+            } else {
                 HideCursor();
             }
         }
 
         if (IsKeyPressed(KEY_Q)) {
             graph.AddNode(core::NodeBase::NodeKind::kVariable,
-                           {cursor_postion.x - 50, cursor_postion.y - 25});
+                          {cursor_postion.x - 50, cursor_postion.y - 25});
         }
         if (IsKeyPressed(KEY_W)) {
             graph.AddNode(core::NodeBase::NodeKind::kLiteral,
-                           {cursor_postion.x - 50, cursor_postion.y - 25});
+                          {cursor_postion.x - 50, cursor_postion.y - 25});
         }
         if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
             graph.DuplicateSelectedNode();
