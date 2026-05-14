@@ -789,7 +789,7 @@ void core::Graph::DrawConnections(
             if (conn.IsConnected()) {
                 utils::WrappedVector2 start = GetOutputPinPosition(*node, conn.out_pin);
                 utils::WrappedVector2 end = GetInputPinPosition(*conn.node, conn.in_pin);
-                utils::DrawLineBezierWrapped(start, end, 50, utils::GRAY);
+                utils::DrawLineBezierWrapped(start, end, 2, utils::GRAY);
             }
         }
     }
@@ -883,12 +883,31 @@ void core::Graph::SelectForLink() {
 
     if (linking_from_node_ == nullptr) {
         if (utils::isLeftClicked()) {
-            for (const auto &node : nodes_) {
+            // Prefer the frontmost node (reverse iteration)
+            for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+                const auto &node = *it;
+                // Check outputs first
                 for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
                      ++out_pin) {
                     if (IsMouseOverOutputPin(*node, out_pin)) {
                         linking_from_node_ = node.get();
                         linking_from_pin_ = out_pin;
+                        linking_from_is_input_ = false;
+                        break;
+                    }
+                }
+
+                if (linking_from_node_ != nullptr) {
+                    break;
+                }
+
+                // If no output was targeted, allow starting from an input pin
+                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                     ++in_pin) {
+                    if (IsMouseOverInputPin(*node, in_pin)) {
+                        linking_from_node_ = node.get();
+                        linking_from_pin_ = in_pin;
+                        linking_from_is_input_ = true;
                         break;
                     }
                 }
@@ -902,39 +921,76 @@ void core::Graph::SelectForLink() {
 
     if (linking_from_node_) {
         utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
-        utils::DrawLineWrapped(GetOutputPinPosition(*linking_from_node_,
-                                                    linking_from_pin_),
-                               cursor_pos, 2, utils::GRAY);
+        if (linking_from_is_input_) {
+            utils::DrawLineWrapped(
+                GetInputPinPosition(*linking_from_node_, linking_from_pin_),
+                cursor_pos, 1, utils::GRAY);
+        } else {
+            utils::DrawLineWrapped(
+                GetOutputPinPosition(*linking_from_node_, linking_from_pin_),
+                cursor_pos, 1, utils::GRAY);
+        }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             NodeBase *target_node = nullptr;
             uint8_t target_pin = 0;
 
-            for (const auto &node : nodes_) {
-                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
-                     ++in_pin) {
-                    if (IsMouseOverInputPin(*node, in_pin)) {
-                        target_node = node.get();
-                        target_pin = in_pin;
+            if (linking_from_is_input_) {
+                // We started from an input pin: look for an output under cursor
+                for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+                    const auto &node = *it;
+                    for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
+                         ++out_pin) {
+                        if (IsMouseOverOutputPin(*node, out_pin)) {
+                            target_node = node.get();
+                            target_pin = out_pin;
+                            break;
+                        }
+                    }
+
+                    if (target_node != nullptr) {
                         break;
                     }
                 }
 
                 if (target_node != nullptr) {
-                    break;
+                    try {
+                        // Link(output_node, out_pin, input_node, in_pin)
+                        Link(target_node, target_pin, linking_from_node_,
+                             linking_from_pin_);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
+                    }
                 }
-            }
+            } else {
+                // Normal direction: output -> input
+                for (const auto &node : nodes_) {
+                    for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                         ++in_pin) {
+                        if (IsMouseOverInputPin(*node, in_pin)) {
+                            target_node = node.get();
+                            target_pin = in_pin;
+                            break;
+                        }
+                    }
 
-            if (target_node != nullptr) {
-                try {
-                    Link(linking_from_node_, linking_from_pin_, target_node,
-                         target_pin);
-                } catch (const std::exception &e) {
-                    LOG_ERROR("Failed to link nodes: {}", e.what());
+                    if (target_node != nullptr) {
+                        break;
+                    }
+                }
+
+                if (target_node != nullptr) {
+                    try {
+                        Link(linking_from_node_, linking_from_pin_, target_node,
+                             target_pin);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
+                    }
                 }
             }
 
             linking_from_node_ = nullptr;
+            linking_from_is_input_ = false;
         }
     }
 }
