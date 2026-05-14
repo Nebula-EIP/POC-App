@@ -246,6 +246,16 @@ class NodeBase {
     void SetColor(unsigned char r, unsigned char g, unsigned char b);
 
     /**
+     * @brief Marks this node as selected or unselected.
+     */
+    void SetSelected(bool selected) noexcept;
+
+    /**
+     * @brief Returns whether this node is selected.
+     */
+    bool IsSelected() const noexcept;
+
+    /**
      * @brief prepare the node for dragging
      */
     void PrepareDrag();
@@ -401,6 +411,7 @@ class NodeBase {
     bool follow_mouse_ = false;
     utils::WrappedColor color_ = {130, 130, 130};
     utils::WrappedColor initial_color_ = {130, 130, 130};
+    bool selected_ = false;
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)

@@ -161,6 +161,22 @@ bool core::Graph::IsMouseOverAnyPin(const NodeBase &node) const {
     return false;
 }
 
+bool core::Graph::IsMouseOverAnyNode() const {
+    for (const auto &node : nodes_) {
+        if (node->IsMouseOver()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void core::Graph::ClearSelection() {
+    for (const auto &node : nodes_) {
+        node->SetSelected(false);
+    }
+}
+
 core::NodeBase *core::Graph::GetNode(uint32_t id) const {
     auto it = std::find_if(nodes_.begin(), nodes_.end(),
                            [id](const std::unique_ptr<NodeBase> &node) {
@@ -737,6 +753,16 @@ void core::Graph::Draw() {
 }
 
 void core::Graph::CheckNodeMovement() {
+    if (utils::isLeftClicked()) {
+        for (const auto &node : nodes_) {
+            if (node->IsMouseOver() && !IsMouseOverAnyPin(*node)) {
+                ClearSelection();
+                node->SetSelected(true);
+                break;
+            }
+        }
+    }
+
     for (const auto &node : nodes_) {
         if (IsMouseOverAnyPin(*node)) {
             continue;
@@ -829,6 +855,15 @@ void core::Graph::SelectWithMouse() {
     }
 
     if (utils::isLeftClicked()) {
+        for (const auto &node : nodes_) {
+            if (node->IsMouseOver() || IsMouseOverAnyPin(*node)) {
+                return;
+            }
+        }
+        ClearSelection();
+    }
+
+    if (utils::isLeftClicked()) {
         if (!is_selecting_) {
             utils::WrappedVector2 start = utils::GetCursorPositionWrapped();
             selection_start_ = {start.x, start.y};
@@ -851,11 +886,9 @@ void core::Graph::SelectWithMouse() {
                     left, top, right - left, bottom - top};
                 if (utils::CheckCollisionPointRecWrapped(node_pos,
                                                          selection_rect)) {
-                    node->follow_mouse_ = true;
-                    node->PrepareDrag();
+                    node->SetSelected(true);
                 } else {
-                    utils::WrappedColor init_color = node->GetInitialColor();
-                    node->SetColor(init_color.r, init_color.g, init_color.b);
+                    node->SetSelected(false);
                 }
             }
         }
@@ -884,10 +917,9 @@ void core::Graph::SelectWithMouse() {
                                                       bottom - top};
             if (utils::CheckCollisionPointRecWrapped(node_pos,
                                                      selection_rect)) {
-                node->SetColor(255, 255, 0);
+                node->SetSelected(true);
             } else {
-                utils::WrappedColor init_color = node->GetInitialColor();
-                node->SetColor(init_color.r, init_color.g, init_color.b);
+                node->SetSelected(false);
             }
         }
     }
@@ -898,14 +930,20 @@ void core::Graph::DeleteWithMouse() {
         return;
     }
 
+    std::vector<NodeBase *> nodes_to_delete;
     for (const auto &node : nodes_) {
-        if (node->IsMouseOver()) {
+        if (node->IsSelected()) {
+            nodes_to_delete.push_back(node.get());
+        }
+    }
+
+    for (NodeBase *node : nodes_to_delete) {
+        if (node != nullptr) {
             try {
-                RemoveNode(node.get());
+                RemoveNode(node);
             } catch (const std::exception &e) {
                 LOG_ERROR("Failed to delete node: {}", e.what());
             }
-            break;
         }
     }
 }

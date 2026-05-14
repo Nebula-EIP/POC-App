@@ -480,6 +480,10 @@ void core::NodeBase::Draw() {
     utils::WrappedColor color = {r, g, b, a};
     // Draw Node body
     utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50, utils::GRAY);
+    if (selected_) {
+        utils::DrawRectangleLinesWrapped(position_.x, position_.y, 100, 50,
+                                         utils::YELLOW);
+    }
     // Draw Node number
     utils::DrawTextWrapped(("Node " + std::to_string(id_)).c_str(),
                            position_.x + 10, position_.y + 15, 10,
@@ -551,6 +555,12 @@ void core::NodeBase::SetColor(unsigned char r, unsigned char g,
                               unsigned char b) {
     color_ = {r, g, b};
 }
+
+void core::NodeBase::SetSelected(bool selected) noexcept {
+    selected_ = selected;
+}
+
+bool core::NodeBase::IsSelected() const noexcept { return selected_; }
 
 utils::WrappedColor core::NodeBase::GetInitialColor() const {
     return initial_color_;

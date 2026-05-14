@@ -342,6 +342,8 @@ class Graph {
     bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverAnyPin(const NodeBase &node) const;
+    bool IsMouseOverAnyNode() const;
+    void ClearSelection();
     utils::WrappedVector2 GetInputPinPosition(const NodeBase &node,
                                               uint8_t pin) const;
     utils::WrappedVector2 GetOutputPinPosition(const NodeBase &node,
