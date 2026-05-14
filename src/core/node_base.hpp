@@ -226,9 +226,20 @@ class NodeBase {
     DeserializeFactory(const nlohmann::json &json, Graph *graph);
 
     /**
-     *@brief Draws the node in the editor.
+     *@brief Draws the node in the editor (legacy full draw).
      */
     virtual void Draw();
+
+    /**
+     * @brief Draw only the node body (rectangle, texts, selection border).
+     */
+    virtual void DrawBody();
+
+    /**
+     * @brief Draw only the pins (circles). Placed between links and node
+     * bodies when rendering the scene.
+     */
+    virtual void DrawPins();
 
     /**
      * @brief Select the node

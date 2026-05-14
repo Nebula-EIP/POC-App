@@ -796,16 +796,22 @@ void core::Graph::DrawConnections(
 }
 
 void core::Graph::Draw() {
-    // Draw nodes
-    for (const auto &node : nodes_) {
-        node->Draw();
-    }
-    // Draw connections
+    // Draw connections first (behind everything)
     for (const auto &node : nodes_) {
         for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
             const auto &childrens = node->Childrens(i);
             DrawConnections(childrens, node);
         }
+    }
+
+    // Draw pins between connections and node bodies
+    for (const auto &node : nodes_) {
+        node->DrawPins();
+    }
+
+    // Draw node bodies on top
+    for (const auto &node : nodes_) {
+        node->DrawBody();
     }
 }
 
@@ -921,15 +927,15 @@ void core::Graph::SelectForLink() {
 
     if (linking_from_node_) {
         utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+        utils::WrappedVector2 start;
         if (linking_from_is_input_) {
-            utils::DrawLineWrapped(
-                GetInputPinPosition(*linking_from_node_, linking_from_pin_),
-                cursor_pos, 1, utils::GRAY);
+            start = GetInputPinPosition(*linking_from_node_, linking_from_pin_);
         } else {
-            utils::DrawLineWrapped(
-                GetOutputPinPosition(*linking_from_node_, linking_from_pin_),
-                cursor_pos, 1, utils::GRAY);
+            start = GetOutputPinPosition(*linking_from_node_, linking_from_pin_);
         }
+
+        // Draw dynamic Bezier preview matching permanent connection style
+        utils::DrawLineBezierWrapped(start, cursor_pos, 2, utils::GRAY);
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             NodeBase *target_node = nullptr;
