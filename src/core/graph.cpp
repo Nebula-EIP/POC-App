@@ -790,3 +790,4 @@ void core::Graph::SelectWithMouse() {
         }
     }
 }
+void core::Graph::LinkingWithMouse() { SelectForLink(); }

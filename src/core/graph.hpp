@@ -314,6 +314,14 @@ class Graph {
      */
     void SelectWithMouse();
 
+    /**
+     * @brief Handles linking nodes with the mouse.
+     * 
+     * Processes right-click input to link nodes together, drawing a line
+     * from the selected node to the cursor position during the linking process.
+     */
+    void LinkingWithMouse();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.

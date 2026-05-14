@@ -1,69 +1,53 @@
-#include <iostream>
-
-#include "connection_exceptions.hpp"
-#include "exception_base.hpp"
 #include "graph.hpp"
-#include "logger.hpp"
-#include "nodes/literal_node.hpp"
-#include "nodes/variable_node.hpp"
+#include <vector>
 
-static void DumpGraph(const core::Graph &graph) {
-    printf("### DUMPING GRAPH ###\n");
-    for (const auto &node : graph.GetAllNodes()) {
-        printf("Node[%d:%s]\n", node->id(),
-               core::NodeKindToString(node->kind()).c_str());
+int main()
+{
+    InitWindow(800, 600, "Nebula Test");
+    Vector2 cursorPostion = { 0, 0 };
 
-        printf("  Inputs: %ld/%d\n", node->GetAllParents().size(),
-               node->GetInputPinCount());
-        for (auto conn : node->GetAllParents()) {
-            if (conn.IsConnected()) {
-                printf("    IN[%d:%s] <- Node[%d:%s] Out[%d:%s]\n", conn.in_pin,
-                       core::PinDataTypeToString(conn.type).c_str(),
-                       conn.node->id(), node->GetDisplayName().c_str(),
-                       conn.out_pin,
-                       core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    IN[%d:%s] <- Disconnected\n", conn.in_pin,
-                       core::PinDataTypeToString(conn.type).c_str());
-            }
+    //Create graph
+    core::Graph graph_;
+
+    //Create a visual node
+    auto node1 = graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {500, 100});
+    auto node2 = graph_.AddNode(core::NodeBase::NodeKind::kVariable, {500, 200});
+    auto node3 = graph_.AddNode(core::NodeBase::NodeKind::kFunction, {200, 200});
+    auto node4 = graph_.AddNode(core::NodeBase::NodeKind::kFunctionInput, {200, 100});
+    auto node5 = graph_.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {200, 300});
+    auto node6 = graph_.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
+
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose()) {
+        if (IsKeyPressed(KEY_H)) {
+            if (IsCursorHidden()) ShowCursor();
+            else HideCursor();
         }
 
-        printf("  Outputs: %ld/%d\n", node->GetAllChildrens().size(),
-               node->GetOutputPinCount());
-        for (auto conn : node->GetAllChildrens()) {
-            if (conn.IsConnected()) {
-                printf(
-                    "    OUT[%d:%s] -> Node[%d:%s] In[%d:%s]\n", conn.out_pin,
-                    core::PinDataTypeToString(conn.type).c_str(),
-                    conn.node->id(),
-                    core::NodeKindToString(conn.node->kind()).c_str(),
-                    conn.in_pin, core::PinDataTypeToString(conn.type).c_str());
-            } else {
-                printf("    OUT[%d:%s] -> Disconnected\n", conn.out_pin,
-                       core::PinDataTypeToString(conn.type).c_str());
-            }
+        if (IsKeyPressed(KEY_Q)) {
+            graph_.AddNode(core::NodeBase::NodeKind::kVariable, {cursorPostion.x - 50, cursorPostion.y - 25});
         }
-    }
-    printf("### COMPLETED ###\n");
-}
+        if (IsKeyPressed(KEY_W)) {
+            graph_.AddNode(core::NodeBase::NodeKind::kLiteral, {cursorPostion.x - 50, cursorPostion.y - 25});
+        }
 
-int main(void) {
-    try {
-        core::Graph graph;
+        cursorPostion = GetMousePosition();
 
-        auto lit1 = graph.AddNode<core::LiteralNode>(
-            core::NodeBase::NodeKind::kLiteral, {0, 0});
-        auto var1 = graph.AddNode<core::VariableNode>(
-            core::NodeBase::NodeKind::kVariable, {0, 0});
+        graph_.CheckNodeMovement();
 
-        DumpGraph(graph);
-        graph.Link(lit1, 0, var1, 0);
-        DumpGraph(graph);
-        graph.Unlink(lit1, 0, var1, 0);
-        DumpGraph(graph);
-    } catch (const utils::BaseException &e) {
-        LOG_FATAL(e.GetDetailedMessage());
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        // Draw visual nodes in the graph
+        graph_.SelectWithMouse();
+        graph_.Draw();
+
+        graph_.LinkingWithMouse();
+
+        EndDrawing();
     }
 
+    CloseWindow();
     return 0;
 }
