@@ -476,10 +476,20 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 }
 
 void core::NodeBase::Draw() {
+    // Legacy full draw: body then pins
+    DrawBody();
+    DrawPins();
+}
+
+void core::NodeBase::DrawBody() {
     const auto [r, g, b, a] = color_;
     utils::WrappedColor color = {r, g, b, a};
     // Draw Node body
     utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50, utils::GRAY);
+    if (selected_) {
+        utils::DrawRectangleLinesWrapped(position_.x, position_.y, 100, 50,
+                                         utils::YELLOW);
+    }
     // Draw Node number
     utils::DrawTextWrapped(("Node " + std::to_string(id_)).c_str(),
                            position_.x + 10, position_.y + 15, 10,
@@ -488,7 +498,9 @@ void core::NodeBase::Draw() {
     utils::DrawTextWrapped(
         ("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
         position_.x + 10, position_.y + 30, 10, utils::BLACK);
-    // Draw pin
+}
+
+void core::NodeBase::DrawPins() {
     for (uint8_t i = 0; i < GetInputPinCount(); i++) {
         utils::DrawCircleWrapped(position_.x, position_.y + 25 + i * 15, 5,
                                  utils::RED);
@@ -514,12 +526,18 @@ void core::NodeBase::ClickNode() {
             cursor_position, {position_.x, position_.y, 100, 50})) {
         color_ = utils::GREEN;  // Change color when hovered
         if (utils::isLeftClicked()) {
-            follow_mouse_ = !follow_mouse_;
-            PrepareDrag();
+            if (!follow_mouse_) {
+                follow_mouse_ = true;
+                PrepareDrag();
+            }
+        } else {
+            if (!utils::isLeftDown()) {
+                follow_mouse_ = false;
+            }
         }
     } else {
         color_ = initial_color_;  // Default color
-        if (utils::isLeftClicked()) {
+        if (!utils::isLeftDown()) {
             follow_mouse_ = false;
         }
     }
@@ -547,6 +565,12 @@ void core::NodeBase::SetColor(unsigned char r, unsigned char g,
                               unsigned char b) {
     color_ = {r, g, b};
 }
+
+void core::NodeBase::SetSelected(bool selected) noexcept {
+    selected_ = selected;
+}
+
+bool core::NodeBase::IsSelected() const noexcept { return selected_; }
 
 utils::WrappedColor core::NodeBase::GetInitialColor() const {
     return initial_color_;

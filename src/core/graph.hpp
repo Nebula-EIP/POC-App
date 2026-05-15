@@ -314,6 +314,29 @@ class Graph {
      */
     void SelectWithMouse();
 
+    /**
+     * @brief Deletes the node under the mouse when the delete key is pressed.
+     */
+    void DeleteWithMouse();
+
+    /**
+     * @brief Handles linking nodes with the mouse.
+     *
+     * Processes right-click input to link nodes together, drawing a line
+     * from the selected node to the cursor position during the linking process.
+     */
+    void LinkingWithMouse();
+
+    /**
+     * @brief Handles node context menu interactions.
+     */
+    void HandleContextMenu();
+
+    /**
+     * @brief Duplicates the currently selected node.
+     */
+    void DuplicateSelectedNode();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -326,10 +349,31 @@ class Graph {
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
                                          utils::WrappedVector2 position);
 
+    bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
+    bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
+    bool IsMouseOverAnyPin(const NodeBase &node) const;
+    bool IsMouseOverAnyPin() const;
+    bool IsMouseOverAnyNode() const;
+    NodeBase *GetNodeUnderMouse() const;
+    void ClearSelection();
+    NodeBase *GetFirstSelectedNode() const;
+    NodeBase *DuplicateNode(NodeBase *node);
+    utils::WrappedVector2 GetInputPinPosition(const NodeBase &node,
+                                              uint8_t pin) const;
+    utils::WrappedVector2 GetOutputPinPosition(const NodeBase &node,
+                                               uint8_t pin) const;
+
     utils::IdManager<uint32_t> id_manager_;
     std::vector<std::unique_ptr<NodeBase>> nodes_;
     NodeBase *linking_from_node_ =
         nullptr;  ///< Temporary pointer for linking with mouse
+    uint8_t linking_from_pin_ = 0;
+    bool linking_from_is_input_ =
+        false;  ///< true if link started from input pin
+    NodeBase *active_drag_node_ = nullptr;
+    NodeBase *context_menu_node_ = nullptr;
+    utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};
+    bool context_menu_open_ = false;
     bool is_selecting_ =
         false;  ///< Flag to indicate if the user is currently selecting nodes
     utils::WrappedVector2
