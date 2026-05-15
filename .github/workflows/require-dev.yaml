@@ -1,6 +1,9 @@
-name: Require dev as source
 # This workflow is run on every pull requests on main.
 # It aims to blocks any of said PRs wich doesn't comes from the dev branch
+name: Require dev as source
+
+run-name: Require dev as source
+
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]

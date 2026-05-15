@@ -3,6 +3,7 @@
 
 ## Related Issue(s)
 <!-- Closes the correct issues -->
+<!-- Format: '- [TAG-ID/NAME](url)'-->
 
 
 <!-- Use the part you need for your specific type of PR only, delete the rest -->
@@ -36,7 +37,6 @@
 
 ## Checklist
 - [ ] Source branch is based on `dev`
-- [ ] Linked to the correct GitHub issues
+- [ ] Linked to the correct Linear issues
 - [ ] Added at least 2 people as reviewers, 4 if you are merging into main
 - [ ] No conflicts
-- [ ] Documentation deployment CI must pass

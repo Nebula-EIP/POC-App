@@ -1,0 +1,36 @@
+# Build artifacts
+node_modules/
+build/
+*.o
+*.so
+*.a
+*.lib
+*.exe
+*.dll
+
+# Binary files
+Nebula
+unit_tests
+
+# IDE / Editor configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Caches
+.cache/
+CMakeFiles/
+_deps/
+__pycache__/
+.cache-loader/
+.docusaurus/
+
+# Nebula specific
+.nebula/
+code-generated/
+
+# Documentation build artifacts
+docs/static/api/

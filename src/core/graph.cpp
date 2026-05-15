@@ -1,0 +1,1233 @@
+#include "graph.hpp"
+
+#include <algorithm>
+#include <ctime>
+#include <format>
+#include <fstream>
+#include <iomanip>
+#include <map>
+#include <sstream>
+
+#include "logger.hpp"
+#include "nodes/function_input_node.hpp"
+#include "nodes/function_node.hpp"
+#include "nodes/function_output_node.hpp"
+#include "nodes/literal_node.hpp"
+#include "nodes/operator_node.hpp"
+#include "nodes/variable_node.hpp"
+
+namespace {
+constexpr float kNodeWidth = 100.0f;
+constexpr float kPinRadius = 5.0f;
+constexpr float kPinSpacing = 15.0f;
+constexpr float kPinOffsetY = 25.0f;
+}  // namespace
+
+core::Graph::Graph()
+    : project_name_("Untitled Project"),
+      version_("1.0"),
+      author_(""),
+      created_at_(std::chrono::system_clock::now()),
+      modified_at_(std::chrono::system_clock::now()) {}
+
+void core::Graph::SetProjectName(const std::string &name) {
+    project_name_ = name;
+    UpdateModifiedTime();
+}
+
+void core::Graph::SetAuthor(const std::string &author) {
+    author_ = author;
+    UpdateModifiedTime();
+}
+
+void core::Graph::UpdateModifiedTime() {
+    modified_at_ = std::chrono::system_clock::now();
+}
+
+const std::string &core::Graph::GetProjectName() const { return project_name_; }
+
+const std::string &core::Graph::GetVersion() const { return version_; }
+
+const std::string &core::Graph::GetAuthor() const { return author_; }
+
+std::chrono::system_clock::time_point core::Graph::GetCreatedAt() const {
+    return created_at_;
+}
+
+std::chrono::system_clock::time_point core::Graph::GetModifiedAt() const {
+    return modified_at_;
+}
+
+core::NodeBase *core::Graph::AddNode(NodeBase::NodeKind kind,
+                                     utils::WrappedVector2 position) {
+    if (kind == NodeBase::NodeKind::kUndefined) {
+        THROW_EXCEPTION(InvalidNodeKindException,
+                        "kUndefined is not a valid node kind");
+    }
+
+    try {
+        nodes_.push_back(CreateNode(id_manager_.NewId(), kind, position));
+    } catch (std::exception &e) {
+        return nullptr;
+    }
+    try {
+        nodes_.back()->InitializeConnections();
+    } catch (...) {
+    }
+    return nodes_.back().get();
+}
+
+void core::Graph::RemoveNode(NodeBase *node) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    if (linking_from_node_ == node) {
+        linking_from_node_ = nullptr;
+    }
+
+    auto it = std::find_if(nodes_.begin(), nodes_.end(),
+                           [node](const std::unique_ptr<NodeBase> &n) {
+                               return n->id() == node->id();
+                           });
+
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    // Disconnect all parents
+    for (const NodeBase::Connection &conn : node->GetAllParents()) {
+        if (conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        }
+    }
+
+    // Disconnect all childrens
+    for (const NodeBase::Connection &conn : node->GetAllChildrens()) {
+        if (conn.IsConnected()) {
+            Unlink(node, conn.out_pin, conn.node, conn.in_pin);
+        }
+    }
+
+    // Free the id
+    id_manager_.FreeId(node->id());
+
+    // Delete the node
+    nodes_.erase(it);
+}
+
+utils::WrappedVector2 core::Graph::GetInputPinPosition(const NodeBase &node,
+                                                       uint8_t pin) const {
+    return {node.GetPosition().x, node.GetPosition().y + kPinOffsetY +
+                                      static_cast<float>(pin) * kPinSpacing};
+}
+
+utils::WrappedVector2 core::Graph::GetOutputPinPosition(const NodeBase &node,
+                                                        uint8_t pin) const {
+    return {node.GetPosition().x + kNodeWidth,
+            node.GetPosition().y + kPinOffsetY +
+                static_cast<float>(pin) * kPinSpacing};
+}
+
+bool core::Graph::IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const {
+    return utils::CheckCollisionPointCircleWrapped(
+        utils::GetCursorPositionWrapped(),
+        {GetInputPinPosition(node, pin).x, GetInputPinPosition(node, pin).y,
+         kPinRadius});
+}
+
+bool core::Graph::IsMouseOverOutputPin(const NodeBase &node,
+                                       uint8_t pin) const {
+    return utils::CheckCollisionPointCircleWrapped(
+        utils::GetCursorPositionWrapped(),
+        {GetOutputPinPosition(node, pin).x, GetOutputPinPosition(node, pin).y,
+         kPinRadius});
+}
+
+bool core::Graph::IsMouseOverAnyPin(const NodeBase &node) const {
+    for (uint8_t in_pin = 0; in_pin < node.GetInputPinCount(); ++in_pin) {
+        if (IsMouseOverInputPin(node, in_pin)) {
+            return true;
+        }
+    }
+
+    for (uint8_t out_pin = 0; out_pin < node.GetOutputPinCount(); ++out_pin) {
+        if (IsMouseOverOutputPin(node, out_pin)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool core::Graph::IsMouseOverAnyPin() const {
+    for (const auto &node : nodes_) {
+        if (IsMouseOverAnyPin(*node)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool core::Graph::IsMouseOverAnyNode() const {
+    for (const auto &node : nodes_) {
+        if (node->IsMouseOver()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+core::NodeBase *core::Graph::GetNodeUnderMouse() const {
+    for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+        const auto &node = *it;
+        if (node->IsMouseOver()) {
+            return node.get();
+        }
+    }
+
+    return nullptr;
+}
+
+void core::Graph::ClearSelection() {
+    for (const auto &node : nodes_) {
+        node->SetSelected(false);
+    }
+}
+
+core::NodeBase *core::Graph::GetFirstSelectedNode() const {
+    for (const auto &node : nodes_) {
+        if (node->IsSelected()) {
+            return node.get();
+        }
+    }
+
+    return nullptr;
+}
+
+core::NodeBase *core::Graph::DuplicateNode(NodeBase *node) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    utils::WrappedVector2 position = node->GetPosition();
+    position.x += 20.0f;
+    position.y += 20.0f;
+
+    NodeBase *new_node = AddNode(node->kind(), position);
+    if (new_node == nullptr) {
+        return nullptr;
+    }
+
+    try {
+        auto serialized = node->Serialize();
+        auto deserialize_result = new_node->Deserialize(serialized);
+        if (!deserialize_result) {
+            auto new_node_it = std::find_if(
+                nodes_.begin(), nodes_.end(),
+                [new_node](const std::unique_ptr<NodeBase> &candidate) {
+                    return candidate.get() == new_node;
+                });
+            if (new_node_it != nodes_.end()) {
+                nodes_.erase(new_node_it);
+            }
+
+            LOG_ERROR("Failed to duplicate node: deserialization failed.");
+            return nullptr;
+        }
+
+        new_node->InitializeConnections();
+        new_node->SetSelected(true);
+    } catch (const std::exception &e) {
+        auto new_node_it = std::find_if(
+            nodes_.begin(), nodes_.end(),
+            [new_node](const std::unique_ptr<NodeBase> &candidate) {
+                return candidate.get() == new_node;
+            });
+        if (new_node_it != nodes_.end()) {
+            nodes_.erase(new_node_it);
+        }
+
+        LOG_ERROR("Failed to duplicate node: {}", e.what());
+        return nullptr;
+    }
+
+    return new_node;
+}
+
+core::NodeBase *core::Graph::GetNode(uint32_t id) const {
+    auto it = std::find_if(nodes_.begin(), nodes_.end(),
+                           [id](const std::unique_ptr<NodeBase> &node) {
+                               return node->id() == id;
+                           });
+
+    return it != nodes_.end() ? it->get() : nullptr;
+}
+
+const std::vector<std::unique_ptr<core::NodeBase>> &core::Graph::GetAllNodes()
+    const noexcept {
+    return nodes_;
+}
+
+void core::Graph::Link(NodeBase *from, uint8_t out_pin, NodeBase *to,
+                       uint8_t in_pin) {
+    if (!from || !to) {
+        THROW_EXCEPTION(NodeNotFoundException, "{} node pointer is null",
+                        ((from == nullptr) ? "1st" : "2nd"));
+    }
+
+    // Check if nodes are in the local array
+    auto from_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
+
+    if (from_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "from node is not owned by this Graph");
+    }
+
+    // Check if nodes are in the local array
+    auto to_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
+
+    if (to_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "to node is not owned by this Graph");
+    }
+
+    // Check if pins exists
+    if (!from->OutputPinExists(out_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "from node has no output pin with an id of {}",
+                        out_pin);
+    }
+
+    if (!to->InputPinExists(in_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "to node has no input pin with an id of {}", in_pin);
+    }
+
+    // Check that types matches
+    auto from_type = from->GetOutputPinType(out_pin);
+    auto to_type = to->GetInputPinType(in_pin);
+
+    if (from_type != to_type) {
+        THROW_EXCEPTION(IncompatiblePinTypesException,
+                        "trying to connect in({}) to out({})",
+                        PinDataTypeToString(from_type),
+                        PinDataTypeToString(to_type));
+    }
+
+    // Check for circular dependency
+    if (from == to) {
+        THROW_EXCEPTION(CircularDependencyException,
+                        "cannot link a node to itself");
+    }
+
+    // Severe previous links if required
+    if (to->IsInputPinConnected(in_pin)) {
+        auto conn = to->parent(in_pin);
+        Unlink(conn.node, conn.out_pin, to, conn.in_pin);
+    }
+
+    // Link !
+    to->SetParent(in_pin, from, out_pin);
+    from->AddChild(out_pin, to, in_pin);
+}
+
+void core::Graph::Unlink(NodeBase *from, uint8_t out_pin, NodeBase *to,
+                         uint8_t in_pin) {
+    if (!from || !to) {
+        THROW_EXCEPTION(NodeNotFoundException, "{} node pointer is null",
+                        ((from == nullptr) ? "1st" : "2nd"));
+    }
+
+    // Check if nodes are in the local array
+    auto from_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [from](const std::unique_ptr<NodeBase> &n) { return from == n.get(); });
+
+    if (from_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "from node is not owned by this Graph");
+    }
+
+    // Check if nodes are in the local array
+    auto to_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [to](const std::unique_ptr<NodeBase> &n) { return to == n.get(); });
+
+    if (to_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "to node is not owned by this Graph");
+    }
+
+    // Check if pins exists
+    if (!from->OutputPinExists(out_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "from node has no output pin with an id of {}",
+                        out_pin);
+    }
+
+    if (!to->InputPinExists(in_pin)) {
+        THROW_EXCEPTION(InvalidPinIndexException,
+                        "to node has no input pin with an id of {}", in_pin);
+    }
+
+    to->ClearParent(in_pin);
+    from->RemoveChild(out_pin, to, in_pin);
+}
+
+uint8_t core::Graph::AddInputPin(NodeBase *node, const std::string &name,
+                                 NodeBase::PinDataType type) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    uint32_t input_node_id = 0;
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        auto *input_node = function_node->body().AddNode<FunctionInputNode>(
+            NodeBase::NodeKind::kFunctionInput, {0, 0});
+        if (input_node == nullptr) {
+            THROW_EXCEPTION(FunctionNodeException,
+                            "Failed to create FunctionInputNode for pin");
+        }
+
+        input_node->SetName(name);
+        input_node->SetType(type);
+        input_node_id = input_node->id();
+    }
+
+    node->AddInputPin(name, type);
+    uint8_t pin_id = node->parents_.back().in_pin;
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        function_node->parameters_.push_back(
+            {name, type, pin_id, input_node_id});
+    }
+
+    return pin_id;
+}
+
+void core::Graph::RemoveInputPin(NodeBase *node, uint8_t index) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    if (index >= node->GetInputPinCount()) {
+        return;
+    }
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            uint32_t node_id = function_node->parameters_[index].node_id;
+            if (auto *input_node = function_node->body().GetNode(node_id)) {
+                function_node->body().RemoveNode(input_node);
+            }
+        }
+    }
+
+    for (const auto &conn : node->GetAllParents()) {
+        if (conn.in_pin == index && conn.IsConnected()) {
+            Unlink(conn.node, conn.out_pin, node, conn.in_pin);
+        }
+    }
+
+    if (auto *function_node = dynamic_cast<FunctionNode *>(node)) {
+        if (index < function_node->parameters_.size()) {
+            function_node->parameters_.erase(
+                function_node->parameters_.begin() + index);
+        }
+    }
+
+    node->RemoveInputPin(index);
+    node->InitializeConnections();
+}
+
+void core::Graph::RemoveInputPin(NodeBase *node, const std::string &name) {
+    if (node == nullptr) {
+        THROW_EXCEPTION(NodeNotFoundException, "node is nullptr");
+    }
+
+    auto owner_it = std::find_if(
+        nodes_.begin(), nodes_.end(),
+        [node](const std::unique_ptr<NodeBase> &n) { return n.get() == node; });
+    if (owner_it == nodes_.end()) {
+        THROW_EXCEPTION(NodeNotFoundException,
+                        "node is not owned by this Graph");
+    }
+
+    for (uint8_t i = 0; i < node->GetInputPinCount(); ++i) {
+        if (node->GetInputPinName(i) == name) {
+            RemoveInputPin(node, i);
+            return;
+        }
+    }
+}
+
+std::unique_ptr<core::NodeBase> core::Graph::CreateNode(
+    uint32_t id, NodeBase::NodeKind kind, utils::WrappedVector2 position) {
+    std::unique_ptr<NodeBase> node;
+
+    switch (kind) {
+        case NodeBase::NodeKind::kLiteral:
+            node = std::unique_ptr<LiteralNode>(
+                new LiteralNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kVariable:
+            node = std::unique_ptr<VariableNode>(
+                new VariableNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kFunction:
+            node = std::unique_ptr<FunctionNode>(
+                new FunctionNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kFunctionInput:
+            node = std::unique_ptr<FunctionInputNode>(
+                new FunctionInputNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kFunctionOutput:
+            node = std::unique_ptr<FunctionOutputNode>(
+                new FunctionOutputNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kOperator:
+            node = std::unique_ptr<OperatorNode>(
+                new OperatorNode(id, kind, position));
+            break;
+
+        case NodeBase::NodeKind::kCondition:
+
+        case NodeBase::NodeKind::kLoop:
+
+        case NodeBase::NodeKind::kUndefined:
+        default:
+            return nullptr;
+    }
+
+    return node;
+}
+
+nlohmann::json core::Graph::Serialize() const {
+    nlohmann::json json;
+
+    // Serialize metadata
+    json["metadata"]["project_name"] = project_name_;
+    json["metadata"]["version"] = version_;
+    json["metadata"]["author"] = author_;
+
+    // Convert timestamps to ISO 8601 strings
+    auto to_iso8601 = [](const std::chrono::system_clock::time_point &tp) {
+        auto time = std::chrono::system_clock::to_time_t(tp);
+        std::stringstream ss;
+        ss << std::put_time(std::gmtime(&time), "%Y-%m-%dT%H:%M:%SZ");
+        return ss.str();
+    };
+
+    json["metadata"]["created_at"] = to_iso8601(created_at_);
+    json["metadata"]["modified_at"] = to_iso8601(modified_at_);
+
+    // Serialize graph data
+    json["graph"]["next_id"] = id_manager_.current_id();
+
+    // Serialize nodes
+    nlohmann::json nodes_array = nlohmann::json::array();
+    for (const auto &node : nodes_) {
+        nodes_array.push_back(node->Serialize());
+    }
+    json["graph"]["nodes"] = nodes_array;
+
+    // Serialize connections
+    nlohmann::json connections_array = nlohmann::json::array();
+    for (const auto &source_node : nodes_) {
+        for (const auto &conn : source_node->GetAllChildrens()) {
+            if (conn.IsConnected()) {
+                nlohmann::json connection;
+                connection["source_node_id"] = source_node->id();
+                connection["source_pin"] = conn.out_pin;
+                connection["target_node_id"] = conn.node->id();
+                connection["target_pin"] = conn.in_pin;
+                connections_array.push_back(connection);
+            }
+        }
+    }
+    json["graph"]["connections"] = connections_array;
+
+    return json;
+}
+
+std::expected<core::Graph, std::string> core::Graph::Deserialize(
+    const nlohmann::json &json) {
+    // Validate JSON structure
+    if (!json.contains("metadata") || !json.contains("graph")) {
+        return std::unexpected(
+            "Missing required top-level sections: metadata or graph");
+    }
+
+    const auto &metadata = json["metadata"];
+    const auto &graph_data = json["graph"];
+
+    // Validate metadata fields
+    if (!metadata.contains("project_name") || !metadata.contains("version")) {
+        return std::unexpected("Missing required metadata fields");
+    }
+
+    // Validate version
+    std::string version = metadata["version"].get<std::string>();
+    if (version != "1.0") {
+        return std::unexpected("Unsupported .nebula format version: " +
+                               version);
+    }
+
+    // Create new graph
+    Graph graph;
+
+    // Restore metadata
+    try {
+        graph.project_name_ = metadata["project_name"].get<std::string>();
+        graph.version_ = metadata["version"].get<std::string>();
+
+        if (metadata.contains("author")) {
+            graph.author_ = metadata["author"].get<std::string>();
+        }
+
+        // Parse timestamps from ISO 8601 strings
+        auto parse_iso8601 = [](const std::string &iso_str)
+            -> std::chrono::system_clock::time_point {
+            std::tm tm = {};
+            std::istringstream ss(iso_str);
+            ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%SZ");
+            auto time =
+                std::chrono::system_clock::from_time_t(std::mktime(&tm));
+            return time;
+        };
+
+        if (metadata.contains("created_at")) {
+            graph.created_at_ =
+                parse_iso8601(metadata["created_at"].get<std::string>());
+        }
+        if (metadata.contains("modified_at")) {
+            graph.modified_at_ =
+                parse_iso8601(metadata["modified_at"].get<std::string>());
+        }
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to parse metadata: ") +
+                               e.what());
+    }
+
+    // Validate graph structure
+    if (!graph_data.contains("next_id") || !graph_data.contains("nodes") ||
+        !graph_data.contains("connections")) {
+        return std::unexpected(
+            "Missing required graph fields: next_id, nodes, or connections");
+    }
+
+    // Restore next_id
+    try {
+        graph.id_manager_ =
+            utils::IdManager<uint32_t>(graph_data["next_id"].get<uint32_t>());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to parse next_id: ") +
+                               e.what());
+    }
+
+    // Deserialize nodes
+    const auto &nodes_array = graph_data["nodes"];
+    if (!nodes_array.is_array()) {
+        return std::unexpected("Field 'nodes' is not an array");
+    }
+
+    std::map<uint32_t, NodeBase *> id_to_node_map;
+
+    for (const auto &node_json : nodes_array) {
+        auto result = NodeBase::DeserializeFactory(node_json, &graph);
+        if (!result) {
+            return std::unexpected("Failed to deserialize node: " +
+                                   result.error());
+        }
+
+        auto &node_ptr = result.value();
+        uint32_t node_id = node_ptr->id();
+        id_to_node_map[node_id] = node_ptr.get();
+        graph.nodes_.push_back(std::move(node_ptr));
+    }
+
+    // Restore connections
+    const auto &connections_array = graph_data["connections"];
+    if (!connections_array.is_array()) {
+        return std::unexpected("Field 'connections' is not an array");
+    }
+
+    for (const auto &conn_json : connections_array) {
+        if (!conn_json.contains("source_node_id") ||
+            !conn_json.contains("source_pin") ||
+            !conn_json.contains("target_node_id") ||
+            !conn_json.contains("target_pin")) {
+            return std::unexpected("Connection missing required fields");
+        }
+
+        try {
+            uint32_t source_id = conn_json["source_node_id"].get<uint32_t>();
+            uint8_t source_pin = conn_json["source_pin"].get<uint8_t>();
+            uint32_t target_id = conn_json["target_node_id"].get<uint32_t>();
+            uint8_t target_pin = conn_json["target_pin"].get<uint8_t>();
+
+            // Find nodes by ID
+            auto source_it = id_to_node_map.find(source_id);
+            auto target_it = id_to_node_map.find(target_id);
+
+            if (source_it == id_to_node_map.end()) {
+                return std::unexpected(
+                    "Connection references non-existent source node ID: " +
+                    std::to_string(source_id));
+            }
+            if (target_it == id_to_node_map.end()) {
+                return std::unexpected(
+                    "Connection references non-existent target node ID: " +
+                    std::to_string(target_id));
+            }
+
+            NodeBase *source = source_it->second;
+            NodeBase *target = target_it->second;
+
+            // Validate pin ids
+            if (!source->OutputPinExists(source_pin)) {
+                return std::unexpected("Source pin index out of bounds");
+            }
+            if (!target->InputPinExists(target_pin)) {
+                return std::unexpected("Target pin index out of bounds");
+            }
+
+            // Validate pin type compatibility
+            auto type_result =
+                source->CanConnectTo(source_pin, target, target_pin);
+            if (!type_result) {
+                return std::unexpected("Nodes cannot be connected: " +
+                                       type_result.error());
+            }
+
+            // Establish the connection
+            graph.Link(source, source_pin, target, target_pin);
+        } catch (const std::exception &e) {
+            return std::unexpected(std::string("Failed to parse connection: ") +
+                                   e.what());
+        }
+    }
+
+    return graph;
+}
+
+std::expected<void, std::string> core::Graph::SaveToFile(
+    const std::filesystem::path &path) {
+    try {
+        // Update modified timestamp before saving
+        UpdateModifiedTime();
+
+        // Serialize the graph
+        nlohmann::json json = Serialize();
+
+        // Write to file with pretty printing
+        std::ofstream file(path);
+        if (!file.is_open()) {
+            return std::unexpected("Failed to open file for writing: " +
+                                   path.string());
+        }
+
+        file << json.dump(4) << std::endl;
+        file.close();
+
+        return {};
+    } catch (const std::filesystem::filesystem_error &e) {
+        return std::unexpected(std::string("Filesystem error: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to save graph: ") +
+                               e.what());
+    }
+}
+
+std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
+    const std::filesystem::path &path) {
+    try {
+        // Check if file exists
+        if (!std::filesystem::exists(path)) {
+            return std::unexpected("File does not exist: " + path.string());
+        }
+
+        // Read file
+        std::ifstream file(path);
+        if (!file.is_open()) {
+            return std::unexpected("Failed to open file for reading: " +
+                                   path.string());
+        }
+
+        // Parse JSON
+        nlohmann::json json;
+        try {
+            file >> json;
+        } catch (const nlohmann::json::parse_error &e) {
+            return std::unexpected(std::string("Failed to parse JSON: ") +
+                                   e.what());
+        }
+
+        file.close();
+
+        // Deserialize the graph
+        return Deserialize(json);
+    } catch (const std::filesystem::filesystem_error &e) {
+        return std::unexpected(std::string("Filesystem error: ") + e.what());
+    } catch (const std::exception &e) {
+        return std::unexpected(std::string("Failed to load graph: ") +
+                               e.what());
+    }
+}
+
+void core::Graph::DrawConnections(
+    const std::vector<core::NodeBase::Connection> *const &childrens,
+    const std::unique_ptr<core::NodeBase> &node) {
+    if (childrens) {
+        for (const auto &conn : (*childrens)) {
+            if (conn.IsConnected()) {
+                utils::WrappedVector2 start =
+                    GetOutputPinPosition(*node, conn.out_pin);
+                utils::WrappedVector2 end =
+                    GetInputPinPosition(*conn.node, conn.in_pin);
+                utils::DrawLineBezierWrapped(start, end, 2, utils::GRAY);
+            }
+        }
+    }
+}
+
+void core::Graph::Draw() {
+    // Draw connections first (behind everything)
+    for (const auto &node : nodes_) {
+        for (uint8_t i = 0; i < node->GetOutputPinCount(); i++) {
+            const auto &childrens = node->Childrens(i);
+            DrawConnections(childrens, node);
+        }
+    }
+
+    // Draw pins between connections and node bodies
+    for (const auto &node : nodes_) {
+        node->DrawPins();
+    }
+
+    // Draw node bodies on top
+    for (const auto &node : nodes_) {
+        node->DrawBody();
+    }
+}
+
+void core::Graph::CheckNodeMovement() {
+    if (context_menu_open_ || linking_from_node_ != nullptr) {
+        return;
+    }
+
+    if (active_drag_node_ != nullptr) {
+        if (!utils::isLeftDown()) {
+            active_drag_node_->follow_mouse_ = false;
+            active_drag_node_ = nullptr;
+            return;
+        }
+
+        active_drag_node_->MoveNode();
+        return;
+    }
+
+    if (utils::isLeftClicked() && !IsMouseOverAnyPin()) {
+        NodeBase *node = GetNodeUnderMouse();
+        if (node != nullptr) {
+            ClearSelection();
+            node->SetSelected(true);
+            node->follow_mouse_ = true;
+            node->PrepareDrag();
+            active_drag_node_ = node;
+        }
+    }
+
+    if (active_drag_node_ != nullptr) {
+        active_drag_node_->MoveNode();
+        return;
+    }
+
+    if (IsMouseOverAnyPin()) {
+        return;
+    }
+
+    for (const auto &node : nodes_) {
+        node->ClickNode();
+
+        if (node->follow_mouse_) {
+            active_drag_node_ = node.get();
+            break;
+        }
+    }
+
+    if (active_drag_node_ != nullptr && utils::isLeftDown()) {
+        active_drag_node_->MoveNode();
+    }
+}
+
+void core::Graph::LinkNodes(const std::unique_ptr<core::NodeBase> &node) {
+    if (linking_from_node_ == nullptr) {
+        linking_from_node_ = node.get();
+    } else {
+        if (node.get() == linking_from_node_) {
+            linking_from_node_ = nullptr;
+            return;
+        }
+        try {
+            Link(linking_from_node_, linking_from_pin_, node.get(), 0);
+        } catch (const std::exception &e) {
+            LOG_ERROR("Failed to link nodes: {}", e.what());
+        }
+        linking_from_node_ = nullptr;
+    }
+}
+
+void core::Graph::SelectForLink() {
+    if (context_menu_open_ || active_drag_node_ != nullptr) {
+        return;
+    }
+
+    if (linking_from_node_ == nullptr) {
+        if (utils::isLeftClicked()) {
+            // Prefer the frontmost node (reverse iteration)
+            for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+                const auto &node = *it;
+                // Check outputs first
+                for (uint8_t out_pin = 0; out_pin < node->GetOutputPinCount();
+                     ++out_pin) {
+                    if (IsMouseOverOutputPin(*node, out_pin)) {
+                        linking_from_node_ = node.get();
+                        linking_from_pin_ = out_pin;
+                        linking_from_is_input_ = false;
+                        break;
+                    }
+                }
+
+                if (linking_from_node_ != nullptr) {
+                    break;
+                }
+
+                // If no output was targeted, allow starting from an input pin
+                for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                     ++in_pin) {
+                    if (IsMouseOverInputPin(*node, in_pin)) {
+                        linking_from_node_ = node.get();
+                        linking_from_pin_ = in_pin;
+                        linking_from_is_input_ = true;
+                        break;
+                    }
+                }
+
+                if (linking_from_node_ != nullptr) {
+                    break;
+                }
+            }
+        }
+    }
+
+    if (linking_from_node_) {
+        utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+        utils::WrappedVector2 start;
+        if (linking_from_is_input_) {
+            start = GetInputPinPosition(*linking_from_node_, linking_from_pin_);
+        } else {
+            start =
+                GetOutputPinPosition(*linking_from_node_, linking_from_pin_);
+        }
+
+        // Draw dynamic Bezier preview matching permanent connection style
+        utils::DrawLineBezierWrapped(start, cursor_pos, 2, utils::GRAY);
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            NodeBase *target_node = nullptr;
+            uint8_t target_pin = 0;
+
+            if (linking_from_is_input_) {
+                // We started from an input pin: look for an output under cursor
+                for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+                    const auto &node = *it;
+                    for (uint8_t out_pin = 0;
+                         out_pin < node->GetOutputPinCount(); ++out_pin) {
+                        if (IsMouseOverOutputPin(*node, out_pin)) {
+                            target_node = node.get();
+                            target_pin = out_pin;
+                            break;
+                        }
+                    }
+
+                    if (target_node != nullptr) {
+                        break;
+                    }
+                }
+
+                if (target_node != nullptr) {
+                    try {
+                        // Link(output_node, out_pin, input_node, in_pin)
+                        Link(target_node, target_pin, linking_from_node_,
+                             linking_from_pin_);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
+                    }
+                }
+            } else {
+                // Normal direction: output -> input
+                for (const auto &node : nodes_) {
+                    for (uint8_t in_pin = 0; in_pin < node->GetInputPinCount();
+                         ++in_pin) {
+                        if (IsMouseOverInputPin(*node, in_pin)) {
+                            target_node = node.get();
+                            target_pin = in_pin;
+                            break;
+                        }
+                    }
+
+                    if (target_node != nullptr) {
+                        break;
+                    }
+                }
+
+                if (target_node != nullptr) {
+                    try {
+                        Link(linking_from_node_, linking_from_pin_, target_node,
+                             target_pin);
+                    } catch (const std::exception &e) {
+                        LOG_ERROR("Failed to link nodes: {}", e.what());
+                    }
+                }
+            }
+
+            linking_from_node_ = nullptr;
+            linking_from_is_input_ = false;
+        }
+    }
+}
+
+void core::Graph::SelectWithMouse() {
+    if (context_menu_open_ || active_drag_node_ != nullptr ||
+        linking_from_node_ != nullptr) {
+        return;
+    }
+
+    if (utils::isLeftClicked() && IsMouseOverAnyPin()) {
+        return;
+    }
+
+    if (utils::isLeftClicked()) {
+        for (const auto &node : nodes_) {
+            if (node->IsMouseOver()) {
+                return;
+            }
+        }
+        ClearSelection();
+    }
+
+    if (utils::isLeftClicked()) {
+        if (!is_selecting_) {
+            utils::WrappedVector2 start = utils::GetCursorPositionWrapped();
+            selection_start_ = {start.x, start.y};
+            is_selecting_ = true;
+        }
+    } else {
+        if (is_selecting_) {
+            // Select the nodes within the selection rectangle
+            utils::WrappedVector2 end = utils::GetCursorPositionWrapped();
+            for (const auto &node : nodes_) {
+                utils::WrappedVector2 node_pos = {node->GetPosition().x,
+                                                  node->GetPosition().y};
+
+                float left = std::min(selection_start_.x, end.x);
+                float top = std::min(selection_start_.y, end.y);
+                float right = std::max(selection_start_.x, end.x);
+                float bottom = std::max(selection_start_.y, end.y);
+
+                utils::WrappedRectangle selection_rect = {
+                    left, top, right - left, bottom - top};
+                if (utils::CheckCollisionPointRecWrapped(node_pos,
+                                                         selection_rect)) {
+                    node->SetSelected(true);
+                } else {
+                    node->SetSelected(false);
+                }
+            }
+        }
+        is_selecting_ = false;
+    }
+
+    // Draw the square and color the nodes
+    if (is_selecting_) {
+        utils::WrappedVector2 current = utils::GetCursorPositionWrapped();
+        utils::DrawRectangleLinesWrapped(
+            std::min(selection_start_.x, current.x),
+            std::min(selection_start_.y, current.y),
+            std::abs(current.x - selection_start_.x),
+            std::abs(current.y - selection_start_.y), utils::GRAY);
+
+        for (const auto &node : nodes_) {
+            utils::WrappedVector2 node_pos = {node->GetPosition().x,
+                                              node->GetPosition().y};
+
+            float left = std::min(selection_start_.x, current.x);
+            float top = std::min(selection_start_.y, current.y);
+            float right = std::max(selection_start_.x, current.x);
+            float bottom = std::max(selection_start_.y, current.y);
+
+            utils::WrappedRectangle selection_rect = {left, top, right - left,
+                                                      bottom - top};
+            if (utils::CheckCollisionPointRecWrapped(node_pos,
+                                                     selection_rect)) {
+                node->SetSelected(true);
+            } else {
+                node->SetSelected(false);
+            }
+        }
+    }
+}
+
+void core::Graph::DeleteWithMouse() {
+    if (context_menu_open_ || active_drag_node_ != nullptr ||
+        linking_from_node_ != nullptr) {
+        return;
+    }
+
+    if (!IsKeyPressed(KEY_DELETE) && !IsKeyPressed(KEY_BACKSPACE)) {
+        return;
+    }
+
+    std::vector<NodeBase *> nodes_to_delete;
+    for (const auto &node : nodes_) {
+        if (node->IsSelected()) {
+            nodes_to_delete.push_back(node.get());
+        }
+    }
+
+    for (NodeBase *node : nodes_to_delete) {
+        if (node != nullptr) {
+            try {
+                RemoveNode(node);
+            } catch (const std::exception &e) {
+                LOG_ERROR("Failed to delete node: {}", e.what());
+            }
+        }
+    }
+}
+
+void core::Graph::LinkingWithMouse() { SelectForLink(); }
+
+void core::Graph::DuplicateSelectedNode() {
+    NodeBase *selected_node = GetFirstSelectedNode();
+    if (selected_node == nullptr) {
+        return;
+    }
+
+    ClearSelection();
+    DuplicateNode(selected_node);
+}
+
+void core::Graph::HandleContextMenu() {
+    if (active_drag_node_ != nullptr || linking_from_node_ != nullptr) {
+        return;
+    }
+
+    if (utils::isRightClicked()) {
+        NodeBase *node = GetNodeUnderMouse();
+        if (node != nullptr && !IsMouseOverAnyPin()) {
+            ClearSelection();
+            node->SetSelected(true);
+            context_menu_node_ = node;
+            context_menu_position_ = utils::GetCursorPositionWrapped();
+            context_menu_open_ = true;
+            return;
+        }
+    }
+
+    if (!context_menu_open_) {
+        return;
+    }
+
+    constexpr float kMenuWidth = 120.0f;
+    constexpr float kMenuItemHeight = 28.0f;
+    constexpr float kMenuHeight = kMenuItemHeight * 2.0f;
+
+    utils::WrappedRectangle menu_rect = {context_menu_position_.x,
+                                         context_menu_position_.y, kMenuWidth,
+                                         kMenuHeight};
+    utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+    bool is_hovered =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, menu_rect);
+
+    utils::DrawRectangleWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
+                                menu_rect.height, utils::DARKGRAY);
+    utils::DrawRectangleLinesWrapped(menu_rect.x, menu_rect.y, menu_rect.width,
+                                     menu_rect.height, utils::WHITE);
+
+    utils::WrappedRectangle duplicate_rect = {menu_rect.x, menu_rect.y,
+                                              menu_rect.width, kMenuItemHeight};
+    utils::WrappedRectangle delete_rect = {menu_rect.x,
+                                           menu_rect.y + kMenuItemHeight,
+                                           menu_rect.width, kMenuItemHeight};
+
+    bool is_hover_duplicate =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, duplicate_rect);
+    bool is_hover_delete =
+        utils::CheckCollisionPointRecWrapped(cursor_pos, delete_rect);
+
+    if (is_hover_duplicate) {
+        utils::DrawRectangleWrapped(duplicate_rect.x, duplicate_rect.y,
+                                    duplicate_rect.width, duplicate_rect.height,
+                                    utils::GRAY);
+    }
+    if (is_hover_delete) {
+        utils::DrawRectangleWrapped(delete_rect.x, delete_rect.y,
+                                    delete_rect.width, delete_rect.height,
+                                    utils::GRAY);
+    }
+
+    utils::DrawTextWrapped("Duplicate", menu_rect.x + 10.0f, menu_rect.y + 7.0f,
+                           14,
+                           is_hover_duplicate ? utils::YELLOW : utils::WHITE);
+    utils::DrawTextWrapped("Delete", menu_rect.x + 10.0f,
+                           menu_rect.y + kMenuItemHeight + 7.0f, 14,
+                           is_hover_delete ? utils::YELLOW : utils::WHITE);
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (is_hover_duplicate) {
+            DuplicateSelectedNode();
+        } else if (is_hover_delete && context_menu_node_ != nullptr) {
+            try {
+                RemoveNode(context_menu_node_);
+            } catch (const std::exception &e) {
+                LOG_ERROR("Failed to delete node from context menu: {}",
+                          e.what());
+            }
+        }
+
+        context_menu_node_ = nullptr;
+        context_menu_open_ = false;
+    }
+}
