@@ -115,6 +115,7 @@ class NodeBase {
     const std::vector<Connection> &GetAllParents() const noexcept;
 
     /**
+     * @warning DEPRECATED, use GetAllChildrens instead !
      * @brief Retrieves all connections for a given output pin.
      * @param output_pin The index of the output pin.
      *
