@@ -27,7 +27,26 @@ const sidebars: SidebarsConfig = {
             id: 'dev/architecture/core/intro'
           },
           items: [
-            'dev/architecture/core/graph'
+            'dev/architecture/core/graph',
+            'dev/architecture/core/node',
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Core C Nodes',
+          link: {
+            type: 'doc',
+            id: 'dev/architecture/nodes/intro'
+          },
+          items: [
+            'dev/architecture/nodes/literal-node',
+            'dev/architecture/nodes/variable-node',
+            'dev/architecture/nodes/function-node',
+            'dev/architecture/nodes/function-input-node',
+            'dev/architecture/nodes/function-output-node',
+            'dev/architecture/nodes/operator-node',
+            'dev/architecture/nodes/condition-node',
+            'dev/architecture/nodes/loop-node',
           ]
         }
       ]

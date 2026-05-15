@@ -158,9 +158,23 @@ class Graph {
                         NodeBase::PinDataType type);
 
     /**
-     * @brief Removes an input pin from a node by index.
+     * @brief Adds an input pin to a node.
      *
-     * If the input pin is connected, this method disconnects it before removal.
+     * For FunctionNode, this updates both the input pins and creates a matching
+     * FunctionInputNode in the function body graph.
+     *
+     * @param node The target node.
+     * @param name Pin name.
+     * @param type Pin data type.
+     * @return The pin ID of the newly added input pin.
+     */
+    uint8_t AddOutputPin(NodeBase *node, const std::string &name,
+                        NodeBase::PinDataType type);
+
+    /**
+     * @brief Removes an output pin from a node by index.
+     *
+     * If the output pin is connected, this method disconnects it before removal.
      *
      * @param node The target node.
      * @param index Input pin index.
@@ -174,6 +188,24 @@ class Graph {
      * @param name Input pin name.
      */
     void RemoveInputPin(NodeBase *node, const std::string &name);
+
+    /**
+     * @brief Removes an output pin from a node by index.
+     *
+     * If the output pin is connected, this method disconnects it before removal.
+     *
+     * @param node The target node.
+     * @param index Input pin index.
+     */
+    void RemoveOutputPin(NodeBase *node, uint8_t index);
+
+    /**
+     * @brief Removes an output pin from a node by name.
+     *
+     * @param node The target node.
+     * @param name Input pin name.
+     */
+    void RemoveOutputPin(NodeBase *node, const std::string &name);
 
     /**
      * @brief Gets the project name.
