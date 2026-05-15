@@ -217,8 +217,15 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetOutputPinNa
 <tr class="separator:a3af2aab64e135b34ce5e3181d53c05af inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7462871226558dfe3472356a666fd20a inherit pub_methods_classcore_1_1NodeBase" id="r_a7462871226558dfe3472356a666fd20a"><td class="memItemLeft" align="right" valign="top">
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()</td></tr>
-<tr class="memdesc:a7462871226558dfe3472356a666fd20a inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node in the editor. <br /></td></tr>
+<tr class="memdesc:a7462871226558dfe3472356a666fd20a inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node in the editor (legacy full draw). <br /></td></tr>
 <tr class="separator:a7462871226558dfe3472356a666fd20a inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c7b4b79a0679476fdaef749446619e inherit pub_methods_classcore_1_1NodeBase" id="r_a92c7b4b79a0679476fdaef749446619e"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawBody</b> ()</td></tr>
+<tr class="memdesc:a92c7b4b79a0679476fdaef749446619e inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw only the node body (rectangle, texts, selection border). <br /></td></tr>
+<tr class="separator:a92c7b4b79a0679476fdaef749446619e inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9b3d2d30a97c6e5750f60f0a695ae5 inherit pub_methods_classcore_1_1NodeBase" id="r_a5a9b3d2d30a97c6e5750f60f0a695ae5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a5a9b3d2d30a97c6e5750f60f0a695ae5">DrawPins</a> ()</td></tr>
+<tr class="memdesc:a5a9b3d2d30a97c6e5750f60f0a695ae5 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw only the pins (circles).  <br /></td></tr>
+<tr class="separator:a5a9b3d2d30a97c6e5750f60f0a695ae5 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a53aa9631b7ecf5b854a6eb682ff134 inherit pub_methods_classcore_1_1NodeBase" id="r_a7a53aa9631b7ecf5b854a6eb682ff134"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ClickNode</b> ()</td></tr>
 <tr class="memdesc:a7a53aa9631b7ecf5b854a6eb682ff134 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the node. <br /></td></tr>
@@ -231,6 +238,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveNode</b> ()</td><
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetColor</b> (unsigned char r, unsigned char g, unsigned char b)</td></tr>
 <tr class="memdesc:a63d7e7b9663a31d5c3c09765684d21cc inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the node color. <br /></td></tr>
 <tr class="separator:a63d7e7b9663a31d5c3c09765684d21cc inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adffef1d8b3bc6dd3f7a5da757a4dc906 inherit pub_methods_classcore_1_1NodeBase" id="r_adffef1d8b3bc6dd3f7a5da757a4dc906"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSelected</b> (bool selected) noexcept</td></tr>
+<tr class="memdesc:adffef1d8b3bc6dd3f7a5da757a4dc906 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this node as selected or unselected. <br /></td></tr>
+<tr class="separator:adffef1d8b3bc6dd3f7a5da757a4dc906 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6aa8cbf0da49cde0fea26ffd5d418e4 inherit pub_methods_classcore_1_1NodeBase" id="r_af6aa8cbf0da49cde0fea26ffd5d418e4"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSelected</b> () const noexcept</td></tr>
+<tr class="memdesc:af6aa8cbf0da49cde0fea26ffd5d418e4 inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this node is selected. <br /></td></tr>
+<tr class="separator:af6aa8cbf0da49cde0fea26ffd5d418e4 inherit pub_methods_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af23224ebac2d9885f8ae2680d1c232fb inherit pub_methods_classcore_1_1NodeBase" id="r_af23224ebac2d9885f8ae2680d1c232fb"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PrepareDrag</b> ()</td></tr>
 <tr class="memdesc:af23224ebac2d9885f8ae2680d1c232fb inherit pub_methods_classcore_1_1NodeBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepare the node for dragging <br /></td></tr>
@@ -328,6 +343,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>follow_mouse_</b> = f
 <tr class="memitem:a9e252191032a6478742e6a2bfae3ccc5 inherit pro_attribs_classcore_1_1NodeBase" id="r_a9e252191032a6478742e6a2bfae3ccc5"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="structutils_1_1WrappedColor.html">utils::WrappedColor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>initial_color_</b> = {130, 130, 130}</td></tr>
 <tr class="separator:a9e252191032a6478742e6a2bfae3ccc5 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc0b1908ef7b313d5b937b088e8bfb3 inherit pro_attribs_classcore_1_1NodeBase" id="r_a1bc0b1908ef7b313d5b937b088e8bfb3"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>selected_</b> = false</td></tr>
+<tr class="separator:a1bc0b1908ef7b313d5b937b088e8bfb3 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a551aba3aa39a8c519501cb8ff81dca10 inherit pro_attribs_classcore_1_1NodeBase" id="r_a551aba3aa39a8c519501cb8ff81dca10"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="classutils_1_1IdManager.html">utils::IdManager</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin_id_manager_</b></td></tr>
 <tr class="separator:a551aba3aa39a8c519501cb8ff81dca10 inherit pro_attribs_classcore_1_1NodeBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
