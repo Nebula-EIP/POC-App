@@ -19,15 +19,9 @@ concurrency:
 on:
   push:
     branches: [main]
-    paths:
-      - 'docs/**'
-      - 'src/**'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, closed]
     branches: [main, dev]
-    paths:
-      - 'docs/**'
-      - 'src/**'
 
 jobs:
   build-docs:
