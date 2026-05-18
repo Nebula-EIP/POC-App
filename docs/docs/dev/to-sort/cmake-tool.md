@@ -1,3 +1,7 @@
+---
+id: cmake-tool
+---
+
 # Guide Utilisateur - Outil de Compilation CMake
 
 ## Vue d'ensemble

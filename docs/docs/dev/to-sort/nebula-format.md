@@ -1,3 +1,7 @@
+---
+id: nebula-format
+---
+
 # .nebula File Format Specification
 
 **Version:** 1.0
