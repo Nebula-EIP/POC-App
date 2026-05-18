@@ -258,8 +258,15 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetDis
 <tr class="separator:ab3f1e755f39a636fbd986cdc28b797c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7462871226558dfe3472356a666fd20a" id="r_a7462871226558dfe3472356a666fd20a"><td class="memItemLeft" align="right" valign="top"><a id="a7462871226558dfe3472356a666fd20a" name="a7462871226558dfe3472356a666fd20a"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Draw</b> ()</td></tr>
-<tr class="memdesc:a7462871226558dfe3472356a666fd20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node in the editor. <br /></td></tr>
+<tr class="memdesc:a7462871226558dfe3472356a666fd20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node in the editor (legacy full draw). <br /></td></tr>
 <tr class="separator:a7462871226558dfe3472356a666fd20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92c7b4b79a0679476fdaef749446619e" id="r_a92c7b4b79a0679476fdaef749446619e"><td class="memItemLeft" align="right" valign="top"><a id="a92c7b4b79a0679476fdaef749446619e" name="a92c7b4b79a0679476fdaef749446619e"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>DrawBody</b> ()</td></tr>
+<tr class="memdesc:a92c7b4b79a0679476fdaef749446619e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw only the node body (rectangle, texts, selection border). <br /></td></tr>
+<tr class="separator:a92c7b4b79a0679476fdaef749446619e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9b3d2d30a97c6e5750f60f0a695ae5" id="r_a5a9b3d2d30a97c6e5750f60f0a695ae5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a5a9b3d2d30a97c6e5750f60f0a695ae5">DrawPins</a> ()</td></tr>
+<tr class="memdesc:a5a9b3d2d30a97c6e5750f60f0a695ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw only the pins (circles).  <br /></td></tr>
+<tr class="separator:a5a9b3d2d30a97c6e5750f60f0a695ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a53aa9631b7ecf5b854a6eb682ff134" id="r_a7a53aa9631b7ecf5b854a6eb682ff134"><td class="memItemLeft" align="right" valign="top"><a id="a7a53aa9631b7ecf5b854a6eb682ff134" name="a7a53aa9631b7ecf5b854a6eb682ff134"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ClickNode</b> ()</td></tr>
 <tr class="memdesc:a7a53aa9631b7ecf5b854a6eb682ff134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the node. <br /></td></tr>
@@ -272,6 +279,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveNode</b> ()</td><
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetColor</b> (unsigned char r, unsigned char g, unsigned char b)</td></tr>
 <tr class="memdesc:a63d7e7b9663a31d5c3c09765684d21cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the node color. <br /></td></tr>
 <tr class="separator:a63d7e7b9663a31d5c3c09765684d21cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adffef1d8b3bc6dd3f7a5da757a4dc906" id="r_adffef1d8b3bc6dd3f7a5da757a4dc906"><td class="memItemLeft" align="right" valign="top"><a id="adffef1d8b3bc6dd3f7a5da757a4dc906" name="adffef1d8b3bc6dd3f7a5da757a4dc906"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSelected</b> (bool selected) noexcept</td></tr>
+<tr class="memdesc:adffef1d8b3bc6dd3f7a5da757a4dc906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this node as selected or unselected. <br /></td></tr>
+<tr class="separator:adffef1d8b3bc6dd3f7a5da757a4dc906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6aa8cbf0da49cde0fea26ffd5d418e4" id="r_af6aa8cbf0da49cde0fea26ffd5d418e4"><td class="memItemLeft" align="right" valign="top"><a id="af6aa8cbf0da49cde0fea26ffd5d418e4" name="af6aa8cbf0da49cde0fea26ffd5d418e4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSelected</b> () const noexcept</td></tr>
+<tr class="memdesc:af6aa8cbf0da49cde0fea26ffd5d418e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this node is selected. <br /></td></tr>
+<tr class="separator:af6aa8cbf0da49cde0fea26ffd5d418e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af23224ebac2d9885f8ae2680d1c232fb" id="r_af23224ebac2d9885f8ae2680d1c232fb"><td class="memItemLeft" align="right" valign="top"><a id="af23224ebac2d9885f8ae2680d1c232fb" name="af23224ebac2d9885f8ae2680d1c232fb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PrepareDrag</b> ()</td></tr>
 <tr class="memdesc:af23224ebac2d9885f8ae2680d1c232fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepare the node for dragging <br /></td></tr>
@@ -346,6 +361,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>follow_mouse_</b> = f
 <tr class="memitem:a9e252191032a6478742e6a2bfae3ccc5" id="r_a9e252191032a6478742e6a2bfae3ccc5"><td class="memItemLeft" align="right" valign="top"><a id="a9e252191032a6478742e6a2bfae3ccc5" name="a9e252191032a6478742e6a2bfae3ccc5"></a>
 <a class="el" href="structutils_1_1WrappedColor.html">utils::WrappedColor</a>&#160;</td><td class="memItemRight" valign="bottom"><b>initial_color_</b> = {130, 130, 130}</td></tr>
 <tr class="separator:a9e252191032a6478742e6a2bfae3ccc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc0b1908ef7b313d5b937b088e8bfb3" id="r_a1bc0b1908ef7b313d5b937b088e8bfb3"><td class="memItemLeft" align="right" valign="top"><a id="a1bc0b1908ef7b313d5b937b088e8bfb3" name="a1bc0b1908ef7b313d5b937b088e8bfb3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>selected_</b> = false</td></tr>
+<tr class="separator:a1bc0b1908ef7b313d5b937b088e8bfb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a551aba3aa39a8c519501cb8ff81dca10" id="r_a551aba3aa39a8c519501cb8ff81dca10"><td class="memItemLeft" align="right" valign="top"><a id="a551aba3aa39a8c519501cb8ff81dca10" name="a551aba3aa39a8c519501cb8ff81dca10"></a>
 <a class="el" href="classutils_1_1IdManager.html">utils::IdManager</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>in_pin_id_manager_</b></td></tr>
 <tr class="separator:a551aba3aa39a8c519501cb8ff81dca10"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -849,6 +867,34 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An expected containing a unique_ptr to the deserialized node, or an error message if deserialization fails. </dd></dl>
+
+</div>
+</div>
+<a id="a5a9b3d2d30a97c6e5750f60f0a695ae5" name="a5a9b3d2d30a97c6e5750f60f0a695ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9b3d2d30a97c6e5750f60f0a695ae5">&#9670;&#160;</a></span>DrawPins()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::NodeBase::DrawPins </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draw only the pins (circles). </p>
+<p>Placed between links and node bodies when rendering the scene. </p>
 
 </div>
 </div>

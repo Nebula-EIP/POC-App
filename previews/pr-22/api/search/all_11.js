@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['unlink_0',['Unlink',['../classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52',1,'core::Graph']]],
-  ['updatemodifiedtime_1',['UpdateModifiedTime',['../classcore_1_1Graph.html#a55f948f20d03cc29af50cbb5c3109bbf',1,'core::Graph']]]
+  ['type_0',['type',['../structcore_1_1NodeBase_1_1Connection.html#aa65f811851d6ebd027701d8ab745a6d5',1,'core::NodeBase::Connection::type'],['../structcore_1_1NodeBase_1_1OutputPin.html#ab1c2c29b71ecfd61c2f2d5c0a0f50954',1,'core::NodeBase::OutputPin::type']]]
 ];
