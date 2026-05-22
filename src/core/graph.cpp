@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <map>
 #include <sstream>
+#include <iostream>
 
 #include "logger.hpp"
 #include "nodes/function_input_node.hpp"
@@ -28,7 +29,8 @@ core::Graph::Graph()
       version_("1.0"),
       author_(""),
       created_at_(std::chrono::system_clock::now()),
-      modified_at_(std::chrono::system_clock::now()) {}
+      modified_at_(std::chrono::system_clock::now()),
+      save_button_(utils::WrappedRectangle{0, 0, 100, 100}) {}
 
 void core::Graph::SetProjectName(const std::string &name) {
     project_name_ = name;
@@ -839,6 +841,10 @@ void core::Graph::Draw() {
     for (const auto &node : nodes_) {
         node->DrawBody();
     }
+
+    utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
+                                save_button_.width, save_button_.height,
+                                utils::DARKGRAY);
 }
 
 void core::Graph::CheckNodeMovement() {
@@ -1229,5 +1235,19 @@ void core::Graph::HandleContextMenu() {
 
         context_menu_node_ = nullptr;
         context_menu_open_ = false;
+    }
+}
+
+void core::Graph::CheckSaveButtonClick() {
+    if (utils::isLeftClicked()) {
+        utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
+        if (utils::CheckCollisionPointRecWrapped(cursor_pos, save_button_)) {
+            auto save_result = SaveToFile("graph.nebula");
+            if (!save_result) {
+                LOG_ERROR("Failed to save graph: {}", save_result.error());
+            } else {
+                LOG_INFO("Graph saved successfully to graph.nebula");
+            }
+        }
     }
 }

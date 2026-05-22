@@ -337,6 +337,7 @@ class Graph {
      */
     void DuplicateSelectedNode();
 
+    void CheckSaveButtonClick();
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -348,6 +349,7 @@ class Graph {
      */
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
                                          utils::WrappedVector2 position);
+
 
     bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
@@ -385,6 +387,9 @@ class Graph {
     std::string author_;
     std::chrono::system_clock::time_point created_at_;
     std::chrono::system_clock::time_point modified_at_;
+
+    utils::WrappedRectangle save_button_;
+    std::string save_file_;
 };
 
 }  // namespace core
