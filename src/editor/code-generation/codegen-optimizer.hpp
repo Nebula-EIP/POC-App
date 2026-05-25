@@ -14,38 +14,53 @@ class Graph;
 
 namespace editor::code_generation {
 
-// Type information for a node
 struct TypeInfo {
     core::NodeBase::PinDataType type;
     bool is_constant = false;
-    bool is_used = false;  // Whether this value is actually used
+    bool is_used = false;
 };
 
-// Results of dead code analysis
 struct DeadCodeAnalysis {
-    std::unordered_set<uint32_t> dead_nodes;  // Node IDs that are not used
+    std::unordered_set<uint32_t> dead_nodes;
     std::unordered_map<uint32_t, TypeInfo>
-        type_info;  // Type info for each node
+        type_info;
 };
 
-// Optimizer for graph computations
 class CodegenOptimizer {
    public:
     CodegenOptimizer() = default;
 
-    // Analyze graph for dead code and type information
+    /**
+     * @brief Analyzes the graph for dead code and infers types of node outputs.
+     * @param graph The input graph to analyze
+     * @return A DeadCodeAnalysis struct containing sets of dead nodes and type information
+     */
     DeadCodeAnalysis AnalyzeGraph(const core::Graph &graph);
 
-    // Infer types for all nodes in the graph
+    /**
+     * @brief Infers the data types of node outputs based on their connections and usage in the graph.
+     * @param graph The input graph to analyze
+     * @param type_map An output parameter that will be filled with node ID to PinDataType mappings for each node's output pins
+     */
     void InferTypes(
         const core::Graph &graph,
         std::unordered_map<uint32_t, core::NodeBase::PinDataType> &type_map);
 
-    // Find all nodes that contribute to the final result
+    /**
+     * @brief Finds all nodes that are used in the graph.
+     * @param graph The input graph to analyze
+     * @return A set of node IDs that are used in the graph
+     */
     std::unordered_set<uint32_t> FindUsedNodes(const core::Graph &graph);
 
    private:
-    // Helper: recursively mark nodes as used
+
+   /**
+    * @brief Recursively marks nodes as used starting from output nodes and following connections backwards.
+    * @param node_id The ID of the node to mark as used
+    * @param graph The graph context to find connections
+    * @param used_nodes A set that accumulates the IDs of used nodes
+    */
     void MarkAsUsed(uint32_t node_id, const core::Graph &graph,
                     std::unordered_set<uint32_t> &used_nodes);
 };
