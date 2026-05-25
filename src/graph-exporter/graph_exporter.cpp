@@ -15,9 +15,9 @@ std::string GraphExporter::BuildSourceText(
     return oss.str();
 }
 
-std::expected<std::filesystem::path, std::string> GraphExporter::ValidateRequest(
-    const std::filesystem::path &output_directory,
-    const std::string &file_stem) {
+std::expected<std::filesystem::path, std::string>
+GraphExporter::ValidateRequest(const std::filesystem::path &output_directory,
+                               const std::string &file_stem) {
     if (file_stem.empty()) {
         return std::unexpected(std::string{"File stem cannot be empty"});
     }
@@ -31,20 +31,18 @@ std::expected<std::filesystem::path, std::string> GraphExporter::ValidateRequest
 
 std::expected<std::filesystem::path, std::string> GraphExporter::ExportCpp(
     const core::Graph &graph, const std::filesystem::path &output_directory,
-    const std::string &file_stem, bool with_outputs,
-    bool print_all_results, bool fold_constants) const {
+    const std::string &file_stem, bool with_outputs, bool print_all_results,
+    bool fold_constants) const {
     const auto kTargetPath = ValidateRequest(output_directory, file_stem);
     if (!kTargetPath.has_value()) {
         return std::unexpected(kTargetPath.error());
     }
 
     editor::code_generation::CodegenContext codegen_context;
-    const auto kGeneratedFile = with_outputs
-                                    ? codegen_context.GenerateWithOutputs(
-                                graph, print_all_results,
-                                fold_constants)
-                            : codegen_context.Generate(graph,
-                                              fold_constants);
+    const auto kGeneratedFile =
+        with_outputs ? codegen_context.GenerateWithOutputs(
+                           graph, print_all_results, fold_constants)
+                     : codegen_context.Generate(graph, fold_constants);
 
     file_writing::FileWriter writer;
     if (!writer.WriteToFile(kTargetPath->string(),
