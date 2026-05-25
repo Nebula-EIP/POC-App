@@ -69,7 +69,8 @@ std::expected<void, std::string> OperatorNode::CanConnectTo(
 
     if (target->kind() == NodeKind::kPrint && in_pin == 1) {
         if (GetOutputPinType(out_pin) == PinDataType::kVoid) {
-            return std::unexpected("Type mismatch between output and target input");
+            return std::unexpected(
+                "Type mismatch between output and target input");
         }
         return {};
     }
