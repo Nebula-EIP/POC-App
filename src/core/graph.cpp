@@ -1014,7 +1014,7 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
     }
 }
 
-const std::vector<Edge> &core::Graph::GetEdges() const noexcept {
+const std::vector<core::Graph::Edge> &core::Graph::GetEdges() const noexcept {
     return edges_;
 }
 
