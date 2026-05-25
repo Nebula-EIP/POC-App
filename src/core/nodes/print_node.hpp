@@ -55,7 +55,8 @@ class PrintNode : public NodeBase {
     std::string GetDisplayName() const noexcept override;
 
     /**
-     * @brief Gets the category of this node for organizational purposes in the UI.
+     * @brief Gets the category of this node for organizational purposes in the
+     * UI.
      * @return The category name of the node.
      */
     std::string GetCategory() const noexcept override;
@@ -79,7 +80,8 @@ class PrintNode : public NodeBase {
     friend NodeBase;
 
     /**
-     * @brief Private constructor for PrintNode, called by the Graph when creating a new node.
+     * @brief Private constructor for PrintNode, called by the Graph when
+     * creating a new node.
      * @param id The unique identifier for this node.
      * @param kind The kind of the node, should be NodeKind::kPrint.
      * @param position The initial position of the node in the editor.
