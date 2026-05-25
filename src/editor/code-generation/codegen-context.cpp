@@ -574,7 +574,7 @@ static const core::NodeBase::Connection *FindParentConnection(
             // We want to mark the data that flows INTO this node
             for (const auto &parent_conn : node->GetAllParents()) {
                 if (parent_conn.IsConnected() && parent_conn.node != nullptr) {
-                    const auto parent_kind = parent_conn.node->kind();
+                    auto parent_kind = parent_conn.node->kind();
                     // Skip if parent is a control structure (those shouldn't be deferred)
                     if (parent_kind != core::NodeBase::NodeKind::kCondition &&
                         parent_kind != core::NodeBase::NodeKind::kLoop &&
@@ -665,7 +665,7 @@ static const core::NodeBase::Connection *FindParentConnection(
         // Emit parents first
         for (const auto &p : n->GetAllParents()) {
             if (p.IsConnected() && p.node != nullptr) {
-                const auto parent_kind = p.node->kind();
+                auto parent_kind = p.node->kind();
                 if (parent_kind == core::NodeBase::NodeKind::kCondition ||
                     parent_kind == core::NodeBase::NodeKind::kLoop ||
                     parent_kind == core::NodeBase::NodeKind::kFor) {
