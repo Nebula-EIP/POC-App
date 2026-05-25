@@ -9,25 +9,11 @@
 
 namespace core {
 
-// Forward declarations
 class Graph;
 class NodeBase;
 
-/**
- * @class GraphValidator
- * @brief Validates a graph for correctness before code generation.
- *
- * GraphValidator performs three main checks:
- * 1. Cycle detection using colored DFS (WHITE/GRAY/BLACK)
- * 2. Pin type compatibility verification
- * 3. Required pin connectivity verification
- */
 class GraphValidator {
    public:
-    /**
-     * @struct ValidationError
-     * @brief Represents a single validation error found in the graph.
-     */
     struct ValidationError {
         enum class ErrorType {
             kCycleDetected,             ///< Circular dependency found
@@ -66,12 +52,6 @@ class GraphValidator {
 
     /**
      * @brief Validates a graph for correctness.
-     *
-     * Performs all validation checks:
-     * - Cycle detection (DFS colored)
-     * - Pin type compatibility
-     * - Required input pin connectivity
-     *
      * @param graph The graph to validate
      * @return ValidationResult containing all found errors and validity status
      */
@@ -87,7 +67,6 @@ class GraphValidator {
 
     /**
      * @brief Detects cycles using DFS with coloring.
-     *
      * @param graph The graph to check
      * @return Vector of ValidationErrors for any cycles found
      */
@@ -95,7 +74,6 @@ class GraphValidator {
 
     /**
      * @brief Recursively performs DFS for cycle detection.
-     *
      * @param node_id Current node being processed
      * @param colors Color state of each node
      * @param parent_id Previous node in path (for error reporting)
@@ -110,11 +88,6 @@ class GraphValidator {
 
     /**
      * @brief Validates pin type compatibility on all edges.
-     *
-     * For each connection in the graph, verifies that:
-     * - Source pin type matches destination pin type, OR
-     * - Types are implicitly convertible (int→float, etc.)
-     *
      * @param graph The graph to check
      * @return Vector of ValidationErrors for any type mismatches
      */
@@ -122,10 +95,6 @@ class GraphValidator {
 
     /**
      * @brief Validates that all required input pins are connected.
-     *
-     * For each node, checks that all input pins that require a connection
-     * are actually connected to something.
-     *
      * @param graph The graph to check
      * @return Vector of ValidationErrors for missing connections
      */
@@ -133,11 +102,6 @@ class GraphValidator {
 
     /**
      * @brief Checks if two pin types are compatible.
-     *
-     * Compatible means:
-     * - Exact match (int==int)
-     * - Implicit conversion (int→float, etc.)
-     *
      * @param source_type Type of source pin (as int from enum)
      * @param target_type Type of target pin (as int from enum)
      * @return true if compatible
