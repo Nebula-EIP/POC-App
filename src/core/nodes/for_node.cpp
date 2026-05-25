@@ -43,7 +43,8 @@ std::expected<void, std::string> ForNode::CanConnectTo(
     uint8_t out_pin, const NodeBase *target, uint8_t in_pin) const noexcept {
     if (!target) return std::unexpected(std::string("Target node is null"));
     if (GetOutputPinType(out_pin) != target->GetInputPinType(in_pin)) {
-        return std::unexpected(std::string("Incompatible pin types for ForNode output"));
+        return std::unexpected(
+            std::string("Incompatible pin types for ForNode output"));
     }
     return {};
 }
