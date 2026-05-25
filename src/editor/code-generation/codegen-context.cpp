@@ -559,10 +559,6 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
     std::unordered_map<uint32_t, std::string> symbol_for_node;
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
 
-    // Identify nodes that should be deferred for emission inside control
-    // structures We defer nodes that are in the body of control structures, but
-    // NOT nodes that are direct inputs to the control structure itself (like
-    // condition expressions)
     std::unordered_set<uint32_t> nodes_in_control_body;
     std::unordered_set<uint32_t>
         control_structure_inputs;  // Direct inputs to control structures
@@ -570,13 +566,10 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
     std::function<void(const core::NodeBase *)> mark_node_and_deps =
         [&](const core::NodeBase *node) {
             if (nodes_in_control_body.count(node->id())) {
-                return;  // Already marked
+                return;
             }
             nodes_in_control_body.insert(node->id());
 
-            // Mark transitive parents (data dependencies) - but not if they're
-            // control structures We want to mark the data that flows INTO this
-            // node
             for (const auto &parent_conn : node->GetAllParents()) {
                 if (parent_conn.IsConnected() && parent_conn.node != nullptr) {
                     auto parent_kind = parent_conn.node->kind();
@@ -591,9 +584,6 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
             }
         };
 
-    // First, mark all direct inputs to control structures AS DEFERRED (they'll
-    // be inlined) This includes condition expressions which should not be
-    // pre-calculated
     for (const auto *node : order) {
         if (node->kind() == core::NodeBase::NodeKind::kFor) {
             // Mark init, cond, step inputs (pins 0, 1, 2) and their deps
@@ -614,8 +604,6 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
         }
     }
 
-    // Mark all children of control structures (control flow + data deps), but
-    // not control inputs
     for (const auto *node : order) {
         if (node->kind() == core::NodeBase::NodeKind::kFor ||
             node->kind() == core::NodeBase::NodeKind::kCondition ||
@@ -882,9 +870,6 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
             const auto *cond_conn = FindParentConnection(*node, 1);
             const auto *step_conn = FindParentConnection(*node, 2);
 
-            // Function to inline expressions for loop parameters
-            // This doesn't use pre-calculated symbols; it builds the expression
-            // directly
             std::function<std::string(const core::NodeBase *, PinDataType)>
                 inline_expr = [&](const core::NodeBase *source_node,
                                   PinDataType fallback_type) -> std::string {
