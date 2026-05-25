@@ -2,184 +2,198 @@
 sidebar_position: 2
 ---
 
-# Pipeline de génération C++
+# C++ Code Generation Pipeline
 
-Cette page décrit l’algorithme utilisé pour transformer un graphe Nebula en code C++ généré.
+This page describes the algorithm used to transform a Nebula graph into generated C++ code.
 
-## Objectif
+## Goal
 
-Le but est simple : prendre un graphe de nœuds connecté, vérifier qu’il est valide, ordonner ses dépendances, puis produire un fichier C++ compilable.
+The goal is straightforward: take a connected node graph, validate it, order its dependencies, and produce a compilable C++ file.
 
-L’algorithme essaie de respecter deux priorités :
+The generator mainly aims to do two things:
 
-1. générer un code correct et compilable
-2. garder un code lisible quand on veut exporter un exemple humainement compréhensible
+1. produce correct, compilable code
+2. keep the output readable for demos and human-friendly exports
 
-## Vue d’ensemble
+## Overview
 
-Le pipeline complet suit ces étapes :
+The current pipeline follows these steps:
 
-1. validation du graphe
-2. tri topologique des nœuds
-3. génération des expressions et des instructions
-4. gestion des blocs de contrôle (`if`, `while`, `for`)
-5. option de pliage de constantes
-6. export du résultat en fichier `.cpp`
+1. graph validation
+2. topological sorting of nodes
+3. emission of C++ expressions and statements
+4. special handling for control blocks (`if`, `else`, `while`, `for`)
+5. optional constant folding
+6. export to a `.cpp` file
 
-## 1. Validation du graphe
+## 1. Graph Validation
 
-Avant toute génération, le graphe est validé par `GraphValidator`.
+Before generation starts, the graph is validated by `GraphValidator`.
 
-### Ce que cette phase vérifie
+### What this phase checks
 
-- absence de cycle dans les dépendances
-- compatibilité des types entre pins connectés
-- présence des connexions obligatoires
-- cohérence des entrées et sorties attendues par chaque nœud
+- dependency cycles
+- type compatibility between connected pins
+- required connections
+- consistency of each node’s expected inputs and outputs
 
-### Pourquoi c’est important
+### Why it matters
 
-Sans cette étape, le générateur pourrait produire un code incohérent, voire entrer dans une boucle infinie lors de l’analyse des dépendances.
+Without this step, the generator could produce incoherent code or try to emit invalid dependencies.
 
-## 2. Tri topologique
+## 2. Topological Sort
 
-Une fois le graphe valide, les nœuds sont ordonnés avec un tri topologique de type Kahn.
+Once the graph is valid, the nodes are ordered with a Kahn-style topological sort.
 
-### Rôle du tri topologique
+### Purpose of the sort
 
-- garantir qu’un nœud est généré après ses dépendances
-- éviter de référencer une variable C++ avant sa déclaration
-- stabiliser l’ordre d’émission du code
+- ensure a node is generated after its data dependencies
+- keep the emission order stable
+- make the final C++ easier to emit sequentially
 
-### Résultat
+### Important note
 
-Le générateur reçoit une liste ordonnée de nœuds dans un ordre compatible avec l’émission séquentielle du C++.
+The topological order is the base, but the generator can still defer some nodes when they belong to the body of a control block. This avoids emitting loop or branch calculations too early.
 
-## 3. Émission du code
+## 3. Code Emission
 
-`CodegenContext` transforme ensuite les nœuds en lignes C++.
+`CodegenContext` then transforms nodes into C++ lines.
 
-### Types de nœuds gérés
+### Node types supported today
 
-- `Literal` : produit une constante C++
-- `Operator` : produit une expression arithmétique, logique ou comparative
-- `Print` : produit un `std::cout`
-- `Condition` : produit un bloc `if` / `else`
-- `Loop` : produit un bloc `while`
-- `For` : produit un bloc `for`
+- `Literal`: emits a C++ constant (`lit_0`, `lit_1`, etc.)
+- `Variable`: emits a variable name that can be reused in expressions
+- `Operator`: emits an arithmetic, logical, or comparison expression
+- `Print`: emits a `std::cout`
+- `Condition`: emits an `if` / `else` block
+- `Loop`: emits a `while` block
+- `For`: emits a `for` block
 
-### Principe d’émission
+### Emission principle
 
-Le générateur parcourt les nœuds ordonnés et crée un symbole C++ par nœud, par exemple :
+The generator walks the ordered nodes and assigns a C++ symbol to the nodes that need to be materialized in the final file.
 
-- `lit_0` pour une constante
-- `tmp_3` pour un opérateur intermédiaire
-- `result_0` pour un résultat visible dans la version avec sorties
+Examples of symbols:
 
-## 4. Gestion des blocs de contrôle
+- `lit_0` for a constant
+- `tmp_3` for an intermediate operator
+- `i` for a loop variable or a named variable
 
-Les nœuds de contrôle ont un traitement spécial.
+### Control-expression emission
+
+The conditions for `if`, `while`, and `for` are handled specially:
+
+- expressions needed by the control block are inlined when necessary
+- body nodes are deferred until the block is emitted
+- this avoids generating code that references a loop variable before it is declared
+
+## 4. Control Blocks
+
+Control nodes have dedicated handling.
 
 ### `Condition`
 
-- lit la condition booléenne depuis l’entrée
-- émet `if (...) {`
-- émet les nœuds de la branche vraie
-- émet éventuellement `else { ... }`
+- reads the boolean condition from its input
+- emits `if (...) {`
+- emits the true branch nodes
+- optionally emits `else { ... }`
 
 ### `Loop`
 
-- lit la condition booléenne depuis l’entrée
-- émet `while (...) {`
-- émet les nœuds du corps de boucle
+- reads the boolean condition from its input
+- emits `while (...) {`
+- emits the loop body nodes
 
 ### `For`
 
-- lit l’initialisation, la condition et l’incrément
-- émet `for (init; condition; increment) {`
-- émet les nœuds du corps de boucle
+- reads the initialization, condition, and increment inputs
+- emits `for (init; condition; increment) {`
+- emits the loop body nodes
 
 ### Indentation
 
-Les instructions à l’intérieur des blocs sont émises avec un niveau d’indentation supplémentaire pour rester lisibles.
+Statements inside blocks are emitted with an extra indentation level to keep the result readable.
 
-## 5. Pliage de constantes
+## 5. Constant Folding
 
-Le générateur peut simplifier certaines expressions si toutes les entrées sont connues à la génération.
+The generator can simplify some expressions when all inputs are known at generation time.
 
-### Exemple
+### Example
 
-Si le graphe contient `3 + 4`, le générateur peut produire directement `7`.
+If the graph contains `3 + 4`, the generator can emit `7` directly.
 
-### Mode configurable
+### Configurable mode
 
-Le pliage de constantes est optionnel :
+Constant folding is optional:
 
-- activé : code plus compact et plus optimisé
-- désactivé : code plus fidèle visuellement au graphe d’origine
+- enabled: shorter, more optimized code
+- disabled: output that more closely mirrors the original graph
 
-## 6. Export du fichier
+## 6. File Export
 
-`GraphExporter` prend le code généré et l’écrit dans `examples/output/`.
+`GraphExporter` takes the generated code and writes it to `examples/output/`.
 
-### Étapes de l’export
+### Export steps
 
-- validation de la requête d’export
-- génération du contenu C++
-- écriture du fichier sur disque
+- validate the export request
+- generate the C++ content
+- write the file to disk
 
-## Algo utilisés
+## Algorithms Used
 
-- **DFS** : détection de cycles dans le graphe
-- **Tri topologique de Kahn** : ordonnancement des nœuds
-- **Traversal récursif** : émission des sous-arbres et des branches
-- **Constant Folding** : calcul anticipé des expressions constantes
+- **Graph validation**: detects structural inconsistencies
+- **Kahn topological sort**: orders nodes
+- **Targeted recursive emission**: generates subtrees and branches
+- **Constant folding**: computes constant expressions ahead of time
 
-## Limites actuelles
+## Current Limits
 
-Le système fonctionne bien pour les cas déjà supportés, mais il a encore des limites.
+The system works well for the supported cases, but it still has limitations.
 
-### Types supportés
+### Supported types
 
 - `int`
 - `float` / `double`
 - `bool`
 - `string`
-- `void` pour les flux de contrôle
+- `void` for control flows
 
-### Types non supportés pour l’instant
+### Types not yet supported
 
 - `char`
 - `long`, `unsigned`, `size_t`
-- tableaux et conteneurs (`std::vector`, etc.)
-- structs et objets métier
-- pointeurs et références
-- types génériques ou templates utilisateur
+- arrays and containers (`std::vector`, etc.)
+- structs and domain objects
+- pointers and references
+- user-defined generic or template types
 
-### Limites fonctionnelles
+### Functional limitations
 
-- pas de `break` / `continue`
-- pas de variables mutables de type SSA ou d’assignation avancée
-- pas de pipeline IR intermédiaire
-- pas d’optimisations globales avancées
+- no `break` / `continue`
+- no user-defined functions or function calls
+- no `std::cin` / interactive input
+- no native arrays or collections
+- no intermediate IR pipeline
+- no advanced global optimizations
 
-## Pistes d’amélioration
+## Future Improvements
 
-Voici ce qu’on pourrait ajouter plus tard :
+Possible next additions:
 
-1. support de nouveaux types C++
-2. vraie gestion des variables mutables et des affectations
-3. nœud `for` dédié
-4. `break` et `continue`
-5. transformations intermédiaires avant émission C++
-6. optimisations plus avancées comme la suppression de code mort globale
-7. meilleure prise en charge des fonctions utilisateur et des scopes
-8. génération de code encore plus structurée avec une IR interne
+1. support for more C++ types
+2. real mutable variables and assignments
+3. dedicated nodes for functions and function calls
+4. `break` and `continue`
+5. `std::cin` and richer I/O
+6. arrays, vectors, and data structures
+7. intermediate transformations before C++ emission
+8. more advanced optimizations such as global dead-code elimination
+9. better scope and local-variable handling
 
-## Résumé
+## Summary
 
-Le générateur suit donc une chaîne assez classique :
+The generator follows a classic chain:
 
-**validation → tri topologique → émission C++ → export**
+**validation → topological sort → C++ emission → export**
 
-Le cœur de l’algorithme est déjà solide pour les graphes simples, les opérateurs, l’affichage, les conditions et les boucles. Les prochaines étapes naturelles sont surtout l’extension des types, des contrôles de flux et des optimisations.
+The core algorithm is already solid for simple graphs, operators, printing, conditions, and loops. The next natural steps are broader type support, more control-flow features, and stronger optimizations.
