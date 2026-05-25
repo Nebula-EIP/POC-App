@@ -810,9 +810,6 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         graph.nodes_.push_back(std::move(node_ptr));
     }
 
-    // Restore connections. If an explicit "edges" array is provided,
-    // prefer it and use that to link nodes; otherwise fall back to the
-    // legacy "connections" array.
     const auto &connections_array = graph_data["connections"];
     if (!connections_array.is_array()) {
         return std::unexpected("Field 'connections' is not an array");
@@ -822,8 +819,6 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         graph_data.contains("edges") && graph_data["edges"].is_array();
 
     if (!has_explicit_edges) {
-        // Legacy: use connections array to establish links (this will also
-        // populate graph.edges_ via Graph::Link).
         for (const auto &conn_json : connections_array) {
             if (!conn_json.contains("source_node_id") ||
                 !conn_json.contains("source_pin") ||
@@ -883,9 +878,6 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         }
     }
 
-    // Populate explicit edges_ storage: prefer explicit "edges" field if
-    // present, otherwise reconstruct from connections array for backward
-    // compatibility.
     if (graph_data.contains("edges") && graph_data["edges"].is_array()) {
         // Use explicit edges array to establish links and populate edges_.
         try {
@@ -1020,6 +1012,11 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
         return std::unexpected(std::string("Failed to load graph: ") +
                                e.what());
     }
+}
+
+const std::vector<Edge> &core::Graph::GetEdges() const noexcept
+{
+    return edges_;
 }
 
 void core::Graph::DrawConnections(
