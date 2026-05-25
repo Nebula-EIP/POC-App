@@ -5,10 +5,10 @@
 #include <iostream>
 
 #include "connection_exceptions.hpp"
+#include "nodes/for_node.hpp"
 #include "nodes/function_input_node.hpp"
 #include "nodes/function_node.hpp"
 #include "nodes/function_output_node.hpp"
-#include "nodes/for_node.hpp"
 #include "nodes/literal_node.hpp"
 #include "nodes/operator_node.hpp"
 #include "nodes/variable_node.hpp"
@@ -474,7 +474,8 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
                 std::string("Node kind not yet implemented: ") + kind_str);
 
         case NodeKind::kFor: {
-            auto for_node = std::unique_ptr<ForNode>(new ForNode(id, kind, position));
+            auto for_node =
+                std::unique_ptr<ForNode>(new ForNode(id, kind, position));
             auto result = for_node->Deserialize(json);
             if (!result) {
                 return std::unexpected(result.error());
