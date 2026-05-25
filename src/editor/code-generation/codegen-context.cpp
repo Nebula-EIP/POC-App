@@ -888,9 +888,9 @@ editor::code_generation::CodegenContext::Generate(const core::Graph &graph,
             std::function<std::string(const core::NodeBase *, PinDataType)>
                 inline_expr = [&](const core::NodeBase *source_node,
                                   PinDataType fallback_type) -> std::string {
-                if (source_node == nullptr)
+                if (source_node == nullptr) {
                     return DefaultCppExprFor(fallback_type);
-
+                }
                 // First check if this node has already been symbolified
                 const auto kSymbolIt = symbol_for_node.find(source_node->id());
                 if (kSymbolIt != symbol_for_node.end()) {
