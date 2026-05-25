@@ -29,7 +29,8 @@ class CodegenContext {
     /**
      * @brief Generates C++ code from the given graph, with options to print all
      * @param graph The input graph to generate code from
-     * @param print_all_results If true, adds print statements for all node outputs
+     * @param print_all_results If true, adds print statements for all node
+     * outputs
      * @param fold_constants If true, performs constant folding optimization
      * @return A CodeGeneratorFile containing the generated C++ code
      */
