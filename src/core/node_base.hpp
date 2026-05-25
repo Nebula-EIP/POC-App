@@ -228,9 +228,20 @@ class NodeBase {
     DeserializeFactory(const nlohmann::json &json, Graph *graph);
 
     /**
-     *@brief Draws the node in the editor.
+     *@brief Draws the node in the editor (legacy full draw).
      */
     virtual void Draw();
+
+    /**
+     * @brief Draw only the node body (rectangle, texts, selection border).
+     */
+    virtual void DrawBody();
+
+    /**
+     * @brief Draw only the pins (circles). Placed between links and node
+     * bodies when rendering the scene.
+     */
+    virtual void DrawPins();
 
     /**
      * @brief Select the node
@@ -246,6 +257,16 @@ class NodeBase {
      * @brief Set the node color
      */
     void SetColor(unsigned char r, unsigned char g, unsigned char b);
+
+    /**
+     * @brief Marks this node as selected or unselected.
+     */
+    void SetSelected(bool selected) noexcept;
+
+    /**
+     * @brief Returns whether this node is selected.
+     */
+    bool IsSelected() const noexcept;
 
     /**
      * @brief prepare the node for dragging
@@ -401,8 +422,9 @@ class NodeBase {
     utils::WrappedVector2 initial_position_ = {
         0.0f, 0.0f};  ///< Initial position for resetting
     bool follow_mouse_ = false;
-    utils::WrappedColor color_ = {130, 130, 130, 255};
-    utils::WrappedColor initial_color_ = {130, 130, 130, 255};
+    utils::WrappedColor color_ = {130, 130, 130};
+    utils::WrappedColor initial_color_ = {130, 130, 130};
+    bool selected_ = false;
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
     std::vector<Connection> parents_;  ///< Input pins (one entry per pin slot)
