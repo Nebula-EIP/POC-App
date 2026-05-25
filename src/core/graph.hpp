@@ -270,8 +270,11 @@ class Graph {
         uint8_t target_pin;
     };
 
-    // Accessor for explicit edge storage (read-only)
-    const std::vector<Edge> &GetEdges() const noexcept { return edges_; }
+    /**
+     * @brief Gets the list of explicit edges in the graph.
+     * @return A constant reference to the vector of edges.
+     */
+    const std::vector<Edge> &GetEdges() const noexcept;
 
     /**
      * @brief Saves the graph to a .nebula file.
