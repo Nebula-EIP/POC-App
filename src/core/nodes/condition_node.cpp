@@ -26,9 +26,11 @@ uint8_t ConditionNode::GetInputPinCount() const noexcept { return 1; }
 uint8_t ConditionNode::GetOutputPinCount() const noexcept { return 2; }
 
 NodeBase::PinDataType ConditionNode::GetInputPinType(uint8_t pin) const {
+    (void)pin;
     return PinDataType::kBool;
 }
 NodeBase::PinDataType ConditionNode::GetOutputPinType(uint8_t pin) const {
+    (void)pin;
     return PinDataType::kVoid;
 }
 
