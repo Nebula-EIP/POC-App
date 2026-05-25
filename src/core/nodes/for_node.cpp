@@ -36,6 +36,7 @@ NodeBase::PinDataType ForNode::GetInputPinType(uint8_t pin) const {
 }
 
 NodeBase::PinDataType ForNode::GetOutputPinType(uint8_t pin) const {
+    (void)pin;
     return PinDataType::kVoid;
 }
 
