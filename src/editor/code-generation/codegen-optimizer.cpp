@@ -12,20 +12,17 @@ namespace editor::code_generation {
 using PinDataType = core::NodeBase::PinDataType;
 using OperatorType = core::OperatorNode::OperatorType;
 
-// Helper: get the output type of a node
 static PinDataType GetNodeOutputType(const core::NodeBase *node) {
     if (!node) return PinDataType::kUndefined;
     return node->GetOutputPinType(0);
 }
 
-// Helper: get input type for a pin
 [[maybe_unused]] static PinDataType GetNodeInputType(const core::NodeBase *node,
                                                      uint8_t pin) {
     if (!node) return PinDataType::kUndefined;
     return node->GetInputPinType(pin);
 }
 
-// Helper: promote types (int + float = float)
 static PinDataType PromoteType(PinDataType lhs, PinDataType rhs) {
     // Float is highest type
     if (lhs == PinDataType::kFloat || rhs == PinDataType::kFloat) {
@@ -141,11 +138,7 @@ void CodegenOptimizer::InferTypes(
 
 DeadCodeAnalysis CodegenOptimizer::AnalyzeGraph(const core::Graph &graph) {
     DeadCodeAnalysis analysis;
-
-    // Find all used nodes
     auto used_nodes = FindUsedNodes(graph);
-
-    // Infer types
     std::unordered_map<uint32_t, PinDataType> type_map;
     InferTypes(graph, type_map);
 
