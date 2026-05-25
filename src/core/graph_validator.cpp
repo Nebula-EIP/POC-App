@@ -56,10 +56,6 @@ std::string GetInputPinNameForValidation(const NodeBase *node, uint8_t pin) {
 
 }  // namespace
 
-// ============================================================================
-// ValidationResult helper methods
-// ============================================================================
-
 bool GraphValidator::ValidationResult::HasCycleError() const {
     return std::any_of(
         errors.begin(), errors.end(), [](const ValidationError &e) {
@@ -84,10 +80,6 @@ bool GraphValidator::ValidationResult::HasPinConnectivityError() const {
         });
 }
 
-// ============================================================================
-// Main Validate method
-// ============================================================================
-
 GraphValidator::ValidationResult GraphValidator::Validate(const Graph &graph) {
     ValidationResult result;
     result.is_valid = true;
@@ -110,10 +102,6 @@ GraphValidator::ValidationResult GraphValidator::Validate(const Graph &graph) {
     result.is_valid = result.errors.empty();
     return result;
 }
-
-// ============================================================================
-// Cycle Detection - DFS Colored
-// ============================================================================
 
 std::vector<GraphValidator::ValidationError> GraphValidator::DetectCycles(
     const Graph &graph) {
@@ -190,10 +178,6 @@ bool GraphValidator::DFSVisit(uint32_t node_id,
     colors[node_id] = DFSColor::kBlack;
     return false;
 }
-
-// ============================================================================
-// Pin Type Compatibility Check
-// ============================================================================
 
 std::vector<GraphValidator::ValidationError>
 GraphValidator::CheckPinCompatibility(const Graph &graph) {
@@ -301,10 +285,6 @@ std::string GraphValidator::PinTypeToString(int type_int) {
     }
 }
 
-// ============================================================================
-// Pin Connectivity Check
-// ============================================================================
-
 std::vector<GraphValidator::ValidationError>
 GraphValidator::CheckPinConnectivity(const Graph &graph) {
     std::vector<ValidationError> errors;
@@ -318,19 +298,10 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
         // Check all input pins
         uint8_t input_count = GetInputPinCountForValidation(node.get());
         for (uint8_t pin = 0; pin < input_count; ++pin) {
-            // Note: For now, we check all input pins. Some nodes may have
-            // optional inputs, but that's a more advanced feature.
             if (!node->IsInputPinConnected(pin)) {
-                // Check if this node type requires this pin to be connected
-                // For now, we only check for nodes that explicitly require
-                // connections (e.g., OperatorNode, but not FunctionInputNode
-                // which can be unconstrained)
-
                 auto kind = node->kind();
                 bool requires_connection = false;
 
-                // Define which node types require all input pins to be
-                // connected
                 if (kind == NodeBase::NodeKind::kOperator ||
                     kind == NodeBase::NodeKind::kFunction) {
                     requires_connection = true;
@@ -360,9 +331,6 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
         uint8_t output_count = GetOutputPinCountForValidation(node.get());
         for (uint8_t pin = 0; pin < output_count; ++pin) {
             if (!node->IsOutputPinConnected(pin)) {
-                // Note: In many cases, unused outputs are acceptable (dead
-                // code) Only enforce this for nodes where outputs are required
-                // to be used
                 auto kind = node->kind();
                 bool requires_usage = false;
 
@@ -393,10 +361,6 @@ GraphValidator::CheckPinConnectivity(const Graph &graph) {
 
     return errors;
 }
-
-// ============================================================================
-// Helper Methods
-// ============================================================================
 
 NodeBase *GraphValidator::FindNodeById(const Graph &graph, uint32_t id) {
     return graph.GetNode(id);
