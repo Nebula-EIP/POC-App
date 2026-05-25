@@ -24,9 +24,11 @@ uint8_t LoopNode::GetInputPinCount() const noexcept { return 1; }
 uint8_t LoopNode::GetOutputPinCount() const noexcept { return 1; }
 
 NodeBase::PinDataType LoopNode::GetInputPinType(uint8_t pin) const {
+    (void)pin;
     return PinDataType::kBool;
 }
 NodeBase::PinDataType LoopNode::GetOutputPinType(uint8_t pin) const {
+    (void)pin;
     return PinDataType::kVoid;
 }
 
