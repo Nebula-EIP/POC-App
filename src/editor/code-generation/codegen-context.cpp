@@ -557,6 +557,84 @@ static const core::NodeBase::Connection *FindParentConnection(
     std::unordered_map<uint32_t, std::string> symbol_for_node;
     std::unordered_map<uint32_t, ConstantValue> folded_value_for_node;
 
+    // Identify nodes that should be deferred for emission inside control structures
+    // We defer nodes that are in the body of control structures, but NOT nodes that are
+    // direct inputs to the control structure itself (like condition expressions)
+    std::unordered_set<uint32_t> nodes_in_control_body;
+    std::unordered_set<uint32_t> control_structure_inputs;  // Direct inputs to control structures
+    
+    std::function<void(const core::NodeBase *)> mark_node_and_deps =
+        [&](const core::NodeBase *node) {
+            if (nodes_in_control_body.count(node->id())) {
+                return;  // Already marked
+            }
+            nodes_in_control_body.insert(node->id());
+            
+            // Mark transitive parents (data dependencies) - but not if they're control structures
+            // We want to mark the data that flows INTO this node
+            for (const auto &parent_conn : node->GetAllParents()) {
+                if (parent_conn.IsConnected() && parent_conn.node != nullptr) {
+                    const auto parent_kind = parent_conn.node->kind();
+                    // Skip if parent is a control structure (those shouldn't be deferred)
+                    if (parent_kind != core::NodeBase::NodeKind::kCondition &&
+                        parent_kind != core::NodeBase::NodeKind::kLoop &&
+                        parent_kind != core::NodeBase::NodeKind::kFor) {
+                        mark_node_and_deps(parent_conn.node);
+                    }
+                }
+            }
+        };
+    
+    // First, mark all direct inputs to control structures AS DEFERRED (they'll be inlined)
+    // This includes condition expressions which should not be pre-calculated
+    for (const auto *node : order) {
+        if (node->kind() == core::NodeBase::NodeKind::kFor) {
+            // Mark init, cond, step inputs (pins 0, 1, 2) and their deps
+            for (uint8_t pin = 0; pin < 3; ++pin) {
+                const auto *conn = FindParentConnection(*node, pin);
+                if (conn && conn->IsConnected() && conn->node) {
+                    // Mark the input itself and its dependencies as deferred
+                    mark_node_and_deps(conn->node);
+                }
+            }
+        } else if (node->kind() == core::NodeBase::NodeKind::kCondition ||
+                   node->kind() == core::NodeBase::NodeKind::kLoop) {
+            // Mark condition input (pin 0) and its deps
+            const auto *conn = FindParentConnection(*node, 0);
+            if (conn && conn->IsConnected() && conn->node) {
+                mark_node_and_deps(conn->node);
+            }
+        }
+    }
+    
+    // Mark all children of control structures (control flow + data deps), but not control inputs
+    for (const auto *node : order) {
+        if (node->kind() == core::NodeBase::NodeKind::kFor ||
+            node->kind() == core::NodeBase::NodeKind::kCondition ||
+            node->kind() == core::NodeBase::NodeKind::kLoop) {
+            // Mark direct children (control flow)
+            const auto *children = node->Childrens(0);
+            if (children) {
+                for (const auto &conn : *children) {
+                    if (conn.IsConnected() && conn.node != nullptr) {
+                        mark_node_and_deps(conn.node);
+                    }
+                }
+            }
+            // Also mark else-branch children if they exist
+            if (node->kind() == core::NodeBase::NodeKind::kCondition) {
+                const auto *else_children = node->Childrens(1);
+                if (else_children) {
+                    for (const auto &conn : *else_children) {
+                        if (conn.IsConnected() && conn.node != nullptr) {
+                            mark_node_and_deps(conn.node);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     auto get_operand_expr = [&](const core::NodeBase *node,
                                 uint8_t pin) -> std::string {
         const auto *connection = FindParentConnection(*node, pin);
@@ -731,6 +809,11 @@ static const core::NodeBase::Connection *FindParentConnection(
     // Iterate ordered nodes and emit, handling condition/loop specially
     for (const auto *node : order) {
         if (emitted.count(node->id())) continue;
+        
+        // Skip nodes that will be emitted inside control structures
+        if (nodes_in_control_body.count(node->id())) {
+            continue;
+        }
 
         if (node->kind() == core::NodeBase::NodeKind::kCondition) {
             // condition input is pin 0 (bool)
@@ -785,33 +868,71 @@ static const core::NodeBase::Connection *FindParentConnection(
             const auto *cond_conn = FindParentConnection(*node, 1);
             const auto *step_conn = FindParentConnection(*node, 2);
 
-            auto resolve_expr = [&](const core::NodeBase *source_node,
-                                    PinDataType fallback_type) -> std::string {
-                if (source_node == nullptr) return DefaultCppExprFor(fallback_type);
+            // Function to inline expressions for loop parameters
+            // This doesn't use pre-calculated symbols; it builds the expression directly
+            std::function<std::string(const core::NodeBase *, PinDataType)> inline_expr =
+                [&](const core::NodeBase *source_node, PinDataType fallback_type) -> std::string {
+                    if (source_node == nullptr) return DefaultCppExprFor(fallback_type);
 
-                const auto kSymbolIt = symbol_for_node.find(source_node->id());
-                if (kSymbolIt != symbol_for_node.end()) return kSymbolIt->second;
+                    // First check if this node has already been symbolified
+                    const auto kSymbolIt = symbol_for_node.find(source_node->id());
+                    if (kSymbolIt != symbol_for_node.end()) {
+                        return kSymbolIt->second;
+                    }
 
-                const auto kConstIt = folded_value_for_node.find(source_node->id());
-                if (fold_constants && kConstIt != folded_value_for_node.end()) {
-                    return ConstantToCpp(kConstIt->second);
-                }
+                    // For operators, inline the expression directly
+                    if (source_node->kind() == core::NodeBase::NodeKind::kOperator) {
+                        const auto *op = static_cast<const core::OperatorNode *>(source_node);
+                        if (op->IsUnaryOperator()) {
+                            const auto *parent_conn = FindParentConnection(*op, 0);
+                            const auto *parent_node = parent_conn ? parent_conn->node : nullptr;
+                            const std::string kOperand = inline_expr(parent_node, op->GetInputPinType(0));
+                            return OpSymbol(op->operator_type()) + "(" + kOperand + ")";
+                        } else {
+                            const auto *left_conn = FindParentConnection(*op, 0);
+                            const auto *right_conn = FindParentConnection(*op, 1);
+                            const auto *left_node = left_conn ? left_conn->node : nullptr;
+                            const auto *right_node = right_conn ? right_conn->node : nullptr;
+                            const std::string kLeft = inline_expr(left_node, op->GetInputPinType(0));
+                            const std::string kRight = inline_expr(right_node, op->GetInputPinType(1));
+                            return "(" + kLeft + " " + OpSymbol(op->operator_type()) + " " +
+                                   kRight + ")";
+                        }
+                    }
 
-                return DefaultCppExprFor(fallback_type);
-            };
+                    // For literals, use their direct value
+                    if (source_node->kind() == core::NodeBase::NodeKind::kLiteral) {
+                        const auto *lit = static_cast<const core::LiteralNode *>(source_node);
+                        return LiteralToCpp(*lit);
+                    }
+
+                    // For variables, use their name
+                    if (source_node->kind() == core::NodeBase::NodeKind::kVariable) {
+                        const auto *var = static_cast<const core::VariableNode *>(source_node);
+                        return var->name();
+                    }
+
+                    // Default fallback
+                    const auto kConstIt = folded_value_for_node.find(source_node->id());
+                    if (fold_constants && kConstIt != folded_value_for_node.end()) {
+                        return ConstantToCpp(kConstIt->second);
+                    }
+
+                    return DefaultCppExprFor(fallback_type);
+                };
 
             std::string init_expr = DefaultCppExprFor(node->GetInputPinType(0));
             std::string cond_expr = DefaultCppExprFor(node->GetInputPinType(1));
             std::string step_expr = DefaultCppExprFor(node->GetInputPinType(2));
 
             if (init_conn != nullptr && init_conn->IsConnected() && init_conn->node != nullptr) {
-                init_expr = resolve_expr(init_conn->node, node->GetInputPinType(0));
+                init_expr = inline_expr(init_conn->node, node->GetInputPinType(0));
             }
             if (cond_conn != nullptr && cond_conn->IsConnected() && cond_conn->node != nullptr) {
-                cond_expr = resolve_expr(cond_conn->node, node->GetInputPinType(1));
+                cond_expr = inline_expr(cond_conn->node, node->GetInputPinType(1));
             }
             if (step_conn != nullptr && step_conn->IsConnected() && step_conn->node != nullptr) {
-                step_expr = resolve_expr(step_conn->node, node->GetInputPinType(2));
+                step_expr = inline_expr(step_conn->node, node->GetInputPinType(2));
             }
 
             const auto *for_node = static_cast<const core::ForNode *>(node);
