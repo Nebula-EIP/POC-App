@@ -99,16 +99,108 @@ $(document).ready(function(){initNavTree('classeditor_1_1code__generation_1_1Cod
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a921e9d5eb1a42f7255cc3c5db2292d48" id="r_a921e9d5eb1a42f7255cc3c5db2292d48"><td class="memItemLeft" align="right" valign="top"><a id="a921e9d5eb1a42f7255cc3c5db2292d48" name="a921e9d5eb1a42f7255cc3c5db2292d48"></a>
-<a class="el" href="structeditor_1_1code__generation_1_1DeadCodeAnalysis.html">DeadCodeAnalysis</a>&#160;</td><td class="memItemRight" valign="bottom"><b>AnalyzeGraph</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph)</td></tr>
+<tr class="memitem:a921e9d5eb1a42f7255cc3c5db2292d48" id="r_a921e9d5eb1a42f7255cc3c5db2292d48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structeditor_1_1code__generation_1_1DeadCodeAnalysis.html">DeadCodeAnalysis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1code__generation_1_1CodegenOptimizer.html#a921e9d5eb1a42f7255cc3c5db2292d48">AnalyzeGraph</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph)</td></tr>
+<tr class="memdesc:a921e9d5eb1a42f7255cc3c5db2292d48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyzes the graph for dead code and infers types of node outputs.  <br /></td></tr>
 <tr class="separator:a921e9d5eb1a42f7255cc3c5db2292d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5cc912a80a5d85076a3260ea68444f2" id="r_ae5cc912a80a5d85076a3260ea68444f2"><td class="memItemLeft" align="right" valign="top"><a id="ae5cc912a80a5d85076a3260ea68444f2" name="ae5cc912a80a5d85076a3260ea68444f2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InferTypes</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, std::unordered_map&lt; uint32_t, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">core::NodeBase::PinDataType</a> &gt; &amp;type_map)</td></tr>
+<tr class="memitem:ae5cc912a80a5d85076a3260ea68444f2" id="r_ae5cc912a80a5d85076a3260ea68444f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1code__generation_1_1CodegenOptimizer.html#ae5cc912a80a5d85076a3260ea68444f2">InferTypes</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, std::unordered_map&lt; uint32_t, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">core::NodeBase::PinDataType</a> &gt; &amp;type_map)</td></tr>
+<tr class="memdesc:ae5cc912a80a5d85076a3260ea68444f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Infers the data types of node outputs based on their connections and usage in the graph.  <br /></td></tr>
 <tr class="separator:ae5cc912a80a5d85076a3260ea68444f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776729e8e9c7ccb6feaee2f2602d6645" id="r_a776729e8e9c7ccb6feaee2f2602d6645"><td class="memItemLeft" align="right" valign="top"><a id="a776729e8e9c7ccb6feaee2f2602d6645" name="a776729e8e9c7ccb6feaee2f2602d6645"></a>
-std::unordered_set&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>FindUsedNodes</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph)</td></tr>
+<tr class="memitem:a776729e8e9c7ccb6feaee2f2602d6645" id="r_a776729e8e9c7ccb6feaee2f2602d6645"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1code__generation_1_1CodegenOptimizer.html#a776729e8e9c7ccb6feaee2f2602d6645">FindUsedNodes</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph)</td></tr>
+<tr class="memdesc:a776729e8e9c7ccb6feaee2f2602d6645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds all nodes that are used in the graph.  <br /></td></tr>
 <tr class="separator:a776729e8e9c7ccb6feaee2f2602d6645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a921e9d5eb1a42f7255cc3c5db2292d48" name="a921e9d5eb1a42f7255cc3c5db2292d48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a921e9d5eb1a42f7255cc3c5db2292d48">&#9670;&#160;</a></span>AnalyzeGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structeditor_1_1code__generation_1_1DeadCodeAnalysis.html">DeadCodeAnalysis</a> editor::code_generation::CodegenOptimizer::AnalyzeGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analyzes the graph for dead code and infers types of node outputs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The input graph to analyze </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structeditor_1_1code__generation_1_1DeadCodeAnalysis.html">DeadCodeAnalysis</a> struct containing sets of dead nodes and type information </dd></dl>
+
+</div>
+</div>
+<a id="a776729e8e9c7ccb6feaee2f2602d6645" name="a776729e8e9c7ccb6feaee2f2602d6645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776729e8e9c7ccb6feaee2f2602d6645">&#9670;&#160;</a></span>FindUsedNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_set&lt; uint32_t &gt; editor::code_generation::CodegenOptimizer::FindUsedNodes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds all nodes that are used in the graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The input graph to analyze </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A set of node IDs that are used in the graph </dd></dl>
+
+</div>
+</div>
+<a id="ae5cc912a80a5d85076a3260ea68444f2" name="ae5cc912a80a5d85076a3260ea68444f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5cc912a80a5d85076a3260ea68444f2">&#9670;&#160;</a></span>InferTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::code_generation::CodegenOptimizer::InferTypes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; uint32_t, <a class="el" href="classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c">core::NodeBase::PinDataType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>type_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Infers the data types of node outputs based on their connections and usage in the graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The input graph to analyze </td></tr>
+    <tr><td class="paramname">type_map</td><td>An output parameter that will be filled with node ID to PinDataType mappings for each node's output pins </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/code-generation/<a class="el" href="codegen-optimizer_8hpp_source.html">codegen-optimizer.hpp</a></li>
 <li>src/editor/code-generation/<b>codegen-optimizer.cpp</b></li>

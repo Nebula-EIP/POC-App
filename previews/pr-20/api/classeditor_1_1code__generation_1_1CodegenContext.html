@@ -99,13 +99,97 @@ $(document).ready(function(){initNavTree('classeditor_1_1code__generation_1_1Cod
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69ff68949228f30ab0cb547e366cc967" id="r_a69ff68949228f30ab0cb547e366cc967"><td class="memItemLeft" align="right" valign="top"><a id="a69ff68949228f30ab0cb547e366cc967" name="a69ff68949228f30ab0cb547e366cc967"></a>
-<a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">::code_generation::CodeGeneratorFile</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Generate</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, bool fold_constants=true)</td></tr>
+<tr class="memitem:a69ff68949228f30ab0cb547e366cc967" id="r_a69ff68949228f30ab0cb547e366cc967"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">::code_generation::CodeGeneratorFile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1code__generation_1_1CodegenContext.html#a69ff68949228f30ab0cb547e366cc967">Generate</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, bool fold_constants=true)</td></tr>
+<tr class="memdesc:a69ff68949228f30ab0cb547e366cc967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates C++ code from the given graph.  <br /></td></tr>
 <tr class="separator:a69ff68949228f30ab0cb547e366cc967"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a66cc2790f0f98ab4da5eb992dfb397" id="r_a1a66cc2790f0f98ab4da5eb992dfb397"><td class="memItemLeft" align="right" valign="top"><a id="a1a66cc2790f0f98ab4da5eb992dfb397" name="a1a66cc2790f0f98ab4da5eb992dfb397"></a>
-<a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">::code_generation::CodeGeneratorFile</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GenerateWithOutputs</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, bool print_all_results=false, bool fold_constants=true)</td></tr>
+<tr class="memitem:a1a66cc2790f0f98ab4da5eb992dfb397" id="r_a1a66cc2790f0f98ab4da5eb992dfb397"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">::code_generation::CodeGeneratorFile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1code__generation_1_1CodegenContext.html#a1a66cc2790f0f98ab4da5eb992dfb397">GenerateWithOutputs</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, bool print_all_results=false, bool fold_constants=true)</td></tr>
+<tr class="memdesc:a1a66cc2790f0f98ab4da5eb992dfb397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates C++ code from the given graph, with options to print all.  <br /></td></tr>
 <tr class="separator:a1a66cc2790f0f98ab4da5eb992dfb397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a69ff68949228f30ab0cb547e366cc967" name="a69ff68949228f30ab0cb547e366cc967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69ff68949228f30ab0cb547e366cc967">&#9670;&#160;</a></span>Generate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a> editor::code_generation::CodegenContext::Generate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fold_constants</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates C++ code from the given graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The input graph to generate code from </td></tr>
+    <tr><td class="paramname">fold_constants</td><td>If true, performs constant folding optimization </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A CodeGeneratorFile containing the generated C++ code </dd></dl>
+
+</div>
+</div>
+<a id="a1a66cc2790f0f98ab4da5eb992dfb397" name="a1a66cc2790f0f98ab4da5eb992dfb397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a66cc2790f0f98ab4da5eb992dfb397">&#9670;&#160;</a></span>GenerateWithOutputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a> editor::code_generation::CodegenContext::GenerateWithOutputs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>print_all_results</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fold_constants</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates C++ code from the given graph, with options to print all. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The input graph to generate code from </td></tr>
+    <tr><td class="paramname">print_all_results</td><td>If true, adds print statements for all node outputs </td></tr>
+    <tr><td class="paramname">fold_constants</td><td>If true, performs constant folding optimization </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A CodeGeneratorFile containing the generated C++ code </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/code-generation/<a class="el" href="codegen-context_8hpp_source.html">codegen-context.hpp</a></li>
 <li>src/editor/code-generation/<b>codegen-context.cpp</b></li>

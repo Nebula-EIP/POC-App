@@ -96,11 +96,6 @@ $(document).ready(function(){initNavTree('classcore_1_1TopologicalSorter.html','
   <div class="headertitle"><div class="title">core::TopologicalSorter Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Performs topological sorting of a graph using Kahn's algorithm.  
- <a href="classcore_1_1TopologicalSorter.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="topological__sorter_8hpp_source.html">topological_sorter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -108,21 +103,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5df4cf09ebfc6342f7691a72326dfc5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort a graph topologically using Kahn's algorithm.  <br /></td></tr>
 <tr class="separator:a5df4cf09ebfc6342f7691a72326dfc5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Performs topological sorting of a graph using Kahn's algorithm. </p>
-<p>Kahn's algorithm:</p><ol type="1">
-<li>Calculate in-degree for each node (count of incoming edges)</li>
-<li>Initialize queue with all nodes having in-degree 0</li>
-<li>While queue not empty:<ul>
-<li>Dequeue node, add to sorted list</li>
-<li>For each neighbor, decrease in-degree</li>
-<li>If neighbor's in-degree becomes 0, enqueue it</li>
-</ul>
-</li>
-<li>If sorted list size != graph size, graph has cycle (shouldn't happen after validation)</li>
-</ol>
-<p>Time complexity: O(V + E) where V = vertices, E = edges Space complexity: O(V) </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5df4cf09ebfc6342f7691a72326dfc5a" name="a5df4cf09ebfc6342f7691a72326dfc5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5df4cf09ebfc6342f7691a72326dfc5a">&#9670;&#160;</a></span>Sort()</h2>
 
@@ -154,10 +135,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Vector of <a class="el" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system.">NodeBase</a> pointers in topological order Each node appears after all its dependencies</dd></dl>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="classcore_1_1Graph.html">Graph</a> must be validated before sorting (no cycles) </dd>
-<dd>
-Empty graph returns empty vector </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of <a class="el" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system.">NodeBase</a> pointers in topological order Each node appears after all its dependencies </dd></dl>
 
 </div>
 </div>

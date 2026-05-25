@@ -254,8 +254,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetOutputPinNa
 <tr class="memitem:a74d99b97476e73c3e13bfaabc7b746a9" id="r_a74d99b97476e73c3e13bfaabc7b746a9"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a74d99b97476e73c3e13bfaabc7b746a9">CanConnectTo</a> (uint8_t out_pin, const <a class="el" href="classcore_1_1NodeBase.html">NodeBase</a> *target, uint8_t target_in_pin) const noexcept=0</td></tr>
 <tr class="memdesc:a74d99b97476e73c3e13bfaabc7b746a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates if this node's output pin can connect to a target node's input pin.  <br /></td></tr>
 <tr class="separator:a74d99b97476e73c3e13bfaabc7b746a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cec5e451737836e9b841171cabeaac1" id="r_a0cec5e451737836e9b841171cabeaac1"><td class="memItemLeft" align="right" valign="top"><a id="a0cec5e451737836e9b841171cabeaac1" name="a0cec5e451737836e9b841171cabeaac1"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetDisplayName</b> () const noexcept=0</td></tr>
+<tr class="memitem:a0cec5e451737836e9b841171cabeaac1" id="r_a0cec5e451737836e9b841171cabeaac1"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#a0cec5e451737836e9b841171cabeaac1">GetDisplayName</a> () const noexcept=0</td></tr>
 <tr class="separator:a0cec5e451737836e9b841171cabeaac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada45d3f0e54c7e38e51c080bca5d3adb" id="r_ada45d3f0e54c7e38e51c080bca5d3adb"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb">GetCategory</a> () const noexcept=0</td></tr>
 <tr class="memdesc:ada45d3f0e54c7e38e51c080bca5d3adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the category of this node.  <br /></td></tr>
@@ -995,6 +994,33 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The category name for this node. </dd></dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1ConditionNode.html#a7899da7ac0b8a422b2fb11f323adfdb4">core::ConditionNode</a>, <a class="el" href="classcore_1_1ForNode.html#ad36d504e04f466eab289527dc41a6376">core::ForNode</a>, <a class="el" href="classcore_1_1FunctionInputNode.html#a2b8a4cf303d163af1afca5fb3f6a46eb">core::FunctionInputNode</a>, <a class="el" href="classcore_1_1FunctionNode.html#a6cf102cf8ddfdb2f98cbe17c583e6f93">core::FunctionNode</a>, <a class="el" href="classcore_1_1FunctionOutputNode.html#acfceaa5e3d30df9fe4a2bfef61c0b872">core::FunctionOutputNode</a>, <a class="el" href="classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d">core::LiteralNode</a>, <a class="el" href="classcore_1_1LoopNode.html#a5fc1a6ebfb37184a12450c729b365df8">core::LoopNode</a>, <a class="el" href="classcore_1_1OperatorNode.html#aa6eb042216fdb25dd178b8e33bf0296c">core::OperatorNode</a>, <a class="el" href="classcore_1_1PrintNode.html#a34fd664b6897449bcba9026e67d4f0fc">core::PrintNode</a>, and <a class="el" href="classcore_1_1VariableNode.html#a05c7d50ce124feb84353eb0e546a3fde">core::VariableNode</a>.</p>
+
+</div>
+</div>
+<a id="a0cec5e451737836e9b841171cabeaac1" name="a0cec5e451737836e9b841171cabeaac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cec5e451737836e9b841171cabeaac1">&#9670;&#160;</a></span>GetDisplayName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string core::NodeBase::GetDisplayName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classcore_1_1ConditionNode.html#afb76ef4a11dff0181d8cdc4e7b1ce700">core::ConditionNode</a>, <a class="el" href="classcore_1_1ForNode.html#aba3602cfb4f5dd82cfcb4ce8ec8b1453">core::ForNode</a>, <a class="el" href="classcore_1_1LoopNode.html#a7deac690d14cad7c22248cc2c0be4cf1">core::LoopNode</a>, and <a class="el" href="classcore_1_1PrintNode.html#a1b8a6ad5011c5b22695829f9e2ac7983">core::PrintNode</a>.</p>
 
 </div>
 </div>

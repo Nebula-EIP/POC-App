@@ -115,24 +115,26 @@ $(document).ready(function(){initNavTree('graph__exporter_8hpp_source.html','');
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_class" href="classgraph__exporter_1_1GraphExporter.html">GraphExporter</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::expected&lt;std::filesystem::path, std::string&gt; ExportCpp(</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, <span class="keyword">const</span> std::filesystem::path &amp;output_directory,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keyword">const</span> std::string &amp;file_stem, <span class="keywordtype">bool</span> with_outputs = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">bool</span> print_all_results = <span class="keyword">false</span>, <span class="keywordtype">bool</span> fold_constants = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>   <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">static</span> std::expected&lt;std::filesystem::path, std::string&gt; ValidateRequest(</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> std::filesystem::path &amp;output_directory,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">const</span> std::string &amp;file_stem);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">static</span> std::string BuildSourceText(</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        const ::code_generation::CodeGeneratorFile &amp;generated_file);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::expected&lt;std::filesystem::path, std::string&gt; <a class="code hl_function" href="classgraph__exporter_1_1GraphExporter.html#aab9a8f2a57fe95561d4255fc42c90cf0">ExportCpp</a>(</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, <span class="keyword">const</span> std::filesystem::path &amp;output_directory,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> std::string &amp;file_stem, <span class="keywordtype">bool</span> with_outputs = <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">bool</span> print_all_results = <span class="keyword">false</span>, <span class="keywordtype">bool</span> fold_constants = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">static</span> std::expected&lt;std::filesystem::path, std::string&gt; ValidateRequest(</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keyword">const</span> std::filesystem::path &amp;output_directory,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keyword">const</span> std::string &amp;file_stem);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">static</span> std::string BuildSourceText(</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        const ::code_generation::CodeGeneratorFile &amp;generated_file);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}  <span class="comment">// namespace graph_exporter</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}  <span class="comment">// namespace graph_exporter</span></div>
 <div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdef"><b>Definition</b> graph.hpp:25</div></div>
 <div class="ttc" id="aclassgraph__exporter_1_1GraphExporter_html"><div class="ttname"><a href="classgraph__exporter_1_1GraphExporter.html">graph_exporter::GraphExporter</a></div><div class="ttdef"><b>Definition</b> graph_exporter.hpp:13</div></div>
+<div class="ttc" id="aclassgraph__exporter_1_1GraphExporter_html_aab9a8f2a57fe95561d4255fc42c90cf0"><div class="ttname"><a href="classgraph__exporter_1_1GraphExporter.html#aab9a8f2a57fe95561d4255fc42c90cf0">graph_exporter::GraphExporter::ExportCpp</a></div><div class="ttdeci">std::expected&lt; std::filesystem::path, std::string &gt; ExportCpp(const core::Graph &amp;graph, const std::filesystem::path &amp;output_directory, const std::string &amp;file_stem, bool with_outputs=true, bool print_all_results=false, bool fold_constants=false) const</div><div class="ttdoc">Exports the given graph to a C++ source file in the specified output directory with the given file st...</div><div class="ttdef"><b>Definition</b> graph_exporter.cpp:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

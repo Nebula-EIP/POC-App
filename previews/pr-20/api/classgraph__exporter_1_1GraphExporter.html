@@ -99,10 +99,77 @@ $(document).ready(function(){initNavTree('classgraph__exporter_1_1GraphExporter.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aab9a8f2a57fe95561d4255fc42c90cf0" id="r_aab9a8f2a57fe95561d4255fc42c90cf0"><td class="memItemLeft" align="right" valign="top"><a id="aab9a8f2a57fe95561d4255fc42c90cf0" name="aab9a8f2a57fe95561d4255fc42c90cf0"></a>
-std::expected&lt; std::filesystem::path, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ExportCpp</b> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, const std::filesystem::path &amp;output_directory, const std::string &amp;file_stem, bool with_outputs=true, bool print_all_results=false, bool fold_constants=false) const</td></tr>
+<tr class="memitem:aab9a8f2a57fe95561d4255fc42c90cf0" id="r_aab9a8f2a57fe95561d4255fc42c90cf0"><td class="memItemLeft" align="right" valign="top">std::expected&lt; std::filesystem::path, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraph__exporter_1_1GraphExporter.html#aab9a8f2a57fe95561d4255fc42c90cf0">ExportCpp</a> (const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph, const std::filesystem::path &amp;output_directory, const std::string &amp;file_stem, bool with_outputs=true, bool print_all_results=false, bool fold_constants=false) const</td></tr>
+<tr class="memdesc:aab9a8f2a57fe95561d4255fc42c90cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports the given graph to a C++ source file in the specified output directory with the given file stem.  <br /></td></tr>
 <tr class="separator:aab9a8f2a57fe95561d4255fc42c90cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aab9a8f2a57fe95561d4255fc42c90cf0" name="aab9a8f2a57fe95561d4255fc42c90cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab9a8f2a57fe95561d4255fc42c90cf0">&#9670;&#160;</a></span>ExportCpp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::expected&lt; std::filesystem::path, std::string &gt; graph_exporter::GraphExporter::ExportCpp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">core::Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>output_directory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_stem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>with_outputs</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>print_all_results</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fold_constants</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exports the given graph to a C++ source file in the specified output directory with the given file stem. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph to export </td></tr>
+    <tr><td class="paramname">output_directory</td><td>The directory where the generated C++ file will be saved </td></tr>
+    <tr><td class="paramname">file_stem</td><td>The stem of the generated C++ file (without extension) </td></tr>
+    <tr><td class="paramname">with_outputs</td><td>If true, includes code to print the outputs of the graph </td></tr>
+    <tr><td class="paramname">print_all_results</td><td>If true, adds print statements for all node outputs </td></tr>
+    <tr><td class="paramname">fold_constants</td><td>If true, performs constant folding optimization during code generation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An expected containing the path to the generated C++ file on success, or </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/graph-exporter/<a class="el" href="graph__exporter_8hpp_source.html">graph_exporter.hpp</a></li>
 <li>src/graph-exporter/<b>graph_exporter.cpp</b></li>

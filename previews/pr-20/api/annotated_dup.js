@@ -50,8 +50,8 @@ var annotated_dup =
     ] ],
     [ "editor", null, [
       [ "code_generation", null, [
-        [ "CodegenContext", "classeditor_1_1code__generation_1_1CodegenContext.html", null ],
-        [ "CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", null ],
+        [ "CodegenContext", "classeditor_1_1code__generation_1_1CodegenContext.html", "classeditor_1_1code__generation_1_1CodegenContext" ],
+        [ "CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", "classeditor_1_1code__generation_1_1CodegenOptimizer" ],
         [ "DeadCodeAnalysis", "structeditor_1_1code__generation_1_1DeadCodeAnalysis.html", null ],
         [ "TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ]
       ] ],
@@ -61,7 +61,7 @@ var annotated_dup =
       [ "FileWriter", "classfile__writing_1_1FileWriter.html", "classfile__writing_1_1FileWriter" ]
     ] ],
     [ "graph_exporter", null, [
-      [ "GraphExporter", "classgraph__exporter_1_1GraphExporter.html", null ]
+      [ "GraphExporter", "classgraph__exporter_1_1GraphExporter.html", "classgraph__exporter_1_1GraphExporter" ]
     ] ],
     [ "nebula", null, [
       [ "cmake", null, [
