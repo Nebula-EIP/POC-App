@@ -19,7 +19,8 @@ static PinDataType GetNodeOutputType(const core::NodeBase *node) {
 }
 
 // Helper: get input type for a pin
-static PinDataType GetNodeInputType(const core::NodeBase *node, uint8_t pin) {
+[[maybe_unused]] static PinDataType GetNodeInputType(const core::NodeBase *node,
+                                                     uint8_t pin) {
     if (!node) return PinDataType::kUndefined;
     return node->GetInputPinType(pin);
 }
