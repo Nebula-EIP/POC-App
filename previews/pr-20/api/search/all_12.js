@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['validate_0',['Validate',['../classcore_1_1GraphValidator.html#a46582ee40fe09a3fe605bb79c852547b',1,'core::GraphValidator']]],
-  ['validationerror_1',['ValidationError',['../structcore_1_1GraphValidator_1_1ValidationError.html',1,'core::GraphValidator']]],
-  ['validationresult_2',['ValidationResult',['../structcore_1_1GraphValidator_1_1ValidationResult.html',1,'core::GraphValidator']]],
-  ['variablenode_3',['VariableNode',['../classcore_1_1VariableNode.html',1,'core']]]
+  ['unlink_0',['Unlink',['../classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52',1,'core::Graph']]],
+  ['updatemodifiedtime_1',['UpdateModifiedTime',['../classcore_1_1Graph.html#a55f948f20d03cc29af50cbb5c3109bbf',1,'core::Graph']]]
 ];

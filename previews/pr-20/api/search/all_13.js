@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['wrappedcircle_0',['WrappedCircle',['../structutils_1_1WrappedCircle.html',1,'utils']]],
-  ['wrappedcolor_1',['WrappedColor',['../structutils_1_1WrappedColor.html',1,'utils']]],
-  ['wrappedrectangle_2',['WrappedRectangle',['../structutils_1_1WrappedRectangle.html',1,'utils']]],
-  ['wrappedvector2_3',['WrappedVector2',['../structutils_1_1WrappedVector2.html',1,'utils']]],
-  ['writetofile_4',['WriteToFile',['../classfile__writing_1_1FileWriter.html#a2fd9990cd3b1b561cafbd27f7a09b514',1,'file_writing::FileWriter']]]
+  ['validate_0',['Validate',['../classcore_1_1GraphValidator.html#a46582ee40fe09a3fe605bb79c852547b',1,'core::GraphValidator']]],
+  ['validationerror_1',['ValidationError',['../structcore_1_1GraphValidator_1_1ValidationError.html',1,'core::GraphValidator']]],
+  ['validationresult_2',['ValidationResult',['../structcore_1_1GraphValidator_1_1ValidationResult.html',1,'core::GraphValidator']]],
+  ['variablenode_3',['VariableNode',['../classcore_1_1VariableNode.html',1,'core']]]
 ];
