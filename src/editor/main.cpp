@@ -6,7 +6,7 @@
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Nebula Test");
-    Vector2 cursor_postion = {0, 0};
+    Vector2 cursor_position = {0, 0};
 
     // Create graph
     core::Graph graph;
@@ -31,18 +31,18 @@ int main() {
         "Add",
         {
             editor_ui::MenuItem{"Variable",
-                                [&graph, &cursor_postion]() {
+                                [&graph, &cursor_position]() {
                                     graph.AddNode(
                                         core::NodeBase::NodeKind::kVariable,
-                                        {cursor_postion.x - 50,
-                                         cursor_postion.y - 25});
+                                        {cursor_position.x - 50,
+                                         cursor_position.y - 25});
                                 }},
             editor_ui::MenuItem{"Literal",
-                                [&graph, &cursor_postion]() {
+                                [&graph, &cursor_position]() {
                                     graph.AddNode(
                                         core::NodeBase::NodeKind::kLiteral,
-                                        {cursor_postion.x - 50,
-                                         cursor_postion.y - 25});
+                                        {cursor_position.x - 50,
+                                         cursor_position.y - 25});
                                 }},
         },
     });
@@ -82,17 +82,17 @@ int main() {
 
         if (IsKeyPressed(KEY_Q)) {
             graph.AddNode(core::NodeBase::NodeKind::kVariable,
-                          {cursor_postion.x - 50, cursor_postion.y - 25});
+                          {cursor_position.x - 50, cursor_position.y - 25});
         }
         if (IsKeyPressed(KEY_W)) {
             graph.AddNode(core::NodeBase::NodeKind::kLiteral,
-                          {cursor_postion.x - 50, cursor_postion.y - 25});
+                          {cursor_position.x - 50, cursor_position.y - 25});
         }
         if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
             graph.DuplicateSelectedNode();
         }
 
-        cursor_postion = GetMousePosition();
+        cursor_position = GetMousePosition();
         top_bar.Update();
 
         if (!top_bar.BlocksGraphInput()) {
