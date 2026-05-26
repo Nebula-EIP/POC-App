@@ -1,0 +1,5 @@
+<map id="core::OperatorNode" name="core::OperatorNode">
+<area shape="rect" id="Node000001" title="Represents all binary operators (arithmetic, logical, bitwise, comparison)" alt="" coords="5,79,155,104"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="18,5,142,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
+</map>
