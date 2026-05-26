@@ -52,7 +52,7 @@ int main() {
         {
             editor_ui::MenuItem{"Duplicate selection",
                                 [&graph]() { graph.DuplicateSelectedNode(); }},
-            editor_ui::MenuItem{"Supprimer selection",
+            editor_ui::MenuItem{"Delete selection",
                                 [&graph]() { graph.DeleteSelectedNodes(); }},
         },
     });
