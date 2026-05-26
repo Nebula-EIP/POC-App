@@ -4,6 +4,7 @@
 #include "ui/top_bar.hpp"
 
 int main() {
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Nebula Test");
     Vector2 cursor_postion = {0, 0};
 
@@ -46,8 +47,8 @@ int main() {
             editor_ui::MenuItem{"Duplicate selection", [&graph]() {
                 graph.DuplicateSelectedNode();
             }},
-            editor_ui::MenuItem{"Delete under cursor", [&graph]() {
-                graph.DeleteWithMouse();
+            editor_ui::MenuItem{"Supprimer selection", [&graph]() {
+                graph.DeleteSelectedNodes();
             }},
         },
     });
