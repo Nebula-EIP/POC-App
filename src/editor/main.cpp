@@ -17,12 +17,12 @@ int main() {
         "File",
         {
             editor_ui::MenuItem{"New", [&graph]() { graph = core::Graph{}; }},
-            editor_ui::MenuItem{"Save", []() {
-                TraceLog(LOG_INFO, "Save requested from top bar");
-            }},
-            editor_ui::MenuItem{"Load", []() {
-                TraceLog(LOG_INFO, "Load requested from top bar");
-            }},
+            editor_ui::MenuItem{
+                "Save",
+                []() { TraceLog(LOG_INFO, "Save requested from top bar"); }},
+            editor_ui::MenuItem{
+                "Load",
+                []() { TraceLog(LOG_INFO, "Load requested from top bar"); }},
             editor_ui::MenuItem{"Quit", []() { CloseWindow(); }},
         },
     });
@@ -30,26 +30,30 @@ int main() {
     menus.push_back(editor_ui::Menu{
         "Add",
         {
-            editor_ui::MenuItem{"Variable", [&graph, &cursor_postion]() {
-                graph.AddNode(core::NodeBase::NodeKind::kVariable,
-                              {cursor_postion.x - 50, cursor_postion.y - 25});
-            }},
-            editor_ui::MenuItem{"Literal", [&graph, &cursor_postion]() {
-                graph.AddNode(core::NodeBase::NodeKind::kLiteral,
-                              {cursor_postion.x - 50, cursor_postion.y - 25});
-            }},
+            editor_ui::MenuItem{"Variable",
+                                [&graph, &cursor_postion]() {
+                                    graph.AddNode(
+                                        core::NodeBase::NodeKind::kVariable,
+                                        {cursor_postion.x - 50,
+                                         cursor_postion.y - 25});
+                                }},
+            editor_ui::MenuItem{"Literal",
+                                [&graph, &cursor_postion]() {
+                                    graph.AddNode(
+                                        core::NodeBase::NodeKind::kLiteral,
+                                        {cursor_postion.x - 50,
+                                         cursor_postion.y - 25});
+                                }},
         },
     });
 
     menus.push_back(editor_ui::Menu{
         "Edit",
         {
-            editor_ui::MenuItem{"Duplicate selection", [&graph]() {
-                graph.DuplicateSelectedNode();
-            }},
-            editor_ui::MenuItem{"Supprimer selection", [&graph]() {
-                graph.DeleteSelectedNodes();
-            }},
+            editor_ui::MenuItem{"Duplicate selection",
+                                [&graph]() { graph.DuplicateSelectedNode(); }},
+            editor_ui::MenuItem{"Supprimer selection",
+                                [&graph]() { graph.DeleteSelectedNodes(); }},
         },
     });
 
