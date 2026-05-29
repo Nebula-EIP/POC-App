@@ -130,10 +130,12 @@ std::string OperatorNode::GetCategory() const noexcept {
 
 nlohmann::json OperatorNode::Serialize() const {
     nlohmann::json json;
+    utils::WrappedVector2 pos = GetPosition();
     json["id"] = id();
     json["kind"] = NodeKindToString(kind());
     json["operator_type"] = OperatorTypeToString(operator_type_);
     json["name"] = name_;
+    json["position"] = {pos.x, pos.y};
     return json;
 }
 

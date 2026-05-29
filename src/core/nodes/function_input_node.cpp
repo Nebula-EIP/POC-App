@@ -94,10 +94,12 @@ std::string core::FunctionInputNode::GetCategory() const noexcept {
 
 nlohmann::json core::FunctionInputNode::Serialize() const {
     nlohmann::json json;
+    utils::WrappedVector2 pos = GetPosition();
     json["id"] = id();
     json["kind"] = core::NodeKindToString(kind());
     json["type"] = core::PinDataTypeToString(type_);
     json["name"] = name_;
+    json["position"] = {pos.x, pos.y};
     return json;
 }
 

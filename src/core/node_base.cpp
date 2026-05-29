@@ -370,6 +370,13 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
     try {
         id = json["id"].get<uint32_t>();
         kind_str = json["kind"].get<std::string>();
+        if (json.contains("position")) {
+            const auto &pos_json = json["position"];
+            if (pos_json.is_array() && pos_json.size() >= 2) {
+                position.x = pos_json[0].get<float>();
+                position.y = pos_json[1].get<float>();
+            }
+        }
     } catch (const std::exception &e) {
         return std::unexpected(std::string("Failed to parse node fields: ") +
                                e.what());
