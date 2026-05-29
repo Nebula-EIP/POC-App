@@ -338,6 +338,8 @@ class Graph {
     void DuplicateSelectedNode();
 
     void CheckSaveButtonClick();
+    void CheckLoadButtonClick();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -389,6 +391,7 @@ class Graph {
     std::chrono::system_clock::time_point modified_at_;
 
     utils::WrappedRectangle save_button_;
+    utils::WrappedRectangle load_button_;
     std::string save_file_;
 };
 
