@@ -6,6 +6,9 @@
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Nebula Test");
+    if (!IsWindowReady()) {
+        return 1;
+    }
     Vector2 cursor_position = {0, 0};
 
     // Create graph
