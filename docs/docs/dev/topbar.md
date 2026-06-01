@@ -2,28 +2,28 @@
 sidebar_position: 2
 ---
 
-# Top Bar de l'éditeur
+# Editor Top Bar
 
-La top bar est le bandeau horizontal affiché en haut de l'éditeur. Elle fournit un menu principal pour l'application, avec des menus déroulants et des actions associées à chaque entrée.
+The top bar is the horizontal banner displayed at the top of the editor. It provides the main application menu, with dropdowns and actions associated with each entry.
 
-Elle est implémentée dans `src/editor/ui/top_bar.hpp` et `src/editor/ui/top_bar.cpp`.
+It is implemented in `src/editor/ui/top_bar.hpp` and `src/editor/ui/top_bar.cpp`.
 
-## Rôle
+## Purpose
 
-La top bar sert à :
+The top bar is used to:
 
-- afficher les menus principaux de l'éditeur
-- ouvrir et fermer les listes déroulantes
-- déclencher des actions via des callbacks `on_click`
-- bloquer temporairement les interactions du graphe quand un menu est ouvert
+- display the editor's main menus
+- open and close dropdown lists
+- trigger actions via `on_click` callbacks
+- temporarily block graph interactions while a menu is open
 
-## Structure des données
+## Data Structure
 
-L'API publique repose sur trois structures.
+The public API relies on three structures.
 
 ### `MenuItem`
 
-Représente une entrée cliquable dans un menu.
+Represents a clickable entry in a menu.
 
 ```cpp
 struct MenuItem {
@@ -32,12 +32,12 @@ struct MenuItem {
 };
 ```
 
-- `label` : texte affiché dans la liste déroulante
-- `on_click` : callback exécuté lors du clic sur l'entrée
+- `label`: text shown in the dropdown
+- `on_click`: callback executed when the entry is clicked
 
 ### `Menu`
 
-Représente un menu de la barre supérieure.
+Represents a menu in the top bar.
 
 ```cpp
 struct Menu {
@@ -46,26 +46,26 @@ struct Menu {
 };
 ```
 
-- `label` : libellé visible dans la barre
-- `items` : ensemble des actions disponibles dans le menu
+- `label`: label visible on the bar
+- `items`: the set of actions available in the menu
 
 ### `TopBarStyle`
 
-Décrit l'apparence de la top bar.
+Describes the appearance of the top bar.
 
-Les champs principaux sont :
+Main fields include:
 
-- `bar_height` : hauteur du bandeau principal
-- `item_height` : hauteur de chaque ligne du menu déroulant
-- `horizontal_padding` : marge horizontale dans les onglets
-- `item_padding` : marge horizontale dans les items
-- `minimum_menu_width` : largeur minimale d'un menu
-- `font_size` : taille du texte
-- couleurs de fond, de survol, de texte et de bordure
+- `bar_height`: height of the main banner
+- `item_height`: height of each dropdown line
+- `horizontal_padding`: horizontal padding in tabs
+- `item_padding`: horizontal padding in items
+- `minimum_menu_width`: minimum width of a menu
+- `font_size`: text size
+- background, hover, text, and border colors
 
-## Comportement
+## Behavior
 
-La classe `TopBar` gère l'état interactif du bandeau.
+The `TopBar` class manages the interactive state of the banner.
 
 ### Construction
 
@@ -73,52 +73,52 @@ La classe `TopBar` gère l'état interactif du bandeau.
 TopBar(std::vector<Menu> menus, TopBarStyle style = {});
 ```
 
-Le constructeur reçoit la liste complète des menus et un style optionnel.
+The constructor receives the full list of menus and an optional style.
 
-### Mise à jour
+### Update
 
 ```cpp
 void Update();
 ```
 
-`Update()` lit la position de la souris et l'état du clic gauche pour :
+`Update()` reads the mouse position and left-click state to:
 
-- détecter le menu survolé
-- détecter l'item survolé dans un menu ouvert
-- ouvrir ou fermer un menu
-- appeler le callback de l'item cliqué
+- detect the hovered menu
+- detect the hovered item in an open menu
+- open or close a menu
+- call the clicked item's callback
 
-### Dessin
+### Drawing
 
 ```cpp
 void Draw() const;
 ```
 
-`Draw()` dessine :
+`Draw()` renders:
 
-- la barre principale
-- les onglets des menus
-- le menu déroulant actif
-- les survols visuels sur le menu ou l'item actif
+- the main bar
+- the menu tabs
+- the active dropdown menu
+- visual hover states for the active menu or item
 
-### Blocage de l'entrée du graphe
+### Blocking Graph Input
 
 ```cpp
 bool BlocksGraphInput() const noexcept;
 ```
 
-Cette méthode indique si la top bar doit empêcher les interactions avec le graphe.
+This method indicates whether the top bar should prevent interactions with the graph.
 
-Elle retourne `true` lorsqu'un menu est ouvert ou qu'un élément de la top bar est sous la souris.
+It returns `true` when a menu is open or when a top bar element is under the mouse.
 
-## Règles de placement
+## Placement Rules
 
-- chaque menu occupe une largeur calculée à partir du texte et des marges
-- la largeur minimale est contrôlée par `TopBarStyle::minimum_menu_width`
-- le menu déroulant utilise la même largeur que l'onglet
-- si le menu serait dessiné en dehors de la fenêtre, il est recentré vers la gauche pour rester visible
+- each menu occupies a width calculated from the text and margins
+- the minimum width is controlled by `TopBarStyle::minimum_menu_width`
+- the dropdown uses the same width as its tab
+- if the menu would be drawn outside the window, it is shifted left to remain visible
 
-## Exemple d'utilisation
+## Usage Example
 
 ```cpp
 using editor_ui::Menu;
@@ -127,32 +127,32 @@ using editor_ui::TopBar;
 
 TopBar top_bar({
     {"File", {
-        {"New", [] { /* créer un nouveau projet */ }},
-        {"Open", [] { /* ouvrir un projet */ }},
+        {"New", [] { /* create a new project */ }},
+        {"Open", [] { /* open a project */ }},
     }},
     {"Edit", {
-        {"Undo", [] { /* annuler la dernière action */ }},
+        {"Undo", [] { /* undo the last action */ }},
     }},
 });
 
-// Dans la boucle principale
+// In the main loop
 top_bar.Update();
 top_bar.Draw();
 
 if (top_bar.BlocksGraphInput()) {
-    // Désactiver les interactions du graphe pendant l'ouverture du menu
+    // Disable graph interactions while the menu is open
 }
 ```
 
-## Points importants
+## Important Notes
 
-- `SetMenus()` remplace la liste complète des menus et ferme le menu en cours
-- `CloseMenu()` réinitialise l'état de survol de l'item actif
-- `OpenMenu()` vérifie les bornes avant d'ouvrir un menu
-- `ActivateItem()` ignore silencieusement les indices invalides
+- `SetMenus()` replaces the entire menu list and closes the current menu
+- `CloseMenu()` resets the hovered item state
+- `OpenMenu()` checks bounds before opening a menu
+- `ActivateItem()` silently ignores invalid indices
 
-## Limites actuelles
+## Current Limitations
 
-- la top bar dépend de `raylib` pour la lecture de la souris et le rendu
-- les tests unitaires les plus robustes sont donc centrés sur l'API publique et l'état interne observable
-- les tests d'interaction complète nécessiteraient une couche d'abstraction supplémentaire pour simuler les entrées utilisateur
+- the top bar depends on `raylib` for mouse input and rendering
+- the most robust unit tests therefore focus on the public API and observable internal state
+- full interaction tests would require an additional abstraction layer to simulate user input
