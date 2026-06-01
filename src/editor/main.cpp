@@ -10,6 +10,8 @@ int main() {
         return 1;
     }
     Vector2 cursor_position = {0, 0};
+    bool should_quit = false;
+    auto request_quit = [&should_quit]() { should_quit = true; };
 
     // Create graph
     core::Graph graph;
@@ -26,7 +28,7 @@ int main() {
             editor_ui::MenuItem{
                 "Load",
                 []() { TraceLog(LOG_INFO, "Load requested from top bar"); }},
-            editor_ui::MenuItem{"Quit", []() { CloseWindow(); }},
+            editor_ui::MenuItem{"Quit", request_quit},
         },
     });
 
@@ -74,7 +76,7 @@ int main() {
 
     SetTargetFPS(60);
 
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !should_quit) {
         if (IsKeyPressed(KEY_H)) {
             if (IsCursorHidden()) {
                 ShowCursor();
@@ -122,6 +124,8 @@ int main() {
         EndDrawing();
     }
 
-    CloseWindow();
+    if (IsWindowReady()) {
+        CloseWindow();
+    }
     return 0;
 }
