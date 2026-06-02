@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nodebase_0',['NodeBase',['../classcore_1_1NodeBase.html',1,'core']]],
-  ['nodenotfoundexception_1',['NodeNotFoundException',['../classcore_1_1NodeNotFoundException.html',1,'core']]]
+  ['menu_0',['Menu',['../structeditor__ui_1_1Menu.html',1,'editor_ui']]],
+  ['menuitem_1',['MenuItem',['../structeditor__ui_1_1MenuItem.html',1,'editor_ui']]]
 ];

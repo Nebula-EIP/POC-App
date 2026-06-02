@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['wrappedcircle_0',['WrappedCircle',['../structutils_1_1WrappedCircle.html',1,'utils']]],
-  ['wrappedcolor_1',['WrappedColor',['../structutils_1_1WrappedColor.html',1,'utils']]],
-  ['wrappedrectangle_2',['WrappedRectangle',['../structutils_1_1WrappedRectangle.html',1,'utils']]],
-  ['wrappedvector2_3',['WrappedVector2',['../structutils_1_1WrappedVector2.html',1,'utils']]]
+  ['topbar_0',['TopBar',['../classeditor__ui_1_1TopBar.html',1,'editor_ui']]],
+  ['topbarstyle_1',['TopBarStyle',['../structeditor__ui_1_1TopBarStyle.html',1,'editor_ui']]]
 ];

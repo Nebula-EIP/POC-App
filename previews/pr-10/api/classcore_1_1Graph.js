@@ -4,6 +4,7 @@ var classcore_1_1Graph =
     [ "AddNode", "classcore_1_1Graph.html#aa994f46d5ee6d2f3f1dba93a0a4e05d6", null ],
     [ "AddNode", "classcore_1_1Graph.html#af109b8aaad8ac1cc03afdb748adaa136", null ],
     [ "CheckNodeMovement", "classcore_1_1Graph.html#a78091e8976052a76671806bdcb6d2b61", null ],
+    [ "DeleteSelectedNodes", "classcore_1_1Graph.html#a72c7f7354daff194848f6c5da9cb9d6f", null ],
     [ "DeleteWithMouse", "classcore_1_1Graph.html#aed07884ac99ee66145935d7fd8ff6daf", null ],
     [ "Draw", "classcore_1_1Graph.html#a2cbee336bf4fd9a6db1b45ec30fa2f96", null ],
     [ "DrawConnections", "classcore_1_1Graph.html#a53847a2d601bee4706d8fc482cbca46f", null ],

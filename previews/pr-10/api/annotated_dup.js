@@ -45,6 +45,12 @@ var annotated_dup =
     [ "editor", null, [
       [ "EditorException", "classeditor_1_1EditorException.html", null ]
     ] ],
+    [ "editor_ui", null, [
+      [ "Menu", "structeditor__ui_1_1Menu.html", null ],
+      [ "MenuItem", "structeditor__ui_1_1MenuItem.html", null ],
+      [ "TopBar", "classeditor__ui_1_1TopBar.html", null ],
+      [ "TopBarStyle", "structeditor__ui_1_1TopBarStyle.html", null ]
+    ] ],
     [ "file_writing", null, [
       [ "FileWriter", "classfile__writing_1_1FileWriter.html", "classfile__writing_1_1FileWriter" ]
     ] ],

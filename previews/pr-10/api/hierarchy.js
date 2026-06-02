@@ -46,6 +46,8 @@ var hierarchy =
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
+    [ "editor_ui::Menu", "structeditor__ui_1_1Menu.html", null ],
+    [ "editor_ui::MenuItem", "structeditor__ui_1_1MenuItem.html", null ],
     [ "core::NodeBase", "classcore_1_1NodeBase.html", [
       [ "core::FunctionInputNode", "classcore_1_1FunctionInputNode.html", null ],
       [ "core::FunctionNode", "classcore_1_1FunctionNode.html", null ],
@@ -63,6 +65,8 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "editor_ui::TopBar", "classeditor__ui_1_1TopBar.html", null ],
+    [ "editor_ui::TopBarStyle", "structeditor__ui_1_1TopBarStyle.html", null ],
     [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
     [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],
     [ "utils::WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],

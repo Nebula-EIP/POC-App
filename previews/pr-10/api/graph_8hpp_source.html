@@ -204,52 +204,54 @@ $(document).ready(function(){initNavTree('graph_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Graph.html#af3283191112bd5969403e146ca45f3d4">DuplicateSelectedNode</a>();</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>   private:</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>&gt; CreateNode(uint32_t <span class="keywordtype">id</span>, <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>::NodeKind kind,</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                                         utils::WrappedVector2 position);</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordtype">bool</span> IsMouseOverInputPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node, uint8_t pin) const;</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordtype">bool</span> IsMouseOverOutputPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node, uint8_t pin) const;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordtype">bool</span> IsMouseOverAnyPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node) const;</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keywordtype">bool</span> IsMouseOverAnyPin() const;</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="keywordtype">bool</span> IsMouseOverAnyNode() const;</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *GetNodeUnderMouse() const;</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keywordtype">void</span> ClearSelection();</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *GetFirstSelectedNode() const;</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *DuplicateNode(<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *node);</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    utils::WrappedVector2 GetInputPinPosition(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node,</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>                                              uint8_t pin) const;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    utils::WrappedVector2 GetOutputPinPosition(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node,</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>                                               uint8_t pin) const;</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    utils::IdManager&lt;uint32_t&gt; id_manager_;</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    std::vector&lt;std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>&gt;&gt; nodes_;</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *linking_from_node_ =</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="keywordtype">nullptr</span>;  </div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    uint8_t linking_from_pin_ = 0;</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    <span class="keywordtype">bool</span> linking_from_is_input_ =</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        false;  </div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *active_drag_node_ = <span class="keywordtype">nullptr</span>;</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *context_menu_node_ = <span class="keywordtype">nullptr</span>;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">bool</span> context_menu_open_ = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordtype">bool</span> is_selecting_ =</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <span class="keyword">false</span>;  </div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a></div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        selection_start_;  </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="comment">// Project metadata</span></div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    std::string project_name_;</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    std::string version_;</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    std::string author_;</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    std::chrono::system_clock::time_point created_at_;</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    std::chrono::system_clock::time_point modified_at_;</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>};</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classcore_1_1Graph.html#a72c7f7354daff194848f6c5da9cb9d6f">DeleteSelectedNodes</a>();</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>   private:</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>&gt; CreateNode(uint32_t <span class="keywordtype">id</span>, <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>::NodeKind kind,</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                                         utils::WrappedVector2 position);</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordtype">bool</span> IsMouseOverInputPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node, uint8_t pin) const;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keywordtype">bool</span> IsMouseOverOutputPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node, uint8_t pin) const;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="keywordtype">bool</span> IsMouseOverAnyPin(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node) const;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">bool</span> IsMouseOverAnyPin() const;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordtype">bool</span> IsMouseOverAnyNode() const;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *GetNodeUnderMouse() const;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordtype">void</span> ClearSelection();</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *GetFirstSelectedNode() const;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *DuplicateNode(<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *node);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    utils::WrappedVector2 GetInputPinPosition(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node,</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                                              uint8_t pin) const;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    utils::WrappedVector2 GetOutputPinPosition(const <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> &amp;node,</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                                               uint8_t pin) const;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    utils::IdManager&lt;uint32_t&gt; id_manager_;</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    std::vector&lt;std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a>&gt;&gt; nodes_;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *linking_from_node_ =</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <span class="keywordtype">nullptr</span>;  </div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    uint8_t linking_from_pin_ = 0;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">bool</span> linking_from_is_input_ =</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        false;  </div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *active_drag_node_ = <span class="keywordtype">nullptr</span>;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <a class="code hl_class" href="classcore_1_1NodeBase.html">NodeBase</a> *context_menu_node_ = <span class="keywordtype">nullptr</span>;</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    utils::WrappedVector2 context_menu_position_ = {0.0f, 0.0f};</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordtype">bool</span> context_menu_open_ = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keywordtype">bool</span> is_selecting_ =</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        <span class="keyword">false</span>;  </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        selection_start_;  </div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="comment">// Project metadata</span></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    std::string project_name_;</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    std::string version_;</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    std::string author_;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    std::chrono::system_clock::time_point created_at_;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    std::chrono::system_clock::time_point modified_at_;</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>};</div>
 </div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}  <span class="comment">// namespace core</span></div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="preprocessor">#include &quot;graph.tcc&quot;</span></div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span> </div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>}  <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="preprocessor">#include &quot;graph.tcc&quot;</span></div>
 <div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdef"><b>Definition</b> graph.hpp:25</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a0573c1c202b8fce4998285d78904ba1a"><div class="ttname"><a href="classcore_1_1Graph.html#a0573c1c202b8fce4998285d78904ba1a">core::Graph::GetAuthor</a></div><div class="ttdeci">const std::string &amp; GetAuthor() const</div><div class="ttdoc">Gets the project author.</div><div class="ttdef"><b>Definition</b> graph.cpp:51</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a13bc792dd37fc11853931a2dc7976786"><div class="ttname"><a href="classcore_1_1Graph.html#a13bc792dd37fc11853931a2dc7976786">core::Graph::GetCreatedAt</a></div><div class="ttdeci">std::chrono::system_clock::time_point GetCreatedAt() const</div><div class="ttdoc">Gets the project creation timestamp.</div><div class="ttdef"><b>Definition</b> graph.cpp:53</div></div>
@@ -262,9 +264,10 @@ $(document).ready(function(){initNavTree('graph_8hpp_source.html',''); initResiz
 <div class="ttc" id="aclasscore_1_1Graph_html_a61293e2ed581922bc501e5c3dd0409ca"><div class="ttname"><a href="classcore_1_1Graph.html#a61293e2ed581922bc501e5c3dd0409ca">core::Graph::Serialize</a></div><div class="ttdeci">nlohmann::json Serialize() const</div><div class="ttdoc">Serializes the entire graph to JSON format.</div><div class="ttdef"><b>Definition</b> graph.cpp:535</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a62f732b54be19a2118f0af4432130d10"><div class="ttname"><a href="classcore_1_1Graph.html#a62f732b54be19a2118f0af4432130d10">core::Graph::SetProjectName</a></div><div class="ttdeci">void SetProjectName(const std::string &amp;name)</div><div class="ttdoc">Sets the project name.</div><div class="ttdef"><b>Definition</b> graph.cpp:33</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a6ba73ea844e5ee5caaed092d5fab16ea"><div class="ttname"><a href="classcore_1_1Graph.html#a6ba73ea844e5ee5caaed092d5fab16ea">core::Graph::SetAuthor</a></div><div class="ttdeci">void SetAuthor(const std::string &amp;author)</div><div class="ttdoc">Sets the project author.</div><div class="ttdef"><b>Definition</b> graph.cpp:38</div></div>
+<div class="ttc" id="aclasscore_1_1Graph_html_a72c7f7354daff194848f6c5da9cb9d6f"><div class="ttname"><a href="classcore_1_1Graph.html#a72c7f7354daff194848f6c5da9cb9d6f">core::Graph::DeleteSelectedNodes</a></div><div class="ttdeci">void DeleteSelectedNodes()</div><div class="ttdoc">Deletes all currently selected nodes.</div><div class="ttdef"><b>Definition</b> graph.cpp:1152</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a78091e8976052a76671806bdcb6d2b61"><div class="ttname"><a href="classcore_1_1Graph.html#a78091e8976052a76671806bdcb6d2b61">core::Graph::CheckNodeMovement</a></div><div class="ttdeci">void CheckNodeMovement()</div><div class="ttdoc">Check if a node is moved.</div><div class="ttdef"><b>Definition</b> graph.cpp:844</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a7e4d92fa09b408e50d70420e8887b91b"><div class="ttname"><a href="classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b">core::Graph::RemoveInputPin</a></div><div class="ttdeci">void RemoveInputPin(NodeBase *node, uint8_t index)</div><div class="ttdoc">Removes an input pin from a node by index.</div><div class="ttdef"><b>Definition</b> graph.cpp:424</div></div>
-<div class="ttc" id="aclasscore_1_1Graph_html_a81439dcac56453ea671113a2b0333cc5"><div class="ttname"><a href="classcore_1_1Graph.html#a81439dcac56453ea671113a2b0333cc5">core::Graph::HandleContextMenu</a></div><div class="ttdeci">void HandleContextMenu()</div><div class="ttdoc">Handles node context menu interactions.</div><div class="ttdef"><b>Definition</b> graph.cpp:1152</div></div>
+<div class="ttc" id="aclasscore_1_1Graph_html_a81439dcac56453ea671113a2b0333cc5"><div class="ttname"><a href="classcore_1_1Graph.html#a81439dcac56453ea671113a2b0333cc5">core::Graph::HandleContextMenu</a></div><div class="ttdeci">void HandleContextMenu()</div><div class="ttdoc">Handles node context menu interactions.</div><div class="ttdef"><b>Definition</b> graph.cpp:1171</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a82114df8312909515a95043ad3f20bdc"><div class="ttname"><a href="classcore_1_1Graph.html#a82114df8312909515a95043ad3f20bdc">core::Graph::Deserialize</a></div><div class="ttdeci">static std::expected&lt; Graph, std::string &gt; Deserialize(const nlohmann::json &amp;json)</div><div class="ttdoc">Deserializes a complete graph from JSON.</div><div class="ttdef"><b>Definition</b> graph.cpp:583</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a83f0807477e04bc36aed8d5740fe96f1"><div class="ttname"><a href="classcore_1_1Graph.html#a83f0807477e04bc36aed8d5740fe96f1">core::Graph::LinkNodes</a></div><div class="ttdeci">void LinkNodes(const std::unique_ptr&lt; core::NodeBase &gt; &amp;node)</div><div class="ttdoc">Link two nodes.</div><div class="ttdef"><b>Definition</b> graph.cpp:894</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a8934d9981c1b5390a5cfbbb5aff455fe"><div class="ttname"><a href="classcore_1_1Graph.html#a8934d9981c1b5390a5cfbbb5aff455fe">core::Graph::SaveToFile</a></div><div class="ttdeci">std::expected&lt; void, std::string &gt; SaveToFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Saves the graph to a .nebula file.</div><div class="ttdef"><b>Definition</b> graph.cpp:744</div></div>
