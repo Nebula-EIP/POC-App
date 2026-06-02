@@ -1149,6 +1149,25 @@ void core::Graph::DuplicateSelectedNode() {
     DuplicateNode(selected_node);
 }
 
+void core::Graph::DeleteSelectedNodes() {
+    std::vector<NodeBase *> nodes_to_delete;
+    for (const auto &node : nodes_) {
+        if (node->IsSelected()) {
+            nodes_to_delete.push_back(node.get());
+        }
+    }
+
+    for (NodeBase *node : nodes_to_delete) {
+        if (node != nullptr) {
+            try {
+                RemoveNode(node);
+            } catch (const std::exception &e) {
+                LOG_ERROR("Failed to delete selected node: {}", e.what());
+            }
+        }
+    }
+}
+
 void core::Graph::HandleContextMenu() {
     if (active_drag_node_ != nullptr || linking_from_node_ != nullptr) {
         return;
