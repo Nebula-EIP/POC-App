@@ -340,6 +340,11 @@ class Graph {
     void CheckSaveButtonClick();
     void CheckLoadButtonClick();
 
+    /**
+     * @brief Deletes all currently selected nodes.
+     */
+    void DeleteSelectedNodes();
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
