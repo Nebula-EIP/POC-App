@@ -83,6 +83,11 @@ bool isRightClicked();
 bool isLeftClicked();
 bool isRightDown();
 bool isLeftDown();
+float GetMouseWheelMoveWrapped();
+bool IsKeyDownWrapped(int key);
+bool IsKeyPressedWrapped(int key);
+bool isMiddleClicked();
+bool isMiddleDown();
 
 // Collision functions
 
