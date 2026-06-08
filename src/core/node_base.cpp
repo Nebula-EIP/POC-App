@@ -477,58 +477,82 @@ core::NodeBase::DeserializeFactory(const nlohmann::json &json,
 
 void core::NodeBase::Draw() {
     // Legacy full draw: body then pins
-    DrawBody();
-    DrawPins();
+    // DrawBody();
+    // DrawPins();
 }
 
-void core::NodeBase::DrawBody() {
+void core::NodeBase::DrawBody(float zoom, utils::WrappedVector2 camera_offset) {
     const auto [r, g, b, a] = color_;
     utils::WrappedColor color = {r, g, b, a};
+
+    utils::WrappedVector2 screen_pos = {position_.x * zoom + camera_offset.x,
+                                        position_.y * zoom + camera_offset.y};
+    float scaled_width = 100.0f * zoom;
+    float scaled_height = 50.0f * zoom;
+    int scaled_font_size = static_cast<int>(10 * zoom);
+    if (scaled_font_size < 1) scaled_font_size = 1;
+
+    // Don't draw text if too small to be readable
+    bool draw_text = scaled_font_size >= 5;
+
     // Draw Node body
-    utils::DrawRectangleWrapped(position_.x, position_.y, 100, 50, utils::GRAY);
+    utils::DrawRectangleWrapped(screen_pos.x, screen_pos.y, scaled_width,
+                                scaled_height, utils::GRAY);
     if (selected_) {
-        utils::DrawRectangleLinesWrapped(position_.x, position_.y, 100, 50,
+        utils::DrawRectangleLinesWrapped(screen_pos.x, screen_pos.y,
+                                         scaled_width, scaled_height,
                                          utils::YELLOW);
     }
-    // Draw Node number
-    utils::DrawTextWrapped(("Node " + std::to_string(id_)).c_str(),
-                           position_.x + 10, position_.y + 15, 10,
-                           utils::BLACK);
-    // Draw Node kind
-    utils::DrawTextWrapped(
-        ("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
-        position_.x + 10, position_.y + 30, 10, utils::BLACK);
+    // Draw Node number and kind only if text is readable
+    if (draw_text) {
+        utils::DrawTextWrapped(
+            ("Node " + std::to_string(id_)).c_str(), screen_pos.x + 10 * zoom,
+            screen_pos.y + 15 * zoom, scaled_font_size, utils::BLACK);
+        utils::DrawTextWrapped(
+            ("Kind: " + std::to_string(static_cast<int>(kind_))).c_str(),
+            screen_pos.x + 10 * zoom, screen_pos.y + 30 * zoom,
+            scaled_font_size, utils::BLACK);
+    }
 }
 
-void core::NodeBase::DrawPins() {
+void core::NodeBase::DrawPins(float zoom, utils::WrappedVector2 camera_offset) {
+    utils::WrappedVector2 screen_pos = {position_.x * zoom + camera_offset.x,
+                                        position_.y * zoom + camera_offset.y};
+    float scaled_width = 100.0f * zoom;
+    float pin_radius = 5.0f * zoom;
+    if (pin_radius < 2.0f) {
+        pin_radius = 2.0f;
+    }
+    float pin_spacing = 15.0f * zoom;
+    float pin_offset_y = 25.0f * zoom;
+
     for (uint8_t i = 0; i < GetInputPinCount(); i++) {
-        utils::DrawCircleWrapped(position_.x, position_.y + 25 + i * 15, 5,
-                                 utils::RED);
+        utils::DrawCircleWrapped(screen_pos.x,
+                                 screen_pos.y + pin_offset_y + i * pin_spacing,
+                                 pin_radius, utils::RED);
     }
     for (uint8_t i = 0; i < GetOutputPinCount(); i++) {
-        utils::DrawCircleWrapped(position_.x + 100, position_.y + 25 + i * 15,
-                                 5, utils::BLUE);
+        utils::DrawCircleWrapped(screen_pos.x + scaled_width,
+                                 screen_pos.y + pin_offset_y + i * pin_spacing,
+                                 pin_radius, utils::BLUE);
     }
 }
 
-void core::NodeBase::PrepareDrag() {
-    utils::WrappedVector2 cursor_position = utils::GetCursorPositionWrapped();
+void core::NodeBase::PrepareDrag(utils::WrappedVector2 world_cursor_pos) {
     drag_offset_.x = 0;
     drag_offset_.y = 0;
-    initial_position_cursor_.x = cursor_position.x;
-    initial_position_cursor_.y = cursor_position.y;
+    initial_position_cursor_ = world_cursor_pos;
     initial_position_ = position_;
 }
 
-void core::NodeBase::ClickNode() {
-    utils::WrappedVector2 cursor_position = utils::GetCursorPositionWrapped();
+void core::NodeBase::ClickNode(utils::WrappedVector2 world_cursor_pos) {
     if (utils::CheckCollisionPointRecWrapped(
-            cursor_position, {position_.x, position_.y, 100, 50})) {
+            world_cursor_pos, {position_.x, position_.y, 100, 50})) {
         color_ = utils::GREEN;  // Change color when hovered
         if (utils::isLeftClicked()) {
             if (!follow_mouse_) {
                 follow_mouse_ = true;
-                PrepareDrag();
+                PrepareDrag(world_cursor_pos);
             }
         } else {
             if (!utils::isLeftDown()) {
@@ -543,21 +567,24 @@ void core::NodeBase::ClickNode() {
     }
 }
 
-void core::NodeBase::MoveNode() {
-    Vector2 cursor_position = GetMousePosition();
+void core::NodeBase::MoveNode(utils::WrappedVector2 world_cursor_pos) {
     if (follow_mouse_) {
         color_ = utils::BLUE;  // Change color when following mouse
-        drag_offset_.x = cursor_position.x - initial_position_cursor_.x;
-        drag_offset_.y = cursor_position.y - initial_position_cursor_.y;
+        drag_offset_.x = world_cursor_pos.x - initial_position_cursor_.x;
+        drag_offset_.y = world_cursor_pos.y - initial_position_cursor_.y;
         position_.x = initial_position_.x + drag_offset_.x;
         position_.y = initial_position_.y + drag_offset_.y;
     }
 }
 
-bool core::NodeBase::IsMouseOver() const {
+bool core::NodeBase::IsMouseOver(float zoom,
+                                 utils::WrappedVector2 camera_offset) const {
+    // Convert screen position to world position
     Vector2 cursor_position = GetMousePosition();
+    float world_x = (cursor_position.x - camera_offset.x) / zoom;
+    float world_y = (cursor_position.y - camera_offset.y) / zoom;
 
-    return CheckCollisionPointRec(cursor_position,
+    return CheckCollisionPointRec({world_x, world_y},
                                   {position_.x, position_.y, 100, 50});
 }
 
