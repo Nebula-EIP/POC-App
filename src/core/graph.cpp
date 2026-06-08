@@ -741,6 +741,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         }
     }
 
+    TraceLog(LOG_INFO, "deserialized successfully");
     return graph;
 }
 
@@ -799,6 +800,7 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
         file.close();
 
         // Deserialize the graph
+        TraceLog(LOG_INFO, "GRAPH LOADED SUCCESSFULLY========================");
         return Deserialize(json);
     } catch (const std::filesystem::filesystem_error &e) {
         return std::unexpected(std::string("Filesystem error: ") + e.what());
@@ -843,12 +845,12 @@ void core::Graph::Draw() {
         node->DrawBody();
     }
 
-    utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
-                                save_button_.width, save_button_.height,
-                                utils::DARKGRAY);
-    utils::DrawTextWrapped("Save", save_button_.x + 10, save_button_.y + 10, 20,
-                            utils::WHITE);
-    
+    //utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
+    //                            save_button_.width, save_button_.height,
+    //                            utils::DARKGRAY);
+    //utils::DrawTextWrapped("Save", save_button_.x + 10, save_button_.y + 10, 20,
+    //                        utils::WHITE);
+    //
     utils::DrawRectangleWrapped(load_button_.x, load_button_.y, load_button_.width, load_button_.height,
                                 utils::BLACK);
     utils::DrawTextWrapped("Load", load_button_.x + 10, load_button_.y + 10, 20,

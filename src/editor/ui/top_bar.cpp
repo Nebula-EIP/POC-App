@@ -1,4 +1,4 @@
-#include "ui/top_bar.hpp"
+#include "top_bar.hpp"
 
 #include <algorithm>
 
