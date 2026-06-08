@@ -72,6 +72,16 @@ bool isRightDown() { return IsMouseButtonDown(MOUSE_BUTTON_RIGHT); }
 
 bool isLeftDown() { return IsMouseButtonDown(MOUSE_BUTTON_LEFT); }
 
+float GetMouseWheelMoveWrapped() { return GetMouseWheelMove(); }
+
+bool IsKeyDownWrapped(int key) { return IsKeyDown(key); }
+
+bool IsKeyPressedWrapped(int key) { return IsKeyPressed(key); }
+
+bool isMiddleClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE); }
+
+bool isMiddleDown() { return IsMouseButtonDown(MOUSE_BUTTON_MIDDLE); }
+
 // Collision functions
 
 bool CheckCollisionRecsWrapped(WrappedRectangle rec1, WrappedRectangle rec2) {
