@@ -29,9 +29,7 @@ core::Graph::Graph()
       version_("1.0"),
       author_(""),
       created_at_(std::chrono::system_clock::now()),
-      modified_at_(std::chrono::system_clock::now()),
-      save_button_(utils::WrappedRectangle{0, 0, 100, 50}),
-      load_button_(utils::WrappedRectangle{150, 100, 100, 50}) {}
+      modified_at_(std::chrono::system_clock::now()) {}
 
 void core::Graph::SetProjectName(const std::string &name) {
     project_name_ = name;
@@ -842,19 +840,6 @@ void core::Graph::Draw() {
     for (const auto &node : nodes_) {
         node->DrawBody();
     }
-
-    // utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
-    //                             save_button_.width, save_button_.height,
-    //                             utils::DARKGRAY);
-    // utils::DrawTextWrapped("Save", save_button_.x + 10, save_button_.y + 10,
-    // 20,
-    //                         utils::WHITE);
-    //
-    utils::DrawRectangleWrapped(load_button_.x, load_button_.y,
-                                load_button_.width, load_button_.height,
-                                utils::BLACK);
-    utils::DrawTextWrapped("Load", load_button_.x + 10, load_button_.y + 10, 20,
-                           utils::WHITE);
 }
 
 void core::Graph::CheckNodeMovement() {
@@ -1264,34 +1249,5 @@ void core::Graph::HandleContextMenu() {
 
         context_menu_node_ = nullptr;
         context_menu_open_ = false;
-    }
-}
-
-void core::Graph::CheckSaveButtonClick() {
-    if (utils::isLeftClicked()) {
-        utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
-        if (utils::CheckCollisionPointRecWrapped(cursor_pos, save_button_)) {
-            auto save_result = SaveToFile("graph.nebula");
-            if (!save_result) {
-                LOG_ERROR("Failed to save graph: {}", save_result.error());
-            } else {
-                LOG_INFO("Graph saved successfully to graph.nebula");
-            }
-        }
-    }
-}
-
-void core::Graph::CheckLoadButtonClick() {
-    if (utils::isLeftClicked()) {
-        utils::WrappedVector2 cursor_pos = utils::GetCursorPositionWrapped();
-        if (utils::CheckCollisionPointRecWrapped(cursor_pos, load_button_)) {
-            auto load_result = LoadFromFile("graph.nebula");
-            if (!load_result) {
-                LOG_ERROR("Failed to load graph: {}", load_result.error());
-            } else {
-                *this = std::move(load_result.value());
-                LOG_INFO("Graph loaded successfully from graph.nebula");
-            }
-        }
     }
 }

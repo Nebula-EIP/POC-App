@@ -337,9 +337,6 @@ class Graph {
      */
     void DuplicateSelectedNode();
 
-    void CheckSaveButtonClick();
-    void CheckLoadButtonClick();
-
     /**
      * @brief Deletes all currently selected nodes.
      */
@@ -393,10 +390,6 @@ class Graph {
     std::string author_;
     std::chrono::system_clock::time_point created_at_;
     std::chrono::system_clock::time_point modified_at_;
-
-    utils::WrappedRectangle save_button_;
-    utils::WrappedRectangle load_button_;
-    std::string save_file_;
 };
 
 }  // namespace core
