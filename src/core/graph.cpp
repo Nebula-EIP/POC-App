@@ -119,30 +119,42 @@ void core::Graph::RemoveNode(NodeBase *node) {
 
 utils::WrappedVector2 core::Graph::GetInputPinPosition(const NodeBase &node,
                                                        uint8_t pin) const {
-    return {node.GetPosition().x, node.GetPosition().y + kPinOffsetY +
-                                      static_cast<float>(pin) * kPinSpacing};
+    utils::WrappedVector2 world_pos = {
+        node.GetPosition().x, node.GetPosition().y + kPinOffsetY +
+                                  static_cast<float>(pin) * kPinSpacing};
+    return WorldToScreen(world_pos);
 }
 
 utils::WrappedVector2 core::Graph::GetOutputPinPosition(const NodeBase &node,
                                                         uint8_t pin) const {
-    return {node.GetPosition().x + kNodeWidth,
-            node.GetPosition().y + kPinOffsetY +
-                static_cast<float>(pin) * kPinSpacing};
+    utils::WrappedVector2 world_pos = {
+        node.GetPosition().x + kNodeWidth,
+        node.GetPosition().y + kPinOffsetY +
+            static_cast<float>(pin) * kPinSpacing};
+    return WorldToScreen(world_pos);
 }
 
 bool core::Graph::IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const {
+    float scaled_pin_radius = kPinRadius * zoom_;
+    if (scaled_pin_radius < 2.0f) {
+        scaled_pin_radius = 2.0f;
+    }
+    auto cursor = utils::GetCursorPositionWrapped();
     return utils::CheckCollisionPointCircleWrapped(
-        utils::GetCursorPositionWrapped(),
-        {GetInputPinPosition(node, pin).x, GetInputPinPosition(node, pin).y,
-         kPinRadius});
+        cursor, {GetInputPinPosition(node, pin).x,
+                 GetInputPinPosition(node, pin).y, scaled_pin_radius});
 }
 
 bool core::Graph::IsMouseOverOutputPin(const NodeBase &node,
                                        uint8_t pin) const {
+    float scaled_pin_radius = kPinRadius * zoom_;
+    if (scaled_pin_radius < 2.0f) {
+        scaled_pin_radius = 2.0f;
+    }
+    auto cursor = utils::GetCursorPositionWrapped();
     return utils::CheckCollisionPointCircleWrapped(
-        utils::GetCursorPositionWrapped(),
-        {GetOutputPinPosition(node, pin).x, GetOutputPinPosition(node, pin).y,
-         kPinRadius});
+        cursor, {GetOutputPinPosition(node, pin).x,
+                 GetOutputPinPosition(node, pin).y, scaled_pin_radius});
 }
 
 bool core::Graph::IsMouseOverAnyPin(const NodeBase &node) const {
@@ -181,10 +193,33 @@ bool core::Graph::IsMouseOverAnyNode() const {
     return false;
 }
 
+bool core::Graph::IsMouseOverAnyNode(
+    float zoom, utils::WrappedVector2 camera_offset) const {
+    for (const auto &node : nodes_) {
+        if (node->IsMouseOver(zoom, camera_offset)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 core::NodeBase *core::Graph::GetNodeUnderMouse() const {
     for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
         const auto &node = *it;
         if (node->IsMouseOver()) {
+            return node.get();
+        }
+    }
+
+    return nullptr;
+}
+
+core::NodeBase *core::Graph::GetNodeUnderMouse(
+    float zoom, utils::WrappedVector2 camera_offset) const {
+    for (auto it = nodes_.rbegin(); it != nodes_.rend(); ++it) {
+        const auto &node = *it;
+        if (node->IsMouseOver(zoom, camera_offset)) {
             return node.get();
         }
     }
@@ -832,12 +867,12 @@ void core::Graph::Draw() {
 
     // Draw pins between connections and node bodies
     for (const auto &node : nodes_) {
-        node->DrawPins();
+        node->DrawPins(zoom_, camera_offset_);
     }
 
     // Draw node bodies on top
     for (const auto &node : nodes_) {
-        node->DrawBody();
+        node->DrawBody(zoom_, camera_offset_);
     }
 }
 
@@ -853,23 +888,23 @@ void core::Graph::CheckNodeMovement() {
             return;
         }
 
-        active_drag_node_->MoveNode();
+        active_drag_node_->MoveNode(GetAdjustedMousePosition());
         return;
     }
 
     if (utils::isLeftClicked() && !IsMouseOverAnyPin()) {
-        NodeBase *node = GetNodeUnderMouse();
+        NodeBase *node = GetNodeUnderMouse(zoom_, camera_offset_);
         if (node != nullptr) {
             ClearSelection();
             node->SetSelected(true);
             node->follow_mouse_ = true;
-            node->PrepareDrag();
+            node->PrepareDrag(GetAdjustedMousePosition());
             active_drag_node_ = node;
         }
     }
 
     if (active_drag_node_ != nullptr) {
-        active_drag_node_->MoveNode();
+        active_drag_node_->MoveNode(GetAdjustedMousePosition());
         return;
     }
 
@@ -878,7 +913,7 @@ void core::Graph::CheckNodeMovement() {
     }
 
     for (const auto &node : nodes_) {
-        node->ClickNode();
+        node->ClickNode(GetAdjustedMousePosition());
 
         if (node->follow_mouse_) {
             active_drag_node_ = node.get();
@@ -887,7 +922,7 @@ void core::Graph::CheckNodeMovement() {
     }
 
     if (active_drag_node_ != nullptr && utils::isLeftDown()) {
-        active_drag_node_->MoveNode();
+        active_drag_node_->MoveNode(GetAdjustedMousePosition());
     }
 }
 
@@ -1049,14 +1084,14 @@ void core::Graph::SelectWithMouse() {
 
     if (utils::isLeftClicked()) {
         if (!is_selecting_) {
-            utils::WrappedVector2 start = utils::GetCursorPositionWrapped();
+            utils::WrappedVector2 start = GetAdjustedMousePosition();
             selection_start_ = {start.x, start.y};
             is_selecting_ = true;
         }
     } else {
         if (is_selecting_) {
             // Select the nodes within the selection rectangle
-            utils::WrappedVector2 end = utils::GetCursorPositionWrapped();
+            utils::WrappedVector2 end = GetAdjustedMousePosition();
             for (const auto &node : nodes_) {
                 utils::WrappedVector2 node_pos = {node->GetPosition().x,
                                                   node->GetPosition().y};
@@ -1081,7 +1116,7 @@ void core::Graph::SelectWithMouse() {
 
     // Draw the square and color the nodes
     if (is_selecting_) {
-        utils::WrappedVector2 current = utils::GetCursorPositionWrapped();
+        utils::WrappedVector2 current = GetAdjustedMousePosition();
         utils::DrawRectangleLinesWrapped(
             std::min(selection_start_.x, current.x),
             std::min(selection_start_.y, current.y),
@@ -1174,7 +1209,7 @@ void core::Graph::HandleContextMenu() {
     }
 
     if (utils::isRightClicked()) {
-        NodeBase *node = GetNodeUnderMouse();
+        NodeBase *node = GetNodeUnderMouse(zoom_, camera_offset_);
         if (node != nullptr && !IsMouseOverAnyPin()) {
             ClearSelection();
             node->SetSelected(true);
@@ -1249,4 +1284,58 @@ void core::Graph::HandleContextMenu() {
         context_menu_node_ = nullptr;
         context_menu_open_ = false;
     }
+}
+
+void core::Graph::HandleZoom(float wheel_move) {
+    const float kZoomSpeed = 0.1f;
+    const float kMinZoom = 0.1f;
+    const float kMaxZoom = 5.0f;
+
+    float new_zoom = zoom_ + (wheel_move * kZoomSpeed);
+    new_zoom = std::max(kMinZoom, std::min(new_zoom, kMaxZoom));
+
+    auto mouse_pos = utils::GetCursorPositionWrapped();
+
+    if (new_zoom != zoom_) {
+        float zoom_ratio = new_zoom / zoom_;
+        camera_offset_.x =
+            mouse_pos.x - (mouse_pos.x - camera_offset_.x) * zoom_ratio;
+        camera_offset_.y =
+            mouse_pos.y - (mouse_pos.y - camera_offset_.y) * zoom_ratio;
+
+        zoom_ = new_zoom;
+    }
+}
+
+void core::Graph::StartPanning() {
+    is_panning_ = true;
+    pan_start_pos_ = utils::GetCursorPositionWrapped();
+    pan_start_offset_ = camera_offset_;
+}
+
+void core::Graph::UpdatePanning() {
+    if (!is_panning_) {
+        return;
+    }
+
+    auto current_pos = utils::GetCursorPositionWrapped();
+    float dx = current_pos.x - pan_start_pos_.x;
+    float dy = current_pos.y - pan_start_pos_.y;
+
+    camera_offset_.x = pan_start_offset_.x + dx;
+    camera_offset_.y = pan_start_offset_.y + dy;
+}
+
+void core::Graph::StopPanning() { is_panning_ = false; }
+
+utils::WrappedVector2 core::Graph::GetAdjustedMousePosition() const {
+    auto raw_pos = utils::GetCursorPositionWrapped();
+    return {(raw_pos.x - camera_offset_.x) / zoom_,
+            (raw_pos.y - camera_offset_.y) / zoom_};
+}
+
+utils::WrappedVector2 core::Graph::WorldToScreen(
+    utils::WrappedVector2 world_pos) const {
+    return {world_pos.x * zoom_ + camera_offset_.x,
+            world_pos.y * zoom_ + camera_offset_.y};
 }
