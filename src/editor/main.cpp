@@ -1,6 +1,7 @@
 #include <vector>
 
 #include "graph.hpp"
+#include "raylib_wrapper.hpp"
 #include "ui/top_bar.hpp"
 
 int main() {
@@ -86,15 +87,40 @@ int main() {
         }
 
         if (IsKeyPressed(KEY_Q)) {
+            auto adjusted_pos = graph.GetAdjustedMousePosition();
             graph.AddNode(core::NodeBase::NodeKind::kVariable,
-                          {cursor_position.x - 50, cursor_position.y - 25});
+                          {adjusted_pos.x - 50, adjusted_pos.y - 25});
         }
         if (IsKeyPressed(KEY_W)) {
+            auto adjusted_pos = graph.GetAdjustedMousePosition();
             graph.AddNode(core::NodeBase::NodeKind::kLiteral,
-                          {cursor_position.x - 50, cursor_position.y - 25});
+                          {adjusted_pos.x - 50, adjusted_pos.y - 25});
         }
         if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
             graph.DuplicateSelectedNode();
+        }
+
+        float wheel_move = utils::GetMouseWheelMoveWrapped();
+        if (wheel_move != 0) {
+            graph.HandleZoom(wheel_move);
+        }
+
+        bool pan_started =
+            (utils::IsKeyDownWrapped(KEY_SPACE) && utils::isLeftClicked()) ||
+            utils::isMiddleClicked();
+
+        bool pan_active =
+            (utils::IsKeyDownWrapped(KEY_SPACE) && utils::isLeftDown()) ||
+            utils::isMiddleDown();
+
+        if (pan_started) {
+            graph.StartPanning();
+        }
+
+        if (pan_active) {
+            graph.UpdatePanning();
+        } else {
+            graph.StopPanning();
         }
 
         cursor_position = GetMousePosition();
