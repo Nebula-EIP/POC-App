@@ -24,10 +24,25 @@ int main() {
             editor_ui::MenuItem{"New", [&graph]() { graph = core::Graph{}; }},
             editor_ui::MenuItem{
                 "Save",
-                []() { TraceLog(LOG_INFO, "Save requested from top bar"); }},
+                [&graph]() {
+                    if (graph.SaveToFile("graph.nebula")) {
+                        TraceLog(LOG_INFO, "Graph saved successfully");
+                    } else {
+                        TraceLog(LOG_ERROR, "Failed to save graph");
+                    }
+                }},
             editor_ui::MenuItem{
                 "Load",
-                []() { TraceLog(LOG_INFO, "Load requested from top bar"); }},
+                [&graph]() {
+                    auto load_result = graph.LoadFromFile("graph.nebula");
+                    if (load_result) {
+                        graph = std::move(load_result.value());
+                        TraceLog(LOG_INFO, "Graph loaded successfully");
+                    } else {
+                        TraceLog(LOG_ERROR, "Failed to load graph: %s",
+                                 load_result.error().c_str());
+                    }
+                }},
             editor_ui::MenuItem{"Quit", request_quit},
         },
     });

@@ -686,7 +686,6 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
     }
 
     for (const auto &conn_json : connections_array) {
-        TraceLog(LOG_INFO, "restore connection");
         if (!conn_json.contains("source_node_id") ||
             !conn_json.contains("source_pin") ||
             !conn_json.contains("target_node_id") ||
@@ -742,7 +741,6 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
         }
     }
 
-    TraceLog(LOG_INFO, "deserialized successfully");
     return graph;
 }
 
@@ -801,7 +799,6 @@ std::expected<core::Graph, std::string> core::Graph::LoadFromFile(
         file.close();
 
         // Deserialize the graph
-        TraceLog(LOG_INFO, "GRAPH LOADED SUCCESSFULLY========================");
         return Deserialize(json);
     } catch (const std::filesystem::filesystem_error &e) {
         return std::unexpected(std::string("Filesystem error: ") + e.what());
