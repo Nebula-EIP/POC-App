@@ -67,6 +67,7 @@ Each node object represents a single node in the graph.
 |-------|------|----------|-------------|
 | `id` | integer | Yes | Unique node identifier (unsigned 32-bit) |
 | `kind` | string | Yes | Node type (see Node Kinds below) |
+| `position` | 2d Vector | Yes | Position of the node on the graph |
 | Additional fields | varies | Depends on kind | Node-specific properties |
 
 #### Node Kinds
@@ -110,18 +111,30 @@ Each connection object represents a link between two nodes.
       {
         "id": 1,
         "kind": "Literal",
-        "type": "Int",
-        "name": "Number 42"
+        "name": "Number 42",
+        "position": [
+                    500.0,
+                    100.0
+                ],
+        "type": "Int"
       },
       {
         "id": 2,
         "kind": "Literal",
-        "type": "Float",
-        "name": "Pi"
+        "name": "Pi",
+        "position": [
+                    400.0,
+                    100.0
+                ],
+        "type": "Float"
       },
       {
         "id": 3,
         "kind": "Operator",
+        "position": [
+                    300.0,
+                    100.0
+                ],
         "operator_type": "Add"
       }
     ],
@@ -162,14 +175,22 @@ Here's a complete `.nebula` file example with a simple two-node graph:
       {
         "id": 1,
         "kind": "Literal",
-        "type": "Int",
-        "name": "My Number"
+        "name": "My Number",
+        "position": [
+                    200.0,
+                    100.0
+        ],
+        "type": "Int"
       },
       {
         "id": 2,
         "kind": "Literal",
-        "type": "String",
-        "name": "My Text"
+        "name": "My Text",
+        "position": [
+                    100.0,
+                    100.0
+        ],
+        "type": "String"
       }
     ],
     "connections": []
@@ -227,6 +248,7 @@ When loading a `.nebula` file, implementations should provide clear error messag
 - Dangling connections (referencing non-existent nodes)
 - Invalid pin indices
 - ID collisions
+- No positions provided
 
 ## Future Considerations
 
