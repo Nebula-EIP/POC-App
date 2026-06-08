@@ -342,6 +342,50 @@ class Graph {
      */
     void DeleteSelectedNodes();
 
+    /**
+     * @brief Handles zoom with mouse wheel.
+     *
+     * @param wheel_move The mouse wheel movement (positive = zoom in, negative
+     * = zoom out)
+     */
+    void HandleZoom(float wheel_move);
+
+    /**
+     * @brief Starts panning (dragging the view)
+     */
+    void StartPanning();
+
+    /**
+     * @brief Updates panning (dragging the view)
+     */
+    void UpdatePanning();
+
+    /**
+     * @brief Stops panning
+     */
+    void StopPanning();
+
+    /**
+     * @brief Gets the camera-adjusted mouse position
+     *
+     * @return The mouse position adjusted for zoom and camera offset
+     */
+    utils::WrappedVector2 GetAdjustedMousePosition() const;
+
+    /**
+     * @brief Gets the current zoom level
+     *
+     * @return The zoom level (1.0f = 100%)
+     */
+    float GetZoom() const { return zoom_; }
+
+    /**
+     * @brief Gets the current camera offset
+     *
+     * @return The camera offset
+     */
+    utils::WrappedVector2 GetCameraOffset() const { return camera_offset_; }
+
    private:
     /**
      * @brief Factory method to create a node based on its kind.
@@ -354,12 +398,25 @@ class Graph {
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
                                          utils::WrappedVector2 position);
 
+    /**
+     * @brief Transforms a world position to screen position with zoom and
+     * camera offset
+     *
+     * @param world_pos The position in world coordinates
+     * @return The position in screen coordinates
+     */
+    utils::WrappedVector2 WorldToScreen(utils::WrappedVector2 world_pos) const;
+
     bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverAnyPin(const NodeBase &node) const;
     bool IsMouseOverAnyPin() const;
     bool IsMouseOverAnyNode() const;
     NodeBase *GetNodeUnderMouse() const;
+    bool IsMouseOverAnyNode(float zoom,
+                            utils::WrappedVector2 camera_offset) const;
+    NodeBase *GetNodeUnderMouse(float zoom,
+                                utils::WrappedVector2 camera_offset) const;
     void ClearSelection();
     NodeBase *GetFirstSelectedNode() const;
     NodeBase *DuplicateNode(NodeBase *node);
@@ -383,6 +440,15 @@ class Graph {
         false;  ///< Flag to indicate if the user is currently selecting nodes
     utils::WrappedVector2
         selection_start_;  ///< Starting position of the selection box
+
+    // Camera/Viewport state for zoom and panning
+    float zoom_ = 1.0f;  ///< Zoom level (1.0f = 100%)
+    utils::WrappedVector2 camera_offset_ = {0.0f, 0.0f};  ///< Camera pan offset
+    bool is_panning_ = false;  ///< Flag to indicate if currently panning
+    utils::WrappedVector2 pan_start_pos_ = {
+        0.0f, 0.0f};  ///< Mouse position when panning started
+    utils::WrappedVector2 pan_start_offset_ = {
+        0.0f, 0.0f};  ///< Camera offset when panning started
 
     // Project metadata
     std::string project_name_;
