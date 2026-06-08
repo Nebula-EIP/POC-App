@@ -102,7 +102,8 @@ class NodeBase {
 
     utils::WrappedVector2 GetPosition() const;
 
-    bool IsMouseOver() const;
+    bool IsMouseOver(float zoom = 1.0f,
+                     utils::WrappedVector2 camera_offset = {0, 0}) const;
 
     utils::WrappedColor GetInitialColor() const;
 
@@ -232,24 +233,28 @@ class NodeBase {
 
     /**
      * @brief Draw only the node body (rectangle, texts, selection border).
+     * @param zoom The zoom level to apply to drawing
+     * @param camera_offset The camera offset to apply to drawing
      */
-    virtual void DrawBody();
+    virtual void DrawBody(float zoom, utils::WrappedVector2 camera_offset);
 
     /**
      * @brief Draw only the pins (circles). Placed between links and node
      * bodies when rendering the scene.
+     * @param zoom The zoom level to apply to drawing
+     * @param camera_offset The camera offset to apply to drawing
      */
-    virtual void DrawPins();
+    virtual void DrawPins(float zoom, utils::WrappedVector2 camera_offset);
 
     /**
      * @brief Select the node
      */
-    void ClickNode();
+    void ClickNode(utils::WrappedVector2 world_cursor_pos);
 
     /**
      * @brief Updates the node position
      */
-    void MoveNode();
+    void MoveNode(utils::WrappedVector2 world_cursor_pos);
 
     /**
      * @brief Set the node color
@@ -269,7 +274,7 @@ class NodeBase {
     /**
      * @brief prepare the node for dragging
      */
-    void PrepareDrag();
+    void PrepareDrag(utils::WrappedVector2 world_cursor_pos);
 
    protected:
     friend class Graph;  ///< Graph class manages the lifetime of nodes
