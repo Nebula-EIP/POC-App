@@ -357,7 +357,6 @@ class Graph {
     std::unique_ptr<NodeBase> CreateNode(uint32_t id, NodeBase::NodeKind kind,
                                          utils::WrappedVector2 position);
 
-
     bool IsMouseOverInputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverOutputPin(const NodeBase &node, uint8_t pin) const;
     bool IsMouseOverAnyPin(const NodeBase &node) const;

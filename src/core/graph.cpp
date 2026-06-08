@@ -5,9 +5,9 @@
 #include <format>
 #include <fstream>
 #include <iomanip>
+#include <iostream>
 #include <map>
 #include <sstream>
-#include <iostream>
 
 #include "logger.hpp"
 #include "nodes/function_input_node.hpp"
@@ -843,16 +843,18 @@ void core::Graph::Draw() {
         node->DrawBody();
     }
 
-    //utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
-    //                            save_button_.width, save_button_.height,
-    //                            utils::DARKGRAY);
-    //utils::DrawTextWrapped("Save", save_button_.x + 10, save_button_.y + 10, 20,
-    //                        utils::WHITE);
+    // utils::DrawRectangleWrapped(save_button_.x, save_button_.y,
+    //                             save_button_.width, save_button_.height,
+    //                             utils::DARKGRAY);
+    // utils::DrawTextWrapped("Save", save_button_.x + 10, save_button_.y + 10,
+    // 20,
+    //                         utils::WHITE);
     //
-    utils::DrawRectangleWrapped(load_button_.x, load_button_.y, load_button_.width, load_button_.height,
+    utils::DrawRectangleWrapped(load_button_.x, load_button_.y,
+                                load_button_.width, load_button_.height,
                                 utils::BLACK);
     utils::DrawTextWrapped("Load", load_button_.x + 10, load_button_.y + 10, 20,
-                            utils::WHITE);
+                           utils::WHITE);
 }
 
 void core::Graph::CheckNodeMovement() {

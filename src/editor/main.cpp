@@ -22,15 +22,16 @@ int main() {
         "File",
         {
             editor_ui::MenuItem{"New", [&graph]() { graph = core::Graph{}; }},
-            editor_ui::MenuItem{
-                "Save",
-                [&graph]() {
-                    if (graph.SaveToFile("graph.nebula")) {
-                        TraceLog(LOG_INFO, "Graph saved successfully");
-                    } else {
-                        TraceLog(LOG_ERROR, "Failed to save graph");
-                    }
-                }},
+            editor_ui::MenuItem{"Save",
+                                [&graph]() {
+                                    if (graph.SaveToFile("graph.nebula")) {
+                                        TraceLog(LOG_INFO,
+                                                 "Graph saved successfully");
+                                    } else {
+                                        TraceLog(LOG_ERROR,
+                                                 "Failed to save graph");
+                                    }
+                                }},
             editor_ui::MenuItem{
                 "Load",
                 [&graph]() {
