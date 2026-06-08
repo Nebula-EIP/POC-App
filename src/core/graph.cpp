@@ -31,7 +31,7 @@ core::Graph::Graph()
       created_at_(std::chrono::system_clock::now()),
       modified_at_(std::chrono::system_clock::now()),
       save_button_(utils::WrappedRectangle{0, 0, 100, 50}),
-      load_button_(utils::WrappedRectangle{150, 0, 100, 50}) {}
+      load_button_(utils::WrappedRectangle{150, 100, 100, 50}) {}
 
 void core::Graph::SetProjectName(const std::string &name) {
     project_name_ = name;
@@ -686,6 +686,7 @@ std::expected<core::Graph, std::string> core::Graph::Deserialize(
     }
 
     for (const auto &conn_json : connections_array) {
+        TraceLog(LOG_INFO, "restore connection");
         if (!conn_json.contains("source_node_id") ||
             !conn_json.contains("source_pin") ||
             !conn_json.contains("target_node_id") ||
