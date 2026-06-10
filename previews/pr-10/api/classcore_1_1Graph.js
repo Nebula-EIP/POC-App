@@ -1,5 +1,6 @@
 var classcore_1_1Graph =
 [
+    [ "Edge", "structcore_1_1Graph_1_1Edge.html", null ],
     [ "AddInputPin", "classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740", null ],
     [ "AddNode", "classcore_1_1Graph.html#aa994f46d5ee6d2f3f1dba93a0a4e05d6", null ],
     [ "AddNode", "classcore_1_1Graph.html#af109b8aaad8ac1cc03afdb748adaa136", null ],
@@ -12,6 +13,7 @@ var classcore_1_1Graph =
     [ "GetAllNodes", "classcore_1_1Graph.html#ad16112a1e0b808902356852caeaa6cf2", null ],
     [ "GetAuthor", "classcore_1_1Graph.html#a0573c1c202b8fce4998285d78904ba1a", null ],
     [ "GetCreatedAt", "classcore_1_1Graph.html#a13bc792dd37fc11853931a2dc7976786", null ],
+    [ "GetEdges", "classcore_1_1Graph.html#a3355ddad00f4861b5a947b9a7ccd49f5", null ],
     [ "GetModifiedAt", "classcore_1_1Graph.html#a15fb08b9f2fbcc9607bd25f2f27addfa", null ],
     [ "GetNode", "classcore_1_1Graph.html#ad950f7401dd83e54aadbd9051e4de75d", null ],
     [ "GetNode", "classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4", null ],
