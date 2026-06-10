@@ -12,6 +12,7 @@ It will host the project’s technical documentation, including:
 - build, test and quality workflows
 - contribution process and repository conventions
 - architecture notes and design decisions
+- the C++ code generation pipeline and its algorithmic steps
 - internal tooling and generated documentation
 
 If you only want to use the application, the User section is the right entry point.

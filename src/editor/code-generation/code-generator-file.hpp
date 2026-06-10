@@ -101,6 +101,12 @@ class CodeGeneratorFile {
     std::string GetContent() const;
 
     /**
+     * @brief Retrieves the raw lines stored in the code file.
+     * @return Const reference to the underlying line list.
+     */
+    const std::vector<std::string> &GetLines() const noexcept;
+
+    /**
      * @brief Retrieves the formatted content of the code file, applying
      * indentation, carriage returns, and other formatting rules as necessary.
      * @return A string representing the formatted content of the code file with

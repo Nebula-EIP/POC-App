@@ -1,0 +1,7 @@
+# Ignore all files in the output directory
+*.cpp
+
+# Binary files
+*.exe
+mega_flow_graph_demo
+mega_flow_graph_test

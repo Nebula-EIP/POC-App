@@ -66,6 +66,10 @@ std::string CodeGeneratorFile::GetContent() const {
     return content;
 }
 
+const std::vector<std::string> &CodeGeneratorFile::GetLines() const noexcept {
+    return content_;
+}
+
 size_t CodeGeneratorFile::GetContainedPosition(int position) const {
     if (content_.empty()) return 0;
     while (position < 0) position += content_.size() + 1;
