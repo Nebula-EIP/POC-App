@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['initializeconnections_0',['InitializeConnections',['../classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a',1,'core::NodeBase']]],
-  ['isselected_1',['IsSelected',['../classcore_1_1NodeBase.html#af6aa8cbf0da49cde0fea26ffd5d418e4',1,'core::NodeBase']]],
-  ['isunaryoperator_2',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]]
+  ['handlecontextmenu_0',['HandleContextMenu',['../classcore_1_1Graph.html#a81439dcac56453ea671113a2b0333cc5',1,'core::Graph']]],
+  ['handlezoom_1',['HandleZoom',['../classcore_1_1Graph.html#ab42d10e5e60e114713d51bba54eb2ba4',1,'core::Graph']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pindatatype_0',['PinDataType',['../classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c',1,'core::NodeBase']]]
+  ['operatortype_0',['OperatorType',['../classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4',1,'core::OperatorNode']]]
 ];

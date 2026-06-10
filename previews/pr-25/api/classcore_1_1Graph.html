@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classcore_1_1Graph.html',''); initResi
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classcore_1_1Graph-members.html">List of all members</a>  </div>
@@ -98,6 +99,11 @@ $(document).ready(function(){initNavTree('classcore_1_1Graph.html',''); initResi
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Graph_1_1Edge.html">Edge</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad8db4f734771ad4114a0fc49e6d93864" id="r_ad8db4f734771ad4114a0fc49e6d93864"><td class="memItemLeft" align="right" valign="top"><a id="ad8db4f734771ad4114a0fc49e6d93864" name="ad8db4f734771ad4114a0fc49e6d93864"></a>
@@ -183,6 +189,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateModifiedTime</b
 <tr class="memitem:a61293e2ed581922bc501e5c3dd0409ca" id="r_a61293e2ed581922bc501e5c3dd0409ca"><td class="memItemLeft" align="right" valign="top">nlohmann::json&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a61293e2ed581922bc501e5c3dd0409ca">Serialize</a> () const</td></tr>
 <tr class="memdesc:a61293e2ed581922bc501e5c3dd0409ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the entire graph to JSON format.  <br /></td></tr>
 <tr class="separator:a61293e2ed581922bc501e5c3dd0409ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3355ddad00f4861b5a947b9a7ccd49f5" id="r_a3355ddad00f4861b5a947b9a7ccd49f5"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="structcore_1_1Graph_1_1Edge.html">Edge</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a3355ddad00f4861b5a947b9a7ccd49f5">GetEdges</a> () const noexcept</td></tr>
+<tr class="memdesc:a3355ddad00f4861b5a947b9a7ccd49f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of explicit edges in the graph.  <br /></td></tr>
+<tr class="separator:a3355ddad00f4861b5a947b9a7ccd49f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8934d9981c1b5390a5cfbbb5aff455fe" id="r_a8934d9981c1b5390a5cfbbb5aff455fe"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a8934d9981c1b5390a5cfbbb5aff455fe">SaveToFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a8934d9981c1b5390a5cfbbb5aff455fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the graph to a .nebula file.  <br /></td></tr>
 <tr class="separator:a8934d9981c1b5390a5cfbbb5aff455fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -549,6 +558,34 @@ template&lt;typename T &gt; </div>
 
 <p>Gets the project creation timestamp. </p>
 <dl class="section return"><dt>Returns</dt><dd>The time point when the project was created.j </dd></dl>
+
+</div>
+</div>
+<a id="a3355ddad00f4861b5a947b9a7ccd49f5" name="a3355ddad00f4861b5a947b9a7ccd49f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3355ddad00f4861b5a947b9a7ccd49f5">&#9670;&#160;</a></span>GetEdges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1Graph_1_1Edge.html">core::Graph::Edge</a> &gt; &amp; core::Graph::GetEdges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the list of explicit edges in the graph. </p>
+<dl class="section return"><dt>Returns</dt><dd>A constant reference to the vector of edges. </dd></dl>
 
 </div>
 </div>

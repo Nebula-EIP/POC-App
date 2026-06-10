@@ -1,25 +1,5 @@
 var searchData=
 [
-  ['get_5finstance_0',['get_instance',['../classutils_1_1Logger.html#ac2bd4665c55d5c676ec8e54e6e953554',1,'utils::Logger']]],
-  ['getadjustedmouseposition_1',['GetAdjustedMousePosition',['../classcore_1_1Graph.html#a57291b208b660785461dc148380f2c2c',1,'core::Graph']]],
-  ['getallchildrens_2',['GetAllChildrens',['../classcore_1_1NodeBase.html#a0f9cf29a4e842748a237656d95ec6e86',1,'core::NodeBase']]],
-  ['getallnodes_3',['GetAllNodes',['../classcore_1_1Graph.html#ad16112a1e0b808902356852caeaa6cf2',1,'core::Graph']]],
-  ['getallparents_4',['GetAllParents',['../classcore_1_1NodeBase.html#a1f086066d6a390e70712b5eedbf784e9',1,'core::NodeBase']]],
-  ['getauthor_5',['GetAuthor',['../classcore_1_1Graph.html#a0573c1c202b8fce4998285d78904ba1a',1,'core::Graph']]],
-  ['getbuilddirectory_6',['GetBuildDirectory',['../classnebula_1_1cmake_1_1CMakeCompiler.html#a1d0f0913c76e0b9feeb18f680fdffcfc',1,'nebula::cmake::CMakeCompiler']]],
-  ['getcameraoffset_7',['GetCameraOffset',['../classcore_1_1Graph.html#afad8c2417f1a2a12171dc5156f0aca35',1,'core::Graph']]],
-  ['getcategory_8',['getcategory',['../classcore_1_1VariableNode.html#a05c7d50ce124feb84353eb0e546a3fde',1,'core::VariableNode::GetCategory()'],['../classcore_1_1OperatorNode.html#aa6eb042216fdb25dd178b8e33bf0296c',1,'core::OperatorNode::GetCategory()'],['../classcore_1_1LiteralNode.html#afe43aefe921ec306c709784cabbe7f5d',1,'core::LiteralNode::GetCategory()'],['../classcore_1_1FunctionNode.html#a6cf102cf8ddfdb2f98cbe17c583e6f93',1,'core::FunctionNode::GetCategory()'],['../classcore_1_1FunctionInputNode.html#a2b8a4cf303d163af1afca5fb3f6a46eb',1,'core::FunctionInputNode::GetCategory()'],['../classcore_1_1NodeBase.html#ada45d3f0e54c7e38e51c080bca5d3adb',1,'core::NodeBase::GetCategory()'],['../classcore_1_1FunctionOutputNode.html#acfceaa5e3d30df9fe4a2bfef61c0b872',1,'core::FunctionOutputNode::GetCategory()']]],
-  ['getcontent_9',['GetContent',['../classcode__generation_1_1CodeGeneratorFile.html#aa842aa12eafdeb2e739557da358f838c',1,'code_generation::CodeGeneratorFile']]],
-  ['getcreatedat_10',['GetCreatedAt',['../classcore_1_1Graph.html#a13bc792dd37fc11853931a2dc7976786',1,'core::Graph']]],
-  ['getdetailedmessage_11',['GetDetailedMessage',['../classutils_1_1BaseException.html#aaa6d0635701d34a349aa159be024987f',1,'utils::BaseException']]],
-  ['getformatedcontent_12',['GetFormatedContent',['../classcode__generation_1_1CodeGeneratorFile.html#aa4413fca63a68dea84cfd38c04f1da21',1,'code_generation::CodeGeneratorFile']]],
-  ['getformattedmessage_13',['GetFormattedMessage',['../classutils_1_1BaseException.html#a5c33af9650789bba60d1a59664d7b214',1,'utils::BaseException']]],
-  ['getmodifiedat_14',['GetModifiedAt',['../classcore_1_1Graph.html#a15fb08b9f2fbcc9607bd25f2f27addfa',1,'core::Graph']]],
-  ['getnode_15',['getnode',['../classcore_1_1Graph.html#ad950f7401dd83e54aadbd9051e4de75d',1,'core::Graph::GetNode(uint32_t id) const'],['../classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4',1,'core::Graph::GetNode(uint32_t id) const']]],
-  ['getoperatorinputtype_16',['GetOperatorInputType',['../classcore_1_1OperatorNode.html#a34c96bf034ba46db1b4f39355dc93d38',1,'core::OperatorNode']]],
-  ['getoperatoroutputtype_17',['GetOperatorOutputType',['../classcore_1_1OperatorNode.html#a30a56595564437b9d24aa4accffc0a38',1,'core::OperatorNode']]],
-  ['getpositionstartblock_18',['GetPositionStartBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a31c9b1283c66813862ac44c41a660659',1,'code_generation::CodeGeneratorFile']]],
-  ['getprojectname_19',['GetProjectName',['../classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43',1,'core::Graph']]],
-  ['getversion_20',['GetVersion',['../classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89',1,'core::Graph']]],
-  ['getzoom_21',['GetZoom',['../classcore_1_1Graph.html#a64005e274ae01743664a233bb971ea0a',1,'core::Graph']]]
+  ['findusednodes_0',['FindUsedNodes',['../classeditor_1_1code__generation_1_1CodegenOptimizer.html#a776729e8e9c7ccb6feaee2f2602d6645',1,'editor::code_generation::CodegenOptimizer']]],
+  ['freeid_1',['FreeId',['../classutils_1_1IdManager.html#a74f32318568cfd1ba45fa26927b20245',1,'utils::IdManager']]]
 ];
