@@ -262,6 +262,20 @@ class Graph {
     static std::expected<Graph, std::string> Deserialize(
         const nlohmann::json &json);
 
+    // Public Edge type for external inspection (read-only via GetEdges)
+    struct Edge {
+        uint32_t source_node_id;
+        uint8_t source_pin;
+        uint32_t target_node_id;
+        uint8_t target_pin;
+    };
+
+    /**
+     * @brief Gets the list of explicit edges in the graph.
+     * @return A constant reference to the vector of edges.
+     */
+    const std::vector<Edge> &GetEdges() const noexcept;
+
     /**
      * @brief Saves the graph to a .nebula file.
      *
@@ -383,6 +397,9 @@ class Graph {
         false;  ///< Flag to indicate if the user is currently selecting nodes
     utils::WrappedVector2
         selection_start_;  ///< Starting position of the selection box
+
+    // Non-invasive explicit edge storage for Phase 1
+    std::vector<Edge> edges_;
 
     // Project metadata
     std::string project_name_;

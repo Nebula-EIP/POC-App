@@ -6,31 +6,83 @@
 
 namespace utils {
 // clang-format off
-#define LIGHTGRAY  CLITERAL(WrappedColor){ 200, 200, 200, 255 }
-#define GRAY       CLITERAL(WrappedColor){ 130, 130, 130, 255 }
-#define DARKGRAY   CLITERAL(WrappedColor){ 80, 80, 80, 255 }
-#define YELLOW     CLITERAL(WrappedColor){ 253, 249, 0, 255 }
-#define GOLD       CLITERAL(WrappedColor){ 255, 203, 0, 255 }
-#define ORANGE     CLITERAL(WrappedColor){ 255, 161, 0, 255 }
-#define PINK       CLITERAL(WrappedColor){ 255, 109, 194, 255 }
-#define RED        CLITERAL(WrappedColor){ 230, 41, 55, 255 }
-#define MAROON     CLITERAL(WrappedColor){ 190, 33, 55, 255 }
-#define GREEN      CLITERAL(WrappedColor){ 0, 228, 48, 255 }
-#define LIME       CLITERAL(WrappedColor){ 0, 158, 47, 255 }
-#define DARKGREEN  CLITERAL(WrappedColor){ 0, 117, 44, 255 }
-#define SKYBLUE    CLITERAL(WrappedColor){ 102, 191, 255, 255 }
-#define BLUE       CLITERAL(WrappedColor){ 0, 121, 241, 255 }
-#define DARKBLUE   CLITERAL(WrappedColor){ 0, 82, 172, 255 }
-#define PURPLE     CLITERAL(WrappedColor){ 200, 122, 255, 255 }
-#define VIOLET     CLITERAL(WrappedColor){ 135, 60, 190, 255 }
-#define DARKPURPLE CLITERAL(WrappedColor){ 112, 31, 126, 255 }
-#define BEIGE      CLITERAL(WrappedColor){ 211, 176, 131, 255 }
-#define BROWN      CLITERAL(WrappedColor){ 127, 106, 79, 255 }
-#define DARKBROWN  CLITERAL(WrappedColor){ 76, 63, 47, 255 }
-#define WHITE      CLITERAL(WrappedColor){ 255, 255, 255, 255 }
-#define BLACK      CLITERAL(WrappedColor){ 0, 0, 0, 255 }
-#define BLANK      CLITERAL(WrappedColor){ 0, 0, 0, 0 }
-#define MAGENTA    CLITERAL(WrappedColor){ 255, 0, 255, 255 }
+// Undef any raylib color macros so we can expose namespaced constants
+#ifdef LIGHTGRAY
+#undef LIGHTGRAY
+#endif
+#ifdef GRAY
+#undef GRAY
+#endif
+#ifdef DARKGRAY
+#undef DARKGRAY
+#endif
+#ifdef YELLOW
+#undef YELLOW
+#endif
+#ifdef GOLD
+#undef GOLD
+#endif
+#ifdef ORANGE
+#undef ORANGE
+#endif
+#ifdef PINK
+#undef PINK
+#endif
+#ifdef RED
+#undef RED
+#endif
+#ifdef MAROON
+#undef MAROON
+#endif
+#ifdef GREEN
+#undef GREEN
+#endif
+#ifdef LIME
+#undef LIME
+#endif
+#ifdef DARKGREEN
+#undef DARKGREEN
+#endif
+#ifdef SKYBLUE
+#undef SKYBLUE
+#endif
+#ifdef BLUE
+#undef BLUE
+#endif
+#ifdef DARKBLUE
+#undef DARKBLUE
+#endif
+#ifdef PURPLE
+#undef PURPLE
+#endif
+#ifdef VIOLET
+#undef VIOLET
+#endif
+#ifdef DARKPURPLE
+#undef DARKPURPLE
+#endif
+#ifdef BEIGE
+#undef BEIGE
+#endif
+#ifdef BROWN
+#undef BROWN
+#endif
+#ifdef DARKBROWN
+#undef DARKBROWN
+#endif
+#ifdef WHITE
+#undef WHITE
+#endif
+#ifdef BLACK
+#undef BLACK
+#endif
+#ifdef BLANK
+#undef BLANK
+#endif
+#ifdef MAGENTA
+#undef MAGENTA
+#endif
+
 // clang-format on
 
 typedef struct WrappedColor {
@@ -39,6 +91,33 @@ typedef struct WrappedColor {
     unsigned char b;
     unsigned char a;
 } WrappedColor;
+
+// Inline constexpr color constants (use utils::GRAY etc.)
+inline constexpr WrappedColor LIGHTGRAY = {200, 200, 200, 255};
+inline constexpr WrappedColor GRAY = {130, 130, 130, 255};
+inline constexpr WrappedColor DARKGRAY = {80, 80, 80, 255};
+inline constexpr WrappedColor YELLOW = {253, 249, 0, 255};
+inline constexpr WrappedColor GOLD = {255, 203, 0, 255};
+inline constexpr WrappedColor ORANGE = {255, 161, 0, 255};
+inline constexpr WrappedColor PINK = {255, 109, 194, 255};
+inline constexpr WrappedColor RED = {230, 41, 55, 255};
+inline constexpr WrappedColor MAROON = {190, 33, 55, 255};
+inline constexpr WrappedColor GREEN = {0, 228, 48, 255};
+inline constexpr WrappedColor LIME = {0, 158, 47, 255};
+inline constexpr WrappedColor DARKGREEN = {0, 117, 44, 255};
+inline constexpr WrappedColor SKYBLUE = {102, 191, 255, 255};
+inline constexpr WrappedColor BLUE = {0, 121, 241, 255};
+inline constexpr WrappedColor DARKBLUE = {0, 82, 172, 255};
+inline constexpr WrappedColor PURPLE = {200, 122, 255, 255};
+inline constexpr WrappedColor VIOLET = {135, 60, 190, 255};
+inline constexpr WrappedColor DARKPURPLE = {112, 31, 126, 255};
+inline constexpr WrappedColor BEIGE = {211, 176, 131, 255};
+inline constexpr WrappedColor BROWN = {127, 106, 79, 255};
+inline constexpr WrappedColor DARKBROWN = {76, 63, 47, 255};
+inline constexpr WrappedColor WHITE = {255, 255, 255, 255};
+inline constexpr WrappedColor BLACK = {0, 0, 0, 255};
+inline constexpr WrappedColor BLANK = {0, 0, 0, 0};
+inline constexpr WrappedColor MAGENTA = {255, 0, 255, 255};
 
 typedef struct WrappedVector2 {
     float x;

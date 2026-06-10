@@ -73,6 +73,12 @@ int main() {
     auto node5 =
         graph.AddNode(core::NodeBase::NodeKind::kFunctionOutput, {200, 300});
     auto node6 = graph.AddNode(core::NodeBase::NodeKind::kOperator, {500, 300});
+    (void)node1;
+    (void)node2;
+    (void)node3;
+    (void)node4;
+    (void)node5;
+    (void)node6;
 
     SetTargetFPS(60);
 

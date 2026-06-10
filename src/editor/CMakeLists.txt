@@ -18,8 +18,7 @@ if(EDITOR_SOURCES)
     target_link_libraries(Nebula PRIVATE
         core
         utils
-        # graph-builder
-        # graph-exporter
+        graph-exporter
     )
 else()
     message(FATAL_ERROR "No source files found in editor!")

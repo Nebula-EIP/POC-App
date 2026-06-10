@@ -41,8 +41,10 @@ class NodeBase {
         kFunctionInput,   ///< Function input parameter node
         kFunctionOutput,  ///< Function output/return node
         kOperator,        ///< Operator node (arithmetic, logical, etc.)
+        kPrint,           ///< Print / I/O node
         kCondition,       ///< Conditional branching node (if/else)
-        kLoop             ///< Loop control node (for/while)
+        kLoop,            ///< Loop control node (while)
+        kFor              ///< Loop control node (for)
     };
 
     /**
@@ -420,8 +422,8 @@ class NodeBase {
     utils::WrappedVector2 initial_position_ = {
         0.0f, 0.0f};  ///< Initial position for resetting
     bool follow_mouse_ = false;
-    utils::WrappedColor color_ = {130, 130, 130};
-    utils::WrappedColor initial_color_ = {130, 130, 130};
+    utils::WrappedColor color_ = {130, 130, 130, 255};
+    utils::WrappedColor initial_color_ = {130, 130, 130, 255};
     bool selected_ = false;
 
     utils::IdManager<uint8_t> in_pin_id_manager_;
