@@ -96,7 +96,7 @@ void UpdateCursor() {
     }
 
     if (utils::IsHoveringUI()) {
-        utils::RequestCursor(CT::Hand);
+        utils::RequestCursor(CT::Click);
         return;
     }
 
