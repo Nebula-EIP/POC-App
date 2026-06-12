@@ -153,9 +153,6 @@ void SetFPS(int fps);
 void CloseRaylib();
 void ClearScreen();
 
-// utils
-void DrawTextureWrapped(Texture2D texture, float x, float y, WrappedColor tint);
-
 // Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
 void InitCursorSystem();
