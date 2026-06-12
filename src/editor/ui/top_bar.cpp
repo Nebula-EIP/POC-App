@@ -20,8 +20,12 @@ void TopBar::SetMenus(std::vector<Menu> menus) {
 
 void TopBar::Update() {
     utils::WrappedVector2 mouse = utils::GetCursorPositionWrapped();
+
     hovered_menu_ = GetMenuUnderMouse(mouse);
     hovered_item_ = GetItemUnderMouse(mouse);
+
+    bool hovering = (hovered_menu_ >= 0 || hovered_item_ >= 0);
+    utils::SetHoveringUI(hovering);
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         if (hovered_item_ >= 0) {
