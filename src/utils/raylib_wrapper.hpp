@@ -2,6 +2,8 @@
 
 #include <raylib.h>
 
+#include <string>
+#include <unordered_map>
 #include <utility>
 
 namespace utils {
@@ -85,12 +87,14 @@ namespace utils {
 
 // clang-format on
 
-typedef struct WrappedColor {
+struct WrappedColor {
     unsigned char r;
     unsigned char g;
     unsigned char b;
     unsigned char a;
-} WrappedColor;
+
+    constexpr operator Color() const noexcept { return Color{r, g, b, a}; }
+};
 
 // Inline constexpr color constants (use utils::GRAY etc.)
 inline constexpr WrappedColor LIGHTGRAY = {200, 200, 200, 255};
@@ -137,11 +141,37 @@ typedef struct WrappedCircle {
     float radius;
 } WrappedCircle;
 
+enum class CursorType { Default, Click, Grab, Hand, Input };
+
+static bool gHoveringUI = false;
+static bool gDragging = false;
+static bool gHoveringGraphNode = false;
+static bool gTextInputFocused = false;
+
 void InitRaylib(int width, int height, const char *title);
 void SetFPS(int fps);
 void CloseRaylib();
 void ClearScreen();
+
+// utils
+void DrawTextureWrapped(Texture2D texture, float x, float y, WrappedColor tint);
+
+// Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
+void InitCursorSystem();
+void ShutdownCursorSystem();
+void RequestCursor(CursorType cursor);
+CursorType GetCursor();
+void DrawCursor();
+void UpdateCursor();
+void SetHoveringUI(bool v);
+void SetDragging(bool v);
+void SetHoveringGraphNode(bool v);
+void SetTextInputFocused(bool v);
+bool IsHoveringUI();
+bool IsDragging();
+bool IsHoveringGraphNode();
+bool IsTextInputFocused();
 
 // Draw functions
 void DrawRectangleWrapped(float x, float y, float width, float height,
