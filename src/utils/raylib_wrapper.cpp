@@ -11,6 +11,8 @@ void CloseRaylib() { CloseWindow(); }
 
 void ClearScreen() { ClearBackground(RAYWHITE); }
 
+// Cursor functions
+
 WrappedVector2 GetCursorPositionWrapped() {
     Vector2 pos = GetMousePosition();
     WrappedVector2 wrapped_pos = {pos.x, pos.y};
@@ -18,48 +20,146 @@ WrappedVector2 GetCursorPositionWrapped() {
     return wrapped_pos;
 }
 
+static std::unordered_map<CursorType, Texture2D> g_cursor_textures;
+static CursorType g_current_cursor = CursorType::Default;
+
+static const char *CursorPath(CursorType type) {
+    switch (type) {
+        case CursorType::Click:
+            return "assets/cursor/click.png";
+
+        case CursorType::Grab:
+            return "assets/cursor/grab.png";
+
+        case CursorType::Hand:
+            return "assets/cursor/hand.png";
+
+        case CursorType::Input:
+            return "assets/cursor/input.png";
+
+        default:
+            return "assets/cursor/default.png";
+    }
+}
+
+void InitCursorSystem() {
+    g_cursor_textures[CursorType::Default] =
+        LoadTexture(CursorPath(CursorType::Default));
+    g_cursor_textures[CursorType::Click] =
+        LoadTexture(CursorPath(CursorType::Click));
+    g_cursor_textures[CursorType::Grab] =
+        LoadTexture(CursorPath(CursorType::Grab));
+    g_cursor_textures[CursorType::Hand] =
+        LoadTexture(CursorPath(CursorType::Hand));
+    g_cursor_textures[CursorType::Input] =
+        LoadTexture(CursorPath(CursorType::Input));
+
+    HideCursor();
+}
+
+void ShutdownCursorSystem() {
+    for (auto &tex : g_cursor_textures) UnloadTexture(tex.second);
+
+    g_cursor_textures.clear();
+
+    ShowCursor();
+}
+
+void RequestCursor(CursorType cursor) { g_current_cursor = cursor; }
+
+CursorType GetCursor() { return g_current_cursor; }
+
+void DrawCursor() {
+    auto it = g_cursor_textures.find(g_current_cursor);
+
+    if (it == g_cursor_textures.end()) return;
+
+    Vector2 mouse = GetMousePosition();
+
+    Texture2D tex = it->second;
+
+    DrawTexture(tex, static_cast<int>(mouse.x - tex.width / 2),
+                static_cast<int>(mouse.y), WHITE);
+}
+
+void UpdateCursor() {
+    using CT = utils::CursorType;
+
+    if (utils::IsTextInputFocused()) {
+        utils::RequestCursor(CT::Input);
+        return;
+    }
+
+    if (utils::IsDragging()) {
+        utils::RequestCursor(CT::Grab);
+        return;
+    }
+
+    if (utils::IsHoveringUI()) {
+        utils::RequestCursor(CT::Hand);
+        return;
+    }
+
+    if (utils::IsHoveringGraphNode()) {
+        utils::RequestCursor(CT::Click);
+        return;
+    }
+
+    utils::RequestCursor(CT::Default);
+}
+
+void SetHoveringUI(bool v) { gHoveringUI = v; }
+
+void SetDragging(bool v) { gDragging = v; }
+
+void SetHoveringGraphNode(bool v) { gHoveringGraphNode = v; }
+
+void SetTextInputFocused(bool v) { gTextInputFocused = v; }
+
+bool IsHoveringUI() { return gHoveringUI; }
+
+bool IsDragging() { return gDragging; }
+
+bool IsHoveringGraphNode() { return gHoveringGraphNode; }
+
+bool IsTextInputFocused() { return gTextInputFocused; }
+
 // Draw functions
 
 void DrawRectangleWrapped(float x, float y, float width, float height,
                           WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
-    DrawRectangle(x, y, width, height, raylib_color);
+    DrawRectangle(x, y, width, height, color);
 }
 
 void DrawRectangleLinesWrapped(float x, float y, float width, float height,
                                WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
-    DrawRectangleLines(x, y, width, height, raylib_color);
+    DrawRectangleLines(x, y, width, height, color);
 }
 
 void DrawCircleWrapped(float centerX, float centerY, float radius,
                        WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
-    DrawCircle(centerX, centerY, radius, raylib_color);
+    DrawCircle(centerX, centerY, radius, color);
 }
 
 void DrawLineWrapped(WrappedVector2 start, WrappedVector2 end, float thick,
                      WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
     Vector2 start_vec = {start.x, start.y};
     Vector2 end_vec = {end.x, end.y};
 
-    DrawLineEx(start_vec, end_vec, thick, raylib_color);
+    DrawLineEx(start_vec, end_vec, thick, color);
 }
 
 void DrawLineBezierWrapped(WrappedVector2 start, WrappedVector2 end,
                            float thick, WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
     Vector2 start_vec = {start.x, start.y};
     Vector2 end_vec = {end.x, end.y};
 
-    DrawLineBezier(start_vec, end_vec, thick, raylib_color);
+    DrawLineBezier(start_vec, end_vec, thick, color);
 }
 
 void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color) {
-    Color raylib_color = {color.r, color.g, color.b, color.a};
-    DrawText(text, x, y, fontSize, raylib_color);
+    DrawText(text, x, y, fontSize, color);
 }
 
 // Input functions

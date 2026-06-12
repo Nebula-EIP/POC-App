@@ -7,6 +7,7 @@
 int main() {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Nebula Test");
+    utils::InitCursorSystem();
     if (!IsWindowReady()) {
         return 1;
     }
@@ -124,8 +125,10 @@ int main() {
         }
 
         if (pan_active) {
+            utils::SetDragging(true);
             graph.UpdatePanning();
         } else {
+            utils::SetDragging(false);
             graph.StopPanning();
         }
 
@@ -137,8 +140,9 @@ int main() {
             graph.CheckNodeMovement();
         }
 
+        utils::UpdateCursor();
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(utils::WHITE);
 
         // Draw visual nodes in the graph
         if (!top_bar.BlocksGraphInput()) {
@@ -152,11 +156,12 @@ int main() {
         }
 
         top_bar.Draw();
-
+        utils::DrawCursor();
         EndDrawing();
     }
 
     if (IsWindowReady()) {
+        utils::ShutdownCursorSystem();
         CloseWindow();
     }
     return 0;
