@@ -76,7 +76,7 @@ var NAVTREEINDEX2 =
 "loop__node_8hpp_source.html":[2,0,0,1,0,7],
 "namespacecore.html":[0,0,0],
 "namespaces.html":[0,0],
-"new__core_8hpp_source.html":[2,0,0,4,1],
+"node_8hpp_source.html":[2,0,0,4,1],
 "node__base_8hpp_source.html":[2,0,0,1,6],
 "operator__node_8hpp_source.html":[2,0,0,1,0,8],
 "pages.html":[],
