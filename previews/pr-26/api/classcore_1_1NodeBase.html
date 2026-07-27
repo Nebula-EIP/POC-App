@@ -392,12 +392,12 @@ std::vector&lt; <a class="el" href="structcore_1_1NodeBase_1_1OutputPin.html">Ou
 Friends</h2></td></tr>
 <tr class="memitem:afab89afd724f1b07b1aaad6bdc61c47a" id="r_afab89afd724f1b07b1aaad6bdc61c47a"><td class="memItemLeft" align="right" valign="top"><a id="afab89afd724f1b07b1aaad6bdc61c47a" name="afab89afd724f1b07b1aaad6bdc61c47a"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
-<tr class="memdesc:afab89afd724f1b07b1aaad6bdc61c47a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classcore_1_1Graph.html">Graph</a> class manages the lifetime of nodes. <br /></td></tr>
+<tr class="memdesc:afab89afd724f1b07b1aaad6bdc61c47a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> class manages the lifetime of nodes. <br /></td></tr>
 <tr class="separator:afab89afd724f1b07b1aaad6bdc61c47a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class for all nodes in the graph system. </p>
-<p><a class="el" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system.">NodeBase</a> provides the common interface and functionality for all node types. Nodes can only be created and managed by the <a class="el" href="classcore_1_1Graph.html">Graph</a> class through the factory pattern. </p>
+<p><a class="el" href="classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system.">NodeBase</a> provides the common interface and functionality for all node types. Nodes can only be created and managed by the <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> class through the factory pattern. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a7a37bc942dfb1b307307d7bc7a5b934e" name="a7a37bc942dfb1b307307d7bc7a5b934e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a37bc942dfb1b307307d7bc7a5b934e">&#9670;&#160;</a></span>NodeKind</h2>
@@ -628,8 +628,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a new input pin to this node. </p>
-<p>Allocates a unique pin id and appends the pin to the input pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> when managing dynamic pin layouts (e.g. function parameters).</p>
-<p>Note: These methods are <code>protected</code> to ensure only the node itself and the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> (friend class) can modify pin topology. External callers must use <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> APIs to manage links/topology. </p>
+<p>Allocates a unique pin id and appends the pin to the input pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a></code> when managing dynamic pin layouts (e.g. function parameters).</p>
+<p>Note: These methods are <code>protected</code> to ensure only the node itself and the <code><a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a></code> (friend class) can modify pin topology. External callers must use <code><a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a></code> APIs to manage links/topology. </p>
 
 </div>
 </div>
@@ -668,7 +668,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a new output pin to this node. </p>
-<p>Allocates a unique pin id and appends the pin to the output pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html">Graph</a></code> when managing dynamic pin layouts. </p>
+<p>Allocates a unique pin id and appends the pin to the output pin list. Should be called from <code><a class="el" href="classcore_1_1NodeBase.html#a58bf52c02efa76657614622e1508620a" title="Initializes the pin vectors based on the node&#39;s pin layout.">InitializeConnections()</a></code> or by the <code><a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a></code> when managing dynamic pin layouts. </p>
 
 </div>
 </div>
@@ -874,7 +874,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">json</td><td>The JSON object containing the node data. </td></tr>
-    <tr><td class="paramname">graph</td><td>Pointer to the owning <a class="el" href="classcore_1_1Graph.html">Graph</a> (friend class). </td></tr>
+    <tr><td class="paramname">graph</td><td>Pointer to the owning <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> (friend class). </td></tr>
   </table>
   </dd>
 </dl>

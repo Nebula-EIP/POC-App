@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('namespacecore.html',''); initResizable
 </div><!--header-->
 <div class="contents">
 
-<p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="This class is a data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html">Graph</a> V0.  
+<p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> V0.  
 <a href="namespacecore.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -151,6 +151,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single function parameter (input pin).  <a href="structcore_1_1FunctionParameter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html">Graph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> graph manager.  <a href="classcore_1_1Graph.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1GraphException.html">GraphException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base exception class for all graph-related errors.  <a href="classcore_1_1GraphException.html#details">More...</a><br /></td></tr>
@@ -183,7 +184,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LoopNode.html">LoopNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Node.html">Node</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class is a data storage representing a <a class="el" href="classcore_1_1Node.html" title="This class is a data storage representing a Node in the Graph.">Node</a> in the <a class="el" href="classcore_1_1Graph.html">Graph</a>.  <a href="classcore_1_1Node.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data storage representing a <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> in the <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a>.  <a href="classcore_1_1Node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for all nodes in the graph system.  <a href="classcore_1_1NodeBase.html#details">More...</a><br /></td></tr>
@@ -228,9 +229,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:adb6f25f6d274110367a1702e366e2e69" id="r_adb6f25f6d274110367a1702e366e2e69"><td class="memItemLeft" align="right" valign="top"><a id="adb6f25f6d274110367a1702e366e2e69" name="adb6f25f6d274110367a1702e366e2e69"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>NodeId</b> = uint32_t</td></tr>
 <tr class="separator:adb6f25f6d274110367a1702e366e2e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3474b2ac60e7b643150ef5b21c31977" id="r_af3474b2ac60e7b643150ef5b21c31977"><td class="memItemLeft" align="right" valign="top"><a id="af3474b2ac60e7b643150ef5b21c31977" name="af3474b2ac60e7b643150ef5b21c31977"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PinId</b> = uint8_t</td></tr>
-<tr class="separator:af3474b2ac60e7b643150ef5b21c31977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59403334a91a1839ed989bed43401bac" id="r_a59403334a91a1839ed989bed43401bac"><td class="memItemLeft" align="right" valign="top"><a id="a59403334a91a1839ed989bed43401bac" name="a59403334a91a1839ed989bed43401bac"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PinId</b> = uint16_t</td></tr>
+<tr class="separator:a59403334a91a1839ed989bed43401bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a6ba581eac603821fad74118ef1cfb8" id="r_a4a6ba581eac603821fad74118ef1cfb8"><td class="memItemLeft" align="right" valign="top"><a id="a4a6ba581eac603821fad74118ef1cfb8" name="a4a6ba581eac603821fad74118ef1cfb8"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>DataType</b> = uint16_t</td></tr>
 <tr class="separator:a4a6ba581eac603821fad74118ef1cfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,7 +273,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>OperatorTypeTo
 <tr class="separator:aeccd408cbe44512232aa5c2f03d336bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="This class is a data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html">Graph</a> V0. </p>
+<div class="textblock"><p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> V0. </p>
 <p>This files contains all datatypes widely used in the core lib.</p>
 <p>Purposely built to handle basic C without includes nor macros. </p>
 </div></div><!-- contents -->
