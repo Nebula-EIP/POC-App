@@ -7,13 +7,11 @@
 
 namespace core {
 
-// Forward def to make it a friend
+// Forward def to make it a friendé"
 class Graph;
 
 /**
- * @brief This class is a data storage representing a Node in the Graph.
- * @author Jean Bizeul
- * @since Mon Jul 13 2026
+ * @brief Data storage representing a Node in the Graph.
  */
 class Node {
    public:
