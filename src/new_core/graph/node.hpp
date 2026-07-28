@@ -7,7 +7,7 @@
 
 namespace core {
 
-// Forward def to make it a friendé"
+// Forward def to make it a friend
 class Graph;
 
 /**
