@@ -5,6 +5,9 @@
 #include <typeindex>
 #include <cstdint>
 
+#include "capabilities/type_list_capability.hpp"
+#include "capabilities/node_list_capability.hpp"
+
 namespace core {
 
 class ICapability;
@@ -38,8 +41,10 @@ class IModule {
 
     virtual ModuleId id() const noexcept = 0;
 
-    // virtual TypeListCapability& types() = 0;
-    // virtual NodeListCapability& nodes() = 0;
+    /// Mendatory capabilities
+
+    virtual capa::ITypeListCapability* types() = 0;
+    virtual capa::INodeListCapability* nodes() = 0;
 
     virtual ICapability* capability(std::type_index type) noexcept = 0;
     virtual const ICapability* capability(std::type_index type) const noexcept = 0;
