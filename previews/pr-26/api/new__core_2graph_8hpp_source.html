@@ -100,9 +100,9 @@ $(document).ready(function(){initNavTree('new__core_2graph_8hpp_source.html','')
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;datatypes.hpp&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;node.hpp&quot;</span></div>
@@ -115,36 +115,36 @@ $(document).ready(function(){initNavTree('new__core_2graph_8hpp_source.html','')
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ~Graph();</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">bool</span> hasNode(NodeId <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    Node* node(NodeId <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> Node* node(NodeId <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::unordered_map&lt;NodeId, Node&gt;&amp; nodes() const noexcept;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    Node *node(NodeId <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> Node *node(NodeId <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::unordered_map&lt;NodeId, Node&gt; &amp;nodes() const noexcept;</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#a21917896a6ed41a963bd4eee3ad011cb">   27</a></span>    NodeId <a class="code hl_function" href="classcore_1_1Graph.html#aa994f46d5ee6d2f3f1dba93a0a4e05d6">AddNode</a>(<a class="code hl_class" href="classcore_1_1Node.html">Node</a> node);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#aeebc7f038b9f164ad66d34fadac9098a">RemoveNode</a>(NodeId <span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#a649068245b004c50b3694fd6779d1d3c">   33</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740">AddInputPin</a>(NodeId node_id, <a class="code hl_struct" href="structcore_1_1Pin.html">Pin</a> pin_id);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">   37</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">AddOutputPin</a>(NodeId node_id, <a class="code hl_struct" href="structcore_1_1Pin.html">Pin</a> pin_id);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b">RemoveInputPin</a>(NodeId node_id, PinId pin_id);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">bool</span> RemoveOutputPin(NodeId node_id, PinId pin_id);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">bool</span> hasSubgraph(NodeId <span class="keywordtype">id</span>) const;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="classcore_1_1Graph.html">Graph</a>* subgraph(NodeId <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    const <a class="code hl_class" href="classcore_1_1Graph.html">Graph</a>* subgraph(NodeId <span class="keywordtype">id</span>) const;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">bool</span> hasConnection(NodeId from, PinId out, NodeId to, PinId in) const;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::pair&lt;std::vector&lt;const <a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a> *&gt;, std::vector&lt;const <a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a> *&gt;&gt;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">   52</a></span>        <a class="code hl_function" href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">getConnections</a>(NodeId <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    const std::vector&lt;<a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a>&gt;&amp; getAllConnections() const;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">bool</span> Connect(NodeId from, PinId out, NodeId to, PinId in);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">bool</span> Disconnect(NodeId from, PinId out, NodeId to, PinId in);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>   private:</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    std::unordered_map&lt;NodeId, <a class="code hl_class" href="classcore_1_1Node.html">Node</a>&gt; _nodes;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::vector&lt;<a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a>&gt; _connections;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    std::unordered_map&lt;NodeId, std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1Graph.html">Graph</a>&gt;&gt; _subgraphs;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#a649068245b004c50b3694fd6779d1d3c">   34</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#aaca244a70477893198854e5cb7ed9740">AddInputPin</a>(NodeId node_id, <a class="code hl_struct" href="structcore_1_1Pin.html">Pin</a> pin_id);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">   39</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">AddOutputPin</a>(NodeId node_id, <a class="code hl_struct" href="structcore_1_1Pin.html">Pin</a> pin_id);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b">RemoveInputPin</a>(NodeId node_id, PinId pin_id);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">bool</span> RemoveOutputPin(NodeId node_id, PinId pin_id);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> hasSubgraph(NodeId <span class="keywordtype">id</span>) const;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="classcore_1_1Graph.html">Graph</a> *subgraph(NodeId <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    const <a class="code hl_class" href="classcore_1_1Graph.html">Graph</a> *subgraph(NodeId <span class="keywordtype">id</span>) const;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">bool</span> hasConnection(NodeId from, PinId out, NodeId to, PinId in) const;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    std::pair&lt;std::vector&lt;const <a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a> *&gt;, std::vector&lt;const <a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a> *&gt;&gt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">   55</a></span>    <a class="code hl_function" href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">getConnections</a>(NodeId <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    const std::vector&lt;<a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a>&gt; &amp;getAllConnections() const;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">bool</span> Connect(NodeId from, PinId out, NodeId to, PinId in);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">bool</span> Disconnect(NodeId from, PinId out, NodeId to, PinId in);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>   private:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::unordered_map&lt;NodeId, <a class="code hl_class" href="classcore_1_1Node.html">Node</a>&gt; _nodes;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    std::vector&lt;<a class="code hl_struct" href="structcore_1_1Connection.html">Connection</a>&gt; _connections;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::unordered_map&lt;NodeId, std::unique_ptr&lt;<a class="code hl_class" href="classcore_1_1Graph.html">Graph</a>&gt;&gt; _subgraphs;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}  <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdoc">Node graph manager.</div><div class="ttdef"><b>Definition</b> graph.hpp:25</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_a7e4d92fa09b408e50d70420e8887b91b"><div class="ttname"><a href="classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b">core::Graph::RemoveInputPin</a></div><div class="ttdeci">void RemoveInputPin(NodeBase *node, uint8_t index)</div><div class="ttdoc">Removes an input pin from a node by index.</div><div class="ttdef"><b>Definition</b> graph.cpp:532</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_aa994f46d5ee6d2f3f1dba93a0a4e05d6"><div class="ttname"><a href="classcore_1_1Graph.html#aa994f46d5ee6d2f3f1dba93a0a4e05d6">core::Graph::AddNode</a></div><div class="ttdeci">NodeBase * AddNode(NodeBase::NodeKind kind, utils::WrappedVector2 position)</div><div class="ttdoc">Adds a new node of the specified kind to the graph.</div><div class="ttdef"><b>Definition</b> graph.cpp:66</div></div>
@@ -152,7 +152,7 @@ $(document).ready(function(){initNavTree('new__core_2graph_8hpp_source.html','')
 <div class="ttc" id="aclasscore_1_1Graph_html_ab650d64a45ec9f6d937abad3a889749b"><div class="ttname"><a href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">core::Graph::AddOutputPin</a></div><div class="ttdeci">bool AddOutputPin(NodeId node_id, Pin pin_id)</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_aeebc7f038b9f164ad66d34fadac9098a"><div class="ttname"><a href="classcore_1_1Graph.html#aeebc7f038b9f164ad66d34fadac9098a">core::Graph::RemoveNode</a></div><div class="ttdeci">void RemoveNode(NodeBase *node)</div><div class="ttdoc">Removes a node from the graph.</div><div class="ttdef"><b>Definition</b> graph.cpp:85</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html_aefcd87b39f861e74727b1d1f8d996bde"><div class="ttname"><a href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">core::Graph::getConnections</a></div><div class="ttdeci">std::pair&lt; std::vector&lt; const Connection * &gt;, std::vector&lt; const Connection * &gt; &gt; getConnections(NodeId id)</div></div>
-<div class="ttc" id="aclasscore_1_1Node_html"><div class="ttname"><a href="classcore_1_1Node.html">core::Node</a></div><div class="ttdoc">Data storage representing a Node in the Graph.</div><div class="ttdef"><b>Definition</b> node.hpp:16</div></div>
+<div class="ttc" id="aclasscore_1_1Node_html"><div class="ttname"><a href="classcore_1_1Node.html">core::Node</a></div><div class="ttdoc">Data storage representing a Node in the Graph.</div><div class="ttdef"><b>Definition</b> node.hpp:17</div></div>
 <div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">This version of the Nebula Node Graph V0.</div><div class="ttdef"><b>Definition</b> connection_exceptions.hpp:5</div></div>
 <div class="ttc" id="astructcore_1_1Connection_html"><div class="ttname"><a href="structcore_1_1Connection.html">core::Connection</a></div><div class="ttdef"><b>Definition</b> datatypes.hpp:24</div></div>
 <div class="ttc" id="astructcore_1_1Pin_html"><div class="ttname"><a href="structcore_1_1Pin.html">core::Pin</a></div><div class="ttdef"><b>Definition</b> datatypes.hpp:34</div></div>
