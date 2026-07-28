@@ -1,0 +1,11 @@
+<map id="core::InvalidParameterException" name="core::InvalidParameterException">
+<area shape="rect" id="Node000001" title="Exception thrown when parameter operations are invalid." alt="" coords="5,299,239,324"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1FunctionNodeException.html" title="Base exception class for all function node&#45;related errors." alt="" coords="17,225,227,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,264,125,299,119,299,119,264"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1CoreException.html" title=" " alt="" coords="46,152,198,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,191,125,225,119,225,119,191"/>
+<area shape="rect" id="Node000004" href="$classutils_1_1BaseException.html" title=" " alt="" coords="45,79,199,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="125,118,125,152,119,152,119,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="65,5,179,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="125,44,125,79,119,79,119,44"/>
+</map>
