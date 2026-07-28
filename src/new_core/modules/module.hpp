@@ -8,6 +8,8 @@ namespace core {
 
 class ICapability;
 
+using ModuleId = u_int32_t;
+
 /**
  * @brief Modules will be loaded by the module loader class.
  * They contains a set of capabilities.
@@ -19,7 +21,10 @@ class IModule {
     virtual std::string_view name() const noexcept = 0;
     virtual std::string_view version() const noexcept = 0;
 
-    virtual bool initialize() = 0;
+    /**
+     * @brief The id in the param here is just to inform the module of the id the loader has given him.
+     */
+    virtual bool initialize(ModuleId id) = 0;
     virtual void shutdown() noexcept = 0;
 
     virtual ICapability* capability(std::type_index type) noexcept = 0;
