@@ -4,6 +4,6 @@ namespace capa {
 
 class IRendererCapability;
 
-} // namespace capa
+}  // namespace capa
 
-} // namespace core
+}  // namespace core

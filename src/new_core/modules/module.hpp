@@ -1,12 +1,12 @@
 #pragma once
 
+#include <cstdint>
 #include <memory>
 #include <string_view>
 #include <typeindex>
-#include <cstdint>
 
-#include "capabilities/type_list_capability.hpp"
 #include "capabilities/node_list_capability.hpp"
+#include "capabilities/type_list_capability.hpp"
 
 namespace core {
 
@@ -34,7 +34,8 @@ class IModule {
     virtual Version version() const noexcept = 0;
 
     /**
-     * @brief The id in the param here is just to inform the module of the id the loader has given him.
+     * @brief The id in the param here is just to inform the module of the id
+     * the loader has given him.
      */
     virtual bool initialize(ModuleId id) = 0;
     virtual void shutdown() noexcept = 0;
@@ -43,27 +44,26 @@ class IModule {
 
     /// Mendatory capabilities
 
-    virtual capa::ITypeListCapability* types() = 0;
-    virtual capa::INodeListCapability* nodes() = 0;
+    virtual capa::ITypeListCapability *types() = 0;
+    virtual capa::INodeListCapability *nodes() = 0;
 
-    virtual ICapability* capability(std::type_index type) noexcept = 0;
-    virtual const ICapability* capability(std::type_index type) const noexcept = 0;
+    virtual ICapability *capability(std::type_index type) noexcept = 0;
+    virtual const ICapability *capability(
+        std::type_index type) const noexcept = 0;
 
-    template<typename T>
-    T* capability() noexcept
-    {
+    template <typename T>
+    T *capability() noexcept {
         static_assert(std::is_base_of_v<ICapability, T>);
-        return static_cast<T*>(capability(typeid(T)));
+        return static_cast<T *>(capability(typeid(T)));
     }
 
-    template<typename T>
-    const T* capability() const noexcept
-    {
+    template <typename T>
+    const T *capability() const noexcept {
         static_assert(std::is_base_of_v<ICapability, T>);
-        return static_cast<const T*>(capability(typeid(T)));
+        return static_cast<const T *>(capability(typeid(T)));
     }
 
    private:
 };
 
-} // namespace core
+}  // namespace core

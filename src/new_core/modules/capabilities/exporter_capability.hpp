@@ -4,6 +4,6 @@ namespace capa {
 
 class IExporterCapability;
 
-} // namespace capa
+}  // namespace capa
 
-} // namespace core
+}  // namespace core
