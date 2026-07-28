@@ -14,7 +14,7 @@
 
 namespace core {
 using NodeId = uint32_t;          // Unique id for each Node
-using PinId = uint16_t;            // Unique id for each Node's Pin
+using PinId = uint16_t;           // Unique id for each Node's Pin
 using DataType = uint16_t;        // Unique id for each type declared by modules
 using NodeType = uint16_t;        // Unique id for each node declared by modules
 using ModuleId = uint8_t;         // Unique id for each loaded module

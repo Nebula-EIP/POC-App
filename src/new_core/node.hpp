@@ -12,6 +12,7 @@ class Graph;
 
 /**
  * @brief Data storage representing a Node in the Graph.
+ * @since Mon Jul 13 2026
  */
 class Node {
    public:
