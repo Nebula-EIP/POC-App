@@ -20,10 +20,10 @@ Every `.cpp` and `.hpp` file must start with a header containing:
  * @brief Implements the Nebula connection system.
  *
  * @author Created by [github name]
- * @date Created on YYYY-MM-DD
+ * @date Created on DD-MM-YYYY
  *
  * @author Last modified by [github name]
- * @date Last modified on YYYY-MM-DD
+ * @date Last modified on DD-MM-YYYY
  */
 ```
 
