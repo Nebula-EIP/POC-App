@@ -124,6 +124,8 @@ Use the following tags:
 
 - `@file` for the file name;
 - `@brief` for a short description;
+- `@author` for the original author / last contributor;
+- `@date` for creation / last modification dates;
 - `@param` for function parameters;
 - `@return` for the returned value;
 - `@throws` for exceptions;
