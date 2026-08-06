@@ -25,19 +25,19 @@ namespace capa {
  * @brief Metadata describing a node provided by a module.
  */
 struct NodeMetadata {
-    NodeType type;  ///< Unique identifier for the node type within the module.
-    std::string name;         ///< Human-readable name of the node.
-    std::string description;  ///< Short description of the node's behavior.
+    NodeType type_;            ///< Unique identifier for the node type within the module.
+    std::string name_;         ///< Human-readable name of the node.
+    std::string description_;  ///< Short description of the node's behavior.
 };
 
 /**
  * @brief Configuration data required to build a Node.
  */
 struct NodeConfiguration {
-    std::vector<Pin> input_pins;     ///< The input pins for the node.
-    std::vector<Pin> output_pins;    ///< The output pins for the node.
-    PropertyMap default_properties;  ///< The default properties the node should
-                                     ///< be initialized with.
+    std::vector<Pin> input_pins_;     ///< The input pins for the node.
+    std::vector<Pin> output_pins_;    ///< The output pins for the node.
+    PropertyMap default_properties_;  ///< The default properties the node should
+                                      ///< be initialized with.
 };
 
 /**
@@ -52,7 +52,7 @@ class INodeListCapability : public ICapability {
      *
      * @return A list of metadata for all available nodes.
      */
-    virtual std::vector<NodeMetadata> getAvailableNodes() const noexcept = 0;
+    virtual std::vector<NodeMetadata> GetAvailableNodes() const noexcept = 0;
 
     /**
      * @brief Initializes the node list capability with the resolved property
@@ -61,7 +61,7 @@ class INodeListCapability : public ICapability {
      * @param property_types A map associating property names to their
      * corresponding PropertyTypeId. Required.
      */
-    virtual void initializePropertyTypes(
+    virtual void InitializePropertyTypes(
         const std::unordered_map<std::string, PropertyTypeId>
             &property_types) = 0;
 
@@ -74,7 +74,7 @@ class INodeListCapability : public ICapability {
      *
      * @return The configuration needed to build the specified node.
      */
-    virtual NodeConfiguration getNodeConfiguration(NodeType type) const = 0;
+    virtual NodeConfiguration GetNodeConfiguration(NodeType type) const = 0;
 };
 
 }  // namespace capa
