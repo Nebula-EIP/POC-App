@@ -25,7 +25,7 @@ namespace capa {
  * @brief Metadata describing a node provided by a module.
  */
 struct NodeMetadata {
-    NodeType type_;            ///< Unique identifier for the node type within the module.
+    NodeType type_;  ///< Unique identifier for the node type within the module.
     std::string name_;         ///< Human-readable name of the node.
     std::string description_;  ///< Short description of the node's behavior.
 };
@@ -36,8 +36,8 @@ struct NodeMetadata {
 struct NodeConfiguration {
     std::vector<Pin> input_pins_;     ///< The input pins for the node.
     std::vector<Pin> output_pins_;    ///< The output pins for the node.
-    PropertyMap default_properties_;  ///< The default properties the node should
-                                      ///< be initialized with.
+    PropertyMap default_properties_;  ///< The default properties the node
+                                      ///< should be initialized with.
 };
 
 /**
