@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['writetofile_0',['WriteToFile',['../classfile__writing_1_1FileWriter.html#a2fd9990cd3b1b561cafbd27f7a09b514',1,'file_writing::FileWriter']]]
+  ['validate_0',['Validate',['../classcore_1_1GraphValidator.html#a46582ee40fe09a3fe605bb79c852547b',1,'core::GraphValidator']]]
 ];

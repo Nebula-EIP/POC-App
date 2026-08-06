@@ -98,6 +98,11 @@ $(document).ready(function(){initNavTree('classcore_1_1Graph.html',''); initResi
   <div class="headertitle"><div class="title">core::Graph Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> graph manager.  
+ <a href="classcore_1_1Graph.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="new__core_2graph_2graph_8hpp_source.html">graph.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -230,6 +235,56 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>DuplicateSelectedNode
 void&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteSelectedNodes</b> ()</td></tr>
 <tr class="memdesc:a72c7f7354daff194848f6c5da9cb9d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all currently selected nodes. <br /></td></tr>
 <tr class="separator:a72c7f7354daff194848f6c5da9cb9d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f0a7681200d3b9af539431922f117e" id="r_a09f0a7681200d3b9af539431922f117e"><td class="memItemLeft" align="right" valign="top"><a id="a09f0a7681200d3b9af539431922f117e" name="a09f0a7681200d3b9af539431922f117e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasNode</b> (NodeId id) const</td></tr>
+<tr class="separator:a09f0a7681200d3b9af539431922f117e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398cabaa78ef44cb1664f21566611ec2" id="r_a398cabaa78ef44cb1664f21566611ec2"><td class="memItemLeft" align="right" valign="top"><a id="a398cabaa78ef44cb1664f21566611ec2" name="a398cabaa78ef44cb1664f21566611ec2"></a>
+<a class="el" href="classcore_1_1Node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>node</b> (NodeId id)</td></tr>
+<tr class="separator:a398cabaa78ef44cb1664f21566611ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a252e987b039a0fa5dfe83082b2acb628" id="r_a252e987b039a0fa5dfe83082b2acb628"><td class="memItemLeft" align="right" valign="top"><a id="a252e987b039a0fa5dfe83082b2acb628" name="a252e987b039a0fa5dfe83082b2acb628"></a>
+const <a class="el" href="classcore_1_1Node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>node</b> (NodeId id) const</td></tr>
+<tr class="separator:a252e987b039a0fa5dfe83082b2acb628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a904f5e451ae3363aa773cd0dfc8b3ea9" id="r_a904f5e451ae3363aa773cd0dfc8b3ea9"><td class="memItemLeft" align="right" valign="top"><a id="a904f5e451ae3363aa773cd0dfc8b3ea9" name="a904f5e451ae3363aa773cd0dfc8b3ea9"></a>
+const std::unordered_map&lt; NodeId, <a class="el" href="classcore_1_1Node.html">Node</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>nodes</b> () const noexcept</td></tr>
+<tr class="separator:a904f5e451ae3363aa773cd0dfc8b3ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21917896a6ed41a963bd4eee3ad011cb" id="r_a21917896a6ed41a963bd4eee3ad011cb"><td class="memItemLeft" align="right" valign="top">NodeId&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a21917896a6ed41a963bd4eee3ad011cb">AddNode</a> (<a class="el" href="classcore_1_1Node.html">Node</a> node)</td></tr>
+<tr class="separator:a21917896a6ed41a963bd4eee3ad011cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accb521fa18921ba80f21bc8cf3b4ee5b" id="r_accb521fa18921ba80f21bc8cf3b4ee5b"><td class="memItemLeft" align="right" valign="top"><a id="accb521fa18921ba80f21bc8cf3b4ee5b" name="accb521fa18921ba80f21bc8cf3b4ee5b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveNode</b> (NodeId id)</td></tr>
+<tr class="separator:accb521fa18921ba80f21bc8cf3b4ee5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a649068245b004c50b3694fd6779d1d3c" id="r_a649068245b004c50b3694fd6779d1d3c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a649068245b004c50b3694fd6779d1d3c">AddInputPin</a> (NodeId node_id, <a class="el" href="structcore_1_1Pin.html">Pin</a> pin_id)</td></tr>
+<tr class="separator:a649068245b004c50b3694fd6779d1d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab650d64a45ec9f6d937abad3a889749b" id="r_ab650d64a45ec9f6d937abad3a889749b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ab650d64a45ec9f6d937abad3a889749b">AddOutputPin</a> (NodeId node_id, <a class="el" href="structcore_1_1Pin.html">Pin</a> pin_id)</td></tr>
+<tr class="separator:ab650d64a45ec9f6d937abad3a889749b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f99182caa5de7f812684d08bf6000d" id="r_a04f99182caa5de7f812684d08bf6000d"><td class="memItemLeft" align="right" valign="top"><a id="a04f99182caa5de7f812684d08bf6000d" name="a04f99182caa5de7f812684d08bf6000d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveInputPin</b> (NodeId node_id, PinId pin_id)</td></tr>
+<tr class="separator:a04f99182caa5de7f812684d08bf6000d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada00c9fb30c6d021080508e8e8d72935" id="r_ada00c9fb30c6d021080508e8e8d72935"><td class="memItemLeft" align="right" valign="top"><a id="ada00c9fb30c6d021080508e8e8d72935" name="ada00c9fb30c6d021080508e8e8d72935"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveOutputPin</b> (NodeId node_id, PinId pin_id)</td></tr>
+<tr class="separator:ada00c9fb30c6d021080508e8e8d72935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3d57897602f357a7b9d326a3c637e64" id="r_ad3d57897602f357a7b9d326a3c637e64"><td class="memItemLeft" align="right" valign="top"><a id="ad3d57897602f357a7b9d326a3c637e64" name="ad3d57897602f357a7b9d326a3c637e64"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasSubgraph</b> (NodeId id) const</td></tr>
+<tr class="separator:ad3d57897602f357a7b9d326a3c637e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59059d2cbbe6556718e90f83d0dba7ad" id="r_a59059d2cbbe6556718e90f83d0dba7ad"><td class="memItemLeft" align="right" valign="top"><a id="a59059d2cbbe6556718e90f83d0dba7ad" name="a59059d2cbbe6556718e90f83d0dba7ad"></a>
+<a class="el" href="classcore_1_1Graph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subgraph</b> (NodeId id)</td></tr>
+<tr class="separator:a59059d2cbbe6556718e90f83d0dba7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b3fdf472bd7e8920a66f595e7858da3" id="r_a0b3fdf472bd7e8920a66f595e7858da3"><td class="memItemLeft" align="right" valign="top"><a id="a0b3fdf472bd7e8920a66f595e7858da3" name="a0b3fdf472bd7e8920a66f595e7858da3"></a>
+const <a class="el" href="classcore_1_1Graph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subgraph</b> (NodeId id) const</td></tr>
+<tr class="separator:a0b3fdf472bd7e8920a66f595e7858da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8b78fca3647cb7fd3047007763c09ff" id="r_af8b78fca3647cb7fd3047007763c09ff"><td class="memItemLeft" align="right" valign="top"><a id="af8b78fca3647cb7fd3047007763c09ff" name="af8b78fca3647cb7fd3047007763c09ff"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasConnection</b> (NodeId from, PinId out, NodeId to, PinId in) const</td></tr>
+<tr class="separator:af8b78fca3647cb7fd3047007763c09ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcd87b39f861e74727b1d1f8d996bde" id="r_aefcd87b39f861e74727b1d1f8d996bde"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::vector&lt; const <a class="el" href="structcore_1_1Connection.html">Connection</a> * &gt;, std::vector&lt; const <a class="el" href="structcore_1_1Connection.html">Connection</a> * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#aefcd87b39f861e74727b1d1f8d996bde">getConnections</a> (NodeId id)</td></tr>
+<tr class="separator:aefcd87b39f861e74727b1d1f8d996bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5083d514a4f05f351cf37b775dd67a" id="r_a6e5083d514a4f05f351cf37b775dd67a"><td class="memItemLeft" align="right" valign="top"><a id="a6e5083d514a4f05f351cf37b775dd67a" name="a6e5083d514a4f05f351cf37b775dd67a"></a>
+const std::vector&lt; <a class="el" href="structcore_1_1Connection.html">Connection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getAllConnections</b> () const</td></tr>
+<tr class="separator:a6e5083d514a4f05f351cf37b775dd67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b44114af64924166958af9cb636309" id="r_a79b44114af64924166958af9cb636309"><td class="memItemLeft" align="right" valign="top"><a id="a79b44114af64924166958af9cb636309" name="a79b44114af64924166958af9cb636309"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Connect</b> (NodeId from, PinId out, NodeId to, PinId in)</td></tr>
+<tr class="separator:a79b44114af64924166958af9cb636309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74f4c2b787764e5cf4e3f89e33c14255" id="r_a74f4c2b787764e5cf4e3f89e33c14255"><td class="memItemLeft" align="right" valign="top"><a id="a74f4c2b787764e5cf4e3f89e33c14255" name="a74f4c2b787764e5cf4e3f89e33c14255"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Disconnect</b> (NodeId from, PinId out, NodeId to, PinId in)</td></tr>
+<tr class="separator:a74f4c2b787764e5cf4e3f89e33c14255"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -240,9 +295,11 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab9e289d8ecfaf65a7d95982580ba6c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a graph from a .nebula file.  <br /></td></tr>
 <tr class="separator:ab9e289d8ecfaf65a7d95982580ba6c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> graph manager. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aaca244a70477893198854e5cb7ed9740" name="aaca244a70477893198854e5cb7ed9740"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaca244a70477893198854e5cb7ed9740">&#9670;&#160;</a></span>AddInputPin()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca244a70477893198854e5cb7ed9740">&#9670;&#160;</a></span>AddInputPin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,8 +335,8 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>The target node. </td></tr>
-    <tr><td class="paramname">name</td><td>Pin name. </td></tr>
-    <tr><td class="paramname">type</td><td>Pin data type. </td></tr>
+    <tr><td class="paramname">name</td><td><a class="el" href="structcore_1_1Pin.html">Pin</a> name. </td></tr>
+    <tr><td class="paramname">type</td><td><a class="el" href="structcore_1_1Pin.html">Pin</a> data type. </td></tr>
   </table>
   </dd>
 </dl>
@@ -287,8 +344,56 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a649068245b004c50b3694fd6779d1d3c" name="a649068245b004c50b3694fd6779d1d3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a649068245b004c50b3694fd6779d1d3c">&#9670;&#160;</a></span>AddInputPin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Graph::AddInputPin </td>
+          <td>(</td>
+          <td class="paramtype">NodeId&#160;</td>
+          <td class="paramname"><em>node_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Pin.html">Pin</a>&#160;</td>
+          <td class="paramname"><em>pin_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>false if the pin id is already taken or if the max amount of pins has been reached </dd></dl>
+
+</div>
+</div>
+<a id="a21917896a6ed41a963bd4eee3ad011cb" name="a21917896a6ed41a963bd4eee3ad011cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21917896a6ed41a963bd4eee3ad011cb">&#9670;&#160;</a></span>AddNode() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NodeId core::Graph::AddNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1Node.html">Node</a>&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section warning"><dt>Warning</dt><dd>Will overwrite the node id and return the new one </dd></dl>
+
+</div>
+</div>
 <a id="aa994f46d5ee6d2f3f1dba93a0a4e05d6" name="aa994f46d5ee6d2f3f1dba93a0a4e05d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa994f46d5ee6d2f3f1dba93a0a4e05d6">&#9670;&#160;</a></span>AddNode() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa994f46d5ee6d2f3f1dba93a0a4e05d6">&#9670;&#160;</a></span>AddNode() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +438,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="af109b8aaad8ac1cc03afdb748adaa136" name="af109b8aaad8ac1cc03afdb748adaa136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af109b8aaad8ac1cc03afdb748adaa136">&#9670;&#160;</a></span>AddNode() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af109b8aaad8ac1cc03afdb748adaa136">&#9670;&#160;</a></span>AddNode() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -385,6 +490,35 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ab650d64a45ec9f6d937abad3a889749b" name="ab650d64a45ec9f6d937abad3a889749b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab650d64a45ec9f6d937abad3a889749b">&#9670;&#160;</a></span>AddOutputPin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Graph::AddOutputPin </td>
+          <td>(</td>
+          <td class="paramtype">NodeId&#160;</td>
+          <td class="paramname"><em>node_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Pin.html">Pin</a>&#160;</td>
+          <td class="paramname"><em>pin_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>false if the pin id is already taken or if the max amount of pins has been reached </dd></dl>
+
+</div>
+</div>
 <a id="a82114df8312909515a95043ad3f20bdc" name="a82114df8312909515a95043ad3f20bdc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82114df8312909515a95043ad3f20bdc">&#9670;&#160;</a></span>Deserialize()</h2>
 
@@ -410,14 +544,14 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Deserializes a complete graph from JSON. </p>
-<p>Factory method that reconstructs a <a class="el" href="classcore_1_1Graph.html">Graph</a> object and all its nodes and connections from JSON data in the .nebula format.</p>
+<p>Factory method that reconstructs a <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> object and all its nodes and connections from JSON data in the .nebula format.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">json</td><td>The JSON object containing the complete graph data. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An expected containing the deserialized <a class="el" href="classcore_1_1Graph.html">Graph</a>, or an error message if deserialization fails. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An expected containing the deserialized <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a>, or an error message if deserialization fails. </dd></dl>
 
 </div>
 </div>
@@ -466,6 +600,25 @@ template&lt;typename T &gt; </div>
 
 <p>Gets the project author. </p>
 <dl class="section return"><dt>Returns</dt><dd>The author of the project. </dd></dl>
+
+</div>
+</div>
+<a id="aefcd87b39f861e74727b1d1f8d996bde" name="aefcd87b39f861e74727b1d1f8d996bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefcd87b39f861e74727b1d1f8d996bde">&#9670;&#160;</a></span>getConnections()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; std::vector&lt; const <a class="el" href="structcore_1_1Connection.html">Connection</a> * &gt;, std::vector&lt; const <a class="el" href="structcore_1_1Connection.html">Connection</a> * &gt; &gt; core::Graph::getConnections </td>
+          <td>(</td>
+          <td class="paramtype">NodeId&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A pair of vector of connection, first vector has incoming connections and second has outgoing connections. </dd></dl>
 
 </div>
 </div>
@@ -691,7 +844,7 @@ template&lt;typename T &gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node pointer is null </td></tr>
-    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a> </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> </td></tr>
     <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out-of-bounds index.">InvalidPinIndexException</a></td><td>if one of the pin cannot be found </td></tr>
     <tr><td class="paramname"><a class="el" href="classcore_1_1IncompatiblePinTypesException.html" title="Exception thrown when attempting to link pins with incompatible types.">IncompatiblePinTypesException</a></td><td>if the pins types don't matches </td></tr>
     <tr><td class="paramname"><a class="el" href="classcore_1_1CircularDependencyException.html" title="Exception thrown when a link would create a circular dependency.">CircularDependencyException</a></td><td>if from == to </td></tr>
@@ -753,7 +906,7 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An expected containing the loaded <a class="el" href="classcore_1_1Graph.html">Graph</a> on success, or an error message if loading fails (file not found, corrupted, invalid format). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An expected containing the loaded <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> on success, or an error message if loading fails (file not found, corrupted, invalid format). </dd></dl>
 
 </div>
 </div>
@@ -858,7 +1011,7 @@ template&lt;typename T &gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if node is nullptr </td></tr>
-    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a></td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if the node is not owned by this <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a></td></tr>
   </table>
   </dd>
 </dl>
@@ -1018,7 +1171,7 @@ template&lt;typename T &gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node pointer is null </td></tr>
-    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html">Graph</a> </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeNotFoundException.html" title="Exception thrown when attempting to access a node that doesn&#39;t exist.">NodeNotFoundException</a></td><td>if one of the node is not owned by this <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> </td></tr>
     <tr><td class="paramname"><a class="el" href="classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out-of-bounds index.">InvalidPinIndexException</a></td><td>if one of the pin cannot be found </td></tr>
   </table>
   </dd>
@@ -1027,7 +1180,8 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/core/<a class="el" href="graph_8hpp_source.html">graph.hpp</a></li>
+<li>src/core/<a class="el" href="core_2graph_8hpp_source.html">graph.hpp</a></li>
+<li>src/new_core/graph/<a class="el" href="new__core_2graph_2graph_8hpp_source.html">graph.hpp</a></li>
 <li>src/core/<b>graph.cpp</b></li>
 </ul>
 </div><!-- contents -->

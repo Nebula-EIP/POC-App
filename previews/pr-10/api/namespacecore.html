@@ -92,12 +92,13 @@ $(document).ready(function(){initNavTree('namespacecore.html',''); initResizable
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">core Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This version of the Nebula Node <a class="el" href="classcore_1_1Graph.html">Graph</a> V0.  
+<p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> V0.  
 <a href="namespacecore.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -109,6 +110,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ConnectedParameterException.html">ConnectedParameterException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when attempting to remove a connected parameter.  <a href="classcore_1_1ConnectedParameterException.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Connection.html">Connection</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ConnectionException.html">ConnectionException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base exception class for all connection and pin-related errors.  <a href="classcore_1_1ConnectionException.html#details">More...</a><br /></td></tr>
@@ -148,6 +151,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a single function parameter (input pin).  <a href="structcore_1_1FunctionParameter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html">Graph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> graph manager.  <a href="classcore_1_1Graph.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1GraphException.html">GraphException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base exception class for all graph-related errors.  <a href="classcore_1_1GraphException.html#details">More...</a><br /></td></tr>
@@ -156,6 +160,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when attempting to modify graph in an invalid state.  <a href="classcore_1_1GraphModificationException.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1GraphValidator.html">GraphValidator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1IModule.html">IModule</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modules will be loaded by the module loader class.  <a href="classcore_1_1IModule.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1IncompatiblePinTypesException.html">IncompatiblePinTypesException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when attempting to link pins with incompatible types.  <a href="classcore_1_1IncompatiblePinTypesException.html#details">More...</a><br /></td></tr>
@@ -179,6 +186,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1LoopNode.html">LoopNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ModuleLoader.html">ModuleLoader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Node.html">Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data storage representing a <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> in the <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a>.  <a href="classcore_1_1Node.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1NodeBase.html">NodeBase</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for all nodes in the graph system.  <a href="classcore_1_1NodeBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +203,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ParameterNotFoundException.html">ParameterNotFoundException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when trying to access a parameter that doesn't exist.  <a href="classcore_1_1ParameterNotFoundException.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Pin.html">Pin</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1PinAlreadyConnectedException.html">PinAlreadyConnectedException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when attempting to connect an already-connected input pin.  <a href="classcore_1_1PinAlreadyConnectedException.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,6 +216,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1PrintNode.html">PrintNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1Property.html">Property</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1SelfConnectionException.html">SelfConnectionException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when attempting to connect a node to itself.  <a href="classcore_1_1SelfConnectionException.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,6 +228,33 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1VariableNode.html">VariableNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:adb6f25f6d274110367a1702e366e2e69" id="r_adb6f25f6d274110367a1702e366e2e69"><td class="memItemLeft" align="right" valign="top"><a id="adb6f25f6d274110367a1702e366e2e69" name="adb6f25f6d274110367a1702e366e2e69"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>NodeId</b> = uint32_t</td></tr>
+<tr class="separator:adb6f25f6d274110367a1702e366e2e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59403334a91a1839ed989bed43401bac" id="r_a59403334a91a1839ed989bed43401bac"><td class="memItemLeft" align="right" valign="top"><a id="a59403334a91a1839ed989bed43401bac" name="a59403334a91a1839ed989bed43401bac"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PinId</b> = uint16_t</td></tr>
+<tr class="separator:a59403334a91a1839ed989bed43401bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6ba581eac603821fad74118ef1cfb8" id="r_a4a6ba581eac603821fad74118ef1cfb8"><td class="memItemLeft" align="right" valign="top"><a id="a4a6ba581eac603821fad74118ef1cfb8" name="a4a6ba581eac603821fad74118ef1cfb8"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>DataType</b> = uint16_t</td></tr>
+<tr class="separator:a4a6ba581eac603821fad74118ef1cfb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb8f90246848a3fda11fe170bb618f8e" id="r_abb8f90246848a3fda11fe170bb618f8e"><td class="memItemLeft" align="right" valign="top"><a id="abb8f90246848a3fda11fe170bb618f8e" name="abb8f90246848a3fda11fe170bb618f8e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>NodeType</b> = uint16_t</td></tr>
+<tr class="separator:abb8f90246848a3fda11fe170bb618f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7370fb89555c77697f07e1610c28634e" id="r_a7370fb89555c77697f07e1610c28634e"><td class="memItemLeft" align="right" valign="top"><a id="a7370fb89555c77697f07e1610c28634e" name="a7370fb89555c77697f07e1610c28634e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ModuleId</b> = uint8_t</td></tr>
+<tr class="separator:a7370fb89555c77697f07e1610c28634e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38198aacc6076bcb1e6bdbc10560d730" id="r_a38198aacc6076bcb1e6bdbc10560d730"><td class="memItemLeft" align="right" valign="top"><a id="a38198aacc6076bcb1e6bdbc10560d730" name="a38198aacc6076bcb1e6bdbc10560d730"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyId</b> = uint16_t</td></tr>
+<tr class="separator:a38198aacc6076bcb1e6bdbc10560d730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c58e643ff623f8fd42d544a8d2236c4" id="r_a2c58e643ff623f8fd42d544a8d2236c4"><td class="memItemLeft" align="right" valign="top"><a id="a2c58e643ff623f8fd42d544a8d2236c4" name="a2c58e643ff623f8fd42d544a8d2236c4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyTypeId</b> = uint32_t</td></tr>
+<tr class="separator:a2c58e643ff623f8fd42d544a8d2236c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1fde38e2e3fdcf9c88971cc21713a4" id="r_a7c1fde38e2e3fdcf9c88971cc21713a4"><td class="memItemLeft" align="right" valign="top"><a id="a7c1fde38e2e3fdcf9c88971cc21713a4" name="a7c1fde38e2e3fdcf9c88971cc21713a4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyMap</b> = std::unordered_map&lt; PropertyId, <a class="el" href="structcore_1_1Property.html">Property</a> &gt;</td></tr>
+<tr class="separator:a7c1fde38e2e3fdcf9c88971cc21713a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -235,7 +278,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>OperatorTypeTo
 <tr class="separator:aeccd408cbe44512232aa5c2f03d336bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This version of the Nebula Node <a class="el" href="classcore_1_1Graph.html">Graph</a> V0. </p>
+<div class="textblock"><p>This version of the Nebula <a class="el" href="classcore_1_1Node.html" title="Data storage representing a Node in the Graph.">Node</a> <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">Graph</a> V0. </p>
+<p>This files contains all datatypes widely used in the core lib.</p>
 <p>Purposely built to handle basic C without includes nor macros. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

@@ -6,6 +6,7 @@ var hierarchy =
     [ "editor::code_generation::CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", null ],
     [ "nebula::cmake::CompilationResult", "structnebula_1_1cmake_1_1CompilationResult.html", null ],
     [ "nebula::cmake::CompilerConfig", "structnebula_1_1cmake_1_1CompilerConfig.html", null ],
+    [ "core::Connection", "structcore_1_1Connection.html", null ],
     [ "core::NodeBase::Connection", "structcore_1_1NodeBase_1_1Connection.html", null ],
     [ "editor::code_generation::DeadCodeAnalysis", "structeditor_1_1code__generation_1_1DeadCodeAnalysis.html", null ],
     [ "core::Graph::Edge", "structcore_1_1Graph_1_1Edge.html", null ],
@@ -51,9 +52,12 @@ var hierarchy =
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
+    [ "core::IModule", "classcore_1_1IModule.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
     [ "editor_ui::Menu", "structeditor__ui_1_1Menu.html", null ],
     [ "editor_ui::MenuItem", "structeditor__ui_1_1MenuItem.html", null ],
+    [ "core::ModuleLoader", "classcore_1_1ModuleLoader.html", null ],
+    [ "core::Node", "classcore_1_1Node.html", null ],
     [ "core::NodeBase", "classcore_1_1NodeBase.html", [
       [ "core::ConditionNode", "classcore_1_1ConditionNode.html", null ],
       [ "core::ForNode", "classcore_1_1ForNode.html", null ],
@@ -67,6 +71,8 @@ var hierarchy =
       [ "core::VariableNode", "classcore_1_1VariableNode.html", null ]
     ] ],
     [ "core::NodeBase::OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", null ],
+    [ "core::Pin", "structcore_1_1Pin.html", null ],
+    [ "core::Property", "structcore_1_1Property.html", null ],
     [ "std::runtime_error", null, [
       [ "editor::EditorException", "classeditor_1_1EditorException.html", [
         [ "code_generation::CodeGenerationError", "classcode__generation_1_1CodeGenerationError.html", [
@@ -81,6 +87,7 @@ var hierarchy =
     [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ],
     [ "core::GraphValidator::ValidationError", "structcore_1_1GraphValidator_1_1ValidationError.html", null ],
     [ "core::GraphValidator::ValidationResult", "structcore_1_1GraphValidator_1_1ValidationResult.html", null ],
+    [ "core::IModule::Version", "structcore_1_1IModule_1_1Version.html", null ],
     [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
     [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],
     [ "utils::WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],

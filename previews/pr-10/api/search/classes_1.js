@@ -10,7 +10,7 @@ var searchData=
   ['compilerconfig_7',['CompilerConfig',['../structnebula_1_1cmake_1_1CompilerConfig.html',1,'nebula::cmake']]],
   ['conditionnode_8',['ConditionNode',['../classcore_1_1ConditionNode.html',1,'core']]],
   ['connectedparameterexception_9',['ConnectedParameterException',['../classcore_1_1ConnectedParameterException.html',1,'core']]],
-  ['connection_10',['Connection',['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase']]],
+  ['connection_10',['connection',['../structcore_1_1Connection.html',1,'core::Connection'],['../structcore_1_1NodeBase_1_1Connection.html',1,'core::NodeBase::Connection']]],
   ['connectionexception_11',['ConnectionException',['../classcore_1_1ConnectionException.html',1,'core']]],
   ['coreexception_12',['CoreException',['../classcore_1_1CoreException.html',1,'core']]],
   ['cursoroutofboundserror_13',['CursorOutOfBoundsError',['../classcode__generation_1_1CursorOutOfBoundsError.html',1,'code_generation']]]
