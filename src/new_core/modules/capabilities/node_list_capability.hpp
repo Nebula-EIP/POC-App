@@ -2,10 +2,10 @@
  * @file node_list_capability.hpp
  * @brief Defines the capability for a module to provide custom nodes.
  *
- * @author Created by Antigravity
+ * @author Created by mathys-f
  * @date Created on 06-08-2026
  *
- * @author Last modified by Antigravity
+ * @author Last modified by mathys-f
  * @date Last modified on 06-08-2026
  */
 
