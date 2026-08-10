@@ -1,0 +1,7 @@
+<map id="core::ICapability" name="core::ICapability">
+<area shape="rect" id="Node000001" title="Base interface for all module capabilities." alt="" coords="177,5,305,31"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1capa_1_1INodeListCapability.html" title="Interface for the capability providing custom nodes." alt="" coords="5,79,229,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,40,139,81,136,76,208,35"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1capa_1_1IRendererCapability.html" title="Interface for the capability providing custom node rendering." alt="" coords="253,79,480,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,35,347,76,345,81,272,40"/>
+</map>

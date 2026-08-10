@@ -1,0 +1,9 @@
+<map id="src/new_core/modules/capabilities/node_list_capability.hpp" name="src/new_core/modules/capabilities/node_list_capability.hpp">
+<area shape="rect" id="Node000001" title="Defines the capability for a module to provide custom nodes." alt="" coords="100,5,267,60"/>
+<area shape="rect" id="Node000002" href="$module_8hpp_source.html" title=" " alt="" coords="100,108,267,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,74,186,108,181,108,181,74"/>
+<area shape="rect" id="Node000003" href="$create__module_8hpp_source.html" title=" " alt="" coords="5,196,172,236"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,159,111,198,108,194,150,155"/>
+<area shape="rect" id="Node000004" href="$loader_8hpp_source.html" title=" " alt="" coords="196,196,363,236"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="217,155,260,194,256,198,213,159"/>
+</map>

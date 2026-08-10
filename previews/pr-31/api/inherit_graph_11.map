@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="5,31,133,56"/>
+<area shape="rect" id="Node000001" href="$classcore_1_1capa_1_1INodeListCapability.html" title="Interface for the capability providing custom nodes." alt="" coords="183,5,407,31"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="147,32,182,28,183,33,148,37"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1capa_1_1IRendererCapability.html" title="Interface for the capability providing custom node rendering." alt="" coords="181,55,408,80"/>
+<area shape="poly" id="edge11_Node000000_Node000002" title=" " alt="" coords="148,49,181,53,181,58,147,54"/>
+</map>

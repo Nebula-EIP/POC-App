@@ -1,0 +1,13 @@
+<map id="src/new_core/modules/icapability.hpp" name="src/new_core/modules/icapability.hpp">
+<area shape="rect" id="Node000001" title="Base interface for all module capabilities." alt="" coords="195,5,361,45"/>
+<area shape="rect" id="Node000002" href="$node__list__capability_8hpp.html" title="Defines the capability for a module to provide custom nodes." alt="" coords="100,93,267,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,57,212,95,208,91,247,53"/>
+<area shape="rect" id="Node000006" href="$renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="291,93,457,148"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="309,53,349,91,345,95,305,57"/>
+<area shape="rect" id="Node000003" href="$module_8hpp_source.html" title=" " alt="" coords="100,196,267,236"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="186,162,186,196,181,196,181,162"/>
+<area shape="rect" id="Node000004" href="$create__module_8hpp_source.html" title=" " alt="" coords="5,284,172,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="154,247,111,286,108,282,150,243"/>
+<area shape="rect" id="Node000005" href="$loader_8hpp_source.html" title=" " alt="" coords="196,284,363,324"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="217,243,260,282,256,286,213,247"/>
+</map>
