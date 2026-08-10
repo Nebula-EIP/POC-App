@@ -1,6 +1,7 @@
 /**
  * @file renderer_capability.hpp
- * @brief Defines the UI components that can be provided by a renderer capability.
+ * @brief Defines the UI components that can be provided by a renderer
+ * capability.
  *
  * This file provides generic UI component descriptions that modules can use
  * to describe how their nodes should be displayed and interacted with.
@@ -96,7 +97,8 @@ struct TextField : public ComponentBase {
     /** @brief Indicates whether the text field can only be read. */
     bool read_only = false;
 
-    /** @brief Indicates whether the text field can currently be interacted with. */
+    /** @brief Indicates whether the text field can currently be interacted
+     * with. */
     bool enabled = true;
 
     /**
@@ -195,7 +197,8 @@ struct Checkbox : public ComponentBase {
     /** @brief Current state of the checkbox. */
     bool value = false;
 
-    /** @brief Indicates whether the checkbox can currently be interacted with. */
+    /** @brief Indicates whether the checkbox can currently be interacted with.
+     */
     bool enabled = true;
 
     /**
@@ -258,8 +261,7 @@ struct InfoBubble : public ComponentBase {
  *
  * The actual representation of the separator is decided by the renderer.
  */
-struct Separator : public ComponentBase {
-};
+struct Separator : public ComponentBase {};
 
 // ============================================================================
 // COMPONENT
@@ -271,16 +273,8 @@ struct Separator : public ComponentBase {
  * The renderer can use std::visit to identify the concrete component type
  * and display it appropriately.
  */
-using Component = std::variant<
-    Label,
-    Button,
-    TextField,
-    NumberField,
-    Slider,
-    Checkbox,
-    Select,
-    InfoBubble,
-    Separator>;
+using Component = std::variant<Label, Button, TextField, NumberField, Slider,
+                               Checkbox, Select, InfoBubble, Separator>;
 
 /**
  * @brief List of components describing a node's user interface.
@@ -334,10 +328,8 @@ class IRendererCapability : public ICapability {
      *
      * @return List of components describing the node's custom interface.
      */
-    virtual ComponentList GetNodeComponents(
-        NodeId node_id,
-        NodeType node_type,
-        const PropertyMap &properties) = 0;
+    virtual ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
+                                            const PropertyMap &properties) = 0;
 };
 
 }  // namespace capa
