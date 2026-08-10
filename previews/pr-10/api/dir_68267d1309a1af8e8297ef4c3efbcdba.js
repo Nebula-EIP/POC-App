@@ -1,9 +1,0 @@
-var dir_68267d1309a1af8e8297ef4c3efbcdba =
-[
-    [ "cmake-tool", "dir_9f06df761184e3a03d77b08d2251e25b.html", "dir_9f06df761184e3a03d77b08d2251e25b" ],
-    [ "core", "dir_aebb8dcc11953d78e620bbef0b9e2183.html", "dir_aebb8dcc11953d78e620bbef0b9e2183" ],
-    [ "editor", "dir_a31afd56823c6335224242a3eb4525db.html", "dir_a31afd56823c6335224242a3eb4525db" ],
-    [ "graph-exporter", "dir_4b813d6918901b06e1559025e917ec3e.html", "dir_4b813d6918901b06e1559025e917ec3e" ],
-    [ "new_core", "dir_fab71de2f56be3c90dea159479cb4bcc.html", "dir_fab71de2f56be3c90dea159479cb4bcc" ],
-    [ "utils", "dir_313caf1132e152dd9b58bea13a4052ca.html", "dir_313caf1132e152dd9b58bea13a4052ca" ]
-];
