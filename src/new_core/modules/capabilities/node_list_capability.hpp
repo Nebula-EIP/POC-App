@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include <span>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -25,7 +26,8 @@ namespace capa {
  * @brief Metadata describing a node provided by a module.
  */
 struct NodeMetadata {
-    NodeType type_;  ///< Unique identifier for the node type within the module.
+    NodeType
+        type_;  ///< Unique identifier for the node type across all modules.
     std::string name_;         ///< Human-readable name of the node.
     std::string description_;  ///< Short description of the node's behavior.
 };
@@ -52,7 +54,8 @@ class INodeListCapability : public ICapability {
      *
      * @return A list of metadata for all available nodes.
      */
-    virtual std::vector<NodeMetadata> GetAvailableNodes() const noexcept = 0;
+    virtual std::span<const NodeMetadata> GetAvailableNodes()
+        const noexcept = 0;
 
     /**
      * @brief Initializes the node list capability with the resolved property
@@ -62,8 +65,7 @@ class INodeListCapability : public ICapability {
      * corresponding PropertyTypeId. Required.
      */
     virtual void InitializePropertyTypes(
-        const std::unordered_map<std::string, PropertyTypeId>
-            &property_types) = 0;
+        std::span<const TypeDefinition> property_types) = 0;
 
     /**
      * @brief Retrieves the layout and default configuration for a specific node
