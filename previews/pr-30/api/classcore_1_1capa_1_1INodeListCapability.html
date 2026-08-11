@@ -124,21 +124,25 @@ Collaboration diagram for core::capa::INodeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aebdfba45609b3bba3e2ef2a6faf25314" id="r_aebdfba45609b3bba3e2ef2a6faf25314"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#aebdfba45609b3bba3e2ef2a6faf25314">GetAvailableNodes</a> () const noexcept=0</td></tr>
-<tr class="memdesc:aebdfba45609b3bba3e2ef2a6faf25314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
-<tr class="separator:aebdfba45609b3bba3e2ef2a6faf25314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe515bdf1fef460a94d5ef00bb05e26" id="r_a3fe515bdf1fef460a94d5ef00bb05e26"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a3fe515bdf1fef460a94d5ef00bb05e26">InitializePropertyTypes</a> (const std::unordered_map&lt; std::string, PropertyTypeId &gt; &amp;property_types)=0</td></tr>
-<tr class="memdesc:a3fe515bdf1fef460a94d5ef00bb05e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the node list capability with the resolved property types.  <br /></td></tr>
-<tr class="separator:a3fe515bdf1fef460a94d5ef00bb05e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a8220bde677678c02b2e2812ef5222" id="r_a25a8220bde677678c02b2e2812ef5222"><td class="memItemLeft" align="right" valign="top">virtual std::span&lt; const <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a25a8220bde677678c02b2e2812ef5222">GetAvailableNodes</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a25a8220bde677678c02b2e2812ef5222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
+<tr class="separator:a25a8220bde677678c02b2e2812ef5222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc0f348b16ce254d3b612ec91cc808bf" id="r_adc0f348b16ce254d3b612ec91cc808bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#adc0f348b16ce254d3b612ec91cc808bf">InitializePropertyTypes</a> (std::span&lt; const <a class="el" href="structcore_1_1TypeDefinition.html">TypeDefinition</a> &gt; property_types)=0</td></tr>
+<tr class="memdesc:adc0f348b16ce254d3b612ec91cc808bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the node list capability with the resolved property types.  <br /></td></tr>
+<tr class="separator:adc0f348b16ce254d3b612ec91cc808bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a306c4827dcc3ac0404b3e7e7f6db30" id="r_a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30">GetNodeConfiguration</a> (NodeType type) const =0</td></tr>
 <tr class="memdesc:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the layout and default configuration for a specific node type.  <br /></td></tr>
 <tr class="separator:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcore_1_1ICapability"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1ICapability')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1ICapability.html">core::ICapability</a></td></tr>
+<tr class="memitem:a0a73d051b1ec2c3c7065855d134878f7 inherit pub_methods_classcore_1_1ICapability" id="r_a0a73d051b1ec2c3c7065855d134878f7"><td class="memItemLeft" align="right" valign="top">virtual std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1ICapability.html#a0a73d051b1ec2c3c7065855d134878f7">getType</a> () const noexcept=0</td></tr>
+<tr class="memdesc:a0a73d051b1ec2c3c7065855d134878f7 inherit pub_methods_classcore_1_1ICapability"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the type of capability this instance represents.  <br /></td></tr>
+<tr class="separator:a0a73d051b1ec2c3c7065855d134878f7 inherit pub_methods_classcore_1_1ICapability"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the capability providing custom nodes. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aebdfba45609b3bba3e2ef2a6faf25314" name="aebdfba45609b3bba3e2ef2a6faf25314"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebdfba45609b3bba3e2ef2a6faf25314">&#9670;&#160;</a></span>GetAvailableNodes()</h2>
+<a id="a25a8220bde677678c02b2e2812ef5222" name="a25a8220bde677678c02b2e2812ef5222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a8220bde677678c02b2e2812ef5222">&#9670;&#160;</a></span>GetAvailableNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +151,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt; core::capa::INodeListCapability::GetAvailableNodes </td>
+          <td class="memname">virtual std::span&lt; const <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt; core::capa::INodeListCapability::GetAvailableNodes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -200,8 +204,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3fe515bdf1fef460a94d5ef00bb05e26" name="a3fe515bdf1fef460a94d5ef00bb05e26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fe515bdf1fef460a94d5ef00bb05e26">&#9670;&#160;</a></span>InitializePropertyTypes()</h2>
+<a id="adc0f348b16ce254d3b612ec91cc808bf" name="adc0f348b16ce254d3b612ec91cc808bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0f348b16ce254d3b612ec91cc808bf">&#9670;&#160;</a></span>InitializePropertyTypes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +216,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void core::capa::INodeListCapability::InitializePropertyTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, PropertyTypeId &gt; &amp;&#160;</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structcore_1_1TypeDefinition.html">TypeDefinition</a> &gt;&#160;</td>
           <td class="paramname"><em>property_types</em></td><td>)</td>
           <td></td>
         </tr>

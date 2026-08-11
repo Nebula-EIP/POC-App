@@ -89,6 +89,7 @@ var hierarchy =
     [ "editor_ui::TopBar", "classeditor__ui_1_1TopBar.html", null ],
     [ "editor_ui::TopBarStyle", "structeditor__ui_1_1TopBarStyle.html", null ],
     [ "core::TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],
+    [ "core::TypeDefinition", "structcore_1_1TypeDefinition.html", null ],
     [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ],
     [ "core::GraphValidator::ValidationError", "structcore_1_1GraphValidator_1_1ValidationError.html", null ],
     [ "core::GraphValidator::ValidationResult", "structcore_1_1GraphValidator_1_1ValidationResult.html", null ],

@@ -21,7 +21,7 @@ var namespacecore =
     [ "GraphException", "classcore_1_1GraphException.html", null ],
     [ "GraphModificationException", "classcore_1_1GraphModificationException.html", null ],
     [ "GraphValidator", "classcore_1_1GraphValidator.html", "classcore_1_1GraphValidator" ],
-    [ "ICapability", "classcore_1_1ICapability.html", null ],
+    [ "ICapability", "classcore_1_1ICapability.html", "classcore_1_1ICapability" ],
     [ "IModule", "classcore_1_1IModule.html", "classcore_1_1IModule" ],
     [ "IncompatiblePinTypesException", "classcore_1_1IncompatiblePinTypesException.html", null ],
     [ "InvalidJsonSchemaException", "classcore_1_1InvalidJsonSchemaException.html", null ],
@@ -46,5 +46,6 @@ var namespacecore =
     [ "SelfConnectionException", "classcore_1_1SelfConnectionException.html", null ],
     [ "SerializationException", "classcore_1_1SerializationException.html", null ],
     [ "TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],
+    [ "TypeDefinition", "structcore_1_1TypeDefinition.html", "structcore_1_1TypeDefinition" ],
     [ "VariableNode", "classcore_1_1VariableNode.html", "classcore_1_1VariableNode" ]
 ];
