@@ -50,10 +50,16 @@ var hierarchy =
     [ "graph_exporter::GraphExporter", "classgraph__exporter_1_1GraphExporter.html", null ],
     [ "graph_importer::GraphImporter", "classgraph__importer_1_1GraphImporter.html", null ],
     [ "core::GraphValidator", "classcore_1_1GraphValidator.html", null ],
+    [ "core::ICapability", "classcore_1_1ICapability.html", [
+      [ "core::capa::IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", null ]
+    ] ],
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
     [ "core::IModule", "classcore_1_1IModule.html", null ],
+    [ "core::capa::ImportError", "structcore_1_1capa_1_1ImportError.html", null ],
+    [ "core::capa::ImportNodeDescriptor", "structcore_1_1capa_1_1ImportNodeDescriptor.html", null ],
+    [ "core::capa::ImportTypeDescriptor", "structcore_1_1capa_1_1ImportTypeDescriptor.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
     [ "editor_ui::Menu", "structeditor__ui_1_1Menu.html", null ],
     [ "editor_ui::MenuItem", "structeditor__ui_1_1MenuItem.html", null ],

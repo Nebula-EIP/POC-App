@@ -7,6 +7,12 @@ var annotated_dup =
       [ "IndentationError", "classcode__generation_1_1IndentationError.html", null ]
     ] ],
     [ "core", "namespacecore.html", [
+      [ "capa", null, [
+        [ "IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", "classcore_1_1capa_1_1IImporterCapability" ],
+        [ "ImportError", "structcore_1_1capa_1_1ImportError.html", "structcore_1_1capa_1_1ImportError" ],
+        [ "ImportNodeDescriptor", "structcore_1_1capa_1_1ImportNodeDescriptor.html", "structcore_1_1capa_1_1ImportNodeDescriptor" ],
+        [ "ImportTypeDescriptor", "structcore_1_1capa_1_1ImportTypeDescriptor.html", "structcore_1_1capa_1_1ImportTypeDescriptor" ]
+      ] ],
       [ "CircularDependencyException", "classcore_1_1CircularDependencyException.html", null ],
       [ "ConditionNode", "classcore_1_1ConditionNode.html", "classcore_1_1ConditionNode" ],
       [ "ConnectedParameterException", "classcore_1_1ConnectedParameterException.html", null ],
@@ -28,6 +34,7 @@ var annotated_dup =
       [ "GraphException", "classcore_1_1GraphException.html", null ],
       [ "GraphModificationException", "classcore_1_1GraphModificationException.html", null ],
       [ "GraphValidator", "classcore_1_1GraphValidator.html", "classcore_1_1GraphValidator" ],
+      [ "ICapability", "classcore_1_1ICapability.html", null ],
       [ "IModule", "classcore_1_1IModule.html", "classcore_1_1IModule" ],
       [ "IncompatiblePinTypesException", "classcore_1_1IncompatiblePinTypesException.html", null ],
       [ "InvalidJsonSchemaException", "classcore_1_1InvalidJsonSchemaException.html", null ],

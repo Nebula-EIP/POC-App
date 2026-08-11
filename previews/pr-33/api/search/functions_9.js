@@ -6,6 +6,8 @@ var searchData=
   ['linkingwithmouse_3',['LinkingWithMouse',['../classcore_1_1Graph.html#aeed4458e3cd29d7ece39d1d2643bb0c3',1,'core::Graph']]],
   ['linknodes_4',['LinkNodes',['../classcore_1_1Graph.html#a83f0807477e04bc36aed8d5740fe96f1',1,'core::Graph']]],
   ['load_5',['load',['../classcore_1_1ModuleLoader.html#a9cf537bb0aa9fe541dae55e4e8d60081',1,'core::ModuleLoader']]],
-  ['loadfromfile_6',['LoadFromFile',['../classcore_1_1Graph.html#ab9e289d8ecfaf65a7d95982580ba6c16',1,'core::Graph']]],
-  ['log_7',['log',['../classutils_1_1Logger.html#a185799578c02eaa8321525ae312326c3',1,'utils::Logger']]]
+  ['loadfile_6',['loadFile',['../classcore_1_1capa_1_1IImporterCapability.html#ac486fb7c7efda36278b6cd80b17fb651',1,'core::capa::IImporterCapability']]],
+  ['loadfromfile_7',['LoadFromFile',['../classcore_1_1Graph.html#ab9e289d8ecfaf65a7d95982580ba6c16',1,'core::Graph']]],
+  ['loadrepository_8',['loadRepository',['../classcore_1_1capa_1_1IImporterCapability.html#a1d66a923c0da9c02405057e3a6f33ee5',1,'core::capa::IImporterCapability']]],
+  ['log_9',['log',['../classutils_1_1Logger.html#a185799578c02eaa8321525ae312326c3',1,'utils::Logger']]]
 ];
