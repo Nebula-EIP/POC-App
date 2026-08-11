@@ -135,17 +135,18 @@ GraphImporter::Tokenize(const std::string &source) {
                 ++i;
             }
             std::string text = source.substr(start, i - start);
-            tokens.push_back({is_float ? TokenType::kFloatLiteral
-                                        : TokenType::kIntLiteral,
-                              text, line});
+            tokens.push_back(
+                {is_float ? TokenType::kFloatLiteral : TokenType::kIntLiteral,
+                 text, line});
             continue;
         }
 
         // Identifier / keyword
         if (std::isalpha(static_cast<unsigned char>(c)) || c == '_') {
             size_t start = i;
-            while (i < n && (std::isalnum(static_cast<unsigned char>(source[i])) ||
-                             source[i] == '_'))
+            while (i < n &&
+                   (std::isalnum(static_cast<unsigned char>(source[i])) ||
+                    source[i] == '_'))
                 ++i;
             std::string text = source.substr(start, i - start);
 
@@ -188,9 +189,8 @@ GraphImporter::Tokenize(const std::string &source) {
         auto two_char = [&](const char *op) {
             return i + 1 < n && source[i] == op[0] && source[i + 1] == op[1];
         };
-        static const char *kTwoCharOps[] = {"==", "!=", "<=", ">=", "&&",
-                                            "||", "<<", ">>", "++", "--",
-                                            "+=", "-="};
+        static const char *kTwoCharOps[] = {"==", "!=", "<=", ">=", "&&", "||",
+                                            "<<", ">>", "++", "--", "+=", "-="};
         bool matched_two = false;
         for (const char *op : kTwoCharOps) {
             if (two_char(op)) {
@@ -234,7 +234,8 @@ const GraphImporter::Token &GraphImporter::Advance(ParseState &state) const {
     return t;
 }
 
-bool GraphImporter::Check(const ParseState &state, const std::string &text) const {
+bool GraphImporter::Check(const ParseState &state,
+                          const std::string &text) const {
     return Peek(state).text == text && Peek(state).type != TokenType::kEnd;
 }
 
@@ -246,7 +247,8 @@ std::expected<GraphImporter::Token, std::string> GraphImporter::Expect(
     ParseState &state, const std::string &text) const {
     if (!Check(state, text)) {
         return std::unexpected(ErrorAt(
-            state, "expected '" + text + "' but found '" + Peek(state).text + "'"));
+            state,
+            "expected '" + text + "' but found '" + Peek(state).text + "'"));
     }
     return Advance(state);
 }
@@ -301,10 +303,11 @@ std::expected<void, std::string> GraphImporter::ParseStatement(
             // control statement the way it can a PrintNode. Rejecting this
             // explicitly rather than silently building an unlinked/ambiguous
             // graph - confirm the intended mechanism if nesting is needed.
-            return std::unexpected(ErrorAt(
-                state, "nested if/while/for inside another block isn't "
-                      "supported by the current node graph (Condition/Loop/"
-                      "For nodes have no execution-order input pin)"));
+            return std::unexpected(
+                ErrorAt(state,
+                        "nested if/while/for inside another block isn't "
+                        "supported by the current node graph (Condition/Loop/"
+                        "For nodes have no execution-order input pin)"));
         }
 
         if (Check(state, "if")) {
@@ -357,9 +360,9 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseDeclaration(
     core::NodeBase::PinDataType pin_type = KeywordToPinType(type_tok.text);
 
     if (!CheckType(state, TokenType::kIdentifier)) {
-        return std::unexpected(
-            ErrorAt(state, "expected variable name after type '" +
-                              type_tok.text + "'"));
+        return std::unexpected(ErrorAt(
+            state,
+            "expected variable name after type '" + type_tok.text + "'"));
     }
     std::string name = Advance(state).text;
 
@@ -407,10 +410,11 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParsePrintStatement(
         }
 
         if (value_node != nullptr) {
-            return std::unexpected(ErrorAt(
-                state, "std::cout only supports a single printed value in "
-                      "this graph (PrintNode has one 'value' pin) - split "
-                      "into multiple std::cout statements"));
+            return std::unexpected(
+                ErrorAt(state,
+                        "std::cout only supports a single printed value in "
+                        "this graph (PrintNode has one 'value' pin) - split "
+                        "into multiple std::cout statements"));
         }
 
         auto value = ParseExpression(state);
@@ -452,7 +456,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseIfStatement(
     core::NodeBase *condition_node = state.graph->AddNode<core::ConditionNode>(
         core::NodeBase::NodeKind::kCondition, NextPosition(state));
     if (condition_node == nullptr) {
-        return std::unexpected(ErrorAt(state, "failed to create ConditionNode"));
+        return std::unexpected(
+            ErrorAt(state, "failed to create ConditionNode"));
     }
 
     auto cond_pin = FindInputPin(*condition_node, "cond");
@@ -463,18 +468,21 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseIfStatement(
     auto then_result = ParseBlock(state, &then_body);
     if (!then_result.has_value()) return std::unexpected(then_result.error());
 
-    auto attach_then = AttachBody(condition_node, "true", then_body, *state.graph);
+    auto attach_then =
+        AttachBody(condition_node, "true", then_body, *state.graph);
     if (!attach_then.has_value()) return std::unexpected(attach_then.error());
 
     if (Check(state, "else")) {
         Advance(state);
         std::vector<core::NodeBase *> else_body;
         auto else_result = ParseBlock(state, &else_body);
-        if (!else_result.has_value()) return std::unexpected(else_result.error());
+        if (!else_result.has_value())
+            return std::unexpected(else_result.error());
 
         auto attach_else =
             AttachBody(condition_node, "false", else_body, *state.graph);
-        if (!attach_else.has_value()) return std::unexpected(attach_else.error());
+        if (!attach_else.has_value())
+            return std::unexpected(attach_else.error());
     }
 
     return condition_node;
@@ -561,12 +569,13 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseForStatement(
     return for_node;
 }
 
-std::expected<core::NodeBase *, std::string> GraphImporter::ParseUpdateExpression(
-    ParseState &state) const {
+std::expected<core::NodeBase *, std::string>
+GraphImporter::ParseUpdateExpression(ParseState &state) const {
     if (!CheckType(state, TokenType::kIdentifier)) {
         return std::unexpected(
-            ErrorAt(state, "expected a variable update (e.g. 'i++', 'i += 1', "
-                          "'i = i + 1')"));
+            ErrorAt(state,
+                    "expected a variable update (e.g. 'i++', 'i += 1', "
+                    "'i = i + 1')"));
     }
     std::string name = Advance(state).text;
 
@@ -598,8 +607,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseUpdateExpressio
         return ParseExpression(state);
     }
 
-    return std::unexpected(
-        ErrorAt(state, "unsupported update operator '" + Peek(state).text + "'"));
+    return std::unexpected(ErrorAt(
+        state, "unsupported update operator '" + Peek(state).text + "'"));
 }
 
 int GraphImporter::BinaryPrecedence(const std::string &op) {
@@ -661,9 +670,9 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseUnary(
         Advance(state);
         auto operand = ParseUnary(state);
         if (!operand.has_value()) return std::unexpected(operand.error());
-        return MakeUnaryOperator(
-            state, core::OperatorNode::OperatorType::kLogicalNot,
-            operand.value());
+        return MakeUnaryOperator(state,
+                                 core::OperatorNode::OperatorType::kLogicalNot,
+                                 operand.value());
     }
 
     return ParsePrimary(state);
@@ -679,7 +688,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParsePrimary(
     }
     if (tok.type == TokenType::kFloatLiteral) {
         Advance(state);
-        return MakeLiteral(state, core::NodeBase::PinDataType::kFloat, tok.text);
+        return MakeLiteral(state, core::NodeBase::PinDataType::kFloat,
+                           tok.text);
     }
     if (tok.type == TokenType::kBoolLiteral) {
         Advance(state);
@@ -687,7 +697,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParsePrimary(
     }
     if (tok.type == TokenType::kStringLiteral) {
         Advance(state);
-        return MakeLiteral(state, core::NodeBase::PinDataType::kString, tok.text);
+        return MakeLiteral(state, core::NodeBase::PinDataType::kString,
+                           tok.text);
     }
 
     if (Check(state, "(")) {
@@ -703,8 +714,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParsePrimary(
         Advance(state);
         auto it = state.symbol_table.find(tok.text);
         if (it == state.symbol_table.end()) {
-            return std::unexpected(
-                ErrorAt(state, "use of undeclared variable '" + tok.text + "'"));
+            return std::unexpected(ErrorAt(
+                state, "use of undeclared variable '" + tok.text + "'"));
         }
         return it->second;
     }
@@ -722,7 +733,8 @@ std::expected<core::NodeBase *, std::string> GraphImporter::MakeLiteral(
         return std::unexpected(ErrorAt(state, "failed to create LiteralNode"));
     }
 
-    // SetType() throws if pins are already connected, here its safe because the node is newly created and unlinked.
+    // SetType() throws if pins are already connected, here its safe because the
+    // node is newly created and unlinked.
     literal->SetType(type);
     literal->SetName(text);
 
@@ -793,10 +805,12 @@ std::expected<core::NodeBase *, std::string> GraphImporter::MakeOperator(
     ParseState &state, const std::string &op, core::NodeBase *lhs,
     core::NodeBase *rhs) const {
     auto op_type = BinaryOpToOperatorType(op);
-    if (!op_type.has_value()) return std::unexpected(ErrorAt(state, op_type.error()));
+    if (!op_type.has_value())
+        return std::unexpected(ErrorAt(state, op_type.error()));
 
-    core::OperatorNode *operator_node = state.graph->AddNode<core::OperatorNode>(
-        core::NodeBase::NodeKind::kOperator, NextPosition(state));
+    core::OperatorNode *operator_node =
+        state.graph->AddNode<core::OperatorNode>(
+            core::NodeBase::NodeKind::kOperator, NextPosition(state));
     if (operator_node == nullptr) {
         return std::unexpected(ErrorAt(state, "failed to create OperatorNode"));
     }
@@ -813,8 +827,9 @@ std::expected<core::NodeBase *, std::string> GraphImporter::MakeOperator(
 std::expected<core::NodeBase *, std::string> GraphImporter::MakeUnaryOperator(
     ParseState &state, core::OperatorNode::OperatorType type,
     core::NodeBase *operand) const {
-    core::OperatorNode *operator_node = state.graph->AddNode<core::OperatorNode>(
-        core::NodeBase::NodeKind::kOperator, NextPosition(state));
+    core::OperatorNode *operator_node =
+        state.graph->AddNode<core::OperatorNode>(
+            core::NodeBase::NodeKind::kOperator, NextPosition(state));
     if (operator_node == nullptr) {
         return std::unexpected(ErrorAt(state, "failed to create OperatorNode"));
     }
@@ -849,7 +864,8 @@ std::expected<void, std::string> GraphImporter::AttachBody(
         if (statement->kind() != core::NodeBase::NodeKind::kPrint) continue;
 
         auto control_pin = FindInputPin(*statement, "control");
-        if (!control_pin.has_value()) return std::unexpected(control_pin.error());
+        if (!control_pin.has_value())
+            return std::unexpected(control_pin.error());
 
         // Multiple PrintNodes can fan out from the same void output pin;
         // their relative order is assumed to follow connection insertion
@@ -879,7 +895,7 @@ std::expected<uint8_t, std::string> GraphImporter::FindOutputPin(
 
 bool GraphImporter::IsTypeKeyword(const std::string &text) {
     return text == "int" || text == "float" || text == "double" ||
-          text == "bool" || text == "string";
+           text == "bool" || text == "string";
 }
 
 core::NodeBase::PinDataType GraphImporter::KeywordToPinType(

@@ -67,14 +67,12 @@ class GraphImporter {
         float y_cursor = 0.0f;
     };
 
-
-
     const Token &Peek(const ParseState &state) const;
     const Token &Advance(ParseState &state) const;
     bool Check(const ParseState &state, const std::string &text) const;
     bool CheckType(const ParseState &state, TokenType type) const;
     std::expected<Token, std::string> Expect(ParseState &state,
-                                              const std::string &text) const;
+                                             const std::string &text) const;
     utils::WrappedVector2 NextPosition(ParseState &state) const;
     std::string ErrorAt(const ParseState &state,
                         const std::string &message) const;
