@@ -115,6 +115,9 @@ class IExporterCapability : public core::ICapability {
     /**
      * @brief Emits support code for one module type.
      *
+     * @param out The code generator file to write to. Required.
+     * @param context The shared export context. Required.
+     * @param type The type descriptor to export. Required.
      * Implementations should emit declarations/helpers that are required for
      * nodes using this type to compile.
      */
@@ -125,6 +128,9 @@ class IExporterCapability : public core::ICapability {
     /**
      * @brief Emits executable code for one module node instance.
      *
+     * @param out The code generator file to write to. Required.
+     * @param context The shared export context. Required.
+     * @param request The node export request containing the node instance,
      * input_expressions and output_symbols are positional and must match
      * NodeDescriptor pin ordering.
      */
@@ -134,6 +140,13 @@ class IExporterCapability : public core::ICapability {
 
     /**
      * @brief Optional hook to emit module-level includes or helpers once.
+     *
+     * @param out The code generator file to write to. Required.
+     * @param context The shared export context. Required.
+     * @return std::expected<void, ExportError> indicating success or failure.
+     * Implementations should emit any module-wide includes, helpers, or
+     * declarations that are required for the exported nodes to compile. This
+     * method is called at most once per module during the export process.
      */
     virtual std::expected<void, ExportError> exportPreamble(
         code_generation::CodeGeneratorFile &, const ExportContext &) const {
