@@ -141,8 +141,8 @@ $(document).ready(function(){initNavTree('module_8hpp_source.html',''); initResi
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classcore_1_1IModule.html#aa2c75799d593aeb6a11eb602b5950aaa">   47</a></span>    virtual capa::ITypeListCapability *<a class="code hl_function" href="classcore_1_1IModule.html#aa2c75799d593aeb6a11eb602b5950aaa">types</a>() = 0;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    virtual capa::INodeListCapability *nodes() = 0;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    virtual ICapability *capability(std::type_index type) noexcept = 0;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    virtual const ICapability *capability(</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    virtual <a class="code hl_class" href="classcore_1_1ICapability.html">ICapability</a> *capability(std::type_index type) noexcept = 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    virtual const <a class="code hl_class" href="classcore_1_1ICapability.html">ICapability</a> *capability(</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        std::type_index type) const noexcept = 0;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    template &lt;typename T&gt;</div>
@@ -162,6 +162,7 @@ $(document).ready(function(){initNavTree('module_8hpp_source.html',''); initResi
 </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aclasscore_1_1ICapability_html"><div class="ttname"><a href="classcore_1_1ICapability.html">core::ICapability</a></div><div class="ttdoc">Base interface for all module capabilities.</div><div class="ttdef"><b>Definition</b> icapability.hpp:19</div></div>
 <div class="ttc" id="aclasscore_1_1IModule_html"><div class="ttname"><a href="classcore_1_1IModule.html">core::IModule</a></div><div class="ttdoc">Modules will be loaded by the module loader class.</div><div class="ttdef"><b>Definition</b> module.hpp:21</div></div>
 <div class="ttc" id="aclasscore_1_1IModule_html_a87a2e1e8279dbf798a3c742665bc7057"><div class="ttname"><a href="classcore_1_1IModule.html#a87a2e1e8279dbf798a3c742665bc7057">core::IModule::initialize</a></div><div class="ttdeci">virtual bool initialize(ModuleId id)=0</div><div class="ttdoc">The id in the param here is just to inform the module of the id the loader has given him.</div></div>
 <div class="ttc" id="aclasscore_1_1IModule_html_aa2c75799d593aeb6a11eb602b5950aaa"><div class="ttname"><a href="classcore_1_1IModule.html#aa2c75799d593aeb6a11eb602b5950aaa">core::IModule::types</a></div><div class="ttdeci">virtual capa::ITypeListCapability * types()=0</div><div class="ttdoc">Mendatory capabilities.</div></div>

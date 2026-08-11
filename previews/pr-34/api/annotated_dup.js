@@ -31,6 +31,7 @@ var annotated_dup =
       [ "GraphException", "classcore_1_1GraphException.html", null ],
       [ "GraphModificationException", "classcore_1_1GraphModificationException.html", null ],
       [ "GraphValidator", "classcore_1_1GraphValidator.html", "classcore_1_1GraphValidator" ],
+      [ "ICapability", "classcore_1_1ICapability.html", null ],
       [ "IModule", "classcore_1_1IModule.html", "classcore_1_1IModule" ],
       [ "IncompatiblePinTypesException", "classcore_1_1IncompatiblePinTypesException.html", null ],
       [ "InvalidJsonSchemaException", "classcore_1_1InvalidJsonSchemaException.html", null ],

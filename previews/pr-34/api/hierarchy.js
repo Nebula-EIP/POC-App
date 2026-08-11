@@ -49,11 +49,13 @@ var hierarchy =
     [ "core::Graph", "classcore_1_1Graph.html", null ],
     [ "graph_exporter::GraphExporter", "classgraph__exporter_1_1GraphExporter.html", null ],
     [ "core::GraphValidator", "classcore_1_1GraphValidator.html", null ],
+    [ "core::ICapability", "classcore_1_1ICapability.html", [
+      [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", null ]
+    ] ],
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint8_t >", "classutils_1_1IdManager.html", null ],
     [ "core::IModule", "classcore_1_1IModule.html", null ],
-    [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
     [ "editor_ui::Menu", "structeditor__ui_1_1Menu.html", null ],
     [ "editor_ui::MenuItem", "structeditor__ui_1_1MenuItem.html", null ],
