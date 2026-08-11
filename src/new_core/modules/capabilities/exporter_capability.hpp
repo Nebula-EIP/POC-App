@@ -3,10 +3,10 @@
  * @brief Defines the capability for a module to export its code.
  *
  * @author Created by nolan papa
- * @date Created on  08-11-2026
+ * @date Created on  11-08-2026
  *
  * @author Last modified by nolan papa
- * @date Last modified on 08-11-2026
+ * @date Last modified on 11-08-2026
  */
 #pragma once
 
