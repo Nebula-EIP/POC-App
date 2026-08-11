@@ -63,9 +63,9 @@ GraphImporter::Tokenize(const std::string &source) {
     std::vector<Token> tokens;
     int line = 1;
     size_t i = 0;
-    const size_t n = source.size();
+    const size_t kN = source.size();
 
-    while (i < n) {
+    while (i < kN) {
         char c = source[i];
 
         if (c == '\n') {
@@ -79,14 +79,14 @@ GraphImporter::Tokenize(const std::string &source) {
         }
 
         // Line comment
-        if (c == '/' && i + 1 < n && source[i + 1] == '/') {
-            while (i < n && source[i] != '\n') ++i;
+        if (c == '/' && i + 1 < kN && source[i + 1] == '/') {
+            while (i < kN && source[i] != '\n') ++i;
             continue;
         }
         // Block comment
-        if (c == '/' && i + 1 < n && source[i + 1] == '*') {
+        if (c == '/' && i + 1 < kN && source[i + 1] == '*') {
             i += 2;
-            while (i + 1 < n && !(source[i] == '*' && source[i + 1] == '/')) {
+            while (i + 1 < kN && !(source[i] == '*' && source[i + 1] == '/')) {
                 if (source[i] == '\n') ++line;
                 ++i;
             }
@@ -98,8 +98,8 @@ GraphImporter::Tokenize(const std::string &source) {
         if (c == '"') {
             std::string value;
             ++i;
-            while (i < n && source[i] != '"') {
-                if (source[i] == '\\' && i + 1 < n) {
+            while (i < kN && source[i] != '"') {
+                if (source[i] == '\\' && i + 1 < kN) {
                     value += source[i + 1];
                     i += 2;
                 } else {
@@ -107,7 +107,7 @@ GraphImporter::Tokenize(const std::string &source) {
                     ++i;
                 }
             }
-            if (i >= n) {
+            if (i >= kN) {
                 return std::unexpected("Unterminated string literal at line " +
                                        std::to_string(line));
             }
@@ -120,17 +120,20 @@ GraphImporter::Tokenize(const std::string &source) {
         if (std::isdigit(static_cast<unsigned char>(c))) {
             size_t start = i;
             bool is_float = false;
-            while (i < n && std::isdigit(static_cast<unsigned char>(source[i])))
+            while (i < kN &&
+                   std::isdigit(static_cast<unsigned char>(source[i]))) {
                 ++i;
-            if (i < n && source[i] == '.') {
+            }
+            if (i < kN && source[i] == '.') {
                 is_float = true;
                 ++i;
-                while (i < n &&
-                       std::isdigit(static_cast<unsigned char>(source[i])))
+                while (i < kN &&
+                       std::isdigit(static_cast<unsigned char>(source[i]))) {
                     ++i;
+                }
             }
             // Trailing float suffix e.g. 3.0f
-            if (i < n && (source[i] == 'f' || source[i] == 'F')) {
+            if (i < kN && (source[i] == 'f' || source[i] == 'F')) {
                 is_float = true;
                 ++i;
             }
@@ -144,23 +147,25 @@ GraphImporter::Tokenize(const std::string &source) {
         // Identifier / keyword
         if (std::isalpha(static_cast<unsigned char>(c)) || c == '_') {
             size_t start = i;
-            while (i < n &&
+            while (i < kN &&
                    (std::isalnum(static_cast<unsigned char>(source[i])) ||
-                    source[i] == '_'))
+                    source[i] == '_')) {
                 ++i;
+            }
             std::string text = source.substr(start, i - start);
 
             // Collapse "std::cout" / "std::endl" / "std::string" into single
             // logical tokens so the parser doesn't need to special-case "::".
-            if (text == "std" && i + 1 < n && source[i] == ':' &&
+            if (text == "std" && i + 1 < kN && source[i] == ':' &&
                 source[i + 1] == ':') {
                 size_t colon_pos = i;
                 i += 2;
                 size_t sub_start = i;
-                while (i < n &&
+                while (i < kN &&
                        (std::isalnum(static_cast<unsigned char>(source[i])) ||
-                        source[i] == '_'))
+                        source[i] == '_')) {
                     ++i;
+                }
                 std::string suffix = source.substr(sub_start, i - sub_start);
                 if (suffix.empty()) {
                     i = colon_pos;  // malformed, fall back
@@ -187,12 +192,13 @@ GraphImporter::Tokenize(const std::string &source) {
 
         // Multi-char operators
         auto two_char = [&](const char *op) {
-            return i + 1 < n && source[i] == op[0] && source[i + 1] == op[1];
+            return i + 1 < kN && source[i] == op[0] && source[i + 1] == op[1];
         };
-        static const char *kTwoCharOps[] = {"==", "!=", "<=", ">=", "&&", "||",
-                                            "<<", ">>", "++", "--", "+=", "-="};
+        static const char *k_two_char_ops[] = {
+            "==", "!=", "<=", ">=", "&&", "||",
+            "<<", ">>", "++", "--", "+=", "-="};
         bool matched_two = false;
-        for (const char *op : kTwoCharOps) {
+        for (const char *op : k_two_char_ops) {
             if (two_char(op)) {
                 tokens.push_back({TokenType::kOperator, op, line});
                 i += 2;
@@ -476,13 +482,15 @@ std::expected<core::NodeBase *, std::string> GraphImporter::ParseIfStatement(
         Advance(state);
         std::vector<core::NodeBase *> else_body;
         auto else_result = ParseBlock(state, &else_body);
-        if (!else_result.has_value())
+        if (!else_result.has_value()) {
             return std::unexpected(else_result.error());
+        }
 
         auto attach_else =
             AttachBody(condition_node, "false", else_body, *state.graph);
-        if (!attach_else.has_value())
+        if (!attach_else.has_value()) {
             return std::unexpected(attach_else.error());
+        }
     }
 
     return condition_node;
@@ -805,8 +813,9 @@ std::expected<core::NodeBase *, std::string> GraphImporter::MakeOperator(
     ParseState &state, const std::string &op, core::NodeBase *lhs,
     core::NodeBase *rhs) const {
     auto op_type = BinaryOpToOperatorType(op);
-    if (!op_type.has_value())
+    if (!op_type.has_value()) {
         return std::unexpected(ErrorAt(state, op_type.error()));
+    }
 
     core::OperatorNode *operator_node =
         state.graph->AddNode<core::OperatorNode>(
@@ -861,11 +870,14 @@ std::expected<void, std::string> GraphImporter::AttachBody(
         // needs confirming against CodegenContext's actual deferral logic
         // (see the doc's "the generator can still defer some nodes when
         // they belong to the body of a control block").
-        if (statement->kind() != core::NodeBase::NodeKind::kPrint) continue;
+        if (statement->kind() != core::NodeBase::NodeKind::kPrint) {
+            continue;
+        }
 
         auto control_pin = FindInputPin(*statement, "control");
-        if (!control_pin.has_value())
+        if (!control_pin.has_value()) {
             return std::unexpected(control_pin.error());
+        }
 
         // Multiple PrintNodes can fan out from the same void output pin;
         // their relative order is assumed to follow connection insertion
@@ -900,11 +912,18 @@ bool GraphImporter::IsTypeKeyword(const std::string &text) {
 
 core::NodeBase::PinDataType GraphImporter::KeywordToPinType(
     const std::string &text) {
-    if (text == "int") return core::NodeBase::PinDataType::kInt;
-    if (text == "float" || text == "double")
+    if (text == "int") {
+        return core::NodeBase::PinDataType::kInt;
+    }
+    if (text == "float" || text == "double") {
         return core::NodeBase::PinDataType::kFloat;
-    if (text == "bool") return core::NodeBase::PinDataType::kBool;
-    if (text == "string") return core::NodeBase::PinDataType::kString;
+    }
+    if (text == "bool") {
+        return core::NodeBase::PinDataType::kBool;
+    }
+    if (text == "string") {
+        return core::NodeBase::PinDataType::kString;
+    }
     return core::NodeBase::PinDataType::kUndefined;
 }
 
