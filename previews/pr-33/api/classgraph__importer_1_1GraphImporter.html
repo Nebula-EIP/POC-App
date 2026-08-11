@@ -97,16 +97,57 @@ $(document).ready(function(){initNavTree('classgraph__importer_1_1GraphImporter.
   <div class="headertitle"><div class="title">graph_importer::GraphImporter Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Converts supported C++ source code into a <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">core::Graph</a>.  
+ <a href="classgraph__importer_1_1GraphImporter.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="graph__importer_8hpp_source.html">graph_importer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac146cb6e90cee407d697bd004db04e55" id="r_ac146cb6e90cee407d697bd004db04e55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraph__importer_1_1GraphImporter.html#ac146cb6e90cee407d697bd004db04e55">GraphImporter</a> ()=default</td></tr>
+<tr class="memdesc:ac146cb6e90cee407d697bd004db04e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
+<tr class="separator:ac146cb6e90cee407d697bd004db04e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8b25419dda427d750f879cb6094aeab" id="r_ac8b25419dda427d750f879cb6094aeab"><td class="memItemLeft" align="right" valign="top">std::expected&lt; <a class="el" href="classcore_1_1Graph.html">core::Graph</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraph__importer_1_1GraphImporter.html#ac8b25419dda427d750f879cb6094aeab">ImportCpp</a> (const std::string &amp;source_code) const</td></tr>
-<tr class="memdesc:ac8b25419dda427d750f879cb6094aeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses C++ source text and builds an equivalent node graph.  <br /></td></tr>
+<tr class="memdesc:ac8b25419dda427d750f879cb6094aeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses C++ source code and builds an equivalent node graph.  <br /></td></tr>
 <tr class="separator:ac8b25419dda427d750f879cb6094aeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04bd748faa233fe221f8547a3fc4b9cf" id="r_a04bd748faa233fe221f8547a3fc4b9cf"><td class="memItemLeft" align="right" valign="top">std::expected&lt; <a class="el" href="classcore_1_1Graph.html">core::Graph</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgraph__importer_1_1GraphImporter.html#a04bd748faa233fe221f8547a3fc4b9cf">ImportFromFile</a> (const std::filesystem::path &amp;file_path) const</td></tr>
-<tr class="memdesc:a04bd748faa233fe221f8547a3fc4b9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a .cpp file from disk and imports it into a graph.  <br /></td></tr>
+<tr class="memdesc:a04bd748faa233fe221f8547a3fc4b9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a C++ source file and imports it into a graph.  <br /></td></tr>
 <tr class="separator:a04bd748faa233fe221f8547a3fc4b9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Converts supported C++ source code into a <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">core::Graph</a>. </p>
+<p><a class="el" href="classgraph__importer_1_1GraphImporter.html" title="Converts supported C++ source code into a core::Graph.">GraphImporter</a> parses C++ source code according to the subset supported by the graph code-generation system and reconstructs the corresponding node graph.</p>
+<p>The importer does not attempt to interpret unsupported C++ constructs. Instead, it reports the first parsing error encountered. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac146cb6e90cee407d697bd004db04e55" name="ac146cb6e90cee407d697bd004db04e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac146cb6e90cee407d697bd004db04e55">&#9670;&#160;</a></span>GraphImporter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">graph_importer::GraphImporter::GraphImporter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+<p>Creates a <a class="el" href="classgraph__importer_1_1GraphImporter.html" title="Converts supported C++ source code into a core::Graph.">GraphImporter</a> instance without any additional configuration. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac8b25419dda427d750f879cb6094aeab" name="ac8b25419dda427d750f879cb6094aeab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8b25419dda427d750f879cb6094aeab">&#9670;&#160;</a></span>ImportCpp()</h2>
@@ -124,14 +165,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Parses C++ source text and builds an equivalent node graph. </p>
+<p>Parses C++ source code and builds an equivalent node graph. </p>
+<p>The source code is tokenized, parsed according to the supported grammar, and converted into a <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">core::Graph</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">source_code</td><td>.cpp file in a text format </td></tr>
+    <tr><td class="paramname">source_code</td><td>C++ source code to parse.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A graph or an error message </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">core::Graph</a> on success, or an error message describing the first parsing failure. </dd></dl>
 
 </div>
 </div>
@@ -151,13 +193,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reads a .cpp file from disk and imports it into a graph. </p>
+<p>Reads a C++ source file and imports it into a graph. </p>
+<p>The file is read from disk and its contents are passed to the C++ source parser.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file_path</td><td>Path to the source file to import </td></tr>
+    <tr><td class="paramname">file_path</td><td>Path to the C++ source file to import.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classcore_1_1Graph.html" title="Node graph manager.">core::Graph</a> on success, or an error message if the file cannot be read or the source code cannot be parsed. </dd></dl>
 
 </div>
 </div>
