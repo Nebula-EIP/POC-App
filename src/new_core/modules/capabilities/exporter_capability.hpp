@@ -118,6 +118,7 @@ class IExporterCapability : public core::ICapability {
      * @param out The code generator file to write to. Required.
      * @param context The shared export context. Required.
      * @param type The type descriptor to export. Required.
+     * @return std::expected<void, ExportError> indicating success or failure.
      * Implementations should emit declarations/helpers that are required for
      * nodes using this type to compile.
      */
@@ -131,6 +132,7 @@ class IExporterCapability : public core::ICapability {
      * @param out The code generator file to write to. Required.
      * @param context The shared export context. Required.
      * @param request The node export request containing the node instance,
+     * @return std::expected<void, ExportError> indicating success or failure.
      * input_expressions and output_symbols are positional and must match
      * NodeDescriptor pin ordering.
      */
