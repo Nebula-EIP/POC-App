@@ -1,0 +1,9 @@
+<map id="core::capa::ExportContext" name="core::capa::ExportContext">
+<area shape="rect" id="Node000001" title="Shared context available to all exporter capability methods." alt="" coords="115,168,306,193"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1capa_1_1INodeListCapability.html" title="Interface for the capability providing custom nodes." alt="" coords="5,80,229,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,113,199,165,196,169,138,117"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="53,5,181,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,45,120,80,115,80,115,45"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1Graph.html" title="Node graph manager." alt="" coords="254,80,351,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="282,117,225,169,222,166,278,113"/>
+</map>

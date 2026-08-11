@@ -1,0 +1,11 @@
+<map id="core::SelfConnectionException" name="core::SelfConnectionException">
+<area shape="rect" id="Node000001" title="Exception thrown when attempting to connect a node to itself." alt="" coords="5,299,225,324"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ConnectionException.html" title="Base exception class for all connection and pin&#45;related errors." alt="" coords="18,225,213,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,264,118,299,113,299,113,264"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1CoreException.html" title=" " alt="" coords="39,152,191,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="118,191,118,225,113,225,113,191"/>
+<area shape="rect" id="Node000004" href="$classutils_1_1BaseException.html" title=" " alt="" coords="38,79,193,104"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="118,118,118,152,113,152,113,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="58,5,173,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="118,44,118,79,113,79,113,44"/>
+</map>
