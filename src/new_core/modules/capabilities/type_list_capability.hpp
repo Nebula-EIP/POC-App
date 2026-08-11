@@ -15,7 +15,8 @@
 #include <span>
 #include <unordered_map>
 
-#include "datatypes.hpp"
+#include "../../graph/datatypes.hpp"
+#include "../icapability.hpp"
 
 namespace core {
 
@@ -24,7 +25,7 @@ namespace capa {
 /**
  * @brief List of types the core needs to load and provide to the module owning this capabability.
  */
-class ITypeListCapability {
+class ITypeListCapability : public core::ICapability {
     /**
      * @brief Used only for return values formatting.
      */
