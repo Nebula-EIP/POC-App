@@ -6,6 +6,17 @@ var hierarchy =
     [ "editor::code_generation::CodegenOptimizer", "classeditor_1_1code__generation_1_1CodegenOptimizer.html", null ],
     [ "nebula::cmake::CompilationResult", "structnebula_1_1cmake_1_1CompilationResult.html", null ],
     [ "nebula::cmake::CompilerConfig", "structnebula_1_1cmake_1_1CompilerConfig.html", null ],
+    [ "core::capa::ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", [
+      [ "core::capa::Button", "structcore_1_1capa_1_1Button.html", null ],
+      [ "core::capa::Checkbox", "structcore_1_1capa_1_1Checkbox.html", null ],
+      [ "core::capa::InfoBubble", "structcore_1_1capa_1_1InfoBubble.html", null ],
+      [ "core::capa::Label", "structcore_1_1capa_1_1Label.html", null ],
+      [ "core::capa::NumberField", "structcore_1_1capa_1_1NumberField.html", null ],
+      [ "core::capa::Select", "structcore_1_1capa_1_1Select.html", null ],
+      [ "core::capa::Separator", "structcore_1_1capa_1_1Separator.html", null ],
+      [ "core::capa::Slider", "structcore_1_1capa_1_1Slider.html", null ],
+      [ "core::capa::TextField", "structcore_1_1capa_1_1TextField.html", null ]
+    ] ],
     [ "core::Connection", "structcore_1_1Connection.html", null ],
     [ "core::NodeBase::Connection", "structcore_1_1NodeBase_1_1Connection.html", null ],
     [ "editor::code_generation::DeadCodeAnalysis", "structeditor_1_1code__generation_1_1DeadCodeAnalysis.html", null ],
@@ -50,6 +61,8 @@ var hierarchy =
     [ "graph_exporter::GraphExporter", "classgraph__exporter_1_1GraphExporter.html", null ],
     [ "core::GraphValidator", "classcore_1_1GraphValidator.html", null ],
     [ "core::ICapability", "classcore_1_1ICapability.html", [
+      [ "core::capa::INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", null ],
+      [ "core::capa::IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", null ],
       [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", null ]
     ] ],
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
@@ -73,6 +86,8 @@ var hierarchy =
       [ "core::PrintNode", "classcore_1_1PrintNode.html", null ],
       [ "core::VariableNode", "classcore_1_1VariableNode.html", null ]
     ] ],
+    [ "core::capa::NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", null ],
+    [ "core::capa::NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", null ],
     [ "core::NodeBase::OutputPin", "structcore_1_1NodeBase_1_1OutputPin.html", null ],
     [ "core::Pin", "structcore_1_1Pin.html", null ],
     [ "core::Property", "structcore_1_1Property.html", null ],

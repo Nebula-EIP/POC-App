@@ -8,7 +8,21 @@ var annotated_dup =
     ] ],
     [ "core", "namespacecore.html", [
       [ "capa", null, [
-        [ "ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", "classcore_1_1capa_1_1ITypeListCapability" ]
+        [ "Button", "structcore_1_1capa_1_1Button.html", "structcore_1_1capa_1_1Button" ],
+        [ "Checkbox", "structcore_1_1capa_1_1Checkbox.html", "structcore_1_1capa_1_1Checkbox" ],
+        [ "ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", "structcore_1_1capa_1_1ComponentBase" ],
+        [ "InfoBubble", "structcore_1_1capa_1_1InfoBubble.html", "structcore_1_1capa_1_1InfoBubble" ],
+        [ "INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", "classcore_1_1capa_1_1INodeListCapability" ],
+        [ "IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", "classcore_1_1capa_1_1IRendererCapability" ],
+        [ "ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", "classcore_1_1capa_1_1ITypeListCapability" ],
+        [ "Label", "structcore_1_1capa_1_1Label.html", "structcore_1_1capa_1_1Label" ],
+        [ "NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", "structcore_1_1capa_1_1NodeConfiguration" ],
+        [ "NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", "structcore_1_1capa_1_1NodeMetadata" ],
+        [ "NumberField", "structcore_1_1capa_1_1NumberField.html", "structcore_1_1capa_1_1NumberField" ],
+        [ "Select", "structcore_1_1capa_1_1Select.html", "structcore_1_1capa_1_1Select" ],
+        [ "Separator", "structcore_1_1capa_1_1Separator.html", null ],
+        [ "Slider", "structcore_1_1capa_1_1Slider.html", "structcore_1_1capa_1_1Slider" ],
+        [ "TextField", "structcore_1_1capa_1_1TextField.html", "structcore_1_1capa_1_1TextField" ]
       ] ],
       [ "CircularDependencyException", "classcore_1_1CircularDependencyException.html", null ],
       [ "ConditionNode", "classcore_1_1ConditionNode.html", "classcore_1_1ConditionNode" ],
