@@ -11,8 +11,8 @@
 
 #pragma once
 
-#include <string>
 #include <span>
+#include <string>
 #include <unordered_map>
 
 #include "../../graph/datatypes.hpp"
@@ -23,28 +23,34 @@ namespace core {
 namespace capa {
 
 /**
- * @brief List of types the core needs to load and provide to the module owning this capabability.
+ * @brief List of types the core needs to load and provide to the module owning
+ * this capabability.
  */
 class ITypeListCapability : public core::ICapability {
     /**
      * @brief Used only for return values formatting.
      */
     struct TypeDefinition {
-        DataType id; ///< Unique id given to each type by the core (ids are uniques across modules)
+        DataType id;  ///< Unique id given to each type by the core (ids are
+                      ///< uniques across modules)
         std::string_view name;
     };
-   public:
 
+   public:
     virtual ~ITypeListCapability() = 0;
 
     /**
-     * @brief Used by the core to retreive the types the capability wants to export.
+     * @brief Used by the core to retreive the types the capability wants to
+     * export.
      *
-     * @param type_id Available id the capability must assign to one of it's type.
+     * @param type_id Available id the capability must assign to one of it's
+     * type.
      *
-     * @return A pointer to a string_view with the new type, void if all the types of the capability have been assigned.
+     * @return A pointer to a string_view with the new type, void if all the
+     * types of the capability have been assigned.
      */
-    virtual const std::string_view *registerType(DataType type_id) const noexcept = 0;
+    virtual const std::string_view *registerType(
+        DataType type_id) const noexcept = 0;
 
     /**
      * @brief Get a type id from it's name
@@ -68,7 +74,8 @@ class ITypeListCapability : public core::ICapability {
      * @brief Get the list of all types defined by the capability
      *
      * @return A span of the a struct containing the id & name of the types
-     * If the span is empty, it means the capability has not yet registered it's types.
+     * If the span is empty, it means the capability has not yet registered it's
+     * types.
      */
     virtual std::span<const TypeDefinition> types() const noexcept = 0;
 
