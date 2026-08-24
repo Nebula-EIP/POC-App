@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['default_5fproperties_5f_0',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
-  ['description_5f_1',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
-  ['drag_5foffset_5f_2',['drag_offset_',['../classcore_1_1NodeBase.html#aa75d3ee53587d63e4385a435bcf3737d',1,'core::NodeBase']]]
-];
