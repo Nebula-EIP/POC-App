@@ -1,5 +1,0 @@
-<map id="src/new_core/modules/icapability.hpp" name="src/new_core/modules/icapability.hpp">
-<area shape="rect" id="Node000001" title="Base interface for all module capabilities." alt="" coords="5,5,172,45"/>
-<area shape="rect" id="Node000002" href="$importer__capability_8hpp.html" title="Defines the capability used to provide source files, nodes, and types to a graph importer." alt="" coords="5,93,172,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,59,91,93,86,93,86,59"/>
-</map>
