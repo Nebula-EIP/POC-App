@@ -18,7 +18,7 @@
 
 namespace core {
 
-class Graph; ///< Forward def to make it a friend
+class Graph;  ///< Forward def to make it a friend
 
 /**
  * @brief Data storage representing a Node in the Graph.
@@ -155,7 +155,8 @@ class Node {
     void RemoveProperty(PropertyId);
 
    private:
-    friend core::Graph; ///< This is required to allow the Graph operations to be more effective
+    friend core::Graph;  ///< This is required to allow the Graph operations to
+                         ///< be more effective
 
     Node() = default;
 
@@ -213,7 +214,8 @@ class Node {
     std::vector<Pin> _input_pins;
     std::vector<Pin> _output_pins;
 
-    PropertyMap _properties; ///< properties are data storages reserved for module usage
+    PropertyMap _properties;  ///< properties are data storages reserved for
+                              ///< module usage
 };
 
 }  // namespace core

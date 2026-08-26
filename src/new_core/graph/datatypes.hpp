@@ -20,12 +20,12 @@
 #include <vector>
 
 namespace core {
-using NodeId = uint32_t;          ///< Unique id for each Node
-using PinId = uint16_t;           ///< Unique id for each Node's Pin
-using DataType = uint16_t;        ///< Unique id for each type declared by modules
-using NodeType = uint16_t;        ///< Unique id for each node declared by modules
-using ModuleId = uint8_t;         ///< Unique id for each loaded module
-using PropertyId = uint16_t;      ///< Unique id for each Node's properties
+using NodeId = uint32_t;      ///< Unique id for each Node
+using PinId = uint16_t;       ///< Unique id for each Node's Pin
+using DataType = uint16_t;    ///< Unique id for each type declared by modules
+using NodeType = uint16_t;    ///< Unique id for each node declared by modules
+using ModuleId = uint8_t;     ///< Unique id for each loaded module
+using PropertyId = uint16_t;  ///< Unique id for each Node's properties
 using PropertyTypeId = uint32_t;  ///< Unique id for each property type
 
 /**
@@ -55,7 +55,7 @@ struct Pin {
  */
 struct Property {
     PropertyTypeId type_id;
-    std::any value;     ///< Free storage space for the property's values
+    std::any value;  ///< Free storage space for the property's values
 };
 
 using PropertyMap = std::unordered_map<PropertyId, Property>;

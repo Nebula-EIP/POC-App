@@ -104,7 +104,6 @@ class Graph {
      */
     PinId AddInputPin(NodeId node_id, Property pin_type);
 
-
     /**
      * @brief Add an output pin to a node
      *
@@ -158,7 +157,8 @@ class Graph {
     /**
      * @brief Retreive a list of all connections in the graph
      *
-     * @returns A vector containing all the conenctions between the nodes of the graph
+     * @returns A vector containing all the conenctions between the nodes of the
+     * graph
      */
     const std::vector<Connection> &getAllConnections() const;
 
@@ -170,9 +170,11 @@ class Graph {
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @return true if the connection has been established, false if it does not exists.
+     * @return true if the connection has been established, false if it does not
+     * exists.
      *
-     * @warning Only an output pin can be connected to an input pin and vice-versa
+     * @warning Only an output pin can be connected to an input pin and
+     * vice-versa
      */
     bool Connect(NodeId from, PinId out, NodeId to, PinId in);
 
@@ -191,8 +193,10 @@ class Graph {
     bool Disconnect(NodeId from, PinId out, NodeId to, PinId in);
 
    private:
-    std::unordered_map<NodeId, Node> _nodes;   ///< Map of all nodes stored in the graph
-    std::vector<Connection> _connections;      ///< List of all connections linking nodes in the graph
+    std::unordered_map<NodeId, Node>
+        _nodes;  ///< Map of all nodes stored in the graph
+    std::vector<Connection>
+        _connections;  ///< List of all connections linking nodes in the graph
 };
 
 }  // namespace core
