@@ -1,0 +1,26 @@
+<map id="src/new_core/graph/datatypes.hpp" name="src/new_core/graph/datatypes.hpp">
+<area shape="rect" id="Node000001" title="Declares all types commonly used in the core library." alt="" coords="239,5,387,45"/>
+<area shape="rect" id="Node000002" href="$new__core_2graph_2graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="117,196,265,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="262,55,238,73,219,95,206,120,199,147,194,196,188,195,194,146,201,118,214,92,235,69,259,50"/>
+<area shape="rect" id="Node000004" href="$node_8hpp_source.html" title=" " alt="" coords="5,101,153,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="254,53,127,103,125,98,252,48"/>
+<area shape="rect" id="Node000005" href="$node__list__capability_8hpp.html" title="Defines the capability for a module to provide custom nodes." alt="" coords="229,93,396,148"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="315,59,315,93,310,93,310,59"/>
+<area shape="rect" id="Node000009" href="$renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="611,93,777,148"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="401,44,599,91,611,94,610,99,597,96,399,49"/>
+<area shape="rect" id="Node000010" href="$type__list__capability_8hpp_source.html" title=" " alt="" coords="420,93,587,148"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="365,49,451,91,448,96,362,54"/>
+<area shape="rect" id="Node000003" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="168,284,335,339"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,246,237,282,232,285,209,249"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="114,148,170,194,167,198,111,152"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="82,154,88,195,96,216,107,234,136,261,170,282,168,286,132,266,103,238,91,218,83,196,77,155"/>
+<area shape="poly" id="edge7_Node000005_Node000003" title=" " alt="" coords="303,162,279,237,263,285,258,283,274,235,298,160"/>
+<area shape="rect" id="Node000006" href="$module_8hpp_source.html" title=" " alt="" coords="409,196,576,236"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="377,152,457,193,455,198,374,157"/>
+<area shape="rect" id="Node000007" href="$create__module_8hpp_source.html" title=" " alt="" coords="575,291,741,331"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="539,240,626,289,623,294,536,245"/>
+<area shape="rect" id="Node000008" href="$loader_8hpp_source.html" title=" " alt="" coords="384,291,551,331"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="487,250,475,292,470,291,481,249"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="455,158,398,198,285,286,282,282,395,194,451,154"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="501,162,497,196,492,196,496,161"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="5,80,133,105"/>
+<area shape="rect" id="Node000001" href="$classcore_1_1capa_1_1IExporterCapability.html" title="Optional module capability generating source code for module declared types and nodes." alt="" coords="183,5,406,31"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="106,71,180,39,221,28,223,33,182,45,108,76"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1capa_1_1INodeListCapability.html" title="Interface for the capability providing custom nodes." alt="" coords="183,55,407,80"/>
+<area shape="poly" id="edge11_Node000000_Node000002" title=" " alt="" coords="147,81,182,77,183,83,148,87"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1capa_1_1IRendererCapability.html" title="Interface for the capability providing custom node rendering." alt="" coords="181,104,408,129"/>
+<area shape="poly" id="edge12_Node000000_Node000003" title=" " alt="" coords="148,98,181,102,181,107,147,104"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1capa_1_1ITypeListCapability.html" title="List of types the core needs to load and provide to the module owning this capabability." alt="" coords="185,153,405,179"/>
+<area shape="poly" id="edge13_Node000000_Node000004" title=" " alt="" coords="110,109,182,138,228,151,227,156,180,143,108,114"/>
+</map>
