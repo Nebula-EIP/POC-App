@@ -1,5 +1,5 @@
 /**
- * @file datatypes.cpp
+ * @file datatypes.hpp
  * @brief Declares all types commonly used in the core library
  *
  * @author Created by JeanBizeul
