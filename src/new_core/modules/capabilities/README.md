@@ -9,7 +9,7 @@ core:
   node_list_capability: list of all nodes and their functionality
 
 optional:
-  validation_capability: check the current graph for errors
+  validation_capability: check the current graph for errors (will be added later on)
   exporter_capability: export graph into code
   importer_capability: import code into graph
   renderer_capability: how the nodes are rendered & are interacted with
