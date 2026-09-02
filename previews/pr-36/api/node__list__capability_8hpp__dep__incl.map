@@ -6,6 +6,6 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,68,263,113,259,117,216,72"/>
 <area shape="rect" id="Node000004" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="100,211,267,251"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="252,167,205,213,201,209,248,163"/>
-<area shape="rect" id="Node000005" href="$loader_8hpp_source.html" title=" " alt="" coords="291,211,457,251"/>
+<area shape="rect" id="Node000005" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="291,211,457,251"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="310,163,357,209,353,213,307,167"/>
 </map>

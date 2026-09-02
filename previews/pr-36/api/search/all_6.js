@@ -32,7 +32,7 @@ var searchData=
   ['getpositionstartblock_29',['GetPositionStartBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a31c9b1283c66813862ac44c41a660659',1,'code_generation::CodeGeneratorFile']]],
   ['getprojectname_30',['GetProjectName',['../classcore_1_1Graph.html#ad94f2351350b82a034619d0e476eec43',1,'core::Graph']]],
   ['getversion_31',['GetVersion',['../classcore_1_1Graph.html#a8c307eaf4415b9239a6b3d23416ddd89',1,'core::Graph']]],
-  ['graph_32',['graph',['../structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033',1,'core::capa::ExportContext::graph'],['../classcore_1_1Graph.html',1,'core::Graph'],['../classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a',1,'core::NodeBase::Graph']]],
+  ['graph_32',['graph',['../classcore_1_1NodeBase.html#afab89afd724f1b07b1aaad6bdc61c47a',1,'core::NodeBase::Graph'],['../classcore_1_1Graph.html',1,'core::Graph'],['../structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033',1,'core::capa::ExportContext::graph']]],
   ['graph_2ehpp_33',['graph.hpp',['../new__core_2graph_2graph_8hpp.html',1,'']]],
   ['graphexception_34',['GraphException',['../classcore_1_1GraphException.html',1,'core']]],
   ['graphexporter_35',['GraphExporter',['../classgraph__exporter_1_1GraphExporter.html',1,'graph_exporter']]],

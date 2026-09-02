@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['module_2ehpp_0',['module.hpp',['../module_8hpp.html',1,'']]]
+  ['loader_2ehpp_0',['loader.hpp',['../loader_8hpp.html',1,'']]]
 ];
