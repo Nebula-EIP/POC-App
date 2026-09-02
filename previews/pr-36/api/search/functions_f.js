@@ -17,6 +17,7 @@ var searchData=
   ['setproperty_14',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
   ['setselected_15',['SetSelected',['../classcore_1_1NodeBase.html#adffef1d8b3bc6dd3f7a5da757a4dc906',1,'core::NodeBase']]],
   ['settype_16',['settype',['../classcore_1_1FunctionInputNode.html#a2dcdaee020de6768941872349aada271',1,'core::FunctionInputNode::SetType()'],['../classcore_1_1FunctionOutputNode.html#adcec4b709ada9a1df4099007b6a2b3c4',1,'core::FunctionOutputNode::SetType()'],['../classcore_1_1LiteralNode.html#a442eb258f406d87ed0a3c0660d291310',1,'core::LiteralNode::SetType()'],['../classcore_1_1VariableNode.html#a7f7716378b87dd8f0d532f655a3e8e37',1,'core::VariableNode::SetType()']]],
-  ['sort_17',['Sort',['../classcore_1_1TopologicalSorter.html#a5df4cf09ebfc6342f7691a72326dfc5a',1,'core::TopologicalSorter']]],
-  ['supportsnodetype_18',['SupportsNodeType',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability']]]
+  ['shutdown_17',['shutdown',['../classcore_1_1IModule.html#ac09cd69eb9a8a554eaf3ccb856b77f75',1,'core::IModule']]],
+  ['sort_18',['Sort',['../classcore_1_1TopologicalSorter.html#a5df4cf09ebfc6342f7691a72326dfc5a',1,'core::TopologicalSorter']]],
+  ['supportsnodetype_19',['SupportsNodeType',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability']]]
 ];

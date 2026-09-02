@@ -2,7 +2,7 @@ var searchData=
 [
   ['icapability_0',['ICapability',['../classcore_1_1ICapability.html',1,'core']]],
   ['icapability_2ehpp_1',['icapability.hpp',['../icapability_8hpp.html',1,'']]],
-  ['id_2',['id',['../classcore_1_1Node.html#aeee6f13e2d7f1d7bcf8b6d51c0c12b43',1,'core::Node::id()'],['../structcore_1_1capa_1_1ComponentBase.html#a5fb2f3591f14d5d61f307827fb45f906',1,'core::capa::ComponentBase::id'],['../structcore_1_1NodeBase_1_1OutputPin.html#a6ed4bd818b0d8125c3653346cffa67bc',1,'core::NodeBase::OutputPin::id']]],
+  ['id_2',['id',['../classcore_1_1IModule.html#a712272e5658facb68c2a070f5634f74c',1,'core::IModule::id()'],['../classcore_1_1Node.html#aeee6f13e2d7f1d7bcf8b6d51c0c12b43',1,'core::Node::id()'],['../structcore_1_1capa_1_1ComponentBase.html#a5fb2f3591f14d5d61f307827fb45f906',1,'core::capa::ComponentBase::id'],['../structcore_1_1NodeBase_1_1OutputPin.html#a6ed4bd818b0d8125c3653346cffa67bc',1,'core::NodeBase::OutputPin::id']]],
   ['idmanager_3',['IdManager',['../classutils_1_1IdManager.html',1,'utils']]],
   ['idmanager_3c_20uint32_5ft_20_3e_4',['IdManager&lt; uint32_t &gt;',['../classutils_1_1IdManager.html',1,'utils']]],
   ['idmanager_3c_20uint8_5ft_20_3e_5',['IdManager&lt; uint8_t &gt;',['../classutils_1_1IdManager.html',1,'utils']]],
