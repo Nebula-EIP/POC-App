@@ -8,7 +8,6 @@ namespace core {
 // These functions allow safer use of the internal capability() methods,
 // by using the typeid of the template parameter instead of a std::type_index
 
-
 template <typename T>
 T *IModule::capability() noexcept {
     static_assert(std::is_base_of_v<ICapability, T>);
