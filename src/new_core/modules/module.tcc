@@ -1,3 +1,14 @@
+/**
+ * @file module.tcc
+ * @brief Module's templated methods implementation.
+ *
+ * @author Created by JeanBizeul
+ * @date Created on 02-09-2026
+ *
+ * @author Last modified by JeanBizeul
+ * @date Last modified on 02-09f-2026
+ */
+
 #pragma once
 
 // For IDE  only
