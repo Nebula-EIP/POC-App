@@ -19,7 +19,7 @@ namespace core {
  * @brief Base exception for errors related to module management.
  */
 class ModuleException : public Exception {
-public:
+   public:
     using Exception::Exception;
 };
 
@@ -27,7 +27,7 @@ public:
  * @brief Thrown when a module fails to initialize.
  */
 class ModuleInitializationException : public ModuleException {
-public:
+   public:
     using ModuleException::ModuleException;
 };
 
@@ -35,7 +35,7 @@ public:
  * @brief Thrown when a module cannot be found or is invalid.
  */
 class ModuleNotFoundException : public ModuleException {
-public:
+   public:
     using ModuleException::ModuleException;
 };
 
@@ -43,8 +43,8 @@ public:
  * @brief Thrown when a module is already loaded and cannot be loaded again.
  */
 class ModuleAlreadyLoadedException : public ModuleException {
-public:
+   public:
     using ModuleException::ModuleException;
 };
 
-} // namespace core
+}  // namespace core

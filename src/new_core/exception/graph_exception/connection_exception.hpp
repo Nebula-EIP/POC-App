@@ -19,7 +19,7 @@ namespace core {
  * @brief Base exception for errors related to connection operations.
  */
 class ConnectionException : public Exception {
-public:
+   public:
     using Exception::Exception;
 };
 
@@ -29,7 +29,7 @@ public:
  * @brief Thrown when a connection between nodes or pins is invalid.
  */
 class InvalidConnectionException : public ConnectionException {
-public:
+   public:
     using ConnectionException::ConnectionException;
 };
 
@@ -37,7 +37,7 @@ public:
  * @brief Thrown when a connection between nodes or pins already exists.
  */
 class ConnectionAlreadyExistsException : public ConnectionException {
-public:
+   public:
     using ConnectionException::ConnectionException;
 };
 
@@ -45,7 +45,7 @@ public:
  * @brief Thrown when a connection between nodes or pins cannot be found.
  */
 class ConnectionNotFoundException : public ConnectionException {
-public:
+   public:
     using ConnectionException::ConnectionException;
 };
 
@@ -54,8 +54,8 @@ public:
  * connection.
  */
 class TypeMismatchException : public ConnectionException {
-public:
+   public:
     using ConnectionException::ConnectionException;
 };
 
-} // namespace core
+}  // namespace core

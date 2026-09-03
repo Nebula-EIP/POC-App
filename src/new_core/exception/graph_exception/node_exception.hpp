@@ -19,7 +19,7 @@ namespace core {
  * @brief Base exception for errors related to graph operations.
  */
 class NodeException : public Exception {
-public:
+   public:
     using Exception::Exception;
 };
 
@@ -29,7 +29,7 @@ public:
  * @brief Thrown when a node cannot be found or is invalid.
  */
 class NodeNotFoundException : public NodeException {
-public:
+   public:
     using NodeException::NodeException;
 };
 
@@ -37,7 +37,7 @@ public:
  * @brief Thrown when a connection between nodes or pins is invalid.
  */
 class InvalidNodeException : public NodeException {
-public:
+   public:
     using NodeException::NodeException;
 };
 
@@ -45,7 +45,7 @@ public:
  * @brief Thrown when two incompatible data types are used together.
  */
 class NodeAlreadyExistsException : public NodeException {
-public:
+   public:
     using NodeException::NodeException;
 };
 
@@ -53,8 +53,8 @@ public:
  * @brief Thrown when a node type is invalid or unsupported.
  */
 class NodeTypeException : public NodeException {
-public:
+   public:
     using NodeException::NodeException;
 };
 
-} // namespace core
+}  // namespace core
