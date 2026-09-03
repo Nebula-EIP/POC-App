@@ -1,0 +1,63 @@
+<map id="core::Exception" name="core::Exception">
+<area shape="rect" id="Node000001" title="Base exception for all core&#45;related errors." alt="" coords="192,665,315,690"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1ConnectionException.html" title="Base exception for errors related to connection operations." alt="" coords="363,305,557,330"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="266,651,449,329,454,332,271,654"/>
+<area shape="rect" id="Node000014" href="$classcore_1_1InternalException.html" title=" " alt="" coords="374,639,546,665"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="328,666,373,660,374,665,328,671"/>
+<area shape="rect" id="Node000015" href="$classcore_1_1ModuleException.html" title="Base exception for errors related to module management." alt="" coords="375,689,545,714"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="329,683,375,689,374,694,328,689"/>
+<area shape="rect" id="Node000027" href="$classcore_1_1NodeException.html" title="Base exception for errors related to graph operations." alt="" coords="382,886,538,911"/>
+<area shape="poly" id="edge26_Node000001_Node000027" title=" " alt="" coords="278,699,449,884,445,888,274,702"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,665,144,690"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,675,192,675,192,680,157,680"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1ConnectionAlreadyExistsException.html" title="Thrown when a connection between nodes or pins already exists." alt="" coords="618,5,838,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="466,290,483,240,510,176,550,111,575,81,604,55,623,43,626,48,607,59,579,85,555,114,515,179,487,242,471,292"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1ConnectionNotFoundException.html" title="Thrown when a connection between nodes or pins cannot be found." alt="" coords="631,69,825,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="471,291,491,252,520,206,558,159,604,119,630,105,632,110,607,124,562,163,524,209,495,255,475,293"/>
+<area shape="rect" id="Node000006" href="$classcore_1_1IncompatiblePinTypesException.html" title="Exception thrown when attempting to link pins with incompatible types." alt="" coords="628,133,828,173"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="478,292,531,237,566,208,604,183,631,171,633,176,607,188,569,212,535,241,482,296"/>
+<area shape="rect" id="Node000007" href="$classcore_1_1InvalidConnectionException.html" title="Thrown when a connection between nodes or pins is invalid." alt="" coords="609,198,847,223"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="489,295,541,262,604,232,643,221,644,226,606,237,544,267,492,299"/>
+<area shape="rect" id="Node000008" href="$classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out&#45;of&#45;bounds index." alt="" coords="617,247,839,273"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="531,299,605,283,664,270,665,275,606,288,532,304"/>
+<area shape="rect" id="Node000009" href="$classcore_1_1PinAlreadyConnectedException.html" title="Exception thrown when attempting to connect an already&#45;connected input pin." alt="" coords="629,297,827,337"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="571,315,629,315,629,320,571,320"/>
+<area shape="rect" id="Node000010" href="$classcore_1_1PinNotConnectedException.html" title="Exception thrown when accessing connection data from an unconnected pin." alt="" coords="611,362,845,387"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="532,330,606,347,665,359,664,365,605,352,531,336"/>
+<area shape="rect" id="Node000011" href="$classcore_1_1PinStillConnectedException.html" title="Exception thrown when attempting to modify pin metadata while pins are still connected." alt="" coords="610,411,846,437"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="492,335,544,367,606,396,649,409,647,414,604,401,542,372,490,340"/>
+<area shape="rect" id="Node000012" href="$classcore_1_1SelfConnectionException.html" title="Exception thrown when attempting to connect a node to itself." alt="" coords="618,461,838,486"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="482,339,534,394,569,422,607,446,639,458,637,463,604,450,566,426,531,398,478,343"/>
+<area shape="rect" id="Node000013" href="$classcore_1_1TypeMismatchException.html" title="Thrown when two incompatible data types are used together in a connection." alt="" coords="620,510,836,535"/>
+<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="476,341,497,376,526,418,563,460,607,495,634,508,632,512,604,500,559,464,522,422,492,379,472,344"/>
+<area shape="rect" id="Node000016" href="$classcore_1_1ModuleAlreadyLoadedException.html" title="Thrown when a module is already loaded and cannot be loaded again." alt="" coords="627,560,829,600"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="546,681,556,675,571,660,579,644,587,626,604,610,626,598,628,603,607,614,592,629,584,646,575,663,559,679,549,686"/>
+<area shape="rect" id="Node000017" href="$classcore_1_1ModuleInitializationException.html" title="Thrown when a module fails to initialize." alt="" coords="635,624,821,664"/>
+<area shape="poly" id="edge16_Node000015_Node000017" title=" " alt="" coords="533,683,634,661,635,667,534,688"/>
+<area shape="rect" id="Node000018" href="$classcore_1_1ModuleLoadException.html" title="Thrown when a module fails to load." alt="" coords="627,689,829,714"/>
+<area shape="poly" id="edge17_Node000015_Node000018" title=" " alt="" coords="559,699,627,699,627,704,559,704"/>
+<area shape="rect" id="Node000022" href="$classcore_1_1ModuleNotFoundException.html" title="Thrown when a module cannot be found or is invalid." alt="" coords="612,738,844,763"/>
+<area shape="poly" id="edge21_Node000015_Node000022" title=" " alt="" coords="543,714,659,735,658,741,542,719"/>
+<area shape="rect" id="Node000023" href="$classcore_1_1ModuleValidationException.html" title="Thrown when a module fails validation." alt="" coords="611,787,845,813"/>
+<area shape="poly" id="edge22_Node000015_Node000023" title=" " alt="" coords="494,719,546,747,606,773,646,785,645,790,604,779,543,752,492,723"/>
+<area shape="rect" id="Node000019" href="$classcore_1_1ModuleFileNotFoundException.html" title="Thrown when a module file cannot be found." alt="" coords="923,584,1113,624"/>
+<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="829,682,849,674,864,664,873,654,883,644,897,634,925,622,927,627,900,638,886,648,877,658,867,668,852,678,831,687"/>
+<area shape="rect" id="Node000020" href="$classcore_1_1ModuleLoadFailedException.html" title="Thrown when a module file is invalid or cannot be loaded." alt="" coords="899,649,1137,674"/>
+<area shape="poly" id="edge19_Node000018_Node000020" title=" " alt="" coords="834,684,925,671,926,677,835,689"/>
+<area shape="rect" id="Node000021" href="$classcore_1_1ModuleSymbolNotFoundException.html" title="Thrown when a module does not contain the required entry point." alt="" coords="909,699,1127,739"/>
+<area shape="poly" id="edge20_Node000018_Node000021" title=" " alt="" coords="843,706,909,710,909,715,842,711"/>
+<area shape="rect" id="Node000024" href="$classcore_1_1IncompatibleModuleException.html" title="Thrown when a module&#39;s dependencies are not satisfied." alt="" coords="923,763,1113,803"/>
+<area shape="poly" id="edge23_Node000023_Node000024" title=" " alt="" coords="859,790,922,786,922,791,859,795"/>
+<area shape="rect" id="Node000025" href="$classcore_1_1InvalidModuleException.html" title="Thrown when a module is invalid or does not meet the required interface." alt="" coords="911,827,1125,853"/>
+<area shape="poly" id="edge24_Node000023_Node000025" title=" " alt="" coords="835,812,926,825,925,830,834,817"/>
+<area shape="rect" id="Node000026" href="$classcore_1_1InvalidModuleVersionException.html" title="Thrown when a module&#39;s version is incompatible with the core or other modules." alt="" coords="919,877,1117,917"/>
+<area shape="poly" id="edge25_Node000023_Node000026" title=" " alt="" coords="831,814,852,823,867,833,877,843,886,853,900,863,927,875,925,880,897,868,883,857,873,847,864,837,849,828,829,819"/>
+<area shape="rect" id="Node000028" href="$classcore_1_1InvalidNodeException.html" title="Thrown when a connection between nodes or pins is invalid." alt="" coords="628,837,828,862"/>
+<area shape="poly" id="edge27_Node000027_Node000028" title=" " alt="" coords="542,881,658,859,659,865,543,886"/>
+<area shape="rect" id="Node000029" href="$classcore_1_1NodeAlreadyExistsException.html" title="Thrown when two incompatible data types are used together." alt="" coords="605,886,851,911"/>
+<area shape="poly" id="edge28_Node000027_Node000029" title=" " alt="" coords="552,896,605,896,605,901,552,901"/>
+<area shape="rect" id="Node000030" href="$classcore_1_1NodeNotFoundException.html" title="Thrown when a node cannot be found or is invalid." alt="" coords="619,935,837,961"/>
+<area shape="poly" id="edge29_Node000027_Node000030" title=" " alt="" coords="543,911,659,933,658,938,542,916"/>
+<area shape="rect" id="Node000031" href="$classcore_1_1NodeTypeException.html" title="Thrown when a node type is invalid or unsupported." alt="" coords="635,985,821,1010"/>
+<area shape="poly" id="edge30_Node000027_Node000031" title=" " alt="" coords="494,916,546,945,606,971,646,982,645,987,604,976,543,949,492,921"/>
+</map>
