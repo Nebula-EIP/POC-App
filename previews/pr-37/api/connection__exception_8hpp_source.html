@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('connection__exception_8hpp_source.html
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class </span>ConnectionException : <span class="keyword">public</span> Exception {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">using </span>Exception::Exception;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
@@ -114,33 +114,33 @@ $(document).ready(function(){initNavTree('connection__exception_8hpp_source.html
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classcore_1_1InvalidConnectionException.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1InvalidConnectionException.html">InvalidConnectionException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcore_1_1ConnectionException.html">ConnectionException</a> {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">using </span>ConnectionException::ConnectionException;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
 </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="foldopen" id="foldopen00039" data-start="{" data-end="};">
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcore_1_1ConnectionAlreadyExistsException.html">   39</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1ConnectionAlreadyExistsException.html">ConnectionAlreadyExistsException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcore_1_1ConnectionException.html">ConnectionException</a> {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">using </span>ConnectionException::ConnectionException;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
 </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classcore_1_1ConnectionNotFoundException.html">   47</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1ConnectionNotFoundException.html">ConnectionNotFoundException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcore_1_1ConnectionException.html">ConnectionException</a> {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">using </span>ConnectionException::ConnectionException;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
 </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classcore_1_1TypeMismatchException.html">   56</a></span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1TypeMismatchException.html">TypeMismatchException</a> : <span class="keyword">public</span> <a class="code hl_class" href="classcore_1_1ConnectionException.html">ConnectionException</a> {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>   <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">using </span>ConnectionException::ConnectionException;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
 </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}  <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aclasscore_1_1ConnectionAlreadyExistsException_html"><div class="ttname"><a href="classcore_1_1ConnectionAlreadyExistsException.html">core::ConnectionAlreadyExistsException</a></div><div class="ttdoc">Thrown when a connection between nodes or pins already exists.</div><div class="ttdef"><b>Definition</b> connection_exception.hpp:39</div></div>
 <div class="ttc" id="aclasscore_1_1ConnectionException_html"><div class="ttname"><a href="classcore_1_1ConnectionException.html">core::ConnectionException</a></div><div class="ttdoc">Base exception for errors related to connection operations.</div><div class="ttdef"><b>Definition</b> connection_exceptions.hpp:14</div></div>
 <div class="ttc" id="aclasscore_1_1ConnectionNotFoundException_html"><div class="ttname"><a href="classcore_1_1ConnectionNotFoundException.html">core::ConnectionNotFoundException</a></div><div class="ttdoc">Thrown when a connection between nodes or pins cannot be found.</div><div class="ttdef"><b>Definition</b> connection_exception.hpp:47</div></div>
