@@ -21,13 +21,13 @@ namespace core {
  * All exceptions thrown by the core should derive from this class.
  */
 class Exception : public std::runtime_error {
-   public:
+public:
     using std::runtime_error::runtime_error;
 };
 
 class InternalException : public Exception {
-   public:
+public:
     using Exception::Exception;
 };
 
-}  // namespace core
+} // namespace core

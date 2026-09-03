@@ -19,7 +19,7 @@ namespace core {
  * @brief Thrown when a module fails to load.
  */
 class ModuleLoadException : public ModuleException {
-   public:
+public:
     using ModuleException::ModuleException;
 };
 
@@ -29,7 +29,7 @@ class ModuleLoadException : public ModuleException {
  * @brief Thrown when a module file cannot be found.
  */
 class ModuleFileNotFoundException : public ModuleLoadException {
-   public:
+public:
     using ModuleLoadException::ModuleLoadException;
 };
 
@@ -37,7 +37,7 @@ class ModuleFileNotFoundException : public ModuleLoadException {
  * @brief Thrown when a module file is invalid or cannot be loaded.
  */
 class ModuleLoadFailedException : public ModuleLoadException {
-   public:
+public:
     using ModuleLoadException::ModuleLoadException;
 };
 
@@ -45,8 +45,8 @@ class ModuleLoadFailedException : public ModuleLoadException {
  * @brief Thrown when a module does not contain the required entry point.
  */
 class ModuleSymbolNotFoundException : public ModuleLoadException {
-   public:
+public:
     using ModuleLoadException::ModuleLoadException;
 };
 
-}  // namespace core
+} // namespace core
