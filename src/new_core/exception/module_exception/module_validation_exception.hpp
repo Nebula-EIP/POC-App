@@ -19,7 +19,7 @@ namespace core {
  * @brief Thrown when a module fails validation.
  */
 class ModuleValidationException : public ModuleException {
-public:
+   public:
     using ModuleException::ModuleException;
 };
 
@@ -30,7 +30,7 @@ public:
  * interface.
  */
 class InvalidModuleException : public ModuleValidationException {
-public:
+   public:
     using ModuleValidationException::ModuleValidationException;
 };
 
@@ -39,7 +39,7 @@ public:
  * modules.
  */
 class InvalidModuleVersionException : public ModuleValidationException {
-public:
+   public:
     using ModuleValidationException::ModuleValidationException;
 };
 
@@ -47,8 +47,8 @@ public:
  * @brief Thrown when a module's dependencies are not satisfied.
  */
 class IncompatibleModuleException : public ModuleValidationException {
-public:
+   public:
     using ModuleValidationException::ModuleValidationException;
 };
 
-} // namespace core
+}  // namespace core
