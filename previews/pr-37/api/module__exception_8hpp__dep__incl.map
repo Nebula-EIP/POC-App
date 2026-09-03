@@ -1,7 +1,0 @@
-<map id="src/new_core/exception/module_exception/module_exception.hpp" name="src/new_core/exception/module_exception/module_exception.hpp">
-<area shape="rect" id="Node000001" title="Defines exceptions related to module management." alt="" coords="116,5,315,60"/>
-<area shape="rect" id="Node000002" href="$module__load__exception_8hpp.html" title="Defines exceptions related to module loading." alt="" coords="5,108,204,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,71,135,110,132,106,175,67"/>
-<area shape="rect" id="Node000003" href="$module__validation__exception_8hpp.html" title="Defines exceptions related to module validation." alt="" coords="228,108,427,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="257,67,300,106,296,110,253,71"/>
-</map>
