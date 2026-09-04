@@ -340,7 +340,7 @@ class IRendererCapability : public ICapability {
  * interface. The provider receives the complete node request and produces the
  * metadata consumed by the application's renderer. This class only manages
  * graphical metadata and never performs rendering.
-*/
+ */
 class RendererCapability final : public IRendererCapability {
    public:
     /// @brief Function used to build the components of one node instance.

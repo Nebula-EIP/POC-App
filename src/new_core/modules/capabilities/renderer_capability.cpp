@@ -12,7 +12,7 @@
  *
  * @author Last modified by ArthuryanLoheac
  * @date Last modified on 04-09-2026
-*/
+ */
 
 #include "renderer_capability.hpp"
 
