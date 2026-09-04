@@ -29,6 +29,7 @@ using core::capa::InfoBubble;
 using core::capa::IRendererCapability;
 using core::capa::Label;
 using core::capa::NumberField;
+using core::capa::RendererCapability;
 using core::capa::Select;
 using core::capa::Separator;
 using core::capa::Slider;
@@ -42,58 +43,6 @@ void ExpectDefaultBaseMetadata(const ComponentBase &component) {
     EXPECT_EQ(component.id, 0);
     EXPECT_TRUE(component.tooltip.empty());
 }
-
-class TestRendererCapability final : public IRendererCapability {
-   public:
-    bool SupportsNodeType(NodeType node_type) const noexcept override {
-        return node_type == kSupportedNodeType;
-    }
-
-    ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
-                                    const PropertyMap &properties) override {
-        if (!SupportsNodeType(node_type)) {
-            throw core::NodeTypeException("Unsupported renderer node type");
-        }
-
-        const auto property = properties.find(kNameProperty);
-        if (property == properties.end()) {
-            throw core::InvalidNodeException("Missing node name property");
-        }
-
-        const auto *name = std::any_cast<std::string>(&property->second.value);
-        if (name == nullptr) {
-            throw core::InvalidNodeException("Invalid node name property");
-        }
-
-        Label title;
-        title.id = 1;
-        title.tooltip = "Node identifier";
-        title.text = "Node " + std::to_string(node_id);
-
-        TextField name_field;
-        name_field.id = 2;
-        name_field.label = "Name";
-        name_field.value = *name;
-        name_field.on_change = [this](const std::string &new_name) {
-            last_name_ = new_name;
-        };
-
-        Button reset_button;
-        reset_button.id = 3;
-        reset_button.label = "Reset";
-        reset_button.on_click = [this] { ++reset_count_; };
-
-        return {std::move(title), std::move(name_field),
-                std::move(reset_button)};
-    }
-
-    const std::string &last_name() const noexcept { return last_name_; }
-    std::size_t reset_count() const noexcept { return reset_count_; }
-
-   private:
-    std::string last_name_;
-    std::size_t reset_count_ = 0;
-};
 
 static_assert(std::is_base_of_v<core::ICapability, IRendererCapability>);
 static_assert(std::is_abstract_v<IRendererCapability>);
@@ -256,56 +205,162 @@ TEST(RendererComponentTest, ComponentVariantSupportsEveryDeclaredComponent) {
     EXPECT_TRUE(std::holds_alternative<Separator>(components[8]));
 }
 
-TEST(RendererCapabilityTest, ReportsSupportedNodeTypesThroughTheInterface) {
-    const TestRendererCapability renderer;
+TEST(RendererCapabilityTest, StartsWithoutRegisteredNodeRenderers) {
+    const RendererCapability renderer;
+
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 0U);
+    EXPECT_FALSE(renderer.SupportsNodeType(kSupportedNodeType));
+}
+
+TEST(RendererCapabilityTest, ReportsRegisteredNodeTypesThroughTheInterface) {
+    RendererCapability renderer;
+    renderer.RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId, NodeType, const PropertyMap &) { return ComponentList{}; });
     const IRendererCapability &capability = renderer;
 
     EXPECT_TRUE(capability.SupportsNodeType(kSupportedNodeType));
     EXPECT_FALSE(capability.SupportsNodeType(kUnsupportedNodeType));
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 1U);
 }
 
-TEST(RendererCapabilityTest, BuildsNodeMetadataFromProperties) {
-    TestRendererCapability renderer;
-    IRendererCapability &capability = renderer;
+TEST(RendererCapabilityTest, ForwardsTheCompleteNodeRequestToTheProvider) {
+    RendererCapability renderer;
+    NodeId received_node_id = 0;
+    NodeType received_node_type = 0;
+    const PropertyMap *received_properties = nullptr;
     PropertyMap properties = {
         {kNameProperty, Property{.type_id = 3, .value = std::string("Adder")}},
     };
+    renderer.RegisterNodeRenderer(kSupportedNodeType,
+                                  [&](NodeId node_id, NodeType node_type,
+                                      const PropertyMap &node_properties) {
+                                      received_node_id = node_id;
+                                      received_node_type = node_type;
+                                      received_properties = &node_properties;
+                                      return ComponentList{};
+                                  });
+    IRendererCapability &capability = renderer;
+
+    capability.GetNodeComponents(123, kSupportedNodeType, properties);
+
+    EXPECT_EQ(received_node_id, 123U);
+    EXPECT_EQ(received_node_type, kSupportedNodeType);
+    EXPECT_EQ(received_properties, &properties);
+}
+
+TEST(RendererCapabilityTest, ReturnsGraphicalMetadataCreatedByTheProvider) {
+    RendererCapability renderer;
+    PropertyMap properties = {
+        {kNameProperty, Property{.type_id = 3, .value = std::string("Adder")}},
+    };
+    renderer.RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId node_id, NodeType, const PropertyMap &node_properties) {
+            const auto &name = std::any_cast<const std::string &>(
+                node_properties.at(kNameProperty).value);
+
+            Label title;
+            title.id = 1;
+            title.tooltip = "Node identifier";
+            title.text = "Node " + std::to_string(node_id);
+
+            TextField name_field;
+            name_field.id = 2;
+            name_field.label = "Name";
+            name_field.value = name;
+
+            return ComponentList{std::move(title), std::move(name_field)};
+        });
 
     const ComponentList components =
-        capability.GetNodeComponents(123, kSupportedNodeType, properties);
+        renderer.GetNodeComponents(123, kSupportedNodeType, properties);
 
-    ASSERT_EQ(components.size(), 3U);
+    ASSERT_EQ(components.size(), 2U);
     const auto &title = std::get<Label>(components[0]);
     const auto &name = std::get<TextField>(components[1]);
-    const auto &reset = std::get<Button>(components[2]);
     EXPECT_EQ(title.id, 1);
     EXPECT_EQ(title.tooltip, "Node identifier");
     EXPECT_EQ(title.text, "Node 123");
     EXPECT_EQ(name.id, 2);
     EXPECT_EQ(name.label, "Name");
     EXPECT_EQ(name.value, "Adder");
-    EXPECT_EQ(reset.id, 3);
-    EXPECT_EQ(reset.label, "Reset");
 }
 
-TEST(RendererCapabilityTest, ReturnedCallbacksRemainUsable) {
-    TestRendererCapability renderer;
-    PropertyMap properties = {
-        {kNameProperty, Property{.type_id = 3, .value = std::string("Adder")}},
-    };
+TEST(RendererCapabilityTest, ReturnedInteractionCallbacksRemainUsable) {
+    RendererCapability renderer;
+    std::string changed_name;
+    std::size_t reset_count = 0;
+    renderer.RegisterNodeRenderer(kSupportedNodeType, [&](NodeId, NodeType,
+                                                          const PropertyMap &) {
+        TextField name_field;
+        name_field.on_change = [&changed_name](const std::string &new_name) {
+            changed_name = new_name;
+        };
+
+        Button reset_button;
+        reset_button.on_click = [&reset_count] { ++reset_count; };
+        return ComponentList{std::move(name_field), std::move(reset_button)};
+    });
+    const PropertyMap properties;
     ComponentList components =
         renderer.GetNodeComponents(123, kSupportedNodeType, properties);
 
-    std::get<TextField>(components[1]).on_change("Multiplier");
-    std::get<Button>(components[2]).on_click();
-    std::get<Button>(components[2]).on_click();
+    std::get<TextField>(components[0]).on_change("Multiplier");
+    std::get<Button>(components[1]).on_click();
+    std::get<Button>(components[1]).on_click();
 
-    EXPECT_EQ(renderer.last_name(), "Multiplier");
-    EXPECT_EQ(renderer.reset_count(), 2U);
+    EXPECT_EQ(changed_name, "Multiplier");
+    EXPECT_EQ(reset_count, 2U);
+}
+
+TEST(RendererCapabilityTest, SupportsIndependentProvidersForSeveralNodeTypes) {
+    RendererCapability renderer;
+    renderer.RegisterNodeRenderer(1, [](NodeId, NodeType, const PropertyMap &) {
+        Label label;
+        label.text = "First";
+        return ComponentList{std::move(label)};
+    });
+    renderer.RegisterNodeRenderer(2, [](NodeId, NodeType, const PropertyMap &) {
+        Label label;
+        label.text = "Second";
+        return ComponentList{std::move(label)};
+    });
+    const PropertyMap properties;
+
+    const auto first = renderer.GetNodeComponents(1, 1, properties);
+    const auto second = renderer.GetNodeComponents(2, 2, properties);
+
+    EXPECT_EQ(std::get<Label>(first.front()).text, "First");
+    EXPECT_EQ(std::get<Label>(second.front()).text, "Second");
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 2U);
+}
+
+TEST(RendererCapabilityTest, RejectsAnEmptyProviderWithProvidedException) {
+    RendererCapability renderer;
+
+    EXPECT_THROW(renderer.RegisterNodeRenderer(kSupportedNodeType, {}),
+                 core::InvalidNodeException);
+    EXPECT_FALSE(renderer.SupportsNodeType(kSupportedNodeType));
+}
+
+TEST(RendererCapabilityTest, RejectsDuplicateNodeTypesWithProvidedException) {
+    RendererCapability renderer;
+    renderer.RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId, NodeType, const PropertyMap &) { return ComponentList{}; });
+
+    EXPECT_THROW(renderer.RegisterNodeRenderer(
+                     kSupportedNodeType,
+                     [](NodeId, NodeType, const PropertyMap &) {
+                         return ComponentList{};
+                     }),
+                 core::NodeAlreadyExistsException);
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 1U);
 }
 
 TEST(RendererCapabilityTest, UnsupportedNodeUsesProvidedNodeTypeException) {
-    TestRendererCapability renderer;
+    RendererCapability renderer;
     const PropertyMap properties;
 
     EXPECT_THROW(
@@ -316,24 +371,38 @@ TEST(RendererCapabilityTest, UnsupportedNodeUsesProvidedNodeTypeException) {
         core::Exception);
 }
 
-TEST(RendererCapabilityTest, InvalidPropertiesUseProvidedNodeException) {
-    TestRendererCapability renderer;
-    const PropertyMap missing_property;
-    const PropertyMap wrong_property_type = {
-        {kNameProperty, Property{.type_id = 3, .value = 42}},
-    };
+TEST(RendererCapabilityTest, RemovesRegisteredNodeRenderers) {
+    RendererCapability renderer;
+    renderer.RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId, NodeType, const PropertyMap &) { return ComponentList{}; });
 
-    EXPECT_THROW(
-        renderer.GetNodeComponents(1, kSupportedNodeType, missing_property),
-        core::InvalidNodeException);
-    EXPECT_THROW(
-        renderer.GetNodeComponents(1, kSupportedNodeType, wrong_property_type),
-        core::InvalidNodeException);
+    EXPECT_TRUE(renderer.UnregisterNodeRenderer(kSupportedNodeType));
+    EXPECT_FALSE(renderer.UnregisterNodeRenderer(kSupportedNodeType));
+    EXPECT_FALSE(renderer.SupportsNodeType(kSupportedNodeType));
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 0U);
+}
+
+TEST(RendererCapabilityTest, PropagatesProviderExceptionsToTheCore) {
+    RendererCapability renderer;
+    renderer.RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId, NodeType, const PropertyMap &) -> ComponentList {
+            throw core::InvalidNodeException("Invalid node properties");
+        });
+    const PropertyMap properties;
+
+    EXPECT_THROW(renderer.GetNodeComponents(1, kSupportedNodeType, properties),
+                 core::InvalidNodeException);
 }
 
 TEST(RendererCapabilityTest, CanBeDestroyedPolymorphically) {
+    auto concrete_renderer = std::make_unique<RendererCapability>();
+    concrete_renderer->RegisterNodeRenderer(
+        kSupportedNodeType,
+        [](NodeId, NodeType, const PropertyMap &) { return ComponentList{}; });
     std::unique_ptr<IRendererCapability> renderer =
-        std::make_unique<TestRendererCapability>();
+        std::move(concrete_renderer);
 
     EXPECT_TRUE(renderer->SupportsNodeType(kSupportedNodeType));
 }

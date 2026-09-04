@@ -13,7 +13,7 @@
  * @date Created on 10-08-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 10-08-2026
+ * @date Last modified on 04-09-2026
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -330,6 +331,44 @@ class IRendererCapability : public ICapability {
      */
     virtual ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                             const PropertyMap &properties) = 0;
+};
+
+/// @brief Reusable renderer capability backed by node component providers.
+///
+/// Modules register one provider for each node type that requires a custom
+/// interface. The provider receives the complete node request and produces the
+/// metadata consumed by the application's renderer. This class only manages
+/// graphical metadata and never performs rendering.
+class RendererCapability final : public IRendererCapability {
+   public:
+    /// @brief Function used to build the components of one node instance.
+    using ComponentProvider = std::function<ComponentList(
+        NodeId node_id, NodeType node_type, const PropertyMap &properties)>;
+
+    /// @brief Register the component provider for a node type.
+    /// @param node_type Node type handled by the provider.
+    /// @param provider Function producing the node's graphical metadata.
+    /// @throws InvalidNodeException if provider is empty.
+    /// @throws NodeAlreadyExistsException if node_type is already registered.
+    void RegisterNodeRenderer(NodeType node_type, ComponentProvider provider);
+
+    /// @brief Remove the component provider registered for a node type.
+    /// @param node_type Node type to remove.
+    /// @return true when a provider was removed, false otherwise.
+    bool UnregisterNodeRenderer(NodeType node_type) noexcept;
+
+    /// @brief Return the number of registered node types.
+    std::size_t RegisteredNodeTypeCount() const noexcept;
+
+    bool SupportsNodeType(NodeType node_type) const noexcept override;
+
+    /// @throws NodeTypeException if no provider is registered for node_type.
+    /// @throws Exception Any core exception emitted by the selected provider.
+    ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
+                                    const PropertyMap &properties) override;
+
+   private:
+    std::unordered_map<NodeType, ComponentProvider> providers_;
 };
 
 }  // namespace capa

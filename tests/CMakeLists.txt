@@ -34,6 +34,7 @@ if(TEST_SOURCES)
         gtest_main
         gmock
         core
+        new_core_capabilities
         graph-exporter
         cmake_tool
         #utils
