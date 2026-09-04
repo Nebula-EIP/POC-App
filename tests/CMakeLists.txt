@@ -21,6 +21,7 @@ if(TEST_SOURCES)
     # Allow includes like "code-generation/..." and "errors/...".
     target_include_directories(unit_tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src/editor
+        ${CMAKE_SOURCE_DIR}/src/new_core
         ${CMAKE_SOURCE_DIR}/examples
     )
 
