@@ -1,0 +1,28 @@
+<map id="src/new_core/graph/datatypes.hpp" name="src/new_core/graph/datatypes.hpp">
+<area shape="rect" id="Node000001" title="Declares all types commonly used in the core library." alt="" coords="209,5,357,45"/>
+<area shape="rect" id="Node000002" href="$new__core_2graph_2graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="28,203,176,243"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,39,88,61,44,76,17,95,10,108,8,119,17,147,40,178,69,201,66,205,36,181,13,149,3,120,5,106,13,92,42,72,87,56,195,34"/>
+<area shape="rect" id="Node000004" href="$node_8hpp_source.html" title=" " alt="" coords="28,101,176,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="236,54,140,103,137,98,233,49"/>
+<area shape="rect" id="Node000005" href="$node__list__capability_8hpp.html" title="Defines the capability for a module to provide custom nodes." alt="" coords="200,93,366,148"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="286,59,286,93,280,93,280,59"/>
+<area shape="rect" id="Node000009" href="$renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="581,93,748,148"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="371,44,570,91,581,94,580,99,569,96,370,49"/>
+<area shape="rect" id="Node000011" href="$type__list__capability_8hpp_source.html" title=" " alt="" coords="390,93,557,148"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="335,49,421,91,419,96,333,54"/>
+<area shape="rect" id="Node000003" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="161,299,328,353"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,249,208,296,205,301,138,253"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="104,155,104,203,99,203,99,155"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="142,147,166,169,189,194,220,248,239,297,234,299,215,250,185,198,163,173,138,151"/>
+<area shape="poly" id="edge7_Node000005_Node000003" title=" " alt="" coords="278,162,252,299,247,298,273,161"/>
+<area shape="rect" id="Node000006" href="$module_8hpp.html" title="Module interface." alt="" coords="377,203,544,243"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="342,152,428,201,426,205,340,157"/>
+<area shape="rect" id="Node000007" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="554,306,721,346"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="507,248,606,304,603,308,504,252"/>
+<area shape="rect" id="Node000008" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="364,306,530,346"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="459,257,452,306,447,306,453,256"/>
+<area shape="rect" id="Node000010" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="581,196,748,251"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="667,162,667,196,662,196,662,162"/>
+<area shape="poly" id="edge14_Node000011_Node000003" title=" " alt="" coords="421,158,367,198,312,251,268,300,264,297,309,247,364,194,418,154"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="471,162,466,203,460,202,466,161"/>
+</map>

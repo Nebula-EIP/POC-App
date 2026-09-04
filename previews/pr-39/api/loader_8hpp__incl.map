@@ -1,0 +1,48 @@
+<map id="src/new_core/modules/loader.hpp" name="src/new_core/modules/loader.hpp">
+<area shape="rect" id="Node000001" title="Module loader interface." alt="" coords="427,5,594,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="347,93,437,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="483,48,422,88,419,84,480,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="857,328,919,353"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="595,39,656,56,722,81,786,117,815,139,841,165,864,201,879,242,887,281,890,314,885,314,881,282,874,243,859,203,837,168,811,143,783,121,719,86,654,61,594,44"/>
+<area shape="rect" id="Node000004" href="$module_8hpp.html" title="Module interface." alt="" coords="461,93,560,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="513,46,513,79,508,79,508,46"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="765,328,832,353"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="560,107,628,113,704,123,771,140,797,151,814,165,825,183,831,202,832,243,824,283,812,316,807,314,819,282,827,243,826,203,820,185,810,168,794,156,769,145,703,128,627,118,560,112"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="187,174,264,199"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="462,121,375,142,277,169,268,172,267,167,275,164,374,137,461,116"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="289,174,386,199"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="487,121,376,171,374,166,484,116"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="410,174,497,199"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="504,120,472,164,468,161,500,117"/>
+<area shape="rect" id="Node000009" href="$node__list__capability_8hpp.html" title="Defines the capability for a module to provide custom nodes." alt="" coords="640,167,800,207"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="542,116,658,159,656,164,540,121"/>
+<area shape="rect" id="Node000017" href="$type__list__capability_8hpp_source.html" title=" " alt="" coords="5,167,163,207"/>
+<area shape="poly" id="edge21_Node000004_Node000017" title=" " alt="" coords="462,119,450,121,177,169,176,164,449,116,461,114"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="521,174,615,199"/>
+<area shape="poly" id="edge27_Node000004_Node000019" title=" " alt="" coords="521,117,554,161,549,164,517,120"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="743,205,867,317,863,321,739,209"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="276,328,335,353"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="640,208,559,229,474,257,400,290,338,324,335,319,398,286,472,252,558,224,639,203"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="359,328,483,353"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="641,207,577,228,513,257,473,287,441,320,438,316,470,283,511,252,575,223,639,202"/>
+<area shape="rect" id="Node000012" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="523,255,703,280"/>
+<area shape="poly" id="edge12_Node000009_Node000012" title=" " alt="" coords="696,209,642,248,639,244,693,205"/>
+<area shape="rect" id="Node000016" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="260,255,388,280"/>
+<area shape="poly" id="edge20_Node000009_Node000016" title=" " alt="" coords="640,207,629,209,397,255,396,249,627,204,639,202"/>
+<area shape="poly" id="edge19_Node000012_Node000003" title=" " alt="" coords="658,277,844,325,843,330,657,283"/>
+<area shape="poly" id="edge15_Node000012_Node000005" title=" " alt="" coords="644,278,757,321,755,325,642,283"/>
+<area shape="poly" id="edge16_Node000012_Node000010" title=" " alt="" coords="560,283,349,331,348,331,347,326,347,325,559,277"/>
+<area shape="poly" id="edge17_Node000012_Node000011" title=" " alt="" coords="583,283,467,325,465,320,582,278"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="507,328,554,353"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="602,282,556,321,553,317,598,278"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="578,328,649,353"/>
+<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="616,280,616,314,611,314,611,280"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="673,328,741,353"/>
+<area shape="poly" id="edge18_Node000012_Node000015" title=" " alt="" coords="630,278,682,317,679,322,627,282"/>
+<area shape="poly" id="edge23_Node000017_Node000010" title=" " alt="" coords="87,206,92,243,100,262,111,278,145,304,185,321,226,331,263,335,262,341,225,336,184,326,143,308,107,282,95,264,87,244,81,207"/>
+<area shape="poly" id="edge24_Node000017_Node000011" title=" " alt="" coords="115,205,176,240,249,278,311,302,369,321,368,327,309,307,247,282,174,245,113,209"/>
+<area shape="poly" id="edge25_Node000017_Node000012" title=" " alt="" coords="164,202,175,204,352,231,510,251,509,257,351,236,174,209,163,207"/>
+<area shape="poly" id="edge26_Node000017_Node000016" title=" " alt="" coords="142,204,277,248,275,253,141,209"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="121,255,175,280"/>
+<area shape="poly" id="edge22_Node000017_Node000018" title=" " alt="" coords="102,205,132,242,128,245,97,209"/>
+</map>
