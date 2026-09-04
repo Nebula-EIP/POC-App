@@ -333,37 +333,63 @@ class IRendererCapability : public ICapability {
                                             const PropertyMap &properties) = 0;
 };
 
-/// @brief Reusable renderer capability backed by node component providers.
-///
-/// Modules register one provider for each node type that requires a custom
-/// interface. The provider receives the complete node request and produces the
-/// metadata consumed by the application's renderer. This class only manages
-/// graphical metadata and never performs rendering.
+/**
+ * @brief Reusable renderer capability backed by node component providers.
+ *
+ * Modules register one provider for each node type that requires a custom
+ * interface. The provider receives the complete node request and produces the
+ * metadata consumed by the application's renderer. This class only manages
+ * graphical metadata and never performs rendering.
+*/
 class RendererCapability final : public IRendererCapability {
    public:
     /// @brief Function used to build the components of one node instance.
     using ComponentProvider = std::function<ComponentList(
         NodeId node_id, NodeType node_type, const PropertyMap &properties)>;
 
-    /// @brief Register the component provider for a node type.
-    /// @param node_type Node type handled by the provider.
-    /// @param provider Function producing the node's graphical metadata.
-    /// @throws InvalidNodeException if provider is empty.
-    /// @throws NodeAlreadyExistsException if node_type is already registered.
+    /**
+     * @brief Register the component provider for a node type.
+     * @param node_type Node type handled by the provider.
+     * @param provider Function producing the node's graphical metadata.
+     * @throws InvalidNodeException if provider is empty.
+     * @throws NodeAlreadyExistsException if node_type is already registered.
+     */
     void RegisterNodeRenderer(NodeType node_type, ComponentProvider provider);
 
-    /// @brief Remove the component provider registered for a node type.
-    /// @param node_type Node type to remove.
-    /// @return true when a provider was removed, false otherwise.
+    /**
+     * @brief Remove the component provider registered for a node type.
+     * @param node_type Node type to remove.
+     * @return true when a provider was removed, false otherwise.
+     */
     bool UnregisterNodeRenderer(NodeType node_type) noexcept;
 
-    /// @brief Return the number of registered node types.
+    /**
+     * @brief Return the number of registered node types.
+     * @return The count of registered node types.
+     */
     std::size_t RegisteredNodeTypeCount() const noexcept;
 
+    /**
+     * @brief Check if this capability supports a specific node type.
+     * @param node_type Type of the node to check.
+     * @return true if this capability provides custom UI for the node type,
+     * false otherwise.
+     */
     bool SupportsNodeType(NodeType node_type) const noexcept override;
 
-    /// @throws NodeTypeException if no provider is registered for node_type.
-    /// @throws Exception Any core exception emitted by the selected provider.
+    /**
+     * @brief Retrieves the UI components used to display a specific node.
+     *
+     * The returned components describe how the node should be displayed
+     * and interacted with. No actual rendering must be performed by this
+     * function.
+     *
+     * @param node_id Unique identifier of the node instance.
+     * @param node_type Type of the node.
+     * @param properties Current properties of the node instance.
+     *
+     * @return List of components describing the node's custom interface.
+     */
     ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                     const PropertyMap &properties) override;
 
