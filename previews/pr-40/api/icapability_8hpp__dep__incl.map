@@ -1,0 +1,22 @@
+<map id="src/new_core/modules/icapability.hpp" name="src/new_core/modules/icapability.hpp">
+<area shape="rect" id="Node000001" title="Base interface for all module capabilities." alt="" coords="219,5,385,45"/>
+<area shape="rect" id="Node000002" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="28,196,195,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,39,148,48,92,60,46,76,29,85,17,95,10,108,8,119,18,147,37,173,62,194,59,198,33,177,13,149,3,120,5,106,13,92,26,81,43,71,91,55,147,43,205,34"/>
+<area shape="rect" id="Node000003" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="409,93,576,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="354,49,440,91,438,96,352,54"/>
+<area shape="rect" id="Node000004" href="$node__list__capability_8hpp.html" title="Defines the capability for a module to provide custom nodes." alt="" coords="219,93,385,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="305,59,305,93,299,93,299,59"/>
+<area shape="rect" id="Node000008" href="$renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="600,93,767,148"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="399,46,589,91,600,94,599,99,588,96,398,51"/>
+<area shape="rect" id="Node000009" href="$type__list__capability_8hpp_source.html" title=" " alt="" coords="28,93,195,148"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="252,54,166,96,164,91,250,49"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="242,157,163,198,160,193,239,152"/>
+<area shape="rect" id="Node000005" href="$module_8hpp.html" title="Module interface." alt="" coords="219,203,385,243"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="305,162,305,203,299,203,299,162"/>
+<area shape="rect" id="Node000006" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="124,299,291,339"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="275,255,228,301,225,297,271,251"/>
+<area shape="rect" id="Node000007" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="315,299,481,339"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="333,251,380,297,377,301,329,255"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="114,162,114,196,109,196,109,162"/>
+<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="174,152,267,201,265,205,172,157"/>
+</map>
