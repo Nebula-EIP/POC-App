@@ -23,6 +23,16 @@
 
 namespace core::capa {
 
+void RendererCapability::InitializeTypes(
+    const std::unordered_map<DataType, std::string> &types) {
+    types_ = types;
+}
+
+void RendererCapability::InitializeNodeTypes(
+    const std::unordered_map<NodeType, std::string> &node_types) {
+    node_types_ = node_types;
+}
+
 void RendererCapability::RegisterNodeRenderer(NodeType node_type,
                                               ComponentProvider provider) {
     if (!provider) {

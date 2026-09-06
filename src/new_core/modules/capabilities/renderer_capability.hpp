@@ -307,6 +307,24 @@ class IRendererCapability : public ICapability {
     virtual ~IRendererCapability() = default;
 
     /**
+     * @brief Store the data types assigned by the core to this module.
+     * @param types Map of core-assigned data type IDs to owned type names.
+     * The core must provide only types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) = 0;
+
+    /**
+     * @brief Store the node types assigned by the core to this module.
+     * @param node_types Map of core-assigned node type IDs to owned names.
+     * The core must provide only node types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) = 0;
+
+    /**
      * @brief Checks whether custom rendering is provided for a node type.
      *
      * @param node_type Type of the node to check.
@@ -346,6 +364,14 @@ class RendererCapability final : public IRendererCapability {
     /// @brief Function used to build the components of one node instance.
     using ComponentProvider = std::function<ComponentList(
         NodeId node_id, NodeType node_type, const PropertyMap &properties)>;
+
+    /// @brief Replace the local copy of the owning module's data type list.
+    void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) override;
+
+    /// @brief Replace the local copy of the owning module's node type list.
+    void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) override;
 
     /**
      * @brief Register the component provider for a node type.
@@ -394,6 +420,8 @@ class RendererCapability final : public IRendererCapability {
                                     const PropertyMap &properties) override;
 
    private:
+    std::unordered_map<DataType, std::string> types_;
+    std::unordered_map<NodeType, std::string> node_types_;
     std::unordered_map<NodeType, ComponentProvider> providers_;
 };
 
