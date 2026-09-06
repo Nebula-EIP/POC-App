@@ -136,6 +136,12 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>ComponentProvider</b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aa24f4c6ac442be07ff27278b03f8af94" id="r_aa24f4c6ac442be07ff27278b03f8af94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;types) override</td></tr>
+<tr class="memdesc:aa24f4c6ac442be07ff27278b03f8af94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the local copy of the owning module's data type list.  <br /></td></tr>
+<tr class="separator:aa24f4c6ac442be07ff27278b03f8af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675acb83fb6564f30a8231d5e18eb557" id="r_a675acb83fb6564f30a8231d5e18eb557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;node_types) override</td></tr>
+<tr class="memdesc:a675acb83fb6564f30a8231d5e18eb557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the local copy of the owning module's node type list.  <br /></td></tr>
+<tr class="separator:a675acb83fb6564f30a8231d5e18eb557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57e53231b8e87bbeb97bcde24279f37f" id="r_a57e53231b8e87bbeb97bcde24279f37f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f">RegisterNodeRenderer</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, <a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a7074366784346c6a61e8e3e4464847cb">ComponentProvider</a> provider)</td></tr>
 <tr class="memdesc:a57e53231b8e87bbeb97bcde24279f37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register the component provider for a node type.  <br /></td></tr>
 <tr class="separator:a57e53231b8e87bbeb97bcde24279f37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +220,66 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
 <dl class="section return"><dt>Returns</dt><dd>List of components describing the node's custom interface. </dd></dl>
 
 <p>Implements <a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6">core::capa::IRendererCapability</a>.</p>
+
+</div>
+</div>
+<a id="a675acb83fb6564f30a8231d5e18eb557" name="a675acb83fb6564f30a8231d5e18eb557"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675acb83fb6564f30a8231d5e18eb557">&#9670;&#160;</a></span>InitializeNodeTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::capa::RendererCapability::InitializeNodeTypes </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>node_types</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replace the local copy of the owning module's node type list. </p>
+
+<p>Implements <a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354">core::capa::IRendererCapability</a>.</p>
+
+</div>
+</div>
+<a id="aa24f4c6ac442be07ff27278b03f8af94" name="aa24f4c6ac442be07ff27278b03f8af94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa24f4c6ac442be07ff27278b03f8af94">&#9670;&#160;</a></span>InitializeTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::capa::RendererCapability::InitializeTypes </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>types</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replace the local copy of the owning module's data type list. </p>
+
+<p>Implements <a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f">core::capa::IRendererCapability</a>.</p>
 
 </div>
 </div>
