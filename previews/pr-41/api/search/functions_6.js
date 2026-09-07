@@ -23,7 +23,7 @@ var searchData=
   ['getlines_20',['GetLines',['../classcode__generation_1_1CodeGeneratorFile.html#aa72485ba0c4e9e78840ec213e184f14e',1,'code_generation::CodeGeneratorFile']]],
   ['getmodifiedat_21',['GetModifiedAt',['../classcore_1_1Graph.html#a15fb08b9f2fbcc9607bd25f2f27addfa',1,'core::Graph']]],
   ['getnode_22',['getnode',['../classcore_1_1Graph.html#ad950f7401dd83e54aadbd9051e4de75d',1,'core::Graph::GetNode(uint32_t id) const'],['../classcore_1_1Graph.html#a13c1242bb90c85898ca9db0ff307dbe4',1,'core::Graph::GetNode(uint32_t id) const']]],
-  ['getnodecomponents_23',['GetNodeComponents',['../classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6',1,'core::capa::IRendererCapability']]],
+  ['getnodecomponents_23',['getnodecomponents',['../classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6',1,'core::capa::IRendererCapability::GetNodeComponents()'],['../classcore_1_1capa_1_1RendererCapability.html#a65d95bf3272eb52a54b4ab998940eb60',1,'core::capa::RendererCapability::GetNodeComponents()']]],
   ['getnodeconfiguration_24',['getnodeconfiguration',['../classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30',1,'core::capa::INodeListCapability::GetNodeConfiguration()'],['../classcore_1_1capa_1_1NodeListCapability.html#abdb97dbb5212afb42c792350c475b396',1,'core::capa::NodeListCapability::GetNodeConfiguration()']]],
   ['getoperatorinputtype_25',['GetOperatorInputType',['../classcore_1_1OperatorNode.html#a34c96bf034ba46db1b4f39355dc93d38',1,'core::OperatorNode']]],
   ['getoperatoroutputtype_26',['GetOperatorOutputType',['../classcore_1_1OperatorNode.html#a30a56595564437b9d24aa4accffc0a38',1,'core::OperatorNode']]],

@@ -126,6 +126,9 @@ Collaboration diagram for core::capa::INodeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ae509e4e70a1dd59e3d91ff0208fbd5b9" id="r_ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="memItemLeft" align="right" valign="top">virtual const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9">registerNode</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept=0</td></tr>
+<tr class="memdesc:ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
+<tr class="separator:ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebdfba45609b3bba3e2ef2a6faf25314" id="r_aebdfba45609b3bba3e2ef2a6faf25314"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#aebdfba45609b3bba3e2ef2a6faf25314">GetAvailableNodes</a> () const noexcept=0</td></tr>
 <tr class="memdesc:aebdfba45609b3bba3e2ef2a6faf25314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
 <tr class="separator:aebdfba45609b3bba3e2ef2a6faf25314"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,6 +242,43 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a9ff23bb947327bb0750bdf4a9064e131">core::capa::NodeListCapability</a>.</p>
+
+</div>
+</div>
+<a id="ae509e4e70a1dd59e3d91ff0208fbd5b9" name="ae509e4e70a1dd59e3d91ff0208fbd5b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae509e4e70a1dd59e3d91ff0208fbd5b9">&#9670;&#160;</a></span>registerNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const std::string_view * core::capa::INodeListCapability::registerNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramname"><em>node_type</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the core to retrieve the nodes the capability wants to export. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_type</td><td>Available id the capability must assign to one of its nodes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new node name, nullptr if all the nodes of the capability have been assigned. </dd></dl>
+
+<p>Implemented in <a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a417860bd9d5cbcadbcaf9314360ec3f9">core::capa::NodeListCapability</a>.</p>
 
 </div>
 </div>

@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classcore_1_1capa_1_1NodeListCapabilit
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classcore_1_1capa_1_1NodeListCapability-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">core::capa::NodeListCapability Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
@@ -128,9 +129,12 @@ Collaboration diagram for core::capa::NodeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad2db6929f4339d8346cebc963c5b69b8" id="r_ad2db6929f4339d8346cebc963c5b69b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#ad2db6929f4339d8346cebc963c5b69b8">RegisterNode</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> type, std::string name, std::string description, <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> config)</td></tr>
-<tr class="memdesc:ad2db6929f4339d8346cebc963c5b69b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a node for the module.  <br /></td></tr>
-<tr class="separator:ad2db6929f4339d8346cebc963c5b69b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c549533c9f5a8c1377c148c20ce369d" id="r_a2c549533c9f5a8c1377c148c20ce369d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d">RegisterNode</a> (std::string name, std::string description, <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> config)</td></tr>
+<tr class="memdesc:a2c549533c9f5a8c1377c148c20ce369d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a node for the module.  <br /></td></tr>
+<tr class="separator:a2c549533c9f5a8c1377c148c20ce369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a417860bd9d5cbcadbcaf9314360ec3f9" id="r_a417860bd9d5cbcadbcaf9314360ec3f9"><td class="memItemLeft" align="right" valign="top">const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a417860bd9d5cbcadbcaf9314360ec3f9">registerNode</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
+<tr class="memdesc:a417860bd9d5cbcadbcaf9314360ec3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
+<tr class="separator:a417860bd9d5cbcadbcaf9314360ec3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423ff0cae1d96660ca0e0d3b20bcd798" id="r_a423ff0cae1d96660ca0e0d3b20bcd798"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a423ff0cae1d96660ca0e0d3b20bcd798">GetAvailableNodes</a> () const noexcept override</td></tr>
 <tr class="memdesc:a423ff0cae1d96660ca0e0d3b20bcd798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
 <tr class="separator:a423ff0cae1d96660ca0e0d3b20bcd798"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,7 +147,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reusable node list capability backed by registered nodes. </p>
-<p>Modules register their nodes with their configuration. </p>
+<p>Modules register their nodes with their configuration before the core assigns IDs. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a423ff0cae1d96660ca0e0d3b20bcd798" name="a423ff0cae1d96660ca0e0d3b20bcd798"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a423ff0cae1d96660ca0e0d3b20bcd798">&#9670;&#160;</a></span>GetAvailableNodes()</h2>
@@ -248,8 +252,45 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad2db6929f4339d8346cebc963c5b69b8" name="ad2db6929f4339d8346cebc963c5b69b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2db6929f4339d8346cebc963c5b69b8">&#9670;&#160;</a></span>RegisterNode()</h2>
+<a id="a417860bd9d5cbcadbcaf9314360ec3f9" name="a417860bd9d5cbcadbcaf9314360ec3f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a417860bd9d5cbcadbcaf9314360ec3f9">&#9670;&#160;</a></span>registerNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string_view * core::capa::NodeListCapability::registerNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramname"><em>node_type</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the core to retrieve the nodes the capability wants to export. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_type</td><td>Available id the capability must assign to one of its nodes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new node name, nullptr if all the nodes of the capability have been assigned. </dd></dl>
+
+<p>Implements <a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9">core::capa::INodeListCapability</a>.</p>
+
+</div>
+</div>
+<a id="a2c549533c9f5a8c1377c148c20ce369d" name="a2c549533c9f5a8c1377c148c20ce369d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c549533c9f5a8c1377c148c20ce369d">&#9670;&#160;</a></span>RegisterNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -257,12 +298,6 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void core::capa::NodeListCapability::RegisterNode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
@@ -289,7 +324,6 @@ Public Member Functions</h2></td></tr>
 <p>Register a node for the module. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The NodeType identifier. </td></tr>
     <tr><td class="paramname">name</td><td>The human-readable name of the node. </td></tr>
     <tr><td class="paramname">description</td><td>The description of the node. </td></tr>
     <tr><td class="paramname">config</td><td>The configuration of the node. </td></tr>
@@ -298,7 +332,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeAlreadyExistsException.html" title="Thrown when two incompatible data types are used together.">NodeAlreadyExistsException</a></td><td>if the type is already registered. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classcore_1_1NodeAlreadyExistsException.html" title="Thrown when two incompatible data types are used together.">NodeAlreadyExistsException</a></td><td>if a node with the same name is already registered. </td></tr>
   </table>
   </dd>
 </dl>

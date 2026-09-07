@@ -25,6 +25,7 @@ var annotated_dup =
         [ "NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", "classcore_1_1capa_1_1NodeListCapability" ],
         [ "NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", "structcore_1_1capa_1_1NodeMetadata" ],
         [ "NumberField", "structcore_1_1capa_1_1NumberField.html", "structcore_1_1capa_1_1NumberField" ],
+        [ "RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", "classcore_1_1capa_1_1RendererCapability" ],
         [ "Select", "structcore_1_1capa_1_1Select.html", "structcore_1_1capa_1_1Select" ],
         [ "Separator", "structcore_1_1capa_1_1Separator.html", null ],
         [ "Slider", "structcore_1_1capa_1_1Slider.html", "structcore_1_1capa_1_1Slider" ],

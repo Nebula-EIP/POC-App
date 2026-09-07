@@ -71,7 +71,9 @@ var hierarchy =
       [ "core::capa::INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", [
         [ "core::capa::NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", null ]
       ] ],
-      [ "core::capa::IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", null ],
+      [ "core::capa::IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", [
+        [ "core::capa::RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", null ]
+      ] ],
       [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", [
         [ "core::capa::TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", null ]
       ] ]
