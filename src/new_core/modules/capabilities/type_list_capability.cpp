@@ -1,3 +1,14 @@
+/**
+ * @file type_list_capability.cpp
+ * @brief Implementation of the type list capability for modules.
+ *
+ * @author Created by mathys-f
+ * @date Created on 07-09-2026
+ *
+ * @author Last modified by mathys-f
+ * @date Last modified on 07-09-2026
+ */
+
 #include "type_list_capability.hpp"
 
 namespace core::capa {
