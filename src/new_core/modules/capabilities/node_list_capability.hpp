@@ -6,7 +6,7 @@
  * @date Created on 06-08-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 06-08-2026
+ * @date Last modified on 07-09-2026
  */
 
 #pragma once
@@ -75,6 +75,42 @@ class INodeListCapability : public ICapability {
      * @return The configuration needed to build the specified node.
      */
     virtual NodeConfiguration GetNodeConfiguration(NodeType type) const = 0;
+};
+
+/**
+ * @brief Reusable node list capability backed by registered nodes.
+ *
+ * Modules register their nodes with their configuration.
+ */
+class NodeListCapability final : public INodeListCapability {
+   public:
+    NodeListCapability() = default;
+    ~NodeListCapability() override = default;
+
+    /**
+     * @brief Register a node for the module.
+     *
+     * @param type The NodeType identifier.
+     * @param name The human-readable name of the node.
+     * @param description The description of the node.
+     * @param config The configuration of the node.
+     * @throws NodeAlreadyExistsException if the type is already registered.
+     */
+    void RegisterNode(NodeType type, std::string name, std::string description,
+                      NodeConfiguration config);
+
+    std::vector<NodeMetadata> GetAvailableNodes() const noexcept override;
+
+    void InitializePropertyTypes(
+        const std::unordered_map<std::string, PropertyTypeId> &property_types)
+        override;
+
+    NodeConfiguration GetNodeConfiguration(NodeType type) const override;
+
+   private:
+    std::vector<NodeMetadata> available_nodes_;
+    std::unordered_map<NodeType, NodeConfiguration> node_configs_;
+    std::unordered_map<std::string, PropertyTypeId> property_types_;
 };
 
 }  // namespace capa
