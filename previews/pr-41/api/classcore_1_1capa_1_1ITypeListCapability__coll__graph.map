@@ -1,0 +1,5 @@
+<map id="core::capa::ITypeListCapability" name="core::capa::ITypeListCapability">
+<area shape="rect" id="Node000001" title="List of types the core needs to load and provide to the module owning this capabability." alt="" coords="5,79,225,104"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="51,5,179,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,44,118,79,113,79,113,44"/>
+</map>

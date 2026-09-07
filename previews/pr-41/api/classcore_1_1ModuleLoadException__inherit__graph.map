@@ -1,0 +1,15 @@
+<map id="core::ModuleLoadException" name="core::ModuleLoadException">
+<area shape="rect" id="Node000001" title="Thrown when a module fails to load." alt="" coords="581,70,783,95"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1ModuleFileNotFoundException.html" title="Thrown when a module file cannot be found." alt="" coords="855,5,1045,45"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="755,64,856,43,857,48,756,70"/>
+<area shape="rect" id="Node000006" href="$classcore_1_1ModuleLoadFailedException.html" title="Thrown when a module file is invalid or cannot be loaded." alt="" coords="831,70,1069,95"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="796,80,830,80,830,85,796,85"/>
+<area shape="rect" id="Node000007" href="$classcore_1_1ModuleSymbolNotFoundException.html" title="Thrown when a module does not contain the required entry point." alt="" coords="841,120,1059,160"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="756,96,857,117,856,123,755,101"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ModuleException.html" title="Base exception for errors related to module management." alt="" coords="363,70,533,95"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="547,80,581,80,581,85,547,85"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="192,70,315,95"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="328,80,362,80,362,85,328,85"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,70,144,95"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,80,192,80,192,85,157,85"/>
+</map>
