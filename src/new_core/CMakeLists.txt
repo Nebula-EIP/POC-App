@@ -3,6 +3,7 @@
 add_library(new_core_capabilities
     modules/capabilities/type_list_capability.cpp
     modules/capabilities/node_list_capability.cpp
+    modules/capabilities/renderer_capability.cpp
 )
 
 target_include_directories(new_core_capabilities PUBLIC
