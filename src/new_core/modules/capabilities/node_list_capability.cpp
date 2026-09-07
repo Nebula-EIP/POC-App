@@ -15,16 +15,43 @@
 
 namespace core::capa {
 
-void NodeListCapability::RegisterNode(NodeType type, std::string name,
-                                      std::string description,
+void NodeListCapability::RegisterNode(std::string name, std::string description,
                                       NodeConfiguration config) {
-    if (node_configs_.find(type) != node_configs_.end()) {
-        throw NodeAlreadyExistsException(
-            "Node type is already registered in this capability.");
+    for (const auto &node : pending_nodes_) {
+        if (node.name == name) {
+            throw NodeAlreadyExistsException(
+                "Node is already registered in this capability.");
+        }
+    }
+    for (const auto &node : available_nodes_) {
+        if (node.name_ == name) {
+            throw NodeAlreadyExistsException(
+                "Node is already registered in this capability.");
+        }
     }
 
-    available_nodes_.push_back({type, std::move(name), std::move(description)});
-    node_configs_[type] = std::move(config);
+    pending_nodes_.push_back(
+        {std::move(name), std::move(description), std::move(config)});
+    pending_names_.push_back(pending_nodes_.back().name);
+}
+
+const std::string_view *NodeListCapability::registerNode(
+    NodeType node_type) const noexcept {
+    if (next_node_index_ >= pending_nodes_.size()) {
+        return nullptr;
+    }
+
+    // Find the pending node by index
+    auto it = pending_nodes_.begin();
+    std::advance(it, next_node_index_);
+
+    available_nodes_.push_back({node_type, it->name, it->description});
+    node_configs_[node_type] = it->config;
+
+    std::string_view *name_ptr = &pending_names_[next_node_index_];
+    next_node_index_++;
+
+    return name_ptr;
 }
 
 std::vector<NodeMetadata> NodeListCapability::GetAvailableNodes()

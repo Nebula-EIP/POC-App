@@ -12,15 +12,22 @@ TEST(NodeListCapabilityTest, RegisterAndRetrieveNode) {
     config.input_pins_.push_back({1, "in", 10});
     config.output_pins_.push_back({2, "out", 10});
     
-    capability.RegisterNode(1, "TestNode", "A test node", config);
+    capability.RegisterNode("TestNode", "A test node", config);
+    
+    auto name_ptr1 = capability.registerNode(42);
+    ASSERT_NE(name_ptr1, nullptr);
+    EXPECT_EQ(*name_ptr1, "TestNode");
+    
+    auto name_ptr2 = capability.registerNode(43);
+    EXPECT_EQ(name_ptr2, nullptr);
     
     auto nodes = capability.GetAvailableNodes();
     ASSERT_EQ(nodes.size(), 1);
-    EXPECT_EQ(nodes[0].type_, 1);
+    EXPECT_EQ(nodes[0].type_, 42);
     EXPECT_EQ(nodes[0].name_, "TestNode");
     EXPECT_EQ(nodes[0].description_, "A test node");
     
-    auto retrieved_config = capability.GetNodeConfiguration(1);
+    auto retrieved_config = capability.GetNodeConfiguration(42);
     ASSERT_EQ(retrieved_config.input_pins_.size(), 1);
     EXPECT_EQ(retrieved_config.input_pins_[0].id, 1);
     EXPECT_EQ(retrieved_config.input_pins_[0].name, "in");
@@ -31,9 +38,9 @@ TEST(NodeListCapabilityTest, DuplicateNodeRegistrationThrows) {
     NodeListCapability capability;
     NodeConfiguration config;
     
-    capability.RegisterNode(1, "TestNode", "A test node", config);
+    capability.RegisterNode("TestNode", "A test node", config);
     
-    EXPECT_THROW(capability.RegisterNode(1, "TestNode2", "Another test node", config), NodeAlreadyExistsException);
+    EXPECT_THROW(capability.RegisterNode("TestNode", "Another test node", config), NodeAlreadyExistsException);
 }
 
 TEST(NodeListCapabilityTest, UnknownNodeConfigurationThrows) {
@@ -51,6 +58,4 @@ TEST(NodeListCapabilityTest, InitializePropertyTypes) {
     };
     
     capability.InitializePropertyTypes(property_types);
-    // There are no getters for property types in INodeListCapability,
-    // so we just verify it doesn't crash.
 }
