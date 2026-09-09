@@ -26,5 +26,5 @@ var searchData=
   ['slider_23',['Slider',['../structcore_1_1capa_1_1Slider.html',1,'core::capa']]],
   ['sort_24',['Sort',['../classcore_1_1TopologicalSorter.html#a5df4cf09ebfc6342f7691a72326dfc5a',1,'core::TopologicalSorter']]],
   ['step_25',['step',['../structcore_1_1capa_1_1NumberField.html#a87b50326d656f32fe2cf75b6239c4a77',1,'core::capa::NumberField::step'],['../structcore_1_1capa_1_1Slider.html#a83ad66a402613ed4208aa30d0f85521a',1,'core::capa::Slider::step']]],
-  ['supportsnodetype_26',['SupportsNodeType',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability']]]
+  ['supportsnodetype_26',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]]
 ];

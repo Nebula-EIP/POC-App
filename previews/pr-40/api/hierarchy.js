@@ -69,9 +69,15 @@ var hierarchy =
     [ "core::ICapability", "classcore_1_1ICapability.html", [
       [ "core::capa::IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", null ],
       [ "core::capa::IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", null ],
-      [ "core::capa::INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", null ],
-      [ "core::capa::IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", null ],
-      [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", null ]
+      [ "core::capa::INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", [
+        [ "core::capa::NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", null ]
+      ] ],
+      [ "core::capa::IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", [
+        [ "core::capa::RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", null ]
+      ] ],
+      [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", [
+        [ "core::capa::TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", null ]
+      ] ]
     ] ],
     [ "utils::IdManager< IdType >", "classutils_1_1IdManager.html", null ],
     [ "utils::IdManager< uint32_t >", "classutils_1_1IdManager.html", null ],
@@ -139,6 +145,7 @@ var hierarchy =
     [ "editor_ui::TopBar", "classeditor__ui_1_1TopBar.html", null ],
     [ "editor_ui::TopBarStyle", "structeditor__ui_1_1TopBarStyle.html", null ],
     [ "core::TopologicalSorter", "classcore_1_1TopologicalSorter.html", null ],
+    [ "core::capa::ITypeListCapability::TypeDefinition", "structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html", null ],
     [ "core::capa::TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ],
     [ "editor::code_generation::TypeInfo", "structeditor_1_1code__generation_1_1TypeInfo.html", null ],
     [ "core::GraphValidator::ValidationError", "structcore_1_1GraphValidator_1_1ValidationError.html", null ],

@@ -25,13 +25,16 @@ var annotated_dup =
         [ "NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", "structcore_1_1capa_1_1NodeConfiguration" ],
         [ "NodeDescriptor", "structcore_1_1capa_1_1NodeDescriptor.html", null ],
         [ "NodeExportRequest", "structcore_1_1capa_1_1NodeExportRequest.html", "structcore_1_1capa_1_1NodeExportRequest" ],
+        [ "NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", "classcore_1_1capa_1_1NodeListCapability" ],
         [ "NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", "structcore_1_1capa_1_1NodeMetadata" ],
         [ "NumberField", "structcore_1_1capa_1_1NumberField.html", "structcore_1_1capa_1_1NumberField" ],
+        [ "RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", "classcore_1_1capa_1_1RendererCapability" ],
         [ "Select", "structcore_1_1capa_1_1Select.html", "structcore_1_1capa_1_1Select" ],
         [ "Separator", "structcore_1_1capa_1_1Separator.html", null ],
         [ "Slider", "structcore_1_1capa_1_1Slider.html", "structcore_1_1capa_1_1Slider" ],
         [ "TextField", "structcore_1_1capa_1_1TextField.html", "structcore_1_1capa_1_1TextField" ],
-        [ "TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ]
+        [ "TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ],
+        [ "TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", "classcore_1_1capa_1_1TypeListCapability" ]
       ] ],
       [ "CircularDependencyException", "classcore_1_1CircularDependencyException.html", null ],
       [ "ConditionNode", "classcore_1_1ConditionNode.html", "classcore_1_1ConditionNode" ],

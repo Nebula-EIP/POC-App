@@ -104,6 +104,7 @@ $(document).ready(function(){initNavTree('renderer__capability_8hpp.html',''); i
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;variant&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="datatypes_8hpp_source.html">../../graph/datatypes.hpp</a>&quot;</code><br />
@@ -113,32 +114,43 @@ Include dependency graph for renderer_capability.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="renderer__capability_8hpp__incl.png" border="0" usemap="#asrc_2new__core_2modules_2capabilities_2renderer__capability_8hpp" alt=""/></div>
 <map name="asrc_2new__core_2modules_2capabilities_2renderer__capability_8hpp" id="asrc_2new__core_2modules_2capabilities_2renderer__capability_8hpp">
-<area shape="rect" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="323,5,489,60"/>
+<area shape="rect" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="357,5,524,60"/>
 <area shape="rect" title=" " alt="" coords="5,181,76,207"/>
-<area shape="poly" title=" " alt="" coords="323,60,256,83,187,110,124,144,70,176,68,172,121,139,185,106,254,78,322,55"/>
+<area shape="poly" title=" " alt="" coords="358,52,265,75,168,110,113,142,67,175,64,170,110,137,166,106,263,70,356,47"/>
 <area shape="rect" title=" " alt="" coords="101,181,167,207"/>
-<area shape="poly" title=" " alt="" coords="324,62,273,83,223,110,185,141,155,172,151,168,182,137,221,106,270,79,322,57"/>
-<area shape="rect" title=" " alt="" coords="559,108,645,133"/>
-<area shape="poly" title=" " alt="" coords="467,58,564,100,562,105,465,63"/>
+<area shape="poly" title=" " alt="" coords="358,49,277,71,237,88,200,110,170,139,148,171,144,168,166,136,196,106,235,84,276,66,356,44"/>
+<area shape="rect" title=" " alt="" coords="580,108,667,133"/>
+<area shape="poly" title=" " alt="" coords="498,58,588,100,585,105,495,62"/>
 <area shape="rect" title=" " alt="" coords="191,181,250,207"/>
-<area shape="poly" title=" " alt="" coords="324,56,279,78,259,92,242,110,228,138,223,168,218,167,223,136,237,106,255,88,276,73,321,52"/>
+<area shape="poly" title=" " alt="" coords="358,40,318,47,278,60,241,81,212,110,206,123,205,138,212,168,207,169,200,138,201,122,208,106,238,76,276,56,317,42,357,35"/>
+<area shape="rect" title=" " alt="" coords="345,181,469,207"/>
+<area shape="poly" title=" " alt="" coords="438,61,415,168,410,167,433,60"/>
 <area shape="rect" title=" " alt="" coords="493,181,561,207"/>
-<area shape="poly" title=" " alt="" coords="428,59,512,169,508,172,424,62"/>
+<area shape="poly" title=" " alt="" coords="457,59,517,168,512,171,453,61"/>
 <area shape="rect" title=" " alt="" coords="585,181,648,207"/>
-<area shape="poly" title=" " alt="" coords="442,58,592,171,589,175,439,62"/>
-<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="252,108,432,133"/>
-<area shape="poly" title=" " alt="" coords="389,62,361,99,357,95,384,58"/>
-<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="670,108,798,133"/>
-<area shape="poly" title=" " alt="" coords="490,53,678,102,676,107,489,58"/>
-<area shape="poly" title=" " alt="" coords="294,136,90,184,89,179,293,131"/>
-<area shape="poly" title=" " alt="" coords="309,136,181,179,180,174,308,131"/>
-<area shape="poly" title=" " alt="" coords="324,136,253,177,251,172,321,131"/>
-<area shape="poly" title=" " alt="" coords="373,131,485,174,484,179,371,136"/>
-<area shape="poly" title=" " alt="" coords="388,131,572,178,571,183,386,136"/>
-<area shape="rect" title=" " alt="" coords="423,181,469,207"/>
-<area shape="poly" title=" " alt="" coords="360,131,419,171,416,175,357,136"/>
-<area shape="rect" title=" " alt="" coords="275,181,399,207"/>
-<area shape="poly" title=" " alt="" coords="344,134,341,168,336,168,338,133"/>
+<area shape="poly" title=" " alt="" coords="472,58,596,170,592,174,468,62"/>
+<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="223,108,403,133"/>
+<area shape="poly" title=" " alt="" coords="403,62,343,103,340,98,400,58"/>
+<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="691,108,819,133"/>
+<area shape="poly" title=" " alt="" coords="525,54,701,102,700,107,523,59"/>
+<area shape="poly" title=" " alt="" coords="270,136,90,183,88,178,268,131"/>
+<area shape="poly" title=" " alt="" coords="285,136,177,179,175,174,283,131"/>
+<area shape="poly" title=" " alt="" coords="300,135,248,175,245,171,296,131"/>
+<area shape="poly" title=" " alt="" coords="329,131,382,171,379,175,326,135"/>
+<area shape="poly" title=" " alt="" coords="348,131,481,175,480,180,346,136"/>
+<area shape="poly" title=" " alt="" coords="366,131,572,178,571,183,365,136"/>
+<area shape="rect" title=" " alt="" coords="275,181,321,207"/>
+<area shape="poly" title=" " alt="" coords="313,134,306,168,301,167,308,133"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="renderer__capability_8hpp__dep__incl.png" border="0" usemap="#asrc_2new__core_2modules_2capabilities_2renderer__capability_8hppdep" alt=""/></div>
+<map name="asrc_2new__core_2modules_2capabilities_2renderer__capability_8hppdep" id="asrc_2new__core_2modules_2capabilities_2renderer__capability_8hppdep">
+<area shape="rect" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="5,5,172,60"/>
+<area shape="rect" href="renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="5,108,172,163"/>
+<area shape="poly" title=" " alt="" coords="91,74,91,108,86,108,86,74"/>
 </map>
 </div>
 </div>
@@ -179,6 +191,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html">core::capa::IRendererCapability</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for the capability providing custom node rendering.  <a href="classcore_1_1capa_1_1IRendererCapability.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html">core::capa::RendererCapability</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reusable renderer capability backed by node component providers.  <a href="classcore_1_1capa_1_1RendererCapability.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -207,7 +222,7 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>core::capa::Componen
 <dl class="section author"><dt>Author</dt><dd>Created by ArthuryanLoheac </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on 10-08-2026</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Last modified by ArthuryanLoheac </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>Last modified on 10-08-2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Last modified on 04-09-2026 </dd></dl>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a01aaac99a851c69934a5bf199e0795a4" name="a01aaac99a851c69934a5bf199e0795a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01aaac99a851c69934a5bf199e0795a4">&#9670;&#160;</a></span>Component</h2>

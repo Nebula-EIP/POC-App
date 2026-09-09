@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['wrappedcircle_0',['WrappedCircle',['../structutils_1_1WrappedCircle.html',1,'utils']]],
-  ['wrappedcolor_1',['WrappedColor',['../structutils_1_1WrappedColor.html',1,'utils']]],
-  ['wrappedrectangle_2',['WrappedRectangle',['../structutils_1_1WrappedRectangle.html',1,'utils']]],
-  ['wrappedvector2_3',['WrappedVector2',['../structutils_1_1WrappedVector2.html',1,'utils']]]
+  ['validationerror_0',['ValidationError',['../structcore_1_1GraphValidator_1_1ValidationError.html',1,'core::GraphValidator']]],
+  ['validationresult_1',['ValidationResult',['../structcore_1_1GraphValidator_1_1ValidationResult.html',1,'core::GraphValidator']]],
+  ['variablenode_2',['VariableNode',['../classcore_1_1VariableNode.html',1,'core']]],
+  ['version_3',['Version',['../structcore_1_1IModule_1_1Version.html',1,'core::IModule']]]
 ];
