@@ -13,7 +13,7 @@
  * @date Created on 10-08-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 10-08-2026
+ * @date Last modified on 04-09-2026
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -306,6 +307,24 @@ class IRendererCapability : public ICapability {
     virtual ~IRendererCapability() = default;
 
     /**
+     * @brief Store the data types assigned by the core to this module.
+     * @param types Map of core-assigned data type IDs to owned type names.
+     * The core must provide only types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) = 0;
+
+    /**
+     * @brief Store the node types assigned by the core to this module.
+     * @param node_types Map of core-assigned node type IDs to owned names.
+     * The core must provide only node types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) = 0;
+
+    /**
      * @brief Checks whether custom rendering is provided for a node type.
      *
      * @param node_type Type of the node to check.
@@ -330,6 +349,80 @@ class IRendererCapability : public ICapability {
      */
     virtual ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                             const PropertyMap &properties) = 0;
+};
+
+/**
+ * @brief Reusable renderer capability backed by node component providers.
+ *
+ * Modules register one provider for each node type that requires a custom
+ * interface. The provider receives the complete node request and produces the
+ * metadata consumed by the application's renderer. This class only manages
+ * graphical metadata and never performs rendering.
+ */
+class RendererCapability final : public IRendererCapability {
+   public:
+    /// @brief Function used to build the components of one node instance.
+    using ComponentProvider = std::function<ComponentList(
+        NodeId node_id, NodeType node_type, const PropertyMap &properties)>;
+
+    /// @brief Replace the local copy of the owning module's data type list.
+    void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) override;
+
+    /// @brief Replace the local copy of the owning module's node type list.
+    void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) override;
+
+    /**
+     * @brief Register the component provider for a node type.
+     * @param node_type Node type handled by the provider.
+     * @param provider Function producing the node's graphical metadata.
+     * @throws InvalidNodeException if provider is empty.
+     * @throws NodeAlreadyExistsException if node_type is already registered.
+     */
+    void RegisterNodeRenderer(NodeType node_type, ComponentProvider provider);
+
+    /**
+     * @brief Remove the component provider registered for a node type.
+     * @param node_type Node type to remove.
+     * @return true when a provider was removed, false otherwise.
+     */
+    bool UnregisterNodeRenderer(NodeType node_type) noexcept;
+
+    /**
+     * @brief Return the number of registered node types.
+     * @return The count of registered node types.
+     */
+    std::size_t RegisteredNodeTypeCount() const noexcept;
+
+    /**
+     * @brief Check if this capability supports a specific node type.
+     * @param node_type Type of the node to check.
+     * @return true if this capability provides custom UI for the node type,
+     * false otherwise.
+     */
+    bool SupportsNodeType(NodeType node_type) const noexcept override;
+
+    /**
+     * @brief Retrieves the UI components used to display a specific node.
+     *
+     * The returned components describe how the node should be displayed
+     * and interacted with. No actual rendering must be performed by this
+     * function.
+     *
+     * @param node_id Unique identifier of the node instance.
+     * @param node_type Type of the node.
+     * @param properties Current properties of the node instance.
+     *
+     * @return List of components describing the node's custom interface.
+     */
+    ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
+                                    const PropertyMap &properties) override;
+
+   private:
+    std::unordered_map<DataType, std::string> types_;
+    std::unordered_map<NodeType, std::string> node_types_;
+    std::unordered_map<NodeType, ComponentProvider> providers_;
 };
 
 }  // namespace capa
