@@ -1,7 +1,0 @@
-<map id="src/new_core/exception/graph_exception/connection_exception.hpp" name="src/new_core/exception/graph_exception/connection_exception.hpp">
-<area shape="rect" id="Node000001" title="Defines exceptions related to connection operations." alt="" coords="5,5,215,60"/>
-<area shape="rect" id="Node000002" href="$exception_8hpp_source.html" title=" " alt="" coords="19,108,201,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,60,113,94,107,94,107,60"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="67,181,153,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,134,113,168,107,168,107,134"/>
-</map>

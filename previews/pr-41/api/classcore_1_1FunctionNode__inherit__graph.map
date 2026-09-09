@@ -1,5 +1,0 @@
-<map id="core::FunctionNode" name="core::FunctionNode">
-<area shape="rect" id="Node000001" title="A node that represents a user&#45;defined function." alt="" coords="5,79,152,104"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1NodeBase.html" title="Abstract base class for all nodes in the graph system." alt="" coords="17,5,141,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
-</map>
