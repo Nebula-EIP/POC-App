@@ -63,7 +63,10 @@ Node &Graph::CreateNode(core::NodeType type)
 
 bool Graph::RemoveNode(NodeId id)
 {
-    if (_nodes.erase(id) == 1)
+    if (!hasNode(id)) return false;
+
+    DisconnectNode(id);
+    if (_nodes.erase(id))
         return true;
     else
         return false;
