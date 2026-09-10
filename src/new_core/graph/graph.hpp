@@ -98,7 +98,8 @@ class Graph {
      *
      * @throws `core::NodeNotFoundException` The node_id is invalid.
      */
-    PinId AddInputPin(NodeId node_id, const std::string_view &name, DataType in_type);
+    PinId AddInputPin(NodeId node_id, const std::string_view &name,
+                      DataType in_type);
 
     /**
      * @brief Add an output pin to a node
@@ -111,7 +112,8 @@ class Graph {
      *
      * @throws `core::NodeNotFoundException` The node_id is invalid.
      */
-    PinId AddOutputPin(NodeId node_id, const std::string_view &name, DataType in_type);
+    PinId AddOutputPin(NodeId node_id, const std::string_view &name,
+                       DataType in_type);
 
     /**
      * @brief Remove an input pin from a node
@@ -151,15 +153,18 @@ class Graph {
      *
      * @return 0 if connection not found, otherwise the connection id
      */
-    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to, PinId in) const;
+    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to,
+                                 PinId in) const;
 
     /**
-     * @brief Retreive a read only map of all connections in the graph with their id as key
+     * @brief Retreive a read only map of all connections in the graph with
+     * their id as key
      *
      * @returns A map containing all the connections between
      * the nodes of the graph with their ids as key
      */
-    const std::unordered_map<ConnectionId, Connection> &getAllConnections() const noexcept;
+    const std::unordered_map<ConnectionId, Connection> &getAllConnections()
+        const noexcept;
 
     /**
      * @brief Connects two pins

@@ -169,7 +169,8 @@ class Node {
     void RemoveProperty(PropertyId);
 
    private:
-    friend core::Graph;  ///< This is required to allow the Graph to manage it's nodes
+    friend core::Graph;  ///< This is required to allow the Graph to manage it's
+                         ///< nodes
 
     Node() = delete;
 
@@ -177,7 +178,8 @@ class Node {
      * @brief Constructor
      *
      * @param id Unique id of this node, mendatory.
-     * @param type Type of the node, comes from the type capability of the module, mendatory.
+     * @param type Type of the node, comes from the type capability of the
+     * module, mendatory.
      */
     Node(NodeId id, NodeType type);
 

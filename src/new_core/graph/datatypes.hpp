@@ -20,13 +20,13 @@
 #include <vector>
 
 namespace core {
-using NodeId = uint32_t;       ///< Unique id for each Node
-using PinId = uint16_t;        ///< Unique id for each Node's Pin
-using ConnectionId = uint32_t; ///< Unique id for each Graph's Connection
-using DataType = uint16_t;     ///< Unique id for each type declared by modules
-using NodeType = uint16_t;     ///< Unique id for each node declared by modules
-using ModuleId = uint8_t;      ///< Unique id for each loaded module
-using PropertyId = uint16_t;   ///< Unique id for each Node's properties
+using NodeId = uint32_t;        ///< Unique id for each Node
+using PinId = uint16_t;         ///< Unique id for each Node's Pin
+using ConnectionId = uint32_t;  ///< Unique id for each Graph's Connection
+using DataType = uint16_t;      ///< Unique id for each type declared by modules
+using NodeType = uint16_t;      ///< Unique id for each node declared by modules
+using ModuleId = uint8_t;       ///< Unique id for each loaded module
+using PropertyId = uint16_t;    ///< Unique id for each Node's properties
 using PropertyTypeId = uint32_t;  ///< Unique id for each property type
 
 /**
