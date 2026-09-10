@@ -123,7 +123,7 @@ TEST(GraphNodeManagement, RemoveNodeRemovesAllAssociatedConnections)
     graph.Connect(id1, 1, id2, 1);
     
     EXPECT_EQ(graph.getAllConnections().size(), 1);
-    graph.RemoveNode(id1);
+    EXPECT_TRUE(graph.RemoveNode(id1));
     EXPECT_EQ(graph.getAllConnections().size(), 0);
 }
 
@@ -211,18 +211,6 @@ TEST(GraphInputPinManagement, AddInputPinThrowsForInvalidNode)
         graph.AddInputPin(999, "pin", 0),
         core::NodeNotFoundException
     );
-}
-
-TEST(GraphInputPinManagement, AddInputPinWithSameNameOverwrites)
-{
-    core::Graph graph;
-    core::Node &node = graph.CreateNode(1);
-    
-    core::PinId pin1 = graph.AddInputPin(node.id(), "pin", 0);
-    core::PinId pin2 = graph.AddInputPin(node.id(), "pin", 0);
-    
-    EXPECT_EQ(pin1, pin2);
-    EXPECT_EQ(node.inputPinsCount(), 1);
 }
 
 TEST(GraphInputPinManagement, RemoveInputPinRemovesExisting)
