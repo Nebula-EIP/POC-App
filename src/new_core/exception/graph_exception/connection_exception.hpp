@@ -26,14 +26,6 @@ class ConnectionException : public Exception {
 // ========================================
 
 /**
- * @brief Thrown when a connection between two inputs/outputs is attempted
- */
-class InvalidConnectionException : public ConnectionException {
-   public:
-    using ConnectionException::ConnectionException;
-};
-
-/**
  * @brief Thrown when a pin cannot be found
  */
 class PinNotFoundException : public ConnectionException {
