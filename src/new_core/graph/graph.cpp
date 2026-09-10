@@ -53,11 +53,12 @@ const std::unordered_map<NodeId, Node> &Graph::nodes() const noexcept
     return _nodes;
 }
 
-NodeId Graph::AddNode(Node node)
+Node &Graph::CreateNode(core::NodeType type)
 {
-    node._id = _next_node_id++; /// Only instance when this value is edited is in this method
+    Node node(_next_node_id++, type);
 
-    _nodes.emplace(node.id(), node);
+    _nodes.emplace(node.id(), std::move(node));
+    return _nodes.at(node.id());
 }
 
 bool Graph::RemoveNode(NodeId id)
@@ -82,7 +83,8 @@ PinId Graph::AddInputPin(NodeId node_id, const std::string_view &name, DataType 
     pin.name = name;
     pin.type = type;
 
-    return _nodes[node_id].AddInputPin(pin);
+    return _nodes.at(node_id).AddInputPin(pin);
+    /// No need to try & catch here as the existence of the node is proven previously
 }
 
 PinId Graph::AddOutputPin(NodeId node_id, const std::string_view &name, DataType type)
@@ -95,7 +97,8 @@ PinId Graph::AddOutputPin(NodeId node_id, const std::string_view &name, DataType
     pin.name = name;
     pin.type = type;
 
-    return _nodes[node_id].AddOutputPin(pin);
+    return _nodes.at(node_id).AddOutputPin(pin);
+    /// No need to try & catch here as the existence of the node is proven previously
 }
 
 void Graph::RemoveInputPin(NodeId node_id, PinId pin_id)
@@ -103,7 +106,8 @@ void Graph::RemoveInputPin(NodeId node_id, PinId pin_id)
     if (!hasNode(node_id))
         throw core::NodeNotFoundException("Node not found in the graph");
 
-    _nodes[node_id].RemoveInputPin(pin_id);
+    _nodes.at(node_id).RemoveInputPin(pin_id);
+    /// Need to use at bcause no empty constructor plus already checked it exists
 }
 
 void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id)
@@ -111,7 +115,8 @@ void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id)
     if (!hasNode(node_id))
         throw core::NodeNotFoundException("Node not found in the graph");
 
-    _nodes[node_id].RemoveOutputPin(pin_id);
+    _nodes.at(node_id).RemoveOutputPin(pin_id);
+    /// Same as last method
 }
 
 #pragma endregion Pins
@@ -154,8 +159,8 @@ ConnectionId Graph::Connect(
     if (!hasNode(to_node_id))
         throw NodeNotFoundException("To node not found");
 
-    Node *from_node = &(_nodes[from_node_id]);
-    Node *to_node = &(_nodes[to_node_id]);
+    Node *from_node = &(_nodes.at(from_node_id));
+    Node *to_node = &(_nodes.at(to_node_id));
 
     const Pin *out_pin = from_node->outputPin(out_pin_id);
     const Pin *in_pin = to_node->inputPin(in_pin_id);
@@ -166,8 +171,8 @@ ConnectionId Graph::Connect(
     if (in_pin == nullptr)
         throw PinNotFoundException("Input pin not found");
 
-    if (_nodes[from_node_id].outputPin(out_pin_id)->type
-        != _nodes[to_node_id].inputPin(in_pin_id)->type)
+    if (_nodes.at(from_node_id).outputPin(out_pin_id)->type
+        != _nodes.at(to_node_id).inputPin(in_pin_id)->type)
         throw TypeMismatchException("Pins types does not match");
 
     Connection connection;
@@ -177,7 +182,9 @@ ConnectionId Graph::Connect(
     connection.out_pin = out_pin->id;
     connection.in_pin = in_pin->id;
 
-    _connections.insert_or_assign(_next_connection_id++, connection);
+    conn_id = _next_connection_id++;
+    _connections.insert_or_assign(conn_id, connection);
+    return conn_id;
 }
 
 void Graph::Disconnect(ConnectionId id)

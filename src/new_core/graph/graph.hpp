@@ -71,13 +71,9 @@ class Graph {
     /**
      * @brief Add a new node to the graph
      *
-     * @param node Node to be added. Required
-     *
-     * @return The id attributed to the node.
-     *
-     * @warning Will overwrite the node id and return the new one
+     * @return The created node.
      */
-    NodeId AddNode(Node node);
+    Node &CreateNode(core::NodeType type);
 
     /**
      * @brief Remove a node from the graph
@@ -153,7 +149,7 @@ class Graph {
      *
      * @return 0 if connection not found, otherwise the connection id
      */
-    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to, PinId in) const noexcept;
+    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to, PinId in) const;
 
     /**
      * @brief Retreive a read only map of all connections in the graph with their id as key

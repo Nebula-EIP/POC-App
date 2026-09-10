@@ -2,7 +2,7 @@
 
 # Add subdirectories for each module
 # Uncomment when modules are implemented
-add_subdirectory(core)
+# add_subdirectory(core)  # DISABLED: using new_core instead
 add_subdirectory(utils)
 add_subdirectory(new_core)
 # add_subdirectory(graph-builder)
@@ -12,4 +12,4 @@ add_subdirectory(graph-exporter)
 add_subdirectory(cmake-tool)
 
 # Main editor executable
-add_subdirectory(editor)
+# add_subdirectory(editor)  # DISABLED: depends on old core library

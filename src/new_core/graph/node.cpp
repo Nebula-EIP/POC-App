@@ -42,9 +42,9 @@ size_t Node::inputPinsCount() const noexcept
     return _input_pins.size();
 }
 
-const std::vector<Pin> &Node::outputPins() const noexcept
+size_t Node::outputPinsCount() const noexcept
 {
-    return _output_pins;
+    return _output_pins.size();
 }
 
 bool Node::inputPinExists(PinId id) const noexcept
@@ -147,7 +147,7 @@ PinId Node::AddOutputPin(Pin pin)
 
 void Node::RemoveInputPin(PinId pin_id)
 {
-    auto pin_pos = std::find(_input_pins.begin(), _input_pins.end(),
+    auto pin_pos = std::find_if(_input_pins.begin(), _input_pins.end(),
         [pin_id](const Pin &pin){return pin.id == pin_id;});
 
     if (pin_pos == _input_pins.end())
@@ -158,7 +158,7 @@ void Node::RemoveInputPin(PinId pin_id)
 
 void Node::RemoveOutputPin(PinId pin_id)
 {
-    auto pin_pos = std::find(_output_pins.begin(), _output_pins.end(),
+    auto pin_pos = std::find_if(_output_pins.begin(), _output_pins.end(),
         [pin_id](const Pin &pin){return pin.id == pin_id;});
 
     if (pin_pos == _output_pins.end())
@@ -169,18 +169,21 @@ void Node::RemoveOutputPin(PinId pin_id)
 
 size_t Node::RemoveAllInputPins()
 {
+    size_t count = _input_pins.size();
     _input_pins.clear();
+    return count;
 }
 
 size_t Node::RemoveAllOutputPins()
 {
+    size_t count = _output_pins.size();
     _output_pins.clear();
+    return count;
 }
 
 size_t Node::RemoveAllPins()
 {
-    RemoveAllInputPins();
-    RemoveAllOutputPins();
+    return RemoveAllInputPins() + RemoveAllOutputPins();
 }
 
 #pragma endregion Private
