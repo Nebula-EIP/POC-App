@@ -1,6 +1,6 @@
 /**
- * @file datatypes.hpp
- * @brief Declares all types commonly used in the core library
+ * @file node.hpp
+ * @brief Implementation of the node class
  *
  * @author Created by JeanBizeul
  * @date Created on 01-08-2026
@@ -136,12 +136,26 @@ class Node {
     const Property *property(PropertyId) const noexcept;
 
     /**
+     * @brief Add a property
+     * Properties are data storage reserved for module usage.
+     * They can store any kind of data specified by the type_list capability.
+     *
+     * @param property the property to add, the id will be changed on importing
+     *
+     * @return The id given to the property
+     */
+    PropertyId AddProperty(Property property);
+
+    /**
      * @brief Sets a property with the specified id and value
      * Properties are data storage reserved for module usage.
      * They can store any kind of data specified by the type_list capability.
      *
      * @param id The id of the property to set
+     *
      * @param property The property to set
+     *
+     * @warning Will overwrite already existing property
      */
     void SetProperty(PropertyId, Property);
 
@@ -155,26 +169,42 @@ class Node {
     void RemoveProperty(PropertyId);
 
    private:
-    friend core::Graph;  ///< This is required to allow the Graph operations to
-                         ///< be more effective
+    friend core::Graph;  ///< This is required to allow the Graph to manage it's nodes
 
-    Node() = default;
+    Node() = delete;
+
+    /**
+     * @brief Constructor
+     *
+     * @param id Unique id of this node, mendatory.
+     * @param type Type of the node, comes from the type capability of the module, mendatory.
+     */
+    Node(NodeId id, NodeType type);
 
     Node(const Node &) = delete;
     Node &operator=(const Node &) = delete;
 
-    /**
+    /**@warning The pin's id will be overwritten
      * @brief Adds an input pin to the node
      *
      * @param pin The pin to add
+     *
+     * @return The id of the added pin
+     *
+     * @warning The pin's id will be overwritten
      */
-    void AddInputPin(Pin pin);
+    PinId AddInputPin(Pin pin);
+
     /**
      * @brief Adds an output pin to the node
      *
+     * @return The id of the added pin
+     *
      * @param pin The pin to add
+     *
+     * @warning The pin's id will be overwritten
      */
-    void AddOutputPin(Pin pin);
+    PinId AddOutputPin(Pin pin);
 
     /**
      * @brief Removes an input pin from the node
@@ -194,26 +224,30 @@ class Node {
      *
      * @return The number of pins removed
      */
-    size_t RemoveAllInputPins() noexcept;
+    size_t RemoveAllInputPins();
     /**
      * @brief Removes all output pins from the node
      *
      * @return The number of pins removed
      */
-    size_t RemoveAllOutputPins() noexcept;
+    size_t RemoveAllOutputPins();
     /**
      * @brief Removes all pins from the node
      *
      * @return The number of pins removed
      */
-    size_t RemoveAllPins() noexcept;
+    size_t RemoveAllPins();
 
     NodeId _id;      ///< unique node id
     NodeType _type;  ///< Node type from the module
 
+    PinId _input_pin_count;
+    PinId _output_pin_count;
+
     std::vector<Pin> _input_pins;
     std::vector<Pin> _output_pins;
 
+    PropertyId _property_id_count;
     PropertyMap _properties;  ///< properties are data storages reserved for
                               ///< module usage
 };

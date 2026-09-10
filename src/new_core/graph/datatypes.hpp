@@ -6,7 +6,7 @@
  * @date Created on 01-08-2026
  *
  * @author Last modified by JeanBizeul
- * @date Last modified on 26-08-2026
+ * @date Last modified on 10-09-2026
  */
 
 #pragma once
@@ -33,10 +33,10 @@ using PropertyTypeId = uint32_t;  ///< Unique id for each property type
  */
 struct Connection {
     NodeId from_node;
-    PinId from_pin;  // aka output pin
+    PinId out_pin;
 
     NodeId to_node;
-    PinId to_pin;  // aka input pin
+    PinId in_pin;
 
     DataType data_type;
 };
@@ -51,7 +51,7 @@ struct Pin {
 };
 
 /**
- * @brief Represents a type
+ * @brief Represents a typed value storage
  */
 struct Property {
     PropertyTypeId type_id;

@@ -32,7 +32,7 @@ namespace core {
 class Graph {
    public:
     Graph();
-    ~Graph();
+    ~Graph() = default;
 
     /**
      * @brief Checks if a node exists in the graph.
@@ -41,7 +41,7 @@ class Graph {
      *
      * @return true if the node exists, false if not
      */
-    bool hasNode(NodeId id) const;
+    bool hasNode(NodeId id) const noexcept;
 
     /**
      * @brief Try to retreive a pointer to a node.
@@ -50,7 +50,7 @@ class Graph {
      *
      * @return A pointer to the node if found, nullptr if not.
      */
-    Node *node(NodeId id);
+    Node *node(NodeId id) noexcept;
 
     /**
      * @brief Try to retreive a constant pointer to a node.
@@ -59,7 +59,7 @@ class Graph {
      *
      * @return A constant pointer to the node if found, nullptr if not.
      */
-    const Node *node(NodeId id) const;
+    const Node *node(NodeId id) const noexcept;
 
     /**
      * @brief Retreive the list of all nodes.
@@ -93,30 +93,27 @@ class Graph {
      * @brief Add an input pin to a node
      *
      * @param node_id Id of the targeted node. Required
+     * @param name Name of the pin. Required
      * @param pin_type Type of the input pin. Required
      *
+     * @returns The id of the added pin
      *
-     * @returns 0 if:
-     *
-     * - The node_id is invalid.
-     *
-     * - There is no more space in the node.
+     * @throws `core::NodeNotFoundException` The node_id is invalid.
      */
-    PinId AddInputPin(NodeId node_id, Property pin_type);
+    PinId AddInputPin(NodeId node_id, const std::string_view &name, DataType in_type);
 
     /**
      * @brief Add an output pin to a node
      *
      * @param node_id Id of the targeted node. Required
+     * @param name Name of the pin. Required
      * @param pin_id Type of the output pin. Required
      *
-     * @returns 0 if:
+     * @returns The id of the added pin
      *
-     * - The node_id is invalid.
-     *
-     * - There is no more space in the node.
+     * @throws `core::NodeNotFoundException` The node_id is invalid.
      */
-    PinId AddOutputPin(NodeId node_id, Property pin_type);
+    PinId AddOutputPin(NodeId node_id, const std::string_view &name, DataType in_type);
 
     /**
      * @brief Remove an input pin from a node
@@ -126,9 +123,11 @@ class Graph {
      *
      * @return true if the pin has been deleted, false if it has not been
      *
+     * @throws `core::NodeNotFoundException` The node_id is invalid.
+     *
      * @warning This method disconnects all connection to this pin !
      */
-    bool RemoveInputPin(NodeId node_id, PinId pin_id);
+    void RemoveInputPin(NodeId node_id, PinId pin_id);
 
     /**
      * @brief Remove an output pin from a node
@@ -138,9 +137,11 @@ class Graph {
      *
      * @return true if the pin has been deleted, false if it has not been
      *
-     * @warning This method disconnects all connection from this pin !
+     * @throws `core::NodeNotFoundException` The node_id is invalid.
+     *
+     * @warning This method disconnects all connection to this pin !
      */
-    bool RemoveOutputPin(NodeId node_id, PinId pin_id);
+    void RemoveOutputPin(NodeId node_id, PinId pin_id);
 
     /**
      * @brief Checks if a connection exists between two pins
@@ -150,17 +151,17 @@ class Graph {
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @return true if a connection exists, false if not
+     * @return true if a connection exists, flase if not
      */
-    bool hasConnection(NodeId from, PinId out, NodeId to, PinId in) const;
+    bool hasConnection(NodeId from, PinId out, NodeId to, PinId in) const noexcept;
 
     /**
-     * @brief Retreive a list of all connections in the graph
+     * @brief Retreive a read only list of all connections in the graph
      *
      * @returns A vector containing all the conenctions between the nodes of the
      * graph
      */
-    const std::vector<Connection> &getAllConnections() const;
+    const std::vector<Connection> &getAllConnections() const noexcept;
 
     /**
      * @brief Connects two pins
@@ -175,8 +176,10 @@ class Graph {
      *
      * @warning Only an output pin can be connected to an input pin and
      * vice-versa
+     *
+     * @throws 
      */
-    bool Connect(NodeId from, PinId out, NodeId to, PinId in);
+    void Connect(NodeId from, PinId out, NodeId to, PinId in);
 
     /**
      * @brief Disconnects two pins
@@ -186,13 +189,12 @@ class Graph {
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @return true if the nodes have been disconnected, false if they were not.
-     *
      * @warning This method disconnects all connections from/to these two pins
      */
-    bool Disconnect(NodeId from, PinId out, NodeId to, PinId in);
+    void Disconnect(NodeId from, PinId out, NodeId to, PinId in) noexcept;
 
    private:
+   uint32_t _next_node_id;
     std::unordered_map<NodeId, Node>
         _nodes;  ///< Map of all nodes stored in the graph
     std::vector<Connection>
