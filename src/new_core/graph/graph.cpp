@@ -109,6 +109,7 @@ void Graph::RemoveInputPin(NodeId node_id, PinId pin_id)
     if (!hasNode(node_id))
         throw core::NodeNotFoundException("Node not found in the graph");
 
+    DisconnectInputPin(node_id, pin_id);
     _nodes.at(node_id).RemoveInputPin(pin_id);
     /// Need to use at bcause no empty constructor plus already checked it exists
 }
@@ -118,6 +119,7 @@ void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id)
     if (!hasNode(node_id))
         throw core::NodeNotFoundException("Node not found in the graph");
 
+    DisconnectOutputPin(node_id, pin_id);
     _nodes.at(node_id).RemoveOutputPin(pin_id);
     /// Same as last method
 }

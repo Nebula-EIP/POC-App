@@ -234,6 +234,41 @@ TEST(GraphInputPinManagement, RemoveInputPinThrowsForInvalidNode)
     );
 }
 
+TEST(GraphInputPinManagement, RemoveInputPinRemovesAssociatedConnections)
+{
+    core::Graph graph;
+    core::Node &node1 = graph.CreateNode(1);
+    core::Node &node2 = graph.CreateNode(2);
+    
+    core::PinId outPin = graph.AddOutputPin(node1.id(), "out", 0);
+    core::PinId inPin = graph.AddInputPin(node2.id(), "in", 0);
+    
+    graph.Connect(node1.id(), outPin, node2.id(), inPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 1);
+    
+    graph.RemoveInputPin(node2.id(), inPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 0);
+}
+
+TEST(GraphInputPinManagement, RemoveInputPinRemovesMultipleConnections)
+{
+    core::Graph graph;
+    core::Node &node1 = graph.CreateNode(1);
+    core::Node &node2 = graph.CreateNode(2);
+    core::Node &node3 = graph.CreateNode(3);
+    
+    core::PinId outPin1 = graph.AddOutputPin(node1.id(), "out", 0);
+    core::PinId outPin2 = graph.AddOutputPin(node2.id(), "out", 0);
+    core::PinId inPin = graph.AddInputPin(node3.id(), "in", 0);
+    
+    graph.Connect(node1.id(), outPin1, node3.id(), inPin);
+    graph.Connect(node2.id(), outPin2, node3.id(), inPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 2);
+    
+    graph.RemoveInputPin(node3.id(), inPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 0);
+}
+
 // ============================================================================
 // Pin Management Tests (Output Pins)
 // ============================================================================
@@ -286,6 +321,41 @@ TEST(GraphOutputPinManagement, RemoveOutputPinThrowsForInvalidNode)
         graph.RemoveOutputPin(999, 1),
         core::NodeNotFoundException
     );
+}
+
+TEST(GraphOutputPinManagement, RemoveOutputPinRemovesAssociatedConnections)
+{
+    core::Graph graph;
+    core::Node &node1 = graph.CreateNode(1);
+    core::Node &node2 = graph.CreateNode(2);
+    
+    core::PinId outPin = graph.AddOutputPin(node1.id(), "out", 0);
+    core::PinId inPin = graph.AddInputPin(node2.id(), "in", 0);
+    
+    graph.Connect(node1.id(), outPin, node2.id(), inPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 1);
+    
+    graph.RemoveOutputPin(node1.id(), outPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 0);
+}
+
+TEST(GraphOutputPinManagement, RemoveOutputPinRemovesMultipleConnections)
+{
+    core::Graph graph;
+    core::Node &node1 = graph.CreateNode(1);
+    core::Node &node2 = graph.CreateNode(2);
+    core::Node &node3 = graph.CreateNode(3);
+    
+    core::PinId outPin = graph.AddOutputPin(node1.id(), "out", 0);
+    core::PinId inPin1 = graph.AddInputPin(node2.id(), "in", 0);
+    core::PinId inPin2 = graph.AddInputPin(node3.id(), "in", 0);
+    
+    graph.Connect(node1.id(), outPin, node2.id(), inPin1);
+    graph.Connect(node1.id(), outPin, node3.id(), inPin2);
+    EXPECT_EQ(graph.getAllConnections().size(), 2);
+    
+    graph.RemoveOutputPin(node1.id(), outPin);
+    EXPECT_EQ(graph.getAllConnections().size(), 0);
 }
 
 // ============================================================================
