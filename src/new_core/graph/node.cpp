@@ -128,7 +128,7 @@ void Node::RemoveProperty(PropertyId id)
 #pragma region Private
 
 Node::Node(NodeId id, NodeType type)
-    : _id(0), _type(type), _input_pin_count(1), _output_pin_count(1), _property_id_count(1)
+    : _id(id), _type(type), _input_pin_count(1), _output_pin_count(1), _property_id_count(1)
 {}
 
 PinId Node::AddInputPin(Pin pin)
