@@ -9,7 +9,7 @@
  * @date Created on 01-08-2026
  *
  * @author Last modified by JeanBizeul
- * @date Last modified on 26-08-2026
+ * @date Last modified on 10-09-2026
  */
 
 #pragma once
@@ -144,60 +144,113 @@ class Graph {
     void RemoveOutputPin(NodeId node_id, PinId pin_id);
 
     /**
-     * @brief Checks if a connection exists between two pins
+     * @brief Retreive the id of a connection between two pins
      *
      * @param from Node owning the output pin
      * @param out Output pin
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @return true if a connection exists, flase if not
+     * @return 0 if connection not found, otherwise the connection id
      */
-    bool hasConnection(NodeId from, PinId out, NodeId to, PinId in) const noexcept;
+    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to, PinId in) const noexcept;
 
     /**
-     * @brief Retreive a read only list of all connections in the graph
+     * @brief Retreive a read only map of all connections in the graph with their id as key
      *
-     * @returns A vector containing all the conenctions between the nodes of the
-     * graph
+     * @returns A map containing all the connections between
+     * the nodes of the graph with their ids as key
      */
-    const std::vector<Connection> &getAllConnections() const noexcept;
+    const std::unordered_map<ConnectionId, Connection> &getAllConnections() const noexcept;
 
     /**
      * @brief Connects two pins
      *
+     * Only an output pin can be connected to an input pin and
+     * vice-versa.
+     *
+     * The pins types must match.
+     *
      * @param from Node owning the output pin
      * @param out Output pin
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @return true if the connection has been established, false if it does not
-     * exists.
+     * @return The id of the new connection
      *
-     * @warning Only an output pin can be connected to an input pin and
-     * vice-versa
-     *
-     * @throws 
+     * @throws `core::NodeNotFoundException` when a node does not exists
+     * @throws `core::PinNotFoundException` when a pin does not exists
+     * @throws `core::TypeMismatchException` when the pin's types mismatches
      */
-    void Connect(NodeId from, PinId out, NodeId to, PinId in);
+    ConnectionId Connect(NodeId from, PinId out, NodeId to, PinId in);
 
     /**
-     * @brief Disconnects two pins
+     * @brief Delete a connection by ConnectionId
+     *
+     * @param id Connection id
+     */
+    void Disconnect(ConnectionId id);
+
+    /**
+     * @brief Disconnects two pins by start/end pos
      *
      * @param from Node owning the output pin
      * @param out Output pin
      * @param to Node owning the input pin
      * @param in Input pin
      *
-     * @warning This method disconnects all connections from/to these two pins
+     * @warning This method delete a connection between two pins
      */
-    void Disconnect(NodeId from, PinId out, NodeId to, PinId in) noexcept;
+    void Disconnect(NodeId from, PinId out, NodeId to, PinId in);
+
+    /**
+     * @brief Disconnects all connection from an output pin
+     *
+     * @param node_id Id of the node
+     * @param pin_id Id of the pin
+     */
+    void DisconnectOutputPin(NodeId node_id, PinId pin_id);
+
+    /**
+     * @brief Disconnects all connection outgoing from a node
+     *
+     * @param node_id Id of the node
+     *
+     * @return Amount of connections severed
+     */
+    uint16_t DisconnectAllOutputPin(NodeId id);
+
+    /**
+     * @brief Disconnects all connection to an input pin
+     *
+     * @param node_id Id of the node
+     * @param pin_id Id of the pin
+     */
+    void DisconnectInputPin(NodeId node_id, PinId pin_id);
+
+    /**
+     * @brief Disconnects all connection incoming to a node
+     *
+     * @param node_id Id of the node
+     *
+     * @return Amount of connections severed
+     */
+    uint16_t DisconnectAllInputPin(NodeId id);
+
+    /**
+     * @brief Disconnects all connections to/from a node
+     *
+     * @param id Id of the node
+     */
+    uint16_t DisconnectNode(NodeId id);
 
    private:
-   uint32_t _next_node_id;
+    NodeId _next_node_id;
     std::unordered_map<NodeId, Node>
         _nodes;  ///< Map of all nodes stored in the graph
-    std::vector<Connection>
+
+    ConnectionId _next_connection_id;
+    std::unordered_map<ConnectionId, Connection>
         _connections;  ///< List of all connections linking nodes in the graph
 };
 
