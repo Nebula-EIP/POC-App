@@ -1,0 +1,13 @@
+<map id="core::ConnectionException" name="core::ConnectionException">
+<area shape="rect" id="Node000001" title="Base exception for errors related to connection operations." alt="" coords="71,225,265,251"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1CoreException.html" title=" " alt="" coords="9,152,161,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,184,156,223,153,227,107,188"/>
+<area shape="rect" id="Node000003" href="$classutils_1_1BaseException.html" title=" " alt="" coords="5,79,160,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,118,88,152,82,152,81,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="25,5,140,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,44,85,79,80,79,80,44"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="189,152,312,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="229,188,183,227,180,223,225,184"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="184,79,323,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="255,118,254,152,248,152,250,118"/>
+</map>

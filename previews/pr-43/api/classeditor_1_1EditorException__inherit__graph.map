@@ -1,0 +1,11 @@
+<map id="editor::EditorException" name="editor::EditorException">
+<area shape="rect" id="Node000001" title=" " alt="" coords="137,79,308,104"/>
+<area shape="rect" id="Node000003" href="$classcode__generation_1_1CodeGenerationError.html" title=" " alt="" coords="101,152,344,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,118,225,152,220,152,220,118"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="153,5,292,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,44,225,79,220,79,220,44"/>
+<area shape="rect" id="Node000004" href="$classcode__generation_1_1CursorOutOfBoundsError.html" title=" " alt="" coords="5,240,208,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="188,202,134,242,131,238,184,198"/>
+<area shape="rect" id="Node000005" href="$classcode__generation_1_1IndentationError.html" title=" " alt="" coords="233,240,445,280"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="261,198,315,238,311,242,258,202"/>
+</map>

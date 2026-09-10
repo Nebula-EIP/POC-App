@@ -1,0 +1,7 @@
+<map id="src/new_core/graph/graph.hpp" name="src/new_core/graph/graph.hpp">
+<area shape="rect" id="Node000001" title="The graph is a collection of nodes connected together." alt="" coords="96,5,244,45"/>
+<area shape="rect" id="Node000002" href="$new__core_2graph_2graph_8cpp.html" title="Implementation of the graph class." alt="" coords="5,101,153,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,57,100,102,96,99,140,53"/>
+<area shape="rect" id="Node000003" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="177,93,344,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,53,237,91,233,95,196,57"/>
+</map>
