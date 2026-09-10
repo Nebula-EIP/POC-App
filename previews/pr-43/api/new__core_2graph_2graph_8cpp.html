@@ -99,33 +99,33 @@ $(document).ready(function(){initNavTree('new__core_2graph_2graph_8cpp.html','')
 <p>Implementation of the graph class.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="new__core_2graph_2graph_8hpp_source.html">graph.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="node__exception_8hpp_source.html">exception/graph_exception/node_exception.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="connection__exception_8hpp_source.html">exception/graph_exception/connection_exception.hpp</a>&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &quot;<a class="el" href="connection__exception_8hpp_source.html">exception/graph_exception/connection_exception.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="node__exception_8hpp_source.html">exception/graph_exception/node_exception.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for graph.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="new__core_2graph_2graph_8cpp__incl.png" border="0" usemap="#asrc_2new__core_2graph_2graph_8cpp" alt=""/></div>
 <map name="asrc_2new__core_2graph_2graph_8cpp" id="asrc_2new__core_2graph_2graph_8cpp">
-<area shape="rect" title="Implementation of the graph class." alt="" coords="524,5,672,45"/>
-<area shape="rect" href="new__core_2graph_2graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="277,101,364,126"/>
-<area shape="poly" title=" " alt="" coords="534,48,376,96,367,99,366,94,375,91,532,43"/>
-<area shape="rect" href="node__exception_8hpp.html" title="Defines exceptions related to node operations." alt="" coords="388,93,587,133"/>
-<area shape="poly" title=" " alt="" coords="575,48,524,87,521,83,572,43"/>
-<area shape="rect" href="connection__exception_8hpp.html" title="Defines exceptions related to connection operations." alt="" coords="611,93,809,133"/>
-<area shape="poly" title=" " alt="" coords="624,43,676,83,673,87,621,48"/>
-<area shape="rect" title=" " alt="" coords="833,101,918,126"/>
-<area shape="poly" title=" " alt="" coords="664,43,821,91,830,94,829,99,820,96,662,48"/>
-<area shape="rect" title=" " alt="" coords="358,181,435,207"/>
-<area shape="poly" title=" " alt="" coords="334,124,378,170,374,173,330,128"/>
+<area shape="rect" title="Implementation of the graph class." alt="" coords="429,5,577,45"/>
+<area shape="rect" href="new__core_2graph_2graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="267,101,353,126"/>
+<area shape="poly" title=" " alt="" coords="462,48,349,98,347,93,460,43"/>
+<area shape="rect" title=" " alt="" coords="378,101,463,126"/>
+<area shape="poly" title=" " alt="" coords="487,47,443,92,440,89,483,44"/>
+<area shape="rect" href="connection__exception_8hpp.html" title="Defines exceptions related to connection operations." alt="" coords="487,93,685,133"/>
+<area shape="poly" title=" " alt="" coords="524,44,560,81,556,85,520,47"/>
+<area shape="rect" href="node__exception_8hpp.html" title="Defines exceptions related to node operations." alt="" coords="709,93,908,133"/>
+<area shape="poly" title=" " alt="" coords="571,43,730,87,728,92,570,48"/>
+<area shape="rect" title=" " alt="" coords="347,181,425,207"/>
+<area shape="poly" title=" " alt="" coords="323,124,367,170,363,173,319,128"/>
 <area shape="rect" title=" " alt="" coords="525,328,649,353"/>
-<area shape="poly" title=" " alt="" coords="350,124,398,147,449,179,487,213,522,250,573,315,569,318,518,254,483,217,446,183,395,151,348,128"/>
+<area shape="poly" title=" " alt="" coords="339,124,387,147,438,179,479,213,516,251,572,315,568,319,512,254,475,217,435,183,384,152,337,128"/>
 <area shape="rect" title=" " alt="" coords="5,328,68,353"/>
-<area shape="poly" title=" " alt="" coords="292,129,243,151,190,184,150,217,112,254,56,319,52,315,109,250,146,213,187,179,240,147,290,124"/>
+<area shape="poly" title=" " alt="" coords="281,129,232,151,180,183,141,217,107,253,55,318,51,315,103,250,138,213,176,179,229,147,279,124"/>
 <area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="234,255,349,280"/>
-<area shape="poly" title=" " alt="" coords="321,127,299,242,294,241,316,126"/>
-<area shape="rect" href="node_8hpp.html" title="Definition of the Node class." alt="" coords="201,181,283,207"/>
-<area shape="poly" title=" " alt="" coords="311,128,265,173,262,170,307,124"/>
+<area shape="poly" title=" " alt="" coords="311,126,297,241,292,241,306,126"/>
+<area shape="rect" href="node_8hpp.html" title="Definition of the Node class." alt="" coords="190,181,273,207"/>
+<area shape="poly" title=" " alt="" coords="300,128,255,173,251,170,297,124"/>
 <area shape="poly" title=" " alt="" coords="340,277,527,322,526,327,338,283"/>
 <area shape="poly" title=" " alt="" coords="251,283,82,329,81,324,250,277"/>
 <area shape="rect" title=" " alt="" coords="268,328,315,353"/>
@@ -138,14 +138,14 @@ Include dependency graph for graph.cpp:</div>
 <area shape="poly" title=" " alt="" coords="265,282,163,325,161,320,263,278"/>
 <area shape="rect" title=" " alt="" coords="176,328,244,353"/>
 <area shape="poly" title=" " alt="" coords="280,282,235,321,232,317,277,278"/>
-<area shape="poly" title=" " alt="" coords="230,209,136,282,70,323,67,319,132,278,227,205"/>
-<area shape="poly" title=" " alt="" coords="252,205,278,242,273,245,248,209"/>
-<area shape="poly" title=" " alt="" coords="270,204,314,225,362,252,408,285,446,317,443,321,405,289,359,257,311,230,268,209"/>
-<area shape="rect" href="exception_8hpp_source.html" title=" " alt="" coords="603,181,785,207"/>
-<area shape="poly" title=" " alt="" coords="538,131,652,174,650,179,536,136"/>
-<area shape="rect" title=" " alt="" coords="651,255,737,280"/>
-<area shape="poly" title=" " alt="" coords="697,207,697,241,691,241,691,207"/>
-<area shape="poly" title=" " alt="" coords="709,134,702,168,696,167,704,133"/>
+<area shape="poly" title=" " alt="" coords="219,209,125,282,67,322,64,318,122,278,216,205"/>
+<area shape="poly" title=" " alt="" coords="243,205,275,242,271,246,239,209"/>
+<area shape="poly" title=" " alt="" coords="263,204,310,225,362,252,408,285,446,317,443,321,405,289,359,257,308,230,261,209"/>
+<area shape="rect" href="exception_8hpp_source.html" title=" " alt="" coords="627,181,809,207"/>
+<area shape="poly" title=" " alt="" coords="619,131,688,172,685,176,616,136"/>
+<area shape="rect" title=" " alt="" coords="675,255,761,280"/>
+<area shape="poly" title=" " alt="" coords="721,207,721,241,715,241,715,207"/>
+<area shape="poly" title=" " alt="" coords="788,136,744,174,740,170,785,132"/>
 </map>
 </div>
 </div><table class="memberdecls">
