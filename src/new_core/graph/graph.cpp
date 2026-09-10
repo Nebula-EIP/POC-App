@@ -202,10 +202,11 @@ void Graph::Disconnect(NodeId from, PinId out, NodeId to, PinId in)
 
 void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id)
 {
-    auto conn_pos = _connections.begin();
+    bool found = true;
 
-    while (conn_pos != _connections.end()) {
-        conn_pos = std::find_if(conn_pos, _connections.end(),
+    while (found) {
+        found = false;
+        auto conn_pos = std::find_if(_connections.begin(), _connections.end(),
             [node_id, pin_id](const std::pair<ConnectionId, Connection> &conn)
             {
                 if (conn.second.from_node == node_id && conn.second.out_pin == pin_id)
@@ -214,9 +215,8 @@ void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id)
                     return false;
             });
 
-        if (conn_pos == _connections.end())
-            break;
-        else {
+        if (conn_pos != _connections.end()) {
+            found = true;
             const Connection &conn = conn_pos->second;
             Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
         }
@@ -225,11 +225,12 @@ void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id)
 
 uint16_t Graph::DisconnectAllOutputPin(NodeId node_id)
 {
-    auto conn_pos = _connections.begin();
     uint16_t count = 0;
+    bool found = true;
 
-    while (conn_pos != _connections.end()) {
-        conn_pos = std::find_if(conn_pos, _connections.end(),
+    while (found) {
+        found = false;
+        auto conn_pos = std::find_if(_connections.begin(), _connections.end(),
             [node_id](const std::pair<ConnectionId, Connection> &conn)
             {
                 if (conn.second.from_node == node_id)
@@ -238,9 +239,8 @@ uint16_t Graph::DisconnectAllOutputPin(NodeId node_id)
                     return false;
             });
 
-        if (conn_pos == _connections.end())
-            break;
-        else {
+        if (conn_pos != _connections.end()) {
+            found = true;
             const Connection &conn = conn_pos->second;
             Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
             count++;
@@ -251,10 +251,11 @@ uint16_t Graph::DisconnectAllOutputPin(NodeId node_id)
 
 void Graph::DisconnectInputPin(NodeId node_id, PinId pin_id)
 {
-    auto conn_pos = _connections.begin();
+    bool found = true;
 
-    while (conn_pos != _connections.end()) {
-        conn_pos = std::find_if(conn_pos, _connections.end(),
+    while (found) {
+        found = false;
+        auto conn_pos = std::find_if(_connections.begin(), _connections.end(),
             [node_id, pin_id](const std::pair<ConnectionId, Connection> &conn)
             {
                 if (conn.second.to_node == node_id && conn.second.in_pin == pin_id)
@@ -263,9 +264,8 @@ void Graph::DisconnectInputPin(NodeId node_id, PinId pin_id)
                     return false;
             });
 
-        if (conn_pos == _connections.end())
-            break;
-        else {
+        if (conn_pos != _connections.end()) {
+            found = true;
             const Connection &conn = conn_pos->second;
             Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
         }
@@ -274,11 +274,12 @@ void Graph::DisconnectInputPin(NodeId node_id, PinId pin_id)
 
 uint16_t Graph::DisconnectAllInputPin(NodeId node_id)
 {
-    auto conn_pos = _connections.begin();
     uint16_t count = 0;
+    bool found = true;
 
-    while (conn_pos != _connections.end()) {
-        conn_pos = std::find_if(conn_pos, _connections.end(),
+    while (found) {
+        found = false;
+        auto conn_pos = std::find_if(_connections.begin(), _connections.end(),
             [node_id](const std::pair<ConnectionId, Connection> &conn)
             {
                 if (conn.second.to_node == node_id)
@@ -287,9 +288,8 @@ uint16_t Graph::DisconnectAllInputPin(NodeId node_id)
                     return false;
             });
 
-        if (conn_pos == _connections.end())
-            break;
-        else {
+        if (conn_pos != _connections.end()) {
+            found = true;
             const Connection &conn = conn_pos->second;
             Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
             count++;
