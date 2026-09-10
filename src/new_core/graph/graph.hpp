@@ -71,9 +71,11 @@ class Graph {
     /**
      * @brief Add a new node to the graph
      *
+     * @param type Type of the node
+     *
      * @return The created node.
      */
-    Node &CreateNode(core::NodeType type);
+    Node &CreateNode(NodeType type);
 
     /**
      * @brief Remove a node from the graph
