@@ -1,9 +1,9 @@
-<map id="src/new_core/exception/graph_exception/node_exception.hpp" name="src/new_core/exception/graph_exception/node_exception.hpp">
-<area shape="rect" id="Node000001" title="Defines exceptions related to node operations." alt="" coords="173,5,348,60"/>
-<area shape="rect" id="Node000002" href="$new__core_2graph_2graph_8cpp.html" title="Implementation of the graph class." alt="" coords="5,115,153,155"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,69,115,117,112,113,200,64"/>
-<area shape="rect" id="Node000003" href="$node__list__capability_8cpp.html" title="Implementation of the node list capability for modules." alt="" coords="177,108,344,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,74,263,108,258,108,258,74"/>
-<area shape="rect" id="Node000004" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="368,108,535,163"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="323,64,403,105,400,110,321,69"/>
+<map id="src/core/exception/graph_exception/node_exception.hpp" name="src/core/exception/graph_exception/node_exception.hpp">
+<area shape="rect" id="Node000001" title="Defines exceptions related to node operations." alt="" coords="233,5,403,60"/>
+<area shape="rect" id="Node000002" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="5,115,188,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,68,125,118,123,113,242,63"/>
+<area shape="rect" id="Node000003" href="$node__list__capability_8cpp.html" title="Implementation of the node list capability for modules." alt="" coords="212,108,424,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="321,74,321,108,315,108,315,74"/>
+<area shape="rect" id="Node000004" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="448,108,660,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="398,63,507,106,505,110,396,67"/>
 </map>

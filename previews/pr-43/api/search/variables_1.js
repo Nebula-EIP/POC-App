@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['default_5fproperties_5f_0',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
-  ['description_5f_1',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
-  ['descriptor_2',['descriptor',['../structcore_1_1capa_1_1NodeExportRequest.html#a3a7428c2e2e518c3acf375dd15a714b5',1,'core::capa::NodeExportRequest']]],
-  ['drag_5foffset_5f_3',['drag_offset_',['../classcore_1_1NodeBase.html#aa75d3ee53587d63e4385a435bcf3737d',1,'core::NodeBase']]]
+  ['enabled_0',['enabled',['../structcore_1_1capa_1_1Button.html#a84b46d084110d8c9da005de758b1766d',1,'core::capa::Button::enabled'],['../structcore_1_1capa_1_1TextField.html#a90821bba9c85ca9995bb73166894d66e',1,'core::capa::TextField::enabled'],['../structcore_1_1capa_1_1NumberField.html#a281ad82d059a865476ed653c20c50a72',1,'core::capa::NumberField::enabled'],['../structcore_1_1capa_1_1Slider.html#aabaf3ba5f15d4dc5dc4c41ccb93283b1',1,'core::capa::Slider::enabled'],['../structcore_1_1capa_1_1Checkbox.html#a366ea734b58c532f2331207f288c1faa',1,'core::capa::Checkbox::enabled'],['../structcore_1_1capa_1_1Select.html#a5a53fb21d71a8cb427288fbcf2aac337',1,'core::capa::Select::enabled']]]
 ];

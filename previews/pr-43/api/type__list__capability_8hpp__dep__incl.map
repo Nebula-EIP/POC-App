@@ -1,13 +1,13 @@
-<map id="src/new_core/modules/capabilities/type_list_capability.hpp" name="src/new_core/modules/capabilities/type_list_capability.hpp">
-<area shape="rect" id="Node000001" title="Interface class for the type list capability." alt="" coords="196,5,363,60"/>
-<area shape="rect" id="Node000002" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,108,172,163"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,69,140,110,137,105,217,64"/>
-<area shape="rect" id="Node000003" href="$type__list__capability_8cpp.html" title="Implementation of the type list capability for modules." alt="" coords="196,108,363,163"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,74,282,108,277,108,277,74"/>
-<area shape="rect" id="Node000004" href="$module_8hpp.html" title="Module interface." alt="" coords="387,115,553,155"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="342,64,435,113,433,117,340,69"/>
-<area shape="rect" id="Node000005" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="291,211,457,251"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="443,167,395,213,392,209,439,163"/>
-<area shape="rect" id="Node000006" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="481,211,648,251"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="501,163,547,209,544,213,497,167"/>
+<map id="src/core/modules/capabilities/type_list_capability.hpp" name="src/core/modules/capabilities/type_list_capability.hpp">
+<area shape="rect" id="Node000001" title="Interface class for the type list capability." alt="" coords="241,5,453,45"/>
+<area shape="rect" id="Node000002" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,93,217,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="284,53,164,96,162,91,282,48"/>
+<area shape="rect" id="Node000003" href="$type__list__capability_8cpp.html" title="Implementation of the type list capability for modules." alt="" coords="241,93,453,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="350,59,350,93,345,93,345,59"/>
+<area shape="rect" id="Node000004" href="$module_8hpp.html" title="Module interface." alt="" coords="477,101,692,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="413,48,554,98,552,103,412,53"/>
+<area shape="rect" id="Node000005" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="387,181,566,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="561,137,502,183,499,179,558,133"/>
+<area shape="rect" id="Node000006" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="590,189,795,214"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="612,133,680,186,676,190,608,137"/>
 </map>

@@ -126,16 +126,16 @@ Collaboration diagram for core::capa::INodeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae509e4e70a1dd59e3d91ff0208fbd5b9" id="r_ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="memItemLeft" align="right" valign="top">virtual const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9">registerNode</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept=0</td></tr>
+<tr class="memitem:ae509e4e70a1dd59e3d91ff0208fbd5b9" id="r_ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="memItemLeft" align="right" valign="top">virtual const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9">registerNode</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept=0</td></tr>
 <tr class="memdesc:ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
 <tr class="separator:ae509e4e70a1dd59e3d91ff0208fbd5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebdfba45609b3bba3e2ef2a6faf25314" id="r_aebdfba45609b3bba3e2ef2a6faf25314"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#aebdfba45609b3bba3e2ef2a6faf25314">GetAvailableNodes</a> () const noexcept=0</td></tr>
 <tr class="memdesc:aebdfba45609b3bba3e2ef2a6faf25314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
 <tr class="separator:aebdfba45609b3bba3e2ef2a6faf25314"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe515bdf1fef460a94d5ef00bb05e26" id="r_a3fe515bdf1fef460a94d5ef00bb05e26"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a3fe515bdf1fef460a94d5ef00bb05e26">InitializePropertyTypes</a> (const std::unordered_map&lt; std::string, <a class="el" href="namespacecore.html#a2c58e643ff623f8fd42d544a8d2236c4">PropertyTypeId</a> &gt; &amp;property_types)=0</td></tr>
+<tr class="memitem:a3fe515bdf1fef460a94d5ef00bb05e26" id="r_a3fe515bdf1fef460a94d5ef00bb05e26"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a3fe515bdf1fef460a94d5ef00bb05e26">InitializePropertyTypes</a> (const std::unordered_map&lt; std::string, <a class="el" href="datatypes_8hpp.html#a2c58e643ff623f8fd42d544a8d2236c4">PropertyTypeId</a> &gt; &amp;property_types)=0</td></tr>
 <tr class="memdesc:a3fe515bdf1fef460a94d5ef00bb05e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the node list capability with the resolved property types.  <br /></td></tr>
 <tr class="separator:a3fe515bdf1fef460a94d5ef00bb05e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a306c4827dcc3ac0404b3e7e7f6db30" id="r_a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30">GetNodeConfiguration</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> type) const =0</td></tr>
+<tr class="memitem:a4a306c4827dcc3ac0404b3e7e7f6db30" id="r_a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30">GetNodeConfiguration</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> type) const =0</td></tr>
 <tr class="memdesc:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the layout and default configuration for a specific node type.  <br /></td></tr>
 <tr class="separator:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -184,7 +184,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> core::capa::INodeListCapability::GetNodeConfiguration </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>type</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -221,7 +221,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void core::capa::INodeListCapability::InitializePropertyTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="namespacecore.html#a2c58e643ff623f8fd42d544a8d2236c4">PropertyTypeId</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, <a class="el" href="datatypes_8hpp.html#a2c58e643ff623f8fd42d544a8d2236c4">PropertyTypeId</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>property_types</em></td><td>)</td>
           <td></td>
         </tr>
@@ -257,7 +257,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual const std::string_view * core::capa::INodeListCapability::registerNode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -283,14 +283,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/new_core/modules/capabilities/<a class="el" href="node__list__capability_8hpp_source.html">node_list_capability.hpp</a></li>
+<li>src/core/modules/capabilities/<a class="el" href="node__list__capability_8hpp_source.html">node_list_capability.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacecore.html">core</a></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html">INodeListCapability</a></li>
+    <li class="navelem"><b>core</b></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html">INodeListCapability</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

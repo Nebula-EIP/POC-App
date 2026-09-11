@@ -130,16 +130,16 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapability</b> ()=default</td></tr>
 <tr class="memdesc:a53c6039f652c3baa0c4ad6ad904d183b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default virtual destructor. <br /></td></tr>
 <tr class="separator:a53c6039f652c3baa0c4ad6ad904d183b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec4a929ad63fff64a03b003cdabf1b5f" id="r_aec4a929ad63fff64a03b003cdabf1b5f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;types)=0</td></tr>
+<tr class="memitem:aec4a929ad63fff64a03b003cdabf1b5f" id="r_aec4a929ad63fff64a03b003cdabf1b5f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;types)=0</td></tr>
 <tr class="memdesc:aec4a929ad63fff64a03b003cdabf1b5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the data types assigned by the core to this module.  <br /></td></tr>
 <tr class="separator:aec4a929ad63fff64a03b003cdabf1b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61a5c11bbd5a85a750221458cb375354" id="r_a61a5c11bbd5a85a750221458cb375354"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;node_types)=0</td></tr>
+<tr class="memitem:a61a5c11bbd5a85a750221458cb375354" id="r_a61a5c11bbd5a85a750221458cb375354"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;node_types)=0</td></tr>
 <tr class="memdesc:a61a5c11bbd5a85a750221458cb375354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the node types assigned by the core to this module.  <br /></td></tr>
 <tr class="separator:a61a5c11bbd5a85a750221458cb375354"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5402806f0a8c9a28ca3d941120013c26" id="r_a5402806f0a8c9a28ca3d941120013c26"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26">SupportsNodeType</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept=0</td></tr>
+<tr class="memitem:a5402806f0a8c9a28ca3d941120013c26" id="r_a5402806f0a8c9a28ca3d941120013c26"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26">SupportsNodeType</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept=0</td></tr>
 <tr class="memdesc:a5402806f0a8c9a28ca3d941120013c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether custom rendering is provided for a node type.  <br /></td></tr>
 <tr class="separator:a5402806f0a8c9a28ca3d941120013c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed67be4eb78a0999011716499ef8f9b6" id="r_aed67be4eb78a0999011716499ef8f9b6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6">GetNodeComponents</a> (<a class="el" href="namespacecore.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties)=0</td></tr>
+<tr class="memitem:aed67be4eb78a0999011716499ef8f9b6" id="r_aed67be4eb78a0999011716499ef8f9b6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6">GetNodeComponents</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties)=0</td></tr>
 <tr class="memdesc:aed67be4eb78a0999011716499ef8f9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the UI components used to display a specific node.  <br /></td></tr>
 <tr class="separator:aed67be4eb78a0999011716499ef8f9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -161,13 +161,13 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">virtual <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a> core::capa::IRendererCapability::GetNodeComponents </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
           <td class="paramname"><em>node_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em>, </td>
         </tr>
         <tr>
@@ -217,7 +217,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">virtual void core::capa::IRendererCapability::InitializeNodeTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>node_types</em></td><td>)</td>
           <td></td>
         </tr>
@@ -253,7 +253,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">virtual void core::capa::IRendererCapability::InitializeTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>types</em></td><td>)</td>
           <td></td>
         </tr>
@@ -289,7 +289,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">virtual bool core::capa::IRendererCapability::SupportsNodeType </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -315,14 +315,14 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/new_core/modules/capabilities/<a class="el" href="renderer__capability_8hpp_source.html">renderer_capability.hpp</a></li>
+<li>src/core/modules/capabilities/<a class="el" href="renderer__capability_8hpp_source.html">renderer_capability.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacecore.html">core</a></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html">IRendererCapability</a></li>
+    <li class="navelem"><b>core</b></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html">IRendererCapability</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Nebula: src/new_core/modules/capabilities/exporter_capability.hpp Source File</title>
+<title>Nebula: src/core/modules/capabilities/exporter_capability.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -129,14 +129,14 @@ $(document).ready(function(){initNavTree('exporter__capability_8hpp_source.html'
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1capa_1_1TypeDescriptor.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1capa_1_1TypeDescriptor.html">TypeDescriptor</a> {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_typedef" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_typedef" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> <span class="keywordtype">id</span> = 0;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    std::string_view name;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structcore_1_1capa_1_1NodeDescriptor.html">   41</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1capa_1_1NodeDescriptor.html">NodeDescriptor</a> {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_typedef" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> <span class="keywordtype">id</span> = 0;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_typedef" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> <span class="keywordtype">id</span> = 0;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::string_view name;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
 </div>
@@ -176,16 +176,16 @@ $(document).ready(function(){initNavTree('exporter__capability_8hpp_source.html'
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="classcore_1_1capa_1_1IExporterCapability.html">~IExporterCapability</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classcore_1_1capa_1_1IExporterCapability.html#a278de9b3af0c6439cca3e59c7c38fdcb">  125</a></span>    <span class="keyword">virtual</span> std::expected&lt;void, ExportError&gt; <a class="code hl_function" href="classcore_1_1capa_1_1IExporterCapability.html#a278de9b3af0c6439cca3e59c7c38fdcb">exportType</a>(</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_class" href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a> &amp;out, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        code_generation::CodeGeneratorFile &amp;out, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context,</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1TypeDescriptor.html">TypeDescriptor</a> &amp;type) <span class="keyword">const</span> = 0;</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classcore_1_1capa_1_1IExporterCapability.html#a8ccf1ab90bf4ebd270c20d8877788ebe">  139</a></span>    <span class="keyword">virtual</span> std::expected&lt;void, ExportError&gt; <a class="code hl_function" href="classcore_1_1capa_1_1IExporterCapability.html#a8ccf1ab90bf4ebd270c20d8877788ebe">exportNode</a>(</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <a class="code hl_class" href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a> &amp;out, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        code_generation::CodeGeneratorFile &amp;out, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context,</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1NodeExportRequest.html">NodeExportRequest</a> &amp;request) <span class="keyword">const</span> = 0;</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
 <div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899">  153</a></span>    <span class="keyword">virtual</span> std::expected&lt;void, ExportError&gt; <a class="code hl_function" href="classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899">exportPreamble</a>(</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_class" href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a> &amp;, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        code_generation::CodeGeneratorFile &amp;, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
 </div>
@@ -193,8 +193,7 @@ $(document).ready(function(){initNavTree('exporter__capability_8hpp_source.html'
 </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}  <span class="comment">// namespace core::capa</span></div>
-<div class="ttc" id="aclasscode__generation_1_1CodeGeneratorFile_html"><div class="ttname"><a href="classcode__generation_1_1CodeGeneratorFile.html">code_generation::CodeGeneratorFile</a></div><div class="ttdef"><b>Definition</b> code-generator-file.hpp:8</div></div>
-<div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdoc">Collection of linked nodes.</div><div class="ttdef"><b>Definition</b> graph.hpp:25</div></div>
+<div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdoc">Collection of linked nodes.</div><div class="ttdef"><b>Definition</b> graph.hpp:32</div></div>
 <div class="ttc" id="aclasscore_1_1ICapability_html"><div class="ttname"><a href="classcore_1_1ICapability.html">core::ICapability</a></div><div class="ttdoc">Base interface for all module capabilities.</div><div class="ttdef"><b>Definition</b> icapability.hpp:19</div></div>
 <div class="ttc" id="aclasscore_1_1Node_html"><div class="ttname"><a href="classcore_1_1Node.html">core::Node</a></div><div class="ttdoc">Forward def to make it a friend.</div><div class="ttdef"><b>Definition</b> node.hpp:26</div></div>
 <div class="ttc" id="aclasscore_1_1capa_1_1IExporterCapability_html"><div class="ttname"><a href="classcore_1_1capa_1_1IExporterCapability.html">core::capa::IExporterCapability</a></div><div class="ttdoc">Optional module capability generating source code for module declared types and nodes.</div><div class="ttdef"><b>Definition</b> exporter_capability.hpp:111</div></div>
@@ -203,8 +202,8 @@ $(document).ready(function(){initNavTree('exporter__capability_8hpp_source.html'
 <div class="ttc" id="aclasscore_1_1capa_1_1IExporterCapability_html_abe820f71b4420303b95e48d583186899"><div class="ttname"><a href="classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899">core::capa::IExporterCapability::exportPreamble</a></div><div class="ttdeci">virtual std::expected&lt; void, ExportError &gt; exportPreamble(code_generation::CodeGeneratorFile &amp;, const ExportContext &amp;) const</div><div class="ttdoc">Optional hook to emit module-level includes or helpers once.</div><div class="ttdef"><b>Definition</b> exporter_capability.hpp:153</div></div>
 <div class="ttc" id="aclasscore_1_1capa_1_1INodeListCapability_html"><div class="ttname"><a href="classcore_1_1capa_1_1INodeListCapability.html">core::capa::INodeListCapability</a></div><div class="ttdoc">Interface for the capability providing custom nodes.</div><div class="ttdef"><b>Definition</b> node_list_capability.hpp:48</div></div>
 <div class="ttc" id="aclasscore_1_1capa_1_1ITypeListCapability_html"><div class="ttname"><a href="classcore_1_1capa_1_1ITypeListCapability.html">core::capa::ITypeListCapability</a></div><div class="ttdoc">List of types the core needs to load and provide to the module owning this capabability.</div><div class="ttdef"><b>Definition</b> type_list_capability.hpp:31</div></div>
-<div class="ttc" id="anamespacecore_html_a4a6ba581eac603821fad74118ef1cfb8"><div class="ttname"><a href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">core::DataType</a></div><div class="ttdeci">uint16_t DataType</div><div class="ttdoc">Unique id for each type declared by modules.</div><div class="ttdef"><b>Definition</b> datatypes.hpp:26</div></div>
-<div class="ttc" id="anamespacecore_html_abb8f90246848a3fda11fe170bb618f8e"><div class="ttname"><a href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">core::NodeType</a></div><div class="ttdeci">uint16_t NodeType</div><div class="ttdoc">Unique id for each node declared by modules.</div><div class="ttdef"><b>Definition</b> datatypes.hpp:27</div></div>
+<div class="ttc" id="adatatypes_8hpp_html_a4a6ba581eac603821fad74118ef1cfb8"><div class="ttname"><a href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">core::DataType</a></div><div class="ttdeci">uint16_t DataType</div><div class="ttdoc">Unique id for each type declared by modules.</div><div class="ttdef"><b>Definition</b> datatypes.hpp:26</div></div>
+<div class="ttc" id="adatatypes_8hpp_html_abb8f90246848a3fda11fe170bb618f8e"><div class="ttname"><a href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">core::NodeType</a></div><div class="ttdeci">uint16_t NodeType</div><div class="ttdoc">Unique id for each node declared by modules.</div><div class="ttdef"><b>Definition</b> datatypes.hpp:27</div></div>
 <div class="ttc" id="anode__list__capability_8hpp_html"><div class="ttname"><a href="node__list__capability_8hpp.html">node_list_capability.hpp</a></div><div class="ttdoc">Defines the capability for a module to provide custom nodes.</div></div>
 <div class="ttc" id="astructcore_1_1capa_1_1ExportContext_html"><div class="ttname"><a href="structcore_1_1capa_1_1ExportContext.html">core::capa::ExportContext</a></div><div class="ttdoc">Shared context available to all exporter capability methods.</div><div class="ttdef"><b>Definition</b> exporter_capability.hpp:76</div></div>
 <div class="ttc" id="astructcore_1_1capa_1_1ExportContext_html_a0f3980a96e94c508fe3612796299cc72"><div class="ttname"><a href="structcore_1_1capa_1_1ExportContext.html#a0f3980a96e94c508fe3612796299cc72">core::capa::ExportContext::types</a></div><div class="ttdeci">const ITypeListCapability &amp; types</div><div class="ttdoc">Mandatory type metadata capability of the owning module.</div><div class="ttdef"><b>Definition</b> exporter_capability.hpp:78</div></div>
@@ -224,7 +223,7 @@ $(document).ready(function(){initNavTree('exporter__capability_8hpp_source.html'
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fab71de2f56be3c90dea159479cb4bcc.html">new_core</a></li><li class="navelem"><a class="el" href="dir_14e8f3b1ed65fae11448cd8a2b4475d6.html">modules</a></li><li class="navelem"><a class="el" href="dir_2f61f2e61c5646a1fb13f867650f8ad7.html">capabilities</a></li><li class="navelem"><b>exporter_capability.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li><li class="navelem"><a class="el" href="dir_1b6b4bc6aed80eb48119088f59c24e55.html">modules</a></li><li class="navelem"><a class="el" href="dir_7c63d36634b152c556800ed047ea4a4e.html">capabilities</a></li><li class="navelem"><b>exporter_capability.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

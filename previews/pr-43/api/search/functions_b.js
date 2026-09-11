@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['name_0',['name',['../classcore_1_1ConditionNode.html#a1226b126cf94dc4e0e32ecf321a6ca45',1,'core::ConditionNode::Name()'],['../classcore_1_1ForNode.html#a8df67162172c3ebcf0868bc15a22a3c6',1,'core::ForNode::Name()'],['../classcore_1_1LoopNode.html#afb972e432a224f60f935bd18c04683f3',1,'core::LoopNode::Name()'],['../classcore_1_1PrintNode.html#ad53f236ce9dd7609cdebf849ca06fcb3',1,'core::PrintNode::Name()'],['../classcore_1_1IModule.html#a752be226b6aed4236ccb45a03c0b348e',1,'core::IModule::name()']]],
-  ['newid_1',['NewId',['../classutils_1_1IdManager.html#a082864f4bb110efa1c2fe259e5819626',1,'utils::IdManager']]],
-  ['node_2',['node',['../classcore_1_1Graph.html#a73dca2ce1766ff1065db1c3781b157a2',1,'core::Graph::node(NodeId id) noexcept'],['../classcore_1_1Graph.html#a7cc7ccfdb5dd1cde133fb214e1fd970b',1,'core::Graph::node(NodeId id) const noexcept']]],
-  ['nodebase_3',['NodeBase',['../classcore_1_1NodeBase.html#a92ac57f0faa7668730a9557249829691',1,'core::NodeBase']]],
-  ['nodes_4',['nodes',['../classcore_1_1Graph.html#a904f5e451ae3363aa773cd0dfc8b3ea9',1,'core::Graph::nodes()'],['../classcore_1_1IModule.html#a21eeec81b7320c8e6ff11d8e5ddcd817',1,'core::IModule::nodes()']]]
+  ['outputpin_0',['outputPin',['../classcore_1_1Node.html#a4f96f3cfa90cfc4bc48c275b898b8e0a',1,'core::Node']]],
+  ['outputpinexists_1',['outputPinExists',['../classcore_1_1Node.html#ae850a6c7b7bad8d1043d1d4e0583d18a',1,'core::Node']]],
+  ['outputpins_2',['outputPins',['../classcore_1_1Node.html#a05a9483e1130f2d871707b571714caef',1,'core::Node']]],
+  ['outputpinscount_3',['outputPinsCount',['../classcore_1_1Node.html#a7291c0f3d8da577171bb7232f0709618',1,'core::Node']]]
 ];

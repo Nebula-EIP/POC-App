@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['childrens_5f_0',['childrens_',['../classcore_1_1NodeBase.html#adae1e67e494bd6ada050a93a718b9fac',1,'core::NodeBase']]],
-  ['connections_1',['connections',['../structcore_1_1NodeBase_1_1OutputPin.html#aaddeada7c9104d7f0cc26c45d3ceb8cc',1,'core::NodeBase::OutputPin']]]
+  ['default_5fproperties_5f_0',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
+  ['description_5f_1',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
+  ['descriptor_2',['descriptor',['../structcore_1_1capa_1_1NodeExportRequest.html#a3a7428c2e2e518c3acf375dd15a714b5',1,'core::capa::NodeExportRequest']]]
 ];

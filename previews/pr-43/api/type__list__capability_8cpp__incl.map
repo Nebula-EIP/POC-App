@@ -1,32 +1,32 @@
-<map id="src/new_core/modules/capabilities/type_list_capability.cpp" name="src/new_core/modules/capabilities/type_list_capability.cpp">
-<area shape="rect" id="Node000001" title="Implementation of the type list capability for modules." alt="" coords="155,5,322,60"/>
-<area shape="rect" id="Node000002" href="$type__list__capability_8hpp.html" title="Interface class for the type list capability." alt="" coords="151,108,326,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,60,241,94,236,94,236,60"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,48,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="205,136,62,183,60,178,203,131"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="72,181,125,207"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="217,136,135,177,132,173,215,131"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="53,255,112,280"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="228,136,107,247,103,243,224,132"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="506,181,603,207"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="290,131,493,176,492,181,289,136"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="137,255,261,280"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="238,134,208,242,203,241,233,133"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="285,255,347,280"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="247,133,306,241,301,244,243,135"/>
-<area shape="rect" id="Node000009" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="302,181,482,207"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="264,131,356,173,354,178,262,136"/>
-<area shape="rect" id="Node000014" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="628,181,756,207"/>
-<area shape="poly" id="edge16_Node000002_Node000014" title=" " alt="" coords="312,131,615,178,614,183,311,136"/>
-<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="338,209,126,257,126,257,124,252,125,252,337,204"/>
-<area shape="poly" id="edge13_Node000009_Node000007" title=" " alt="" coords="362,209,244,252,242,247,360,204"/>
-<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="382,209,340,247,337,243,378,205"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="650,255,697,280"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="445,204,637,252,636,257,444,209"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="371,255,442,280"/>
-<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="397,206,404,241,399,242,392,208"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="467,255,533,280"/>
-<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="411,204,472,245,469,249,408,209"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="558,255,626,280"/>
-<area shape="poly" id="edge14_Node000009_Node000013" title=" " alt="" coords="425,204,547,247,545,252,423,209"/>
+<map id="src/core/modules/capabilities/type_list_capability.cpp" name="src/core/modules/capabilities/type_list_capability.cpp">
+<area shape="rect" id="Node000001" title="Implementation of the type list capability for modules." alt="" coords="133,5,345,45"/>
+<area shape="rect" id="Node000002" href="$type__list__capability_8hpp.html" title="Interface class for the type list capability." alt="" coords="151,93,326,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="241,46,241,79,236,79,236,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,48,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="205,121,62,169,60,164,203,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="72,167,125,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="217,121,135,163,132,158,215,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="53,240,112,265"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="228,121,107,232,103,228,224,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="506,167,603,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="290,116,493,161,492,167,289,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="137,240,261,265"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="238,120,208,227,203,226,233,118"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="285,240,347,265"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="247,118,306,227,301,229,243,120"/>
+<area shape="rect" id="Node000009" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="302,167,482,192"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="264,116,356,158,354,163,262,121"/>
+<area shape="rect" id="Node000014" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="628,167,756,192"/>
+<area shape="poly" id="edge16_Node000002_Node000014" title=" " alt="" coords="312,116,615,163,614,169,311,121"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="338,195,126,243,126,243,124,238,125,237,337,189"/>
+<area shape="poly" id="edge13_Node000009_Node000007" title=" " alt="" coords="362,195,244,238,242,233,360,190"/>
+<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="382,194,340,232,337,229,378,190"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="650,240,697,265"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="445,189,637,237,636,242,444,195"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="371,240,442,265"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="397,192,404,226,399,227,392,193"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="467,240,533,265"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="411,190,472,230,469,235,408,194"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="558,240,626,265"/>
+<area shape="poly" id="edge14_Node000009_Node000013" title=" " alt="" coords="425,190,547,233,545,238,423,195"/>
 </map>

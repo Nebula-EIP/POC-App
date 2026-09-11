@@ -25,24 +25,15 @@
 var NAVTREE =
 [
   [ "Nebula", "index.html", [
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerations", "functions_enum.html", null ],
-        [ "Related Symbols", "functions_rela.html", null ]
+        [ "Typedefs", "functions_type.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -58,10 +49,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classcore_1_1ICapability.html",
-"classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5",
-"dir_e62b1e6b20a32209e44f708bee9d4af6.html",
-"structcore_1_1capa_1_1TextField.html#a0443681a15beb67741c06d3087ef0a09"
+"structcore_1_1capa_1_1NumberField.html#a1077c530ee5a0ebb979a31edb2c73188"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

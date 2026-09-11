@@ -1,21 +1,21 @@
-<map id="src/new_core/graph/node.hpp" name="src/new_core/graph/node.hpp">
-<area shape="rect" id="Node000001" title="Definition of the Node class." alt="" coords="54,5,202,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,72,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,47,55,156,50,153,114,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="97,167,159,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,46,131,153,125,153,125,46"/>
-<area shape="rect" id="Node000004" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="208,93,323,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,43,234,84,232,89,160,48"/>
-<area shape="poly" id="edge6_Node000004_Node000002" title=" " alt="" coords="230,121,86,166,84,161,228,116"/>
-<area shape="poly" id="edge10_Node000004_Node000003" title=" " alt="" coords="244,121,164,163,161,158,242,116"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="602,167,649,192"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,113,442,133,589,164,588,169,441,138,322,118"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="183,167,254,192"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="260,120,236,157,232,154,255,118"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="279,167,337,192"/>
-<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="275,118,296,154,292,156,270,120"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="362,167,486,192"/>
-<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="292,116,387,159,385,163,290,121"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="510,167,578,192"/>
-<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="311,116,497,163,496,169,309,121"/>
+<map id="src/core/graph/node.hpp" name="src/core/graph/node.hpp">
+<area shape="rect" id="Node000001" title="Definition of the Node class." alt="" coords="39,5,217,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,72,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,33,55,142,51,139,118,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,152,159,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="131,31,131,138,125,138,125,31"/>
+<area shape="rect" id="Node000004" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="208,79,323,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,28,232,70,230,75,149,33"/>
+<area shape="poly" id="edge6_Node000004_Node000002" title=" " alt="" coords="230,107,86,151,84,146,228,101"/>
+<area shape="poly" id="edge10_Node000004_Node000003" title=" " alt="" coords="244,106,164,148,161,143,242,102"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="602,152,649,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,98,442,118,589,149,588,154,441,123,322,103"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="183,152,254,177"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="260,106,236,142,232,139,255,103"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="279,152,337,177"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="275,103,296,139,292,142,270,106"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="362,152,486,177"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="292,102,387,144,385,149,290,106"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="510,152,578,177"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="311,101,497,149,496,154,309,107"/>
 </map>

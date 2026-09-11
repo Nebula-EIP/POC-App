@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['name_0',['name',['../structcore_1_1NodeBase_1_1OutputPin.html#a899c3b71b139940672d7b18e35db8714',1,'core::NodeBase::OutputPin']]],
-  ['name_5f_1',['name_',['../structcore_1_1capa_1_1NodeMetadata.html#adc32dbd92a427cd9974a74f0860f0e5b',1,'core::capa::NodeMetadata']]],
-  ['node_2',['node',['../structcore_1_1NodeBase_1_1Connection.html#ad90a8713cd8cc49cf749d4b0135a548b',1,'core::NodeBase::Connection::node'],['../structcore_1_1capa_1_1NodeExportRequest.html#a7ee6049f6c179703f8e5d3b9cb91fdd3',1,'core::capa::NodeExportRequest::node']]],
-  ['nodes_3',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext']]]
+  ['on_5fchange_0',['on_change',['../structcore_1_1capa_1_1TextField.html#a42b454e871be503072bdc8c53b17ab2d',1,'core::capa::TextField::on_change'],['../structcore_1_1capa_1_1NumberField.html#a1077c530ee5a0ebb979a31edb2c73188',1,'core::capa::NumberField::on_change'],['../structcore_1_1capa_1_1Slider.html#ab004db722e60fd2e092e9d4ebf82d5f0',1,'core::capa::Slider::on_change'],['../structcore_1_1capa_1_1Checkbox.html#a764ef8b67a604df36c05f9533f80f182',1,'core::capa::Checkbox::on_change'],['../structcore_1_1capa_1_1Select.html#a6a0e6a7b3bd36b99f71952c49892608a',1,'core::capa::Select::on_change']]],
+  ['on_5fclick_1',['on_click',['../structcore_1_1capa_1_1Button.html#aa4fb99c6c7b0e0e7c6d2a015c5ac9560',1,'core::capa::Button']]],
+  ['options_2',['options',['../structcore_1_1capa_1_1Select.html#adc111af18b640ac43de862934e7e6779',1,'core::capa::Select']]],
+  ['output_5fpins_5f_3',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
+  ['output_5fsymbols_4',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]]
 ];

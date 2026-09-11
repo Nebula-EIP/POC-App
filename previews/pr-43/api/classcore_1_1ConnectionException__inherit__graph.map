@@ -1,29 +1,11 @@
 <map id="core::ConnectionException" name="core::ConnectionException">
-<area shape="rect" id="Node000001" title="Base exception for errors related to connection operations." alt="" coords="571,210,765,235"/>
-<area shape="rect" id="Node000007" href="$classcore_1_1IncompatiblePinTypesException.html" title="Exception thrown when attempting to link pins with incompatible types." alt="" coords="831,5,1031,45"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="682,197,733,126,770,88,812,55,836,43,838,48,815,60,773,92,737,130,686,200"/>
-<area shape="rect" id="Node000008" href="$classcore_1_1InvalidPinIndexException.html" title="Exception thrown when accessing a pin with an out&#45;of&#45;bounds index." alt="" coords="820,70,1043,95"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="689,198,742,151,776,126,812,106,847,93,849,98,814,110,779,131,746,155,693,202"/>
-<area shape="rect" id="Node000009" href="$classcore_1_1PinAlreadyConnectedException.html" title="Exception thrown when attempting to connect an already&#45;connected input pin." alt="" coords="833,120,1030,160"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="715,203,813,169,853,157,855,163,814,175,717,208"/>
-<area shape="rect" id="Node000010" href="$classcore_1_1PinNotConnectedException.html" title="Exception thrown when accessing connection data from an unconnected pin." alt="" coords="814,185,1049,210"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="779,209,814,206,814,211,779,215"/>
-<area shape="rect" id="Node000011" href="$classcore_1_1PinNotFoundException.html" title="Thrown when a pin cannot be found." alt="" coords="829,234,1033,259"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="780,230,830,235,829,240,779,235"/>
-<area shape="rect" id="Node000012" href="$classcore_1_1PinStillConnectedException.html" title="Exception thrown when attempting to modify pin metadata while pins are still connected." alt="" coords="813,283,1049,309"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="716,238,814,269,861,281,860,286,813,275,715,243"/>
-<area shape="rect" id="Node000013" href="$classcore_1_1SelfConnectionException.html" title="Exception thrown when attempting to connect a node to itself." alt="" coords="821,333,1041,358"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="696,242,748,282,781,302,814,319,848,330,846,335,812,324,778,307,745,286,693,246"/>
-<area shape="rect" id="Node000014" href="$classcore_1_1TypeMismatchException.html" title="Thrown when two incompatible data types are used together in a connection." alt="" coords="823,382,1039,407"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="687,245,739,308,775,341,815,368,841,379,839,384,812,373,771,345,735,311,683,248"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1CoreException.html" title=" " alt="" coords="371,185,523,210"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="537,205,571,209,570,214,536,210"/>
-<area shape="rect" id="Node000003" href="$classutils_1_1BaseException.html" title=" " alt="" coords="168,185,323,210"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="337,195,370,195,370,200,337,200"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,185,120,210"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="134,195,168,195,168,200,134,200"/>
-<area shape="rect" id="Node000005" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="385,234,508,259"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="521,236,570,231,571,236,522,241"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="176,234,315,259"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="329,244,385,244,385,249,329,249"/>
+<area shape="rect" id="Node000001" title="Base exception for errors related to connection operations." alt="" coords="127,152,322,177"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1PinNotFoundException.html" title="Thrown when a pin cannot be found." alt="" coords="5,225,209,251"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="195,187,128,227,125,223,193,182"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1TypeMismatchException.html" title="Thrown when two incompatible data types are used together in a connection." alt="" coords="234,225,450,251"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="257,182,324,223,321,227,254,187"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="163,79,286,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,118,227,152,222,152,222,118"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="155,5,294,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,44,227,79,222,79,222,44"/>
 </map>

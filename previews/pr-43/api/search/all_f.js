@@ -1,17 +1,12 @@
 var searchData=
 [
-  ['read_5fonly_0',['read_only',['../structcore_1_1capa_1_1TextField.html#a0443681a15beb67741c06d3087ef0a09',1,'core::capa::TextField']]],
-  ['registerednodetypecount_1',['RegisteredNodeTypeCount',['../classcore_1_1capa_1_1RendererCapability.html#a2a6f451c943348745fe7eb8830f09a9c',1,'core::capa::RendererCapability']]],
-  ['registernode_2',['registernode',['../classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9',1,'core::capa::INodeListCapability::registerNode()'],['../classcore_1_1capa_1_1NodeListCapability.html#a417860bd9d5cbcadbcaf9314360ec3f9',1,'core::capa::NodeListCapability::registerNode(NodeType node_type) const noexcept override'],['../classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d',1,'core::capa::NodeListCapability::RegisterNode(std::string name, std::string description, NodeConfiguration config)']]],
-  ['registernoderenderer_3',['RegisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f',1,'core::capa::RendererCapability']]],
-  ['registertype_4',['registertype',['../classcore_1_1capa_1_1TypeListCapability.html#a3d54235a0a65445c52e68c0445b5feeb',1,'core::capa::TypeListCapability::RegisterType()'],['../classcore_1_1capa_1_1ITypeListCapability.html#a59e0910a28b5c96a5796674970eb29b3',1,'core::capa::ITypeListCapability::registerType()'],['../classcore_1_1capa_1_1TypeListCapability.html#a5c00431f6b9c3b820675add2945828bb',1,'core::capa::TypeListCapability::registerType()']]],
-  ['removechild_5',['RemoveChild',['../classcore_1_1NodeBase.html#a10b326c8ca9f638f3f5cc342341672d7',1,'core::NodeBase']]],
-  ['removeinputpin_6',['removeinputpin',['../classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051',1,'core::Graph::RemoveInputPin()'],['../classcore_1_1NodeBase.html#a0f91b3fca9e74748808ec85ee63bc0bb',1,'core::NodeBase::RemoveInputPin()'],['../classcore_1_1Graph.html#a7e4d92fa09b408e50d70420e8887b91b',1,'core::Graph::RemoveInputPin(NodeBase *node, uint8_t index)'],['../classcore_1_1Graph.html#a7bd2ea23fc0a80ca9b6126d461ad0e1b',1,'core::Graph::RemoveInputPin(NodeBase *node, const std::string &amp;name)']]],
-  ['removenode_7',['removenode',['../classcore_1_1Graph.html#aeebc7f038b9f164ad66d34fadac9098a',1,'core::Graph::RemoveNode(NodeBase *node)'],['../classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b',1,'core::Graph::RemoveNode(NodeId id)']]],
-  ['removeoutputpin_8',['removeoutputpin',['../classcore_1_1NodeBase.html#aa2c7462fa852e9151c6d21e8d4f40fc5',1,'core::NodeBase::RemoveOutputPin()'],['../classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc',1,'core::Graph::RemoveOutputPin()']]],
-  ['removeparameter_9',['removeparameter',['../classcore_1_1FunctionNode.html#ae0d8fc5b76ae7d1d8794ae9a7dba6654',1,'core::FunctionNode::RemoveParameter(uint8_t index)'],['../classcore_1_1FunctionNode.html#ac604d592d163d31f42c0f3cb020b8f68',1,'core::FunctionNode::RemoveParameter(const std::string &amp;name)']]],
-  ['removeproperty_10',['RemoveProperty',['../classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3',1,'core::Node']]],
-  ['renderer_5fcapability_2ecpp_11',['renderer_capability.cpp',['../renderer__capability_8cpp.html',1,'']]],
-  ['renderer_5fcapability_2ehpp_12',['renderer_capability.hpp',['../renderer__capability_8hpp.html',1,'']]],
-  ['renderercapability_13',['RendererCapability',['../classcore_1_1capa_1_1RendererCapability.html',1,'core::capa']]]
+  ['select_0',['Select',['../structcore_1_1capa_1_1Select.html',1,'core::capa']]],
+  ['selected_5findex_1',['selected_index',['../structcore_1_1capa_1_1Select.html#a4c54a0ee7da754146407eec8ef711fbc',1,'core::capa::Select']]],
+  ['separator_2',['Separator',['../structcore_1_1capa_1_1Separator.html',1,'core::capa']]],
+  ['set_5fminimum_5flog_5flevel_3',['set_minimum_log_level',['../classutils_1_1Logger.html#a4bbc5eebb4084c0919d17728b6755185',1,'utils::Logger']]],
+  ['setproperty_4',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
+  ['shutdown_5',['shutdown',['../classcore_1_1IModule.html#ac09cd69eb9a8a554eaf3ccb856b77f75',1,'core::IModule']]],
+  ['slider_6',['Slider',['../structcore_1_1capa_1_1Slider.html',1,'core::capa']]],
+  ['step_7',['step',['../structcore_1_1capa_1_1NumberField.html#a87b50326d656f32fe2cf75b6239c4a77',1,'core::capa::NumberField::step'],['../structcore_1_1capa_1_1Slider.html#a83ad66a402613ed4208aa30d0f85521a',1,'core::capa::Slider::step']]],
+  ['supportsnodetype_8',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['selected_5findex_0',['selected_index',['../structcore_1_1capa_1_1Select.html#a4c54a0ee7da754146407eec8ef711fbc',1,'core::capa::Select']]],
-  ['step_1',['step',['../structcore_1_1capa_1_1NumberField.html#a87b50326d656f32fe2cf75b6239c4a77',1,'core::capa::NumberField::step'],['../structcore_1_1capa_1_1Slider.html#a83ad66a402613ed4208aa30d0f85521a',1,'core::capa::Slider::step']]]
+  ['value_0',['value',['../structcore_1_1Property.html#aabde431ca6ce85e62503f89708e37216',1,'core::Property::value'],['../structcore_1_1capa_1_1TextField.html#abb331beefdb897f5b4756dd298caf3ab',1,'core::capa::TextField::value'],['../structcore_1_1capa_1_1NumberField.html#a81594e7c36d6ebb6422ffcc1eedf4590',1,'core::capa::NumberField::value'],['../structcore_1_1capa_1_1Slider.html#aa807a8b4c53d2c1bdadbdbc9107dfab3',1,'core::capa::Slider::value'],['../structcore_1_1capa_1_1Checkbox.html#af850c8ed770dfa16316a76a078cb3bbc',1,'core::capa::Checkbox::value']]]
 ];

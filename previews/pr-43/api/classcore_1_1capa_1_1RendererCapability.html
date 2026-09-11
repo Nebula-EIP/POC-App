@@ -130,31 +130,31 @@ Collaboration diagram for core::capa::RendererCapability:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a7074366784346c6a61e8e3e4464847cb" id="r_a7074366784346c6a61e8e3e4464847cb"><td class="memItemLeft" align="right" valign="top"><a id="a7074366784346c6a61e8e3e4464847cb" name="a7074366784346c6a61e8e3e4464847cb"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ComponentProvider</b> = std::function&lt; <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>(<a class="el" href="namespacecore.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties)&gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ComponentProvider</b> = std::function&lt; <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>(<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties)&gt;</td></tr>
 <tr class="memdesc:a7074366784346c6a61e8e3e4464847cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function used to build the components of one node instance. <br /></td></tr>
 <tr class="separator:a7074366784346c6a61e8e3e4464847cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa24f4c6ac442be07ff27278b03f8af94" id="r_aa24f4c6ac442be07ff27278b03f8af94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;types) override</td></tr>
+<tr class="memitem:aa24f4c6ac442be07ff27278b03f8af94" id="r_aa24f4c6ac442be07ff27278b03f8af94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;types) override</td></tr>
 <tr class="memdesc:aa24f4c6ac442be07ff27278b03f8af94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the local copy of the owning module's data type list.  <br /></td></tr>
 <tr class="separator:aa24f4c6ac442be07ff27278b03f8af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a675acb83fb6564f30a8231d5e18eb557" id="r_a675acb83fb6564f30a8231d5e18eb557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;node_types) override</td></tr>
+<tr class="memitem:a675acb83fb6564f30a8231d5e18eb557" id="r_a675acb83fb6564f30a8231d5e18eb557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;node_types) override</td></tr>
 <tr class="memdesc:a675acb83fb6564f30a8231d5e18eb557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the local copy of the owning module's node type list.  <br /></td></tr>
 <tr class="separator:a675acb83fb6564f30a8231d5e18eb557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57e53231b8e87bbeb97bcde24279f37f" id="r_a57e53231b8e87bbeb97bcde24279f37f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f">RegisterNodeRenderer</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, <a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a7074366784346c6a61e8e3e4464847cb">ComponentProvider</a> provider)</td></tr>
+<tr class="memitem:a57e53231b8e87bbeb97bcde24279f37f" id="r_a57e53231b8e87bbeb97bcde24279f37f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f">RegisterNodeRenderer</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, <a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a7074366784346c6a61e8e3e4464847cb">ComponentProvider</a> provider)</td></tr>
 <tr class="memdesc:a57e53231b8e87bbeb97bcde24279f37f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register the component provider for a node type.  <br /></td></tr>
 <tr class="separator:a57e53231b8e87bbeb97bcde24279f37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14ebe879352cd67d28a3e1f8bdeb827" id="r_ad14ebe879352cd67d28a3e1f8bdeb827"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#ad14ebe879352cd67d28a3e1f8bdeb827">UnregisterNodeRenderer</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) noexcept</td></tr>
+<tr class="memitem:ad14ebe879352cd67d28a3e1f8bdeb827" id="r_ad14ebe879352cd67d28a3e1f8bdeb827"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#ad14ebe879352cd67d28a3e1f8bdeb827">UnregisterNodeRenderer</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) noexcept</td></tr>
 <tr class="memdesc:ad14ebe879352cd67d28a3e1f8bdeb827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the component provider registered for a node type.  <br /></td></tr>
 <tr class="separator:ad14ebe879352cd67d28a3e1f8bdeb827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a6f451c943348745fe7eb8830f09a9c" id="r_a2a6f451c943348745fe7eb8830f09a9c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a2a6f451c943348745fe7eb8830f09a9c">RegisteredNodeTypeCount</a> () const noexcept</td></tr>
 <tr class="memdesc:a2a6f451c943348745fe7eb8830f09a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of registered node types.  <br /></td></tr>
 <tr class="separator:a2a6f451c943348745fe7eb8830f09a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad21fe4c0525586e14d1dde126cb080cf" id="r_ad21fe4c0525586e14d1dde126cb080cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf">SupportsNodeType</a> (<a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
+<tr class="memitem:ad21fe4c0525586e14d1dde126cb080cf" id="r_ad21fe4c0525586e14d1dde126cb080cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf">SupportsNodeType</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
 <tr class="memdesc:ad21fe4c0525586e14d1dde126cb080cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if this capability supports a specific node type.  <br /></td></tr>
 <tr class="separator:ad21fe4c0525586e14d1dde126cb080cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65d95bf3272eb52a54b4ab998940eb60" id="r_a65d95bf3272eb52a54b4ab998940eb60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a65d95bf3272eb52a54b4ab998940eb60">GetNodeComponents</a> (<a class="el" href="namespacecore.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties) override</td></tr>
+<tr class="memitem:a65d95bf3272eb52a54b4ab998940eb60" id="r_a65d95bf3272eb52a54b4ab998940eb60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html#a65d95bf3272eb52a54b4ab998940eb60">GetNodeComponents</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties) override</td></tr>
 <tr class="memdesc:a65d95bf3272eb52a54b4ab998940eb60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the UI components used to display a specific node.  <br /></td></tr>
 <tr class="separator:a65d95bf3272eb52a54b4ab998940eb60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore_1_1capa_1_1IRendererCapability"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore_1_1capa_1_1IRendererCapability')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore_1_1capa_1_1IRendererCapability.html">core::capa::IRendererCapability</a></td></tr>
@@ -179,13 +179,13 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname"><a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a> core::capa::RendererCapability::GetNodeComponents </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
           <td class="paramname"><em>node_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em>, </td>
         </tr>
         <tr>
@@ -235,7 +235,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">void core::capa::RendererCapability::InitializeNodeTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>, std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>node_types</em></td><td>)</td>
           <td></td>
         </tr>
@@ -265,7 +265,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">void core::capa::RendererCapability::InitializeTypes </td>
           <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="namespacecore.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>, std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>types</em></td><td>)</td>
           <td></td>
         </tr>
@@ -320,7 +320,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">void core::capa::RendererCapability::RegisterNodeRenderer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em>, </td>
         </tr>
         <tr>
@@ -367,7 +367,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">bool core::capa::RendererCapability::SupportsNodeType </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -404,7 +404,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
         <tr>
           <td class="memname">bool core::capa::RendererCapability::UnregisterNodeRenderer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em></td><td>)</td>
           <td></td>
         </tr>
@@ -428,15 +428,15 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/new_core/modules/capabilities/<a class="el" href="renderer__capability_8hpp_source.html">renderer_capability.hpp</a></li>
-<li>src/new_core/modules/capabilities/<a class="el" href="renderer__capability_8cpp.html">renderer_capability.cpp</a></li>
+<li>src/core/modules/capabilities/<a class="el" href="renderer__capability_8hpp_source.html">renderer_capability.hpp</a></li>
+<li>src/core/modules/capabilities/<a class="el" href="renderer__capability_8cpp.html">renderer_capability.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacecore.html">core</a></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html">RendererCapability</a></li>
+    <li class="navelem"><b>core</b></li><li class="navelem"><b>capa</b></li><li class="navelem"><a class="el" href="classcore_1_1capa_1_1RendererCapability.html">RendererCapability</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
