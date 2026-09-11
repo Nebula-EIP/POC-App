@@ -6,50 +6,48 @@
 
 namespace utils {
 
-const char *to_color(LogLevel level) {
+const char *ToColor(LogLevel level) {
     switch (level) {
-        case LogLevel::Debug:
+        case LogLevel::kDebug:
             return "\033[0;35m";  // Purple
-        case LogLevel::Info:
+        case LogLevel::kInfo:
             return "\033[0;36m";  // Cyan
-        case LogLevel::Warning:
+        case LogLevel::kWarning:
             return "\033[0;93m";  // Yellow
-        case LogLevel::Error:
+        case LogLevel::kError:
             return "\033[1;91m";  // Red
-        case LogLevel::Fatal:
+        case LogLevel::kFatal:
             return "\033[1;91m";  // Bright red
     }
     return "\033[0;37m";  // Default white
 }
 
-const char *to_string(LogLevel level) {
+const char *ToString(LogLevel level) {
     switch (level) {
-        case LogLevel::Debug:
+        case LogLevel::kDebug:
             return "DEBUG";
-        case LogLevel::Info:
+        case LogLevel::kInfo:
             return "INFO";
-        case LogLevel::Warning:
+        case LogLevel::kWarning:
             return "WARNING";
-        case LogLevel::Error:
+        case LogLevel::kError:
             return "ERROR";
-        case LogLevel::Fatal:
+        case LogLevel::kFatal:
             return "FATAL";
     }
     return "UNKNOWN";
 }
 
-Logger &Logger::get_instance() {
+Logger &Logger::GetInstance() {
     static Logger s_instance;
     return s_instance;
 }
 
-void Logger::set_minimum_log_level(LogLevel level) {
-    minimum_log_level = level;
-}
+void Logger::SetMinimumLogLevel(LogLevel level) { minimum_log_level_ = level; }
 
-std::string Logger::get_timestamp() const {
+std::string Logger::GetTimestamp() const {
     std::time_t now = std::time(nullptr);
-    std::array<char, k_timestamp_buffer_size> buffer{};
+    std::array<char, kTimestampBufferSize> buffer{};
     std::tm tm{};
 
 #if defined(_WIN32) || defined(_WIN64)

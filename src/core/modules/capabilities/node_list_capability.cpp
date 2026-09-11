@@ -18,7 +18,7 @@ namespace core::capa {
 void NodeListCapability::RegisterNode(std::string name, std::string description,
                                       NodeConfiguration config) {
     for (const auto &node : pending_nodes_) {
-        if (node.name == name) {
+        if (node.name_ == name) {
             throw NodeAlreadyExistsException(
                 "Node is already registered in this capability.");
         }
@@ -32,10 +32,10 @@ void NodeListCapability::RegisterNode(std::string name, std::string description,
 
     pending_nodes_.push_back(
         {std::move(name), std::move(description), std::move(config)});
-    pending_names_.push_back(pending_nodes_.back().name);
+    pending_names_.push_back(pending_nodes_.back().name_);
 }
 
-const std::string_view *NodeListCapability::registerNode(
+const std::string_view *NodeListCapability::RegisterNode(
     NodeType node_type) const noexcept {
     if (next_node_index_ >= pending_nodes_.size()) {
         return nullptr;
@@ -45,8 +45,8 @@ const std::string_view *NodeListCapability::registerNode(
     auto it = pending_nodes_.begin();
     std::advance(it, next_node_index_);
 
-    available_nodes_.push_back({node_type, it->name, it->description});
-    node_configs_[node_type] = it->config;
+    available_nodes_.push_back({node_type, it->name_, it->description_});
+    node_configs_[node_type] = it->config_;
 
     std::string_view *name_ptr = &pending_names_[next_node_index_];
     next_node_index_++;
