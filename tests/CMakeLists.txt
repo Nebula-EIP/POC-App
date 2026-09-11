@@ -1,18 +1,15 @@
 # Tests CMakeLists.txt
 
-# Collect test files from new_core only
-file(GLOB_RECURSE TEST_SOURCES "new_core/*.cpp")
+# Collect test files from core only
+file(GLOB_RECURSE TEST_SOURCES "core/*.cpp")
 
 # Create test executable
 if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES})
 
-    # DISABLED: Code-generation depends on old core library
-    # Removed target_sources for code-generation files
-
-    # Allow includes for new_core tests
+    # Allow includes for core tests
     target_include_directories(unit_tests PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/new_core
+        ${CMAKE_SOURCE_DIR}/src/core
     )
 
     # Link with project libraries when available
@@ -21,7 +18,7 @@ if(TEST_SOURCES)
         gtest_main
         gmock
         neb_graph
-        new_core_capabilities
+        core_capabilities
     )
 
     # Auto-discover all Google Test tests
