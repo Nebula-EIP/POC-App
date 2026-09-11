@@ -33,30 +33,30 @@ using PropertyTypeId = uint32_t;  ///< Unique id for each property type
  * @brief Represents a connection between two nodes
  */
 struct Connection {
-    NodeId from_node;
-    PinId out_pin;
+    NodeId from_node_;
+    PinId out_pin_;
 
-    NodeId to_node;
-    PinId in_pin;
+    NodeId to_node_;
+    PinId in_pin_;
 
-    DataType data_type;
+    DataType data_type_;
 };
 
 /**
  * @brief Represents a connection point of a node
  */
 struct Pin {
-    PinId id;
-    std::string name;
-    DataType type;
+    PinId id_;
+    std::string name_;
+    DataType type_;
 };
 
 /**
  * @brief Represents a typed value storage
  */
 struct Property {
-    PropertyTypeId type_id;
-    std::any value;  ///< Free storage space for the property's values
+    PropertyTypeId type_id_;
+    std::any value_;  ///< Free storage space for the property's values
 };
 
 using PropertyMap = std::unordered_map<PropertyId, Property>;

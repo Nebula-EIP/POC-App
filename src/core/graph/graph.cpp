@@ -18,51 +18,56 @@
 
 namespace core {
 
-Graph::Graph() : _next_node_id(1), _next_connection_id(1) {}
+Graph::Graph() : next_node_id_(1), next_connection_id_(1) {}
 
 #pragma region Nodes
 
-bool Graph::hasNode(NodeId id) const noexcept {
-    return _nodes.find(id) != _nodes.end();
+bool Graph::HasNode(NodeId id) const noexcept {
+    return nodes_.find(id) != nodes_.end();
 }
 
-Node *Graph::node(NodeId id) noexcept {
-    auto node_pos = _nodes.find(id);
+Node *Graph::GetNode(NodeId id) noexcept {
+    auto node_pos = nodes_.find(id);
 
-    if (node_pos == _nodes.end())
+    if (node_pos == nodes_.end()) {
         return nullptr;
-    else
+    } else {
         return &node_pos->second;
+    }
 }
 
-const Node *Graph::node(NodeId id) const noexcept {
-    const auto node_pos = _nodes.find(id);
+const Node *Graph::GetNode(NodeId id) const noexcept {
+    const auto kNodePos = nodes_.find(id);
 
-    if (node_pos == _nodes.end())
+    if (kNodePos == nodes_.end()) {
         return nullptr;
-    else
-        return &node_pos->second;
+    } else {
+        return &kNodePos->second;
+    }
 }
 
-const std::unordered_map<NodeId, Node> &Graph::nodes() const noexcept {
-    return _nodes;
+const std::unordered_map<NodeId, Node> &Graph::GetAllNodes() const noexcept {
+    return nodes_;
 }
 
 Node &Graph::CreateNode(core::NodeType type) {
-    Node node(_next_node_id++, type);
+    Node node(next_node_id_++, type);
 
-    _nodes.emplace(node.id(), std::move(node));
-    return _nodes.at(node.id());
+    nodes_.emplace(node.Id(), std::move(node));
+    return nodes_.at(node.Id());
 }
 
 bool Graph::RemoveNode(NodeId id) {
-    if (!hasNode(id)) return false;
+    if (!HasNode(id)) {
+        return false;
+    }
 
     DisconnectNode(id);
-    if (_nodes.erase(id))
+    if (nodes_.erase(id)) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 #pragma endregion Nodes
@@ -71,50 +76,54 @@ bool Graph::RemoveNode(NodeId id) {
 
 PinId Graph::AddInputPin(NodeId node_id, const std::string_view &name,
                          DataType type) {
-    if (!hasNode(node_id))
+    if (!HasNode(node_id)) {
         throw core::NodeNotFoundException("Node not found in the graph");
+    }
 
     Pin pin;
-    pin.id = 0;
-    pin.name = name;
-    pin.type = type;
+    pin.id_ = 0;
+    pin.name_ = name;
+    pin.type_ = type;
 
-    return _nodes.at(node_id).AddInputPin(pin);
+    return nodes_.at(node_id).AddInputPin(pin);
     /// No need to try & catch here as the existence of the node is proven
     /// previously
 }
 
 PinId Graph::AddOutputPin(NodeId node_id, const std::string_view &name,
                           DataType type) {
-    if (!hasNode(node_id))
+    if (!HasNode(node_id)) {
         throw core::NodeNotFoundException("Node not found in the graph");
+    }
 
     Pin pin;
-    pin.id = 0;
-    pin.name = name;
-    pin.type = type;
+    pin.id_ = 0;
+    pin.name_ = name;
+    pin.type_ = type;
 
-    return _nodes.at(node_id).AddOutputPin(pin);
+    return nodes_.at(node_id).AddOutputPin(pin);
     /// No need to try & catch here as the existence of the node is proven
     /// previously
 }
 
 void Graph::RemoveInputPin(NodeId node_id, PinId pin_id) {
-    if (!hasNode(node_id))
+    if (!HasNode(node_id)) {
         throw core::NodeNotFoundException("Node not found in the graph");
+    }
 
     DisconnectInputPin(node_id, pin_id);
-    _nodes.at(node_id).RemoveInputPin(pin_id);
+    nodes_.at(node_id).RemoveInputPin(pin_id);
     /// Need to use at bcause no empty constructor plus already checked it
     /// exists
 }
 
 void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id) {
-    if (!hasNode(node_id))
+    if (!HasNode(node_id)) {
         throw core::NodeNotFoundException("Node not found in the graph");
+    }
 
     DisconnectOutputPin(node_id, pin_id);
-    _nodes.at(node_id).RemoveOutputPin(pin_id);
+    nodes_.at(node_id).RemoveOutputPin(pin_id);
     /// Same as last method
 }
 
@@ -122,74 +131,87 @@ void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id) {
 
 #pragma region Connections
 
-ConnectionId Graph::getConnectionId(NodeId from, PinId out, NodeId to,
+ConnectionId Graph::GetConnectionId(NodeId from, PinId out, NodeId to,
                                     PinId in) const {
     auto res = std::find_if(
-        _connections.begin(), _connections.end(),
+        connections_.begin(), connections_.end(),
         [from, out, to,
          in](const std::pair<ConnectionId, Connection> &connection) {
-            if (connection.second.from_node != from) return false;
-            if (connection.second.to_node != to) return false;
-            if (connection.second.out_pin != out) return false;
-            if (connection.second.in_pin != in) return false;
+            if (connection.second.from_node_ != from) return false;
+            if (connection.second.to_node_ != to) return false;
+            if (connection.second.out_pin_ != out) return false;
+            if (connection.second.in_pin_ != in) return false;
 
             return true;
         });
 
-    if (res == _connections.end())
+    if (res == connections_.end()) {
         return 0;
-    else
+    } else {
         return res->first;
+    }
 }
 
-const std::unordered_map<ConnectionId, Connection> &Graph::getAllConnections()
+const std::unordered_map<ConnectionId, Connection> &Graph::GetAllConnections()
     const noexcept {
-    return _connections;
+    return connections_;
 }
 
 ConnectionId Graph::Connect(NodeId from_node_id, PinId out_pin_id,
                             NodeId to_node_id, PinId in_pin_id) {
     ConnectionId conn_id =
-        getConnectionId(from_node_id, out_pin_id, to_node_id, in_pin_id);
-    if (conn_id != 0) return conn_id;
+        GetConnectionId(from_node_id, out_pin_id, to_node_id, in_pin_id);
+    if (conn_id != 0) {
+        return conn_id;
+    }
 
-    if (!hasNode(from_node_id))
+    if (!HasNode(from_node_id)) {
         throw NodeNotFoundException("From node not found");
+    }
 
-    if (!hasNode(to_node_id)) throw NodeNotFoundException("To node not found");
+    if (!HasNode(to_node_id)) {
+        throw NodeNotFoundException("To node not found");
+    }
 
-    Node *from_node = &(_nodes.at(from_node_id));
-    Node *to_node = &(_nodes.at(to_node_id));
+    Node *from_node = &(nodes_.at(from_node_id));
+    Node *to_node = &(nodes_.at(to_node_id));
 
-    const Pin *out_pin = from_node->outputPin(out_pin_id);
-    const Pin *in_pin = to_node->inputPin(in_pin_id);
+    const Pin *out_pin = from_node->OutputPin(out_pin_id);
+    const Pin *in_pin = to_node->InputPin(in_pin_id);
 
-    if (out_pin == nullptr) throw PinNotFoundException("Output pin not found");
+    if (out_pin == nullptr) {
+        throw PinNotFoundException("Output pin not found");
+    }
 
-    if (in_pin == nullptr) throw PinNotFoundException("Input pin not found");
+    if (in_pin == nullptr) {
+        throw PinNotFoundException("Input pin not found");
+    }
 
-    if (_nodes.at(from_node_id).outputPin(out_pin_id)->type !=
-        _nodes.at(to_node_id).inputPin(in_pin_id)->type)
+    if (nodes_.at(from_node_id).OutputPin(out_pin_id)->type_ !=
+        nodes_.at(to_node_id).InputPin(in_pin_id)->type_) {
         throw TypeMismatchException("Pins types does not match");
+    }
 
     Connection connection;
-    connection.data_type = out_pin->type;
-    connection.from_node = from_node->id();
-    connection.to_node = to_node->id();
-    connection.out_pin = out_pin->id;
-    connection.in_pin = in_pin->id;
+    connection.data_type_ = out_pin->type_;
+    connection.from_node_ = from_node->Id();
+    connection.to_node_ = to_node->Id();
+    connection.out_pin_ = out_pin->id_;
+    connection.in_pin_ = in_pin->id_;
 
-    conn_id = _next_connection_id++;
-    _connections.insert_or_assign(conn_id, connection);
+    conn_id = next_connection_id_++;
+    connections_.insert_or_assign(conn_id, connection);
     return conn_id;
 }
 
-void Graph::Disconnect(ConnectionId id) { _connections.erase(id); }
+void Graph::Disconnect(ConnectionId id) { connections_.erase(id); }
 
 void Graph::Disconnect(NodeId from, PinId out, NodeId to, PinId in) {
-    ConnectionId conn_id = getConnectionId(from, out, to, in);
+    ConnectionId conn_id = GetConnectionId(from, out, to, in);
 
-    if (conn_id != 0) Disconnect(conn_id);
+    if (conn_id != 0) {
+        Disconnect(conn_id);
+    }
 }
 
 void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id) {
@@ -198,19 +220,20 @@ void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id) {
     while (found) {
         found = false;
         auto conn_pos = std::find_if(
-            _connections.begin(), _connections.end(),
+            connections_.begin(), connections_.end(),
             [node_id, pin_id](const std::pair<ConnectionId, Connection> &conn) {
-                if (conn.second.from_node == node_id &&
-                    conn.second.out_pin == pin_id)
+                if (conn.second.from_node_ == node_id &&
+                    conn.second.out_pin_ == pin_id) {
                     return true;
-                else
+                } else {
                     return false;
+                }
             });
 
-        if (conn_pos != _connections.end()) {
+        if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
         }
     }
 }
@@ -222,18 +245,19 @@ uint16_t Graph::DisconnectAllOutputPin(NodeId node_id) {
     while (found) {
         found = false;
         auto conn_pos = std::find_if(
-            _connections.begin(), _connections.end(),
+            connections_.begin(), connections_.end(),
             [node_id](const std::pair<ConnectionId, Connection> &conn) {
-                if (conn.second.from_node == node_id)
+                if (conn.second.from_node_ == node_id) {
                     return true;
-                else
+                } else {
                     return false;
+                }
             });
 
-        if (conn_pos != _connections.end()) {
+        if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
             count++;
         }
     }
@@ -246,19 +270,20 @@ void Graph::DisconnectInputPin(NodeId node_id, PinId pin_id) {
     while (found) {
         found = false;
         auto conn_pos = std::find_if(
-            _connections.begin(), _connections.end(),
+            connections_.begin(), connections_.end(),
             [node_id, pin_id](const std::pair<ConnectionId, Connection> &conn) {
-                if (conn.second.to_node == node_id &&
-                    conn.second.in_pin == pin_id)
+                if (conn.second.to_node_ == node_id &&
+                    conn.second.in_pin_ == pin_id) {
                     return true;
-                else
+                } else {
                     return false;
+                }
             });
 
-        if (conn_pos != _connections.end()) {
+        if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
         }
     }
 }
@@ -270,18 +295,19 @@ uint16_t Graph::DisconnectAllInputPin(NodeId node_id) {
     while (found) {
         found = false;
         auto conn_pos = std::find_if(
-            _connections.begin(), _connections.end(),
+            connections_.begin(), connections_.end(),
             [node_id](const std::pair<ConnectionId, Connection> &conn) {
-                if (conn.second.to_node == node_id)
+                if (conn.second.to_node_ == node_id) {
                     return true;
-                else
+                } else {
                     return false;
+                }
             });
 
-        if (conn_pos != _connections.end()) {
+        if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node, conn.out_pin, conn.to_node, conn.in_pin);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
             count++;
         }
     }

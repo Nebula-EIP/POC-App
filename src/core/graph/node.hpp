@@ -35,42 +35,42 @@ class Node {
      *
      * @return The node's unique id
      */
-    NodeId id() const noexcept;
+    NodeId Id() const noexcept;
 
     /**
      * @brief Retrieves the node's type
      *
      * @return The node's type
      */
-    NodeType type() const noexcept;
+    NodeType Type() const noexcept;
 
     /**
      * @brief Retrieves the node's input pins
      *
      * @return A constant reference to the vector of input pins
      */
-    const std::vector<Pin> &inputPins() const noexcept;
+    const std::vector<Pin> &InputPins() const noexcept;
 
     /**
      * @brief Retrieves the node's output pins
      *
      * @return A constant reference to the vector of output pins
      */
-    const std::vector<Pin> &outputPins() const noexcept;
+    const std::vector<Pin> &OutputPins() const noexcept;
 
     /**
      * @brief Retrieves the number of input pins
      *
      * @return The number of input pins
      */
-    size_t inputPinsCount() const noexcept;
+    size_t InputPinsCount() const noexcept;
 
     /**
      * @brief Retrieves the number of output pins
      *
      * @return The number of output pins
      */
-    size_t outputPinsCount() const noexcept;
+    size_t OutputPinsCount() const noexcept;
 
     /**
      * @brief Checks if a node has any input pins
@@ -79,7 +79,7 @@ class Node {
      *
      * @return true if the node has input pins, false otherwise
      */
-    bool inputPinExists(PinId pin) const noexcept;
+    bool InputPinExists(PinId pin) const noexcept;
 
     /**
      * @brief Checks if a node has any output pins
@@ -88,7 +88,7 @@ class Node {
      *
      * @return true if the node has output pins, false otherwise
      */
-    bool outputPinExists(PinId pin) const noexcept;
+    bool OutputPinExists(PinId pin) const noexcept;
 
     /**
      * @brief Retrieves a pointer to the input pin with the specified id
@@ -97,7 +97,7 @@ class Node {
      *
      * @return A pointer to the input pin if it exists, nullptr otherwise
      */
-    const Pin *inputPin(PinId pin_id) const noexcept;
+    const Pin *InputPin(PinId pin_id) const noexcept;
 
     /**
      * @brief Retrieves a pointer to the output pin with the specified id
@@ -106,7 +106,7 @@ class Node {
      *
      * @return A pointer to the output pin if it exists, nullptr otherwise
      */
-    const Pin *outputPin(PinId pin_id) const noexcept;
+    const Pin *OutputPin(PinId pin_id) const noexcept;
 
     /**
      * @brief Checks if the node has a property with the specified id
@@ -115,7 +115,7 @@ class Node {
      *
      * @return true if the node has the property, false otherwise
      */
-    bool hasProperty(PropertyId id) const noexcept;
+    bool HasProperty(PropertyId id) const noexcept;
 
     /**
      * @brief Retrieves a pointer to the property with the specified id
@@ -124,7 +124,7 @@ class Node {
      *
      * @return A pointer to the property if it exists, nullptr otherwise
      */
-    Property *property(PropertyId) noexcept;
+    Property *GetProperty(PropertyId) noexcept;
 
     /**
      * @brief Retrieves a const pointer to the property with the specified id
@@ -133,7 +133,7 @@ class Node {
      *
      * @return A const pointer to the property if it exists, nullptr otherwise
      */
-    const Property *property(PropertyId) const noexcept;
+    const Property *GetProperty(PropertyId) const noexcept;
 
     /**
      * @brief Add a property
@@ -240,17 +240,17 @@ class Node {
      */
     size_t RemoveAllPins();
 
-    NodeId _id;      ///< unique node id
-    NodeType _type;  ///< Node type from the module
+    NodeId id_;      ///< unique node id
+    NodeType type_;  ///< Node type from the module
 
-    PinId _input_pin_count;
-    PinId _output_pin_count;
+    PinId input_pin_count_;
+    PinId output_pin_count_;
 
-    std::vector<Pin> _input_pins;
-    std::vector<Pin> _output_pins;
+    std::vector<Pin> input_pins_;
+    std::vector<Pin> output_pins_;
 
-    PropertyId _property_id_count;
-    PropertyMap _properties;  ///< properties are data storages reserved for
+    PropertyId property_id_count_;
+    PropertyMap properties_;  ///< properties are data storages reserved for
                               ///< module usage
 };
 

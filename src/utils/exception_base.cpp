@@ -2,20 +2,20 @@
 
 utils::BaseException::BaseException(const std::string &err_msg,
                                     const std::source_location &location)
-    : what_(err_msg), location_(location) {}
+    : kWhat(err_msg), kLocation(location) {}
 
 const char *utils::BaseException::what() const noexcept {
-    return what_.c_str();
+    return kWhat.c_str();
 }
 
-const std::source_location &utils::BaseException::location() const noexcept {
-    return location_;
+const std::source_location &utils::BaseException::Location() const noexcept {
+    return kLocation;
 }
 
 std::string utils::BaseException::GetDetailedMessage() const {
-    return std::format("Error: {}\n  at {} ({}:{}:{})", what_,
-                       location_.function_name(), location_.file_name(),
-                       location_.line(), location_.column());
+    return std::format("Error: {}\n  at {} ({}:{}:{})", kWhat,
+                       kLocation.function_name(), kLocation.file_name(),
+                       kLocation.line(), kLocation.column());
 }
 
 template <typename... Args>
@@ -23,6 +23,6 @@ std::string utils::BaseException::GetFormattedMessage(
     std::format_string<Args...> fmt, Args &&...args) const {
     std::string formatted_msg = std::format(fmt, std::forward<Args>(args)...);
     return std::format("Error: {}\n  at {} ({}:{}:{})", formatted_msg,
-                       location_.function_name(), location_.file_name(),
-                       location_.line(), location_.column());
+                       kLocation.function_name(), kLocation.file_name(),
+                       kLocation.line(), kLocation.column());
 }

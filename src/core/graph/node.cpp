@@ -17,140 +17,145 @@ namespace core {
 
 #pragma region Public
 
-NodeId Node::id() const noexcept { return _id; }
+NodeId Node::Id() const noexcept { return id_; }
 
-NodeType Node::type() const noexcept { return _type; }
+NodeType Node::Type() const noexcept { return type_; }
 
-const std::vector<Pin> &Node::inputPins() const noexcept { return _input_pins; }
+const std::vector<Pin> &Node::InputPins() const noexcept { return input_pins_; }
 
-const std::vector<Pin> &Node::outputPins() const noexcept {
-    return _output_pins;
+const std::vector<Pin> &Node::OutputPins() const noexcept {
+    return output_pins_;
 }
 
-size_t Node::inputPinsCount() const noexcept { return _input_pins.size(); }
+size_t Node::InputPinsCount() const noexcept { return input_pins_.size(); }
 
-size_t Node::outputPinsCount() const noexcept { return _output_pins.size(); }
+size_t Node::OutputPinsCount() const noexcept { return output_pins_.size(); }
 
-bool Node::inputPinExists(PinId id) const noexcept {
-    return std::find_if(_input_pins.begin(), _input_pins.end(),
-                        [id](const Pin &pin) { return pin.id == id; }) !=
-           _input_pins.end();
+bool Node::InputPinExists(PinId id) const noexcept {
+    return std::find_if(input_pins_.begin(), input_pins_.end(),
+                        [id](const Pin &pin) { return pin.id_ == id; }) !=
+           input_pins_.end();
 }
 
-bool Node::outputPinExists(PinId id) const noexcept {
-    return std::find_if(_output_pins.begin(), _output_pins.end(),
-                        [id](const Pin &pin) { return pin.id == id; }) !=
-           _output_pins.end();
+bool Node::OutputPinExists(PinId id) const noexcept {
+    return std::find_if(output_pins_.begin(), output_pins_.end(),
+                        [id](const Pin &pin) { return pin.id_ == id; }) !=
+           output_pins_.end();
 }
 
-const Pin *Node::inputPin(PinId id) const noexcept {
-    auto pin_pos = std::find_if(_input_pins.begin(), _input_pins.end(),
-                                [id](const Pin &pin) { return pin.id == id; });
+const Pin *Node::InputPin(PinId id) const noexcept {
+    auto pin_pos = std::find_if(input_pins_.begin(), input_pins_.end(),
+                                [id](const Pin &pin) { return pin.id_ == id; });
 
-    if (pin_pos == _input_pins.end()) return nullptr;  // Not found
+    if (pin_pos == input_pins_.end()) return nullptr;  // Not found
 
     return &(*pin_pos);
 }
 
-const Pin *Node::outputPin(PinId id) const noexcept {
-    auto pin_pos = std::find_if(_output_pins.begin(), _output_pins.end(),
-                                [id](const Pin &pin) { return pin.id == id; });
+const Pin *Node::OutputPin(PinId id) const noexcept {
+    auto pin_pos = std::find_if(output_pins_.begin(), output_pins_.end(),
+                                [id](const Pin &pin) { return pin.id_ == id; });
 
-    if (pin_pos == _output_pins.end())
+    if (pin_pos == output_pins_.end()) {
         return nullptr;  // Not found
-    else
+    } else {
         return &(*pin_pos);
+    }
 }
 
-bool Node::hasProperty(PropertyId id) const noexcept {
-    return _properties.find(id) != _properties.end();
+bool Node::HasProperty(PropertyId id) const noexcept {
+    return properties_.find(id) != properties_.end();
 }
 
-Property *Node::property(PropertyId id) noexcept {
-    auto property_pos = _properties.find(id);
+Property *Node::GetProperty(PropertyId id) noexcept {
+    auto property_pos = properties_.find(id);
 
-    if (property_pos == _properties.end())
+    if (property_pos == properties_.end()) {
         return nullptr;  /// Not found
-    else
+    } else {
         return &property_pos->second;
+    }
 }
 
-const Property *Node::property(PropertyId id) const noexcept {
-    auto property_pos = _properties.find(id);
+const Property *Node::GetProperty(PropertyId id) const noexcept {
+    auto property_pos = properties_.find(id);
 
-    if (property_pos == _properties.end())
+    if (property_pos == properties_.end()) {
         return nullptr;  /// Not found
-    else
+    } else {
         return &property_pos->second;
+    }
 }
 
 PropertyId Node::AddProperty(Property property) {
-    PropertyId id = _property_id_count++;
-    _properties.insert_or_assign(id, property);
+    PropertyId id = property_id_count_++;
+    properties_.insert_or_assign(id, property);
 
     return id;
 }
 
 void Node::SetProperty(PropertyId id, Property property) {
-    _properties.insert_or_assign(id, property);  /// New methods my beloved
+    properties_.insert_or_assign(id, property);  /// New methods my beloved
 }
 
-void Node::RemoveProperty(PropertyId id) { _properties.erase(id); }
+void Node::RemoveProperty(PropertyId id) { properties_.erase(id); }
 
 #pragma endregion Public
 
 #pragma region Private
 
 Node::Node(NodeId id, NodeType type)
-    : _id(id),
-      _type(type),
-      _input_pin_count(1),
-      _output_pin_count(1),
-      _property_id_count(1) {}
+    : id_(id),
+      type_(type),
+      input_pin_count_(1),
+      output_pin_count_(1),
+      property_id_count_(1) {}
 
 PinId Node::AddInputPin(Pin pin) {
-    pin.id = _input_pin_count++;
-    _input_pins.emplace_back(pin);
-    return pin.id;
+    pin.id_ = input_pin_count_++;
+    input_pins_.emplace_back(pin);
+    return pin.id_;
 }
 
 PinId Node::AddOutputPin(Pin pin) {
-    pin.id = _output_pin_count++;
-    _output_pins.emplace_back(pin);
-    return pin.id;
+    pin.id_ = output_pin_count_++;
+    output_pins_.emplace_back(pin);
+    return pin.id_;
 }
 
-void Node::RemoveInputPin(PinId pin_id) {
+void Node::RemoveInputPin(PinId pinid_) {
     auto pin_pos =
-        std::find_if(_input_pins.begin(), _input_pins.end(),
-                     [pin_id](const Pin &pin) { return pin.id == pin_id; });
+        std::find_if(input_pins_.begin(), input_pins_.end(),
+                     [pinid_](const Pin &pin) { return pin.id_ == pinid_; });
 
-    if (pin_pos == _input_pins.end())
+    if (pin_pos == input_pins_.end()) {
         return;  /// Pin does not exists, nothing to do
+    }
 
-    _input_pins.erase(pin_pos);
+    input_pins_.erase(pin_pos);
 }
 
-void Node::RemoveOutputPin(PinId pin_id) {
+void Node::RemoveOutputPin(PinId pinid_) {
     auto pin_pos =
-        std::find_if(_output_pins.begin(), _output_pins.end(),
-                     [pin_id](const Pin &pin) { return pin.id == pin_id; });
+        std::find_if(output_pins_.begin(), output_pins_.end(),
+                     [pinid_](const Pin &pin) { return pin.id_ == pinid_; });
 
-    if (pin_pos == _output_pins.end())
+    if (pin_pos == output_pins_.end()) {
         return;  /// Pin does not exists, nothing to do
+    }
 
-    _output_pins.erase(pin_pos);
+    output_pins_.erase(pin_pos);
 }
 
 size_t Node::RemoveAllInputPins() {
-    size_t count = _input_pins.size();
-    _input_pins.clear();
+    size_t count = input_pins_.size();
+    input_pins_.clear();
     return count;
 }
 
 size_t Node::RemoveAllOutputPins() {
-    size_t count = _output_pins.size();
-    _output_pins.clear();
+    size_t count = output_pins_.size();
+    output_pins_.clear();
     return count;
 }
 

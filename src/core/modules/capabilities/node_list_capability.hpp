@@ -59,7 +59,7 @@ class INodeListCapability : public ICapability {
      * @return A pointer to a string_view with the new node name, nullptr if all
      * the nodes of the capability have been assigned.
      */
-    virtual const std::string_view *registerNode(
+    virtual const std::string_view *RegisterNode(
         NodeType node_type) const noexcept = 0;
 
     /**
@@ -115,7 +115,7 @@ class NodeListCapability final : public INodeListCapability {
     void RegisterNode(std::string name, std::string description,
                       NodeConfiguration config);
 
-    const std::string_view *registerNode(
+    const std::string_view *RegisterNode(
         NodeType node_type) const noexcept override;
 
     std::vector<NodeMetadata> GetAvailableNodes() const noexcept override;
@@ -128,9 +128,9 @@ class NodeListCapability final : public INodeListCapability {
 
    private:
     struct PendingNode {
-        std::string name;
-        std::string description;
-        NodeConfiguration config;
+        std::string name_;
+        std::string description_;
+        NodeConfiguration config_;
     };
 
     std::list<PendingNode> pending_nodes_;

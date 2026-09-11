@@ -18,13 +18,13 @@ void TypeListCapability::RegisterType(std::string name) {
         if (t == name) return;
     }
     for (const auto &t : registered_types_) {
-        if (t.name == name) return;
+        if (t.name_ == name) return;
     }
     owned_names_.push_back(std::move(name));
     pending_types_.push_back(owned_names_.back());
 }
 
-const std::string_view *TypeListCapability::registerType(
+const std::string_view *TypeListCapability::RegisterType(
     DataType type_id) const noexcept {
     if (next_type_index_ >= pending_types_.size()) {
         return nullptr;
@@ -35,10 +35,10 @@ const std::string_view *TypeListCapability::registerType(
     id_to_name_[type_id] = name;
     next_type_index_++;
 
-    return &registered_types_.back().name;
+    return &registered_types_.back().name_;
 }
 
-DataType TypeListCapability::typeId(std::string_view type_name) const noexcept {
+DataType TypeListCapability::TypeId(std::string_view type_name) const noexcept {
     auto it = name_to_id_.find(type_name);
     if (it != name_to_id_.end()) {
         return it->second;
@@ -46,7 +46,7 @@ DataType TypeListCapability::typeId(std::string_view type_name) const noexcept {
     return 0;  // Returning 0 (invalid/not found)
 }
 
-std::string_view TypeListCapability::typeName(DataType type_id) const noexcept {
+std::string_view TypeListCapability::TypeName(DataType type_id) const noexcept {
     auto it = id_to_name_.find(type_id);
     if (it != id_to_name_.end()) {
         return it->second;
@@ -54,7 +54,7 @@ std::string_view TypeListCapability::typeName(DataType type_id) const noexcept {
     return "";
 }
 
-std::span<const ITypeListCapability::TypeDefinition> TypeListCapability::types()
+std::span<const ITypeListCapability::TypeDefinition> TypeListCapability::Types()
     const noexcept {
     return registered_types_;
 }

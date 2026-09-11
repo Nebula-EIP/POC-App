@@ -13,7 +13,7 @@
  * @param ... Format arguments
  */
 #define LOG_DEBUG(format, ...)                                                 \
-    utils::Logger::get_instance().log(utils::LogLevel::Debug,                  \
+    utils::Logger::GetInstance().log(utils::LogLevel::Debug,                  \
                                       std::source_location::current(), format, \
                                       ##__VA_ARGS__)
 
@@ -23,7 +23,7 @@
  * @param ... Format arguments
  */
 #define LOG_INFO(format, ...)                                                  \
-    utils::Logger::get_instance().log(utils::LogLevel::Info,                   \
+    utils::Logger::GetInstance().log(utils::LogLevel::Info,                   \
                                       std::source_location::current(), format, \
                                       ##__VA_ARGS__)
 
@@ -33,7 +33,7 @@
  * @param ... Format arguments
  */
 #define LOG_WARNING(format, ...)                                               \
-    utils::Logger::get_instance().log(utils::LogLevel::Warning,                \
+    utils::Logger::GetInstance().log(utils::LogLevel::Warning,                \
                                       std::source_location::current(), format, \
                                       ##__VA_ARGS__)
 
@@ -43,7 +43,7 @@
  * @param ... Format arguments
  */
 #define LOG_ERROR(format, ...)                                                 \
-    utils::Logger::get_instance().log(utils::LogLevel::Error,                  \
+    utils::Logger::GetInstance().log(utils::LogLevel::Error,                  \
                                       std::source_location::current(), format, \
                                       ##__VA_ARGS__)
 
@@ -53,7 +53,7 @@
  * @param ... Format arguments
  */
 #define LOG_FATAL(format, ...)                                                 \
-    utils::Logger::get_instance().log(utils::LogLevel::Fatal,                  \
+    utils::Logger::GetInstance().log(utils::LogLevel::Fatal,                  \
                                       std::source_location::current(), format, \
                                       ##__VA_ARGS__)
 
@@ -64,11 +64,11 @@ namespace utils {
  * @brief Enumeration of available logging levels.
  */
 enum class LogLevel {
-    Debug,    ///< Detailed information for debugging
-    Info,     ///< General informational messages
-    Warning,  ///< Warning messages for potentially harmful situations
-    Error,    ///< Error messages for serious problems
-    Fatal     ///< Fatal error messages for critical failures
+    kDebug,    ///< Detailed information for debugging
+    kInfo,     ///< General informational messages
+    kWarning,  ///< Warning messages for potentially harmful situations
+    kError,    ///< Error messages for serious problems
+    kFatal     ///< Fatal error messages for critical failures
 };
 
 /**
@@ -76,14 +76,14 @@ enum class LogLevel {
  * @param level The log level to convert
  * @return ANSI color escape sequence
  */
-const char *to_color(LogLevel level);
+const char *ToColor(LogLevel level);
 
 /**
  * @brief Converts a log level to its string representation.
  * @param level The log level to convert
  * @return String representation of the log level
  */
-const char *to_string(LogLevel level);
+const char *ToString(LogLevel level);
 
 /**
  * @class Logger
@@ -106,14 +106,14 @@ class Logger {
      * @brief Gets the singleton instance of the Logger.
      * @return Reference to the Logger instance
      */
-    static Logger &get_instance();
+    static Logger &GetInstance();
 
     /**
      * @brief Sets the minimum log level to display.
      * Messages below this level will be filtered out.
      * @param level The minimum log level
      */
-    void set_minimum_log_level(LogLevel level);
+    void SetMinimumLogLevel(LogLevel level);
 
     /**
      * @brief Logs a formatted message with the specified level and source
@@ -125,7 +125,7 @@ class Logger {
      * @param args Arguments to format into the message
      */
     template <typename... TArgs>
-    void log(LogLevel level, const std::source_location &location,
+    void Log(LogLevel level, const std::source_location &location,
              std::string_view formatStr, const TArgs &...args);
 
     // Prevent copying and moving
@@ -144,11 +144,11 @@ class Logger {
      * @brief Generates a formatted timestamp string.
      * @return Timestamp in "YYYY-MM-DD HH:MM:SS" format
      */
-    std::string get_timestamp() const;
+    std::string GetTimestamp() const;
 
-    std::mutex log_mutex;  ///< Mutex for thread-safe logging
-    LogLevel minimum_log_level = LogLevel::Debug;  ///< Minimum level to log
-    static constexpr std::size_t k_timestamp_buffer_size =
+    std::mutex log_mutex_;  ///< Mutex for thread-safe logging
+    LogLevel minimum_log_level_ = LogLevel::kDebug;  ///< Minimum level to log
+    static constexpr std::size_t kTimestampBufferSize =
         20;  ///< Buffer size for timestamps
 };
 

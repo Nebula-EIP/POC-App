@@ -34,9 +34,9 @@ class ITypeListCapability : public core::ICapability {
      * @brief Used only for return values formatting.
      */
     struct TypeDefinition {
-        DataType id;  ///< Unique id given to each type by the core (ids are
+        DataType id_;  ///< Unique id given to each type by the core (ids are
                       ///< uniques across modules)
-        std::string_view name;
+        std::string_view name_;
     };
 
     virtual ~ITypeListCapability() = default;
@@ -51,7 +51,7 @@ class ITypeListCapability : public core::ICapability {
      * @return A pointer to a string_view with the new type, nullptr if all the
      * types of the capability have been assigned.
      */
-    virtual const std::string_view *registerType(
+    virtual const std::string_view *RegisterType(
         DataType type_id) const noexcept = 0;
 
     /**
@@ -61,7 +61,7 @@ class ITypeListCapability : public core::ICapability {
      *
      * @return The id of the type
      */
-    virtual DataType typeId(std::string_view type_name) const noexcept = 0;
+    virtual DataType TypeId(std::string_view type_name) const noexcept = 0;
 
     /**
      * @brief Get a type name from it's id
@@ -70,7 +70,7 @@ class ITypeListCapability : public core::ICapability {
      *
      * @return The name of the type
      */
-    virtual std::string_view typeName(DataType type_id) const noexcept = 0;
+    virtual std::string_view TypeName(DataType type_id) const noexcept = 0;
 
     /**
      * @brief Get the list of all types defined by the capability
@@ -79,7 +79,7 @@ class ITypeListCapability : public core::ICapability {
      * If the span is empty, it means the capability has not yet registered it's
      * types.
      */
-    virtual std::span<const TypeDefinition> types() const noexcept = 0;
+    virtual std::span<const TypeDefinition> Types() const noexcept = 0;
 };
 
 /**
@@ -99,11 +99,11 @@ class TypeListCapability final : public ITypeListCapability {
      */
     void RegisterType(std::string name);
 
-    const std::string_view *registerType(
+    const std::string_view *RegisterType(
         DataType type_id) const noexcept override;
-    DataType typeId(std::string_view type_name) const noexcept override;
-    std::string_view typeName(DataType type_id) const noexcept override;
-    std::span<const TypeDefinition> types() const noexcept override;
+    DataType TypeId(std::string_view type_name) const noexcept override;
+    std::string_view TypeName(DataType type_id) const noexcept override;
+    std::span<const TypeDefinition> Types() const noexcept override;
 
    private:
     std::list<std::string> owned_names_;

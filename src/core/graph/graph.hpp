@@ -41,7 +41,7 @@ class Graph {
      *
      * @return true if the node exists, false if not
      */
-    bool hasNode(NodeId id) const noexcept;
+    bool HasNode(NodeId id) const noexcept;
 
     /**
      * @brief Try to retreive a pointer to a node.
@@ -50,7 +50,7 @@ class Graph {
      *
      * @return A pointer to the node if found, nullptr if not.
      */
-    Node *node(NodeId id) noexcept;
+    Node *GetNode(NodeId id) noexcept;
 
     /**
      * @brief Try to retreive a constant pointer to a node.
@@ -59,14 +59,14 @@ class Graph {
      *
      * @return A constant pointer to the node if found, nullptr if not.
      */
-    const Node *node(NodeId id) const noexcept;
+    const Node *GetNode(NodeId id) const noexcept;
 
     /**
      * @brief Retreive the list of all nodes.
      *
      * @return All nodes contained in the graph.
      */
-    const std::unordered_map<NodeId, Node> &nodes() const noexcept;
+    const std::unordered_map<NodeId, Node> &GetAllNodes() const noexcept;
 
     /**
      * @brief Add a new node to the graph
@@ -153,7 +153,7 @@ class Graph {
      *
      * @return 0 if connection not found, otherwise the connection id
      */
-    ConnectionId getConnectionId(NodeId from, PinId out, NodeId to,
+    ConnectionId GetConnectionId(NodeId from, PinId out, NodeId to,
                                  PinId in) const;
 
     /**
@@ -163,7 +163,7 @@ class Graph {
      * @returns A map containing all the connections between
      * the nodes of the graph with their ids as key
      */
-    const std::unordered_map<ConnectionId, Connection> &getAllConnections()
+    const std::unordered_map<ConnectionId, Connection> &GetAllConnections()
         const noexcept;
 
     /**
@@ -248,13 +248,13 @@ class Graph {
     uint16_t DisconnectNode(NodeId id);
 
    private:
-    NodeId _next_node_id;
+    NodeId next_node_id_;
     std::unordered_map<NodeId, Node>
-        _nodes;  ///< Map of all nodes stored in the graph
+        nodes_;  ///< Map of all nodes stored in the graph
 
-    ConnectionId _next_connection_id;
+    ConnectionId next_connection_id_;
     std::unordered_map<ConnectionId, Connection>
-        _connections;  ///< List of all connections linking nodes in the graph
+        connections_;  ///< List of all connections linking nodes in the graph
 };
 
 }  // namespace core
