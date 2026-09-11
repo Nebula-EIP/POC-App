@@ -14,6 +14,7 @@ if(TEST_SOURCES)
 
     # Link with project libraries when available
     target_link_libraries(unit_tests PRIVATE
+        project_warnings
         gtest
         gtest_main
         gmock

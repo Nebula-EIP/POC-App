@@ -13,13 +13,22 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Export compile commands for IDE support
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Compiler options
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+# Project compiler warning settings
 
-if(MSVC)
-    add_compile_options(/W4)
+add_library(project_warnings INTERFACE)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(project_warnings
+        INTERFACE
+            -Wall
+            -Wextra
+            -Wpedantic
+    )
+elseif(MSVC)
+    target_compile_options(project_warnings
+        INTERFACE
+            /W4
+    )
 endif()
 
 # Output directories
