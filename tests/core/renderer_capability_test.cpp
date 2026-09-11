@@ -40,8 +40,8 @@ constexpr NodeType kUnsupportedNodeType = 8;
 constexpr PropertyId kNameProperty = 12;
 
 void ExpectDefaultBaseMetadata(const ComponentBase &component) {
-    EXPECT_EQ(component.id, 0);
-    EXPECT_TRUE(component.tooltip.empty());
+    EXPECT_EQ(component.id_, 0);
+    EXPECT_TRUE(component.tooltip_.empty());
 }
 
 static_assert(std::is_base_of_v<core::ICapability, IRendererCapability>);
@@ -57,28 +57,28 @@ TEST(RendererComponentTest, StaticComponentsHaveEmptyDefaults) {
     ExpectDefaultBaseMetadata(label);
     ExpectDefaultBaseMetadata(info_bubble);
     ExpectDefaultBaseMetadata(separator);
-    EXPECT_TRUE(label.text.empty());
-    EXPECT_TRUE(info_bubble.text.empty());
+    EXPECT_TRUE(label.text_.empty());
+    EXPECT_TRUE(info_bubble.text_.empty());
 }
 
 TEST(RendererComponentTest, ButtonHasSafeDefaults) {
     const Button button;
 
     ExpectDefaultBaseMetadata(button);
-    EXPECT_TRUE(button.label.empty());
-    EXPECT_TRUE(button.enabled);
-    EXPECT_FALSE(static_cast<bool>(button.on_click));
+    EXPECT_TRUE(button.label_.empty());
+    EXPECT_TRUE(button.enabled_);
+    EXPECT_FALSE(static_cast<bool>(button.on_click_));
 }
 
 TEST(RendererComponentTest, TextFieldHasSafeDefaults) {
     const TextField field;
 
     ExpectDefaultBaseMetadata(field);
-    EXPECT_TRUE(field.label.empty());
-    EXPECT_TRUE(field.value.empty());
-    EXPECT_FALSE(field.read_only);
-    EXPECT_TRUE(field.enabled);
-    EXPECT_FALSE(static_cast<bool>(field.on_change));
+    EXPECT_TRUE(field.label_.empty());
+    EXPECT_TRUE(field.value_.empty());
+    EXPECT_FALSE(field.read_only_);
+    EXPECT_TRUE(field.enabled_);
+    EXPECT_FALSE(static_cast<bool>(field.on_change_));
 }
 
 TEST(RendererComponentTest, NumericFieldsHaveSafeDefaults) {
@@ -86,22 +86,22 @@ TEST(RendererComponentTest, NumericFieldsHaveSafeDefaults) {
     const Slider slider;
 
     ExpectDefaultBaseMetadata(number);
-    EXPECT_DOUBLE_EQ(number.value, 0.0);
-    EXPECT_DOUBLE_EQ(number.min, 0.0);
-    EXPECT_DOUBLE_EQ(number.max, 1.0);
-    EXPECT_DOUBLE_EQ(number.step, 0.0);
-    EXPECT_FALSE(number.is_integer);
-    EXPECT_TRUE(number.enabled);
-    EXPECT_FALSE(static_cast<bool>(number.on_change));
+    EXPECT_DOUBLE_EQ(number.value_, 0.0);
+    EXPECT_DOUBLE_EQ(number.min_, 0.0);
+    EXPECT_DOUBLE_EQ(number.max_, 1.0);
+    EXPECT_DOUBLE_EQ(number.step_, 0.0);
+    EXPECT_FALSE(number.is_integer_);
+    EXPECT_TRUE(number.enabled_);
+    EXPECT_FALSE(static_cast<bool>(number.on_change_));
 
     ExpectDefaultBaseMetadata(slider);
-    EXPECT_DOUBLE_EQ(slider.value, 0.0);
-    EXPECT_DOUBLE_EQ(slider.min, 0.0);
-    EXPECT_DOUBLE_EQ(slider.max, 1.0);
-    EXPECT_DOUBLE_EQ(slider.step, 0.0);
-    EXPECT_FALSE(slider.is_integer);
-    EXPECT_TRUE(slider.enabled);
-    EXPECT_FALSE(static_cast<bool>(slider.on_change));
+    EXPECT_DOUBLE_EQ(slider.value_, 0.0);
+    EXPECT_DOUBLE_EQ(slider.min_, 0.0);
+    EXPECT_DOUBLE_EQ(slider.max_, 1.0);
+    EXPECT_DOUBLE_EQ(slider.step_, 0.0);
+    EXPECT_FALSE(slider.is_integer_);
+    EXPECT_TRUE(slider.enabled_);
+    EXPECT_FALSE(static_cast<bool>(slider.on_change_));
 }
 
 TEST(RendererComponentTest, ChoiceFieldsHaveSafeDefaults) {
@@ -109,34 +109,34 @@ TEST(RendererComponentTest, ChoiceFieldsHaveSafeDefaults) {
     const Select select;
 
     ExpectDefaultBaseMetadata(checkbox);
-    EXPECT_TRUE(checkbox.label.empty());
-    EXPECT_FALSE(checkbox.value);
-    EXPECT_TRUE(checkbox.enabled);
-    EXPECT_FALSE(static_cast<bool>(checkbox.on_change));
+    EXPECT_TRUE(checkbox.label_.empty());
+    EXPECT_FALSE(checkbox.value_);
+    EXPECT_TRUE(checkbox.enabled_);
+    EXPECT_FALSE(static_cast<bool>(checkbox.on_change_));
 
     ExpectDefaultBaseMetadata(select);
-    EXPECT_TRUE(select.label.empty());
-    EXPECT_TRUE(select.options.empty());
-    EXPECT_EQ(select.selected_index, 0U);
-    EXPECT_TRUE(select.enabled);
-    EXPECT_FALSE(static_cast<bool>(select.on_change));
+    EXPECT_TRUE(select.label_.empty());
+    EXPECT_TRUE(select.options_.empty());
+    EXPECT_EQ(select.selected_index_, 0U);
+    EXPECT_TRUE(select.enabled_);
+    EXPECT_FALSE(static_cast<bool>(select.on_change_));
 }
 
 TEST(RendererComponentTest, SharedMetadataAndComponentValuesAreRetained) {
     Select select;
-    select.id = 42;
-    select.tooltip = "Select a mode";
-    select.label = "Mode";
-    select.options = {"Fast", "Safe"};
-    select.selected_index = 1;
-    select.enabled = false;
+    select.id_ = 42;
+    select.tooltip_ = "Select a mode";
+    select.label_ = "Mode";
+    select.options_ = {"Fast", "Safe"};
+    select.selected_index_ = 1;
+    select.enabled_ = false;
 
-    EXPECT_EQ(select.id, 42);
-    EXPECT_EQ(select.tooltip, "Select a mode");
-    EXPECT_EQ(select.label, "Mode");
-    EXPECT_EQ(select.options, (std::vector<std::string>{"Fast", "Safe"}));
-    EXPECT_EQ(select.selected_index, 1U);
-    EXPECT_FALSE(select.enabled);
+    EXPECT_EQ(select.id_, 42);
+    EXPECT_EQ(select.tooltip_, "Select a mode");
+    EXPECT_EQ(select.label_, "Mode");
+    EXPECT_EQ(select.options_, (std::vector<std::string>{"Fast", "Safe"}));
+    EXPECT_EQ(select.selected_index_, 1U);
+    EXPECT_FALSE(select.enabled_);
 }
 
 TEST(RendererComponentTest, InteractionCallbacksReceiveTheirValues) {
@@ -148,30 +148,30 @@ TEST(RendererComponentTest, InteractionCallbacksReceiveTheirValues) {
     std::size_t selected_index = 0;
 
     Button button;
-    button.on_click = [&clicked] { clicked = true; };
+    button.on_click_ = [&clicked] { clicked = true; };
     TextField text;
-    text.on_change = [&text_value](const std::string &value) {
+    text.on_change_ = [&text_value](const std::string &value) {
         text_value = value;
     };
     NumberField number;
-    number.on_change = [&number_value](double value) { number_value = value; };
+    number.on_change_ = [&number_value](double value) { number_value = value; };
     Slider slider;
-    slider.on_change = [&slider_value](double value) { slider_value = value; };
+    slider.on_change_ = [&slider_value](double value) { slider_value = value; };
     Checkbox checkbox;
-    checkbox.on_change = [&checkbox_value](bool value) {
+    checkbox.on_change_ = [&checkbox_value](bool value) {
         checkbox_value = value;
     };
     Select select;
-    select.on_change = [&selected_index](std::size_t index) {
+    select.on_change_ = [&selected_index](std::size_t index) {
         selected_index = index;
     };
 
-    button.on_click();
-    text.on_change("updated");
-    number.on_change(2.5);
-    slider.on_change(0.75);
-    checkbox.on_change(true);
-    select.on_change(3);
+    button.on_click_();
+    text.on_change_("updated");
+    number.on_change_(2.5);
+    slider.on_change_(0.75);
+    checkbox.on_change_(true);
+    select.on_change_(3);
 
     EXPECT_TRUE(clicked);
     EXPECT_EQ(text_value, "updated");
@@ -230,7 +230,7 @@ TEST(RendererCapabilityTest, ForwardsTheCompleteNodeRequestToTheProvider) {
     NodeType received_node_type = 0;
     const PropertyMap *received_properties = nullptr;
     PropertyMap properties = {
-        {kNameProperty, Property{.type_id = 3, .value = std::string("Adder")}},
+        {kNameProperty, Property{.type_id_ = 3, .value_ = std::string("Adder")}},
     };
     renderer.RegisterNodeRenderer(kSupportedNodeType,
                                   [&](NodeId node_id, NodeType node_type,
@@ -252,23 +252,23 @@ TEST(RendererCapabilityTest, ForwardsTheCompleteNodeRequestToTheProvider) {
 TEST(RendererCapabilityTest, ReturnsGraphicalMetadataCreatedByTheProvider) {
     RendererCapability renderer;
     PropertyMap properties = {
-        {kNameProperty, Property{.type_id = 3, .value = std::string("Adder")}},
+        {kNameProperty, Property{.type_id_ = 3, .value_ = std::string("Adder")}},
     };
     renderer.RegisterNodeRenderer(
         kSupportedNodeType,
         [](NodeId node_id, NodeType, const PropertyMap &node_properties) {
             const auto &name = std::any_cast<const std::string &>(
-                node_properties.at(kNameProperty).value);
+                node_properties.at(kNameProperty).value_);
 
             Label title;
-            title.id = 1;
-            title.tooltip = "Node identifier";
-            title.text = "Node " + std::to_string(node_id);
+            title.id_ = 1;
+            title.tooltip_ = "Node identifier";
+            title.text_ = "Node " + std::to_string(node_id);
 
             TextField name_field;
-            name_field.id = 2;
-            name_field.label = "Name";
-            name_field.value = name;
+            name_field.id_ = 2;
+            name_field.label_ = "Name";
+            name_field.value_ = name;
 
             return ComponentList{std::move(title), std::move(name_field)};
         });
@@ -279,12 +279,12 @@ TEST(RendererCapabilityTest, ReturnsGraphicalMetadataCreatedByTheProvider) {
     ASSERT_EQ(components.size(), 2U);
     const auto &title = std::get<Label>(components[0]);
     const auto &name = std::get<TextField>(components[1]);
-    EXPECT_EQ(title.id, 1);
-    EXPECT_EQ(title.tooltip, "Node identifier");
-    EXPECT_EQ(title.text, "Node 123");
-    EXPECT_EQ(name.id, 2);
-    EXPECT_EQ(name.label, "Name");
-    EXPECT_EQ(name.value, "Adder");
+    EXPECT_EQ(title.id_, 1);
+    EXPECT_EQ(title.tooltip_, "Node identifier");
+    EXPECT_EQ(title.text_, "Node 123");
+    EXPECT_EQ(name.id_, 2);
+    EXPECT_EQ(name.label_, "Name");
+    EXPECT_EQ(name.value_, "Adder");
 }
 
 TEST(RendererCapabilityTest, ReturnedInteractionCallbacksRemainUsable) {
@@ -294,21 +294,21 @@ TEST(RendererCapabilityTest, ReturnedInteractionCallbacksRemainUsable) {
     renderer.RegisterNodeRenderer(kSupportedNodeType, [&](NodeId, NodeType,
                                                           const PropertyMap &) {
         TextField name_field;
-        name_field.on_change = [&changed_name](const std::string &new_name) {
+        name_field.on_change_ = [&changed_name](const std::string &new_name) {
             changed_name = new_name;
         };
 
         Button reset_button;
-        reset_button.on_click = [&reset_count] { ++reset_count; };
+        reset_button.on_click_ = [&reset_count] { ++reset_count; };
         return ComponentList{std::move(name_field), std::move(reset_button)};
     });
     const PropertyMap properties;
     ComponentList components =
         renderer.GetNodeComponents(123, kSupportedNodeType, properties);
 
-    std::get<TextField>(components[0]).on_change("Multiplier");
-    std::get<Button>(components[1]).on_click();
-    std::get<Button>(components[1]).on_click();
+    std::get<TextField>(components[0]).on_change_("Multiplier");
+    std::get<Button>(components[1]).on_click_();
+    std::get<Button>(components[1]).on_click_();
 
     EXPECT_EQ(changed_name, "Multiplier");
     EXPECT_EQ(reset_count, 2U);
@@ -318,12 +318,12 @@ TEST(RendererCapabilityTest, SupportsIndependentProvidersForSeveralNodeTypes) {
     RendererCapability renderer;
     renderer.RegisterNodeRenderer(1, [](NodeId, NodeType, const PropertyMap &) {
         Label label;
-        label.text = "First";
+        label.text_ = "First";
         return ComponentList{std::move(label)};
     });
     renderer.RegisterNodeRenderer(2, [](NodeId, NodeType, const PropertyMap &) {
         Label label;
-        label.text = "Second";
+        label.text_ = "Second";
         return ComponentList{std::move(label)};
     });
     const PropertyMap properties;
@@ -331,8 +331,8 @@ TEST(RendererCapabilityTest, SupportsIndependentProvidersForSeveralNodeTypes) {
     const auto first = renderer.GetNodeComponents(1, 1, properties);
     const auto second = renderer.GetNodeComponents(2, 2, properties);
 
-    EXPECT_EQ(std::get<Label>(first.front()).text, "First");
-    EXPECT_EQ(std::get<Label>(second.front()).text, "Second");
+    EXPECT_EQ(std::get<Label>(first.front()).text_, "First");
+    EXPECT_EQ(std::get<Label>(second.front()).text_, "Second");
     EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 2U);
 }
 

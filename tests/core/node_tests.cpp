@@ -26,7 +26,7 @@ TEST(NodeInitialization, NodeInitializesWithCorrectType)
     core::Graph graph;
     core::Node &node = graph.CreateNode(42);
     
-    EXPECT_EQ(node.type(), 42);
+    EXPECT_EQ(node.Type(), 42);
 }
 
 TEST(NodeInitialization, NodeInitializesWithCorrectID)
@@ -34,8 +34,8 @@ TEST(NodeInitialization, NodeInitializesWithCorrectID)
     core::Graph graph;
     core::Node &node = graph.CreateNode(1);
     
-    EXPECT_GE(node.id(), 1);
-    EXPECT_LE(node.id(), 1000);  // Reasonable upper bound
+    EXPECT_GE(node.Id(), 1);
+    EXPECT_LE(node.Id(), 1000);  // Reasonable upper bound
 }
 
 TEST(NodeInitialization, NodeInitializesWithNoPins)
@@ -43,8 +43,8 @@ TEST(NodeInitialization, NodeInitializesWithNoPins)
     core::Graph graph;
     core::Node &node = graph.CreateNode(1);
     
-    EXPECT_EQ(node.inputPinsCount(), 0);
-    EXPECT_EQ(node.outputPinsCount(), 0);
+    EXPECT_EQ(node.InputPinsCount(), 0);
+    EXPECT_EQ(node.OutputPinsCount(), 0);
 }
 
 TEST(NodeInitialization, NodeInitializesWithNoProperties)
@@ -53,8 +53,8 @@ TEST(NodeInitialization, NodeInitializesWithNoProperties)
     core::Node &node = graph.CreateNode(1);
     
     // No property should exist
-    EXPECT_FALSE(node.hasProperty(1));
-    EXPECT_EQ(node.property(1), nullptr);
+    EXPECT_FALSE(node.HasProperty(1));
+    EXPECT_EQ(node.GetProperty(1), nullptr);
 }
 
 // ============================================================================
@@ -63,24 +63,24 @@ TEST(NodeInitialization, NodeInitializesWithNoProperties)
 
 TEST_F(NodeTest, InputPinExistsReturnsTrueForExisting)
 {
-    core::PinId pinId = graph.AddInputPin(node.id(), "test", 0);
-    EXPECT_TRUE(node.inputPinExists(pinId));
+    core::PinId pinId = graph.AddInputPin(node.Id(), "test", 0);
+    EXPECT_TRUE(node.InputPinExists(pinId));
 }
 
 TEST_F(NodeTest, InputPinExistsReturnsFalseForNonExistent)
 {
-    EXPECT_FALSE(node.inputPinExists(999));
+    EXPECT_FALSE(node.InputPinExists(999));
 }
 
 TEST_F(NodeTest, OutputPinExistsReturnsTrueForExisting)
 {
-    core::PinId pinId = graph.AddOutputPin(node.id(), "test", 0);
-    EXPECT_TRUE(node.outputPinExists(pinId));
+    core::PinId pinId = graph.AddOutputPin(node.Id(), "test", 0);
+    EXPECT_TRUE(node.OutputPinExists(pinId));
 }
 
 TEST_F(NodeTest, OutputPinExistsReturnsFalseForNonExistent)
 {
-    EXPECT_FALSE(node.outputPinExists(999));
+    EXPECT_FALSE(node.OutputPinExists(999));
 }
 
 // ============================================================================
@@ -89,73 +89,73 @@ TEST_F(NodeTest, OutputPinExistsReturnsFalseForNonExistent)
 
 TEST_F(NodeTest, InputPinReturnsConstPointerForExisting)
 {
-    core::PinId pinId = graph.AddInputPin(node.id(), "test", 42);
-    const core::Pin *pin = node.inputPin(pinId);
+    core::PinId pinId = graph.AddInputPin(node.Id(), "test", 42);
+    const core::Pin *pin = node.InputPin(pinId);
     
     EXPECT_NE(pin, nullptr);
-    EXPECT_EQ(pin->id, pinId);
+    EXPECT_EQ(pin->id_, pinId);
 }
 
 TEST_F(NodeTest, InputPinReturnsNullptrForNonExistent)
 {
-    const core::Pin *pin = node.inputPin(999);
+    const core::Pin *pin = node.InputPin(999);
     EXPECT_EQ(pin, nullptr);
 }
 
 TEST_F(NodeTest, OutputPinReturnsConstPointerForExisting)
 {
-    core::PinId pinId = graph.AddOutputPin(node.id(), "test", 42);
-    const core::Pin *pin = node.outputPin(pinId);
+    core::PinId pinId = graph.AddOutputPin(node.Id(), "test", 42);
+    const core::Pin *pin = node.OutputPin(pinId);
     
     EXPECT_NE(pin, nullptr);
-    EXPECT_EQ(pin->id, pinId);
+    EXPECT_EQ(pin->id_, pinId);
 }
 
 TEST_F(NodeTest, OutputPinReturnsNullptrForNonExistent)
 {
-    const core::Pin *pin = node.outputPin(999);
+    const core::Pin *pin = node.OutputPin(999);
     EXPECT_EQ(pin, nullptr);
 }
 
 TEST_F(NodeTest, InputPinsReturnsVectorOfAllInputPins)
 {
-    graph.AddInputPin(node.id(), "pin1", 0);
-    graph.AddInputPin(node.id(), "pin2", 0);
-    graph.AddInputPin(node.id(), "pin3", 0);
+    graph.AddInputPin(node.Id(), "pin1", 0);
+    graph.AddInputPin(node.Id(), "pin2", 0);
+    graph.AddInputPin(node.Id(), "pin3", 0);
     
-    const std::vector<core::Pin> &pins = node.inputPins();
+    const std::vector<core::Pin> &pins = node.InputPins();
     EXPECT_EQ(pins.size(), 3);
 }
 
 TEST_F(NodeTest, OutputPinsReturnsVectorOfAllOutputPins)
 {
-    graph.AddOutputPin(node.id(), "pin1", 0);
-    graph.AddOutputPin(node.id(), "pin2", 0);
+    graph.AddOutputPin(node.Id(), "pin1", 0);
+    graph.AddOutputPin(node.Id(), "pin2", 0);
     
-    const std::vector<core::Pin> &pins = node.outputPins();
+    const std::vector<core::Pin> &pins = node.OutputPins();
     EXPECT_EQ(pins.size(), 2);
 }
 
 TEST_F(NodeTest, InputPinsCountReturnsCorrectCount)
 {
-    EXPECT_EQ(node.inputPinsCount(), 0);
+    EXPECT_EQ(node.InputPinsCount(), 0);
     
-    graph.AddInputPin(node.id(), "pin1", 0);
-    EXPECT_EQ(node.inputPinsCount(), 1);
+    graph.AddInputPin(node.Id(), "pin1", 0);
+    EXPECT_EQ(node.InputPinsCount(), 1);
     
-    graph.AddInputPin(node.id(), "pin2", 0);
-    EXPECT_EQ(node.inputPinsCount(), 2);
+    graph.AddInputPin(node.Id(), "pin2", 0);
+    EXPECT_EQ(node.InputPinsCount(), 2);
 }
 
 TEST_F(NodeTest, OutputPinsCountReturnsCorrectCount)
 {
-    EXPECT_EQ(node.outputPinsCount(), 0);
+    EXPECT_EQ(node.OutputPinsCount(), 0);
     
-    graph.AddOutputPin(node.id(), "pin1", 0);
-    EXPECT_EQ(node.outputPinsCount(), 1);
+    graph.AddOutputPin(node.Id(), "pin1", 0);
+    EXPECT_EQ(node.OutputPinsCount(), 1);
     
-    graph.AddOutputPin(node.id(), "pin2", 0);
-    EXPECT_EQ(node.outputPinsCount(), 2);
+    graph.AddOutputPin(node.Id(), "pin2", 0);
+    EXPECT_EQ(node.OutputPinsCount(), 2);
 }
 
 // ============================================================================
@@ -165,17 +165,17 @@ TEST_F(NodeTest, OutputPinsCountReturnsCorrectCount)
 TEST_F(NodeTest, AddPropertyAddsPropertyAndReturnsUniqueID)
 {
     core::Property prop;
-    prop.type_id = 1;
+    prop.type_id_ = 1;
     
     core::PropertyId propId = node.AddProperty(prop);
     EXPECT_GT(propId, 0);
-    EXPECT_TRUE(node.hasProperty(propId));
+    EXPECT_TRUE(node.HasProperty(propId));
 }
 
 TEST_F(NodeTest, AddPropertyIncrementsPropertyCounterCorrectly)
 {
     core::Property prop;
-    prop.type_id = 1;
+    prop.type_id_ = 1;
     
     core::PropertyId prop1 = node.AddProperty(prop);
     core::PropertyId prop2 = node.AddProperty(prop);
@@ -188,7 +188,7 @@ TEST_F(NodeTest, AddPropertyIncrementsPropertyCounterCorrectly)
 TEST_F(NodeTest, AddPropertyMultipleAssignsUniqueIDs)
 {
     core::Property prop;
-    prop.type_id = 1;
+    prop.type_id_ = 1;
     
     core::PropertyId id1 = node.AddProperty(prop);
     core::PropertyId id2 = node.AddProperty(prop);
@@ -202,89 +202,89 @@ TEST_F(NodeTest, AddPropertyMultipleAssignsUniqueIDs)
 TEST_F(NodeTest, SetPropertyUpdatesExistingProperty)
 {
     core::Property prop1;
-    prop1.type_id = 1;
+    prop1.type_id_ = 1;
     core::PropertyId propId = node.AddProperty(prop1);
     
     core::Property prop2;
-    prop2.type_id = 2;
+    prop2.type_id_ = 2;
     node.SetProperty(propId, prop2);
     
-    const core::Property *retrieved = node.property(propId);
+    const core::Property *retrieved = node.GetProperty(propId);
     EXPECT_NE(retrieved, nullptr);
-    EXPECT_EQ(retrieved->type_id, 2);
+    EXPECT_EQ(retrieved->type_id_, 2);
 }
 
 TEST_F(NodeTest, SetPropertyCreatesPropertyIfNotExists)
 {
     core::Property prop;
-    prop.type_id = 42;
+    prop.type_id_ = 42;
     
     node.SetProperty(999, prop);
     
-    const core::Property *retrieved = node.property(999);
+    const core::Property *retrieved = node.GetProperty(999);
     EXPECT_NE(retrieved, nullptr);
-    EXPECT_EQ(retrieved->type_id, 42);
+    EXPECT_EQ(retrieved->type_id_, 42);
 }
 
 TEST_F(NodeTest, RemovePropertyRemovesProperty)
 {
     core::Property prop;
-    prop.type_id = 1;
+    prop.type_id_ = 1;
     core::PropertyId propId = node.AddProperty(prop);
     
-    EXPECT_TRUE(node.hasProperty(propId));
+    EXPECT_TRUE(node.HasProperty(propId));
     node.RemoveProperty(propId);
-    EXPECT_FALSE(node.hasProperty(propId));
+    EXPECT_FALSE(node.HasProperty(propId));
 }
 
 TEST_F(NodeTest, RemovePropertyDoesNothingForNonExistent)
 {
     // Should not throw
     node.RemoveProperty(999);
-    EXPECT_FALSE(node.hasProperty(999));
+    EXPECT_FALSE(node.HasProperty(999));
 }
 
 TEST_F(NodeTest, HasPropertyReturnsTrueForExisting)
 {
     core::Property prop;
-    prop.type_id = 1;
+    prop.type_id_ = 1;
     core::PropertyId propId = node.AddProperty(prop);
     
-    EXPECT_TRUE(node.hasProperty(propId));
+    EXPECT_TRUE(node.HasProperty(propId));
 }
 
 TEST_F(NodeTest, HasPropertyReturnsFalseForNonExistent)
 {
-    EXPECT_FALSE(node.hasProperty(999));
+    EXPECT_FALSE(node.HasProperty(999));
 }
 
 TEST_F(NodeTest, PropertyReturnsPointerForExisting)
 {
     core::Property prop;
-    prop.type_id = 42;
+    prop.type_id_ = 42;
     core::PropertyId propId = node.AddProperty(prop);
     
-    core::Property *retrieved = node.property(propId);
+    core::Property *retrieved = node.GetProperty(propId);
     EXPECT_NE(retrieved, nullptr);
-    EXPECT_EQ(retrieved->type_id, 42);
+    EXPECT_EQ(retrieved->type_id_, 42);
 }
 
 TEST_F(NodeTest, PropertyReturnsNullptrForNonExistent)
 {
-    core::Property *retrieved = node.property(999);
+    core::Property *retrieved = node.GetProperty(999);
     EXPECT_EQ(retrieved, nullptr);
 }
 
 TEST_F(NodeTest, PropertyConstReturnsConstPointerForExisting)
 {
     core::Property prop;
-    prop.type_id = 42;
+    prop.type_id_ = 42;
     core::PropertyId propId = node.AddProperty(prop);
     
     const core::Node &constNode = node;
-    const core::Property *retrieved = constNode.property(propId);
+    const core::Property *retrieved = constNode.GetProperty(propId);
     EXPECT_NE(retrieved, nullptr);
-    EXPECT_EQ(retrieved->type_id, 42);
+    EXPECT_EQ(retrieved->type_id_, 42);
 }
 
 // ============================================================================
@@ -293,8 +293,8 @@ TEST_F(NodeTest, PropertyConstReturnsConstPointerForExisting)
 
 TEST_F(NodeTest, AddInputPinAssignsCorrectID)
 {
-    core::PinId pin1 = graph.AddInputPin(node.id(), "pin1", 0);
-    core::PinId pin2 = graph.AddInputPin(node.id(), "pin2", 0);
+    core::PinId pin1 = graph.AddInputPin(node.Id(), "pin1", 0);
+    core::PinId pin2 = graph.AddInputPin(node.Id(), "pin2", 0);
     
     EXPECT_NE(pin1, pin2);
     EXPECT_GT(pin1, 0);
@@ -303,19 +303,19 @@ TEST_F(NodeTest, AddInputPinAssignsCorrectID)
 
 TEST_F(NodeTest, AddInputPinAddsToInternalVector)
 {
-    EXPECT_EQ(node.inputPinsCount(), 0);
+    EXPECT_EQ(node.InputPinsCount(), 0);
     
-    graph.AddInputPin(node.id(), "pin", 0);
-    EXPECT_EQ(node.inputPinsCount(), 1);
+    graph.AddInputPin(node.Id(), "pin", 0);
+    EXPECT_EQ(node.InputPinsCount(), 1);
     
-    graph.AddInputPin(node.id(), "pin2", 0);
-    EXPECT_EQ(node.inputPinsCount(), 2);
+    graph.AddInputPin(node.Id(), "pin2", 0);
+    EXPECT_EQ(node.InputPinsCount(), 2);
 }
 
 TEST_F(NodeTest, AddOutputPinAssignsCorrectID)
 {
-    core::PinId pin1 = graph.AddOutputPin(node.id(), "pin1", 0);
-    core::PinId pin2 = graph.AddOutputPin(node.id(), "pin2", 0);
+    core::PinId pin1 = graph.AddOutputPin(node.Id(), "pin1", 0);
+    core::PinId pin2 = graph.AddOutputPin(node.Id(), "pin2", 0);
     
     EXPECT_NE(pin1, pin2);
     EXPECT_GT(pin1, 0);
@@ -324,31 +324,31 @@ TEST_F(NodeTest, AddOutputPinAssignsCorrectID)
 
 TEST_F(NodeTest, AddOutputPinAddsToInternalVector)
 {
-    EXPECT_EQ(node.outputPinsCount(), 0);
+    EXPECT_EQ(node.OutputPinsCount(), 0);
     
-    graph.AddOutputPin(node.id(), "pin", 0);
-    EXPECT_EQ(node.outputPinsCount(), 1);
+    graph.AddOutputPin(node.Id(), "pin", 0);
+    EXPECT_EQ(node.OutputPinsCount(), 1);
     
-    graph.AddOutputPin(node.id(), "pin2", 0);
-    EXPECT_EQ(node.outputPinsCount(), 2);
+    graph.AddOutputPin(node.Id(), "pin2", 0);
+    EXPECT_EQ(node.OutputPinsCount(), 2);
 }
 
 TEST_F(NodeTest, RemoveInputPinRemovesFromInternalVector)
 {
-    core::PinId pinId = graph.AddInputPin(node.id(), "pin", 0);
-    EXPECT_EQ(node.inputPinsCount(), 1);
+    core::PinId pinId = graph.AddInputPin(node.Id(), "pin", 0);
+    EXPECT_EQ(node.InputPinsCount(), 1);
     
-    graph.RemoveInputPin(node.id(), pinId);
-    EXPECT_EQ(node.inputPinsCount(), 0);
+    graph.RemoveInputPin(node.Id(), pinId);
+    EXPECT_EQ(node.InputPinsCount(), 0);
 }
 
 TEST_F(NodeTest, RemoveOutputPinRemovesFromInternalVector)
 {
-    core::PinId pinId = graph.AddOutputPin(node.id(), "pin", 0);
-    EXPECT_EQ(node.outputPinsCount(), 1);
+    core::PinId pinId = graph.AddOutputPin(node.Id(), "pin", 0);
+    EXPECT_EQ(node.OutputPinsCount(), 1);
     
-    graph.RemoveOutputPin(node.id(), pinId);
-    EXPECT_EQ(node.outputPinsCount(), 0);
+    graph.RemoveOutputPin(node.Id(), pinId);
+    EXPECT_EQ(node.OutputPinsCount(), 0);
 }
 
 // ============================================================================
@@ -357,13 +357,13 @@ TEST_F(NodeTest, RemoveOutputPinRemovesFromInternalVector)
 
 TEST_F(NodeTest, IdReturnsCorrectNodeID)
 {
-    core::NodeId nodeId = node.id();
-    EXPECT_EQ(node.id(), nodeId);
+    core::NodeId nodeId = node.Id();
+    EXPECT_EQ(node.Id(), nodeId);
 }
 
 TEST_F(NodeTest, TypeReturnsCorrectNodeType)
 {
-    EXPECT_EQ(node.type(), 42);
+    EXPECT_EQ(node.Type(), 42);
 }
 
 // ============================================================================
@@ -373,33 +373,33 @@ TEST_F(NodeTest, TypeReturnsCorrectNodeType)
 TEST_F(NodeTest, MixPropertyAndPinOperations)
 {
     // Add pins
-    core::PinId inPin = graph.AddInputPin(node.id(), "in", 0);
-    core::PinId outPin = graph.AddOutputPin(node.id(), "out", 0);
+    core::PinId inPin = graph.AddInputPin(node.Id(), "in", 0);
+    core::PinId outPin = graph.AddOutputPin(node.Id(), "out", 0);
     
     // Add properties
     core::Property prop1;
-    prop1.type_id = 1;
+    prop1.type_id_ = 1;
     core::PropertyId propId1 = node.AddProperty(prop1);
     
     core::Property prop2;
-    prop2.type_id = 2;
+    prop2.type_id_ = 2;
     core::PropertyId propId2 = node.AddProperty(prop2);
     
     // Verify all exist
-    EXPECT_TRUE(node.inputPinExists(inPin));
-    EXPECT_TRUE(node.outputPinExists(outPin));
-    EXPECT_TRUE(node.hasProperty(propId1));
-    EXPECT_TRUE(node.hasProperty(propId2));
+    EXPECT_TRUE(node.InputPinExists(inPin));
+    EXPECT_TRUE(node.OutputPinExists(outPin));
+    EXPECT_TRUE(node.HasProperty(propId1));
+    EXPECT_TRUE(node.HasProperty(propId2));
     
     // Remove one of each
-    graph.RemoveInputPin(node.id(), inPin);
+    graph.RemoveInputPin(node.Id(), inPin);
     node.RemoveProperty(propId1);
     
     // Verify correct ones remain
-    EXPECT_FALSE(node.inputPinExists(inPin));
-    EXPECT_TRUE(node.outputPinExists(outPin));
-    EXPECT_FALSE(node.hasProperty(propId1));
-    EXPECT_TRUE(node.hasProperty(propId2));
+    EXPECT_FALSE(node.InputPinExists(inPin));
+    EXPECT_TRUE(node.OutputPinExists(outPin));
+    EXPECT_FALSE(node.HasProperty(propId1));
+    EXPECT_TRUE(node.HasProperty(propId2));
 }
 
 TEST_F(NodeTest, MultipleInputAndOutputPins)
@@ -409,17 +409,17 @@ TEST_F(NodeTest, MultipleInputAndOutputPins)
     std::vector<core::PinId> inPins, outPins;
     
     for (int i = 0; i < NUM_PINS; ++i) {
-        inPins.push_back(graph.AddInputPin(node.id(), "in" + std::to_string(i), 0));
-        outPins.push_back(graph.AddOutputPin(node.id(), "out" + std::to_string(i), 0));
+        inPins.push_back(graph.AddInputPin(node.Id(), "in" + std::to_string(i), 0));
+        outPins.push_back(graph.AddOutputPin(node.Id(), "out" + std::to_string(i), 0));
     }
     
-    EXPECT_EQ(node.inputPinsCount(), NUM_PINS);
-    EXPECT_EQ(node.outputPinsCount(), NUM_PINS);
+    EXPECT_EQ(node.InputPinsCount(), NUM_PINS);
+    EXPECT_EQ(node.OutputPinsCount(), NUM_PINS);
     
     // Verify all pins exist
     for (int i = 0; i < NUM_PINS; ++i) {
-        EXPECT_TRUE(node.inputPinExists(inPins[i]));
-        EXPECT_TRUE(node.outputPinExists(outPins[i]));
+        EXPECT_TRUE(node.InputPinExists(inPins[i]));
+        EXPECT_TRUE(node.OutputPinExists(outPins[i]));
     }
 }
 
@@ -431,25 +431,25 @@ TEST_F(NodeTest, PropertyLifecycle)
     // Add properties
     for (int i = 0; i < NUM_PROPS; ++i) {
         core::Property prop;
-        prop.type_id = i;
+        prop.type_id_ = i;
         propIds.push_back(node.AddProperty(prop));
     }
     
     // Verify all added
     EXPECT_EQ(propIds.size(), NUM_PROPS);
     for (const auto &id : propIds) {
-        EXPECT_TRUE(node.hasProperty(id));
+        EXPECT_TRUE(node.HasProperty(id));
     }
     
     // Remove middle property
     node.RemoveProperty(propIds[1]);
-    EXPECT_TRUE(node.hasProperty(propIds[0]));
-    EXPECT_FALSE(node.hasProperty(propIds[1]));
-    EXPECT_TRUE(node.hasProperty(propIds[2]));
+    EXPECT_TRUE(node.HasProperty(propIds[0]));
+    EXPECT_FALSE(node.HasProperty(propIds[1]));
+    EXPECT_TRUE(node.HasProperty(propIds[2]));
     
     // Add new property
     core::Property newProp;
-    newProp.type_id = 99;
+    newProp.type_id_ = 99;
     core::PropertyId newId = node.AddProperty(newProp);
-    EXPECT_TRUE(node.hasProperty(newId));
+    EXPECT_TRUE(node.HasProperty(newId));
 }
