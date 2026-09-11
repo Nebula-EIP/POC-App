@@ -43,9 +43,7 @@ Logger &Logger::GetInstance() {
     return s_instance;
 }
 
-void Logger::SetMinimumLogLevel(LogLevel level) {
-    minimum_log_level_ = level;
-}
+void Logger::SetMinimumLogLevel(LogLevel level) { minimum_log_level_ = level; }
 
 std::string Logger::GetTimestamp() const {
     std::time_t now = std::time(nullptr);

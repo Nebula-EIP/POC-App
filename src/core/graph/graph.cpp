@@ -233,7 +233,8 @@ void Graph::DisconnectOutputPin(NodeId node_id, PinId pin_id) {
         if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_,
+                       conn.in_pin_);
         }
     }
 }
@@ -257,7 +258,8 @@ uint16_t Graph::DisconnectAllOutputPin(NodeId node_id) {
         if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_,
+                       conn.in_pin_);
             count++;
         }
     }
@@ -283,7 +285,8 @@ void Graph::DisconnectInputPin(NodeId node_id, PinId pin_id) {
         if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_,
+                       conn.in_pin_);
         }
     }
 }
@@ -307,7 +310,8 @@ uint16_t Graph::DisconnectAllInputPin(NodeId node_id) {
         if (conn_pos != connections_.end()) {
             found = true;
             const Connection &conn = conn_pos->second;
-            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_, conn.in_pin_);
+            Disconnect(conn.from_node_, conn.out_pin_, conn.to_node_,
+                       conn.in_pin_);
             count++;
         }
     }

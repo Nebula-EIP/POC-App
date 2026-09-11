@@ -12,50 +12,50 @@
  * @param format Format string (std::format compatible)
  * @param ... Format arguments
  */
-#define LOG_DEBUG(format, ...)                                                 \
+#define LOG_DEBUG(format, ...)                                                \
     utils::Logger::GetInstance().log(utils::LogLevel::Debug,                  \
-                                      std::source_location::current(), format, \
-                                      ##__VA_ARGS__)
+                                     std::source_location::current(), format, \
+                                     ##__VA_ARGS__)
 
 /**
  * @brief Logs an info message with automatic source location capture.
  * @param format Format string (std::format compatible)
  * @param ... Format arguments
  */
-#define LOG_INFO(format, ...)                                                  \
+#define LOG_INFO(format, ...)                                                 \
     utils::Logger::GetInstance().log(utils::LogLevel::Info,                   \
-                                      std::source_location::current(), format, \
-                                      ##__VA_ARGS__)
+                                     std::source_location::current(), format, \
+                                     ##__VA_ARGS__)
 
 /**
  * @brief Logs a warning message with automatic source location capture.
  * @param format Format string (std::format compatible)
  * @param ... Format arguments
  */
-#define LOG_WARNING(format, ...)                                               \
+#define LOG_WARNING(format, ...)                                              \
     utils::Logger::GetInstance().log(utils::LogLevel::Warning,                \
-                                      std::source_location::current(), format, \
-                                      ##__VA_ARGS__)
+                                     std::source_location::current(), format, \
+                                     ##__VA_ARGS__)
 
 /**
  * @brief Logs an error message with automatic source location capture.
  * @param format Format string (std::format compatible)
  * @param ... Format arguments
  */
-#define LOG_ERROR(format, ...)                                                 \
+#define LOG_ERROR(format, ...)                                                \
     utils::Logger::GetInstance().log(utils::LogLevel::Error,                  \
-                                      std::source_location::current(), format, \
-                                      ##__VA_ARGS__)
+                                     std::source_location::current(), format, \
+                                     ##__VA_ARGS__)
 
 /**
  * @brief Logs a fatal message with automatic source location capture.
  * @param format Format string (std::format compatible)
  * @param ... Format arguments
  */
-#define LOG_FATAL(format, ...)                                                 \
+#define LOG_FATAL(format, ...)                                                \
     utils::Logger::GetInstance().log(utils::LogLevel::Fatal,                  \
-                                      std::source_location::current(), format, \
-                                      ##__VA_ARGS__)
+                                     std::source_location::current(), format, \
+                                     ##__VA_ARGS__)
 
 namespace utils {
 

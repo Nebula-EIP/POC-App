@@ -64,21 +64,13 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
 
 // Input functions
 
-bool IsRightClicked() {
-    return IsMouseButtonPressed(MOUSE_BUTTON_RIGHT);
-}
+bool IsRightClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_RIGHT); }
 
-bool IsLeftClicked() {
-    return IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
-}
+bool IsLeftClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_LEFT); }
 
-bool IsRightDown() {
-    return IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
-}
+bool IsRightDown() { return IsMouseButtonDown(MOUSE_BUTTON_RIGHT); }
 
-bool IsLeftDown() {
-    return IsMouseButtonDown(MOUSE_BUTTON_LEFT);
-}
+bool IsLeftDown() { return IsMouseButtonDown(MOUSE_BUTTON_LEFT); }
 
 // Collision functions
 

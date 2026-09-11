@@ -35,7 +35,7 @@ class ITypeListCapability : public core::ICapability {
      */
     struct TypeDefinition {
         DataType id_;  ///< Unique id given to each type by the core (ids are
-                      ///< uniques across modules)
+                       ///< uniques across modules)
         std::string_view name_;
     };
 
