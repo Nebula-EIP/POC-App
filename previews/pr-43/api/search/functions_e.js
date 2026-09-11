@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['set_5fminimum_5flog_5flevel_0',['set_minimum_log_level',['../classutils_1_1Logger.html#a4bbc5eebb4084c0919d17728b6755185',1,'utils::Logger']]],
-  ['setproperty_1',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
-  ['shutdown_2',['shutdown',['../classcore_1_1IModule.html#ac09cd69eb9a8a554eaf3ccb856b77f75',1,'core::IModule']]],
-  ['supportsnodetype_3',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]]
+  ['type_0',['Type',['../classcore_1_1Node.html#a8cb2821fa5214cd1f3eae8f17eda3f2c',1,'core::Node']]],
+  ['typeid_1',['typeid',['../classcore_1_1capa_1_1ITypeListCapability.html#a67fd51bf386baee25a5ae8d5b141e524',1,'core::capa::ITypeListCapability::TypeId()'],['../classcore_1_1capa_1_1TypeListCapability.html#a4a036ddc3e724dfd5ea3a68e71005540',1,'core::capa::TypeListCapability::TypeId()']]],
+  ['typename_2',['typename',['../classcore_1_1capa_1_1ITypeListCapability.html#aab50b668048b2f8fd7a21e933387b95d',1,'core::capa::ITypeListCapability::TypeName()'],['../classcore_1_1capa_1_1TypeListCapability.html#a18e691abdbb2cd2ba03489812a67f488',1,'core::capa::TypeListCapability::TypeName()']]],
+  ['types_3',['types',['../classcore_1_1IModule.html#aa2c75799d593aeb6a11eb602b5950aaa',1,'core::IModule::types()'],['../classcore_1_1capa_1_1ITypeListCapability.html#aac6daf846a1057e07e4add61a70600d1',1,'core::capa::ITypeListCapability::Types()'],['../classcore_1_1capa_1_1TypeListCapability.html#ac237e97cdf95fd3b6c65adfcdaab94a1',1,'core::capa::TypeListCapability::Types()']]]
 ];

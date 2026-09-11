@@ -1,6 +1,6 @@
 var structcore_1_1capa_1_1Button =
 [
-    [ "enabled", "structcore_1_1capa_1_1Button.html#a84b46d084110d8c9da005de758b1766d", null ],
-    [ "label", "structcore_1_1capa_1_1Button.html#a1831ab2eb44b1404bd2e799fac3c5b67", null ],
-    [ "on_click", "structcore_1_1capa_1_1Button.html#aa4fb99c6c7b0e0e7c6d2a015c5ac9560", null ]
+    [ "enabled_", "structcore_1_1capa_1_1Button.html#a69f946ea735420592740746748ae5e11", null ],
+    [ "label_", "structcore_1_1capa_1_1Button.html#a436a7564c568fce8106a725591f0cf0e", null ],
+    [ "on_click_", "structcore_1_1capa_1_1Button.html#abb6b596f24d0af304971ba9dffbe6516", null ]
 ];

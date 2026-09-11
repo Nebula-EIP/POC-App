@@ -132,9 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2c549533c9f5a8c1377c148c20ce369d" id="r_a2c549533c9f5a8c1377c148c20ce369d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d">RegisterNode</a> (std::string name, std::string description, <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> config)</td></tr>
 <tr class="memdesc:a2c549533c9f5a8c1377c148c20ce369d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a node for the module.  <br /></td></tr>
 <tr class="separator:a2c549533c9f5a8c1377c148c20ce369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a417860bd9d5cbcadbcaf9314360ec3f9" id="r_a417860bd9d5cbcadbcaf9314360ec3f9"><td class="memItemLeft" align="right" valign="top">const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a417860bd9d5cbcadbcaf9314360ec3f9">registerNode</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
-<tr class="memdesc:a417860bd9d5cbcadbcaf9314360ec3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
-<tr class="separator:a417860bd9d5cbcadbcaf9314360ec3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55636ce0051766dc06ec22ef4e24ccd3" id="r_a55636ce0051766dc06ec22ef4e24ccd3"><td class="memItemLeft" align="right" valign="top">const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3">RegisterNode</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
+<tr class="memdesc:a55636ce0051766dc06ec22ef4e24ccd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
+<tr class="separator:a55636ce0051766dc06ec22ef4e24ccd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a423ff0cae1d96660ca0e0d3b20bcd798" id="r_a423ff0cae1d96660ca0e0d3b20bcd798"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structcore_1_1capa_1_1NodeMetadata.html">NodeMetadata</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a423ff0cae1d96660ca0e0d3b20bcd798">GetAvailableNodes</a> () const noexcept override</td></tr>
 <tr class="memdesc:a423ff0cae1d96660ca0e0d3b20bcd798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the list of all nodes provided by this module.  <br /></td></tr>
 <tr class="separator:a423ff0cae1d96660ca0e0d3b20bcd798"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,8 +252,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a417860bd9d5cbcadbcaf9314360ec3f9" name="a417860bd9d5cbcadbcaf9314360ec3f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a417860bd9d5cbcadbcaf9314360ec3f9">&#9670;&#160;</a></span>registerNode()</h2>
+<a id="a55636ce0051766dc06ec22ef4e24ccd3" name="a55636ce0051766dc06ec22ef4e24ccd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55636ce0051766dc06ec22ef4e24ccd3">&#9670;&#160;</a></span>RegisterNode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,7 +262,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string_view * core::capa::NodeListCapability::registerNode </td>
+          <td class="memname">const std::string_view * core::capa::NodeListCapability::RegisterNode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
           <td class="paramname"><em>node_type</em></td><td>)</td>
@@ -285,12 +285,12 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new node name, nullptr if all the nodes of the capability have been assigned. </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ae509e4e70a1dd59e3d91ff0208fbd5b9">core::capa::INodeListCapability</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a14cb6a1c8c61c21622ad41f6d2b99fce">core::capa::INodeListCapability</a>.</p>
 
 </div>
 </div>
 <a id="a2c549533c9f5a8c1377c148c20ce369d" name="a2c549533c9f5a8c1377c148c20ce369d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c549533c9f5a8c1377c148c20ce369d">&#9670;&#160;</a></span>RegisterNode()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c549533c9f5a8c1377c148c20ce369d">&#9670;&#160;</a></span>RegisterNode() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

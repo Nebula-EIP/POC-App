@@ -3,7 +3,7 @@ var searchData=
   ['name_0',['name',['../classcore_1_1IModule.html#a752be226b6aed4236ccb45a03c0b348e',1,'core::IModule']]],
   ['name_5f_1',['name_',['../structcore_1_1capa_1_1NodeMetadata.html#adc32dbd92a427cd9974a74f0860f0e5b',1,'core::capa::NodeMetadata']]],
   ['newid_2',['NewId',['../classutils_1_1IdManager.html#a082864f4bb110efa1c2fe259e5819626',1,'utils::IdManager']]],
-  ['node_3',['node',['../classcore_1_1Node.html',1,'core::Node'],['../classcore_1_1Graph.html#a7cc7ccfdb5dd1cde133fb214e1fd970b',1,'core::Graph::node(NodeId id) const noexcept'],['../classcore_1_1Graph.html#a73dca2ce1766ff1065db1c3781b157a2',1,'core::Graph::node(NodeId id) noexcept'],['../structcore_1_1capa_1_1NodeExportRequest.html#a7ee6049f6c179703f8e5d3b9cb91fdd3',1,'core::capa::NodeExportRequest::node']]],
+  ['node_3',['node',['../classcore_1_1Node.html',1,'core::Node'],['../structcore_1_1capa_1_1NodeExportRequest.html#a7ee6049f6c179703f8e5d3b9cb91fdd3',1,'core::capa::NodeExportRequest::node']]],
   ['node_2ehpp_4',['node.hpp',['../node_8hpp.html',1,'']]],
   ['node_5fexception_2ehpp_5',['node_exception.hpp',['../node__exception_8hpp.html',1,'']]],
   ['node_5flist_5fcapability_2ecpp_6',['node_list_capability.cpp',['../node__list__capability_8cpp.html',1,'']]],
@@ -17,7 +17,7 @@ var searchData=
   ['nodelistcapability_14',['NodeListCapability',['../classcore_1_1capa_1_1NodeListCapability.html',1,'core::capa']]],
   ['nodemetadata_15',['NodeMetadata',['../structcore_1_1capa_1_1NodeMetadata.html',1,'core::capa']]],
   ['nodenotfoundexception_16',['NodeNotFoundException',['../classcore_1_1NodeNotFoundException.html',1,'core']]],
-  ['nodes_17',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1Graph.html#a904f5e451ae3363aa773cd0dfc8b3ea9',1,'core::Graph::nodes()'],['../classcore_1_1IModule.html#a21eeec81b7320c8e6ff11d8e5ddcd817',1,'core::IModule::nodes()']]],
+  ['nodes_17',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#a21eeec81b7320c8e6ff11d8e5ddcd817',1,'core::IModule::nodes()']]],
   ['nodetype_18',['NodeType',['../datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e',1,'core']]],
   ['nodetypeexception_19',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['numberfield_20',['NumberField',['../structcore_1_1capa_1_1NumberField.html',1,'core::capa']]]
