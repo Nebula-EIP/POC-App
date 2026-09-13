@@ -32,39 +32,39 @@ TEST(ImporterCapabilityTest, IsAnOptionalCoreCapability) {
 TEST(ImporterCapabilityTest, ReportsImportErrorsWithoutThrowing) {
     class FailingImporter final : public core::capa::IImporterCapability {
        public:
-        std::expected<void, core::capa::ImportError> importCode(
+        std::expected<void, core::capa::ImportError> ImportCode(
             const core::capa::ImportRequest &request) const override {
-            EXPECT_EQ(request.source, "bad;");
+            EXPECT_EQ(request.source_, "bad;");
             return std::unexpected(core::capa::ImportError{
                 core::capa::ImportEntityKind::kSource, 0, 4,
                 "Unsupported source syntax"});
         }
-    } importer;
+    } importer_;
 
     core::Graph graph;
     const auto result = importer.importCode({graph, "bad;"});
 
     ASSERT_FALSE(result.has_value());
-    EXPECT_EQ(result.error().kind, core::capa::ImportEntityKind::kSource);
-    EXPECT_EQ(result.error().source_offset, 4U);
-    EXPECT_EQ(result.error().message, "Unsupported source syntax");
+    EXPECT_EQ(result.error().kind_, core::capa::ImportEntityKind::kSource);
+    EXPECT_EQ(result.error().source_offset_, 4U);
+    EXPECT_EQ(result.error().message_, "Unsupported source syntax");
     EXPECT_TRUE(graph.GetAllNodes().empty());
 }
 
 TEST(ImporterCapabilityTest, ImportsNodesPinsAndConnectionsIntoTheGraph) {
     class GraphImporter final : public core::capa::IImporterCapability {
        public:
-        std::expected<void, core::capa::ImportError> importCode(
+        std::expected<void, core::capa::ImportError> ImportCode(
             const core::capa::ImportRequest &request) const override {
-            auto &source = request.graph.CreateNode(1);
-            auto &sink = request.graph.CreateNode(2);
+            auto &source = request.graph_.CreateNode(1);
+            auto &sink = request.graph_.CreateNode(2);
             const auto output =
-                request.graph.AddOutputPin(source.Id(), "value", 7);
-            const auto input = request.graph.AddInputPin(sink.Id(), "value", 7);
-            request.graph.Connect(source.Id(), output, sink.Id(), input);
+                request.graph_.AddOutputPin(source.Id(), "value", 7);
+            const auto input = request.graph_.AddInputPin(sink.Id(), "value", 7);
+            request.graph_.Connect(source.Id(), output, sink.Id(), input);
             return {};
         }
-    } importer;
+    } importer_;
 
     core::Graph graph;
     const auto result = importer.importCode({graph, "source -> sink"});
@@ -78,12 +78,12 @@ TEST(ImporterCapabilityTest, ImportsNodesPinsAndConnectionsIntoTheGraph) {
 TEST(ImporterCapabilityTest, PreservesGraphExceptionsForInvalidImports) {
     class InvalidImporter final : public core::capa::IImporterCapability {
        public:
-        std::expected<void, core::capa::ImportError> importCode(
+        std::expected<void, core::capa::ImportError> ImportCode(
             const core::capa::ImportRequest &request) const override {
             (void)request.graph.Connect(1, 1, 2, 1);
             return {};
         }
-    } importer;
+    } importer_;
 
     core::Graph graph;
 
@@ -104,7 +104,7 @@ TEST(ImporterCapabilityTest, DelegatesParsingToTheConfiguredHandler) {
         });
 
     core::Graph graph;
-    const auto result = importer.importCode({graph, "node"});
+    const auto result = importer.ImportCode({graph, "node"});
 
     ASSERT_TRUE(result.has_value());
     EXPECT_TRUE(handler_called);
@@ -116,8 +116,8 @@ TEST(ImporterCapabilityTest, ReportsAnErrorWhenNoHandlerIsConfigured) {
     core::capa::ImporterCapability importer;
     core::Graph graph;
 
-    EXPECT_FALSE(importer.hasImportHandler());
-    const auto result = importer.importCode({graph, "node"});
+    EXPECT_FALSE(importer.HasImportHandler());
+    const auto result = importer.ImportCode({graph, "node"});
 
     ASSERT_FALSE(result.has_value());
     EXPECT_EQ(result.error().kind, core::capa::ImportEntityKind::kSource);
@@ -128,8 +128,8 @@ TEST(ImporterCapabilityTest, ReportsAnErrorWhenNoHandlerIsConfigured) {
         [](const core::capa::ImportRequest &)
             -> std::expected<void, core::capa::ImportError> { return {}; });
 
-    EXPECT_TRUE(importer.hasImportHandler());
-    EXPECT_TRUE(importer.importCode({graph, "node"}).has_value());
+    EXPECT_TRUE(importer.HasImportHandler());
+    EXPECT_TRUE(importer.ImportCode({graph, "node"}).has_value());
 }
 
 }  // namespace
