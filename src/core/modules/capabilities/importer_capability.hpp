@@ -36,10 +36,10 @@ enum class ImportEntityKind { kSource, kNode, kConnection };
  * @brief Structured error returned by an importer capability.
  */
 struct ImportError {
-    ImportEntityKind kind = ImportEntityKind::kSource;
-    uint32_t entity_id = 0;
-    std::size_t source_offset = 0;
-    std::string message;
+    ImportEntityKind kind_ = ImportEntityKind::kSource;
+    uint32_t entity_id_ = 0;
+    std::size_t source_offset_ = 0;
+    std::string message_;
 };
 
 /**
@@ -51,8 +51,8 @@ struct ImportError {
  * InvalidConnectionException.
  */
 struct ImportRequest {
-    Graph &graph;
-    std::string_view source;
+    Graph &graph_;
+    std::string_view source_;
 };
 
 /**
@@ -73,7 +73,7 @@ class IImporterCapability : public core::ICapability {
      * @return Success, or a structured error identifying the failed entity and
      * source position.
      */
-    virtual std::expected<void, ImportError> importCode(
+    virtual std::expected<void, ImportError> ImportCode(
         const ImportRequest &request) const = 0;
 };
 
@@ -97,16 +97,16 @@ class ImporterCapability final : public IImporterCapability {
      *
      * @param handler Module-owned parser. An empty handler disables importing.
      */
-    void setImportHandler(ImportHandler handler);
+    void SetImportHandler(ImportHandler handler);
 
     /**
      * @brief Checks whether a parser is configured.
      *
      * @return true when import requests can be delegated to a parser.
      */
-    bool hasImportHandler() const noexcept;
+    bool HasImportHandler() const noexcept;
 
-    std::expected<void, ImportError> importCode(
+    std::expected<void, ImportError> ImportCode(
         const ImportRequest &request) const override;
 
    private:
