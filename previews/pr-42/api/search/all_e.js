@@ -1,19 +1,15 @@
 var searchData=
 [
-  ['parameternotfoundexception_0',['ParameterNotFoundException',['../classcore_1_1ParameterNotFoundException.html',1,'core']]],
-  ['parameters_1',['Parameters',['../classcore_1_1FunctionNode.html#a548fe07bd3078bcff1bbfce946406e02',1,'core::FunctionNode']]],
-  ['parent_2',['parent',['../classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a',1,'core::NodeBase']]],
-  ['parents_5f_3',['parents_',['../classcore_1_1NodeBase.html#a820c4b37b54a4e7449584a4f54e54fe1',1,'core::NodeBase']]],
-  ['pin_4',['Pin',['../structcore_1_1Pin.html',1,'core']]],
-  ['pinalreadyconnectedexception_5',['PinAlreadyConnectedException',['../classcore_1_1PinAlreadyConnectedException.html',1,'core']]],
-  ['pindatatype_6',['PinDataType',['../classcore_1_1NodeBase.html#a0116097225071978ee323ae13820cd4c',1,'core::NodeBase']]],
-  ['pinid_7',['PinId',['../namespacecore.html#a59403334a91a1839ed989bed43401bac',1,'core']]],
-  ['pinnotconnectedexception_8',['PinNotConnectedException',['../classcore_1_1PinNotConnectedException.html',1,'core']]],
-  ['pinstillconnectedexception_9',['PinStillConnectedException',['../classcore_1_1PinStillConnectedException.html',1,'core']]],
-  ['position_5f_10',['position_',['../classcore_1_1NodeBase.html#a47f921a9621c7353ab7b7c548190d0de',1,'core::NodeBase']]],
-  ['preparedrag_11',['PrepareDrag',['../classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb',1,'core::NodeBase']]],
-  ['printnode_12',['PrintNode',['../classcore_1_1PrintNode.html',1,'core']]],
-  ['property_13',['property',['../structcore_1_1Property.html',1,'core::Property'],['../classcore_1_1Node.html#a6334eef01cf50221fb8a6df42e921653',1,'core::Node::property(PropertyId) noexcept'],['../classcore_1_1Node.html#a782983a292a4ac21db871a9c07f3b381',1,'core::Node::property(PropertyId) const noexcept']]],
-  ['propertyid_14',['PropertyId',['../namespacecore.html#a38198aacc6076bcb1e6bdbc10560d730',1,'core']]],
-  ['propertytypeid_15',['PropertyTypeId',['../namespacecore.html#a2c58e643ff623f8fd42d544a8d2236c4',1,'core']]]
+  ['read_5fonly_5f_0',['read_only_',['../structcore_1_1capa_1_1TextField.html#ab6db3d180bff30fbe4c63bfd06d81fda',1,'core::capa::TextField']]],
+  ['registerednodetypecount_1',['RegisteredNodeTypeCount',['../classcore_1_1capa_1_1RendererCapability.html#a2a6f451c943348745fe7eb8830f09a9c',1,'core::capa::RendererCapability']]],
+  ['registernode_2',['registernode',['../classcore_1_1capa_1_1INodeListCapability.html#a14cb6a1c8c61c21622ad41f6d2b99fce',1,'core::capa::INodeListCapability::RegisterNode()'],['../classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d',1,'core::capa::NodeListCapability::RegisterNode(std::string name, std::string description, NodeConfiguration config)'],['../classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3',1,'core::capa::NodeListCapability::RegisterNode(NodeType node_type) const noexcept override']]],
+  ['registernoderenderer_3',['RegisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f',1,'core::capa::RendererCapability']]],
+  ['registertype_4',['registertype',['../classcore_1_1capa_1_1ITypeListCapability.html#a3e5c1d1de2a6df6d07c7c959fe578b35',1,'core::capa::ITypeListCapability::RegisterType()'],['../classcore_1_1capa_1_1TypeListCapability.html#a3d54235a0a65445c52e68c0445b5feeb',1,'core::capa::TypeListCapability::RegisterType(std::string name)'],['../classcore_1_1capa_1_1TypeListCapability.html#a7901b9733a5dca522b29fa7ac54ebc3b',1,'core::capa::TypeListCapability::RegisterType(DataType type_id) const noexcept override']]],
+  ['removeinputpin_5',['RemoveInputPin',['../classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051',1,'core::Graph']]],
+  ['removenode_6',['RemoveNode',['../classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b',1,'core::Graph']]],
+  ['removeoutputpin_7',['RemoveOutputPin',['../classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc',1,'core::Graph']]],
+  ['removeproperty_8',['RemoveProperty',['../classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3',1,'core::Node']]],
+  ['renderer_5fcapability_2ecpp_9',['renderer_capability.cpp',['../renderer__capability_8cpp.html',1,'']]],
+  ['renderer_5fcapability_2ehpp_10',['renderer_capability.hpp',['../renderer__capability_8hpp.html',1,'']]],
+  ['renderercapability_11',['RendererCapability',['../classcore_1_1capa_1_1RendererCapability.html',1,'core::capa']]]
 ];

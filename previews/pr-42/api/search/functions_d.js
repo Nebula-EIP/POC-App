@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['parameters_0',['Parameters',['../classcore_1_1FunctionNode.html#a548fe07bd3078bcff1bbfce946406e02',1,'core::FunctionNode']]],
-  ['parent_1',['parent',['../classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a',1,'core::NodeBase']]],
-  ['preparedrag_2',['PrepareDrag',['../classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb',1,'core::NodeBase']]],
-  ['property_3',['property',['../classcore_1_1Node.html#a6334eef01cf50221fb8a6df42e921653',1,'core::Node::property(PropertyId) noexcept'],['../classcore_1_1Node.html#a782983a292a4ac21db871a9c07f3b381',1,'core::Node::property(PropertyId) const noexcept']]]
+  ['setminimumloglevel_0',['SetMinimumLogLevel',['../classutils_1_1Logger.html#ad8658ce7b05457304296622274c3b9f4',1,'utils::Logger']]],
+  ['setproperty_1',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
+  ['shutdown_2',['shutdown',['../classcore_1_1IModule.html#ac09cd69eb9a8a554eaf3ccb856b77f75',1,'core::IModule']]],
+  ['supportsnodetype_3',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]]
 ];

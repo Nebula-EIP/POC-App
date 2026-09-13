@@ -1,7 +1,7 @@
-<map id="src/new_core/modules/module.hpp" name="src/new_core/modules/module.hpp">
-<area shape="rect" id="Node000001" title="Module interface." alt="" coords="100,5,267,45"/>
-<area shape="rect" id="Node000002" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="5,93,172,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,57,111,95,108,91,150,53"/>
-<area shape="rect" id="Node000003" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="196,93,363,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,53,260,91,256,95,213,57"/>
+<map id="src/core/modules/module.hpp" name="src/core/modules/module.hpp">
+<area shape="rect" id="Node000001" title="Module interface." alt="" coords="95,5,310,31"/>
+<area shape="rect" id="Node000002" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="5,79,184,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,41,122,81,119,76,174,37"/>
+<area shape="rect" id="Node000003" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="208,86,413,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,37,296,84,293,88,228,41"/>
 </map>
