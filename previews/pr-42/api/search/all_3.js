@@ -5,7 +5,7 @@ var searchData=
   ['default_5fproperties_5f_2',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
   ['description_3',['description',['../classcore_1_1IModule.html#a8655dab53e9bebc607b6f24bc494cbbd',1,'core::IModule']]],
   ['description_5f_4',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
-  ['descriptor_5',['descriptor',['../structcore_1_1capa_1_1NodeExportRequest.html#a3a7428c2e2e518c3acf375dd15a714b5',1,'core::capa::NodeExportRequest']]],
+  ['descriptor_5f_5',['descriptor_',['../structcore_1_1capa_1_1NodeExportRequest.html#af96b7abef78189d7e09b7269f4aca51e',1,'core::capa::NodeExportRequest']]],
   ['disconnect_6',['disconnect',['../classcore_1_1Graph.html#a49316a00a9ee4854dd45e088350f0ccf',1,'core::Graph::Disconnect(ConnectionId id)'],['../classcore_1_1Graph.html#a50719b04e9b39f866d6eea5387674348',1,'core::Graph::Disconnect(NodeId from, PinId out, NodeId to, PinId in)']]],
   ['disconnectallinputpin_7',['DisconnectAllInputPin',['../classcore_1_1Graph.html#a4efdbbac321a4f9bb5cc5035ca6a33a1',1,'core::Graph']]],
   ['disconnectalloutputpin_8',['DisconnectAllOutputPin',['../classcore_1_1Graph.html#a9d4f93acb14286d082f55b74d7badcbe',1,'core::Graph']]],

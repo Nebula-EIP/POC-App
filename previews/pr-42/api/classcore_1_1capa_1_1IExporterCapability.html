@@ -124,21 +124,21 @@ Collaboration diagram for core::capa::IExporterCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a278de9b3af0c6439cca3e59c7c38fdcb" id="r_a278de9b3af0c6439cca3e59c7c38fdcb"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#a278de9b3af0c6439cca3e59c7c38fdcb">exportType</a> (code_generation::CodeGeneratorFile &amp;out, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context, const <a class="el" href="structcore_1_1capa_1_1TypeDescriptor.html">TypeDescriptor</a> &amp;type) const =0</td></tr>
-<tr class="memdesc:a278de9b3af0c6439cca3e59c7c38fdcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits support code for one module type.  <br /></td></tr>
-<tr class="separator:a278de9b3af0c6439cca3e59c7c38fdcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ccf1ab90bf4ebd270c20d8877788ebe" id="r_a8ccf1ab90bf4ebd270c20d8877788ebe"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#a8ccf1ab90bf4ebd270c20d8877788ebe">exportNode</a> (code_generation::CodeGeneratorFile &amp;out, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context, const <a class="el" href="structcore_1_1capa_1_1NodeExportRequest.html">NodeExportRequest</a> &amp;request) const =0</td></tr>
-<tr class="memdesc:a8ccf1ab90bf4ebd270c20d8877788ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits executable code for one module node instance.  <br /></td></tr>
-<tr class="separator:a8ccf1ab90bf4ebd270c20d8877788ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe820f71b4420303b95e48d583186899" id="r_abe820f71b4420303b95e48d583186899"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899">exportPreamble</a> (code_generation::CodeGeneratorFile &amp;, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;) const</td></tr>
-<tr class="memdesc:abe820f71b4420303b95e48d583186899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional hook to emit module-level includes or helpers once.  <br /></td></tr>
-<tr class="separator:abe820f71b4420303b95e48d583186899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e7ff3a41ad7b771c2f73efe3591187" id="r_a28e7ff3a41ad7b771c2f73efe3591187"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#a28e7ff3a41ad7b771c2f73efe3591187">ExportType</a> (code_generation::CodeGeneratorFile &amp;out, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context, const <a class="el" href="structcore_1_1capa_1_1TypeDescriptor.html">TypeDescriptor</a> &amp;type) const =0</td></tr>
+<tr class="memdesc:a28e7ff3a41ad7b771c2f73efe3591187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits support code for one module type.  <br /></td></tr>
+<tr class="separator:a28e7ff3a41ad7b771c2f73efe3591187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36fbfc9650c11dd7b68959972584ba34" id="r_a36fbfc9650c11dd7b68959972584ba34"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#a36fbfc9650c11dd7b68959972584ba34">ExportNode</a> (code_generation::CodeGeneratorFile &amp;out, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;context, const <a class="el" href="structcore_1_1capa_1_1NodeExportRequest.html">NodeExportRequest</a> &amp;request) const =0</td></tr>
+<tr class="memdesc:a36fbfc9650c11dd7b68959972584ba34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits executable code for one module node instance.  <br /></td></tr>
+<tr class="separator:a36fbfc9650c11dd7b68959972584ba34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ae8d714c1646cb504eb113866898b8" id="r_a18ae8d714c1646cb504eb113866898b8"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IExporterCapability.html#a18ae8d714c1646cb504eb113866898b8">ExportPreamble</a> (code_generation::CodeGeneratorFile &amp;, const <a class="el" href="structcore_1_1capa_1_1ExportContext.html">ExportContext</a> &amp;) const</td></tr>
+<tr class="memdesc:a18ae8d714c1646cb504eb113866898b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional hook to emit module-level includes or helpers once.  <br /></td></tr>
+<tr class="separator:a18ae8d714c1646cb504eb113866898b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Optional module capability generating source code for module declared types and nodes. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8ccf1ab90bf4ebd270c20d8877788ebe" name="a8ccf1ab90bf4ebd270c20d8877788ebe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ccf1ab90bf4ebd270c20d8877788ebe">&#9670;&#160;</a></span>exportNode()</h2>
+<a id="a36fbfc9650c11dd7b68959972584ba34" name="a36fbfc9650c11dd7b68959972584ba34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36fbfc9650c11dd7b68959972584ba34">&#9670;&#160;</a></span>ExportNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +147,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::exportNode </td>
+          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::ExportNode </td>
           <td>(</td>
           <td class="paramtype">code_generation::CodeGeneratorFile &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
@@ -190,8 +190,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abe820f71b4420303b95e48d583186899" name="abe820f71b4420303b95e48d583186899"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe820f71b4420303b95e48d583186899">&#9670;&#160;</a></span>exportPreamble()</h2>
+<a id="a18ae8d714c1646cb504eb113866898b8" name="a18ae8d714c1646cb504eb113866898b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ae8d714c1646cb504eb113866898b8">&#9670;&#160;</a></span>ExportPreamble()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +200,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::exportPreamble </td>
+          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::ExportPreamble </td>
           <td>(</td>
           <td class="paramtype">code_generation::CodeGeneratorFile &amp;&#160;</td>
           <td class="paramname">, </td>
@@ -236,8 +236,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a278de9b3af0c6439cca3e59c7c38fdcb" name="a278de9b3af0c6439cca3e59c7c38fdcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a278de9b3af0c6439cca3e59c7c38fdcb">&#9670;&#160;</a></span>exportType()</h2>
+<a id="a28e7ff3a41ad7b771c2f73efe3591187" name="a28e7ff3a41ad7b771c2f73efe3591187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e7ff3a41ad7b771c2f73efe3591187">&#9670;&#160;</a></span>ExportType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +246,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::exportType </td>
+          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ExportError.html">ExportError</a> &gt; core::capa::IExporterCapability::ExportType </td>
           <td>(</td>
           <td class="paramtype">code_generation::CodeGeneratorFile &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>

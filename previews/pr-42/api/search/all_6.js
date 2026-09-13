@@ -11,7 +11,8 @@ var searchData=
   ['getnodecomponents_8',['getnodecomponents',['../classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6',1,'core::capa::IRendererCapability::GetNodeComponents()'],['../classcore_1_1capa_1_1RendererCapability.html#a65d95bf3272eb52a54b4ab998940eb60',1,'core::capa::RendererCapability::GetNodeComponents()']]],
   ['getnodeconfiguration_9',['getnodeconfiguration',['../classcore_1_1capa_1_1NodeListCapability.html#abdb97dbb5212afb42c792350c475b396',1,'core::capa::NodeListCapability::GetNodeConfiguration()'],['../classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30',1,'core::capa::INodeListCapability::GetNodeConfiguration()']]],
   ['getproperty_10',['getproperty',['../classcore_1_1Node.html#a15f0a238cef5d3e6b46b2db336bc2129',1,'core::Node::GetProperty(PropertyId) noexcept'],['../classcore_1_1Node.html#a3dcc5075af0e6b7f0d966b852d6363da',1,'core::Node::GetProperty(PropertyId) const noexcept']]],
-  ['graph_11',['graph',['../classcore_1_1Graph.html',1,'core::Graph'],['../structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033',1,'core::capa::ExportContext::graph']]],
+  ['graph_11',['Graph',['../classcore_1_1Graph.html',1,'core']]],
   ['graph_2ecpp_12',['graph.cpp',['../graph_8cpp.html',1,'']]],
-  ['graph_2ehpp_13',['graph.hpp',['../graph_8hpp.html',1,'']]]
+  ['graph_2ehpp_13',['graph.hpp',['../graph_8hpp.html',1,'']]],
+  ['graph_5f_14',['graph_',['../structcore_1_1capa_1_1ExportContext.html#a928f77dcda67702ae51c12479a51926d',1,'core::capa::ExportContext']]]
 ];

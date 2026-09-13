@@ -1,6 +1,6 @@
 var structcore_1_1capa_1_1ExportContext =
 [
-    [ "graph", "structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033", null ],
-    [ "nodes", "structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d", null ],
-    [ "types", "structcore_1_1capa_1_1ExportContext.html#a0f3980a96e94c508fe3612796299cc72", null ]
+    [ "graph_", "structcore_1_1capa_1_1ExportContext.html#a928f77dcda67702ae51c12479a51926d", null ],
+    [ "nodes_", "structcore_1_1capa_1_1ExportContext.html#a5f045e9c678dd7bc1850661ae7b90812", null ],
+    [ "types_", "structcore_1_1capa_1_1ExportContext.html#a590e6892373b4fc2e3e847951c1b9353", null ]
 ];

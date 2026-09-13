@@ -4,7 +4,7 @@ var searchData=
   ['on_5fclick_5f_1',['on_click_',['../structcore_1_1capa_1_1Button.html#abb6b596f24d0af304971ba9dffbe6516',1,'core::capa::Button']]],
   ['options_5f_2',['options_',['../structcore_1_1capa_1_1Select.html#a860f5c9464ce40b1406bdd0515a896bd',1,'core::capa::Select']]],
   ['output_5fpins_5f_3',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
-  ['output_5fsymbols_4',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
+  ['output_5fsymbols_5f_4',['output_symbols_',['../structcore_1_1capa_1_1NodeExportRequest.html#a2f238ea14323653ead7ae92adfe6b02d',1,'core::capa::NodeExportRequest']]],
   ['outputpin_5',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
   ['outputpinexists_6',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
   ['outputpins_7',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],

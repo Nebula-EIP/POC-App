@@ -116,33 +116,33 @@ Collaboration diagram for core::capa::NodeExportRequest:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7ee6049f6c179703f8e5d3b9cb91fdd3" id="r_a7ee6049f6c179703f8e5d3b9cb91fdd3"><td class="memItemLeft" align="right" valign="top"><a id="a7ee6049f6c179703f8e5d3b9cb91fdd3" name="a7ee6049f6c179703f8e5d3b9cb91fdd3"></a>
-const <a class="el" href="classcore_1_1Node.html">Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>node</b></td></tr>
-<tr class="memdesc:a7ee6049f6c179703f8e5d3b9cb91fdd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime node instance to export. <br /></td></tr>
-<tr class="separator:a7ee6049f6c179703f8e5d3b9cb91fdd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a7428c2e2e518c3acf375dd15a714b5" id="r_a3a7428c2e2e518c3acf375dd15a714b5"><td class="memItemLeft" align="right" valign="top"><a id="a3a7428c2e2e518c3acf375dd15a714b5" name="a3a7428c2e2e518c3acf375dd15a714b5"></a>
-const <a class="el" href="structcore_1_1capa_1_1NodeDescriptor.html">NodeDescriptor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>descriptor</b></td></tr>
-<tr class="memdesc:a3a7428c2e2e518c3acf375dd15a714b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static descriptor of the node type. <br /></td></tr>
-<tr class="separator:a3a7428c2e2e518c3acf375dd15a714b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40fec1d3ea1ba83505fb25b4198e77e2" id="r_a40fec1d3ea1ba83505fb25b4198e77e2"><td class="memItemLeft" align="right" valign="top">std::span&lt; const std::string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1capa_1_1NodeExportRequest.html#a40fec1d3ea1ba83505fb25b4198e77e2">input_expressions</a></td></tr>
-<tr class="memdesc:a40fec1d3ea1ba83505fb25b4198e77e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">One expression per declared input pin (same index order as NodeDescriptor::input_pins).  <br /></td></tr>
-<tr class="separator:a40fec1d3ea1ba83505fb25b4198e77e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e88e98f19c5c396682b791e13fdcfc3" id="r_a8e88e98f19c5c396682b791e13fdcfc3"><td class="memItemLeft" align="right" valign="top"><a id="a8e88e98f19c5c396682b791e13fdcfc3" name="a8e88e98f19c5c396682b791e13fdcfc3"></a>
-std::span&lt; const std::string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>output_symbols</b></td></tr>
-<tr class="memdesc:a8e88e98f19c5c396682b791e13fdcfc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">One output symbol per declared output pin (same index order as NodeDescriptor::output_pins). <br /></td></tr>
-<tr class="separator:a8e88e98f19c5c396682b791e13fdcfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b8cc6ce09ba6937949b36634fd9e21" id="r_a02b8cc6ce09ba6937949b36634fd9e21"><td class="memItemLeft" align="right" valign="top"><a id="a02b8cc6ce09ba6937949b36634fd9e21" name="a02b8cc6ce09ba6937949b36634fd9e21"></a>
+const <a class="el" href="classcore_1_1Node.html">Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>node_</b></td></tr>
+<tr class="memdesc:a02b8cc6ce09ba6937949b36634fd9e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime node instance to export. <br /></td></tr>
+<tr class="separator:a02b8cc6ce09ba6937949b36634fd9e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af96b7abef78189d7e09b7269f4aca51e" id="r_af96b7abef78189d7e09b7269f4aca51e"><td class="memItemLeft" align="right" valign="top"><a id="af96b7abef78189d7e09b7269f4aca51e" name="af96b7abef78189d7e09b7269f4aca51e"></a>
+const <a class="el" href="structcore_1_1capa_1_1NodeDescriptor.html">NodeDescriptor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>descriptor_</b></td></tr>
+<tr class="memdesc:af96b7abef78189d7e09b7269f4aca51e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static descriptor of the node type. <br /></td></tr>
+<tr class="separator:af96b7abef78189d7e09b7269f4aca51e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1174951868323e2aaa2f7dd74f37699e" id="r_a1174951868323e2aaa2f7dd74f37699e"><td class="memItemLeft" align="right" valign="top">std::span&lt; const std::string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcore_1_1capa_1_1NodeExportRequest.html#a1174951868323e2aaa2f7dd74f37699e">input_expressions_</a></td></tr>
+<tr class="memdesc:a1174951868323e2aaa2f7dd74f37699e"><td class="mdescLeft">&#160;</td><td class="mdescRight">One expression per declared input pin (same index order as NodeDescriptor::input_pins).  <br /></td></tr>
+<tr class="separator:a1174951868323e2aaa2f7dd74f37699e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f238ea14323653ead7ae92adfe6b02d" id="r_a2f238ea14323653ead7ae92adfe6b02d"><td class="memItemLeft" align="right" valign="top"><a id="a2f238ea14323653ead7ae92adfe6b02d" name="a2f238ea14323653ead7ae92adfe6b02d"></a>
+std::span&lt; const std::string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>output_symbols_</b></td></tr>
+<tr class="memdesc:a2f238ea14323653ead7ae92adfe6b02d"><td class="mdescLeft">&#160;</td><td class="mdescRight">One output symbol per declared output pin (same index order as NodeDescriptor::output_pins). <br /></td></tr>
+<tr class="separator:a2f238ea14323653ead7ae92adfe6b02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Minimum data required to compile one node into source code. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a40fec1d3ea1ba83505fb25b4198e77e2" name="a40fec1d3ea1ba83505fb25b4198e77e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40fec1d3ea1ba83505fb25b4198e77e2">&#9670;&#160;</a></span>input_expressions</h2>
+<a id="a1174951868323e2aaa2f7dd74f37699e" name="a1174951868323e2aaa2f7dd74f37699e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1174951868323e2aaa2f7dd74f37699e">&#9670;&#160;</a></span>input_expressions_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::span&lt;const std::string_view&gt; core::capa::NodeExportRequest::input_expressions</td>
+          <td class="memname">std::span&lt;const std::string_view&gt; core::capa::NodeExportRequest::input_expressions_</td>
         </tr>
       </table>
 </div><div class="memdoc">
