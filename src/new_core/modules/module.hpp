@@ -24,8 +24,6 @@ namespace core {
 
 class ICapability;
 
-using ModuleId = uint32_t;
-
 /**
  * @brief Modules will be loaded by the module loader class.
  * They contains a set of capabilities.
