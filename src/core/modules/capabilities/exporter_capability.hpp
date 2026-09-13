@@ -31,16 +31,16 @@ namespace core::capa {
  * @brief Minimal type descriptor needed by the exporter capability.
  */
 struct TypeDescriptor {
-    DataType id = 0;
-    std::string_view name;
+    DataType id_ = 0;
+    std::string_view name_;
 };
 
 /**
  * @brief Minimal node descriptor needed by the exporter capability.
  */
 struct NodeDescriptor {
-    NodeType id = 0;
-    std::string_view name;
+    NodeType id_ = 0;
+    std::string_view name_;
 };
 
 /**
@@ -62,9 +62,9 @@ enum class ExportEntityKind { kType, kNode };
  * @brief Typed error returned by exporter capability operations.
  */
 struct ExportError {
-    ExportEntityKind kind = ExportEntityKind::kNode;
-    uint32_t entity_id = 0;
-    std::string message;
+    ExportEntityKind kind_ = ExportEntityKind::kNode;
+    uint32_t entity_id_ = 0;
+    std::string message_;
 };
 
 /**
@@ -75,11 +75,11 @@ struct ExportError {
  */
 struct ExportContext {
     /// Mandatory type metadata capability of the owning module.
-    const ITypeListCapability &types;
+    const ITypeListCapability &types_;
     /// Mandatory node metadata capability of the owning module.
-    const INodeListCapability &nodes;
+    const INodeListCapability &nodes_;
     /// Graph being exported.
-    const Graph &graph;
+    const Graph &graph_;
 };
 
 /**
@@ -87,21 +87,21 @@ struct ExportContext {
  */
 struct NodeExportRequest {
     /// Runtime node instance to export.
-    const Node &node;
+    const Node &node_;
     /// Static descriptor of the node type.
-    const NodeDescriptor &descriptor;
+    const NodeDescriptor &descriptor_;
 
     /**
      * One expression per declared input pin (same index order as
      * NodeDescriptor::input_pins). Empty values represent disconnected inputs.
      */
-    std::span<const std::string_view> input_expressions;
+    std::span<const std::string_view> input_expressions_;
 
     /**
      * One output symbol per declared output pin (same index order as
      * NodeDescriptor::output_pins).
      */
-    std::span<const std::string_view> output_symbols;
+    std::span<const std::string_view> output_symbols_;
 };
 
 /**
@@ -122,7 +122,7 @@ class IExporterCapability : public core::ICapability {
      * Implementations should emit declarations/helpers that are required for
      * nodes using this type to compile.
      */
-    virtual std::expected<void, ExportError> exportType(
+    virtual std::expected<void, ExportError> ExportType(
         code_generation::CodeGeneratorFile &out, const ExportContext &context,
         const TypeDescriptor &type) const = 0;
 
@@ -136,7 +136,7 @@ class IExporterCapability : public core::ICapability {
      * input_expressions and output_symbols are positional and must match
      * NodeDescriptor pin ordering.
      */
-    virtual std::expected<void, ExportError> exportNode(
+    virtual std::expected<void, ExportError> ExportNode(
         code_generation::CodeGeneratorFile &out, const ExportContext &context,
         const NodeExportRequest &request) const = 0;
 
@@ -150,7 +150,7 @@ class IExporterCapability : public core::ICapability {
      * declarations that are required for the exported nodes to compile. This
      * method is called at most once per module during the export process.
      */
-    virtual std::expected<void, ExportError> exportPreamble(
+    virtual std::expected<void, ExportError> ExportPreamble(
         code_generation::CodeGeneratorFile &, const ExportContext &) const {
         return {};
     }
