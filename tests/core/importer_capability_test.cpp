@@ -98,7 +98,7 @@ TEST(ImporterCapabilityTest, DelegatesParsingToTheConfiguredHandler) {
         [&](const core::capa::ImportRequest &request)
             -> std::expected<void, core::capa::ImportError> {
             handler_called = true;
-            EXPECT_EQ(request.source, "node");
+            EXPECT_EQ(request.source_, "node");
             request.graph_.CreateNode(3);
             return {};
         });
@@ -124,12 +124,12 @@ TEST(ImporterCapabilityTest, ReportsAnErrorWhenNoHandlerIsConfigured) {
     EXPECT_EQ(result.error().source_offset_, 0U);
     EXPECT_EQ(result.error().message_, "No importer handler is configured");
 
-    importer.setImportHandler(
+    importer.SetImportHandler(
         [](const core::capa::ImportRequest &)
             -> std::expected<void, core::capa::ImportError> { return {}; });
 
-    EXPECT_TRUE(importer_.HasImportHandler());
-    EXPECT_TRUE(importer_.ImportCode({graph, "node"}).has_value());
+    EXPECT_TRUE(importer.HasImportHandler());
+    EXPECT_TRUE(importer.ImportCode({graph, "node"}).has_value());
 }
 
 }  // namespace
