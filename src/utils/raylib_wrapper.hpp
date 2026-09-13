@@ -86,55 +86,55 @@ namespace utils {
 // clang-format on
 
 typedef struct WrappedColor {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    unsigned char a;
+    unsigned char r_;
+    unsigned char g_;
+    unsigned char b_;
+    unsigned char a_;
 } WrappedColor;
 
 // Inline constexpr color constants (use utils::GRAY etc.)
-inline constexpr WrappedColor LIGHTGRAY = {200, 200, 200, 255};
-inline constexpr WrappedColor GRAY = {130, 130, 130, 255};
-inline constexpr WrappedColor DARKGRAY = {80, 80, 80, 255};
-inline constexpr WrappedColor YELLOW = {253, 249, 0, 255};
-inline constexpr WrappedColor GOLD = {255, 203, 0, 255};
-inline constexpr WrappedColor ORANGE = {255, 161, 0, 255};
-inline constexpr WrappedColor PINK = {255, 109, 194, 255};
-inline constexpr WrappedColor RED = {230, 41, 55, 255};
-inline constexpr WrappedColor MAROON = {190, 33, 55, 255};
-inline constexpr WrappedColor GREEN = {0, 228, 48, 255};
-inline constexpr WrappedColor LIME = {0, 158, 47, 255};
-inline constexpr WrappedColor DARKGREEN = {0, 117, 44, 255};
-inline constexpr WrappedColor SKYBLUE = {102, 191, 255, 255};
-inline constexpr WrappedColor BLUE = {0, 121, 241, 255};
-inline constexpr WrappedColor DARKBLUE = {0, 82, 172, 255};
-inline constexpr WrappedColor PURPLE = {200, 122, 255, 255};
-inline constexpr WrappedColor VIOLET = {135, 60, 190, 255};
-inline constexpr WrappedColor DARKPURPLE = {112, 31, 126, 255};
-inline constexpr WrappedColor BEIGE = {211, 176, 131, 255};
-inline constexpr WrappedColor BROWN = {127, 106, 79, 255};
-inline constexpr WrappedColor DARKBROWN = {76, 63, 47, 255};
-inline constexpr WrappedColor WHITE = {255, 255, 255, 255};
-inline constexpr WrappedColor BLACK = {0, 0, 0, 255};
-inline constexpr WrappedColor BLANK = {0, 0, 0, 0};
-inline constexpr WrappedColor MAGENTA = {255, 0, 255, 255};
+inline constexpr WrappedColor kLightgray = {200, 200, 200, 255};
+inline constexpr WrappedColor kGray = {130, 130, 130, 255};
+inline constexpr WrappedColor kDarkgray = {80, 80, 80, 255};
+inline constexpr WrappedColor kYellow = {253, 249, 0, 255};
+inline constexpr WrappedColor kGold = {255, 203, 0, 255};
+inline constexpr WrappedColor kOrange = {255, 161, 0, 255};
+inline constexpr WrappedColor kPink = {255, 109, 194, 255};
+inline constexpr WrappedColor kRed = {230, 41, 55, 255};
+inline constexpr WrappedColor kMaroon = {190, 33, 55, 255};
+inline constexpr WrappedColor kGreen = {0, 228, 48, 255};
+inline constexpr WrappedColor kLime = {0, 158, 47, 255};
+inline constexpr WrappedColor kDarkgreen = {0, 117, 44, 255};
+inline constexpr WrappedColor kSkyblue = {102, 191, 255, 255};
+inline constexpr WrappedColor kBlue = {0, 121, 241, 255};
+inline constexpr WrappedColor kDarkblue = {0, 82, 172, 255};
+inline constexpr WrappedColor kPurple = {200, 122, 255, 255};
+inline constexpr WrappedColor kViolet = {135, 60, 190, 255};
+inline constexpr WrappedColor kDarkpurple = {112, 31, 126, 255};
+inline constexpr WrappedColor kBeige = {211, 176, 131, 255};
+inline constexpr WrappedColor kBrown = {127, 106, 79, 255};
+inline constexpr WrappedColor kDarkbrown = {76, 63, 47, 255};
+inline constexpr WrappedColor kWhite = {255, 255, 255, 255};
+inline constexpr WrappedColor kBlack = {0, 0, 0, 255};
+inline constexpr WrappedColor kBlank = {0, 0, 0, 0};
+inline constexpr WrappedColor kMagenta = {255, 0, 255, 255};
 
 typedef struct WrappedVector2 {
-    float x;
-    float y;
+    float x_;
+    float y_;
 } WrappedVector2;
 
 typedef struct WrappedRectangle {
-    float x;
-    float y;
-    float width;
-    float height;
+    float x_;
+    float y_;
+    float width_;
+    float height_;
 } WrappedRectangle;
 
 typedef struct WrappedCircle {
-    float centerX;
-    float centerY;
-    float radius;
+    float center_x_;
+    float center_y_;
+    float radius_;
 } WrappedCircle;
 
 void InitRaylib(int width, int height, const char *title);
@@ -158,10 +158,10 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color);
 
 // Input functions
-bool isRightClicked();
-bool isLeftClicked();
-bool isRightDown();
-bool isLeftDown();
+bool IsRightClicked();
+bool IsLeftClicked();
+bool IsRightDown();
+bool IsLeftDown();
 
 // Collision functions
 

@@ -10,7 +10,7 @@ namespace utils {
 
 class BaseException : public std::exception {
    public:
-    BaseException(
+    explicit BaseException(
         const std::string &err_msg,
         const std::source_location &location = std::source_location::current());
 
@@ -21,7 +21,7 @@ class BaseException : public std::exception {
     ~BaseException() = default;
 
     const char *what() const noexcept override;
-    const std::source_location &location() const noexcept;
+    const std::source_location &Location() const noexcept;
 
     /**
      * @brief Returns a detailed error message with source location.
@@ -44,8 +44,8 @@ class BaseException : public std::exception {
                                     Args &&...args) const;
 
    private:
-    const std::string what_;
-    const std::source_location location_;
+    const std::string kWhat;
+    const std::source_location kLocation;
 };
 
 }  // namespace utils

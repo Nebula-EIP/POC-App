@@ -1,6 +1,7 @@
 # Build artifacts
 node_modules/
 build/
+build-coverage/
 *.o
 *.so
 *.a

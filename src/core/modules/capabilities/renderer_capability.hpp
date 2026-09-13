@@ -13,7 +13,7 @@
  * @date Created on 10-08-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 10-08-2026
+ * @date Last modified on 04-09-2026
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include <cstdint>
 #include <functional>
 #include <string>
+#include <unordered_map>
 #include <variant>
 #include <vector>
 
@@ -42,10 +43,10 @@ using ComponentId = uint16_t;
  */
 struct ComponentBase {
     /** @brief Unique identifier of the component. */
-    ComponentId id = 0;
+    ComponentId id_ = 0;
 
     /** @brief Optional contextual information displayed by the renderer. */
-    std::string tooltip;
+    std::string tooltip_;
 };
 
 // ============================================================================
@@ -57,7 +58,7 @@ struct ComponentBase {
  */
 struct Label : public ComponentBase {
     /** @brief Text displayed by the label. */
-    std::string text;
+    std::string text_;
 };
 
 // ============================================================================
@@ -69,15 +70,15 @@ struct Label : public ComponentBase {
  */
 struct Button : public ComponentBase {
     /** @brief Text displayed inside the button. */
-    std::string label;
+    std::string label_;
 
     /** @brief Indicates whether the button can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the button is clicked.
      */
-    std::function<void()> on_click;
+    std::function<void()> on_click_;
 };
 
 // ============================================================================
@@ -89,24 +90,24 @@ struct Button : public ComponentBase {
  */
 struct TextField : public ComponentBase {
     /** @brief Label displayed next to the text field. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current value of the text field. */
-    std::string value;
+    std::string value_;
 
     /** @brief Indicates whether the text field can only be read. */
-    bool read_only = false;
+    bool read_only_ = false;
 
     /** @brief Indicates whether the text field can currently be interacted
      * with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the text field value changes.
      *
      * @param value New value entered by the user.
      */
-    std::function<void(const std::string &value)> on_change;
+    std::function<void(const std::string &value)> on_change_;
 };
 
 // ============================================================================
@@ -118,32 +119,32 @@ struct TextField : public ComponentBase {
  */
 struct NumberField : public ComponentBase {
     /** @brief Label displayed next to the numeric field. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current numeric value. */
-    double value = 0.0;
+    double value_ = 0.0;
 
     /** @brief Minimum accepted value. */
-    double min = 0.0;
+    double min_ = 0.0;
 
     /** @brief Maximum accepted value. */
-    double max = 1.0;
+    double max_ = 1.0;
 
     /** @brief Step used when increasing or decreasing the value. */
-    double step = 0.0;
+    double step_ = 0.0;
 
     /** @brief Indicates whether only integer values are accepted. */
-    bool is_integer = false;
+    bool is_integer_ = false;
 
     /** @brief Indicates whether the field can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the numeric value changes.
      *
      * @param value New value entered by the user.
      */
-    std::function<void(double value)> on_change;
+    std::function<void(double value)> on_change_;
 };
 
 // ============================================================================
@@ -155,32 +156,32 @@ struct NumberField : public ComponentBase {
  */
 struct Slider : public ComponentBase {
     /** @brief Label displayed next to the slider. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current value of the slider. */
-    double value = 0.0;
+    double value_ = 0.0;
 
     /** @brief Minimum value accepted by the slider. */
-    double min = 0.0;
+    double min_ = 0.0;
 
     /** @brief Maximum value accepted by the slider. */
-    double max = 1.0;
+    double max_ = 1.0;
 
     /** @brief Step used when moving the slider. */
-    double step = 0.0;
+    double step_ = 0.0;
 
     /** @brief Indicates whether the slider accepts only integer values. */
-    bool is_integer = false;
+    bool is_integer_ = false;
 
     /** @brief Indicates whether the slider can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the slider value changes.
      *
      * @param value New value selected by the user.
      */
-    std::function<void(double value)> on_change;
+    std::function<void(double value)> on_change_;
 };
 
 // ============================================================================
@@ -192,21 +193,21 @@ struct Slider : public ComponentBase {
  */
 struct Checkbox : public ComponentBase {
     /** @brief Label displayed next to the checkbox. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current state of the checkbox. */
-    bool value = false;
+    bool value_ = false;
 
     /** @brief Indicates whether the checkbox can currently be interacted with.
      */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the checkbox state changes.
      *
      * @param value New checkbox state.
      */
-    std::function<void(bool value)> on_change;
+    std::function<void(bool value)> on_change_;
 };
 
 // ============================================================================
@@ -218,23 +219,23 @@ struct Checkbox : public ComponentBase {
  */
 struct Select : public ComponentBase {
     /** @brief Label displayed next to the select component. */
-    std::string label;
+    std::string label_;
 
     /** @brief Available options. */
-    std::vector<std::string> options;
+    std::vector<std::string> options_;
 
     /** @brief Index of the currently selected option. */
-    std::size_t selected_index = 0;
+    std::size_t selected_index_ = 0;
 
     /** @brief Indicates whether the select can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the selected option changes.
      *
      * @param index Index of the newly selected option.
      */
-    std::function<void(std::size_t index)> on_change;
+    std::function<void(std::size_t index)> on_change_;
 };
 
 // ============================================================================
@@ -249,7 +250,7 @@ struct Select : public ComponentBase {
  */
 struct InfoBubble : public ComponentBase {
     /** @brief Information displayed by the component. */
-    std::string text;
+    std::string text_;
 };
 
 // ============================================================================
@@ -306,6 +307,24 @@ class IRendererCapability : public ICapability {
     virtual ~IRendererCapability() = default;
 
     /**
+     * @brief Store the data types assigned by the core to this module.
+     * @param types Map of core-assigned data type IDs to owned type names.
+     * The core must provide only types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) = 0;
+
+    /**
+     * @brief Store the node types assigned by the core to this module.
+     * @param node_types Map of core-assigned node type IDs to owned names.
+     * The core must provide only node types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) = 0;
+
+    /**
      * @brief Checks whether custom rendering is provided for a node type.
      *
      * @param node_type Type of the node to check.
@@ -330,6 +349,80 @@ class IRendererCapability : public ICapability {
      */
     virtual ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                             const PropertyMap &properties) = 0;
+};
+
+/**
+ * @brief Reusable renderer capability backed by node component providers.
+ *
+ * Modules register one provider for each node type that requires a custom
+ * interface. The provider receives the complete node request and produces the
+ * metadata consumed by the application's renderer. This class only manages
+ * graphical metadata and never performs rendering.
+ */
+class RendererCapability final : public IRendererCapability {
+   public:
+    /// @brief Function used to build the components of one node instance.
+    using ComponentProvider = std::function<ComponentList(
+        NodeId node_id, NodeType node_type, const PropertyMap &properties)>;
+
+    /// @brief Replace the local copy of the owning module's data type list.
+    void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) override;
+
+    /// @brief Replace the local copy of the owning module's node type list.
+    void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) override;
+
+    /**
+     * @brief Register the component provider for a node type.
+     * @param node_type Node type handled by the provider.
+     * @param provider Function producing the node's graphical metadata.
+     * @throws InvalidNodeException if provider is empty.
+     * @throws NodeAlreadyExistsException if node_type is already registered.
+     */
+    void RegisterNodeRenderer(NodeType node_type, ComponentProvider provider);
+
+    /**
+     * @brief Remove the component provider registered for a node type.
+     * @param node_type Node type to remove.
+     * @return true when a provider was removed, false otherwise.
+     */
+    bool UnregisterNodeRenderer(NodeType node_type) noexcept;
+
+    /**
+     * @brief Return the number of registered node types.
+     * @return The count of registered node types.
+     */
+    std::size_t RegisteredNodeTypeCount() const noexcept;
+
+    /**
+     * @brief Check if this capability supports a specific node type.
+     * @param node_type Type of the node to check.
+     * @return true if this capability provides custom UI for the node type,
+     * false otherwise.
+     */
+    bool SupportsNodeType(NodeType node_type) const noexcept override;
+
+    /**
+     * @brief Retrieves the UI components used to display a specific node.
+     *
+     * The returned components describe how the node should be displayed
+     * and interacted with. No actual rendering must be performed by this
+     * function.
+     *
+     * @param node_id Unique identifier of the node instance.
+     * @param node_type Type of the node.
+     * @param properties Current properties of the node instance.
+     *
+     * @return List of components describing the node's custom interface.
+     */
+    ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
+                                    const PropertyMap &properties) override;
+
+   private:
+    std::unordered_map<DataType, std::string> types_;
+    std::unordered_map<NodeType, std::string> node_types_;
+    std::unordered_map<NodeType, ComponentProvider> providers_;
 };
 
 }  // namespace capa

@@ -21,7 +21,7 @@ if "!FILES!"=="" (
 if /I "%MODE%"=="Fix" (
     echo Running clang-format...
     clang-format -i !FILES!
-    if %ERRORLEVEL% neq 0 (
+    if !ERRORLEVEL! neq 0 (
         echo Formatting failed
         exit /b 1
     )
@@ -29,7 +29,7 @@ if /I "%MODE%"=="Fix" (
 ) else (
     echo Running clang-format check...
     clang-format --dry-run --Werror !FILES!
-    if %ERRORLEVEL% neq 0 (
+    if !ERRORLEVEL! neq 0 (
         echo Format errors detected
         exit /b 1
     )
