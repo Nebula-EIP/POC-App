@@ -20,9 +20,9 @@
 #include <string>
 #include <string_view>
 
-#include "../../graph/graph.hpp"
 #include "../../exception/graph_exception/connection_exception.hpp"
 #include "../../exception/graph_exception/node_exception.hpp"
+#include "../../graph/graph.hpp"
 #include "../icapability.hpp"
 
 namespace core::capa {
@@ -36,10 +36,10 @@ enum class ImportEntityKind { kSource, kNode, kConnection };
  * @brief Structured error returned by an importer capability.
  */
 struct ImportError {
-	ImportEntityKind kind = ImportEntityKind::kSource;
-	uint32_t entity_id = 0;
-	std::size_t source_offset = 0;
-	std::string message;
+    ImportEntityKind kind = ImportEntityKind::kSource;
+    uint32_t entity_id = 0;
+    std::size_t source_offset = 0;
+    std::string message;
 };
 
 /**
@@ -51,8 +51,8 @@ struct ImportError {
  * InvalidConnectionException.
  */
 struct ImportRequest {
-	Graph &graph;
-	std::string_view source;
+    Graph &graph;
+    std::string_view source;
 };
 
 /**
@@ -64,17 +64,17 @@ struct ImportRequest {
  */
 class IImporterCapability : public core::ICapability {
    public:
-	~IImporterCapability() override = default;
+    ~IImporterCapability() override = default;
 
-	/**
-	 * @brief Imports source code into the requested graph.
-	 *
-	 * @param request Source text and target graph. Required.
-	 * @return Success, or a structured error identifying the failed entity and
-	 * source position.
-	 */
-	virtual std::expected<void, ImportError> importCode(
-		const ImportRequest &request) const = 0;
+    /**
+     * @brief Imports source code into the requested graph.
+     *
+     * @param request Source text and target graph. Required.
+     * @return Success, or a structured error identifying the failed entity and
+     * source position.
+     */
+    virtual std::expected<void, ImportError> importCode(
+        const ImportRequest &request) const = 0;
 };
 
 /**
@@ -85,32 +85,32 @@ class IImporterCapability : public core::ICapability {
  */
 class ImporterCapability final : public IImporterCapability {
    public:
-	using ImportHandler = std::function<std::expected<void, ImportError>(
-		const ImportRequest &request)>;
+    using ImportHandler = std::function<std::expected<void, ImportError>(
+        const ImportRequest &request)>;
 
-	ImporterCapability() = default;
-	explicit ImporterCapability(ImportHandler handler);
-	~ImporterCapability() override = default;
+    ImporterCapability() = default;
+    explicit ImporterCapability(ImportHandler handler);
+    ~ImporterCapability() override = default;
 
-	/**
-	 * @brief Replaces the parser used to process import requests.
-	 *
-	 * @param handler Module-owned parser. An empty handler disables importing.
-	 */
-	void setImportHandler(ImportHandler handler);
+    /**
+     * @brief Replaces the parser used to process import requests.
+     *
+     * @param handler Module-owned parser. An empty handler disables importing.
+     */
+    void setImportHandler(ImportHandler handler);
 
-	/**
-	 * @brief Checks whether a parser is configured.
-	 *
-	 * @return true when import requests can be delegated to a parser.
-	 */
-	bool hasImportHandler() const noexcept;
+    /**
+     * @brief Checks whether a parser is configured.
+     *
+     * @return true when import requests can be delegated to a parser.
+     */
+    bool hasImportHandler() const noexcept;
 
-	std::expected<void, ImportError> importCode(
-		const ImportRequest &request) const override;
+    std::expected<void, ImportError> importCode(
+        const ImportRequest &request) const override;
 
    private:
-	ImportHandler handler_;
+    ImportHandler handler_;
 };
 
 }  // namespace core::capa
