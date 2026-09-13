@@ -16,6 +16,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <expected>
+#include <functional>
 #include <string>
 #include <string_view>
 
@@ -74,6 +75,42 @@ class IImporterCapability : public core::ICapability {
 	 */
 	virtual std::expected<void, ImportError> importCode(
 		const ImportRequest &request) const = 0;
+};
+
+/**
+ * @brief Concrete importer adapter for module-owned parsers.
+ *
+ * The core does not define a source grammar. Modules provide the parser as a
+ * handler and this capability forwards import requests to it.
+ */
+class ImporterCapability final : public IImporterCapability {
+   public:
+	using ImportHandler = std::function<std::expected<void, ImportError>(
+		const ImportRequest &request)>;
+
+	ImporterCapability() = default;
+	explicit ImporterCapability(ImportHandler handler);
+	~ImporterCapability() override = default;
+
+	/**
+	 * @brief Replaces the parser used to process import requests.
+	 *
+	 * @param handler Module-owned parser. An empty handler disables importing.
+	 */
+	void setImportHandler(ImportHandler handler);
+
+	/**
+	 * @brief Checks whether a parser is configured.
+	 *
+	 * @return true when import requests can be delegated to a parser.
+	 */
+	bool hasImportHandler() const noexcept;
+
+	std::expected<void, ImportError> importCode(
+		const ImportRequest &request) const override;
+
+   private:
+	ImportHandler handler_;
 };
 
 }  // namespace core::capa
