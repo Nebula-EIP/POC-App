@@ -1,50 +1,20 @@
-# Core library CMakeLists.txt
+# CMakeLists.txt for new_core
 
-# Collect all source files
-file(GLOB_RECURSE CORE_SOURCES
-    "*.cpp"
+add_library(neb_graph
+    graph/graph.cpp
+    graph/node.cpp
 )
 
-file(GLOB_RECURSE CORE_HEADERS
-    "*.hpp"
-    "*.h"
+target_include_directories(neb_graph PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Create core library
-if(CORE_SOURCES)
-    add_library(core ${CORE_SOURCES} ${CORE_HEADERS})
+add_library(core_capabilities
+    modules/capabilities/type_list_capability.cpp
+    modules/capabilities/node_list_capability.cpp
+    modules/capabilities/renderer_capability.cpp
+)
 
-    target_include_directories(core
-        PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-            $<INSTALL_INTERFACE:include>
-    )
-
-    # Find Raylib
-    find_package(raylib REQUIRED)
-
-    # Add dependencies
-    target_link_libraries(core PUBLIC
-        nlohmann_json::nlohmann_json
-        utils
-        raylib
-    )
-
-    if(UNIX AND NOT APPLE)
-        target_link_libraries(core PUBLIC m dl pthread GL X11)
-    elseif(WIN32)
-        target_link_libraries(core PUBLIC
-            winmm        # audio
-            gdi32        # graphics
-            opengl32     # OpenGL
-        )
-    endif()
-
-    # Set properties
-    set_target_properties(core PROPERTIES
-        POSITION_INDEPENDENT_CODE ON
-    )
-else()
-    message(STATUS "No source files found in core - skipping library creation")
-endif()
+target_include_directories(core_capabilities PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

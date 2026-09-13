@@ -43,10 +43,10 @@ using ComponentId = uint16_t;
  */
 struct ComponentBase {
     /** @brief Unique identifier of the component. */
-    ComponentId id = 0;
+    ComponentId id_ = 0;
 
     /** @brief Optional contextual information displayed by the renderer. */
-    std::string tooltip;
+    std::string tooltip_;
 };
 
 // ============================================================================
@@ -58,7 +58,7 @@ struct ComponentBase {
  */
 struct Label : public ComponentBase {
     /** @brief Text displayed by the label. */
-    std::string text;
+    std::string text_;
 };
 
 // ============================================================================
@@ -70,15 +70,15 @@ struct Label : public ComponentBase {
  */
 struct Button : public ComponentBase {
     /** @brief Text displayed inside the button. */
-    std::string label;
+    std::string label_;
 
     /** @brief Indicates whether the button can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the button is clicked.
      */
-    std::function<void()> on_click;
+    std::function<void()> on_click_;
 };
 
 // ============================================================================
@@ -90,24 +90,24 @@ struct Button : public ComponentBase {
  */
 struct TextField : public ComponentBase {
     /** @brief Label displayed next to the text field. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current value of the text field. */
-    std::string value;
+    std::string value_;
 
     /** @brief Indicates whether the text field can only be read. */
-    bool read_only = false;
+    bool read_only_ = false;
 
     /** @brief Indicates whether the text field can currently be interacted
      * with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the text field value changes.
      *
      * @param value New value entered by the user.
      */
-    std::function<void(const std::string &value)> on_change;
+    std::function<void(const std::string &value)> on_change_;
 };
 
 // ============================================================================
@@ -119,32 +119,32 @@ struct TextField : public ComponentBase {
  */
 struct NumberField : public ComponentBase {
     /** @brief Label displayed next to the numeric field. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current numeric value. */
-    double value = 0.0;
+    double value_ = 0.0;
 
     /** @brief Minimum accepted value. */
-    double min = 0.0;
+    double min_ = 0.0;
 
     /** @brief Maximum accepted value. */
-    double max = 1.0;
+    double max_ = 1.0;
 
     /** @brief Step used when increasing or decreasing the value. */
-    double step = 0.0;
+    double step_ = 0.0;
 
     /** @brief Indicates whether only integer values are accepted. */
-    bool is_integer = false;
+    bool is_integer_ = false;
 
     /** @brief Indicates whether the field can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the numeric value changes.
      *
      * @param value New value entered by the user.
      */
-    std::function<void(double value)> on_change;
+    std::function<void(double value)> on_change_;
 };
 
 // ============================================================================
@@ -156,32 +156,32 @@ struct NumberField : public ComponentBase {
  */
 struct Slider : public ComponentBase {
     /** @brief Label displayed next to the slider. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current value of the slider. */
-    double value = 0.0;
+    double value_ = 0.0;
 
     /** @brief Minimum value accepted by the slider. */
-    double min = 0.0;
+    double min_ = 0.0;
 
     /** @brief Maximum value accepted by the slider. */
-    double max = 1.0;
+    double max_ = 1.0;
 
     /** @brief Step used when moving the slider. */
-    double step = 0.0;
+    double step_ = 0.0;
 
     /** @brief Indicates whether the slider accepts only integer values. */
-    bool is_integer = false;
+    bool is_integer_ = false;
 
     /** @brief Indicates whether the slider can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the slider value changes.
      *
      * @param value New value selected by the user.
      */
-    std::function<void(double value)> on_change;
+    std::function<void(double value)> on_change_;
 };
 
 // ============================================================================
@@ -193,21 +193,21 @@ struct Slider : public ComponentBase {
  */
 struct Checkbox : public ComponentBase {
     /** @brief Label displayed next to the checkbox. */
-    std::string label;
+    std::string label_;
 
     /** @brief Current state of the checkbox. */
-    bool value = false;
+    bool value_ = false;
 
     /** @brief Indicates whether the checkbox can currently be interacted with.
      */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the checkbox state changes.
      *
      * @param value New checkbox state.
      */
-    std::function<void(bool value)> on_change;
+    std::function<void(bool value)> on_change_;
 };
 
 // ============================================================================
@@ -219,23 +219,23 @@ struct Checkbox : public ComponentBase {
  */
 struct Select : public ComponentBase {
     /** @brief Label displayed next to the select component. */
-    std::string label;
+    std::string label_;
 
     /** @brief Available options. */
-    std::vector<std::string> options;
+    std::vector<std::string> options_;
 
     /** @brief Index of the currently selected option. */
-    std::size_t selected_index = 0;
+    std::size_t selected_index_ = 0;
 
     /** @brief Indicates whether the select can currently be interacted with. */
-    bool enabled = true;
+    bool enabled_ = true;
 
     /**
      * @brief Callback executed when the selected option changes.
      *
      * @param index Index of the newly selected option.
      */
-    std::function<void(std::size_t index)> on_change;
+    std::function<void(std::size_t index)> on_change_;
 };
 
 // ============================================================================
@@ -250,7 +250,7 @@ struct Select : public ComponentBase {
  */
 struct InfoBubble : public ComponentBase {
     /** @brief Information displayed by the component. */
-    std::string text;
+    std::string text_;
 };
 
 // ============================================================================

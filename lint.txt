@@ -1,0 +1,15 @@
+Project root: /home/zeulbi/school_repo/eip/POC-App
+Source directory: /home/zeulbi/school_repo/eip/POC-App/src
+Build directory: /home/zeulbi/school_repo/eip/POC-App/build
+Running clang-tidy with 4 parallel jobs...
+Checking /home/zeulbi/school_repo/eip/POC-App/src/core/modules/capabilities/type_list_capability.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/core/modules/capabilities/renderer_capability.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/core/modules/capabilities/node_list_capability.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/core/graph/node.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/core/graph/graph.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/utils/raylib_wrapper.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/utils/logger.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/utils/string-splitter.cpp
+Checking /home/zeulbi/school_repo/eip/POC-App/src/utils/exception_base.cpp
+
+Lint passed.
