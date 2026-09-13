@@ -11,7 +11,7 @@ var searchData=
   ['inputpinexists_8',['inputPinExists',['../classcore_1_1Node.html#a107af82ae123cf1533fd878b3b26f28e',1,'core::Node']]],
   ['inputpins_9',['inputPins',['../classcore_1_1Node.html#ab5b73bcac67be4e87a41ea1d454b70c8',1,'core::Node']]],
   ['inputpinscount_10',['inputPinsCount',['../classcore_1_1Node.html#ab9a4f1e54e4f8c65d8049509469805ca',1,'core::Node']]],
-  ['isopen_11',['isOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a2f02d9a1b01d4c165a2383e798c9bcd2',1,'core::detail::SharedLibrary']]],
+  ['isopen_11',['IsOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a582dcbc4b388341c3f49bdea3915a7a0',1,'core::detail::SharedLibrary']]],
   ['isselected_12',['IsSelected',['../classcore_1_1NodeBase.html#af6aa8cbf0da49cde0fea26ffd5d418e4',1,'core::NodeBase']]],
   ['isunaryoperator_13',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]]
 ];

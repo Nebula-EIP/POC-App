@@ -2,7 +2,7 @@ var searchData=
 [
   ['on_5fchange_0',['on_change',['../structcore_1_1capa_1_1TextField.html#a42b454e871be503072bdc8c53b17ab2d',1,'core::capa::TextField::on_change'],['../structcore_1_1capa_1_1NumberField.html#a1077c530ee5a0ebb979a31edb2c73188',1,'core::capa::NumberField::on_change'],['../structcore_1_1capa_1_1Slider.html#ab004db722e60fd2e092e9d4ebf82d5f0',1,'core::capa::Slider::on_change'],['../structcore_1_1capa_1_1Checkbox.html#a764ef8b67a604df36c05f9533f80f182',1,'core::capa::Checkbox::on_change'],['../structcore_1_1capa_1_1Select.html#a6a0e6a7b3bd36b99f71952c49892608a',1,'core::capa::Select::on_change']]],
   ['on_5fclick_1',['on_click',['../structcore_1_1capa_1_1Button.html#aa4fb99c6c7b0e0e7c6d2a015c5ac9560',1,'core::capa::Button']]],
-  ['open_2',['open',['../classcore_1_1detail_1_1SharedLibrary.html#acea704a35fc9a0761342f3f3ae4167bf',1,'core::detail::SharedLibrary']]],
+  ['open_2',['Open',['../classcore_1_1detail_1_1SharedLibrary.html#a4aa178f46262c2c96933e586c967a5ee',1,'core::detail::SharedLibrary']]],
   ['openblock_3',['OpenBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a1cbb20190db7c6c38f4ed8a8b6244e03',1,'code_generation::CodeGeneratorFile']]],
   ['operatornode_4',['OperatorNode',['../classcore_1_1OperatorNode.html',1,'core']]],
   ['operatortype_5',['OperatorType',['../classcore_1_1OperatorNode.html#a1d6b52ec28eb7390624d1567666505b4',1,'core::OperatorNode']]],

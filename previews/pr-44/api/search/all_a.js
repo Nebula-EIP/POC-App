@@ -1,7 +1,7 @@
 var searchData=
 [
   ['label_0',['label',['../structcore_1_1capa_1_1Label.html',1,'core::capa::Label'],['../structcore_1_1capa_1_1Select.html#afac2f391e887409de586a369d7cc0a47',1,'core::capa::Select::label'],['../structcore_1_1capa_1_1Checkbox.html#a3e6e25c991f9081bf324bb959fb4cbc5',1,'core::capa::Checkbox::label'],['../structcore_1_1capa_1_1Slider.html#a897bb71cb4dc244455c3e5d0ad8ecbcc',1,'core::capa::Slider::label'],['../structcore_1_1capa_1_1Button.html#a1831ab2eb44b1404bd2e799fac3c5b67',1,'core::capa::Button::label'],['../structcore_1_1capa_1_1TextField.html#a004124d333c63d312c7c9aeee3febd1c',1,'core::capa::TextField::label'],['../structcore_1_1capa_1_1NumberField.html#ab161a7b2e8f20754daded46f9332251b',1,'core::capa::NumberField::label']]],
-  ['lasterror_1',['lastError',['../classcore_1_1detail_1_1SharedLibrary.html#a87bf86df7c4b5a20042ac25669210d8e',1,'core::detail::SharedLibrary']]],
+  ['lasterror_1',['LastError',['../classcore_1_1detail_1_1SharedLibrary.html#a33403340e3ddc5c875a8b348505c86c7',1,'core::detail::SharedLibrary']]],
   ['lifetimes_2',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]],
   ['line_3',['Line',['../classcode__generation_1_1CodeGeneratorFile.html#a706166b5cd96c79113e9f6e24d4d2a22',1,'code_generation::CodeGeneratorFile']]],
   ['lineat_4',['LineAt',['../classcode__generation_1_1CodeGeneratorFile.html#afa41ccfcf023ac3072442ce51974c221',1,'code_generation::CodeGeneratorFile']]],

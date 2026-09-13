@@ -8,7 +8,7 @@ var searchData=
   ['cleanbuilddirectory_5',['CleanBuildDirectory',['../classnebula_1_1cmake_1_1CMakeCompiler.html#af0cee58578d491a15721c792467b4ac1',1,'nebula::cmake::CMakeCompiler']]],
   ['clearparent_6',['ClearParent',['../classcore_1_1NodeBase.html#a547be1d12e45c30c65ed4fc10d19d74e',1,'core::NodeBase']]],
   ['clicknode_7',['ClickNode',['../classcore_1_1NodeBase.html#a7a53aa9631b7ecf5b854a6eb682ff134',1,'core::NodeBase']]],
-  ['close_8',['close',['../classcore_1_1detail_1_1SharedLibrary.html#accbe38594ae1e73f38ae8e29561ea255',1,'core::detail::SharedLibrary']]],
+  ['close_8',['Close',['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary']]],
   ['closeallblocks_9',['CloseAllBlocks',['../classcode__generation_1_1CodeGeneratorFile.html#a855a983f4837d39144d7d013d43bb51e',1,'code_generation::CodeGeneratorFile']]],
   ['closeandopenblock_10',['CloseAndOpenBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a20e2a154dcccb5d803f766758a362d48',1,'code_generation::CodeGeneratorFile']]],
   ['closeblock_11',['CloseBlock',['../classcode__generation_1_1CodeGeneratorFile.html#a3f1db29be7bd81a10446091c8b633651',1,'code_generation::CodeGeneratorFile']]],

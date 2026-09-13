@@ -21,5 +21,5 @@ var searchData=
   ['size_18',['size',['../classcore_1_1ModuleLoader.html#a66a74854b067f8073fdf00d6fc24f04f',1,'core::ModuleLoader']]],
   ['sort_19',['Sort',['../classcore_1_1TopologicalSorter.html#a5df4cf09ebfc6342f7691a72326dfc5a',1,'core::TopologicalSorter']]],
   ['supportsnodetype_20',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]],
-  ['symbol_21',['symbol',['../classcore_1_1detail_1_1SharedLibrary.html#aff8be69d184507d2b015a8f83dd1554b',1,'core::detail::SharedLibrary']]]
+  ['symbol_21',['Symbol',['../classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09',1,'core::detail::SharedLibrary']]]
 ];

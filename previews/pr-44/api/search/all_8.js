@@ -44,7 +44,7 @@ var searchData=
   ['irenderercapability_41',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
   ['is_5finteger_42',['is_integer',['../structcore_1_1capa_1_1NumberField.html#abf96ea30535247baba5d74e7c3dc1a8c',1,'core::capa::NumberField::is_integer'],['../structcore_1_1capa_1_1Slider.html#a0f4ac9ab18b18f29e3c8583a5819b169',1,'core::capa::Slider::is_integer']]],
   ['is_5fvalid_43',['is_valid',['../structcore_1_1GraphValidator_1_1ValidationResult.html#a6166238129621e692d3f72b600cff378',1,'core::GraphValidator::ValidationResult']]],
-  ['isopen_44',['isOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a2f02d9a1b01d4c165a2383e798c9bcd2',1,'core::detail::SharedLibrary']]],
+  ['isopen_44',['IsOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a582dcbc4b388341c3f49bdea3915a7a0',1,'core::detail::SharedLibrary']]],
   ['isselected_45',['IsSelected',['../classcore_1_1NodeBase.html#af6aa8cbf0da49cde0fea26ffd5d418e4',1,'core::NodeBase']]],
   ['isunaryoperator_46',['IsUnaryOperator',['../classcore_1_1OperatorNode.html#aef4661bc7a18593a8635689663564a2b',1,'core::OperatorNode']]],
   ['itypelistcapability_47',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
