@@ -29,9 +29,9 @@ bool ImporterCapability::hasImportHandler() const noexcept {
 std::expected<void, ImportError> ImporterCapability::importCode(
     const ImportRequest &request) const {
     if (!handler_) {
-        return std::unexpected(ImportError{
-            ImportEntityKind::kSource, 0, 0,
-            "No importer handler is configured"});
+        return std::unexpected(
+            ImportError{ImportEntityKind::kSource, 0, 0,
+                        "No importer handler is configured"});
     }
 
     return handler_(request);
