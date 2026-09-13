@@ -20,7 +20,9 @@ var hierarchy =
     [ "core::Graph", "classcore_1_1Graph.html", null ],
     [ "core::ICapability", "classcore_1_1ICapability.html", [
       [ "core::capa::IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", null ],
-      [ "core::capa::IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", null ],
+      [ "core::capa::IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", [
+        [ "core::capa::ImporterCapability", "classcore_1_1capa_1_1ImporterCapability.html", null ]
+      ] ],
       [ "core::capa::INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", [
         [ "core::capa::NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", null ]
       ] ],

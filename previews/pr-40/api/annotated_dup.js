@@ -9,6 +9,7 @@ var annotated_dup =
         [ "ExportError", "structcore_1_1capa_1_1ExportError.html", null ],
         [ "IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", "classcore_1_1capa_1_1IExporterCapability" ],
         [ "IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", "classcore_1_1capa_1_1IImporterCapability" ],
+        [ "ImporterCapability", "classcore_1_1capa_1_1ImporterCapability.html", "classcore_1_1capa_1_1ImporterCapability" ],
         [ "ImportError", "structcore_1_1capa_1_1ImportError.html", null ],
         [ "ImportRequest", "structcore_1_1capa_1_1ImportRequest.html", null ],
         [ "InfoBubble", "structcore_1_1capa_1_1InfoBubble.html", "structcore_1_1capa_1_1InfoBubble" ],
