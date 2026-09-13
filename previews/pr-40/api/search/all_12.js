@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['unlink_0',['Unlink',['../classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52',1,'core::Graph']]],
-  ['unload_1',['unload',['../classcore_1_1ModuleLoader.html#a3c8786f14b2667d5af986dc876a9b2de',1,'core::ModuleLoader::unload(ModuleId)'],['../classcore_1_1ModuleLoader.html#a50e8c97b7f2e6bbf09b5ac575c5ab78e',1,'core::ModuleLoader::unload(std::string_view name)']]],
-  ['unloadall_2',['unloadAll',['../classcore_1_1ModuleLoader.html#acf17d1e487b715f3dd02b43e0d51b476',1,'core::ModuleLoader']]],
-  ['unregisternoderenderer_3',['UnregisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#ad14ebe879352cd67d28a3e1f8bdeb827',1,'core::capa::RendererCapability']]],
-  ['updatemodifiedtime_4',['UpdateModifiedTime',['../classcore_1_1Graph.html#a55f948f20d03cc29af50cbb5c3109bbf',1,'core::Graph']]]
+  ['value_5f_0',['value_',['../structcore_1_1Property.html#a38ec76032201ea1a37bd6c116be4780e',1,'core::Property::value_'],['../structcore_1_1capa_1_1TextField.html#a0bc81f472668b0bccfce63643208ab44',1,'core::capa::TextField::value_'],['../structcore_1_1capa_1_1NumberField.html#a9fb253f5b59fab6352c7ecfaae8f3547',1,'core::capa::NumberField::value_'],['../structcore_1_1capa_1_1Slider.html#ab151ea71d1cebf77bfa30431b3ebfc29',1,'core::capa::Slider::value_'],['../structcore_1_1capa_1_1Checkbox.html#acb71494675e34fe6a1bc73369246094f',1,'core::capa::Checkbox::value_']]],
+  ['version_1',['version',['../structcore_1_1IModule_1_1Version.html',1,'core::IModule::Version'],['../classcore_1_1IModule.html#a761a6761fb1c14ce3560430b0fb3d4d6',1,'core::IModule::version() const noexcept=0']]]
 ];

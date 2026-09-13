@@ -1,12 +1,19 @@
 var searchData=
 [
-  ['fileaccessexception_0',['FileAccessException',['../classcore_1_1FileAccessException.html',1,'core']]],
-  ['filenotfoundexception_1',['FileNotFoundException',['../classcore_1_1FileNotFoundException.html',1,'core']]],
-  ['filewriter_2',['FileWriter',['../classfile__writing_1_1FileWriter.html',1,'file_writing']]],
-  ['fornode_3',['ForNode',['../classcore_1_1ForNode.html',1,'core']]],
-  ['functioninputnode_4',['FunctionInputNode',['../classcore_1_1FunctionInputNode.html',1,'core']]],
-  ['functionnode_5',['FunctionNode',['../classcore_1_1FunctionNode.html',1,'core']]],
-  ['functionnodeexception_6',['FunctionNodeException',['../classcore_1_1FunctionNodeException.html',1,'core']]],
-  ['functionoutputnode_7',['FunctionOutputNode',['../classcore_1_1FunctionOutputNode.html',1,'core']]],
-  ['functionparameter_8',['FunctionParameter',['../structcore_1_1FunctionParameter.html',1,'core']]]
+  ['icapability_0',['ICapability',['../classcore_1_1ICapability.html',1,'core']]],
+  ['idmanager_1',['IdManager',['../classutils_1_1IdManager.html',1,'utils']]],
+  ['iexportercapability_2',['IExporterCapability',['../classcore_1_1capa_1_1IExporterCapability.html',1,'core::capa']]],
+  ['iimportercapability_3',['IImporterCapability',['../classcore_1_1capa_1_1IImporterCapability.html',1,'core::capa']]],
+  ['imodule_4',['IModule',['../classcore_1_1IModule.html',1,'core']]],
+  ['importerror_5',['ImportError',['../structcore_1_1capa_1_1ImportError.html',1,'core::capa']]],
+  ['importrequest_6',['ImportRequest',['../structcore_1_1capa_1_1ImportRequest.html',1,'core::capa']]],
+  ['incompatiblemoduleexception_7',['IncompatibleModuleException',['../classcore_1_1IncompatibleModuleException.html',1,'core']]],
+  ['infobubble_8',['InfoBubble',['../structcore_1_1capa_1_1InfoBubble.html',1,'core::capa']]],
+  ['inodelistcapability_9',['INodeListCapability',['../classcore_1_1capa_1_1INodeListCapability.html',1,'core::capa']]],
+  ['internalexception_10',['InternalException',['../classcore_1_1InternalException.html',1,'core']]],
+  ['invalidmoduleexception_11',['InvalidModuleException',['../classcore_1_1InvalidModuleException.html',1,'core']]],
+  ['invalidmoduleversionexception_12',['InvalidModuleVersionException',['../classcore_1_1InvalidModuleVersionException.html',1,'core']]],
+  ['invalidnodeexception_13',['InvalidNodeException',['../classcore_1_1InvalidNodeException.html',1,'core']]],
+  ['irenderercapability_14',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
+  ['itypelistcapability_15',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
 ];

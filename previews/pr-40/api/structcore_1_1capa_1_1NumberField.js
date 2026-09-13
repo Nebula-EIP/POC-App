@@ -1,11 +1,11 @@
 var structcore_1_1capa_1_1NumberField =
 [
-    [ "enabled", "structcore_1_1capa_1_1NumberField.html#a281ad82d059a865476ed653c20c50a72", null ],
-    [ "is_integer", "structcore_1_1capa_1_1NumberField.html#abf96ea30535247baba5d74e7c3dc1a8c", null ],
-    [ "label", "structcore_1_1capa_1_1NumberField.html#ab161a7b2e8f20754daded46f9332251b", null ],
-    [ "max", "structcore_1_1capa_1_1NumberField.html#a12b8d88cbdd31684343d2f5a8bfa93e6", null ],
-    [ "min", "structcore_1_1capa_1_1NumberField.html#ace589263b19a93cf630ca9af9adfbdfd", null ],
-    [ "on_change", "structcore_1_1capa_1_1NumberField.html#a1077c530ee5a0ebb979a31edb2c73188", null ],
-    [ "step", "structcore_1_1capa_1_1NumberField.html#a87b50326d656f32fe2cf75b6239c4a77", null ],
-    [ "value", "structcore_1_1capa_1_1NumberField.html#a81594e7c36d6ebb6422ffcc1eedf4590", null ]
+    [ "enabled_", "structcore_1_1capa_1_1NumberField.html#aed3cf4162f5923355b6a43809e108c40", null ],
+    [ "is_integer_", "structcore_1_1capa_1_1NumberField.html#ae223d200b947792e46fe5b1e5cd0f317", null ],
+    [ "label_", "structcore_1_1capa_1_1NumberField.html#a7ddc8fc498da0032602fe92144624ab6", null ],
+    [ "max_", "structcore_1_1capa_1_1NumberField.html#a3f5020195df3ce5c0820c75127db3028", null ],
+    [ "min_", "structcore_1_1capa_1_1NumberField.html#a14c19af674debbf778637804381b9e59", null ],
+    [ "on_change_", "structcore_1_1capa_1_1NumberField.html#a4ea62e95a579fe2587970cda5c43cfe1", null ],
+    [ "step_", "structcore_1_1capa_1_1NumberField.html#a0545721c5e1dedc8aed7e290e3af59df", null ],
+    [ "value_", "structcore_1_1capa_1_1NumberField.html#a9fb253f5b59fab6352c7ecfaae8f3547", null ]
 ];

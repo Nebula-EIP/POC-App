@@ -1,5 +1,5 @@
-<map id="src/new_core/modules/create_module.hpp" name="src/new_core/modules/create_module.hpp">
-<area shape="rect" id="Node000001" title="External function to create a new module instance." alt="" coords="541,5,707,45"/>
+<map id="src/core/modules/create_module.hpp" name="src/core/modules/create_module.hpp">
+<area shape="rect" id="Node000001" title="External function to create a new module instance." alt="" coords="535,5,713,45"/>
 <area shape="rect" id="Node000002" href="$module_8hpp.html" title="Module interface." alt="" coords="575,93,673,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="627,46,627,79,621,79,621,46"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,328,72,353"/>

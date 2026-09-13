@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['label_0',['label',['../structcore_1_1capa_1_1Button.html#a1831ab2eb44b1404bd2e799fac3c5b67',1,'core::capa::Button::label'],['../structcore_1_1capa_1_1TextField.html#a004124d333c63d312c7c9aeee3febd1c',1,'core::capa::TextField::label'],['../structcore_1_1capa_1_1NumberField.html#ab161a7b2e8f20754daded46f9332251b',1,'core::capa::NumberField::label'],['../structcore_1_1capa_1_1Slider.html#a897bb71cb4dc244455c3e5d0ad8ecbcc',1,'core::capa::Slider::label'],['../structcore_1_1capa_1_1Checkbox.html#a3e6e25c991f9081bf324bb959fb4cbc5',1,'core::capa::Checkbox::label'],['../structcore_1_1capa_1_1Select.html#afac2f391e887409de586a369d7cc0a47',1,'core::capa::Select::label']]]
+  ['max_5f_0',['max_',['../structcore_1_1capa_1_1NumberField.html#a3f5020195df3ce5c0820c75127db3028',1,'core::capa::NumberField::max_'],['../structcore_1_1capa_1_1Slider.html#a6ab6f4ea34d9a39de93e4f4438e703b3',1,'core::capa::Slider::max_']]],
+  ['min_5f_1',['min_',['../structcore_1_1capa_1_1NumberField.html#a14c19af674debbf778637804381b9e59',1,'core::capa::NumberField::min_'],['../structcore_1_1capa_1_1Slider.html#ae056ae886c12caf5fa34edba5a9746de',1,'core::capa::Slider::min_']]]
 ];

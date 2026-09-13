@@ -1,21 +1,6 @@
 var searchData=
 [
-  ['text_0',['text',['../structcore_1_1capa_1_1InfoBubble.html#a7ec039478a5862ff6a3f68e71637e2db',1,'core::capa::InfoBubble::text'],['../structcore_1_1capa_1_1Label.html#a7ba638099ad8d8533b7b4e98dbb67155',1,'core::capa::Label::text']]],
-  ['textfield_1',['TextField',['../structcore_1_1capa_1_1TextField.html',1,'core::capa']]],
-  ['tooltip_2',['tooltip',['../structcore_1_1capa_1_1ComponentBase.html#ab2d4332a0232ff7b1b5c7b1e955d9172',1,'core::capa::ComponentBase']]],
-  ['topbar_3',['TopBar',['../classeditor__ui_1_1TopBar.html',1,'editor_ui']]],
-  ['topbarstyle_4',['TopBarStyle',['../structeditor__ui_1_1TopBarStyle.html',1,'editor_ui']]],
-  ['topologicalsorter_5',['TopologicalSorter',['../classcore_1_1TopologicalSorter.html',1,'core']]],
-  ['type_6',['type',['../structcore_1_1NodeBase_1_1Connection.html#aa65f811851d6ebd027701d8ab745a6d5',1,'core::NodeBase::Connection::type'],['../structcore_1_1NodeBase_1_1OutputPin.html#ab1c2c29b71ecfd61c2f2d5c0a0f50954',1,'core::NodeBase::OutputPin::type'],['../classcore_1_1Node.html#a9c0685591ad1e8b31b676456ff061657',1,'core::Node::type()']]],
-  ['type_5f_7',['type_',['../structcore_1_1capa_1_1NodeMetadata.html#a2d9fdb4f329f6da48ca4798717169feb',1,'core::capa::NodeMetadata']]],
-  ['type_5flist_5fcapability_2ecpp_8',['type_list_capability.cpp',['../type__list__capability_8cpp.html',1,'']]],
-  ['type_5flist_5fcapability_2ehpp_9',['type_list_capability.hpp',['../type__list__capability_8hpp.html',1,'']]],
-  ['typedefinition_10',['TypeDefinition',['../structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html',1,'core::capa::ITypeListCapability']]],
-  ['typedescriptor_11',['TypeDescriptor',['../structcore_1_1capa_1_1TypeDescriptor.html',1,'core::capa']]],
-  ['typeid_12',['typeid',['../classcore_1_1capa_1_1TypeListCapability.html#a33eb59547e7d74d322f9c47f715ac3ab',1,'core::capa::TypeListCapability::typeId()'],['../classcore_1_1capa_1_1ITypeListCapability.html#a7823e6274c5909716a25cd59c33810eb',1,'core::capa::ITypeListCapability::typeId()']]],
-  ['typeinfo_13',['TypeInfo',['../structeditor_1_1code__generation_1_1TypeInfo.html',1,'editor::code_generation']]],
-  ['typelistcapability_14',['TypeListCapability',['../classcore_1_1capa_1_1TypeListCapability.html',1,'core::capa']]],
-  ['typemismatchexception_15',['TypeMismatchException',['../classcore_1_1TypeMismatchException.html',1,'core']]],
-  ['typename_16',['typename',['../classcore_1_1capa_1_1ITypeListCapability.html#ad6dadf6a29a4ce9b2b88aed63e7c8e3d',1,'core::capa::ITypeListCapability::typeName()'],['../classcore_1_1capa_1_1TypeListCapability.html#a92c5f084d535d6ed73280fca7b5c8e79',1,'core::capa::TypeListCapability::typeName()']]],
-  ['types_17',['types',['../structcore_1_1capa_1_1ExportContext.html#a0f3980a96e94c508fe3612796299cc72',1,'core::capa::ExportContext::types'],['../classcore_1_1capa_1_1ITypeListCapability.html#ad772287f5c2af9ab6ae5ec63853b7f0b',1,'core::capa::ITypeListCapability::types()'],['../classcore_1_1capa_1_1TypeListCapability.html#afa10f89fd85ba9708b55134038aa9d09',1,'core::capa::TypeListCapability::types()'],['../classcore_1_1IModule.html#aa2c75799d593aeb6a11eb602b5950aaa',1,'core::IModule::types()']]]
+  ['unload_0',['unload',['../classcore_1_1ModuleLoader.html#a3c8786f14b2667d5af986dc876a9b2de',1,'core::ModuleLoader::unload(ModuleId)'],['../classcore_1_1ModuleLoader.html#a50e8c97b7f2e6bbf09b5ac575c5ab78e',1,'core::ModuleLoader::unload(std::string_view name)']]],
+  ['unloadall_1',['unloadAll',['../classcore_1_1ModuleLoader.html#acf17d1e487b715f3dd02b43e0d51b476',1,'core::ModuleLoader']]],
+  ['unregisternoderenderer_2',['UnregisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#ad14ebe879352cd67d28a3e1f8bdeb827',1,'core::capa::RendererCapability']]]
 ];

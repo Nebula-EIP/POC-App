@@ -1,5 +1,5 @@
 var classutils_1_1Logger =
 [
-    [ "log", "classutils_1_1Logger.html#a185799578c02eaa8321525ae312326c3", null ],
-    [ "set_minimum_log_level", "classutils_1_1Logger.html#a4bbc5eebb4084c0919d17728b6755185", null ]
+    [ "Log", "classutils_1_1Logger.html#ac5cfa83dcf5063f31e41693c63f6ff94", null ],
+    [ "SetMinimumLogLevel", "classutils_1_1Logger.html#ad8658ce7b05457304296622274c3b9f4", null ]
 ];
