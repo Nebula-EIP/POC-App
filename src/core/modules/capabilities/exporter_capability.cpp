@@ -11,6 +11,4 @@
 
 #include "exporter_capability.hpp"
 
-namespace core::capa {
-    
-}
+namespace core::capa {}
