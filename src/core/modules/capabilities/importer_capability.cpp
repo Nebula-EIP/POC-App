@@ -34,7 +34,7 @@ std::expected<void, ImportError> ImporterCapability::ImportCode(
                         "No importer handler is configured"});
     }
 
-    return handler_(request_);
+    return handler_(request);
 }
 
 }  // namespace core::capa
