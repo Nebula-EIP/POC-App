@@ -18,15 +18,15 @@ namespace core::capa {
 ImporterCapability::ImporterCapability(ImportHandler handler)
     : handler_(std::move(handler)) {}
 
-void ImporterCapability::setImportHandler(ImportHandler handler) {
+void ImporterCapability::SetImportHandler(ImportHandler handler) {
     handler_ = std::move(handler);
 }
 
-bool ImporterCapability::hasImportHandler() const noexcept {
+bool ImporterCapability::HasImportHandler() const noexcept {
     return static_cast<bool>(handler_);
 }
 
-std::expected<void, ImportError> ImporterCapability::importCode(
+std::expected<void, ImportError> ImporterCapability::ImportCode(
     const ImportRequest &request) const {
     if (!handler_) {
         return std::unexpected(
