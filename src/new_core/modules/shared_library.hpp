@@ -5,7 +5,7 @@
  * Windows).
  *
  * This helper is intentionally free of any Nebula concept: it never throws and
- * never logs. Callers translate its boolean results and lastError() message
+ * never logs. Callers translate its boolean results and LastError() message
  * into the module exceptions documented in
  * exception/module_exception/module_exception.md.
  *
@@ -55,21 +55,21 @@ class SharedLibrary {
      * @param path Path to the shared library. Required.
      *
      * @return true when the library was opened, false otherwise. On failure,
-     * lastError() describes the operating system error.
+     * LastError() describes the operating system error.
      */
-    bool open(const std::filesystem::path &path) noexcept;
+    bool Open(const std::filesystem::path &path) noexcept;
 
     /**
      * @brief Closes the handle. Does nothing when no handle is open.
      */
-    void close() noexcept;
+    void Close() noexcept;
 
     /**
      * @brief Tells whether a handle is currently open.
      *
      * @return true when a handle is open, false otherwise.
      */
-    bool isOpen() const noexcept;
+    bool IsOpen() const noexcept;
 
     /**
      * @brief Resolves a symbol exported by the library.
@@ -80,17 +80,17 @@ class SharedLibrary {
      * when no library is open. The returned address stays valid until this
      * object is closed, moved from or destroyed.
      */
-    void *symbol(const char *name) const noexcept;
+    void *Symbol(const char *name) const noexcept;
 
     /**
      * @brief Last error reported by the platform loader.
      *
-     * Only meaningful right after open() or symbol() returned a failure.
+     * Only meaningful right after Open() or Symbol() returned a failure.
      *
      * @return A human readable description of the error, or an empty string
      * when the platform reported none.
      */
-    static std::string lastError();
+    static std::string LastError();
 
    private:
     /// Opaque platform handle (void * on POSIX, HMODULE on Windows).

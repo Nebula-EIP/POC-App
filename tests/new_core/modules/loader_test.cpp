@@ -46,11 +46,11 @@ class FixtureProbe {
      * @param path Path of the fixture library.
      */
     explicit FixtureProbe(const std::filesystem::path &path) {
-        opened_ = library_.open(path);
+        opened_ = library_.Open(path);
         events_ = reinterpret_cast<const char *(*)()>(
-            library_.symbol("FixtureEvents"));
+            library_.Symbol("FixtureEvents"));
         reset_ =
-            reinterpret_cast<void (*)()>(library_.symbol("FixtureResetEvents"));
+            reinterpret_cast<void (*)()>(library_.Symbol("FixtureResetEvents"));
         reset();
     }
 

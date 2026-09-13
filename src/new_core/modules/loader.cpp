@@ -29,7 +29,7 @@ namespace {
  *
  * @return The formatted suffix.
  */
-std::string where(const std::filesystem::path &path) {
+std::string Where(const std::filesystem::path &path) {
     return " (" + path.string() + ")";
 }
 
@@ -40,8 +40,8 @@ std::string where(const std::filesystem::path &path) {
  *
  * @return The message, followed by the platform error if any.
  */
-std::string withSystemError(std::string message) {
-    const std::string kError = detail::SharedLibrary::lastError();
+std::string WithSystemError(std::string message) {
+    const std::string kError = detail::SharedLibrary::LastError();
     if (!kError.empty()) {
         message += ": " + kError;
     }
@@ -57,7 +57,7 @@ ModuleLoader::Entry::~Entry() {
         instance->shutdown();
     }
     instance.reset();
-    library.close();
+    library.Close();
 }
 
 ModuleLoader::~ModuleLoader() { unloadAll(); }
@@ -127,11 +127,11 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
     std::error_code error;
     if (path.empty() || !std::filesystem::exists(path, error) || error) {
         throw ModuleFileNotFoundException("Module file was not found" +
-                                          where(path));
+                                          Where(path));
     }
     if (!std::filesystem::is_regular_file(path, error) || error) {
         throw ModuleFileNotFoundException("Module path is not a regular file" +
-                                          where(path));
+                                          Where(path));
     }
 
     std::filesystem::path canonical =
@@ -142,7 +142,7 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
     for (const std::unique_ptr<Entry> &loaded : _entries) {
         if (loaded->path == canonical) {
             throw ModuleAlreadyLoadedException(
-                "The module library is already loaded" + where(path));
+                "The module library is already loaded" + Where(path));
         }
     }
 
@@ -151,57 +151,57 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
     auto entry = std::make_unique<Entry>();
     entry->path = std::move(canonical);
 
-    if (!entry->library.open(path)) {
+    if (!entry->library.Open(path)) {
         throw ModuleLoadFailedException(
-            withSystemError("Failed to load the module library" + where(path)));
+            WithSystemError("Failed to load the module library" + Where(path)));
     }
 
     auto factory = reinterpret_cast<CreateModuleFunction>(
-        entry->library.symbol(kCreateModuleSymbol));
+        entry->library.Symbol(kCreateModuleSymbol));
     if (factory == nullptr) {
         throw ModuleSymbolNotFoundException(std::string{kCreateModuleSymbol} +
                                             " symbol was not found" +
-                                            where(path));
+                                            Where(path));
     }
 
     entry->instance.reset(factory());
     if (!entry->instance) {
         throw InvalidModuleException(std::string{kCreateModuleSymbol} +
-                                     " returned no module" + where(path));
+                                     " returned no module" + Where(path));
     }
 
     const std::string_view kName = entry->instance->name();
     if (kName.empty()) {
-        throw InvalidModuleException("The module has no name" + where(path));
+        throw InvalidModuleException("The module has no name" + Where(path));
     }
     if (find(kName) != nullptr) {
         throw ModuleAlreadyLoadedException("A module named '" +
                                            std::string{kName} +
-                                           "' is already loaded" + where(path));
+                                           "' is already loaded" + Where(path));
     }
 
     const ModuleId kId = _next_id;
     if (!entry->instance->initialize(kId)) {
         throw ModuleInitializationException("Failed to initialize module '" +
                                             std::string{kName} + "'" +
-                                            where(path));
+                                            Where(path));
     }
     entry->initialized = true;
 
     if (entry->instance->id() != kId) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' does not report the id it was given" +
-                                     where(path));
+                                     Where(path));
     }
     if (entry->instance->types() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no type list capability" +
-                                     where(path));
+                                     Where(path));
     }
     if (entry->instance->nodes() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no node list capability" +
-                                     where(path));
+                                     Where(path));
     }
 
     // Commit. Reserving first makes the two insertions non throwing, so the

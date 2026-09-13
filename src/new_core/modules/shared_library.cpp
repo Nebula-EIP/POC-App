@@ -21,25 +21,25 @@
 
 namespace core::detail {
 
-SharedLibrary::~SharedLibrary() { close(); }
+SharedLibrary::~SharedLibrary() { Close(); }
 
 SharedLibrary::SharedLibrary(SharedLibrary &&other) noexcept
     : _handle(std::exchange(other._handle, nullptr)) {}
 
 SharedLibrary &SharedLibrary::operator=(SharedLibrary &&other) noexcept {
     if (this != &other) {
-        close();
+        Close();
         _handle = std::exchange(other._handle, nullptr);
     }
     return *this;
 }
 
-bool SharedLibrary::isOpen() const noexcept { return _handle != nullptr; }
+bool SharedLibrary::IsOpen() const noexcept { return _handle != nullptr; }
 
 #if defined(_WIN32)
 
-bool SharedLibrary::open(const std::filesystem::path &path) noexcept {
-    close();
+bool SharedLibrary::Open(const std::filesystem::path &path) noexcept {
+    Close();
 
     std::error_code error;
     std::filesystem::path absolute = std::filesystem::absolute(path, error);
@@ -52,14 +52,14 @@ bool SharedLibrary::open(const std::filesystem::path &path) noexcept {
     return _handle != nullptr;
 }
 
-void SharedLibrary::close() noexcept {
+void SharedLibrary::Close() noexcept {
     if (_handle != nullptr) {
         FreeLibrary(reinterpret_cast<HMODULE>(_handle));
         _handle = nullptr;
     }
 }
 
-void *SharedLibrary::symbol(const char *name) const noexcept {
+void *SharedLibrary::Symbol(const char *name) const noexcept {
     if (_handle == nullptr || name == nullptr) {
         return nullptr;
     }
@@ -67,7 +67,7 @@ void *SharedLibrary::symbol(const char *name) const noexcept {
         GetProcAddress(reinterpret_cast<HMODULE>(_handle), name));
 }
 
-std::string SharedLibrary::lastError() {
+std::string SharedLibrary::LastError() {
     const DWORD kCode = GetLastError();
     if (kCode == 0) {
         return {};
@@ -98,10 +98,10 @@ std::string SharedLibrary::lastError() {
 
 #else
 
-bool SharedLibrary::open(const std::filesystem::path &path) noexcept {
-    close();
+bool SharedLibrary::Open(const std::filesystem::path &path) noexcept {
+    Close();
 
-    // Clear any stale error so that lastError() only reports ours.
+    // Clear any stale error so that LastError() only reports ours.
     dlerror();
     // RTLD_LOCAL keeps the module symbols private, which is what lets several
     // modules define the same symbols without colliding.
@@ -109,14 +109,14 @@ bool SharedLibrary::open(const std::filesystem::path &path) noexcept {
     return _handle != nullptr;
 }
 
-void SharedLibrary::close() noexcept {
+void SharedLibrary::Close() noexcept {
     if (_handle != nullptr) {
         dlclose(_handle);
         _handle = nullptr;
     }
 }
 
-void *SharedLibrary::symbol(const char *name) const noexcept {
+void *SharedLibrary::Symbol(const char *name) const noexcept {
     if (_handle == nullptr || name == nullptr) {
         return nullptr;
     }
@@ -133,9 +133,9 @@ void *SharedLibrary::symbol(const char *name) const noexcept {
     return address;
 }
 
-std::string SharedLibrary::lastError() {
-    const char *kError = dlerror();
-    return kError == nullptr ? std::string{} : std::string{kError};
+std::string SharedLibrary::LastError() {
+    const char *error = dlerror();
+    return error == nullptr ? std::string{} : std::string{error};
 }
 
 #endif
