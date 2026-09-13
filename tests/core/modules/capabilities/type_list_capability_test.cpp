@@ -10,32 +10,32 @@ TEST(TypeListCapabilityTest, RegisterAndRetrieveTypes) {
     capability.RegisterType("int");
     capability.RegisterType("float");
 
-    auto name_ptr1 = capability.registerType(10);
+    auto name_ptr1 = capability.RegisterType(10);
     ASSERT_NE(name_ptr1, nullptr);
     EXPECT_EQ(*name_ptr1, "int");
 
-    auto name_ptr2 = capability.registerType(20);
+    auto name_ptr2 = capability.RegisterType(20);
     ASSERT_NE(name_ptr2, nullptr);
     EXPECT_EQ(*name_ptr2, "float");
 
     // All pending types assigned
-    auto name_ptr3 = capability.registerType(30);
+    auto name_ptr3 = capability.RegisterType(30);
     EXPECT_EQ(name_ptr3, nullptr);
 
-    EXPECT_EQ(capability.typeId("int"), 10);
-    EXPECT_EQ(capability.typeId("float"), 20);
-    EXPECT_EQ(capability.typeId("string"), 0);
+    EXPECT_EQ(capability.TypeId("int"), 10);
+    EXPECT_EQ(capability.TypeId("float"), 20);
+    EXPECT_EQ(capability.TypeId("string"), 0);
 
-    EXPECT_EQ(capability.typeName(10), "int");
-    EXPECT_EQ(capability.typeName(20), "float");
-    EXPECT_EQ(capability.typeName(30), "");
+    EXPECT_EQ(capability.TypeName(10), "int");
+    EXPECT_EQ(capability.TypeName(20), "float");
+    EXPECT_EQ(capability.TypeName(30), "");
 
-    auto types = capability.types();
+    auto types = capability.Types();
     ASSERT_EQ(types.size(), 2);
-    EXPECT_EQ(types[0].id, 10);
-    EXPECT_EQ(types[0].name, "int");
-    EXPECT_EQ(types[1].id, 20);
-    EXPECT_EQ(types[1].name, "float");
+    EXPECT_EQ(types[0].id_, 10);
+    EXPECT_EQ(types[0].name_, "int");
+    EXPECT_EQ(types[1].id_, 20);
+    EXPECT_EQ(types[1].name_, "float");
 }
 
 TEST(TypeListCapabilityTest, DuplicateTypeRegistration) {
@@ -44,10 +44,10 @@ TEST(TypeListCapabilityTest, DuplicateTypeRegistration) {
     capability.RegisterType("int");
     capability.RegisterType("int"); // Should be ignored
 
-    auto name_ptr1 = capability.registerType(10);
+    auto name_ptr1 = capability.RegisterType(10);
     ASSERT_NE(name_ptr1, nullptr);
     EXPECT_EQ(*name_ptr1, "int");
 
-    auto name_ptr2 = capability.registerType(20);
+    auto name_ptr2 = capability.RegisterType(20);
     EXPECT_EQ(name_ptr2, nullptr); // Only one type was registered
 }

@@ -14,11 +14,11 @@ TEST(NodeListCapabilityTest, RegisterAndRetrieveNode) {
     
     capability.RegisterNode("TestNode", "A test node", config);
     
-    auto name_ptr1 = capability.registerNode(42);
+    auto name_ptr1 = capability.RegisterNode(42);
     ASSERT_NE(name_ptr1, nullptr);
     EXPECT_EQ(*name_ptr1, "TestNode");
     
-    auto name_ptr2 = capability.registerNode(43);
+    auto name_ptr2 = capability.RegisterNode(43);
     EXPECT_EQ(name_ptr2, nullptr);
     
     auto nodes = capability.GetAvailableNodes();
@@ -29,9 +29,9 @@ TEST(NodeListCapabilityTest, RegisterAndRetrieveNode) {
     
     auto retrieved_config = capability.GetNodeConfiguration(42);
     ASSERT_EQ(retrieved_config.input_pins_.size(), 1);
-    EXPECT_EQ(retrieved_config.input_pins_[0].id, 1);
-    EXPECT_EQ(retrieved_config.input_pins_[0].name, "in");
-    EXPECT_EQ(retrieved_config.input_pins_[0].type, 10);
+    EXPECT_EQ(retrieved_config.input_pins_[0].id_, 1);
+    EXPECT_EQ(retrieved_config.input_pins_[0].name_, "in");
+    EXPECT_EQ(retrieved_config.input_pins_[0].type_, 10);
 }
 
 TEST(NodeListCapabilityTest, DuplicateNodeRegistrationThrows) {
