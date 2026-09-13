@@ -106,6 +106,13 @@ class ImporterCapability final : public IImporterCapability {
      */
     bool HasImportHandler() const noexcept;
 
+    /**
+     * @brief Imports source code into the requested graph.
+     *
+     * @param request Source text and target graph. Required.
+     * @return Success, or a structured error identifying the failed entity and
+     * source position.
+     */
     std::expected<void, ImportError> ImportCode(
         const ImportRequest &request) const override;
 
