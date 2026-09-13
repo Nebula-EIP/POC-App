@@ -138,22 +138,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16153b11c82ab17731c83c480048e71b" id="r_a16153b11c82ab17731c83c480048e71b"><td class="memItemLeft" align="right" valign="top"><a id="a16153b11c82ab17731c83c480048e71b" name="a16153b11c82ab17731c83c480048e71b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ImporterCapability</b> (ImportHandler handler)</td></tr>
 <tr class="separator:a16153b11c82ab17731c83c480048e71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9a8478ec5e097cf2b4146fdd3a8432b" id="r_ab9a8478ec5e097cf2b4146fdd3a8432b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#ab9a8478ec5e097cf2b4146fdd3a8432b">setImportHandler</a> (ImportHandler handler)</td></tr>
-<tr class="memdesc:ab9a8478ec5e097cf2b4146fdd3a8432b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the parser used to process import requests.  <br /></td></tr>
-<tr class="separator:ab9a8478ec5e097cf2b4146fdd3a8432b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7599bc4f02427e3bac3dd6ae0a57e93" id="r_ae7599bc4f02427e3bac3dd6ae0a57e93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#ae7599bc4f02427e3bac3dd6ae0a57e93">hasImportHandler</a> () const noexcept</td></tr>
-<tr class="memdesc:ae7599bc4f02427e3bac3dd6ae0a57e93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a parser is configured.  <br /></td></tr>
-<tr class="separator:ae7599bc4f02427e3bac3dd6ae0a57e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2489d0350e074a1ea6d468793ea3e63" id="r_ac2489d0350e074a1ea6d468793ea3e63"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#ac2489d0350e074a1ea6d468793ea3e63">importCode</a> (const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;request) const override</td></tr>
-<tr class="memdesc:ac2489d0350e074a1ea6d468793ea3e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports source code into the requested graph.  <br /></td></tr>
-<tr class="separator:ac2489d0350e074a1ea6d468793ea3e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabb277bab37462ba1a57ae7aa128157" id="r_afabb277bab37462ba1a57ae7aa128157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#afabb277bab37462ba1a57ae7aa128157">SetImportHandler</a> (ImportHandler handler)</td></tr>
+<tr class="memdesc:afabb277bab37462ba1a57ae7aa128157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the parser used to process import requests.  <br /></td></tr>
+<tr class="separator:afabb277bab37462ba1a57ae7aa128157"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca040f0975ffffb09d78b838ca774531" id="r_aca040f0975ffffb09d78b838ca774531"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#aca040f0975ffffb09d78b838ca774531">HasImportHandler</a> () const noexcept</td></tr>
+<tr class="memdesc:aca040f0975ffffb09d78b838ca774531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a parser is configured.  <br /></td></tr>
+<tr class="separator:aca040f0975ffffb09d78b838ca774531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8592c5c1fbfd4bf9852841480f375549" id="r_a8592c5c1fbfd4bf9852841480f375549"><td class="memItemLeft" align="right" valign="top">std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#a8592c5c1fbfd4bf9852841480f375549">ImportCode</a> (const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;request) const override</td></tr>
+<tr class="memdesc:a8592c5c1fbfd4bf9852841480f375549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports source code into the requested graph.  <br /></td></tr>
+<tr class="separator:a8592c5c1fbfd4bf9852841480f375549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concrete importer adapter for module-owned parsers. </p>
 <p>The core does not define a source grammar. Modules provide the parser as a handler and this capability forwards import requests to it. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae7599bc4f02427e3bac3dd6ae0a57e93" name="ae7599bc4f02427e3bac3dd6ae0a57e93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7599bc4f02427e3bac3dd6ae0a57e93">&#9670;&#160;</a></span>hasImportHandler()</h2>
+<a id="aca040f0975ffffb09d78b838ca774531" name="aca040f0975ffffb09d78b838ca774531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca040f0975ffffb09d78b838ca774531">&#9670;&#160;</a></span>HasImportHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,7 +162,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::capa::ImporterCapability::hasImportHandler </td>
+          <td class="memname">bool core::capa::ImporterCapability::HasImportHandler </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -180,8 +180,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac2489d0350e074a1ea6d468793ea3e63" name="ac2489d0350e074a1ea6d468793ea3e63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2489d0350e074a1ea6d468793ea3e63">&#9670;&#160;</a></span>importCode()</h2>
+<a id="a8592c5c1fbfd4bf9852841480f375549" name="a8592c5c1fbfd4bf9852841480f375549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8592c5c1fbfd4bf9852841480f375549">&#9670;&#160;</a></span>ImportCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +190,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt; core::capa::ImporterCapability::importCode </td>
+          <td class="memname">std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt; core::capa::ImporterCapability::ImportCode </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
@@ -213,18 +213,18 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Success, or a structured error identifying the failed entity and source position. </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1capa_1_1IImporterCapability.html#ac4c5d34ab9c55f792d8a5a46a3fc4005">core::capa::IImporterCapability</a>.</p>
+<p>Implements <a class="el" href="classcore_1_1capa_1_1IImporterCapability.html#a79b3c331b202717697e386b1e23ed42d">core::capa::IImporterCapability</a>.</p>
 
 </div>
 </div>
-<a id="ab9a8478ec5e097cf2b4146fdd3a8432b" name="ab9a8478ec5e097cf2b4146fdd3a8432b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9a8478ec5e097cf2b4146fdd3a8432b">&#9670;&#160;</a></span>setImportHandler()</h2>
+<a id="afabb277bab37462ba1a57ae7aa128157" name="afabb277bab37462ba1a57ae7aa128157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afabb277bab37462ba1a57ae7aa128157">&#9670;&#160;</a></span>SetImportHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::capa::ImporterCapability::setImportHandler </td>
+          <td class="memname">void core::capa::ImporterCapability::SetImportHandler </td>
           <td>(</td>
           <td class="paramtype">ImportHandler&#160;</td>
           <td class="paramname"><em>handler</em></td><td>)</td>

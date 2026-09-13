@@ -126,16 +126,16 @@ Collaboration diagram for core::capa::IImporterCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac4c5d34ab9c55f792d8a5a46a3fc4005" id="r_ac4c5d34ab9c55f792d8a5a46a3fc4005"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IImporterCapability.html#ac4c5d34ab9c55f792d8a5a46a3fc4005">importCode</a> (const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;request) const =0</td></tr>
-<tr class="memdesc:ac4c5d34ab9c55f792d8a5a46a3fc4005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports source code into the requested graph.  <br /></td></tr>
-<tr class="separator:ac4c5d34ab9c55f792d8a5a46a3fc4005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b3c331b202717697e386b1e23ed42d" id="r_a79b3c331b202717697e386b1e23ed42d"><td class="memItemLeft" align="right" valign="top">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IImporterCapability.html#a79b3c331b202717697e386b1e23ed42d">ImportCode</a> (const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;request) const =0</td></tr>
+<tr class="memdesc:a79b3c331b202717697e386b1e23ed42d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports source code into the requested graph.  <br /></td></tr>
+<tr class="separator:a79b3c331b202717697e386b1e23ed42d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Optional module capability that turns written source code into graph data. </p>
 <p>A module owns the source grammar it understands. The core only supplies the target graph and routes the request to the selected module capability. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac4c5d34ab9c55f792d8a5a46a3fc4005" name="ac4c5d34ab9c55f792d8a5a46a3fc4005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4c5d34ab9c55f792d8a5a46a3fc4005">&#9670;&#160;</a></span>importCode()</h2>
+<a id="a79b3c331b202717697e386b1e23ed42d" name="a79b3c331b202717697e386b1e23ed42d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79b3c331b202717697e386b1e23ed42d">&#9670;&#160;</a></span>ImportCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +144,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt; core::capa::IImporterCapability::importCode </td>
+          <td class="memname">virtual std::expected&lt; void, <a class="el" href="structcore_1_1capa_1_1ImportError.html">ImportError</a> &gt; core::capa::IImporterCapability::ImportCode </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structcore_1_1capa_1_1ImportRequest.html">ImportRequest</a> &amp;&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
@@ -167,7 +167,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Success, or a structured error identifying the failed entity and source position. </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#ac2489d0350e074a1ea6d468793ea3e63">core::capa::ImporterCapability</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1capa_1_1ImporterCapability.html#a8592c5c1fbfd4bf9852841480f375549">core::capa::ImporterCapability</a>.</p>
 
 </div>
 </div>
