@@ -126,7 +126,7 @@ class IModule {
     template <typename T>
     const T *Capability() const noexcept;
 
-   private:
+   protected:
     /**
      * @brief Get a capability by type.
      * Internal method, use the template version instead.
