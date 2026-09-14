@@ -129,7 +129,7 @@ Use when a module fails during initialization.
 For example, when:
 
 ``` cpp
-module->initialize(id)
+module->Initialize(id)
 ```
 
 returns `false` and the loader needs to report the failure as an
@@ -204,7 +204,7 @@ Do not use this automatically for optional capabilities.
 For example, if this is valid:
 
 ``` cpp
-module->capability<IExporterCapability>();
+module->Capability<IExporterCapability>();
 ```
 
 returning `nullptr`, then no exception is needed.
@@ -256,9 +256,9 @@ Required capability is missing
 Some existing module APIs already use return values:
 
 ``` cpp
-module() -> nullptr
-unload() -> false
-initialize() -> false
+Module() -> nullptr
+Unload() -> false
+Initialize() -> false
 ```
 
 Keep those semantics when the failure is an expected result of the

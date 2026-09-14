@@ -24,8 +24,6 @@ namespace core {
 
 class ICapability;
 
-using ModuleId = uint32_t;
-
 /**
  * @brief Modules will be loaded by the module loader class.
  * They contains a set of capabilities.
@@ -39,29 +37,29 @@ class IModule {
      *
      * @return The name of the module.
      */
-    virtual std::string_view name() const noexcept = 0;
+    virtual std::string_view Name() const noexcept = 0;
 
     /**
      * @brief Get the author of the module.
      *
      * @return The author of the module.
      */
-    virtual std::string_view author() const noexcept = 0;
+    virtual std::string_view Author() const noexcept = 0;
 
     /**
      * @brief Get the description of the module.
      *
      * @return The description of the module.
      */
-    virtual std::string_view description() const noexcept = 0;
+    virtual std::string_view Description() const noexcept = 0;
 
     /**
      * @brief Version wrapper
      */
     struct Version {
-        uint16_t major;
-        uint16_t minor;
-        uint16_t patch;
+        uint16_t major_;
+        uint16_t minor_;
+        uint16_t patch_;
     };
 
     /**
@@ -69,7 +67,7 @@ class IModule {
      *
      * @return The version of the module.
      */
-    virtual Version version() const noexcept = 0;
+    virtual Version GetVersion() const noexcept = 0;
 
     /**
      * @brief Initialize the module
@@ -78,19 +76,19 @@ class IModule {
      *
      * @return true if the module has been initialized, false if not
      */
-    virtual bool initialize(ModuleId id) = 0;
+    virtual bool Initialize(ModuleId id) = 0;
 
     /**
      * @brief Ask the module to release all resources and prepare for shutdown.
      */
-    virtual void shutdown() noexcept = 0;
+    virtual void Shutdown() noexcept = 0;
 
     /**
      * @brief Get the id of the module.
      *
      * @return The id of the module.
      */
-    virtual ModuleId id() const noexcept = 0;
+    virtual ModuleId Id() const noexcept = 0;
 
     /// Mendatory capabilities
 
@@ -99,14 +97,14 @@ class IModule {
      *
      * @return The type list capability of the module..
      */
-    virtual capa::ITypeListCapability *types() = 0;
+    virtual capa::ITypeListCapability *Types() = 0;
 
     /**
      * @brief Get the node list capability of the module.
      *
      * @return The node list capability of the module.
      */
-    virtual capa::INodeListCapability *nodes() = 0;
+    virtual capa::INodeListCapability *Nodes() = 0;
 
     /**
      * @brief Get a capability by type.
@@ -116,7 +114,7 @@ class IModule {
      * @return A pointer to the capability, or nullptr if not found.
      */
     template <typename T>
-    T *capability() noexcept;
+    T *Capability() noexcept;
 
     /**
      * @brief Get a const capability by type.
@@ -126,7 +124,7 @@ class IModule {
      * @return A const pointer to the capability, or nullptr if not found.
      */
     template <typename T>
-    const T *capability() const noexcept;
+    const T *Capability() const noexcept;
 
    private:
     /**
@@ -137,7 +135,7 @@ class IModule {
      *
      * @return A pointer to the capability, or nullptr if not found.
      */
-    virtual ICapability *capability(std::type_index type) noexcept = 0;
+    virtual ICapability *Capability(std::type_index type) noexcept = 0;
 
     /**
      * @brief Get a const capability by type.
@@ -147,7 +145,7 @@ class IModule {
      *
      * @return A const pointer to the capability, or nullptr if not found.
      */
-    virtual const ICapability *capability(
+    virtual const ICapability *Capability(
         std::type_index type) const noexcept = 0;
 };
 

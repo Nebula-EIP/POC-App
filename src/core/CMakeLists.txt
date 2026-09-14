@@ -1,4 +1,4 @@
-# CMakeLists.txt for new_core
+# CMakeLists.txt for core
 
 add_library(neb_graph
     graph/graph.cpp
@@ -18,4 +18,29 @@ add_library(core_capabilities
 
 target_include_directories(core_capabilities PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# Capabilities are linked into the test module fixtures (shared libraries), so
+# they must be position independent.
+set_target_properties(core_capabilities PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
+
+# Module loading. Kept separate from the GUI and from any concrete module.
+add_library(core_modules
+    modules/loader.cpp
+    modules/shared_library.cpp
+)
+
+target_include_directories(core_modules PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(core_modules PUBLIC
+    core_capabilities
+    ${CMAKE_DL_LIBS}
+)
+
+set_target_properties(core_modules PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
 )
