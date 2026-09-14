@@ -12,13 +12,16 @@
 #pragma once
 
 #include "modules/module.hpp"
+#include "modules/capabilities/renderer_capability.hpp"
+#include "modules/capabilities/importer_capability.hpp"
+#include "modules/capabilities/exporter_capability.hpp"
 
 /**
  * @brief C Module class
  */
 class CModule : public core::IModule {
    public:
-    CModule() = default;
+    CModule();
     ~CModule() = default;
 
     /**
@@ -92,4 +95,12 @@ class CModule : public core::IModule {
     virtual core::ICapability *Capability(std::type_index type) noexcept override;
 
     virtual const core::ICapability *Capability(std::type_index) const noexcept override;
+
+    core::ModuleId id_;
+
+    std::unique_ptr<core::capa::ITypeListCapability> types_;
+    std::unique_ptr<core::capa::INodeListCapability> nodes_;
+    std::unique_ptr<core::capa::IRendererCapability> renderer_;
+    std::unique_ptr<core::capa::IImporterCapability> importer_;
+    std::unique_ptr<core::capa::IExporterCapability> exporter_;
 };
