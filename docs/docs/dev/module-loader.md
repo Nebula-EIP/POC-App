@@ -5,9 +5,9 @@ sidebar_position: 3
 # Module Loader
 
 `core::ModuleLoader` owns every loaded module and the shared library each one came
-from. It is implemented in `src/new_core/modules/loader.hpp`,
-`src/new_core/modules/loader.tcc` and `src/new_core/modules/loader.cpp`, on top of
-the small platform wrapper in `src/new_core/modules/shared_library.hpp`.
+from. It is implemented in `src/core/modules/loader.hpp`,
+`src/core/modules/loader.tcc` and `src/core/modules/loader.cpp`, on top of
+the small platform wrapper in `src/core/modules/shared_library.hpp`.
 
 The loader depends only on the module capabilities and the standard library: it
 knows nothing about the C module or the editor, and can be used without a window.
@@ -153,13 +153,13 @@ The instance is allocated by the library and destroyed by the core through the
 `IModule` virtual destructor, so the library must be built against the same C++
 runtime as the core.
 
-`ModuleId` is defined once, in `src/new_core/graph/datatypes.hpp`. Do not
+`ModuleId` is defined once, in `src/core/graph/datatypes.hpp`. Do not
 redeclare it.
 
 ## Tests
 
-`tests/new_core/modules/loader_test.cpp` covers the loader, backed by the shared
-library fixtures in `tests/new_core/modules/fixtures/`. All fixtures are built from
+`tests/core/modules/loader_test.cpp` covers the loader, backed by the shared
+library fixtures in `tests/core/modules/fixtures/`. All fixtures are built from
 a single source with different `FIXTURE_*` definitions, they are `MODULE` libraries
 that nothing links against, and they open no window.
 
@@ -168,6 +168,6 @@ ctest --test-dir build -R ModuleLoaderTest --output-on-failure
 ```
 
 Adding a new fixture means one `nebula_add_module_fixture()` call in
-`tests/new_core/modules/fixtures/CMakeLists.txt` and one
+`tests/core/modules/fixtures/CMakeLists.txt` and one
 `NEBULA_FIXTURE_*` definition in `tests/CMakeLists.txt`, which passes its path to
 the tests.

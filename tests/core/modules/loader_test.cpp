@@ -3,7 +3,7 @@
  * @brief Tests for core::ModuleLoader.
  *
  * Every test uses the shared library fixtures built by
- * tests/new_core/modules/fixtures. No window is ever opened.
+ * tests/core/modules/fixtures. No window is ever opened.
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 13-09-2026
@@ -562,15 +562,15 @@ TEST_F(ModuleLoaderTest, AModuleStaysUsableUntilItIsUnloaded) {
 
     core::capa::ITypeListCapability *types = module->types();
     ASSERT_NE(types, nullptr);
-    const std::string_view *registered = types->registerType(7);
+    const std::string_view *registered = types->RegisterType(7);
     ASSERT_NE(registered, nullptr);
     EXPECT_EQ(*registered, "FixtureType");
-    EXPECT_EQ(types->typeId("FixtureType"), 7U);
-    EXPECT_EQ(types->typeName(7), "FixtureType");
+    EXPECT_EQ(types->TypeId("FixtureType"), 7U);
+    EXPECT_EQ(types->TypeName(7), "FixtureType");
 
     core::capa::INodeListCapability *nodes = module->nodes();
     ASSERT_NE(nodes, nullptr);
-    const std::string_view *node = nodes->registerNode(3);
+    const std::string_view *node = nodes->RegisterNode(3);
     ASSERT_NE(node, nullptr);
     EXPECT_EQ(*node, "FixtureNode");
     ASSERT_EQ(nodes->GetAvailableNodes().size(), 1U);

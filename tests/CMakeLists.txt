@@ -1,52 +1,33 @@
 # Tests CMakeLists.txt
 
 # Shared library fixtures loaded at runtime by the ModuleLoader tests.
-# Added first so that NEBULA_FIXTURE_TARGETS is available below.
-add_subdirectory(new_core/modules/fixtures)
+add_subdirectory(core/modules/fixtures)
 
-# Collect test files
-file(GLOB_RECURSE TEST_SOURCES "*.cpp")
+# Collect test files from core only
+file(GLOB_RECURSE TEST_SOURCES "core/*.cpp")
 
 # The module fixtures are shared libraries of their own, they must never be
 # compiled into the test executable.
-list(FILTER TEST_SOURCES EXCLUDE REGEX "/new_core/modules/fixtures/")
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/core/modules/fixtures/")
 
 # Create test executable
 if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES})
 
-    # Code-generation lives under src/editor and isn't a standalone library yet.
-    # Compile the code-generation sources into the test executable.
-    target_sources(unit_tests PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file.cpp
-        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/code-generator-file-formatting.cpp
-        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/codegen-context.cpp
-        ${CMAKE_SOURCE_DIR}/src/editor/code-generation/codegen-optimizer.cpp
-        ${CMAKE_SOURCE_DIR}/src/editor/file-writing/file-writer.cpp
-        ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
-    )
-
-    # Allow includes like "code-generation/..." and "errors/...".
+    # Allow includes for core tests
     target_include_directories(unit_tests PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/editor
-        ${CMAKE_SOURCE_DIR}/src/new_core
-        ${CMAKE_SOURCE_DIR}/examples
+        ${CMAKE_SOURCE_DIR}/src/core
     )
-
-    # code-generator-file-formatting depends on utils/string-splitter.hpp
-    target_link_libraries(unit_tests PRIVATE utils)
 
     # Link with project libraries when available
     target_link_libraries(unit_tests PRIVATE
+        project_warnings
         gtest
         gtest_main
         gmock
-        core
-        new_core_capabilities
-        new_core_modules
-        graph-exporter
-        cmake_tool
-        #utils
+        neb_graph
+        core_capabilities
+        core_modules
     )
 
     # The loader tests open real shared libraries, so they need their absolute

@@ -1,6 +1,6 @@
 # Shared library fixtures used by the ModuleLoader tests.
 #
-# Every fixture is built from tests/new_core/modules/fixtures/fixture_module.cpp
+# Every fixture is built from tests/core/modules/fixtures/fixture_module.cpp
 # with a different set of FIXTURE_* definitions. They are MODULE libraries: they
 # are never linked against, only dlopen'd / LoadLibrary'd by the tests.
 
@@ -10,8 +10,8 @@ set(NEBULA_FIXTURE_TARGETS "")
 function(nebula_add_module_fixture target)
     add_library(${target} MODULE fixture_module.cpp)
 
-    target_link_libraries(${target} PRIVATE new_core_capabilities)
-    target_include_directories(${target} PRIVATE ${CMAKE_SOURCE_DIR}/src/new_core)
+    target_link_libraries(${target} PRIVATE core_capabilities)
+    target_include_directories(${target} PRIVATE ${CMAKE_SOURCE_DIR}/src/core)
     target_compile_definitions(${target} PRIVATE ${ARGN})
 
     # No "lib" prefix and no import library: the tests build the file name

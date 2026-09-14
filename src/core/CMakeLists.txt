@@ -1,50 +1,46 @@
-# Core library CMakeLists.txt
+# CMakeLists.txt for core
 
-# Collect all source files
-file(GLOB_RECURSE CORE_SOURCES
-    "*.cpp"
+add_library(neb_graph
+    graph/graph.cpp
+    graph/node.cpp
 )
 
-file(GLOB_RECURSE CORE_HEADERS
-    "*.hpp"
-    "*.h"
+target_include_directories(neb_graph PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Create core library
-if(CORE_SOURCES)
-    add_library(core ${CORE_SOURCES} ${CORE_HEADERS})
+add_library(core_capabilities
+    modules/capabilities/type_list_capability.cpp
+    modules/capabilities/node_list_capability.cpp
+    modules/capabilities/renderer_capability.cpp
+    modules/capabilities/importer_capability.cpp
+)
 
-    target_include_directories(core
-        PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-            $<INSTALL_INTERFACE:include>
-    )
+target_include_directories(core_capabilities PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
-    # Find Raylib
-    find_package(raylib REQUIRED)
+# Capabilities are linked into the test module fixtures (shared libraries), so
+# they must be position independent.
+set_target_properties(core_capabilities PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
 
-    # Add dependencies
-    target_link_libraries(core PUBLIC
-        nlohmann_json::nlohmann_json
-        utils
-        raylib
-    )
+# Module loading. Kept separate from the GUI and from any concrete module.
+add_library(core_modules
+    modules/loader.cpp
+    modules/shared_library.cpp
+)
 
-    if(UNIX AND NOT APPLE)
-        target_link_libraries(core PUBLIC m dl pthread GL X11)
-    elseif(WIN32)
-        target_link_libraries(core PUBLIC
-            winmm        # audio
-            gdi32        # graphics
-            opengl32     # OpenGL
-        )
-    endif()
+target_include_directories(core_modules PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
-    # Set properties
-    set_target_properties(core PROPERTIES
-        POSITION_INDEPENDENT_CODE ON
-    )
-else()
-    message(STATUS "No source files found in core - skipping library creation")
-endif()
+target_link_libraries(core_modules PUBLIC
+    core_capabilities
+    ${CMAKE_DL_LIBS}
+)
+
+set_target_properties(core_modules PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
