@@ -4,7 +4,7 @@
 add_subdirectory(core/modules/fixtures)
 
 # Collect test files from core only
-file(GLOB_RECURSE TEST_SOURCES "core/*.cpp")
+file(GLOB_RECURSE TEST_SOURCES "core/**.cpp")
 
 # The module fixtures are shared libraries of their own, they must never be
 # compiled into the test executable.
@@ -12,7 +12,7 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/core/modules/fixtures/")
 
 # Create test executable
 if(TEST_SOURCES)
-    add_executable(unit_tests ${TEST_SOURCES})
+    add_executable(unit_tests ${TEST_SOURCES} modules/c/c_module_tests.cpp)
 
     # Allow includes for core tests
     target_include_directories(unit_tests PRIVATE
@@ -42,6 +42,11 @@ if(TEST_SOURCES)
         NEBULA_FIXTURE_NO_TYPES="$<TARGET_FILE:fixture_no_types_module>"
         NEBULA_FIXTURE_NO_NODES="$<TARGET_FILE:fixture_no_nodes_module>"
         NEBULA_FIXTURE_WRONG_ID="$<TARGET_FILE:fixture_wrong_id_module>"
+    )
+
+    # The Modules needs to know where their shared libraries are
+    target_compile_definitions(unit_tests PRIVATE
+        NEBULA_C_MODULE="$<TARGET_FILE:neb_c_module>"
     )
 
     # The fixtures must exist before the tests run (and before CTest discovers
