@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['description_0',['description',['../classcore_1_1IModule.html#a8655dab53e9bebc607b6f24bc494cbbd',1,'core::IModule']]],
+  ['description_0',['Description',['../classcore_1_1IModule.html#a26323b4263d3df7953b7c50292316d0e',1,'core::IModule']]],
   ['disconnect_1',['disconnect',['../classcore_1_1Graph.html#a49316a00a9ee4854dd45e088350f0ccf',1,'core::Graph::Disconnect(ConnectionId id)'],['../classcore_1_1Graph.html#a50719b04e9b39f866d6eea5387674348',1,'core::Graph::Disconnect(NodeId from, PinId out, NodeId to, PinId in)']]],
   ['disconnectallinputpin_2',['DisconnectAllInputPin',['../classcore_1_1Graph.html#a4efdbbac321a4f9bb5cc5035ca6a33a1',1,'core::Graph']]],
   ['disconnectalloutputpin_3',['DisconnectAllOutputPin',['../classcore_1_1Graph.html#a9d4f93acb14286d082f55b74d7badcbe',1,'core::Graph']]],

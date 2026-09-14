@@ -2,7 +2,7 @@ var searchData=
 [
   ['icapability_0',['ICapability',['../classcore_1_1ICapability.html',1,'core']]],
   ['icapability_2ehpp_1',['icapability.hpp',['../icapability_8hpp.html',1,'']]],
-  ['id_2',['id',['../classcore_1_1IModule.html#a712272e5658facb68c2a070f5634f74c',1,'core::IModule::id()'],['../classcore_1_1Node.html#aef96358703fc3717957f1093c47ecb81',1,'core::Node::Id()']]],
+  ['id_2',['id',['../classcore_1_1IModule.html#a13ad7a4e08473671605f94fc9b849152',1,'core::IModule::Id()'],['../classcore_1_1Node.html#aef96358703fc3717957f1093c47ecb81',1,'core::Node::Id()']]],
   ['id_5f_3',['id_',['../structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html#a9ac0022c79626c36844c52f73034a9a7',1,'core::capa::ITypeListCapability::TypeDefinition::id_'],['../structcore_1_1capa_1_1ComponentBase.html#a15b89f66945b1518c565d7e6490bd768',1,'core::capa::ComponentBase::id_']]],
   ['idmanager_4',['IdManager',['../classutils_1_1IdManager.html',1,'utils']]],
   ['iexportercapability_5',['IExporterCapability',['../classcore_1_1capa_1_1IExporterCapability.html',1,'core::capa']]],
@@ -17,7 +17,7 @@ var searchData=
   ['importrequest_14',['ImportRequest',['../structcore_1_1capa_1_1ImportRequest.html',1,'core::capa']]],
   ['incompatiblemoduleexception_15',['IncompatibleModuleException',['../classcore_1_1IncompatibleModuleException.html',1,'core']]],
   ['infobubble_16',['InfoBubble',['../structcore_1_1capa_1_1InfoBubble.html',1,'core::capa']]],
-  ['initialize_17',['initialize',['../classcore_1_1IModule.html#a87a2e1e8279dbf798a3c742665bc7057',1,'core::IModule']]],
+  ['initialize_17',['Initialize',['../classcore_1_1IModule.html#af323bea1ec1de2f8940e41a9f9ad6913',1,'core::IModule']]],
   ['initializenodetypes_18',['initializenodetypes',['../classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557',1,'core::capa::RendererCapability::InitializeNodeTypes()'],['../classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354',1,'core::capa::IRendererCapability::InitializeNodeTypes()']]],
   ['initializepropertytypes_19',['initializepropertytypes',['../classcore_1_1capa_1_1INodeListCapability.html#a3fe515bdf1fef460a94d5ef00bb05e26',1,'core::capa::INodeListCapability::InitializePropertyTypes()'],['../classcore_1_1capa_1_1NodeListCapability.html#a9ff23bb947327bb0750bdf4a9064e131',1,'core::capa::NodeListCapability::InitializePropertyTypes()']]],
   ['initializetypes_20',['initializetypes',['../classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f',1,'core::capa::IRendererCapability::InitializeTypes()'],['../classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94',1,'core::capa::RendererCapability::InitializeTypes()']]],

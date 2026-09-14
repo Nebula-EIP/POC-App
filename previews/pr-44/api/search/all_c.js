@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../classcore_1_1IModule.html#a752be226b6aed4236ccb45a03c0b348e',1,'core::IModule']]],
+  ['name_0',['Name',['../classcore_1_1IModule.html#a30d5927e7728bd65a92a6924fa011927',1,'core::IModule']]],
   ['name_5f_1',['name_',['../structcore_1_1capa_1_1NodeMetadata.html#adc32dbd92a427cd9974a74f0860f0e5b',1,'core::capa::NodeMetadata']]],
   ['nebula_5fmodule_5fexport_2',['NEBULA_MODULE_EXPORT',['../create__module_8hpp.html#a09ba6e7ee43feb65138808f5bf04aaf4',1,'create_module.hpp']]],
   ['newid_3',['NewId',['../classutils_1_1IdManager.html#a082864f4bb110efa1c2fe259e5819626',1,'utils::IdManager']]],
@@ -18,7 +18,7 @@ var searchData=
   ['nodelistcapability_15',['NodeListCapability',['../classcore_1_1capa_1_1NodeListCapability.html',1,'core::capa']]],
   ['nodemetadata_16',['NodeMetadata',['../structcore_1_1capa_1_1NodeMetadata.html',1,'core::capa']]],
   ['nodenotfoundexception_17',['NodeNotFoundException',['../classcore_1_1NodeNotFoundException.html',1,'core']]],
-  ['nodes_18',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#a21eeec81b7320c8e6ff11d8e5ddcd817',1,'core::IModule::nodes()']]],
+  ['nodes_18',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()']]],
   ['nodetype_19',['NodeType',['../datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e',1,'core']]],
   ['nodetypeexception_20',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['numberfield_21',['NumberField',['../structcore_1_1capa_1_1NumberField.html',1,'core::capa']]]

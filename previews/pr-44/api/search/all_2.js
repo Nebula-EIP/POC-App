@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['capabilities_0',['capabilities',['../classcore_1_1ModuleLoader.html#a46b7aee29e4edae89e048e0f19b9e0c9',1,'core::ModuleLoader']]],
-  ['capability_1',['capability',['../classcore_1_1IModule.html#ac734e63e662dfa49b1fa1792ee3d0f0b',1,'core::IModule::capability() noexcept'],['../classcore_1_1IModule.html#aa7eb02057c3ec93741d6711054afc4e3',1,'core::IModule::capability() const noexcept']]],
+  ['capabilities_0',['Capabilities',['../classcore_1_1ModuleLoader.html#ad53e6255234199206ffda5f42f911222',1,'core::ModuleLoader']]],
+  ['capability_1',['capability',['../classcore_1_1IModule.html#a733ea0abf5eb5981bb09b82e1357b345',1,'core::IModule::Capability() noexcept'],['../classcore_1_1IModule.html#a5591075b39e03505ae50a1fac07964ce',1,'core::IModule::Capability() const noexcept']]],
   ['checkbox_2',['Checkbox',['../structcore_1_1capa_1_1Checkbox.html',1,'core::capa']]],
   ['close_3',['Close',['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary']]],
   ['component_4',['Component',['../renderer__capability_8hpp.html#a01aaac99a851c69934a5bf199e0795a4',1,'core::capa']]],
