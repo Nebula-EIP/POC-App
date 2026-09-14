@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['unlink_0',['Unlink',['../classcore_1_1Graph.html#a9a3ac07fb91bed0a2e9779c7f32e1d52',1,'core::Graph']]],
-  ['unload_1',['unload',['../classcore_1_1ModuleLoader.html#aba27494b77821d77561666db2ae08b44',1,'core::ModuleLoader::unload(ModuleId id)'],['../classcore_1_1ModuleLoader.html#a50e8c97b7f2e6bbf09b5ac575c5ab78e',1,'core::ModuleLoader::unload(std::string_view name)']]],
-  ['unloadall_2',['unloadAll',['../classcore_1_1ModuleLoader.html#acf17d1e487b715f3dd02b43e0d51b476',1,'core::ModuleLoader']]],
-  ['unregisternoderenderer_3',['UnregisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#ad14ebe879352cd67d28a3e1f8bdeb827',1,'core::capa::RendererCapability']]],
-  ['updatemodifiedtime_4',['UpdateModifiedTime',['../classcore_1_1Graph.html#a55f948f20d03cc29af50cbb5c3109bbf',1,'core::Graph']]]
+  ['_7eirenderercapability_0',['~IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html#a53c6039f652c3baa0c4ad6ad904d183b',1,'core::capa::IRendererCapability']]],
+  ['_7emoduleloader_1',['~ModuleLoader',['../classcore_1_1ModuleLoader.html#aabc6435083b7d887e3bc9ec0465918f6',1,'core::ModuleLoader']]],
+  ['_7esharedlibrary_2',['~SharedLibrary',['../classcore_1_1detail_1_1SharedLibrary.html#ad1fad3292a8467a2826e47e818393a61',1,'core::detail::SharedLibrary']]]
 ];

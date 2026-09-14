@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['parameters_0',['Parameters',['../classcore_1_1FunctionNode.html#a548fe07bd3078bcff1bbfce946406e02',1,'core::FunctionNode']]],
-  ['parent_1',['parent',['../classcore_1_1NodeBase.html#a271c1860bbc40f589e771dbf6c02472a',1,'core::NodeBase']]],
-  ['preparedrag_2',['PrepareDrag',['../classcore_1_1NodeBase.html#af23224ebac2d9885f8ae2680d1c232fb',1,'core::NodeBase']]],
-  ['property_3',['property',['../classcore_1_1Node.html#a6334eef01cf50221fb8a6df42e921653',1,'core::Node::property(PropertyId) noexcept'],['../classcore_1_1Node.html#a782983a292a4ac21db871a9c07f3b381',1,'core::Node::property(PropertyId) const noexcept']]]
+  ['setimporthandler_0',['SetImportHandler',['../classcore_1_1capa_1_1ImporterCapability.html#afabb277bab37462ba1a57ae7aa128157',1,'core::capa::ImporterCapability']]],
+  ['setminimumloglevel_1',['SetMinimumLogLevel',['../classutils_1_1Logger.html#ad8658ce7b05457304296622274c3b9f4',1,'utils::Logger']]],
+  ['setproperty_2',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
+  ['shutdown_3',['shutdown',['../classcore_1_1IModule.html#ac09cd69eb9a8a554eaf3ccb856b77f75',1,'core::IModule']]],
+  ['size_4',['size',['../classcore_1_1ModuleLoader.html#a66a74854b067f8073fdf00d6fc24f04f',1,'core::ModuleLoader']]],
+  ['supportsnodetype_5',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]],
+  ['symbol_6',['Symbol',['../classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09',1,'core::detail::SharedLibrary']]]
 ];

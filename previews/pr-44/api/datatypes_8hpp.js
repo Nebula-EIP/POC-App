@@ -3,6 +3,7 @@ var datatypes_8hpp =
     [ "core::Connection", "structcore_1_1Connection.html", null ],
     [ "core::Pin", "structcore_1_1Pin.html", null ],
     [ "core::Property", "structcore_1_1Property.html", "structcore_1_1Property" ],
+    [ "ConnectionId", "datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54", null ],
     [ "DataType", "datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8", null ],
     [ "ModuleId", "datatypes_8hpp.html#afb51450daa6bf9848e96d6bd97c4e744", null ],
     [ "NodeId", "datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69", null ],

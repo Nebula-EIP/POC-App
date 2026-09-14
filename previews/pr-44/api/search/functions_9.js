@@ -1,12 +1,5 @@
 var searchData=
 [
-  ['lasterror_0',['LastError',['../classcore_1_1detail_1_1SharedLibrary.html#a33403340e3ddc5c875a8b348505c86c7',1,'core::detail::SharedLibrary']]],
-  ['line_1',['Line',['../classcode__generation_1_1CodeGeneratorFile.html#a706166b5cd96c79113e9f6e24d4d2a22',1,'code_generation::CodeGeneratorFile']]],
-  ['lineat_2',['LineAt',['../classcode__generation_1_1CodeGeneratorFile.html#afa41ccfcf023ac3072442ce51974c221',1,'code_generation::CodeGeneratorFile']]],
-  ['link_3',['Link',['../classcore_1_1Graph.html#a207ca9ea6cd38e2bd6667b62376e765a',1,'core::Graph']]],
-  ['linkingwithmouse_4',['LinkingWithMouse',['../classcore_1_1Graph.html#aeed4458e3cd29d7ece39d1d2643bb0c3',1,'core::Graph']]],
-  ['linknodes_5',['LinkNodes',['../classcore_1_1Graph.html#a83f0807477e04bc36aed8d5740fe96f1',1,'core::Graph']]],
-  ['load_6',['load',['../classcore_1_1ModuleLoader.html#a9cf537bb0aa9fe541dae55e4e8d60081',1,'core::ModuleLoader']]],
-  ['loadfromfile_7',['LoadFromFile',['../classcore_1_1Graph.html#ab9e289d8ecfaf65a7d95982580ba6c16',1,'core::Graph']]],
-  ['log_8',['log',['../classutils_1_1Logger.html#a185799578c02eaa8321525ae312326c3',1,'utils::Logger']]]
+  ['module_0',['module',['../classcore_1_1ModuleLoader.html#a6cf46db05e19f1e4e6ecc170262e9ad9',1,'core::ModuleLoader::module(ModuleId id) noexcept'],['../classcore_1_1ModuleLoader.html#a876020b4e148bda838d7fec783defe8d',1,'core::ModuleLoader::module(std::string_view name) noexcept'],['../classcore_1_1ModuleLoader.html#ad9e4e2b1075098479d9c5662fb2121c2',1,'core::ModuleLoader::module(ModuleId id) const noexcept'],['../classcore_1_1ModuleLoader.html#ad5d49928cfcb472fa11285f105b22756',1,'core::ModuleLoader::module(std::string_view name) const noexcept']]],
+  ['modules_1',['modules',['../classcore_1_1ModuleLoader.html#af1829028b07cb13a62c05e7ab61b0591',1,'core::ModuleLoader']]]
 ];

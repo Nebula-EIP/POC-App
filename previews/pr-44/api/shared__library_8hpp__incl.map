@@ -1,5 +1,5 @@
-<map id="src/new_core/modules/shared_library.hpp" name="src/new_core/modules/shared_library.hpp">
-<area shape="rect" id="Node000001" title="Thin RAII wrapper around the platform shared library API (dlopen/dlsym/dlclose on POSIX,..." alt="" coords="17,5,183,45"/>
+<map id="src/core/modules/shared_library.hpp" name="src/core/modules/shared_library.hpp">
+<area shape="rect" id="Node000001" title="Thin RAII wrapper around the platform shared library API (dlopen/dlsym/dlclose on POSIX,..." alt="" coords="9,5,191,45"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,93,96,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,47,67,83,63,80,86,44"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="120,93,179,119"/>
