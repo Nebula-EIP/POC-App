@@ -11,6 +11,8 @@
 
 #include "module.hpp"
 
+#include "modules_inits.hpp"
+
 constexpr std::string_view kName = "C";
 constexpr std::string_view kAuthor = "Nebula Team";
 constexpr std::string_view kDescription = "C language module - full suite";
@@ -48,14 +50,20 @@ core::IModule::Version CModule::GetVersion() const noexcept
 bool CModule::Initialize(core::ModuleId id)
 {
     id_ = id;
-    /// Initialize all capabilities here.
+
+    types_.reset(CreateTypeListCapa());
+    nodes_.reset(CreateNodeListCapa());
+    /// Initialize others capabilities here.
     return true;
 }
 
 void CModule::Shutdown() noexcept
 {
-    /// :D *Heya !
-    /// Delete all capabilities here.
+    types_.reset();
+    nodes_.reset();
+    renderer_.reset();
+    importer_.reset();
+    exporter_.reset();
 }
 
 core::ModuleId CModule::Id() const noexcept

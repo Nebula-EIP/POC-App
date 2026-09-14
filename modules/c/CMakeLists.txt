@@ -4,6 +4,8 @@ add_library(neb_c_module SHARED
     # Add module source files here when implementation begins.
     create_module.cpp
     module.cpp
+    types_list.cpp
+    nodes_list.cpp
 )
 
 target_link_libraries(neb_c_module
