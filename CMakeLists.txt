@@ -72,5 +72,5 @@ CPMAddPackage(
 
 # Add subdirectories
 add_subdirectory(src)
-# add_subdirectory(examples)  # DISABLED: depends on old core library
 add_subdirectory(tests)
+add_subdirectory(modules)
