@@ -24,17 +24,17 @@ namespace core::detail {
 SharedLibrary::~SharedLibrary() { Close(); }
 
 SharedLibrary::SharedLibrary(SharedLibrary &&other) noexcept
-    : _handle(std::exchange(other._handle, nullptr)) {}
+    : handle_(std::exchange(other.handle_, nullptr)) {}
 
 SharedLibrary &SharedLibrary::operator=(SharedLibrary &&other) noexcept {
     if (this != &other) {
         Close();
-        _handle = std::exchange(other._handle, nullptr);
+        handle_ = std::exchange(other.handle_, nullptr);
     }
     return *this;
 }
 
-bool SharedLibrary::IsOpen() const noexcept { return _handle != nullptr; }
+bool SharedLibrary::IsOpen() const noexcept { return handle_ != nullptr; }
 
 #if defined(_WIN32)
 
@@ -47,24 +47,24 @@ bool SharedLibrary::Open(const std::filesystem::path &path) noexcept {
 
     // LOAD_WITH_ALTERED_SEARCH_PATH makes Windows look for the dependencies of
     // the module next to the module itself instead of next to the executable.
-    _handle = reinterpret_cast<void *>(
+    handle_ = reinterpret_cast<void *>(
         LoadLibraryExW(target.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH));
-    return _handle != nullptr;
+    return handle_ != nullptr;
 }
 
 void SharedLibrary::Close() noexcept {
-    if (_handle != nullptr) {
-        FreeLibrary(reinterpret_cast<HMODULE>(_handle));
-        _handle = nullptr;
+    if (handle_ != nullptr) {
+        FreeLibrary(reinterpret_cast<HMODULE>(handle_));
+        handle_ = nullptr;
     }
 }
 
 void *SharedLibrary::Symbol(const char *name) const noexcept {
-    if (_handle == nullptr || name == nullptr) {
+    if (handle_ == nullptr || name == nullptr) {
         return nullptr;
     }
     return reinterpret_cast<void *>(
-        GetProcAddress(reinterpret_cast<HMODULE>(_handle), name));
+        GetProcAddress(reinterpret_cast<HMODULE>(handle_), name));
 }
 
 std::string SharedLibrary::LastError() {
@@ -105,23 +105,23 @@ bool SharedLibrary::Open(const std::filesystem::path &path) noexcept {
     dlerror();
     // RTLD_LOCAL keeps the module symbols private, which is what lets several
     // modules define the same symbols without colliding.
-    _handle = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
-    return _handle != nullptr;
+    handle_ = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
+    return handle_ != nullptr;
 }
 
 void SharedLibrary::Close() noexcept {
-    if (_handle != nullptr) {
-        dlclose(_handle);
-        _handle = nullptr;
+    if (handle_ != nullptr) {
+        dlclose(handle_);
+        handle_ = nullptr;
     }
 }
 
 void *SharedLibrary::Symbol(const char *name) const noexcept {
-    if (_handle == nullptr || name == nullptr) {
+    if (handle_ == nullptr || name == nullptr) {
         return nullptr;
     }
     dlerror();
-    void *address = dlsym(_handle, name);
+    void *address = dlsym(handle_, name);
     if (address == nullptr) {
         return nullptr;
     }

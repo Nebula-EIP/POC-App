@@ -50,7 +50,7 @@ nebula_add_module_fixture(fixture_null_factory_module
     FIXTURE_NULL_FACTORY=1
 )
 
-# initialize() returns false.
+# Initialize() returns false.
 nebula_add_module_fixture(fixture_init_fail_module
     FIXTURE_MODULE_NAME=\"InitFailFixture\"
     FIXTURE_INITIALIZE_RESULT=false

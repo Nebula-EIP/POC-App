@@ -154,37 +154,37 @@ int ModuleLoaderTest::counter_ = 0;
 TEST_F(ModuleLoaderTest, LoadsAValidModule) {
     core::ModuleLoader loader;
 
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
     EXPECT_NE(kId, 0U);
-    EXPECT_EQ(loader.size(), 1U);
-    ASSERT_NE(loader.module(kId), nullptr);
-    EXPECT_EQ(loader.module(kId)->name(), "ValidFixture");
-    EXPECT_EQ(loader.module(kId)->id(), kId);
+    EXPECT_EQ(loader.Size(), 1U);
+    ASSERT_NE(loader.Module(kId), nullptr);
+    EXPECT_EQ(loader.Module(kId)->Name(), "ValidFixture");
+    EXPECT_EQ(loader.Module(kId)->Id(), kId);
 }
 
 TEST_F(ModuleLoaderTest, AssignsUniqueNonZeroIds) {
     core::ModuleLoader loader;
 
-    const core::ModuleId kFirst = loader.load(NEBULA_FIXTURE_VALID);
-    const core::ModuleId kSecond = loader.load(NEBULA_FIXTURE_SECOND);
+    const core::ModuleId kFirst = loader.Load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kSecond = loader.Load(NEBULA_FIXTURE_SECOND);
 
     EXPECT_NE(kFirst, 0U);
     EXPECT_NE(kSecond, 0U);
     EXPECT_NE(kFirst, kSecond);
-    EXPECT_EQ(loader.size(), 2U);
+    EXPECT_EQ(loader.Size(), 2U);
 }
 
 TEST_F(ModuleLoaderTest, NeverReusesAnIdAfterUnload) {
     core::ModuleLoader loader;
 
-    const core::ModuleId kFirst = loader.load(NEBULA_FIXTURE_VALID);
-    ASSERT_TRUE(loader.unload(kFirst));
-    const core::ModuleId kSecond = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kFirst = loader.Load(NEBULA_FIXTURE_VALID);
+    ASSERT_TRUE(loader.Unload(kFirst));
+    const core::ModuleId kSecond = loader.Load(NEBULA_FIXTURE_VALID);
 
     EXPECT_NE(kFirst, kSecond);
-    EXPECT_EQ(loader.module(kFirst), nullptr);
-    EXPECT_NE(loader.module(kSecond), nullptr);
+    EXPECT_EQ(loader.Module(kFirst), nullptr);
+    EXPECT_NE(loader.Module(kSecond), nullptr);
 }
 
 // ============================================================================
@@ -193,53 +193,53 @@ TEST_F(ModuleLoaderTest, NeverReusesAnIdAfterUnload) {
 
 TEST_F(ModuleLoaderTest, FindsModulesByIdAndByName) {
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
-    core::IModule *by_id = loader.module(kId);
-    core::IModule *by_name = loader.module(std::string_view{"ValidFixture"});
+    core::IModule *by_id = loader.Module(kId);
+    core::IModule *by_name = loader.Module(std::string_view{"ValidFixture"});
 
     ASSERT_NE(by_id, nullptr);
     EXPECT_EQ(by_id, by_name);
 
     const core::ModuleLoader &const_loader = loader;
-    EXPECT_EQ(const_loader.module(kId), by_id);
-    EXPECT_EQ(const_loader.module(std::string_view{"ValidFixture"}), by_id);
+    EXPECT_EQ(const_loader.Module(kId), by_id);
+    EXPECT_EQ(const_loader.Module(std::string_view{"ValidFixture"}), by_id);
 }
 
 TEST_F(ModuleLoaderTest, UnknownLookupsReturnNullptr) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_VALID);
 
-    EXPECT_EQ(loader.module(static_cast<core::ModuleId>(4242)), nullptr);
-    EXPECT_EQ(loader.module(std::string_view{"NoSuchModule"}), nullptr);
-    EXPECT_EQ(loader.module(std::string_view{}), nullptr);
+    EXPECT_EQ(loader.Module(static_cast<core::ModuleId>(4242)), nullptr);
+    EXPECT_EQ(loader.Module(std::string_view{"NoSuchModule"}), nullptr);
+    EXPECT_EQ(loader.Module(std::string_view{}), nullptr);
 
     const core::ModuleLoader &const_loader = loader;
-    EXPECT_EQ(const_loader.module(static_cast<core::ModuleId>(4242)), nullptr);
-    EXPECT_EQ(const_loader.module(std::string_view{"NoSuchModule"}), nullptr);
+    EXPECT_EQ(const_loader.Module(static_cast<core::ModuleId>(4242)), nullptr);
+    EXPECT_EQ(const_loader.Module(std::string_view{"NoSuchModule"}), nullptr);
 }
 
 TEST_F(ModuleLoaderTest, ListsEveryModuleInLoadOrder) {
     core::ModuleLoader loader;
-    const core::ModuleId kFirst = loader.load(NEBULA_FIXTURE_VALID);
-    const core::ModuleId kSecond = loader.load(NEBULA_FIXTURE_SECOND);
+    const core::ModuleId kFirst = loader.Load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kSecond = loader.Load(NEBULA_FIXTURE_SECOND);
 
-    std::span<const core::IModule *const> modules = loader.modules();
+    std::span<const core::IModule *const> modules = loader.Modules();
 
     ASSERT_EQ(modules.size(), 2U);
-    EXPECT_EQ(modules[0], loader.module(kFirst));
-    EXPECT_EQ(modules[1], loader.module(kSecond));
+    EXPECT_EQ(modules[0], loader.Module(kFirst));
+    EXPECT_EQ(modules[1], loader.Module(kSecond));
 }
 
 TEST_F(ModuleLoaderTest, ModulesViewShrinksAfterUnload) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
-    loader.load(NEBULA_FIXTURE_SECOND);
+    loader.Load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_SECOND);
 
-    ASSERT_TRUE(loader.unload(std::string_view{"ValidFixture"}));
+    ASSERT_TRUE(loader.Unload(std::string_view{"ValidFixture"}));
 
-    ASSERT_EQ(loader.modules().size(), 1U);
-    EXPECT_EQ(loader.modules()[0]->name(), "SecondFixture");
+    ASSERT_EQ(loader.Modules().size(), 1U);
+    EXPECT_EQ(loader.Modules()[0]->Name(), "SecondFixture");
 }
 
 // ============================================================================
@@ -248,60 +248,60 @@ TEST_F(ModuleLoaderTest, ModulesViewShrinksAfterUnload) {
 
 TEST_F(ModuleLoaderTest, ExposesMandatoryCapabilities) {
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
-    core::IModule *module = loader.module(kId);
+    core::IModule *module = loader.Module(kId);
     ASSERT_NE(module, nullptr);
-    EXPECT_NE(module->types(), nullptr);
-    EXPECT_NE(module->nodes(), nullptr);
+    EXPECT_NE(module->Types(), nullptr);
+    EXPECT_NE(module->Nodes(), nullptr);
 }
 
 TEST_F(ModuleLoaderTest, CollectsCapabilitiesAcrossModules) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
-    loader.load(NEBULA_FIXTURE_SECOND);
+    loader.Load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_SECOND);
 
-    EXPECT_EQ(loader.capabilities<core::capa::ITypeListCapability>().size(),
+    EXPECT_EQ(loader.Capabilities<core::capa::ITypeListCapability>().size(),
               2U);
-    EXPECT_EQ(loader.capabilities<core::capa::INodeListCapability>().size(),
+    EXPECT_EQ(loader.Capabilities<core::capa::INodeListCapability>().size(),
               2U);
 }
 
 TEST_F(ModuleLoaderTest, AcceptsModulesWithoutOptionalCapabilities) {
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
-    core::IModule *module = loader.module(kId);
+    core::IModule *module = loader.Module(kId);
     ASSERT_NE(module, nullptr);
-    EXPECT_EQ(module->capability<core::capa::IRendererCapability>(), nullptr);
-    EXPECT_TRUE(loader.capabilities<core::capa::IRendererCapability>().empty());
+    EXPECT_EQ(module->Capability<core::capa::IRendererCapability>(), nullptr);
+    EXPECT_TRUE(loader.Capabilities<core::capa::IRendererCapability>().empty());
 }
 
 TEST_F(ModuleLoaderTest, ReportsOptionalCapabilitiesWhenProvided) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_RENDERER);
+    loader.Load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_RENDERER);
 
-    core::IModule *module = loader.module(kId);
+    core::IModule *module = loader.Module(kId);
     ASSERT_NE(module, nullptr);
-    EXPECT_NE(module->capability<core::capa::IRendererCapability>(), nullptr);
+    EXPECT_NE(module->Capability<core::capa::IRendererCapability>(), nullptr);
 
     std::span<const core::capa::IRendererCapability *> renderers =
-        loader.capabilities<core::capa::IRendererCapability>();
+        loader.Capabilities<core::capa::IRendererCapability>();
     ASSERT_EQ(renderers.size(), 1U);
     EXPECT_EQ(renderers[0],
-              module->capability<core::capa::IRendererCapability>());
+              module->Capability<core::capa::IRendererCapability>());
 }
 
 TEST_F(ModuleLoaderTest, CapabilityViewIsEmptyAfterUnloadAll) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_RENDERER);
-    ASSERT_EQ(loader.capabilities<core::capa::IRendererCapability>().size(),
+    loader.Load(NEBULA_FIXTURE_RENDERER);
+    ASSERT_EQ(loader.Capabilities<core::capa::IRendererCapability>().size(),
               1U);
 
-    loader.unloadAll();
+    loader.UnloadAll();
 
-    EXPECT_TRUE(loader.capabilities<core::capa::IRendererCapability>().empty());
+    EXPECT_TRUE(loader.Capabilities<core::capa::IRendererCapability>().empty());
 }
 
 // ============================================================================
@@ -311,95 +311,95 @@ TEST_F(ModuleLoaderTest, CapabilityViewIsEmptyAfterUnloadAll) {
 TEST_F(ModuleLoaderTest, RejectsAMissingFile) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(directory_ / "does_not_exist.so"),
+    EXPECT_THROW(loader.Load(directory_ / "does_not_exist.so"),
                  core::ModuleFileNotFoundException);
-    EXPECT_THROW(loader.load(std::filesystem::path{}),
+    EXPECT_THROW(loader.Load(std::filesystem::path{}),
                  core::ModuleFileNotFoundException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsADirectory) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(directory_), core::ModuleFileNotFoundException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_THROW(loader.Load(directory_), core::ModuleFileNotFoundException);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAnInvalidLibrary) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(writeInvalidLibrary()),
+    EXPECT_THROW(loader.Load(writeInvalidLibrary()),
                  core::ModuleLoadFailedException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsALibraryWithoutFactory) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NO_FACTORY),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NO_FACTORY),
                  core::ModuleSymbolNotFoundException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAFactoryReturningNullptr) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NULL_FACTORY),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NULL_FACTORY),
                  core::InvalidModuleException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAModuleThatFailsToInitialize) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_INIT_FAIL),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_INIT_FAIL),
                  core::ModuleInitializationException);
-    EXPECT_EQ(loader.size(), 0U);
-    EXPECT_EQ(loader.module(std::string_view{"InitFailFixture"}), nullptr);
+    EXPECT_EQ(loader.Size(), 0U);
+    EXPECT_EQ(loader.Module(std::string_view{"InitFailFixture"}), nullptr);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAModuleWithoutTypeListCapability) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NO_TYPES),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NO_TYPES),
                  core::InvalidModuleException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAModuleWithoutNodeListCapability) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NO_NODES),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NO_NODES),
                  core::InvalidModuleException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsAModuleReportingTheWrongId) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_WRONG_ID),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_WRONG_ID),
                  core::InvalidModuleException);
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, RejectsTheSameLibraryTwice) {
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_VALID),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_VALID),
                  core::ModuleAlreadyLoadedException);
-    EXPECT_EQ(loader.size(), 1U);
-    EXPECT_NE(loader.module(kId), nullptr);
+    EXPECT_EQ(loader.Size(), 1U);
+    EXPECT_NE(loader.Module(kId), nullptr);
 }
 
 TEST_F(ModuleLoaderTest, RejectsTwoModulesSharingAName) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_VALID);
     const std::filesystem::path kCopy =
         copyFixture(NEBULA_FIXTURE_VALID, "valid_fixture_copy");
 
-    EXPECT_THROW(loader.load(kCopy), core::ModuleAlreadyLoadedException);
-    EXPECT_EQ(loader.size(), 1U);
+    EXPECT_THROW(loader.Load(kCopy), core::ModuleAlreadyLoadedException);
+    EXPECT_EQ(loader.Size(), 1U);
 }
 
 // ============================================================================
@@ -409,23 +409,23 @@ TEST_F(ModuleLoaderTest, RejectsTwoModulesSharingAName) {
 TEST_F(ModuleLoaderTest, RecoversFromFailedLoads) {
     core::ModuleLoader loader;
 
-    EXPECT_THROW(loader.load(directory_ / "missing.so"),
+    EXPECT_THROW(loader.Load(directory_ / "missing.so"),
                  core::ModuleFileNotFoundException);
-    EXPECT_THROW(loader.load(writeInvalidLibrary()),
+    EXPECT_THROW(loader.Load(writeInvalidLibrary()),
                  core::ModuleLoadFailedException);
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NO_FACTORY),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NO_FACTORY),
                  core::ModuleSymbolNotFoundException);
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NULL_FACTORY),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NULL_FACTORY),
                  core::InvalidModuleException);
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_INIT_FAIL),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_INIT_FAIL),
                  core::ModuleInitializationException);
 
-    ASSERT_EQ(loader.size(), 0U);
-    EXPECT_TRUE(loader.modules().empty());
+    ASSERT_EQ(loader.Size(), 0U);
+    EXPECT_TRUE(loader.Modules().empty());
 
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
     EXPECT_NE(kId, 0U);
-    EXPECT_EQ(loader.size(), 1U);
+    EXPECT_EQ(loader.Size(), 1U);
 }
 
 TEST_F(ModuleLoaderTest, AFailedLoadDestroysWhatItCreated) {
@@ -433,11 +433,11 @@ TEST_F(ModuleLoaderTest, AFailedLoadDestroysWhatItCreated) {
     ASSERT_TRUE(probe.ok());
 
     core::ModuleLoader loader;
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_INIT_FAIL),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_INIT_FAIL),
                  core::ModuleInitializationException);
 
-    // Constructed, then destroyed. shutdown() is not called on a module whose
-    // initialize() failed.
+    // Constructed, then destroyed. Shutdown() is not called on a module whose
+    // Initialize() failed.
     EXPECT_EQ(probe.events(), "CD");
 }
 
@@ -446,7 +446,7 @@ TEST_F(ModuleLoaderTest, AFailedValidationShutsTheModuleDownBeforeDestroying) {
     ASSERT_TRUE(probe.ok());
 
     core::ModuleLoader loader;
-    EXPECT_THROW(loader.load(NEBULA_FIXTURE_NO_TYPES),
+    EXPECT_THROW(loader.Load(NEBULA_FIXTURE_NO_TYPES),
                  core::InvalidModuleException);
 
     EXPECT_EQ(probe.events(), "CSD");
@@ -457,15 +457,15 @@ TEST_F(ModuleLoaderTest, UnloadByIdShutsDownThenDestroys) {
     ASSERT_TRUE(probe.ok());
 
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
     ASSERT_EQ(probe.events(), "C");
 
-    EXPECT_TRUE(loader.unload(kId));
+    EXPECT_TRUE(loader.Unload(kId));
 
     EXPECT_EQ(probe.events(), "CSD");
-    EXPECT_EQ(loader.size(), 0U);
-    EXPECT_EQ(loader.module(kId), nullptr);
-    EXPECT_FALSE(loader.unload(kId));
+    EXPECT_EQ(loader.Size(), 0U);
+    EXPECT_EQ(loader.Module(kId), nullptr);
+    EXPECT_FALSE(loader.Unload(kId));
 }
 
 TEST_F(ModuleLoaderTest, UnloadByNameShutsDownThenDestroys) {
@@ -473,22 +473,22 @@ TEST_F(ModuleLoaderTest, UnloadByNameShutsDownThenDestroys) {
     ASSERT_TRUE(probe.ok());
 
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_VALID);
 
-    EXPECT_TRUE(loader.unload(std::string_view{"ValidFixture"}));
+    EXPECT_TRUE(loader.Unload(std::string_view{"ValidFixture"}));
 
     EXPECT_EQ(probe.events(), "CSD");
-    EXPECT_EQ(loader.size(), 0U);
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, UnloadingAnUnknownModuleReturnsFalse) {
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_VALID);
 
-    EXPECT_FALSE(loader.unload(static_cast<core::ModuleId>(999)));
-    EXPECT_FALSE(loader.unload(std::string_view{"NoSuchModule"}));
-    EXPECT_FALSE(loader.unload(std::string_view{}));
-    EXPECT_EQ(loader.size(), 1U);
+    EXPECT_FALSE(loader.Unload(static_cast<core::ModuleId>(999)));
+    EXPECT_FALSE(loader.Unload(std::string_view{"NoSuchModule"}));
+    EXPECT_FALSE(loader.Unload(std::string_view{}));
+    EXPECT_EQ(loader.Size(), 1U);
 }
 
 TEST_F(ModuleLoaderTest, UnloadAllCleansUpEveryModule) {
@@ -500,22 +500,22 @@ TEST_F(ModuleLoaderTest, UnloadAllCleansUpEveryModule) {
     ASSERT_TRUE(renderer.ok());
 
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
-    loader.load(NEBULA_FIXTURE_SECOND);
-    loader.load(NEBULA_FIXTURE_RENDERER);
-    ASSERT_EQ(loader.size(), 3U);
+    loader.Load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_SECOND);
+    loader.Load(NEBULA_FIXTURE_RENDERER);
+    ASSERT_EQ(loader.Size(), 3U);
 
-    loader.unloadAll();
+    loader.UnloadAll();
 
-    EXPECT_EQ(loader.size(), 0U);
-    EXPECT_TRUE(loader.modules().empty());
+    EXPECT_EQ(loader.Size(), 0U);
+    EXPECT_TRUE(loader.Modules().empty());
     EXPECT_EQ(valid.events(), "CSD");
     EXPECT_EQ(second.events(), "CSD");
     EXPECT_EQ(renderer.events(), "CSD");
 
     // Calling it again is harmless.
-    loader.unloadAll();
-    EXPECT_EQ(loader.size(), 0U);
+    loader.UnloadAll();
+    EXPECT_EQ(loader.Size(), 0U);
 }
 
 TEST_F(ModuleLoaderTest, DestructionCleansUpEveryModule) {
@@ -526,9 +526,9 @@ TEST_F(ModuleLoaderTest, DestructionCleansUpEveryModule) {
 
     {
         core::ModuleLoader loader;
-        loader.load(NEBULA_FIXTURE_VALID);
-        loader.load(NEBULA_FIXTURE_SECOND);
-        ASSERT_EQ(loader.size(), 2U);
+        loader.Load(NEBULA_FIXTURE_VALID);
+        loader.Load(NEBULA_FIXTURE_SECOND);
+        ASSERT_EQ(loader.Size(), 2U);
     }
 
     EXPECT_EQ(valid.events(), "CSD");
@@ -542,25 +542,25 @@ TEST_F(ModuleLoaderTest, UnloadingOneModuleLeavesTheOthersUntouched) {
     ASSERT_TRUE(second.ok());
 
     core::ModuleLoader loader;
-    loader.load(NEBULA_FIXTURE_VALID);
-    loader.load(NEBULA_FIXTURE_SECOND);
+    loader.Load(NEBULA_FIXTURE_VALID);
+    loader.Load(NEBULA_FIXTURE_SECOND);
 
-    EXPECT_TRUE(loader.unload(std::string_view{"SecondFixture"}));
+    EXPECT_TRUE(loader.Unload(std::string_view{"SecondFixture"}));
     EXPECT_EQ(second.events(), "CSD");
     EXPECT_EQ(valid.events(), "C");
 
-    loader.unloadAll();
+    loader.UnloadAll();
     EXPECT_EQ(valid.events(), "CSD");
 }
 
 TEST_F(ModuleLoaderTest, AModuleStaysUsableUntilItIsUnloaded) {
     core::ModuleLoader loader;
-    const core::ModuleId kId = loader.load(NEBULA_FIXTURE_VALID);
+    const core::ModuleId kId = loader.Load(NEBULA_FIXTURE_VALID);
 
-    core::IModule *module = loader.module(kId);
+    core::IModule *module = loader.Module(kId);
     ASSERT_NE(module, nullptr);
 
-    core::capa::ITypeListCapability *types = module->types();
+    core::capa::ITypeListCapability *types = module->Types();
     ASSERT_NE(types, nullptr);
     const std::string_view *registered = types->RegisterType(7);
     ASSERT_NE(registered, nullptr);
@@ -568,7 +568,7 @@ TEST_F(ModuleLoaderTest, AModuleStaysUsableUntilItIsUnloaded) {
     EXPECT_EQ(types->TypeId("FixtureType"), 7U);
     EXPECT_EQ(types->TypeName(7), "FixtureType");
 
-    core::capa::INodeListCapability *nodes = module->nodes();
+    core::capa::INodeListCapability *nodes = module->Nodes();
     ASSERT_NE(nodes, nullptr);
     const std::string_view *node = nodes->RegisterNode(3);
     ASSERT_NE(node, nullptr);

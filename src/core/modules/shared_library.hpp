@@ -94,7 +94,7 @@ class SharedLibrary {
 
    private:
     /// Opaque platform handle (void * on POSIX, HMODULE on Windows).
-    void *_handle = nullptr;
+    void *handle_ = nullptr;
 };
 
 }  // namespace detail

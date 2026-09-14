@@ -53,74 +53,74 @@ std::string WithSystemError(std::string message) {
 ModuleLoader::Entry::~Entry() {
     // Destruction order is the whole point of this type: shut the module down,
     // destroy it, and only then close the library that owns its code.
-    if (instance && initialized) {
-        instance->shutdown();
+    if (instance_ && initialized_) {
+        instance_->Shutdown();
     }
-    instance.reset();
-    library.Close();
+    instance_.reset();
+    library_.Close();
 }
 
-ModuleLoader::~ModuleLoader() { unloadAll(); }
+ModuleLoader::~ModuleLoader() { UnloadAll(); }
 
-std::size_t ModuleLoader::size() const noexcept { return _entries.size(); }
+std::size_t ModuleLoader::Size() const noexcept { return entries_.size(); }
 
-const ModuleLoader::Entry *ModuleLoader::find(ModuleId id) const noexcept {
-    for (const std::unique_ptr<Entry> &entry : _entries) {
-        if (entry->instance && entry->instance->id() == id) {
+const ModuleLoader::Entry *ModuleLoader::Find(ModuleId id) const noexcept {
+    for (const std::unique_ptr<Entry> &entry : entries_) {
+        if (entry->instance_ && entry->instance_->Id() == id) {
             return entry.get();
         }
     }
     return nullptr;
 }
 
-const ModuleLoader::Entry *ModuleLoader::find(
+const ModuleLoader::Entry *ModuleLoader::Find(
     std::string_view name) const noexcept {
-    for (const std::unique_ptr<Entry> &entry : _entries) {
-        if (entry->instance && entry->instance->name() == name) {
+    for (const std::unique_ptr<Entry> &entry : entries_) {
+        if (entry->instance_ && entry->instance_->Name() == name) {
             return entry.get();
         }
     }
     return nullptr;
 }
 
-IModule *ModuleLoader::module(ModuleId id) noexcept {
-    const Entry *entry = find(id);
-    return entry == nullptr ? nullptr : entry->instance.get();
+IModule *ModuleLoader::Module(ModuleId id) noexcept {
+    const Entry *entry = Find(id);
+    return entry == nullptr ? nullptr : entry->instance_.get();
 }
 
-IModule *ModuleLoader::module(std::string_view name) noexcept {
-    const Entry *entry = find(name);
-    return entry == nullptr ? nullptr : entry->instance.get();
+IModule *ModuleLoader::Module(std::string_view name) noexcept {
+    const Entry *entry = Find(name);
+    return entry == nullptr ? nullptr : entry->instance_.get();
 }
 
-const IModule *ModuleLoader::module(ModuleId id) const noexcept {
-    const Entry *entry = find(id);
-    return entry == nullptr ? nullptr : entry->instance.get();
+const IModule *ModuleLoader::Module(ModuleId id) const noexcept {
+    const Entry *entry = Find(id);
+    return entry == nullptr ? nullptr : entry->instance_.get();
 }
 
-const IModule *ModuleLoader::module(std::string_view name) const noexcept {
-    const Entry *entry = find(name);
-    return entry == nullptr ? nullptr : entry->instance.get();
+const IModule *ModuleLoader::Module(std::string_view name) const noexcept {
+    const Entry *entry = Find(name);
+    return entry == nullptr ? nullptr : entry->instance_.get();
 }
 
-std::span<const IModule *const> ModuleLoader::modules() noexcept {
-    return _module_view;
+std::span<const IModule *const> ModuleLoader::Modules() noexcept {
+    return module_view_;
 }
 
-void ModuleLoader::refreshCaches() {
+void ModuleLoader::RefreshCaches() {
     // Every previously returned capability span points into a vector that may
     // now describe unloaded modules.
-    _capability_cache.clear();
+    capability_cache_.clear();
 
-    _module_view.clear();
-    _module_view.reserve(_entries.size());
-    for (const std::unique_ptr<Entry> &entry : _entries) {
-        _module_view.push_back(entry->instance.get());
+    module_view_.clear();
+    module_view_.reserve(entries_.size());
+    for (const std::unique_ptr<Entry> &entry : entries_) {
+        module_view_.push_back(entry->instance_.get());
     }
 }
 
-ModuleId ModuleLoader::load(std::filesystem::path path) {
-    if (_next_id == 0) {
+ModuleId ModuleLoader::Load(std::filesystem::path path) {
+    if (next_id_ == 0) {
         throw ModuleException("The module id space is exhausted");
     }
 
@@ -139,8 +139,8 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
     if (error) {
         canonical = path;
     }
-    for (const std::unique_ptr<Entry> &loaded : _entries) {
-        if (loaded->path == canonical) {
+    for (const std::unique_ptr<Entry> &loaded : entries_) {
+        if (loaded->path_ == canonical) {
             throw ModuleAlreadyLoadedException(
                 "The module library is already loaded" + Where(path));
         }
@@ -149,56 +149,56 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
     // From here on the entry owns everything the attempt creates, so any throw
     // releases the module and the library, in that order.
     auto entry = std::make_unique<Entry>();
-    entry->path = std::move(canonical);
+    entry->path_ = std::move(canonical);
 
-    if (!entry->library.Open(path)) {
+    if (!entry->library_.Open(path)) {
         throw ModuleLoadFailedException(
             WithSystemError("Failed to load the module library" + Where(path)));
     }
 
     auto factory = reinterpret_cast<CreateModuleFunction>(
-        entry->library.Symbol(kCreateModuleSymbol));
+        entry->library_.Symbol(kCreateModuleSymbol));
     if (factory == nullptr) {
         throw ModuleSymbolNotFoundException(std::string{kCreateModuleSymbol} +
                                             " symbol was not found" +
                                             Where(path));
     }
 
-    entry->instance.reset(factory());
-    if (!entry->instance) {
+    entry->instance_.reset(factory());
+    if (!entry->instance_) {
         throw InvalidModuleException(std::string{kCreateModuleSymbol} +
                                      " returned no module" + Where(path));
     }
 
-    const std::string_view kName = entry->instance->name();
+    const std::string_view kName = entry->instance_->Name();
     if (kName.empty()) {
         throw InvalidModuleException("The module has no name" + Where(path));
     }
-    if (find(kName) != nullptr) {
+    if (Find(kName) != nullptr) {
         throw ModuleAlreadyLoadedException("A module named '" +
                                            std::string{kName} +
                                            "' is already loaded" + Where(path));
     }
 
-    const ModuleId kId = _next_id;
-    if (!entry->instance->initialize(kId)) {
+    const ModuleId kId = next_id_;
+    if (!entry->instance_->Initialize(kId)) {
         throw ModuleInitializationException("Failed to initialize module '" +
                                             std::string{kName} + "'" +
                                             Where(path));
     }
-    entry->initialized = true;
+    entry->initialized_ = true;
 
-    if (entry->instance->id() != kId) {
+    if (entry->instance_->Id() != kId) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' does not report the id it was given" +
                                      Where(path));
     }
-    if (entry->instance->types() == nullptr) {
+    if (entry->instance_->Types() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no type list capability" +
                                      Where(path));
     }
-    if (entry->instance->nodes() == nullptr) {
+    if (entry->instance_->Nodes() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no node list capability" +
                                      Where(path));
@@ -206,44 +206,44 @@ ModuleId ModuleLoader::load(std::filesystem::path path) {
 
     // Commit. Reserving first makes the two insertions non throwing, so the
     // module cannot end up initialized but untracked.
-    _entries.reserve(_entries.size() + 1);
-    _module_view.reserve(_entries.size() + 1);
-    _entries.push_back(std::move(entry));
-    refreshCaches();
-    _next_id = kId + 1;
+    entries_.reserve(entries_.size() + 1);
+    module_view_.reserve(entries_.size() + 1);
+    entries_.push_back(std::move(entry));
+    RefreshCaches();
+    next_id_ = kId + 1;
 
     return kId;
 }
 
-bool ModuleLoader::unload(ModuleId id) {
-    for (auto it = _entries.begin(); it != _entries.end(); ++it) {
-        if ((*it)->instance && (*it)->instance->id() == id) {
-            _entries.erase(it);
-            refreshCaches();
+bool ModuleLoader::Unload(ModuleId id) {
+    for (auto it = entries_.begin(); it != entries_.end(); ++it) {
+        if ((*it)->instance_ && (*it)->instance_->Id() == id) {
+            entries_.erase(it);
+            RefreshCaches();
             return true;
         }
     }
     return false;
 }
 
-bool ModuleLoader::unload(std::string_view name) {
-    for (auto it = _entries.begin(); it != _entries.end(); ++it) {
-        if ((*it)->instance && (*it)->instance->name() == name) {
-            _entries.erase(it);
-            refreshCaches();
+bool ModuleLoader::Unload(std::string_view name) {
+    for (auto it = entries_.begin(); it != entries_.end(); ++it) {
+        if ((*it)->instance_ && (*it)->instance_->Name() == name) {
+            entries_.erase(it);
+            RefreshCaches();
             return true;
         }
     }
     return false;
 }
 
-void ModuleLoader::unloadAll() {
-    _capability_cache.clear();
-    _module_view.clear();
+void ModuleLoader::UnloadAll() {
+    capability_cache_.clear();
+    module_view_.clear();
     // Reverse load order, so that a module loaded later can still rely on an
     // earlier one while it shuts down.
-    while (!_entries.empty()) {
-        _entries.pop_back();
+    while (!entries_.empty()) {
+        entries_.pop_back();
     }
 }
 

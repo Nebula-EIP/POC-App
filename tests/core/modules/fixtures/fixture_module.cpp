@@ -27,12 +27,12 @@
 #include "modules/create_module.hpp"
 #include "modules/module.hpp"
 
-/// Name reported by IModule::name().
+/// Name reported by IModule::Name().
 #ifndef FIXTURE_MODULE_NAME
 #define FIXTURE_MODULE_NAME "FixtureModule"
 #endif
 
-/// Value returned by IModule::initialize().
+/// Value returned by IModule::Initialize().
 #ifndef FIXTURE_INITIALIZE_RESULT
 #define FIXTURE_INITIALIZE_RESULT true
 #endif
@@ -70,7 +70,7 @@
 namespace {
 
 /// Lifecycle trace, read back by the tests through FixtureEvents(). 'C' is a
-/// construction, 'S' a shutdown() call and 'D' a destruction.
+/// construction, 'S' a Shutdown() call and 'D' a destruction.
 std::string g_events;  // NOLINT(runtime/string)
 
 /**
@@ -100,17 +100,17 @@ class FixtureModule final : public core::IModule {
 
     ~FixtureModule() override { trace('D'); }
 
-    std::string_view name() const noexcept override { return name_; }
+    std::string_view Name() const noexcept override { return name_; }
 
-    std::string_view author() const noexcept override { return "tests"; }
+    std::string_view Author() const noexcept override { return "tests"; }
 
-    std::string_view description() const noexcept override {
+    std::string_view Description() const noexcept override {
         return "Test module fixture";
     }
 
-    Version version() const noexcept override { return {1, 0, 0}; }
+    Version GetVersion() const noexcept override { return {1, 0, 0}; }
 
-    bool initialize(core::ModuleId id) override {
+    bool Initialize(core::ModuleId id) override {
         if (!static_cast<bool>(FIXTURE_INITIALIZE_RESULT)) {
             return false;
         }
@@ -122,14 +122,14 @@ class FixtureModule final : public core::IModule {
         return true;
     }
 
-    void shutdown() noexcept override {
+    void Shutdown() noexcept override {
         trace('S');
         id_ = 0;
     }
 
-    core::ModuleId id() const noexcept override { return id_; }
+    core::ModuleId Id() const noexcept override { return id_; }
 
-    core::capa::ITypeListCapability *types() override {
+    core::capa::ITypeListCapability *Types() override {
 #if FIXTURE_PROVIDE_TYPES
         return &types_;
 #else
@@ -137,7 +137,7 @@ class FixtureModule final : public core::IModule {
 #endif
     }
 
-    core::capa::INodeListCapability *nodes() override {
+    core::capa::INodeListCapability *Nodes() override {
 #if FIXTURE_PROVIDE_NODES
         return &nodes_;
 #else
@@ -146,12 +146,12 @@ class FixtureModule final : public core::IModule {
     }
 
    private:
-    core::ICapability *capability(std::type_index type) noexcept override {
+    core::ICapability *Capability(std::type_index type) noexcept override {
         return const_cast<core::ICapability *>(
-            static_cast<const FixtureModule *>(this)->capability(type));
+            static_cast<const FixtureModule *>(this)->Capability(type));
     }
 
-    const core::ICapability *capability(
+    const core::ICapability *Capability(
         std::type_index type) const noexcept override {
 #if FIXTURE_PROVIDE_TYPES
         if (type == std::type_index(typeid(core::capa::ITypeListCapability))) {

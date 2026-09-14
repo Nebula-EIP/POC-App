@@ -17,38 +17,38 @@
 namespace core {
 
 template <typename Capability>
-const Capability *ModuleLoader::resolve(IModule *instance) noexcept {
+const Capability *ModuleLoader::Resolve(IModule *instance) noexcept {
     static_assert(std::is_base_of_v<ICapability, Capability>,
                   "Capability must derive from core::ICapability");
 
     if (instance == nullptr) {
         return nullptr;
     }
-    if (Capability *found = instance->capability<Capability>()) {
+    if (Capability *found = instance->Capability<Capability>()) {
         return found;
     }
     // The two mandatory capabilities have dedicated accessors, so modules are
-    // not required to also expose them through capability().
+    // not required to also expose them through Capability().
     if constexpr (std::is_same_v<Capability, capa::ITypeListCapability>) {
-        return instance->types();
+        return instance->Types();
     } else if constexpr (std::is_same_v<Capability,
                                         capa::INodeListCapability>) {
-        return instance->nodes();
+        return instance->Nodes();
     } else {
         return nullptr;
     }
 }
 
 template <typename Capability>
-std::span<const Capability *> ModuleLoader::capabilities() {
+std::span<const Capability *> ModuleLoader::Capabilities() {
     static_assert(std::is_base_of_v<ICapability, Capability>,
                   "Capability must derive from core::ICapability");
 
     auto found = std::make_shared<std::vector<const Capability *>>();
-    found->reserve(_entries.size());
-    for (const std::unique_ptr<Entry> &entry : _entries) {
+    found->reserve(entries_.size());
+    for (const std::unique_ptr<Entry> &entry : entries_) {
         const Capability *capability =
-            resolve<Capability>(entry->instance.get());
+            Resolve<Capability>(entry->instance_.get());
         if (capability != nullptr) {
             found->push_back(capability);
         }
@@ -56,7 +56,7 @@ std::span<const Capability *> ModuleLoader::capabilities() {
 
     // Keeping the vector alive in the loader is what makes the returned span
     // usable; it is replaced on the next call for the same capability type.
-    _capability_cache[std::type_index(typeid(Capability))] = found;
+    capability_cache_[std::type_index(typeid(Capability))] = found;
     return std::span<const Capability *>(*found);
 }
 

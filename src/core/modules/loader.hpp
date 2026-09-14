@@ -42,12 +42,12 @@ using CreateModuleFunction = IModule *(*)();
  *
  * The loader uses exactly two conventions, and never mixes them:
  *
- * - load() is the only operation that reports errors by **throwing**. Every
+ * - Load() is the only operation that reports errors by **throwing**. Every
  *   failure raises an exception derived from core::ModuleException (see
  *   exception/module_exception/module_exception.md for the catalogue). It
  *   therefore never returns 0: the returned id is always valid.
  * - Every other operation is total and **never throws**. Lookups return
- *   nullptr when nothing matches, unload() returns false when nothing was
+ *   nullptr when nothing matches, Unload() returns false when nothing was
  *   unloaded.
  *
  * ## Ownership and lifetimes
@@ -55,12 +55,12 @@ using CreateModuleFunction = IModule *(*)();
  * The loader owns both the module instances and the shared libraries they come
  * from, and always destroys a module before closing its library.
  *
- * - Pointers returned by module() stay valid until that module is unloaded
- *   (unload(), unloadAll()) or the loader is destroyed. They are never owning:
+ * - Pointers returned by Module() stay valid until that module is unloaded
+ *   (Unload(), UnloadAll()) or the loader is destroyed. They are never owning:
  *   callers must not delete them.
- * - Views returned by modules() and capabilities() are invalidated by **any**
- *   call to load(), unload() or unloadAll(), by the next call to
- *   capabilities() for the same capability type, and by the destruction of the
+ * - Views returned by Modules() and Capabilities() are invalidated by **any**
+ *   call to Load(), Unload() or UnloadAll(), by the next call to
+ *   Capabilities() for the same capability type, and by the destruction of the
  *   loader. Copy what you need out of them instead of storing them.
  *
  * The loader is not thread safe; concurrent calls must be serialised by the
@@ -85,8 +85,8 @@ class ModuleLoader {
      * @brief Load a module from a shared library.
      *
      * The library is opened, its CreateModule factory is called, the resulting
-     * module receives a unique nonzero id through IModule::initialize() and is
-     * checked for the mandatory types() and nodes() capabilities. Optional
+     * module receives a unique nonzero id through IModule::Initialize() and is
+     * checked for the mandatory Types() and Nodes() capabilities. Optional
      * capabilities are never required.
      *
      * Nothing is kept when the load fails: the module is shut down and
@@ -108,11 +108,11 @@ class ModuleLoader {
      * mandatory capabilities is missing.
      * @throws ModuleAlreadyLoadedException The same file, or another module
      * with the same name, is already loaded.
-     * @throws ModuleInitializationException IModule::initialize() returned
+     * @throws ModuleInitializationException IModule::Initialize() returned
      * false.
      * @throws ModuleException The id space is exhausted.
      */
-    ModuleId load(std::filesystem::path path);
+    ModuleId Load(std::filesystem::path path);
 
     /**
      * @brief Unload a module by its id.
@@ -121,7 +121,7 @@ class ModuleLoader {
      *
      * @return true if the module was successfully unloaded, false otherwise.
      */
-    bool unload(ModuleId id);
+    bool Unload(ModuleId id);
 
     /**
      * @brief Unload a module by its name.
@@ -130,12 +130,12 @@ class ModuleLoader {
      *
      * @return true if the module was successfully unloaded,false otherwise.
      */
-    bool unload(std::string_view name);
+    bool Unload(std::string_view name);
 
     /**
      * @brief Unload all modules, in reverse load order.
      */
-    void unloadAll();
+    void UnloadAll();
 
     /**
      * @brief Get a module by its id.
@@ -144,7 +144,7 @@ class ModuleLoader {
      *
      * @return A pointer to the requested module, nullptr if not found.
      */
-    IModule *module(ModuleId id) noexcept;
+    IModule *Module(ModuleId id) noexcept;
 
     /**
      * @brief Get a module by its name.
@@ -153,7 +153,7 @@ class ModuleLoader {
      *
      * @return A pointer to the requested module, nullptr if not found.
      */
-    IModule *module(std::string_view name) noexcept;
+    IModule *Module(std::string_view name) noexcept;
 
     /**
      * @brief Get a const module by its id.
@@ -162,7 +162,7 @@ class ModuleLoader {
      *
      * @return A const pointer to the requested module, nullptr if not found.
      */
-    const IModule *module(ModuleId id) const noexcept;
+    const IModule *Module(ModuleId id) const noexcept;
 
     /**
      * @brief Get a const module by its name.
@@ -171,15 +171,15 @@ class ModuleLoader {
      *
      * @return A const pointer to the requested module, nullptr if not found.
      */
-    const IModule *module(std::string_view name) const noexcept;
+    const IModule *Module(std::string_view name) const noexcept;
 
     /**
      * @brief Get a list of all modules, in load order.
      *
      * @return A list of pointers to all modules. The view is invalidated by
-     * the next load(), unload() or unloadAll() call.
+     * the next Load(), Unload() or UnloadAll() call.
      */
-    std::span<const IModule *const> modules() noexcept;
+    std::span<const IModule *const> Modules() noexcept;
 
     /**
      * @brief This method retreives all capabilities of a certain type.
@@ -189,24 +189,24 @@ class ModuleLoader {
      * empty span means no loaded module provides it.
      *
      * @return A list of pointers to all capabilities of the asked type. The
-     * view is invalidated by the next call to capabilities() for the same
-     * capability type and by any load(), unload() or unloadAll() call.
+     * view is invalidated by the next call to Capabilities() for the same
+     * capability type and by any Load(), Unload() or UnloadAll() call.
      */
     template <typename Capability>
-    std::span<const Capability *> capabilities();
+    std::span<const Capability *> Capabilities();
 
     /**
      * @brief Number of currently loaded modules.
      *
      * @return The number of loaded modules.
      */
-    std::size_t size() const noexcept;
+    std::size_t Size() const noexcept;
 
    private:
     /**
      * @brief One loaded module together with the library it came from.
      *
-     * Declaration order is part of the contract: _library is declared first so
+     * Declaration order is part of the contract: library_ is declared first so
      * that it is destroyed last, i.e. after the module instance whose code it
      * owns.
      */
@@ -219,12 +219,12 @@ class ModuleLoader {
         Entry(Entry &&) = delete;
         Entry &operator=(Entry &&) = delete;
 
-        detail::SharedLibrary library;
-        std::unique_ptr<IModule> instance;
-        std::filesystem::path path;
-        /// shutdown() is only called on a module that reported a successful
-        /// initialize().
-        bool initialized = false;
+        detail::SharedLibrary library_;
+        std::unique_ptr<IModule> instance_;
+        std::filesystem::path path_;
+        /// Shutdown() is only called on a module that reported a successful
+        /// Initialize().
+        bool initialized_ = false;
     };
 
     /**
@@ -234,7 +234,7 @@ class ModuleLoader {
      *
      * @return The owning entry, or nullptr when no module has this id.
      */
-    const Entry *find(ModuleId id) const noexcept;
+    const Entry *Find(ModuleId id) const noexcept;
 
     /**
      * @brief Find the entry owning the module with this name.
@@ -243,18 +243,18 @@ class ModuleLoader {
      *
      * @return The owning entry, or nullptr when no module has this name.
      */
-    const Entry *find(std::string_view name) const noexcept;
+    const Entry *Find(std::string_view name) const noexcept;
 
     /**
-     * @brief Rebuild the cache backing modules() and drop stale capability
-     * caches. Must be called after every mutation of _entries.
+     * @brief Rebuild the cache backing Modules() and drop stale capability
+     * caches. Must be called after every mutation of entries_.
      */
-    void refreshCaches();
+    void RefreshCaches();
 
     /**
      * @brief Resolve one capability on one module.
      *
-     * Uses IModule::capability(), and falls back on the dedicated accessors
+     * Uses IModule::Capability(), and falls back on the dedicated accessors
      * for the two mandatory capabilities so that a module does not have to
      * register them twice.
      *
@@ -263,18 +263,18 @@ class ModuleLoader {
      * @return The capability, or nullptr when the module does not provide it.
      */
     template <typename Capability>
-    static const Capability *resolve(IModule *instance) noexcept;
+    static const Capability *Resolve(IModule *instance) noexcept;
 
-    std::vector<std::unique_ptr<Entry>> _entries;
-    /// Mirror of _entries, so that modules() can stay noexcept.
-    std::vector<const IModule *> _module_view;
-    /// Keeps the vector backing the last capabilities<T>() span alive, one
+    std::vector<std::unique_ptr<Entry>> entries_;
+    /// Mirror of entries_, so that Modules() can stay noexcept.
+    std::vector<const IModule *> module_view_;
+    /// Keeps the vector backing the last Capabilities<T>() span alive, one
     /// slot per capability type.
     std::unordered_map<std::type_index, std::shared_ptr<void>>
-        _capability_cache;
+        capability_cache_;
     /// Ids are handed out monotonically and never reused, so that a stale id
     /// can never designate a different module.
-    ModuleId _next_id = 1;
+    ModuleId next_id_ = 1;
 };
 
 }  // namespace core
