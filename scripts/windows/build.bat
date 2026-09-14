@@ -19,7 +19,7 @@ if "%PARALLEL%"=="" (
 echo Building Nebula (%BUILD_TYPE%) with %PARALLEL% parallel jobs...
 
 cmake --build %BUILD_DIR% --config %BUILD_TYPE% --parallel %PARALLEL%
- 
+
 if errorlevel 1 (
     echo Build failed
     exit /b 1
