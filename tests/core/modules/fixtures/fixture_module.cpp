@@ -85,9 +85,9 @@ void trace(char event) { g_events.push_back(event); }
  */
 class FixtureModule final : public core::IModule {
    public:
-    FixtureModule() {
+    FixtureModule()
+        : types_(std::vector<std::string_view>({"FixtureType"})) {
         trace('C');
-        types_.RegisterType("FixtureType");
         nodes_.RegisterNode("FixtureNode", "A node provided by a test fixture",
                             {});
 #if FIXTURE_PROVIDE_RENDERER
