@@ -11,7 +11,16 @@
 
 #include "modules_inits.hpp"
 
+const std::vector<std::string_view> kTypesNames = {
+    "void",     ///> Void/Null
+    "int",      ///> Integer
+    "float",    ///> Floating point number
+    "bool",     ///> Boolean
+    "char",     ///> Character - uint8_t
+    "string",   ///> string pointer
+};
+
 core::capa::TypeListCapability *CreateTypeListCapa()
 {
-    return new core::capa::TypeListCapability();
+    return new core::capa::TypeListCapability(kTypesNames);
 }

@@ -1,14 +1,12 @@
 #include <gtest/gtest.h>
 #include "modules/capabilities/type_list_capability.hpp"
+#include "exception/capabilities_exception/type_list_capability_exception.hpp"
 
 using namespace core;
 using namespace core::capa;
 
 TEST(TypeListCapabilityTest, RegisterAndRetrieveTypes) {
-    TypeListCapability capability;
-
-    capability.RegisterType("int");
-    capability.RegisterType("float");
+    TypeListCapability capability(std::vector<std::string_view>({"int", "float"}));
 
     auto name_ptr1 = capability.RegisterType(10);
     ASSERT_NE(name_ptr1, nullptr);
@@ -38,16 +36,9 @@ TEST(TypeListCapabilityTest, RegisterAndRetrieveTypes) {
     EXPECT_EQ(types[1].name_, "float");
 }
 
-TEST(TypeListCapabilityTest, DuplicateTypeRegistration) {
-    TypeListCapability capability;
-    
-    capability.RegisterType("int");
-    capability.RegisterType("int"); // Should be ignored
-
-    auto name_ptr1 = capability.RegisterType(10);
-    ASSERT_NE(name_ptr1, nullptr);
-    EXPECT_EQ(*name_ptr1, "int");
-
-    auto name_ptr2 = capability.RegisterType(20);
-    EXPECT_EQ(name_ptr2, nullptr); // Only one type was registered
+TEST(TypeListCapabilityTest, DuplicateTypeRegistrationThrows) {
+    EXPECT_THROW(
+        TypeListCapability capability(std::vector<std::string_view>({"int", "int"})),
+        core::DuplicateTypeNameException
+    );
 }
