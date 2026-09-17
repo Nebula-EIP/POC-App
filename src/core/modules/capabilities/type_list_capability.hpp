@@ -96,7 +96,8 @@ class TypeListCapability final : public ITypeListCapability {
      * @throw `DuplicateTypeNameException` When there are repeting names in the
      * provided types_list
      */
-    explicit TypeListCapability(const std::vector<std::string_view> &types_list);
+    explicit TypeListCapability(
+        const std::vector<std::string_view> &types_list);
     ~TypeListCapability() override = default;
 
     std::string_view *RegisterType(DataType type_id) noexcept override;
