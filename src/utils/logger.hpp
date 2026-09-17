@@ -13,7 +13,7 @@
  * @param ... Format arguments
  */
 #define LOG_DEBUG(format, ...)                                                \
-    utils::Logger::GetInstance().Log(utils::LogLevel::kDebug,                  \
+    utils::Logger::GetInstance().Log(utils::LogLevel::kDebug,                 \
                                      std::source_location::current(), format, \
                                      ##__VA_ARGS__)
 
@@ -23,7 +23,7 @@
  * @param ... Format arguments
  */
 #define LOG_INFO(format, ...)                                                 \
-    utils::Logger::GetInstance().Log(utils::LogLevel::kInfo,                   \
+    utils::Logger::GetInstance().Log(utils::LogLevel::kInfo,                  \
                                      std::source_location::current(), format, \
                                      ##__VA_ARGS__)
 
@@ -33,7 +33,7 @@
  * @param ... Format arguments
  */
 #define LOG_WARNING(format, ...)                                              \
-    utils::Logger::GetInstance().Log(utils::LogLevel::kWarning,                \
+    utils::Logger::GetInstance().Log(utils::LogLevel::kWarning,               \
                                      std::source_location::current(), format, \
                                      ##__VA_ARGS__)
 
@@ -43,7 +43,7 @@
  * @param ... Format arguments
  */
 #define LOG_ERROR(format, ...)                                                \
-    utils::Logger::GetInstance().Log(utils::LogLevel::kError,                  \
+    utils::Logger::GetInstance().Log(utils::LogLevel::kError,                 \
                                      std::source_location::current(), format, \
                                      ##__VA_ARGS__)
 
@@ -53,7 +53,7 @@
  * @param ... Format arguments
  */
 #define LOG_FATAL(format, ...)                                                \
-    utils::Logger::GetInstance().Log(utils::LogLevel::kFatal,                  \
+    utils::Logger::GetInstance().Log(utils::LogLevel::kFatal,                 \
                                      std::source_location::current(), format, \
                                      ##__VA_ARGS__)
 

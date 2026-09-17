@@ -17,8 +17,8 @@
 
 namespace core::capa {
 
-TypeListCapability::TypeListCapability(const std::vector<std::string_view> &types_list)
-{
+TypeListCapability::TypeListCapability(
+    const std::vector<std::string_view> &types_list) {
     auto pos = types_list.begin();
     unregistered_types_.reserve(types_list.size());
     registered_types_.reserve(types_list.size());
@@ -30,11 +30,11 @@ TypeListCapability::TypeListCapability(const std::vector<std::string_view> &type
     while (pos != types_list.end()) {
         /// Check for duplicates names
         if (std::find_if(unregistered_types_.begin(), unregistered_types_.end(),
-            [pos](const std::string_view &name){
-                return (*pos) == name;
-        }) != unregistered_types_.end()) {
-            throw DuplicateTypeNameException(
-                std::string("Duplicate name: ") + std::string(*pos));
+                         [pos](const std::string_view &name) {
+                             return (*pos) == name;
+                         }) != unregistered_types_.end()) {
+            throw DuplicateTypeNameException(std::string("Duplicate name: ") +
+                                             std::string(*pos));
         }
 
         unregistered_types_.push_back(*pos);
@@ -42,8 +42,7 @@ TypeListCapability::TypeListCapability(const std::vector<std::string_view> &type
     }
 }
 
-std::string_view *TypeListCapability::RegisterType(
-    DataType type_id) noexcept {
+std::string_view *TypeListCapability::RegisterType(DataType type_id) noexcept {
     if (next_type_index_ >= unregistered_types_.size()) {
         return nullptr;
     }

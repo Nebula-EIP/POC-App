@@ -51,8 +51,7 @@ class ITypeListCapability : public core::ICapability {
      * @return A pointer to a string_view with the new type, nullptr if all the
      * types of the capability have been assigned.
      */
-    virtual std::string_view *RegisterType(
-        DataType type_id) noexcept = 0;
+    virtual std::string_view *RegisterType(DataType type_id) noexcept = 0;
 
     /**
      * @brief Get a type id from it's name
@@ -82,8 +81,6 @@ class ITypeListCapability : public core::ICapability {
     virtual std::span<const TypeDefinition> Types() const noexcept = 0;
 };
 
-
-
 /**
  * @brief Reusable type list capability.
  *
@@ -91,18 +88,18 @@ class ITypeListCapability : public core::ICapability {
  */
 class TypeListCapability final : public ITypeListCapability {
    public:
-   /**
-    * @brief Constructor
-    *
-    * @param types_list List of all types to be stored in this capability
-    *
-    * @throw `DuplicateTypeNameException` When there are repeting names in the provided types_list
-    */
-    TypeListCapability(const std::vector<std::string_view> &types_list);
+    /**
+     * @brief Constructor
+     *
+     * @param types_list List of all types to be stored in this capability
+     *
+     * @throw `DuplicateTypeNameException` When there are repeting names in the
+     * provided types_list
+     */
+    explicit TypeListCapability(const std::vector<std::string_view> &types_list);
     ~TypeListCapability() override = default;
 
-    std::string_view *RegisterType(
-        DataType type_id) noexcept override;
+    std::string_view *RegisterType(DataType type_id) noexcept override;
     DataType TypeId(std::string_view type_name) const noexcept override;
     std::string_view TypeName(DataType type_id) const noexcept override;
     std::span<const TypeDefinition> Types() const noexcept override;

@@ -21,4 +21,4 @@ class DuplicateTypeNameException : public Exception {
     using Exception::Exception;
 };
 
-} // namespace core
+}  // namespace core
