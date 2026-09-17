@@ -23,7 +23,12 @@ TypeListCapability::TypeListCapability(const std::vector<std::string_view> &type
     unregistered_types_.reserve(types_list.size());
     registered_types_.reserve(types_list.size());
 
+    /// Initial value, avoid the automatic failure of the duplicate names test
+    unregistered_types_.push_back(*pos);
+    pos++;
+
     while (pos != types_list.end()) {
+        /// Check for duplicates names
         if (std::find_if(unregistered_types_.begin(), unregistered_types_.end(),
             [pos](const std::string_view &name){
                 return (*pos) == name;
@@ -31,7 +36,9 @@ TypeListCapability::TypeListCapability(const std::vector<std::string_view> &type
             throw DuplicateTypeNameException(
                 std::string("Duplicate name: ") + std::string(*pos));
         }
+
         unregistered_types_.push_back(*pos);
+        pos++;
     }
 }
 
