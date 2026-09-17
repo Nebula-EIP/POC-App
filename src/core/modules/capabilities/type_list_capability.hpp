@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 11-08-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 07-09-2026
+ * @author Last modified by JeanBizeul
+ * @date Last modified on 17-09-2026
  */
 
 #pragma once
@@ -51,8 +51,8 @@ class ITypeListCapability : public core::ICapability {
      * @return A pointer to a string_view with the new type, nullptr if all the
      * types of the capability have been assigned.
      */
-    virtual const std::string_view *RegisterType(
-        DataType type_id) const noexcept = 0;
+    virtual std::string_view *RegisterType(
+        DataType type_id) noexcept = 0;
 
     /**
      * @brief Get a type id from it's name
@@ -82,6 +82,8 @@ class ITypeListCapability : public core::ICapability {
     virtual std::span<const TypeDefinition> Types() const noexcept = 0;
 };
 
+
+
 /**
  * @brief Reusable type list capability.
  *
@@ -89,29 +91,28 @@ class ITypeListCapability : public core::ICapability {
  */
 class TypeListCapability final : public ITypeListCapability {
    public:
-    TypeListCapability() = default;
+   /**
+    * @brief Constructor
+    *
+    * @param types_list List of all types to be stored in this capability
+    *
+    * @throw `DuplicateTypeNameException` When there are repeting names in the provided types_list
+    */
+    TypeListCapability(const std::vector<std::string_view> &types_list);
     ~TypeListCapability() override = default;
 
-    /**
-     * @brief Register a new type for the module.
-     *
-     * @param name The name of the type.
-     */
-    void RegisterType(std::string name);
-
-    const std::string_view *RegisterType(
-        DataType type_id) const noexcept override;
+    std::string_view *RegisterType(
+        DataType type_id) noexcept override;
     DataType TypeId(std::string_view type_name) const noexcept override;
     std::string_view TypeName(DataType type_id) const noexcept override;
     std::span<const TypeDefinition> Types() const noexcept override;
 
    private:
-    std::list<std::string> owned_names_;
-    std::vector<std::string_view> pending_types_;
-    mutable std::size_t next_type_index_ = 0;
-    mutable std::vector<TypeDefinition> registered_types_;
-    mutable std::unordered_map<std::string_view, DataType> name_to_id_;
-    mutable std::unordered_map<DataType, std::string_view> id_to_name_;
+    std::vector<std::string_view> unregistered_types_;
+    std::size_t next_type_index_ = 0;
+    std::vector<TypeDefinition> registered_types_;
+    std::unordered_map<std::string_view, DataType> name_to_id_;
+    std::unordered_map<DataType, std::string_view> id_to_name_;
 };
 
 }  // namespace capa

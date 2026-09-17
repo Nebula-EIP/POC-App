@@ -5,31 +5,42 @@
  * @author Created by mathys-f
  * @date Created on 07-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 07-09-2026
+ * @author Last modified by JeanBizeul
+ * @date Last modified on 17-09-2026
  */
 
 #include "type_list_capability.hpp"
 
+#include <algorithm>
+
+#include "exception/capabilities_exception/type_list_capability_exception.hpp"
+
 namespace core::capa {
 
-void TypeListCapability::RegisterType(std::string name) {
-    for (std::string_view t : pending_types_) {
-        if (t == name) return;
+TypeListCapability::TypeListCapability(const std::vector<std::string_view> &types_list)
+{
+    auto pos = types_list.begin();
+    unregistered_types_.reserve(types_list.size());
+    registered_types_.reserve(types_list.size());
+
+    while (pos != types_list.end()) {
+        if (std::find_if(unregistered_types_.begin(), unregistered_types_.end(),
+            [pos](const std::string_view &name){
+                return (*pos) == name;
+        }) != unregistered_types_.end()) {
+            throw DuplicateTypeNameException(
+                std::string("Duplicate name: ") + std::string(*pos));
+        }
+        unregistered_types_.push_back(*pos);
     }
-    for (const auto &t : registered_types_) {
-        if (t.name_ == name) return;
-    }
-    owned_names_.push_back(std::move(name));
-    pending_types_.push_back(owned_names_.back());
 }
 
-const std::string_view *TypeListCapability::RegisterType(
-    DataType type_id) const noexcept {
-    if (next_type_index_ >= pending_types_.size()) {
+std::string_view *TypeListCapability::RegisterType(
+    DataType type_id) noexcept {
+    if (next_type_index_ >= unregistered_types_.size()) {
         return nullptr;
     }
-    std::string_view name = pending_types_[next_type_index_];
+    std::string_view name = unregistered_types_[next_type_index_];
     registered_types_.push_back({type_id, name});
     name_to_id_[name] = type_id;
     id_to_name_[type_id] = name;
