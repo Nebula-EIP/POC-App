@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 14-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 20-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 21-09-2026
  */
 
 #pragma once
@@ -19,6 +19,6 @@
 
 core::capa::TypeListCapability *CreateTypeListCapa();
 
-core::capa::NodeListCapability *CreateNodeListCapa();
+core::capa::INodeListCapability *CreateNodeListCapa(core::capa::ITypeListCapability *types_capa);
 
 core::capa::RendererCapability *CreateRendererCapa();
