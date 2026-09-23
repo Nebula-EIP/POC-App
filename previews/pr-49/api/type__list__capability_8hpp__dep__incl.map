@@ -1,0 +1,20 @@
+<map id="src/core/modules/capabilities/type_list_capability.hpp" name="src/core/modules/capabilities/type_list_capability.hpp">
+<area shape="rect" id="Node000001" title="Interface class for the type list capability." alt="" coords="241,5,453,45"/>
+<area shape="rect" id="Node000002" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,93,217,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="284,53,164,96,162,91,282,48"/>
+<area shape="rect" id="Node000003" href="$type__list__capability_8cpp.html" title="Implementation of the type list capability for modules." alt="" coords="241,93,453,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="350,59,350,93,345,93,345,59"/>
+<area shape="rect" id="Node000004" href="$module_8hpp.html" title="Module interface." alt="" coords="477,101,692,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="413,48,554,98,552,103,412,53"/>
+<area shape="rect" id="Node000005" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="279,181,458,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="544,134,417,184,415,179,542,129"/>
+<area shape="rect" id="Node000006" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="482,189,687,214"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="587,140,587,188,582,188,582,140"/>
+<area shape="rect" id="Node000008" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="631,269,818,295"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="633,129,669,150,701,180,714,202,722,227,727,269,722,269,717,228,709,205,697,183,666,154,630,134"/>
+<area shape="rect" id="Node000007" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="403,269,607,295"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="565,226,518,271,515,267,561,222"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="618,218,705,267,703,271,616,223"/>
+<area shape="rect" id="Node000009" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="631,343,818,368"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="727,308,727,343,722,343,722,308"/>
+</map>

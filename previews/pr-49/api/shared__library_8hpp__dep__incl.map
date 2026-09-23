@@ -1,0 +1,13 @@
+<map id="src/core/modules/shared_library.hpp" name="src/core/modules/shared_library.hpp">
+<area shape="rect" id="Node000001" title="Thin RAII wrapper around the platform shared library API (dlopen/dlsym/dlclose on POSIX,..." alt="" coords="234,5,415,45"/>
+<area shape="rect" id="Node000002" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="114,101,319,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="292,56,233,102,230,98,289,52"/>
+<area shape="rect" id="Node000006" href="$shared__library_8cpp.html" title="Platform implementation of the SharedLibrary RAII wrapper." alt="" coords="343,93,525,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="361,52,411,91,408,95,358,56"/>
+<area shape="rect" id="Node000003" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="5,181,209,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="191,136,125,183,122,179,188,132"/>
+<area shape="rect" id="Node000004" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="234,181,421,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="246,132,312,179,309,183,243,136"/>
+<area shape="rect" id="Node000005" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="234,255,421,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="330,220,330,255,325,255,325,220"/>
+</map>

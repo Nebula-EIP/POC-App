@@ -1,0 +1,18 @@
+<map id="src/core/graph/node.hpp" name="src/core/graph/node.hpp">
+<area shape="rect" id="Node000001" title="Definition of the Node class." alt="" coords="133,5,311,31"/>
+<area shape="rect" id="Node000002" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="241,79,424,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,36,316,76,313,81,250,40"/>
+<area shape="rect" id="Node000004" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,152,217,192"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="208,43,127,153,123,150,204,40"/>
+<area shape="rect" id="Node000003" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="241,159,424,185"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,118,335,159,330,159,330,118"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="288,111,165,154,164,149,287,106"/>
+<area shape="rect" id="Node000005" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="448,152,660,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="379,106,502,149,500,154,377,111"/>
+<area shape="rect" id="Node000007" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="685,159,871,185"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="411,104,714,157,713,162,410,109"/>
+<area shape="rect" id="Node000006" href="$importer__capability_8cpp.html" title="Implementation of the handler&#45;based importer capability." alt="" coords="448,240,660,280"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="557,206,557,240,551,240,551,206"/>
+<area shape="rect" id="Node000008" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="685,247,871,273"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="781,199,781,247,775,247,775,199"/>
+</map>
