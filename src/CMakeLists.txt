@@ -2,7 +2,7 @@
 
 # Add subdirectories for each module
 add_subdirectory(utils)
-
+add_subdirectory(editor)
 add_subdirectory(core)
 
 # Main editor executable
