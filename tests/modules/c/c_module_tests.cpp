@@ -5,31 +5,26 @@
  * @author Created by JeanBizeul
  * @date Created on 14-09-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 14-09-2026
+ * @author Last modified by Nolan Papa
+ * @date Last modified on 20-09-2026
  */
 
 #include <filesystem>
 #include <string>
 
 #include "gtest/gtest.h"
-
-#include "modules/loader.hpp"
-#include "modules/capabilities/renderer_capability.hpp"
-#include "modules/capabilities/importer_capability.hpp"
 #include "modules/capabilities/exporter_capability.hpp"
+#include "modules/capabilities/importer_capability.hpp"
+#include "modules/capabilities/renderer_capability.hpp"
+#include "modules/loader.hpp"
 
 namespace {
 
 class CModuleTest : public testing::Test {
    protected:
-    void SetUp() override {
-        loader_ = std::make_unique<core::ModuleLoader>();
-    };
+    void SetUp() override { loader_ = std::make_unique<core::ModuleLoader>(); };
 
-    void TearDown() override {
-        loader_->UnloadAll();
-    }
+    void TearDown() override { loader_->UnloadAll(); }
 
     static std::filesystem::path ModulePath() {
 #ifdef NEBULA_C_MODULE
@@ -39,9 +34,7 @@ class CModuleTest : public testing::Test {
 #endif
     }
 
-    core::ModuleLoader &Loader() {
-        return *loader_;
-    }
+    core::ModuleLoader &Loader() { return *loader_; }
 
     core::IModule *LoadCModule() {
         const auto id = loader_->Load(ModulePath());
@@ -64,7 +57,6 @@ TEST_F(CModuleTest, LibraryExists) {
     EXPECT_TRUE(std::filesystem::is_regular_file(path))
         << "C module path is not a regular file: " << path;
 }
-
 
 /**
  * The C hook can be resolved and the module can be loaded successfully.
@@ -171,14 +163,16 @@ TEST_F(CModuleTest, HasNodeListCapability) {
 /**
  * The renderer capability is available when CModule provides it.
  *
- * Temporary null while the capability is not yet implemented
  */
 TEST_F(CModuleTest, HasRendererCapability) {
     core::IModule *module = LoadCModule();
 
     ASSERT_NE(module, nullptr);
 
-    EXPECT_EQ(module->Capability<core::capa::IRendererCapability>(), nullptr);
+    const auto *renderer =
+        module->Capability<core::capa::IRendererCapability>();
+    ASSERT_NE(renderer, nullptr);
+    EXPECT_TRUE(renderer->SupportsNodeType(1));
 }
 
 /**
@@ -216,13 +210,9 @@ TEST_F(CModuleTest, MandatoryCapabilitiesAreRegistered) {
 
     ASSERT_NE(module, nullptr);
 
-    EXPECT_NE(
-        module->Capability<core::capa::ITypeListCapability>(),
-        nullptr);
+    EXPECT_NE(module->Capability<core::capa::ITypeListCapability>(), nullptr);
 
-    EXPECT_NE(
-        module->Capability<core::capa::INodeListCapability>(),
-        nullptr);
+    EXPECT_NE(module->Capability<core::capa::INodeListCapability>(), nullptr);
 }
 
 /**
@@ -273,4 +263,4 @@ TEST_F(CModuleTest, CanReloadModule) {
     EXPECT_NE(Loader().Module(second_id), nullptr);
 }
 
-}
+}  // namespace
