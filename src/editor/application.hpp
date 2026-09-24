@@ -6,13 +6,11 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 21-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 24-09-2026
  */
 
 #pragma once
-
-#include <raylib.h>
 
 #include <filesystem>
 #include <memory>
@@ -22,6 +20,7 @@
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
+#include "utils/raylib_wrapper.hpp"
 
 namespace editor {
 
@@ -45,18 +44,18 @@ class Application {
 
     void CreateNodeFromConfiguration(
         core::NodeType type, const core::capa::NodeConfiguration &config,
-        Vector2 position);
+        utils::WrappedVector2 position);
 
     // Render
     void ProcessInput();
     void DrawFrame();
 
-    Vector2 SpawnPosition() const;
+    utils::WrappedVector2 SpawnPosition() const;
 
     std::filesystem::path module_path_;
     bool window_ready_ = false;
     bool should_quit_ = false;
-    Vector2 cursor_position_{0.0F, 0.0F};
+    utils::WrappedVector2 cursor_position_{0.0F, 0.0F};
 
     core::ModuleId module_id_ = 0;
     core::ModuleLoader loader_;

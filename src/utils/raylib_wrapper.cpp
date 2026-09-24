@@ -1,15 +1,38 @@
 #include "raylib_wrapper.hpp"
 
 namespace utils {
-void InitRaylib(int width, int height, const char *title) {
+
+static_assert(static_cast<int>(WrappedKey::kBackspace) == KEY_BACKSPACE);
+static_assert(static_cast<int>(WrappedKey::kLeftControl) == KEY_LEFT_CONTROL);
+static_assert(static_cast<int>(WrappedKey::kD) == KEY_D);
+static_assert(static_cast<int>(WrappedKey::kH) == KEY_H);
+
+// Window functions
+
+void InitRaylib(int width, int height, const char *title, bool resizable) {
+    if (resizable) {
+        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    }
     InitWindow(width, height, title);
 }
+
+bool IsRaylibReady() { return IsWindowReady(); }
+
+bool ShouldCloseRaylib() { return WindowShouldClose(); }
 
 void SetFPS(int fps) { SetTargetFPS(fps); }
 
 void CloseRaylib() { CloseWindow(); }
 
+// Frame functions
+
+void BeginFrame() { BeginDrawing(); }
+
+void EndFrame() { EndDrawing(); }
+
 void ClearScreen() { ClearBackground(RAYWHITE); }
+
+// Cursor functions
 
 WrappedVector2 GetCursorPositionWrapped() {
     Vector2 pos = GetMousePosition();
@@ -17,6 +40,12 @@ WrappedVector2 GetCursorPositionWrapped() {
 
     return wrapped_pos;
 }
+
+bool IsCursorHiddenWrapped() { return IsCursorHidden(); }
+
+void ShowCursorWrapped() { ShowCursor(); }
+
+void HideCursorWrapped() { HideCursor(); }
 
 // Draw functions
 
@@ -71,6 +100,16 @@ bool IsLeftClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_LEFT); }
 bool IsRightDown() { return IsMouseButtonDown(MOUSE_BUTTON_RIGHT); }
 
 bool IsLeftDown() { return IsMouseButtonDown(MOUSE_BUTTON_LEFT); }
+
+bool IsKeyPressedWrapped(WrappedKey key) {
+    return IsKeyPressed(static_cast<int>(key));
+}
+
+bool IsKeyDownWrapped(WrappedKey key) {
+    return IsKeyDown(static_cast<int>(key));
+}
+
+int GetCharPressedWrapped() { return GetCharPressed(); }
 
 // Collision functions
 

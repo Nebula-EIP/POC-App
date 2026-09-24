@@ -6,14 +6,17 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 21-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 24-09-2026
  */
 
 #include "application.hpp"
 
+#include <source_location>
 #include <stdexcept>
 #include <utility>
+
+#include "utils/logger.hpp"
 
 namespace editor {
 
@@ -23,18 +26,19 @@ constexpr int kDefaultHeight = 600;
 constexpr int kTargetFps = 60;
 constexpr float kNodeHalfWidth = 50.0F;
 constexpr float kNodeHalfHeight = 25.0F;
+constexpr float kLoadingTextPosition = 20.0F;
+constexpr int kLoadingTextSize = 20;
 }  // namespace
 
 Application::Application(std::filesystem::path module_path)
     : module_path_(std::move(module_path)) {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(kDefaultWidth, kDefaultHeight, "Nebula");
+    utils::InitRaylib(kDefaultWidth, kDefaultHeight, "Nebula", true);
 
-    if (!IsWindowReady()) {
+    if (!utils::IsRaylibReady()) {
         throw std::runtime_error("Raylib window initialization failed");
     }
     window_ready_ = true;
-    SetTargetFPS(kTargetFps);
+    utils::SetFPS(kTargetFps);
 }
 
 Application::~Application() {
@@ -43,8 +47,8 @@ Application::~Application() {
     // destructor unloads the module and closes its shared library.
     module_ = nullptr;
 
-    if (window_ready_ && IsWindowReady()) {
-        CloseWindow();
+    if (window_ready_ && utils::IsRaylibReady()) {
+        utils::CloseRaylib();
     }
 }
 
@@ -56,7 +60,7 @@ int Application::Run() {
     LoadModule();
     BuildMenus();
 
-    while (!WindowShouldClose() && !should_quit_) {
+    while (!utils::ShouldCloseRaylib() && !should_quit_) {
         ProcessInput();
         DrawFrame();
     }
@@ -65,10 +69,12 @@ int Application::Run() {
 }
 
 void Application::DrawInitialFrame() {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-    DrawText("Loading module...", 20, 20, 20, DARKGRAY);
-    EndDrawing();
+    utils::BeginFrame();
+    utils::ClearScreen();
+    utils::DrawTextWrapped("Loading module...", kLoadingTextPosition,
+                           kLoadingTextPosition, kLoadingTextSize,
+                           utils::kDarkgray);
+    utils::EndFrame();
 }
 
 void Application::LoadModule() {
@@ -80,7 +86,9 @@ void Application::LoadModule() {
                                  " could not be resolved by id");
     }
 
-    TraceLog(LOG_INFO, "Loaded module %s", module_path_.string().c_str());
+    utils::Logger::GetInstance().Log(utils::LogLevel::kInfo,
+                                     std::source_location::current(),
+                                     "Loaded module {}", module_path_.string());
 }
 
 void Application::BuildMenus() {
@@ -89,7 +97,7 @@ void Application::BuildMenus() {
 
 void Application::CreateNodeFromConfiguration(
     core::NodeType type, const core::capa::NodeConfiguration &config,
-    Vector2 position) {
+    utils::WrappedVector2 position) {
     (void)position;  // For when we need position for node display
 
     core::Node &node = graph_.CreateNode(type);
@@ -108,22 +116,23 @@ void Application::CreateNodeFromConfiguration(
     }
 }
 
-Vector2 Application::SpawnPosition() const {
-    return Vector2{cursor_position_.x - kNodeHalfWidth,
-                   cursor_position_.y - kNodeHalfHeight};
+utils::WrappedVector2 Application::SpawnPosition() const {
+    return utils::WrappedVector2{cursor_position_.x_ - kNodeHalfWidth,
+                                 cursor_position_.y_ - kNodeHalfHeight};
 }
 
 void Application::ProcessInput() {
-    cursor_position_ = GetMousePosition();
+    cursor_position_ = utils::GetCursorPositionWrapped();
 
-    if (IsKeyPressed(KEY_H)) {
-        if (IsCursorHidden()) {
-            ShowCursor();
+    if (utils::IsKeyPressedWrapped(utils::WrappedKey::kH)) {
+        if (utils::IsCursorHiddenWrapped()) {
+            utils::ShowCursorWrapped();
         } else {
-            HideCursor();
+            utils::HideCursorWrapped();
         }
     }
-    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_D)) {
+    if (utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl) &&
+        utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
         // Duplicate the selected node
     }
 
@@ -131,12 +140,12 @@ void Application::ProcessInput() {
 }
 
 void Application::DrawFrame() {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
+    utils::BeginFrame();
+    utils::ClearScreen();
 
     // Draw graph an top bar
 
-    EndDrawing();
+    utils::EndFrame();
 }
 
 }  // namespace editor

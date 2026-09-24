@@ -11,8 +11,6 @@
 
 #include "component_adapter.hpp"
 
-#include <raylib.h>
-
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
@@ -103,11 +101,14 @@ void ComponentAdapter::Draw(core::NodeId node_id,
                     }
                     if (state.focused_component_ == value.id_ &&
                         value.enabled_ && !value.read_only_) {
-                        for (int character = GetCharPressed(); character > 0;
-                             character = GetCharPressed()) {
+                        for (int character = utils::GetCharPressedWrapped();
+                             character > 0;
+                             character = utils::GetCharPressedWrapped()) {
                             buffer.push_back(static_cast<char>(character));
                         }
-                        if (IsKeyPressed(KEY_BACKSPACE) && !buffer.empty()) {
+                        if (utils::IsKeyPressedWrapped(
+                                utils::WrappedKey::kBackspace) &&
+                            !buffer.empty()) {
                             buffer.pop_back();
                         }
                         if (value.on_change_) value.on_change_(buffer);
