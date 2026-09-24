@@ -15,7 +15,9 @@ if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES}
         modules/c/c_module_tests.cpp
         modules/c/c_renderer_test.cpp
+        modules/c/nodes/c_node_list_capability_test.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
+        ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
     )
 
     # Allow includes for core tests

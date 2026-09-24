@@ -39,7 +39,7 @@ bool CModule::Initialize(core::ModuleId id) {
     id_ = id;
 
     types_.reset(CreateTypeListCapa());
-    nodes_.reset(CreateNodeListCapa());
+    nodes_.reset(CreateNodeListCapa(types_.get()));
     renderer_.reset(CreateRendererCapa());
     /// Initialize others capabilities here.
     return true;
