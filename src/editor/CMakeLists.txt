@@ -1,14 +1,17 @@
-add_library(editor_ui
+add_executable(Nebula
+    main.cpp
+    application.cpp
     ui/component_adapter.cpp
-    ui/component_adapter.hpp
 )
 
-target_include_directories(editor_ui PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/..
+target_include_directories(Nebula PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(editor_ui PUBLIC
-    project_warnings
-    core_capabilities
+target_link_libraries(Nebula PRIVATE
+    neb_graph
+    core_modules
     utils
+    raylib
+    project_warnings
 )

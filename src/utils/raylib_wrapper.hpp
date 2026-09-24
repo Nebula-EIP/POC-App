@@ -137,11 +137,32 @@ typedef struct WrappedCircle {
     float radius_;
 } WrappedCircle;
 
-void InitRaylib(int width, int height, const char *title);
+/// Keyboard keys used by the editor. Values match raylib's KeyboardKey.
+enum class WrappedKey : int {
+    kBackspace = 259,
+    kLeftControl = 341,
+    kD = 68,
+    kH = 72,
+};
+
+// Window functions
+void InitRaylib(int width, int height, const char *title,
+                bool resizable = false);
+bool IsRaylibReady();
+bool ShouldCloseRaylib();
 void SetFPS(int fps);
 void CloseRaylib();
+
+// Frame functions
+void BeginFrame();
+void EndFrame();
 void ClearScreen();
+
+// Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
+bool IsCursorHiddenWrapped();
+void ShowCursorWrapped();
+void HideCursorWrapped();
 
 // Draw functions
 void DrawRectangleWrapped(float x, float y, float width, float height,
@@ -162,6 +183,9 @@ bool IsRightClicked();
 bool IsLeftClicked();
 bool IsRightDown();
 bool IsLeftDown();
+bool IsKeyPressedWrapped(WrappedKey key);
+bool IsKeyDownWrapped(WrappedKey key);
+int GetCharPressedWrapped();
 
 // Collision functions
 
