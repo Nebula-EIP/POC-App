@@ -6,6 +6,9 @@ add_library(neb_c_module SHARED
     module.cpp
     types_list.cpp
     nodes_list.cpp
+    nodes/c_node_list_capability.cpp
+    renderer/renderer.cpp
+    renderer/factory.cpp
 )
 
 target_link_libraries(neb_c_module

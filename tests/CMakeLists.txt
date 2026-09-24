@@ -12,11 +12,18 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/core/modules/fixtures/")
 
 # Create test executable
 if(TEST_SOURCES)
-    add_executable(unit_tests ${TEST_SOURCES} modules/c/c_module_tests.cpp)
+    add_executable(unit_tests ${TEST_SOURCES}
+        modules/c/c_module_tests.cpp
+        modules/c/c_renderer_test.cpp
+        modules/c/nodes/c_node_list_capability_test.cpp
+        ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
+        ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
+    )
 
     # Allow includes for core tests
     target_include_directories(unit_tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src/core
+        ${CMAKE_SOURCE_DIR}/modules/c
     )
 
     # Link with project libraries when available
@@ -44,7 +51,7 @@ if(TEST_SOURCES)
         NEBULA_FIXTURE_WRONG_ID="$<TARGET_FILE:fixture_wrong_id_module>"
     )
 
-    # The Modules needs to know where their shared libraries are
+    # The module needs to know where its shared library is.
     target_compile_definitions(unit_tests PRIVATE
         NEBULA_C_MODULE="$<TARGET_FILE:neb_c_module>"
     )
