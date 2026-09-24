@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "editor::ui::ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
     [ "core::capa::ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", [
       [ "core::capa::Button", "structcore_1_1capa_1_1Button.html", null ],
       [ "core::capa::Checkbox", "structcore_1_1capa_1_1Checkbox.html", null ],

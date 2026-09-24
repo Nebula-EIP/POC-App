@@ -18,7 +18,7 @@ var searchData=
   ['nodelistcapability_15',['NodeListCapability',['../classcore_1_1capa_1_1NodeListCapability.html',1,'core::capa']]],
   ['nodemetadata_16',['NodeMetadata',['../structcore_1_1capa_1_1NodeMetadata.html',1,'core::capa']]],
   ['nodenotfoundexception_17',['NodeNotFoundException',['../classcore_1_1NodeNotFoundException.html',1,'core']]],
-  ['nodes_18',['nodes',['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()'],['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes']]],
+  ['nodes_18',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()']]],
   ['nodetype_19',['NodeType',['../datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e',1,'core']]],
   ['nodetypeexception_20',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['numberfield_21',['NumberField',['../structcore_1_1capa_1_1NumberField.html',1,'core::capa']]]

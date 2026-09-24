@@ -66,6 +66,11 @@ var annotated_dup =
       [ "Property", "structcore_1_1Property.html", "structcore_1_1Property" ],
       [ "TypeMismatchException", "classcore_1_1TypeMismatchException.html", null ]
     ] ],
+    [ "editor", null, [
+      [ "ui", null, [
+        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ]
+      ] ]
+    ] ],
     [ "utils", null, [
       [ "BaseException", "classutils_1_1BaseException.html", "classutils_1_1BaseException" ],
       [ "IdManager", "classutils_1_1IdManager.html", "classutils_1_1IdManager" ],
