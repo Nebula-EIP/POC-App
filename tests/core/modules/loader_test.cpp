@@ -9,12 +9,18 @@
  * @date Created on 13-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 13-09-2026
+ * @date Last modified on 24-09-2026
  */
 
 #include "modules/loader.hpp"
 
 #include <gtest/gtest.h>
+
+#if defined(_WIN32)
+#include <process.h>
+#else
+#include <unistd.h>
+#endif
 
 #include <filesystem>
 #include <fstream>
@@ -79,6 +85,20 @@ class FixtureProbe {
 };
 
 /**
+ * @brief Identifier of the current process.
+ *
+ * CTest runs every test in its own process, several at a time, so the scratch
+ * directory must be unique per process and not only per test.
+ */
+long currentProcessId() {
+#if defined(_WIN32)
+    return static_cast<long>(::_getpid());
+#else
+    return static_cast<long>(::getpid());
+#endif
+}
+
+/**
  * @brief Common scratch directory for the tests that need real files.
  */
 class ModuleLoaderTest : public ::testing::Test {
@@ -86,8 +106,7 @@ class ModuleLoaderTest : public ::testing::Test {
     void SetUp() override {
         directory_ =
             std::filesystem::temp_directory_path() /
-            ("nebula_loader_test_" +
-             std::to_string(::testing::UnitTest::GetInstance()->random_seed()) +
+            ("nebula_loader_test_" + std::to_string(currentProcessId()) +
              "_" + std::to_string(counter_++));
         std::filesystem::create_directories(directory_);
     }

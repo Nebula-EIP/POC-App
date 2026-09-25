@@ -4,17 +4,28 @@
 
 using namespace c_module;
 
+namespace {
+
+/// Types the C nodes rely on.
+const std::vector<std::string_view> kCTypes = {
+    "void", "int", "float", "bool", "char", "string",
+};
+
+/// Build the type capability and assign an ID to every type, as the core does.
+core::capa::TypeListCapability *CreateRegisteredTypes() {
+    auto *types = new core::capa::TypeListCapability(kCTypes);
+    for (std::size_t i = 0; i < kCTypes.size(); ++i) {
+        types->RegisterType(static_cast<core::DataType>(i + 1));
+    }
+    return types;
+}
+
+}  // namespace
+
 class CNodeListCapabilityTest : public ::testing::Test {
 protected:
     void SetUp() override {
-        types_capa_ = new core::capa::TypeListCapability();
-        // C types
-        types_capa_->RegisterType("void");
-        types_capa_->RegisterType("int");
-        types_capa_->RegisterType("float");
-        types_capa_->RegisterType("bool");
-        types_capa_->RegisterType("char");
-        types_capa_->RegisterType("string");
+        types_capa_ = CreateRegisteredTypes();
         
         node_capa_ = new CNodeListCapability(types_capa_);
         
@@ -73,7 +84,7 @@ TEST_F(CNodeListCapabilityTest, ForConfig) {
 class CNodeListCatalogueTest : public ::testing::TestWithParam<std::pair<int, std::string>> {
 protected:
     void SetUp() override {
-        types_capa_ = new core::capa::TypeListCapability();
+        types_capa_ = CreateRegisteredTypes();
         node_capa_ = new CNodeListCapability(types_capa_);
         for (int i = 0; i < 10; ++i) {
             node_capa_->RegisterNode(i + 1);
