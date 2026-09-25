@@ -56,3 +56,19 @@ target_link_libraries(core_modules PUBLIC
 set_target_properties(core_modules PROPERTIES
     POSITION_INDEPENDENT_CODE ON
 )
+
+add_library(core_node_catalog
+    node_catalog/node_catalog.cpp
+)
+
+target_include_directories(core_node_catalog PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(core_node_catalog PUBLIC
+    core_modules
+)
+
+set_target_properties(core_node_catalog PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
