@@ -97,49 +97,59 @@ $(document).ready(function(){initNavTree('type__list__capability_8cpp.html','');
 <p>Implementation of the type list capability for modules.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="type__list__capability_8hpp_source.html">type_list_capability.hpp</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &quot;<a class="el" href="type__list__capability__exception_8hpp_source.html">exception/capabilities_exception/type_list_capability_exception.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for type_list_capability.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="type__list__capability_8cpp__incl.png" border="0" usemap="#asrc_2core_2modules_2capabilities_2type__list__capability_8cpp" alt=""/></div>
 <map name="asrc_2core_2modules_2capabilities_2type__list__capability_8cpp" id="asrc_2core_2modules_2capabilities_2type__list__capability_8cpp">
-<area shape="rect" title="Implementation of the type list capability for modules." alt="" coords="133,5,345,45"/>
-<area shape="rect" href="type__list__capability_8hpp.html" title="Interface class for the type list capability." alt="" coords="151,93,326,119"/>
-<area shape="poly" title=" " alt="" coords="241,46,241,79,236,79,236,46"/>
-<area shape="rect" title=" " alt="" coords="5,167,48,192"/>
-<area shape="poly" title=" " alt="" coords="205,121,62,169,60,164,203,116"/>
-<area shape="rect" title=" " alt="" coords="72,167,125,192"/>
-<area shape="poly" title=" " alt="" coords="217,121,135,163,132,158,215,116"/>
-<area shape="rect" title=" " alt="" coords="53,240,112,265"/>
-<area shape="poly" title=" " alt="" coords="228,121,107,232,103,228,224,117"/>
-<area shape="rect" title=" " alt="" coords="506,167,603,192"/>
-<area shape="poly" title=" " alt="" coords="290,116,493,161,492,167,289,121"/>
-<area shape="rect" title=" " alt="" coords="137,240,261,265"/>
-<area shape="poly" title=" " alt="" coords="238,120,208,227,203,226,233,118"/>
-<area shape="rect" title=" " alt="" coords="285,240,347,265"/>
-<area shape="poly" title=" " alt="" coords="247,118,306,227,301,229,243,120"/>
-<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="302,167,482,192"/>
-<area shape="poly" title=" " alt="" coords="264,116,356,158,354,163,262,121"/>
-<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="628,167,756,192"/>
-<area shape="poly" title=" " alt="" coords="312,116,615,163,614,169,311,121"/>
-<area shape="poly" title=" " alt="" coords="338,195,126,243,126,243,124,238,125,237,337,189"/>
-<area shape="poly" title=" " alt="" coords="362,195,244,238,242,233,360,190"/>
-<area shape="poly" title=" " alt="" coords="382,194,340,232,337,229,378,190"/>
-<area shape="rect" title=" " alt="" coords="650,240,697,265"/>
-<area shape="poly" title=" " alt="" coords="445,189,637,237,636,242,444,195"/>
-<area shape="rect" title=" " alt="" coords="371,240,442,265"/>
-<area shape="poly" title=" " alt="" coords="397,192,404,226,399,227,392,193"/>
-<area shape="rect" title=" " alt="" coords="467,240,533,265"/>
-<area shape="poly" title=" " alt="" coords="411,190,472,230,469,235,408,194"/>
-<area shape="rect" title=" " alt="" coords="558,240,626,265"/>
-<area shape="poly" title=" " alt="" coords="425,190,547,233,545,238,423,195"/>
+<area shape="rect" title="Implementation of the type list capability for modules." alt="" coords="653,5,865,45"/>
+<area shape="rect" href="type__list__capability_8hpp.html" title="Interface class for the type list capability." alt="" coords="517,108,692,133"/>
+<area shape="poly" title=" " alt="" coords="729,48,637,103,634,99,727,43"/>
+<area shape="rect" title=" " alt="" coords="717,108,802,133"/>
+<area shape="poly" title=" " alt="" coords="762,45,762,94,757,94,757,45"/>
+<area shape="rect" href="type__list__capability__exception_8hpp.html" title="Exceptions thrown by the TypeListCapability class." alt="" coords="826,93,1050,148"/>
+<area shape="poly" title=" " alt="" coords="797,43,877,85,874,89,794,48"/>
+<area shape="rect" title=" " alt="" coords="593,196,635,221"/>
+<area shape="poly" title=" " alt="" coords="609,133,614,182,609,182,603,134"/>
+<area shape="rect" title=" " alt="" coords="659,196,713,221"/>
+<area shape="poly" title=" " alt="" coords="618,132,667,184,663,187,614,135"/>
+<area shape="rect" title=" " alt="" coords="495,269,554,295"/>
+<area shape="poly" title=" " alt="" coords="641,131,677,146,711,167,724,179,732,193,734,208,727,223,701,241,660,256,568,277,567,271,658,251,698,237,723,220,728,207,727,195,720,183,708,171,675,151,639,136"/>
+<area shape="rect" title=" " alt="" coords="319,196,416,221"/>
+<area shape="poly" title=" " alt="" coords="574,136,413,194,411,189,572,131"/>
+<area shape="rect" title=" " alt="" coords="632,269,756,295"/>
+<area shape="poly" title=" " alt="" coords="654,131,706,154,729,172,748,195,753,213,748,231,736,248,722,262,718,259,732,245,743,229,748,213,744,197,726,176,703,158,652,136"/>
+<area shape="rect" title=" " alt="" coords="5,269,68,295"/>
+<area shape="poly" title=" " alt="" coords="517,130,410,138,289,152,179,172,135,184,103,198,87,211,72,226,51,258,46,255,68,223,83,207,101,194,134,179,178,167,288,147,409,133,517,124"/>
+<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="115,196,295,221"/>
+<area shape="poly" title=" " alt="" coords="552,136,272,196,270,191,551,131"/>
+<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="441,196,569,221"/>
+<area shape="poly" title=" " alt="" coords="593,136,531,188,527,184,589,131"/>
+<area shape="poly" title=" " alt="" coords="257,219,482,269,481,274,256,224"/>
+<area shape="poly" title=" " alt="" coords="284,219,619,267,618,272,283,224"/>
+<area shape="poly" title=" " alt="" coords="179,224,78,266,76,261,177,219"/>
+<area shape="rect" title=" " alt="" coords="276,269,323,295"/>
+<area shape="poly" title=" " alt="" coords="221,219,274,259,271,263,218,223"/>
+<area shape="rect" title=" " alt="" coords="347,269,417,295"/>
+<area shape="poly" title=" " alt="" coords="234,219,342,262,340,267,232,224"/>
+<area shape="rect" title=" " alt="" coords="93,269,159,295"/>
+<area shape="poly" title=" " alt="" coords="194,223,151,262,147,258,190,219"/>
+<area shape="rect" title=" " alt="" coords="184,269,252,295"/>
+<area shape="poly" title=" " alt="" coords="209,221,216,255,211,256,204,222"/>
+<area shape="rect" href="exception_8hpp_source.html" title=" " alt="" coords="847,196,1029,221"/>
+<area shape="poly" title=" " alt="" coords="941,148,941,182,935,182,935,148"/>
+<area shape="rect" title=" " alt="" coords="895,269,981,295"/>
+<area shape="poly" title=" " alt="" coords="941,222,941,256,935,256,935,222"/>
 </map>
 </div>
 </div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the type list capability for modules. </p>
 <dl class="section author"><dt>Author</dt><dd>Created by mathys-f </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on 07-09-2026</dd></dl>
-<dl class="section author"><dt>Author</dt><dd>Last modified by mathys-f </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>Last modified on 07-09-2026 </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Last modified by JeanBizeul </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Last modified on 17-09-2026 </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

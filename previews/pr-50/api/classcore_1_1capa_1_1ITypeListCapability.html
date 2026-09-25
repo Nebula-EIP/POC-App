@@ -133,9 +133,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3e5c1d1de2a6df6d07c7c959fe578b35" id="r_a3e5c1d1de2a6df6d07c7c959fe578b35"><td class="memItemLeft" align="right" valign="top">virtual const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ITypeListCapability.html#a3e5c1d1de2a6df6d07c7c959fe578b35">RegisterType</a> (<a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> type_id) const noexcept=0</td></tr>
-<tr class="memdesc:a3e5c1d1de2a6df6d07c7c959fe578b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retreive the types the capability wants to export.  <br /></td></tr>
-<tr class="separator:a3e5c1d1de2a6df6d07c7c959fe578b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad32f015caa287eb51dfccf78d97ea37" id="r_aad32f015caa287eb51dfccf78d97ea37"><td class="memItemLeft" align="right" valign="top">virtual std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ITypeListCapability.html#aad32f015caa287eb51dfccf78d97ea37">RegisterType</a> (<a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> type_id) noexcept=0</td></tr>
+<tr class="memdesc:aad32f015caa287eb51dfccf78d97ea37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retreive the types the capability wants to export.  <br /></td></tr>
+<tr class="separator:aad32f015caa287eb51dfccf78d97ea37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67fd51bf386baee25a5ae8d5b141e524" id="r_a67fd51bf386baee25a5ae8d5b141e524"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1ITypeListCapability.html#a67fd51bf386baee25a5ae8d5b141e524">TypeId</a> (std::string_view type_name) const noexcept=0</td></tr>
 <tr class="memdesc:a67fd51bf386baee25a5ae8d5b141e524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a type id from it's name.  <br /></td></tr>
 <tr class="separator:a67fd51bf386baee25a5ae8d5b141e524"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,8 +149,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>List of types the core needs to load and provide to the module owning this capabability. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3e5c1d1de2a6df6d07c7c959fe578b35" name="a3e5c1d1de2a6df6d07c7c959fe578b35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e5c1d1de2a6df6d07c7c959fe578b35">&#9670;&#160;</a></span>RegisterType()</h2>
+<a id="aad32f015caa287eb51dfccf78d97ea37" name="aad32f015caa287eb51dfccf78d97ea37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad32f015caa287eb51dfccf78d97ea37">&#9670;&#160;</a></span>RegisterType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,11 +159,11 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const std::string_view * core::capa::ITypeListCapability::RegisterType </td>
+          <td class="memname">virtual std::string_view * core::capa::ITypeListCapability::RegisterType </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>&#160;</td>
           <td class="paramname"><em>type_id</em></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -182,7 +182,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new type, nullptr if all the types of the capability have been assigned. </dd></dl>
 
-<p>Implemented in <a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a7901b9733a5dca522b29fa7ac54ebc3b">core::capa::TypeListCapability</a>.</p>
+<p>Implemented in <a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a721035ab49599e712c0ef731ffacecb2">core::capa::TypeListCapability</a>.</p>
 
 </div>
 </div>

@@ -128,12 +128,12 @@ Collaboration diagram for core::capa::TypeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3d54235a0a65445c52e68c0445b5feeb" id="r_a3d54235a0a65445c52e68c0445b5feeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a3d54235a0a65445c52e68c0445b5feeb">RegisterType</a> (std::string name)</td></tr>
-<tr class="memdesc:a3d54235a0a65445c52e68c0445b5feeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new type for the module.  <br /></td></tr>
-<tr class="separator:a3d54235a0a65445c52e68c0445b5feeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7901b9733a5dca522b29fa7ac54ebc3b" id="r_a7901b9733a5dca522b29fa7ac54ebc3b"><td class="memItemLeft" align="right" valign="top">const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a7901b9733a5dca522b29fa7ac54ebc3b">RegisterType</a> (<a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> type_id) const noexcept override</td></tr>
-<tr class="memdesc:a7901b9733a5dca522b29fa7ac54ebc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retreive the types the capability wants to export.  <br /></td></tr>
-<tr class="separator:a7901b9733a5dca522b29fa7ac54ebc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11810b8ea6fe1718bfe4cc8ce75cd402" id="r_a11810b8ea6fe1718bfe4cc8ce75cd402"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a11810b8ea6fe1718bfe4cc8ce75cd402">TypeListCapability</a> (const std::vector&lt; std::string_view &gt; &amp;types_list)</td></tr>
+<tr class="memdesc:a11810b8ea6fe1718bfe4cc8ce75cd402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="separator:a11810b8ea6fe1718bfe4cc8ce75cd402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a721035ab49599e712c0ef731ffacecb2" id="r_a721035ab49599e712c0ef731ffacecb2"><td class="memItemLeft" align="right" valign="top">std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a721035ab49599e712c0ef731ffacecb2">RegisterType</a> (<a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> type_id) noexcept override</td></tr>
+<tr class="memdesc:a721035ab49599e712c0ef731ffacecb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retreive the types the capability wants to export.  <br /></td></tr>
+<tr class="separator:a721035ab49599e712c0ef731ffacecb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a036ddc3e724dfd5ea3a68e71005540" id="r_a4a036ddc3e724dfd5ea3a68e71005540"><td class="memItemLeft" align="right" valign="top"><a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1TypeListCapability.html#a4a036ddc3e724dfd5ea3a68e71005540">TypeId</a> (std::string_view type_name) const noexcept override</td></tr>
 <tr class="memdesc:a4a036ddc3e724dfd5ea3a68e71005540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a type id from it's name.  <br /></td></tr>
 <tr class="separator:a4a036ddc3e724dfd5ea3a68e71005540"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,9 +147,9 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reusable type list capability. </p>
 <p>Modules register their types before the core assigns IDs to them. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7901b9733a5dca522b29fa7ac54ebc3b" name="a7901b9733a5dca522b29fa7ac54ebc3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7901b9733a5dca522b29fa7ac54ebc3b">&#9670;&#160;</a></span>RegisterType() <span class="overload">[1/2]</span></h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a11810b8ea6fe1718bfe4cc8ce75cd402" name="a11810b8ea6fe1718bfe4cc8ce75cd402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11810b8ea6fe1718bfe4cc8ce75cd402">&#9670;&#160;</a></span>TypeListCapability()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,11 +158,54 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string_view * core::capa::TypeListCapability::RegisterType </td>
+          <td class="memname">core::capa::TypeListCapability::TypeListCapability </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string_view &gt; &amp;&#160;</td>
+          <td class="paramname"><em>types_list</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">types_list</td><td>List of all types to be stored in this capability</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">`DuplicateTypeNameException`</td><td>When there are repeting names in the provided types_list </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Initial value, avoid the automatic failure of the duplicate names test</p>
+<p>Check for duplicates names</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a721035ab49599e712c0ef731ffacecb2" name="a721035ab49599e712c0ef731ffacecb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a721035ab49599e712c0ef731ffacecb2">&#9670;&#160;</a></span>RegisterType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view * core::capa::TypeListCapability::RegisterType </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>&#160;</td>
           <td class="paramname"><em>type_id</em></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -181,33 +224,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new type, nullptr if all the types of the capability have been assigned. </dd></dl>
 
-<p>Implements <a class="el" href="classcore_1_1capa_1_1ITypeListCapability.html#a3e5c1d1de2a6df6d07c7c959fe578b35">core::capa::ITypeListCapability</a>.</p>
-
-</div>
-</div>
-<a id="a3d54235a0a65445c52e68c0445b5feeb" name="a3d54235a0a65445c52e68c0445b5feeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d54235a0a65445c52e68c0445b5feeb">&#9670;&#160;</a></span>RegisterType() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::capa::TypeListCapability::RegisterType </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Register a new type for the module. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the type. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Implements <a class="el" href="classcore_1_1capa_1_1ITypeListCapability.html#aad32f015caa287eb51dfccf78d97ea37">core::capa::ITypeListCapability</a>.</p>
 
 </div>
 </div>

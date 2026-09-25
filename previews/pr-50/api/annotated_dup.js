@@ -36,6 +36,7 @@ var annotated_dup =
       ] ],
       [ "Connection", "structcore_1_1Connection.html", null ],
       [ "ConnectionException", "classcore_1_1ConnectionException.html", null ],
+      [ "DuplicateTypeNameException", "classcore_1_1DuplicateTypeNameException.html", null ],
       [ "Exception", "classcore_1_1Exception.html", null ],
       [ "Graph", "classcore_1_1Graph.html", "classcore_1_1Graph" ],
       [ "ICapability", "classcore_1_1ICapability.html", null ],

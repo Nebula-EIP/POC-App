@@ -57,6 +57,7 @@ var hierarchy =
           [ "core::PinNotFoundException", "classcore_1_1PinNotFoundException.html", null ],
           [ "core::TypeMismatchException", "classcore_1_1TypeMismatchException.html", null ]
         ] ],
+        [ "core::DuplicateTypeNameException", "classcore_1_1DuplicateTypeNameException.html", null ],
         [ "core::InternalException", "classcore_1_1InternalException.html", null ],
         [ "core::ModuleException", "classcore_1_1ModuleException.html", [
           [ "core::ModuleAlreadyLoadedException", "classcore_1_1ModuleAlreadyLoadedException.html", null ],
