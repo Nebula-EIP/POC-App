@@ -1,0 +1,5 @@
+<map id="src/core/node_catalog/node_catalog.hpp" name="src/core/node_catalog/node_catalog.hpp">
+<area shape="rect" id="Node000001" title="Facade for accessing module nodes cleanly for the renderer." alt="" coords="5,5,169,45"/>
+<area shape="rect" id="Node000002" href="$node__catalog_8cpp.html" title="Implementation of the node catalog." alt="" coords="5,93,169,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,59,90,93,85,93,85,59"/>
+</map>
