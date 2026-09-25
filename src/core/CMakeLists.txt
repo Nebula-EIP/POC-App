@@ -7,6 +7,11 @@ add_library(neb_graph
 
 target_include_directories(neb_graph PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/..
+)
+
+target_link_libraries(neb_graph PUBLIC
+    utils
 )
 
 add_library(core_capabilities
@@ -18,6 +23,11 @@ add_library(core_capabilities
 
 target_include_directories(core_capabilities PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/..
+)
+
+target_link_libraries(core_capabilities PUBLIC
+    utils
 )
 
 # Capabilities are linked into the test module fixtures (shared libraries), so
@@ -34,10 +44,12 @@ add_library(core_modules
 
 target_include_directories(core_modules PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
 target_link_libraries(core_modules PUBLIC
     core_capabilities
+    utils
     ${CMAKE_DL_LIBS}
 )
 
