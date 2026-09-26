@@ -13,17 +13,20 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/core/modules/fixtures/")
 # Create test executable
 if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES}
+        editor/node_view_test.cpp
         modules/c/c_module_tests.cpp
         modules/c/c_renderer_test.cpp
         modules/c/nodes/c_node_list_capability_test.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
     )
 
     # Allow includes for core tests
     target_include_directories(unit_tests PRIVATE
         ${CMAKE_SOURCE_DIR}/src/core
         ${CMAKE_SOURCE_DIR}/modules/c
+        ${CMAKE_SOURCE_DIR}/src/editor
     )
 
     # Link with project libraries when available
