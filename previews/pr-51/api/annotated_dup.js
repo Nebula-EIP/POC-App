@@ -1,0 +1,88 @@
+var annotated_dup =
+[
+    [ "core", null, [
+      [ "capa", null, [
+        [ "Button", "structcore_1_1capa_1_1Button.html", "structcore_1_1capa_1_1Button" ],
+        [ "Checkbox", "structcore_1_1capa_1_1Checkbox.html", "structcore_1_1capa_1_1Checkbox" ],
+        [ "ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", "structcore_1_1capa_1_1ComponentBase" ],
+        [ "ExportContext", "structcore_1_1capa_1_1ExportContext.html", "structcore_1_1capa_1_1ExportContext" ],
+        [ "ExportError", "structcore_1_1capa_1_1ExportError.html", null ],
+        [ "IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", "classcore_1_1capa_1_1IExporterCapability" ],
+        [ "IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", "classcore_1_1capa_1_1IImporterCapability" ],
+        [ "ImporterCapability", "classcore_1_1capa_1_1ImporterCapability.html", "classcore_1_1capa_1_1ImporterCapability" ],
+        [ "ImportError", "structcore_1_1capa_1_1ImportError.html", null ],
+        [ "ImportRequest", "structcore_1_1capa_1_1ImportRequest.html", null ],
+        [ "InfoBubble", "structcore_1_1capa_1_1InfoBubble.html", "structcore_1_1capa_1_1InfoBubble" ],
+        [ "INodeListCapability", "classcore_1_1capa_1_1INodeListCapability.html", "classcore_1_1capa_1_1INodeListCapability" ],
+        [ "IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", "classcore_1_1capa_1_1IRendererCapability" ],
+        [ "ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", "classcore_1_1capa_1_1ITypeListCapability" ],
+        [ "Label", "structcore_1_1capa_1_1Label.html", "structcore_1_1capa_1_1Label" ],
+        [ "NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", "structcore_1_1capa_1_1NodeConfiguration" ],
+        [ "NodeDescriptor", "structcore_1_1capa_1_1NodeDescriptor.html", null ],
+        [ "NodeExportRequest", "structcore_1_1capa_1_1NodeExportRequest.html", "structcore_1_1capa_1_1NodeExportRequest" ],
+        [ "NodeListCapability", "classcore_1_1capa_1_1NodeListCapability.html", "classcore_1_1capa_1_1NodeListCapability" ],
+        [ "NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", "structcore_1_1capa_1_1NodeMetadata" ],
+        [ "NumberField", "structcore_1_1capa_1_1NumberField.html", "structcore_1_1capa_1_1NumberField" ],
+        [ "RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", "classcore_1_1capa_1_1RendererCapability" ],
+        [ "Select", "structcore_1_1capa_1_1Select.html", "structcore_1_1capa_1_1Select" ],
+        [ "Separator", "structcore_1_1capa_1_1Separator.html", null ],
+        [ "Slider", "structcore_1_1capa_1_1Slider.html", "structcore_1_1capa_1_1Slider" ],
+        [ "TextField", "structcore_1_1capa_1_1TextField.html", "structcore_1_1capa_1_1TextField" ],
+        [ "TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ],
+        [ "TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", "classcore_1_1capa_1_1TypeListCapability" ]
+      ] ],
+      [ "detail", null, [
+        [ "SharedLibrary", "classcore_1_1detail_1_1SharedLibrary.html", "classcore_1_1detail_1_1SharedLibrary" ]
+      ] ],
+      [ "Connection", "structcore_1_1Connection.html", null ],
+      [ "ConnectionException", "classcore_1_1ConnectionException.html", null ],
+      [ "DuplicateTypeNameException", "classcore_1_1DuplicateTypeNameException.html", null ],
+      [ "Exception", "classcore_1_1Exception.html", null ],
+      [ "Graph", "classcore_1_1Graph.html", "classcore_1_1Graph" ],
+      [ "ICapability", "classcore_1_1ICapability.html", null ],
+      [ "IModule", "classcore_1_1IModule.html", "classcore_1_1IModule" ],
+      [ "IncompatibleModuleException", "classcore_1_1IncompatibleModuleException.html", null ],
+      [ "InternalException", "classcore_1_1InternalException.html", null ],
+      [ "InvalidModuleException", "classcore_1_1InvalidModuleException.html", null ],
+      [ "InvalidModuleVersionException", "classcore_1_1InvalidModuleVersionException.html", null ],
+      [ "InvalidNodeException", "classcore_1_1InvalidNodeException.html", null ],
+      [ "ModuleAlreadyLoadedException", "classcore_1_1ModuleAlreadyLoadedException.html", null ],
+      [ "ModuleException", "classcore_1_1ModuleException.html", null ],
+      [ "ModuleFileNotFoundException", "classcore_1_1ModuleFileNotFoundException.html", null ],
+      [ "ModuleInitializationException", "classcore_1_1ModuleInitializationException.html", null ],
+      [ "ModuleLoader", "classcore_1_1ModuleLoader.html", "classcore_1_1ModuleLoader" ],
+      [ "ModuleLoadException", "classcore_1_1ModuleLoadException.html", null ],
+      [ "ModuleLoadFailedException", "classcore_1_1ModuleLoadFailedException.html", null ],
+      [ "ModuleNotFoundException", "classcore_1_1ModuleNotFoundException.html", null ],
+      [ "ModuleSymbolNotFoundException", "classcore_1_1ModuleSymbolNotFoundException.html", null ],
+      [ "ModuleValidationException", "classcore_1_1ModuleValidationException.html", null ],
+      [ "Node", "classcore_1_1Node.html", "classcore_1_1Node" ],
+      [ "NodeAlreadyExistsException", "classcore_1_1NodeAlreadyExistsException.html", null ],
+      [ "NodeException", "classcore_1_1NodeException.html", null ],
+      [ "NodeNotFoundException", "classcore_1_1NodeNotFoundException.html", null ],
+      [ "NodeTypeException", "classcore_1_1NodeTypeException.html", null ],
+      [ "Pin", "structcore_1_1Pin.html", null ],
+      [ "PinNotFoundException", "classcore_1_1PinNotFoundException.html", null ],
+      [ "Property", "structcore_1_1Property.html", "structcore_1_1Property" ],
+      [ "TypeMismatchException", "classcore_1_1TypeMismatchException.html", null ]
+    ] ],
+    [ "editor", null, [
+      [ "ui", null, [
+        [ "Camera", "structeditor_1_1ui_1_1Camera.html", null ],
+        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
+        [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
+        [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
+        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", null ]
+      ] ],
+      [ "Application", "classeditor_1_1Application.html", null ]
+    ] ],
+    [ "utils", null, [
+      [ "BaseException", "classutils_1_1BaseException.html", "classutils_1_1BaseException" ],
+      [ "IdManager", "classutils_1_1IdManager.html", "classutils_1_1IdManager" ],
+      [ "Logger", "classutils_1_1Logger.html", "classutils_1_1Logger" ],
+      [ "WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
+      [ "WrappedColor", "structutils_1_1WrappedColor.html", null ],
+      [ "WrappedRectangle", "structutils_1_1WrappedRectangle.html", null ],
+      [ "WrappedVector2", "structutils_1_1WrappedVector2.html", null ]
+    ] ]
+];

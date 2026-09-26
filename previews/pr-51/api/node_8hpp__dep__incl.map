@@ -1,0 +1,24 @@
+<map id="src/core/graph/node.hpp" name="src/core/graph/node.hpp">
+<area shape="rect" id="Node000001" title="Definition of the Node class." alt="" coords="465,5,643,31"/>
+<area shape="rect" id="Node000002" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="463,86,645,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="557,44,557,86,551,86,551,44"/>
+<area shape="rect" id="Node000004" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,167,217,207"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="512,38,162,169,160,164,510,33"/>
+<area shape="rect" id="Node000010" href="$node__view_8hpp_source.html" title=" " alt="" coords="701,79,836,119"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="599,33,718,76,716,81,597,38"/>
+<area shape="rect" id="Node000003" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="241,174,424,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="512,119,363,176,361,171,510,114"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="482,117,209,169,208,164,481,111"/>
+<area shape="rect" id="Node000005" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="448,167,660,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="557,125,557,166,551,166,551,125"/>
+<area shape="rect" id="Node000007" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="697,262,883,287"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="591,115,631,138,673,165,735,216,781,260,777,264,732,220,670,169,628,142,588,120"/>
+<area shape="rect" id="Node000009" href="$node__canvas_8hpp_source.html" title=" " alt="" coords="735,167,869,207"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="601,113,748,164,746,169,599,118"/>
+<area shape="rect" id="Node000006" href="$importer__capability_8cpp.html" title="Implementation of the handler&#45;based importer capability." alt="" coords="448,255,660,295"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="557,221,557,254,551,254,551,221"/>
+<area shape="rect" id="Node000008" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="697,343,883,368"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="793,301,793,342,787,342,787,301"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="800,221,794,262,789,261,795,220"/>
+<area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="783,131,797,165,792,167,778,132"/>
+</map>

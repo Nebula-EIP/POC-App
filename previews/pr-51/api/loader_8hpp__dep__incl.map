@@ -1,0 +1,9 @@
+<map id="src/core/modules/loader.hpp" name="src/core/modules/loader.hpp">
+<area shape="rect" id="Node000001" title="Module loader interface." alt="" coords="114,5,319,31"/>
+<area shape="rect" id="Node000002" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="5,79,209,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,40,127,81,124,76,186,36"/>
+<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="234,79,421,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,36,311,76,308,81,245,40"/>
+<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="234,152,421,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="330,118,330,152,325,152,325,118"/>
+</map>
