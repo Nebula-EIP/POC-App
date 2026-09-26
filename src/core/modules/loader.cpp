@@ -188,11 +188,6 @@ ModuleId ModuleLoader::Load(std::filesystem::path path) {
     }
     entry->initialized_ = true;
 
-    if (entry->instance_->Id() != kId) {
-        throw InvalidModuleException("Module '" + std::string{kName} +
-                                     "' does not report the id it was given" +
-                                     Where(path));
-    }
     if (entry->instance_->Types() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no type list capability" +
@@ -201,6 +196,12 @@ ModuleId ModuleLoader::Load(std::filesystem::path path) {
     if (entry->instance_->Nodes() == nullptr) {
         throw InvalidModuleException("Module '" + std::string{kName} +
                                      "' provides no node list capability" +
+                                     Where(path));
+    }
+
+    if (entry->instance_->Id() != kId) {
+        throw InvalidModuleException("Module '" + std::string{kName} +
+                                     "' does not report the id it was given" +
                                      Where(path));
     }
 
