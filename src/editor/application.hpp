@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-09-2026
+ * @author Last modified by Nolan Papa
+ * @date Last modified on 26-09-2026
  */
 
 #pragma once
@@ -21,6 +21,7 @@
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
 #include "utils/raylib_wrapper.hpp"
+#include "ui/node_canvas.hpp"
 
 namespace editor {
 
@@ -62,6 +63,7 @@ class Application {
 
     core::IModule *module_ = nullptr;
     core::Graph graph_;
+    ui::NodeCanvas node_canvas_;
     // Tob bar variable
 };
 
