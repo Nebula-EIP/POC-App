@@ -167,9 +167,9 @@ void NodeView::Draw(const Camera &camera) const {
         utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
                                  kPortRadius * camera.zoom_,
                                  TypeColor(port.type_));
-        const float kWidth = TextWidth(port.name_);
+        const float kPortWidth = TextWidth(port.name_);
         const auto kTextScreen = camera.WorldToScreen(
-            {port.bounds_.x_ - kWidth - 8.0F, port.bounds_.y_ + 1.0F});
+            {port.bounds_.x_ - kPortWidth - 8.0F, port.bounds_.y_ + 1.0F});
         utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
                                kTextScreen.y_, kScaledFont, kMutedText);
     }
