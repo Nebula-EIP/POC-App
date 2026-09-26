@@ -91,6 +91,15 @@ void Application::LoadModule() {
                                      std::source_location::current(),
                                      "Loaded module {}", module_path_.string());
 
+    core::DataType type_id = 1;
+    while (module_->Types()->RegisterType(type_id) != nullptr) {
+        ++type_id;
+    }
+    core::NodeType node_type_id = 1;
+    while (module_->Nodes()->RegisterNode(node_type_id) != nullptr) {
+        ++node_type_id;
+    }
+
     const auto kAvailableNodes = module_->Nodes()->GetAvailableNodes();
     for (std::size_t index = 0; index < kAvailableNodes.size(); ++index) {
         const auto &metadata = kAvailableNodes[index];
