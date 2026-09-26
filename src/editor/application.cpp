@@ -6,14 +6,15 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-09-2026
+ * @author Last modified by Nolan Papa
+ * @date Last modified on 26-09-2026
  */
 
 #include "application.hpp"
 
 #include <source_location>
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 #include "utils/logger.hpp"
@@ -89,6 +90,15 @@ void Application::LoadModule() {
     utils::Logger::GetInstance().Log(utils::LogLevel::kInfo,
                                      std::source_location::current(),
                                      "Loaded module {}", module_path_.string());
+
+    const auto available_nodes = module_->Nodes()->GetAvailableNodes();
+    for (std::size_t index = 0; index < available_nodes.size(); ++index) {
+        const auto &metadata = available_nodes[index];
+        CreateNodeFromConfiguration(
+            metadata.type_, module_->Nodes()->GetNodeConfiguration(metadata.type_),
+            {40.0F + 220.0F * static_cast<float>(index % 3),
+             40.0F + 150.0F * static_cast<float>(index / 3)});
+    }
 }
 
 void Application::BuildMenus() {
@@ -98,8 +108,6 @@ void Application::BuildMenus() {
 void Application::CreateNodeFromConfiguration(
     core::NodeType type, const core::capa::NodeConfiguration &config,
     utils::WrappedVector2 position) {
-    (void)position;  // For when we need position for node display
-
     core::Node &node = graph_.CreateNode(type);
 
     for (const auto &pin : config.input_pins_) {
@@ -114,6 +122,16 @@ void Application::CreateNodeFromConfiguration(
         (void)property_id;
         node.AddProperty(property);
     }
+    std::string title = "Node";
+    if (module_ != nullptr) {
+        for (const auto &metadata : module_->Nodes()->GetAvailableNodes()) {
+            if (metadata.type_ == type) {
+                title = metadata.name_;
+                break;
+            }
+        }
+    }
+    node_canvas_.AddNode(node, std::move(title), position);
 }
 
 utils::WrappedVector2 Application::SpawnPosition() const {
@@ -123,6 +141,7 @@ utils::WrappedVector2 Application::SpawnPosition() const {
 
 void Application::ProcessInput() {
     cursor_position_ = utils::GetCursorPositionWrapped();
+    node_canvas_.ProcessInput();
 
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kH)) {
         if (utils::IsCursorHiddenWrapped()) {
@@ -143,7 +162,7 @@ void Application::DrawFrame() {
     utils::BeginFrame();
     utils::ClearScreen();
 
-    // Draw graph an top bar
+    node_canvas_.Draw();
 
     utils::EndFrame();
 }
