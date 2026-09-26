@@ -10,9 +10,10 @@
  * @date Last modified on 26-09-2026
  */
 
- #pragma once
+#pragma once
 
 #include <memory>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 

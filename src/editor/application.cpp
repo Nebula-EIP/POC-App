@@ -91,11 +91,12 @@ void Application::LoadModule() {
                                      std::source_location::current(),
                                      "Loaded module {}", module_path_.string());
 
-    const auto available_nodes = module_->Nodes()->GetAvailableNodes();
-    for (std::size_t index = 0; index < available_nodes.size(); ++index) {
-        const auto &metadata = available_nodes[index];
+    const auto kAvailableNodes = module_->Nodes()->GetAvailableNodes();
+    for (std::size_t index = 0; index < kAvailableNodes.size(); ++index) {
+        const auto &metadata = kAvailableNodes[index];
         CreateNodeFromConfiguration(
-            metadata.type_, module_->Nodes()->GetNodeConfiguration(metadata.type_),
+            metadata.type_,
+            module_->Nodes()->GetNodeConfiguration(metadata.type_),
             {40.0F + 220.0F * static_cast<float>(index % 3),
              40.0F + 150.0F * static_cast<float>(index / 3)});
     }

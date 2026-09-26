@@ -24,10 +24,10 @@ struct Camera {
     utils::WrappedVector2 offset_{0.0F, 0.0F};
     float zoom_ = 1.0F;
 
-    utils::WrappedVector2 ScreenToWorld(utils::WrappedVector2 point) const
-        noexcept;
-    utils::WrappedVector2 WorldToScreen(utils::WrappedVector2 point) const
-        noexcept;
+    utils::WrappedVector2 ScreenToWorld(
+        utils::WrappedVector2 point) const noexcept;
+    utils::WrappedVector2 WorldToScreen(
+        utils::WrappedVector2 point) const noexcept;
 };
 
 enum class HitPart { kNone, kBody, kInputPin, kOutputPin };

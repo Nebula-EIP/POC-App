@@ -10,7 +10,7 @@
  * @date Last modified on 26-09-2026
  */
 
- #include "node_view.hpp"
+#include "node_view.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -33,13 +33,13 @@ constexpr utils::WrappedColor kMutedText = {185, 193, 204, 255};
 
 }  // namespace
 
-utils::WrappedVector2 Camera::ScreenToWorld(utils::WrappedVector2 point) const
-    noexcept {
+utils::WrappedVector2 Camera::ScreenToWorld(
+    utils::WrappedVector2 point) const noexcept {
     return {(point.x_ - offset_.x_) / zoom_, (point.y_ - offset_.y_) / zoom_};
 }
 
-utils::WrappedVector2 Camera::WorldToScreen(utils::WrappedVector2 point) const
-    noexcept {
+utils::WrappedVector2 Camera::WorldToScreen(
+    utils::WrappedVector2 point) const noexcept {
     return {point.x_ * zoom_ + offset_.x_, point.y_ * zoom_ + offset_.y_};
 }
 
@@ -70,23 +70,23 @@ void NodeView::RebuildLayout(const core::Node &node) {
 
     bounds_.width_ = std::clamp(content_width + 2.0F * kHorizontalPadding,
                                 kMinWidth, kMaxWidth);
-    const std::size_t rows = std::max(inputs_.size(), outputs_.size());
+    const std::size_t kRows = std::max(inputs_.size(), outputs_.size());
     bounds_.height_ = kHeaderHeight +
-                      static_cast<float>(rows) * kPortRowHeight +
+                      static_cast<float>(kRows) * kPortRowHeight +
                       kHorizontalPadding;
 
     for (std::size_t index = 0; index < inputs_.size(); ++index) {
         inputs_[index].bounds_ = {
             bounds_.x_ - kPortRadius,
-            bounds_.y_ + kHeaderHeight + static_cast<float>(index) *
-                              kPortRowHeight + 7.0F,
+            bounds_.y_ + kHeaderHeight +
+                static_cast<float>(index) * kPortRowHeight + 7.0F,
             2.0F * kPortRadius, 2.0F * kPortRadius};
     }
     for (std::size_t index = 0; index < outputs_.size(); ++index) {
         outputs_[index].bounds_ = {
             bounds_.x_ + bounds_.width_ - kPortRadius,
-            bounds_.y_ + kHeaderHeight + static_cast<float>(index) *
-                              kPortRowHeight + 7.0F,
+            bounds_.y_ + kHeaderHeight +
+                static_cast<float>(index) * kPortRowHeight + 7.0F,
             2.0F * kPortRadius, 2.0F * kPortRadius};
     }
 }
@@ -106,18 +106,18 @@ void NodeView::MoveBy(utils::WrappedVector2 delta) noexcept {
 
 HitResult NodeView::HitTest(utils::WrappedVector2 point) const noexcept {
     for (const auto &port : inputs_) {
-        const utils::WrappedCircle circle{port.bounds_.x_ + kPortRadius,
-                                          port.bounds_.y_ + kPortRadius,
-                                          kPortRadius + 2.0F};
-        if (utils::CheckCollisionPointCircleWrapped(point, circle)) {
+        const utils::WrappedCircle kCircle{port.bounds_.x_ + kPortRadius,
+                                           port.bounds_.y_ + kPortRadius,
+                                           kPortRadius + 2.0F};
+        if (utils::CheckCollisionPointCircleWrapped(point, kCircle)) {
             return {node_id_, port.id_, HitPart::kInputPin};
         }
     }
     for (const auto &port : outputs_) {
-        const utils::WrappedCircle circle{port.bounds_.x_ + kPortRadius,
-                                          port.bounds_.y_ + kPortRadius,
-                                          kPortRadius + 2.0F};
-        if (utils::CheckCollisionPointCircleWrapped(point, circle)) {
+        const utils::WrappedCircle kCircle{port.bounds_.x_ + kPortRadius,
+                                           port.bounds_.y_ + kPortRadius,
+                                           kPortRadius + 2.0F};
+        if (utils::CheckCollisionPointCircleWrapped(point, kCircle)) {
             return {node_id_, port.id_, HitPart::kOutputPin};
         }
     }
@@ -128,49 +128,50 @@ HitResult NodeView::HitTest(utils::WrappedVector2 point) const noexcept {
 }
 
 utils::WrappedColor NodeView::TypeColor(core::DataType type) noexcept {
-    constexpr utils::WrappedColor palette[] = {utils::kSkyblue, utils::kGreen,
-                                                utils::kOrange, utils::kPink,
-                                                utils::kPurple, utils::kYellow};
-    return palette[type % (sizeof(palette) / sizeof(palette[0]))];
+    constexpr utils::WrappedColor kPalette[] = {
+        utils::kSkyblue, utils::kGreen,  utils::kOrange,
+        utils::kPink,    utils::kPurple, utils::kYellow};
+    return kPalette[type % (sizeof(kPalette) / sizeof(kPalette[0]))];
 }
 
 void NodeView::Draw(const Camera &camera) const {
-    const auto color = TypeColor(node_type_);
-    const auto top_left = camera.WorldToScreen({bounds_.x_, bounds_.y_});
-    const float width = bounds_.width_ * camera.zoom_;
-    const float height = bounds_.height_ * camera.zoom_;
-    utils::DrawRectangleWrapped(top_left.x_, top_left.y_, width, height, kBody);
-    utils::DrawRectangleWrapped(top_left.x_, top_left.y_, width,
-                                kHeaderHeight * camera.zoom_, color);
-    utils::DrawRectangleLinesWrapped(
-        top_left.x_, top_left.y_, width, height,
-        selected_ ? kSelected : kBorder);
-    const int scaled_font = std::max(8, static_cast<int>(kFontSize * camera.zoom_));
-    utils::DrawTextWrapped(title_.c_str(),
-                           top_left.x_ + kHorizontalPadding * camera.zoom_,
-                           top_left.y_ + 6.0F * camera.zoom_, scaled_font, kText);
+    const auto kColor = TypeColor(node_type_);
+    const auto kTopLeft = camera.WorldToScreen({bounds_.x_, bounds_.y_});
+    const float kWidth = bounds_.width_ * camera.zoom_;
+    const float kHeight = bounds_.height_ * camera.zoom_;
+    utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
+                                kBody);
+    utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth,
+                                kHeaderHeight * camera.zoom_, kColor);
+    utils::DrawRectangleLinesWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
+                                     selected_ ? kSelected : kBorder);
+    const int kScaledFont =
+        std::max(8, static_cast<int>(kFontSize * camera.zoom_));
+    utils::DrawTextWrapped(
+        title_.c_str(), kTopLeft.x_ + kHorizontalPadding * camera.zoom_,
+        kTopLeft.y_ + 6.0F * camera.zoom_, kScaledFont, kText);
     for (const auto &port : inputs_) {
-        const auto port_screen = camera.WorldToScreen(
+        const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
-        utils::DrawCircleWrapped(port_screen.x_, port_screen.y_,
+        utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
                                  kPortRadius * camera.zoom_,
                                  TypeColor(port.type_));
-        const auto text_screen = camera.WorldToScreen(
+        const auto kTextScreen = camera.WorldToScreen(
             {port.bounds_.x_ + 12.0F, port.bounds_.y_ + 1.0F});
-        utils::DrawTextWrapped(port.name_.c_str(), text_screen.x_, text_screen.y_,
-                               scaled_font, kMutedText);
+        utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
+                               kTextScreen.y_, kScaledFont, kMutedText);
     }
     for (const auto &port : outputs_) {
-        const auto port_screen = camera.WorldToScreen(
+        const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
-        utils::DrawCircleWrapped(port_screen.x_, port_screen.y_,
+        utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
                                  kPortRadius * camera.zoom_,
                                  TypeColor(port.type_));
-        const float width = TextWidth(port.name_);
-        const auto text_screen = camera.WorldToScreen(
-            {port.bounds_.x_ - width - 8.0F, port.bounds_.y_ + 1.0F});
-        utils::DrawTextWrapped(port.name_.c_str(), text_screen.x_, text_screen.y_,
-                               scaled_font, kMutedText);
+        const float kWidth = TextWidth(port.name_);
+        const auto kTextScreen = camera.WorldToScreen(
+            {port.bounds_.x_ - kWidth - 8.0F, port.bounds_.y_ + 1.0F});
+        utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
+                               kTextScreen.y_, kScaledFont, kMutedText);
     }
 }
 

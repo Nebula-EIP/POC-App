@@ -20,8 +20,8 @@
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
-#include "utils/raylib_wrapper.hpp"
 #include "ui/node_canvas.hpp"
+#include "utils/raylib_wrapper.hpp"
 
 namespace editor {
 
