@@ -57,7 +57,7 @@ class Camera {
                 float wheel_delta) noexcept;
 
     /**
-     * @brief Sets the viewport dimensions for the camera, which are used
+     * @brief Sets the viewport dimensions for the camera
      *
      * @param width The width of the viewport in pixels.
      * @param height The height of the viewport in pixels.
