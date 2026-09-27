@@ -62,6 +62,9 @@ struct HitResult {
     HitPart part_ = HitPart::kNone;
 };
 
+/**
+ * @brief Represents a view of a node in the editor's UI.
+ */
 class NodeView final {
    public:
    /**

@@ -21,6 +21,9 @@
 
 namespace editor::ui {
 
+/**
+ * @brief Represents a canvas for displaying and interacting with nodes.
+ */
 class NodeCanvas final {
    public:
    /**
