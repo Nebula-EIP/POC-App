@@ -23,7 +23,8 @@ namespace editor::ui {
 
 class NodeCanvas final {
    public:
-   /** @brief Adds a new node to the canvas.
+   /**
+    * @brief Adds a new node to the canvas.
     *
     * @param node The node to add.
     * @param title The title of the node.
@@ -32,27 +33,32 @@ class NodeCanvas final {
     void AddNode(const core::Node &node, std::string title,
                  utils::WrappedVector2 position);
 
-    /** @brief Removes nodes from the canvas that are not present in the graph.*
+    /**
+     * @brief Removes nodes from the canvas that are not present in the graph.
      *
      * @param graph The graph to compare against.
      */
     void RemoveMissingNodes(const core::Graph &graph);
 
-    /** @brief Processes user input for the canvas.
+    /**
+     * @brief Processes user input for the canvas.
      */
     void ProcessInput();
 
-    /** @brief Draws the canvas and all its nodes.
+    /**
+     * @brief Draws the canvas and all its nodes.
      */
     void Draw() const;
 
-    /** @brief Gets the camera used by the canvas.
+    /**
+     * @brief Gets the camera used by the canvas.
      *
      * @return A reference to the camera.
      */
     Camera &GetCamera() noexcept { return camera_; }
 
-    /** @brief Gets the views of the nodes in the canvas.
+    /**
+     * @brief Gets the views of the nodes in the canvas.
      *
      * @return A reference to the map of node views.
      */
@@ -62,19 +68,22 @@ class NodeCanvas final {
     }
 
    private:
-   /** @brief Selects only the specified node.
+   /**
+    * @brief Selects only the specified node.
     *
     * @param node_id The ID of the node to select.
     */
     void SelectOnly(core::NodeId node_id);
 
-    /** @brief Selects all nodes within a rectangle.
+    /**
+     * @brief Selects all nodes within a rectangle.
      *
      * @param rectangle The rectangle to select nodes in.
      */
     void SelectInRectangle(utils::WrappedRectangle rectangle);
 
-    /** @brief Performs a hit test on the canvas.
+    /**
+     * @brief Performs a hit test on the canvas.
      *
      * @param point The point to test.
      *
