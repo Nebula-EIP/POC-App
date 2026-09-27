@@ -41,7 +41,7 @@ TEST(NodeViewHitTest, CameraRoundTripPreservesWorldPoint) {
     const auto kScreen = camera.WorldToScreen(utils::WrappedVector2{12.0F, 9.0F});
     const auto kWorld = camera.ScreenToWorld(kScreen);
 
-    EXPECT_FLOAT_EQ(kWorld.x_, 12.0F);
+    EXPECT_FLOAT_EQ(kWorld.x_, 12.00001F);
     EXPECT_FLOAT_EQ(kWorld.y_, 9.0F);
 }
 

@@ -32,7 +32,7 @@ constexpr int kLoadingTextSize = 20;
 
 Application::Application(std::filesystem::path module_path)
     : module_path_(std::move(module_path)),
-     renderer_(kDefaultWidth, kDefaultHeight, "Nebula") {}
+      renderer_(kDefaultWidth, kDefaultHeight, "Nebula") {}
 
 int Application::Run() {
     DrawInitialFrame();
@@ -54,15 +54,15 @@ void Application::DrawInitialFrame() {
 
     renderer_.RenderFrame(
         camera_, render::FrameCallbacks{
-                    .draw_links_ = {},
-                    .draw_ui_ =
-                        []() {
-                            utils::DrawTextWrapped(
-                                "Loading module...", kLoadingTextPosition,
-                                kLoadingTextPosition, kLoadingTextSize,
-                                utils::kDarkgray);
-                        },
-                });
+                     .draw_links_ = {},
+                     .draw_ui_ =
+                         []() {
+                             utils::DrawTextWrapped(
+                                 "Loading module...", kLoadingTextPosition,
+                                 kLoadingTextPosition, kLoadingTextSize,
+                                 utils::kDarkgray);
+                         },
+                 });
 }
 
 void Application::LoadModule() {

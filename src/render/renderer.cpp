@@ -124,7 +124,7 @@ void Renderer::DrawGrid(const Camera &camera) const {
     const float kFirstVerticalLine =
         std::floor(kTopLeft.x_ / kGridSpacing) * kGridSpacing;
     for (float x = kFirstVerticalLine; x <= kBottomRight.x_;
-        x += kGridSpacing) {
+         x += kGridSpacing) {
         utils::DrawLineWrapped(utils::WrappedVector2{x, kTopLeft.y_},
                                utils::WrappedVector2{x, kBottomRight.y_},
                                kThickness, kGridColor);
@@ -133,7 +133,7 @@ void Renderer::DrawGrid(const Camera &camera) const {
     const float kFirstHorizontalLine =
         std::floor(kTopLeft.y_ / kGridSpacing) * kGridSpacing;
     for (float y = kFirstHorizontalLine; y <= kBottomRight.y_;
-        y += kGridSpacing) {
+         y += kGridSpacing) {
         utils::DrawLineWrapped(utils::WrappedVector2{kTopLeft.x_, y},
                                utils::WrappedVector2{kBottomRight.x_, y},
                                kThickness, kGridColor);

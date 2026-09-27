@@ -40,7 +40,7 @@ class NodeCanvas final {
      * @param position The position of the node.
      */
     void AddNode(const core::Node &node, std::string title,
-                utils::WrappedVector2 position);
+                 utils::WrappedVector2 position);
 
     /**
      * @brief Removes nodes from the canvas that are not present in the graph.

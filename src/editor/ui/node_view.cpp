@@ -137,9 +137,9 @@ void NodeView::Draw(const render::Camera &camera) const {
     utils::DrawRectangleLinesWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
                                      selected_ ? kSelected : kBorder);
     const int kScaledFont = std::max(8, static_cast<int>(kFontSize * kZoom));
-    utils::DrawTextWrapped(
-        title_.c_str(), kTopLeft.x_ + kHorizontalPadding * kZoom,
-        kTopLeft.y_ + 6.0F * kZoom, kScaledFont, kText);
+    utils::DrawTextWrapped(title_.c_str(),
+                           kTopLeft.x_ + kHorizontalPadding * kZoom,
+                           kTopLeft.y_ + 6.0F * kZoom, kScaledFont, kText);
     for (const auto &port : inputs_) {
         const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
