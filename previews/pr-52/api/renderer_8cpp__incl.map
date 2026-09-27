@@ -1,0 +1,24 @@
+<map id="src/render/renderer.cpp" name="src/render/renderer.cpp">
+<area shape="rect" id="Node000001" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="323,5,495,31"/>
+<area shape="rect" id="Node000002" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="239,79,343,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,33,324,74,321,69,388,28"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="109,299,180,324"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="323,24,245,33,161,55,120,72,81,94,46,121,18,153,9,173,10,192,18,211,32,229,71,263,112,290,109,294,68,267,28,233,13,213,5,193,4,172,13,151,43,117,78,89,117,67,159,50,244,28,322,18"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="223,299,283,324"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="408,32,389,96,355,179,331,217,303,252,273,290,269,286,299,249,327,214,350,176,384,94,403,30"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="447,79,509,104"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="422,29,459,67,455,71,418,33"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="533,79,620,104"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="437,28,538,71,536,76,435,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="151,152,237,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="277,106,223,146,220,141,274,102"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="262,152,321,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="294,104,294,138,289,138,289,104"/>
+<area shape="rect" id="Node000005" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="27,152,126,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="258,107,125,150,124,145,256,101"/>
+<area shape="rect" id="Node000006" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="110,225,289,251"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="306,102,320,117,333,137,340,158,335,179,308,206,274,223,272,218,305,202,330,176,335,158,329,139,316,121,302,106"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="98,175,169,216,166,221,95,180"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="192,253,164,289,160,286,188,249"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="210,249,238,286,234,289,206,253"/>
+</map>

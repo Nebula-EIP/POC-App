@@ -1,0 +1,14 @@
+<map id="src/render/camera.hpp" name="src/render/camera.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="80,5,248,31"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,152,192,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,39,92,56,72,80,67,98,72,117,91,151,87,153,67,119,62,98,67,77,89,52,116,34"/>
+<area shape="rect" id="Node000004" href="$camera_8cpp.html" title="Implementation of the Camera class, which handles 2D camera transformations." alt="" coords="81,79,247,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,44,167,79,161,79,161,44"/>
+<area shape="rect" id="Node000005" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="272,79,445,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="209,33,328,76,326,81,207,38"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,225,192,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,191,101,225,96,225,96,191"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="304,110,141,154,140,149,303,105"/>
+<area shape="rect" id="Node000006" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="273,152,445,177"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="361,118,361,152,356,152,356,118"/>
+</map>

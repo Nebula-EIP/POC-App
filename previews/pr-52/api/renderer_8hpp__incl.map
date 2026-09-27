@@ -1,0 +1,16 @@
+<map id="src/render/renderer.hpp" name="src/render/renderer.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="110,5,283,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,92,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,33,86,75,84,70,172,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="117,79,175,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,33,164,69,160,66,186,29"/>
+<area shape="rect" id="Node000004" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="199,79,298,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,29,234,66,230,69,203,33"/>
+<area shape="rect" id="Node000005" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="202,152,381,177"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="243,28,281,47,299,60,312,77,318,93,318,110,308,140,303,139,312,109,313,94,308,80,295,64,278,51,241,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="258,103,280,139,275,142,253,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="212,225,283,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="286,179,264,215,259,212,282,176"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="307,225,367,251"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="301,176,324,212,320,215,297,179"/>
+</map>
