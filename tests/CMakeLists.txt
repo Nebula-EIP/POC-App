@@ -38,6 +38,7 @@ if(TEST_SOURCES)
         neb_graph
         core_capabilities
         core_modules
+        core_node_catalog
     )
 
     # The loader tests open real shared libraries, so they need their absolute
