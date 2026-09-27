@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['module_0',['module',['../classcore_1_1ModuleLoader.html#aea14a5c8a58e713f75347f106460747f',1,'core::ModuleLoader::Module(ModuleId id) noexcept'],['../classcore_1_1ModuleLoader.html#a2e7e22e7b936e2e5f65ff801c0cc5a00',1,'core::ModuleLoader::Module(std::string_view name) noexcept'],['../classcore_1_1ModuleLoader.html#ad0332203759fc544e3d2267efb2c2111',1,'core::ModuleLoader::Module(ModuleId id) const noexcept'],['../classcore_1_1ModuleLoader.html#a0f24161635bdcf62e745469b53a95454',1,'core::ModuleLoader::Module(std::string_view name) const noexcept']]],
-  ['modules_1',['Modules',['../classcore_1_1ModuleLoader.html#ab284110ca7486ec46e848872948b1954',1,'core::ModuleLoader']]]
+  ['lasterror_0',['LastError',['../classcore_1_1detail_1_1SharedLibrary.html#a33403340e3ddc5c875a8b348505c86c7',1,'core::detail::SharedLibrary']]],
+  ['load_1',['Load',['../classcore_1_1ModuleLoader.html#a5be0f070fbc03e940747d0231bfec195',1,'core::ModuleLoader']]],
+  ['log_2',['Log',['../classutils_1_1Logger.html#ac5cfa83dcf5063f31e41693c63f6ff94',1,'utils::Logger']]]
 ];

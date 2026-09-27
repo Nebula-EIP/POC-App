@@ -14,7 +14,7 @@
 <area shape="poly" id="edge28_Node000001_Node000018" title=" " alt="" coords="886,26,1384,78,1384,83,885,32"/>
 <area shape="rect" id="Node000022" href="$module_8hpp.html" title="Module interface." alt="" coords="923,152,1021,177"/>
 <area shape="poly" id="edge59_Node000001_Node000022" title=" " alt="" coords="808,29,949,141,945,145,805,33"/>
-<area shape="rect" id="Node000027" href="$node__canvas_8hpp_source.html" title=" " alt="" coords="433,79,583,104"/>
+<area shape="rect" id="Node000027" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="433,79,583,104"/>
 <area shape="poly" id="edge60_Node000001_Node000027" title=" " alt="" coords="747,33,568,78,566,73,746,28"/>
 <area shape="rect" id="Node000030" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="1611,233,1789,258"/>
 <area shape="poly" id="edge73_Node000001_Node000030" title=" " alt="" coords="886,16,1019,19,1188,27,1375,46,1470,59,1562,76,1627,85,1681,90,1706,96,1729,107,1751,125,1773,151,1778,161,1779,172,1770,193,1753,212,1733,227,1730,223,1750,208,1766,190,1773,171,1773,163,1768,153,1747,129,1726,112,1704,101,1680,95,1626,90,1561,81,1469,64,1375,51,1188,33,1019,24,885,21"/>
@@ -94,7 +94,7 @@
 <area shape="poly" id="edge63_Node000027_Node000006" title=" " alt="" coords="508,105,502,136,499,178,504,223,512,244,523,264,538,279,554,287,587,292,623,294,643,300,663,311,694,341,716,373,712,376,690,345,660,315,641,305,622,300,586,297,552,292,535,283,519,267,507,247,499,224,494,178,497,135,502,104"/>
 <area shape="rect" id="Node000028" title=" " alt="" coords="93,152,168,177"/>
 <area shape="poly" id="edge62_Node000027_Node000028" title=" " alt="" coords="445,107,187,155,182,156,181,150,186,149,444,101"/>
-<area shape="rect" id="Node000029" href="$node__view_8hpp_source.html" title=" " alt="" coords="585,152,703,177"/>
+<area shape="rect" id="Node000029" href="$node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="585,152,703,177"/>
 <area shape="poly" id="edge66_Node000027_Node000029" title=" " alt="" coords="531,102,611,143,609,148,529,106"/>
 <area shape="poly" id="edge68_Node000029_Node000004" title=" " alt="" coords="585,174,395,197,309,212,280,220,264,227,250,243,238,260,222,300,214,339,211,373,205,373,209,339,217,298,234,258,246,239,261,223,278,215,308,207,394,192,584,169"/>
 <area shape="poly" id="edge67_Node000029_Node000011" title=" " alt="" coords="703,162,778,165,870,174,968,192,1017,206,1064,223,1080,232,1091,243,1101,253,1116,263,1139,272,1160,276,1201,277,1220,279,1238,283,1256,294,1273,312,1279,330,1272,349,1258,366,1242,380,1238,376,1255,362,1268,346,1273,330,1268,315,1253,298,1236,288,1219,284,1201,283,1160,281,1137,277,1113,268,1098,257,1087,246,1077,237,1062,228,1015,211,967,197,869,179,778,170,703,168"/>

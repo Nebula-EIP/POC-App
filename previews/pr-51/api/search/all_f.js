@@ -6,11 +6,12 @@ var searchData=
   ['registernoderenderer_3',['RegisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f',1,'core::capa::RendererCapability']]],
   ['registertype_4',['registertype',['../classcore_1_1capa_1_1ITypeListCapability.html#aad32f015caa287eb51dfccf78d97ea37',1,'core::capa::ITypeListCapability::RegisterType()'],['../classcore_1_1capa_1_1TypeListCapability.html#a721035ab49599e712c0ef731ffacecb2',1,'core::capa::TypeListCapability::RegisterType()']]],
   ['removeinputpin_5',['RemoveInputPin',['../classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051',1,'core::Graph']]],
-  ['removenode_6',['RemoveNode',['../classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b',1,'core::Graph']]],
-  ['removeoutputpin_7',['RemoveOutputPin',['../classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc',1,'core::Graph']]],
-  ['removeproperty_8',['RemoveProperty',['../classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3',1,'core::Node']]],
-  ['renderer_5fcapability_2ecpp_9',['renderer_capability.cpp',['../renderer__capability_8cpp.html',1,'']]],
-  ['renderer_5fcapability_2ehpp_10',['renderer_capability.hpp',['../renderer__capability_8hpp.html',1,'']]],
-  ['renderercapability_11',['RendererCapability',['../classcore_1_1capa_1_1RendererCapability.html',1,'core::capa']]],
-  ['reporting_20convention_12',['Error reporting convention',['../classcore_1_1ModuleLoader.html#autotoc_md0',1,'']]]
+  ['removemissingnodes_6',['RemoveMissingNodes',['../classeditor_1_1ui_1_1NodeCanvas.html#a83cf632527e91d35bc20ca9a31c00f51',1,'editor::ui::NodeCanvas']]],
+  ['removenode_7',['RemoveNode',['../classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b',1,'core::Graph']]],
+  ['removeoutputpin_8',['RemoveOutputPin',['../classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc',1,'core::Graph']]],
+  ['removeproperty_9',['RemoveProperty',['../classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3',1,'core::Node']]],
+  ['renderer_5fcapability_2ecpp_10',['renderer_capability.cpp',['../renderer__capability_8cpp.html',1,'']]],
+  ['renderer_5fcapability_2ehpp_11',['renderer_capability.hpp',['../renderer__capability_8hpp.html',1,'']]],
+  ['renderercapability_12',['RendererCapability',['../classcore_1_1capa_1_1RendererCapability.html',1,'core::capa']]],
+  ['reporting_20convention_13',['Error reporting convention',['../classcore_1_1ModuleLoader.html#autotoc_md0',1,'']]]
 ];

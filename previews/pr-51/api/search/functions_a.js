@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['Name',['../classcore_1_1IModule.html#a30d5927e7728bd65a92a6924fa011927',1,'core::IModule']]],
-  ['newid_1',['NewId',['../classutils_1_1IdManager.html#a082864f4bb110efa1c2fe259e5819626',1,'utils::IdManager']]],
-  ['nodes_2',['Nodes',['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule']]]
+  ['module_0',['module',['../classcore_1_1ModuleLoader.html#aea14a5c8a58e713f75347f106460747f',1,'core::ModuleLoader::Module(ModuleId id) noexcept'],['../classcore_1_1ModuleLoader.html#a2e7e22e7b936e2e5f65ff801c0cc5a00',1,'core::ModuleLoader::Module(std::string_view name) noexcept'],['../classcore_1_1ModuleLoader.html#ad0332203759fc544e3d2267efb2c2111',1,'core::ModuleLoader::Module(ModuleId id) const noexcept'],['../classcore_1_1ModuleLoader.html#a0f24161635bdcf62e745469b53a95454',1,'core::ModuleLoader::Module(std::string_view name) const noexcept']]],
+  ['modules_1',['Modules',['../classcore_1_1ModuleLoader.html#ab284110ca7486ec46e848872948b1954',1,'core::ModuleLoader']]],
+  ['moveby_2',['MoveBy',['../classeditor_1_1ui_1_1NodeView.html#ade584a88ce7649eeaab6997fdf926bb9',1,'editor::ui::NodeView']]]
 ];

@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['type_0',['Type',['../classcore_1_1Node.html#a8cb2821fa5214cd1f3eae8f17eda3f2c',1,'core::Node']]],
-  ['typeid_1',['typeid',['../classcore_1_1capa_1_1ITypeListCapability.html#a67fd51bf386baee25a5ae8d5b141e524',1,'core::capa::ITypeListCapability::TypeId()'],['../classcore_1_1capa_1_1TypeListCapability.html#a4a036ddc3e724dfd5ea3a68e71005540',1,'core::capa::TypeListCapability::TypeId(std::string_view type_name) const noexcept override']]],
-  ['typelistcapability_2',['TypeListCapability',['../classcore_1_1capa_1_1TypeListCapability.html#a11810b8ea6fe1718bfe4cc8ce75cd402',1,'core::capa::TypeListCapability']]],
-  ['typename_3',['typename',['../classcore_1_1capa_1_1ITypeListCapability.html#aab50b668048b2f8fd7a21e933387b95d',1,'core::capa::ITypeListCapability::TypeName()'],['../classcore_1_1capa_1_1TypeListCapability.html#a18e691abdbb2cd2ba03489812a67f488',1,'core::capa::TypeListCapability::TypeName()']]],
-  ['types_4',['types',['../classcore_1_1capa_1_1ITypeListCapability.html#aac6daf846a1057e07e4add61a70600d1',1,'core::capa::ITypeListCapability::Types()'],['../classcore_1_1capa_1_1TypeListCapability.html#ac237e97cdf95fd3b6c65adfcdaab94a1',1,'core::capa::TypeListCapability::Types()'],['../classcore_1_1IModule.html#a2232b64d0eda9f4e12e9b6cef27d98ff',1,'core::IModule::Types()']]]
+  ['registerednodetypecount_0',['RegisteredNodeTypeCount',['../classcore_1_1capa_1_1RendererCapability.html#a2a6f451c943348745fe7eb8830f09a9c',1,'core::capa::RendererCapability']]],
+  ['registernode_1',['registernode',['../classcore_1_1capa_1_1INodeListCapability.html#a14cb6a1c8c61c21622ad41f6d2b99fce',1,'core::capa::INodeListCapability::RegisterNode()'],['../classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d',1,'core::capa::NodeListCapability::RegisterNode(std::string name, std::string description, NodeConfiguration config)'],['../classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3',1,'core::capa::NodeListCapability::RegisterNode(NodeType node_type) const noexcept override']]],
+  ['registernoderenderer_2',['RegisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f',1,'core::capa::RendererCapability']]],
+  ['registertype_3',['registertype',['../classcore_1_1capa_1_1ITypeListCapability.html#aad32f015caa287eb51dfccf78d97ea37',1,'core::capa::ITypeListCapability::RegisterType()'],['../classcore_1_1capa_1_1TypeListCapability.html#a721035ab49599e712c0ef731ffacecb2',1,'core::capa::TypeListCapability::RegisterType()']]],
+  ['removeinputpin_4',['RemoveInputPin',['../classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051',1,'core::Graph']]],
+  ['removemissingnodes_5',['RemoveMissingNodes',['../classeditor_1_1ui_1_1NodeCanvas.html#a83cf632527e91d35bc20ca9a31c00f51',1,'editor::ui::NodeCanvas']]],
+  ['removenode_6',['RemoveNode',['../classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b',1,'core::Graph']]],
+  ['removeoutputpin_7',['RemoveOutputPin',['../classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc',1,'core::Graph']]],
+  ['removeproperty_8',['RemoveProperty',['../classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3',1,'core::Node']]]
 ];

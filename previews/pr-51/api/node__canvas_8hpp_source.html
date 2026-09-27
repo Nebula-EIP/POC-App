@@ -98,55 +98,70 @@ $(document).ready(function(){initNavTree('node__canvas_8hpp_source.html',''); in
   <div class="headertitle"><div class="title">node_canvas.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="graph_8hpp.html">graph/graph.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;node_view.hpp&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>editor::ui {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classeditor_1_1ui_1_1NodeCanvas.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="classeditor_1_1ui_1_1NodeCanvas.html">NodeCanvas</a> final {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>   <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> AddNode(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Node.html">core::Node</a> &amp;node, std::string title,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                 <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> position);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> RemoveMissingNodes(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> ProcessInput();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> Draw() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_struct" href="structeditor_1_1ui_1_1Camera.html">Camera</a> &amp;GetCamera() <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> camera_; }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> std::unordered_map&lt;core::NodeId, std::unique_ptr&lt;NodeView&gt;&gt; &amp;Views()</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> views_;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<a href="node__canvas_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="graph_8hpp.html">graph/graph.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="node__view_8hpp.html">node_view.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>editor::ui {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classeditor_1_1ui_1_1NodeCanvas.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="classeditor_1_1ui_1_1NodeCanvas.html">NodeCanvas</a> final {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>   <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#aa23f71e3c06ea56dc037352a87dacec6">AddNode</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Node.html">core::Node</a> &amp;node, std::string title,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                 <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> position);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#a83cf632527e91d35bc20ca9a31c00f51">RemoveMissingNodes</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> &amp;graph);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>   <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> SelectOnly(<a class="code hl_typedef" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">core::NodeId</a> node_id);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> SelectInRectangle(<a class="code hl_struct" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> rectangle);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::optional&lt;HitResult&gt; HitTest(<a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_struct" href="structeditor_1_1ui_1_1Camera.html">Camera</a> camera_;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    std::unordered_map&lt;core::NodeId, std::unique_ptr&lt;NodeView&gt;&gt; views_;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    std::vector&lt;core::NodeId&gt; draw_order_;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    std::optional&lt;utils::WrappedVector2&gt; selection_start_;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    std::optional&lt;utils::WrappedVector2&gt; drag_start_;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::unordered_map&lt;core::NodeId, utils::WrappedVector2&gt; drag_origins_;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
-</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#a40b6f5f41f129bf937e646df4330cf07">ProcessInput</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#af5bacd55cc0ed230619176d8c77c92b7">Draw</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classeditor_1_1ui_1_1NodeCanvas.html#af35f168b48ede5d2cd433614fe06c7d6">   50</a></span>    <a class="code hl_struct" href="structeditor_1_1ui_1_1Camera.html">Camera</a> &amp;<a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#af35f168b48ede5d2cd433614fe06c7d6">GetCamera</a>() noexcept { <span class="keywordflow">return</span> camera_; }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}  <span class="comment">// namespace editor::ui</span></div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classeditor_1_1ui_1_1NodeCanvas.html#a6a604140fc2cf97d03c3ff5a992e4d4d">   55</a></span>    <span class="keyword">const</span> std::unordered_map&lt;core::NodeId, std::unique_ptr&lt;NodeView&gt;&gt; &amp;<a class="code hl_function" href="classeditor_1_1ui_1_1NodeCanvas.html#a6a604140fc2cf97d03c3ff5a992e4d4d">Views</a>()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        const noexcept {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> views_;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> SelectOnly(<a class="code hl_typedef" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">core::NodeId</a> node_id);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> SelectInRectangle(<a class="code hl_struct" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> rectangle);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    std::optional&lt;HitResult&gt; HitTest(<a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_struct" href="structeditor_1_1ui_1_1Camera.html">Camera</a> camera_;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::unordered_map&lt;core::NodeId, std::unique_ptr&lt;NodeView&gt;&gt; views_;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    std::vector&lt;core::NodeId&gt; draw_order_;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    std::optional&lt;utils::WrappedVector2&gt; selection_start_;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    std::optional&lt;utils::WrappedVector2&gt; drag_start_;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    std::unordered_map&lt;core::NodeId, utils::WrappedVector2&gt; drag_origins_;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}  <span class="comment">// namespace editor::ui</span></div>
 <div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdoc">Collection of linked nodes.</div><div class="ttdef"><b>Definition</b> graph.hpp:32</div></div>
 <div class="ttc" id="aclasscore_1_1Node_html"><div class="ttname"><a href="classcore_1_1Node.html">core::Node</a></div><div class="ttdoc">Forward def to make it a friend.</div><div class="ttdef"><b>Definition</b> node.hpp:26</div></div>
-<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html">editor::ui::NodeCanvas</a></div><div class="ttdef"><b>Definition</b> node_canvas.hpp:25</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html">editor::ui::NodeCanvas</a></div><div class="ttdef"><b>Definition</b> node_canvas.hpp:24</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_a40b6f5f41f129bf937e646df4330cf07"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#a40b6f5f41f129bf937e646df4330cf07">editor::ui::NodeCanvas::ProcessInput</a></div><div class="ttdeci">void ProcessInput()</div><div class="ttdoc">Processes user input for the canvas.</div><div class="ttdef"><b>Definition</b> node_canvas.cpp:77</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_a6a604140fc2cf97d03c3ff5a992e4d4d"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#a6a604140fc2cf97d03c3ff5a992e4d4d">editor::ui::NodeCanvas::Views</a></div><div class="ttdeci">const std::unordered_map&lt; core::NodeId, std::unique_ptr&lt; NodeView &gt; &gt; &amp; Views() const noexcept</div><div class="ttdoc">Gets the views of the nodes in the canvas.</div><div class="ttdef"><b>Definition</b> node_canvas.hpp:55</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_a83cf632527e91d35bc20ca9a31c00f51"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#a83cf632527e91d35bc20ca9a31c00f51">editor::ui::NodeCanvas::RemoveMissingNodes</a></div><div class="ttdeci">void RemoveMissingNodes(const core::Graph &amp;graph)</div><div class="ttdoc">Removes nodes from the canvas that are not present in the graph.</div><div class="ttdef"><b>Definition</b> node_canvas.cpp:36</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_aa23f71e3c06ea56dc037352a87dacec6"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#aa23f71e3c06ea56dc037352a87dacec6">editor::ui::NodeCanvas::AddNode</a></div><div class="ttdeci">void AddNode(const core::Node &amp;node, std::string title, utils::WrappedVector2 position)</div><div class="ttdoc">Adds a new node to the canvas.</div><div class="ttdef"><b>Definition</b> node_canvas.cpp:26</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_af35f168b48ede5d2cd433614fe06c7d6"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#af35f168b48ede5d2cd433614fe06c7d6">editor::ui::NodeCanvas::GetCamera</a></div><div class="ttdeci">Camera &amp; GetCamera() noexcept</div><div class="ttdoc">Gets the camera used by the canvas.</div><div class="ttdef"><b>Definition</b> node_canvas.hpp:50</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1NodeCanvas_html_af5bacd55cc0ed230619176d8c77c92b7"><div class="ttname"><a href="classeditor_1_1ui_1_1NodeCanvas.html#af5bacd55cc0ed230619176d8c77c92b7">editor::ui::NodeCanvas::Draw</a></div><div class="ttdeci">void Draw() const</div><div class="ttdoc">Draws the canvas and all its nodes.</div><div class="ttdef"><b>Definition</b> node_canvas.cpp:129</div></div>
 <div class="ttc" id="adatatypes_8hpp_html_adb6f25f6d274110367a1702e366e2e69"><div class="ttname"><a href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">core::NodeId</a></div><div class="ttdeci">uint32_t NodeId</div><div class="ttdoc">Unique id for each Node.</div><div class="ttdef"><b>Definition</b> datatypes.hpp:23</div></div>
 <div class="ttc" id="agraph_8hpp_html"><div class="ttname"><a href="graph_8hpp.html">graph.hpp</a></div><div class="ttdoc">The graph is a collection of nodes connected together.</div></div>
-<div class="ttc" id="astructeditor_1_1ui_1_1Camera_html"><div class="ttname"><a href="structeditor_1_1ui_1_1Camera.html">editor::ui::Camera</a></div><div class="ttdef"><b>Definition</b> node_view.hpp:23</div></div>
+<div class="ttc" id="anode__view_8hpp_html"><div class="ttname"><a href="node__view_8hpp.html">node_view.hpp</a></div><div class="ttdoc">Declaration of the NodeView class, which represents a visual node in the editor's UI.</div></div>
+<div class="ttc" id="astructeditor_1_1ui_1_1Camera_html"><div class="ttname"><a href="structeditor_1_1ui_1_1Camera.html">editor::ui::Camera</a></div><div class="ttdef"><b>Definition</b> node_view.hpp:22</div></div>
 <div class="ttc" id="astructutils_1_1WrappedRectangle_html"><div class="ttname"><a href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a></div><div class="ttdef"><b>Definition</b> raylib_wrapper.hpp:127</div></div>
 <div class="ttc" id="astructutils_1_1WrappedVector2_html"><div class="ttname"><a href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a></div><div class="ttdef"><b>Definition</b> raylib_wrapper.hpp:122</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -154,7 +169,7 @@ $(document).ready(function(){initNavTree('node__canvas_8hpp_source.html',''); in
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a31afd56823c6335224242a3eb4525db.html">editor</a></li><li class="navelem"><a class="el" href="dir_92dccbd6dd8271d99a6eedf36eee7e8d.html">ui</a></li><li class="navelem"><b>node_canvas.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a31afd56823c6335224242a3eb4525db.html">editor</a></li><li class="navelem"><a class="el" href="dir_92dccbd6dd8271d99a6eedf36eee7e8d.html">ui</a></li><li class="navelem"><a class="el" href="node__canvas_8hpp.html">node_canvas.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

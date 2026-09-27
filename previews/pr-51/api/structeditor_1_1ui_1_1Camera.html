@@ -110,11 +110,11 @@ Collaboration diagram for editor::ui::Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02134ae66751900d4aa40ce9e3b25d7d" id="r_a02134ae66751900d4aa40ce9e3b25d7d"><td class="memItemLeft" align="right" valign="top"><a id="a02134ae66751900d4aa40ce9e3b25d7d" name="a02134ae66751900d4aa40ce9e3b25d7d"></a>
-<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ScreenToWorld</b> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) const noexcept</td></tr>
+<tr class="memitem:a02134ae66751900d4aa40ce9e3b25d7d" id="r_a02134ae66751900d4aa40ce9e3b25d7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1ui_1_1Camera.html#a02134ae66751900d4aa40ce9e3b25d7d">ScreenToWorld</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) const noexcept</td></tr>
+<tr class="memdesc:a02134ae66751900d4aa40ce9e3b25d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a screen position to a world position.  <br /></td></tr>
 <tr class="separator:a02134ae66751900d4aa40ce9e3b25d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83be18093c26ef8c29480c2a9bf065d0" id="r_a83be18093c26ef8c29480c2a9bf065d0"><td class="memItemLeft" align="right" valign="top"><a id="a83be18093c26ef8c29480c2a9bf065d0" name="a83be18093c26ef8c29480c2a9bf065d0"></a>
-<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>WorldToScreen</b> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) const noexcept</td></tr>
+<tr class="memitem:a83be18093c26ef8c29480c2a9bf065d0" id="r_a83be18093c26ef8c29480c2a9bf065d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1ui_1_1Camera.html#a83be18093c26ef8c29480c2a9bf065d0">WorldToScreen</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> point) const noexcept</td></tr>
+<tr class="memdesc:a83be18093c26ef8c29480c2a9bf065d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a world position to a screen position.  <br /></td></tr>
 <tr class="separator:a83be18093c26ef8c29480c2a9bf065d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -126,9 +126,80 @@ Public Attributes</h2></td></tr>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>zoom_</b> = 1.0F</td></tr>
 <tr class="separator:acb7c3b2403a742b139638716087039d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a02134ae66751900d4aa40ce9e3b25d7d" name="a02134ae66751900d4aa40ce9e3b25d7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02134ae66751900d4aa40ce9e3b25d7d">&#9670;&#160;</a></span>ScreenToWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> editor::ui::Camera::ScreenToWorld </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a screen position to a world position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>The screen position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding world position. </dd></dl>
+
+</div>
+</div>
+<a id="a83be18093c26ef8c29480c2a9bf065d0" name="a83be18093c26ef8c29480c2a9bf065d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83be18093c26ef8c29480c2a9bf065d0">&#9670;&#160;</a></span>WorldToScreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> editor::ui::Camera::WorldToScreen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts a world position to a screen position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>The world position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding screen position. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>src/editor/ui/<a class="el" href="node__view_8hpp_source.html">node_view.hpp</a></li>
-<li>src/editor/ui/<b>node_view.cpp</b></li>
+<li>src/editor/ui/<a class="el" href="node__view_8cpp.html">node_view.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

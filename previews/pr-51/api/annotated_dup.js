@@ -58,8 +58,11 @@ var annotated_dup =
       [ "ModuleValidationException", "classcore_1_1ModuleValidationException.html", null ],
       [ "Node", "classcore_1_1Node.html", "classcore_1_1Node" ],
       [ "NodeAlreadyExistsException", "classcore_1_1NodeAlreadyExistsException.html", null ],
+      [ "NodeCatalog", "classcore_1_1NodeCatalog.html", "classcore_1_1NodeCatalog" ],
+      [ "NodeDescriptor", "structcore_1_1NodeDescriptor.html", null ],
       [ "NodeException", "classcore_1_1NodeException.html", null ],
       [ "NodeNotFoundException", "classcore_1_1NodeNotFoundException.html", null ],
+      [ "NodePinDescriptor", "structcore_1_1NodePinDescriptor.html", null ],
       [ "NodeTypeException", "classcore_1_1NodeTypeException.html", null ],
       [ "Pin", "structcore_1_1Pin.html", null ],
       [ "PinNotFoundException", "classcore_1_1PinNotFoundException.html", null ],
@@ -68,11 +71,11 @@ var annotated_dup =
     ] ],
     [ "editor", null, [
       [ "ui", null, [
-        [ "Camera", "structeditor_1_1ui_1_1Camera.html", null ],
+        [ "Camera", "structeditor_1_1ui_1_1Camera.html", "structeditor_1_1ui_1_1Camera" ],
         [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
         [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
-        [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
-        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", null ]
+        [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", "classeditor_1_1ui_1_1NodeCanvas" ],
+        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ]
       ] ],
       [ "Application", "classeditor_1_1Application.html", null ]
     ] ],
