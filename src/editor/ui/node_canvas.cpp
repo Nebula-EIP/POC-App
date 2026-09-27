@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 26-09-2026
+ * @author Last modified by NAthanBezard
+ * @date Last modified on 27-09-2026
  */
 #include "node_canvas.hpp"
 
@@ -75,9 +75,9 @@ void NodeCanvas::SelectInRectangle(utils::WrappedRectangle rectangle) {
     }
 }
 
-void NodeCanvas::ProcessInput() {
+void NodeCanvas::ProcessInput(const render::Camera &camera) {
     const auto kCursor =
-        camera_.ScreenToWorld(utils::GetCursorPositionWrapped());
+        camera.ScreenToWorld(utils::GetCursorPositionWrapped());
     if (utils::IsLeftClicked()) {
         const auto kHit = HitTest(kCursor);
         const bool kAdditive =
@@ -127,8 +127,8 @@ void NodeCanvas::ProcessInput() {
     }
 }
 
-void NodeCanvas::Draw() const {
-    for (const auto kId : draw_order_) views_.at(kId)->Draw(camera_);
+void NodeCanvas::Draw(const render::Camera &camera) const {
+    for (const auto kId : draw_order_) views_.at(kId)->Draw(camera);
 }
 
 }  // namespace editor::ui

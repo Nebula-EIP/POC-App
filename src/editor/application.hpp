@@ -6,7 +6,7 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by Nolan Papa
+ * @author Last modified by NathanBezard
  * @date Last modified on 26-09-2026
  */
 
@@ -20,7 +20,8 @@
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
-#include "ui/node_canvas.hpp"
+#include "render/camera.hpp"
+#include "render/renderer.hpp"
 #include "utils/raylib_wrapper.hpp"
 
 namespace editor {
@@ -28,7 +29,7 @@ namespace editor {
 class Application {
    public:
     explicit Application(std::filesystem::path module_path);
-    ~Application();
+    ~Application() = default;
 
     Application(const Application &) = delete;
     Application &operator=(const Application &) = delete;
@@ -54,17 +55,18 @@ class Application {
     utils::WrappedVector2 SpawnPosition() const;
 
     std::filesystem::path module_path_;
-    bool window_ready_ = false;
     bool should_quit_ = false;
     utils::WrappedVector2 cursor_position_{0.0F, 0.0F};
 
-    core::ModuleId module_id_ = 0;
+    render::Renderer renderer_;
+    render::Camera camera_;
+
     core::ModuleLoader loader_;
+    core::ModuleId module_id_ = 0;
 
     core::IModule *module_ = nullptr;
     core::Graph graph_;
-    ui::NodeCanvas node_canvas_;
-    // Tob bar variable
+    // Top bar variable
 };
 
 }  // namespace editor

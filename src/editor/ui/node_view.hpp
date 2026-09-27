@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 26-09-2026
+ * @author Last modified by NathanBezard
+ * @date Last modified on 27-09-2026
  */
 
 #pragma once
@@ -16,34 +16,10 @@
 #include <vector>
 
 #include "graph/node.hpp"
+#include "render/camera.hpp"
 #include "utils/raylib_wrapper.hpp"
 
 namespace editor::ui {
-
-struct Camera {
-    utils::WrappedVector2 offset_{0.0F, 0.0F};
-    float zoom_ = 1.0F;
-
-    /**
-     *@brief Converts a screen position to a world position.
-     *
-     * @param point The screen position.
-     *
-     * @return The corresponding world position.
-     */
-    utils::WrappedVector2 ScreenToWorld(
-        utils::WrappedVector2 point) const noexcept;
-
-    /**
-     * @brief Converts a world position to a screen position.
-     *
-     * @param point The world position.
-     *
-     * @return The corresponding screen position.
-     */
-    utils::WrappedVector2 WorldToScreen(
-        utils::WrappedVector2 point) const noexcept;
-};
 
 /**
  * @brief Represents the different parts of a node that can be hit by a mouse
@@ -135,7 +111,7 @@ class NodeView final {
      *
      * @param camera The camera to use for drawing.
      */
-    void Draw(const Camera &camera) const;
+    void Draw(const render::Camera &camera) const;
 
    private:
     /**

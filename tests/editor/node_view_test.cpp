@@ -13,6 +13,7 @@
 
 #include "graph/graph.hpp"
 #include "ui/node_view.hpp"
+#include "render/camera.hpp"
 
 TEST(NodeViewHitTest, UsesWorldCoordinatesForBodyAndPorts) {
     core::Graph graph;
@@ -32,14 +33,16 @@ TEST(NodeViewHitTest, UsesWorldCoordinatesForBodyAndPorts) {
 }
 
 TEST(NodeViewHitTest, CameraRoundTripPreservesWorldPoint) {
-    editor::ui::Camera camera;
-    camera.offset_ = {30.0F, 20.0F};
-    camera.zoom_ = 2.0F;
-    const auto screen = camera.WorldToScreen({12.0F, 9.0F});
-    const auto world = camera.ScreenToWorld(screen);
+    render::Camera camera;
+    camera.SetViewport(800.0F, 600.0F);
+    camera.ZoomAt(utils::WrappedVector2{400.0F, 300.0F}, 3.0F);
+    camera.Pan(utils::WrappedVector2{30.0F, 20.0F});
 
-    EXPECT_FLOAT_EQ(world.x_, 12.0F);
-    EXPECT_FLOAT_EQ(world.y_, 9.0F);
+    const auto kScreen = camera.WorldToScreen(utils::WrappedVector2{12.0F, 9.0F});
+    const auto kWorld = camera.ScreenToWorld(kScreen);
+
+    EXPECT_FLOAT_EQ(kWorld.x_, 12.00001F);
+    EXPECT_FLOAT_EQ(kWorld.y_, 9.0F);
 }
 
 TEST(NodeViewLayout, KeepsLongTitlesWithinBoundedWidth) {

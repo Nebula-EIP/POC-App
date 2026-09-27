@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 26-09-2026
+ * @author Last modified by NathanBezard
+ * @date Last modified on 27-09-2026
  */
 
 #include "node_view.hpp"
@@ -32,16 +32,6 @@ constexpr utils::WrappedColor kText = {245, 247, 250, 255};
 constexpr utils::WrappedColor kMutedText = {185, 193, 204, 255};
 
 }  // namespace
-
-utils::WrappedVector2 Camera::ScreenToWorld(
-    utils::WrappedVector2 point) const noexcept {
-    return {(point.x_ - offset_.x_) / zoom_, (point.y_ - offset_.y_) / zoom_};
-}
-
-utils::WrappedVector2 Camera::WorldToScreen(
-    utils::WrappedVector2 point) const noexcept {
-    return {point.x_ * zoom_ + offset_.x_, point.y_ * zoom_ + offset_.y_};
-}
 
 NodeView::NodeView(const core::Node &node, std::string title,
                    utils::WrappedVector2 position)
@@ -134,28 +124,27 @@ utils::WrappedColor NodeView::TypeColor(core::DataType type) noexcept {
     return kPalette[type % (sizeof(kPalette) / sizeof(kPalette[0]))];
 }
 
-void NodeView::Draw(const Camera &camera) const {
+void NodeView::Draw(const render::Camera &camera) const {
     const auto kColor = TypeColor(node_type_);
     const auto kTopLeft = camera.WorldToScreen({bounds_.x_, bounds_.y_});
-    const float kWidth = bounds_.width_ * camera.zoom_;
-    const float kHeight = bounds_.height_ * camera.zoom_;
+    const float kZoom = camera.Zoom();
+    const float kWidth = bounds_.width_ * kZoom;
+    const float kHeight = bounds_.height_ * kZoom;
     utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
                                 kBody);
     utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth,
-                                kHeaderHeight * camera.zoom_, kColor);
+                                kHeaderHeight * kZoom, kColor);
     utils::DrawRectangleLinesWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
                                      selected_ ? kSelected : kBorder);
-    const int kScaledFont =
-        std::max(8, static_cast<int>(kFontSize * camera.zoom_));
-    utils::DrawTextWrapped(
-        title_.c_str(), kTopLeft.x_ + kHorizontalPadding * camera.zoom_,
-        kTopLeft.y_ + 6.0F * camera.zoom_, kScaledFont, kText);
+    const int kScaledFont = std::max(8, static_cast<int>(kFontSize * kZoom));
+    utils::DrawTextWrapped(title_.c_str(),
+                           kTopLeft.x_ + kHorizontalPadding * kZoom,
+                           kTopLeft.y_ + 6.0F * kZoom, kScaledFont, kText);
     for (const auto &port : inputs_) {
         const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
         utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * camera.zoom_,
-                                 TypeColor(port.type_));
+                                 kPortRadius * kZoom, TypeColor(port.type_));
         const auto kTextScreen = camera.WorldToScreen(
             {port.bounds_.x_ + 12.0F, port.bounds_.y_ + 1.0F});
         utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
@@ -165,8 +154,7 @@ void NodeView::Draw(const Camera &camera) const {
         const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
         utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * camera.zoom_,
-                                 TypeColor(port.type_));
+                                 kPortRadius * kZoom, TypeColor(port.type_));
         const float kPortWidth = TextWidth(port.name_);
         const auto kTextScreen = camera.WorldToScreen(
             {port.bounds_.x_ - kPortWidth - 8.0F, port.bounds_.y_ + 1.0F});

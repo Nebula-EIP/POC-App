@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 26-09-2026
+ * @author Last modified by NathanBezard
+ * @date Last modified on 27-09-2026
  */
 
 #pragma once
@@ -19,11 +19,16 @@
 
 #include "graph/graph.hpp"
 #include "node_view.hpp"
+#include "render/camera.hpp"
 
 namespace editor::ui {
 
 /**
  * @brief Represents a canvas for displaying and interacting with nodes.
+ *
+ * Takes the render::Camera it draws and hit-tests against from the caller
+ * rather than owning one, so there is a single camera (Application's) for
+ * the whole editor — never two that could drift out of sync on pan/zoom.
  */
 class NodeCanvas final {
    public:
@@ -46,20 +51,18 @@ class NodeCanvas final {
 
     /**
      * @brief Processes user input for the canvas.
+     *
+     * @param camera The camera used to convert cursor position to world
+     * space.
      */
-    void ProcessInput();
+    void ProcessInput(const render::Camera &camera);
 
     /**
      * @brief Draws the canvas and all its nodes.
-     */
-    void Draw() const;
-
-    /**
-     * @brief Gets the camera used by the canvas.
      *
-     * @return A reference to the camera.
+     * @param camera The camera the nodes are drawn against.
      */
-    Camera &GetCamera() noexcept { return camera_; }
+    void Draw(const render::Camera &camera) const;
 
     /**
      * @brief Gets the views of the nodes in the canvas.
@@ -89,13 +92,12 @@ class NodeCanvas final {
     /**
      * @brief Performs a hit test on the canvas.
      *
-     * @param point The point to test.
+     * @param point The point to test, in world space.
      *
      * @return The result of the hit test, or std::nullopt if no hit occurred.
      */
     std::optional<HitResult> HitTest(utils::WrappedVector2 point) const;
 
-    Camera camera_;
     std::unordered_map<core::NodeId, std::unique_ptr<NodeView>> views_;
     std::vector<core::NodeId> draw_order_;
     std::optional<utils::WrappedVector2> selection_start_;

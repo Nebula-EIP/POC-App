@@ -16,4 +16,5 @@ target_link_libraries(Nebula PRIVATE
     utils
     raylib
     project_warnings
+    neb_render
 )
