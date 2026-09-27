@@ -1,6 +1,7 @@
 /**
  * @file node_view.hpp
- * @brief Declaration of the NodeView class, which represents a visual node in the editor's UI.
+ * @brief Declaration of the NodeView class, which represents a visual node in
+ * the editor's UI.
  *
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
@@ -44,8 +45,9 @@ struct Camera {
         utils::WrappedVector2 point) const noexcept;
 };
 
- /**
-  * @brief Represents the different parts of a node that can be hit by a mouse click.
+/**
+ * @brief Represents the different parts of a node that can be hit by a mouse
+ * click.
  */
 enum class HitPart { kNone, kBody, kInputPin, kOutputPin };
 
@@ -67,13 +69,13 @@ struct HitResult {
  */
 class NodeView final {
    public:
-   /**
-    * @brief Constructs a new NodeView.
-    *
-    * @param node The core node to view.
-    * @param title The title of the node.
-    * @param position The position of the node.
-    */
+    /**
+     * @brief Constructs a new NodeView.
+     *
+     * @param node The core node to view.
+     * @param title The title of the node.
+     * @param position The position of the node.
+     */
     NodeView(const core::Node &node, std::string title,
              utils::WrappedVector2 position);
 
@@ -136,14 +138,14 @@ class NodeView final {
     void Draw(const Camera &camera) const;
 
    private:
-   /**
-    * @brief Represents a view of a port on the node.
-    *
-    * @param id The ID of the port.
-    * @param name The name of the port.
-    * @param type The data type of the port.
-    * @param bounds The bounds of the port in the node's coordinate system.
-    */
+    /**
+     * @brief Represents a view of a port on the node.
+     *
+     * @param id The ID of the port.
+     * @param name The name of the port.
+     * @param type The data type of the port.
+     * @param bounds The bounds of the port in the node's coordinate system.
+     */
     struct PortView {
         core::PinId id_;
         std::string name_;

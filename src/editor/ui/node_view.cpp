@@ -1,6 +1,7 @@
 /**
  * @file node_view.cpp
- * @brief Implementation of the NodeView class, which represents a visual node in the editor's UI.
+ * @brief Implementation of the NodeView class, which represents a visual node
+ * in the editor's UI.
  *
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026

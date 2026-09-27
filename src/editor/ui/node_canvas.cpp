@@ -1,6 +1,7 @@
 /**
  * @file node_canvas.cpp
- * @brief Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the editor.
+ * @brief Implementation of the NodeCanvas class, which manages the display and
+ * interaction of nodes in the editor.
  *
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026

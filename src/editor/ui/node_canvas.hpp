@@ -1,6 +1,7 @@
 /**
  * @file node_canvas.hpp
- * @brief Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor.
+ * @brief Declaration of the NodeCanvas class, which manages the display and
+ * interaction of nodes in the editor.
  *
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
@@ -26,13 +27,13 @@ namespace editor::ui {
  */
 class NodeCanvas final {
    public:
-   /**
-    * @brief Adds a new node to the canvas.
-    *
-    * @param node The node to add.
-    * @param title The title of the node.
-    * @param position The position of the node.
-    */
+    /**
+     * @brief Adds a new node to the canvas.
+     *
+     * @param node The node to add.
+     * @param title The title of the node.
+     * @param position The position of the node.
+     */
     void AddNode(const core::Node &node, std::string title,
                  utils::WrappedVector2 position);
 
@@ -71,11 +72,11 @@ class NodeCanvas final {
     }
 
    private:
-   /**
-    * @brief Selects only the specified node.
-    *
-    * @param node_id The ID of the node to select.
-    */
+    /**
+     * @brief Selects only the specified node.
+     *
+     * @param node_id The ID of the node to select.
+     */
     void SelectOnly(core::NodeId node_id);
 
     /**
