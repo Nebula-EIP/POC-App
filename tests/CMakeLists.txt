@@ -3,8 +3,8 @@
 # Shared library fixtures loaded at runtime by the ModuleLoader tests.
 add_subdirectory(core/modules/fixtures)
 
-# Collect test files from core only
-file(GLOB_RECURSE TEST_SOURCES "core/**.cpp")
+# Collect test files from core and render
+file(GLOB_RECURSE TEST_SOURCES "core/**.cpp" "render/**.cpp")
 
 # The module fixtures are shared libraries of their own, they must never be
 # compiled into the test executable.
@@ -35,6 +35,7 @@ if(TEST_SOURCES)
         neb_graph
         core_capabilities
         core_modules
+        neb_render
     )
 
     # The loader tests open real shared libraries, so they need their absolute
