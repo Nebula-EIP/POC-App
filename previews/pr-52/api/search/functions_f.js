@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['type_0',['Type',['../classcore_1_1Node.html#a8cb2821fa5214cd1f3eae8f17eda3f2c',1,'core::Node']]],
-  ['typeid_1',['typeid',['../classcore_1_1capa_1_1ITypeListCapability.html#a67fd51bf386baee25a5ae8d5b141e524',1,'core::capa::ITypeListCapability::TypeId()'],['../classcore_1_1capa_1_1TypeListCapability.html#a4a036ddc3e724dfd5ea3a68e71005540',1,'core::capa::TypeListCapability::TypeId(std::string_view type_name) const noexcept override']]],
-  ['typelistcapability_2',['TypeListCapability',['../classcore_1_1capa_1_1TypeListCapability.html#a11810b8ea6fe1718bfe4cc8ce75cd402',1,'core::capa::TypeListCapability']]],
-  ['typename_3',['typename',['../classcore_1_1capa_1_1ITypeListCapability.html#aab50b668048b2f8fd7a21e933387b95d',1,'core::capa::ITypeListCapability::TypeName()'],['../classcore_1_1capa_1_1TypeListCapability.html#a18e691abdbb2cd2ba03489812a67f488',1,'core::capa::TypeListCapability::TypeName()']]],
-  ['types_4',['types',['../classcore_1_1capa_1_1ITypeListCapability.html#aac6daf846a1057e07e4add61a70600d1',1,'core::capa::ITypeListCapability::Types()'],['../classcore_1_1capa_1_1TypeListCapability.html#ac237e97cdf95fd3b6c65adfcdaab94a1',1,'core::capa::TypeListCapability::Types()'],['../classcore_1_1IModule.html#a2232b64d0eda9f4e12e9b6cef27d98ff',1,'core::IModule::Types()']]]
+  ['selected_0',['Selected',['../classeditor_1_1ui_1_1NodeView.html#aceb6d870eea7fbfa1a7d1871bb5992c8',1,'editor::ui::NodeView']]],
+  ['setimporthandler_1',['SetImportHandler',['../classcore_1_1capa_1_1ImporterCapability.html#afabb277bab37462ba1a57ae7aa128157',1,'core::capa::ImporterCapability']]],
+  ['setminimumloglevel_2',['SetMinimumLogLevel',['../classutils_1_1Logger.html#ad8658ce7b05457304296622274c3b9f4',1,'utils::Logger']]],
+  ['setproperty_3',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
+  ['setselected_4',['SetSelected',['../classeditor_1_1ui_1_1NodeView.html#aa5b4d0708b848ea82450bac00475abcf',1,'editor::ui::NodeView']]],
+  ['setviewport_5',['SetViewport',['../classrender_1_1Camera.html#a43b53912b9c56dc707a221a4ce6bcdf3',1,'render::Camera']]],
+  ['shutdown_6',['Shutdown',['../classcore_1_1IModule.html#a69864854c34a8905e39448b9235a73cf',1,'core::IModule']]],
+  ['size_7',['Size',['../classcore_1_1ModuleLoader.html#a571761d51f3891866664c289a7ebe40a',1,'core::ModuleLoader']]],
+  ['supportsnodetype_8',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]],
+  ['symbol_9',['Symbol',['../classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09',1,'core::detail::SharedLibrary']]]
 ];

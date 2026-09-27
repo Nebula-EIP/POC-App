@@ -71,7 +71,10 @@ var annotated_dup =
     ] ],
     [ "editor", null, [
       [ "ui", null, [
-        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ]
+        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
+        [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
+        [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", "classeditor_1_1ui_1_1NodeCanvas" ],
+        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ]
       ] ],
       [ "Application", "classeditor_1_1Application.html", null ]
     ] ],

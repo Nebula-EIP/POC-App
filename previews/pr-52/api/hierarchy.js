@@ -22,6 +22,7 @@ var hierarchy =
     [ "core::capa::ExportError", "structcore_1_1capa_1_1ExportError.html", null ],
     [ "render::FrameCallbacks", "structrender_1_1FrameCallbacks.html", null ],
     [ "core::Graph", "classcore_1_1Graph.html", null ],
+    [ "editor::ui::HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
     [ "core::ICapability", "classcore_1_1ICapability.html", [
       [ "core::capa::IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", null ],
       [ "core::capa::IImporterCapability", "classcore_1_1capa_1_1IImporterCapability.html", [
@@ -44,6 +45,7 @@ var hierarchy =
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
     [ "core::ModuleLoader", "classcore_1_1ModuleLoader.html", null ],
     [ "core::Node", "classcore_1_1Node.html", null ],
+    [ "editor::ui::NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
     [ "core::NodeCatalog", "classcore_1_1NodeCatalog.html", null ],
     [ "core::capa::NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", null ],
     [ "core::capa::NodeDescriptor", "structcore_1_1capa_1_1NodeDescriptor.html", null ],
@@ -51,6 +53,7 @@ var hierarchy =
     [ "core::capa::NodeExportRequest", "structcore_1_1capa_1_1NodeExportRequest.html", null ],
     [ "core::capa::NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", null ],
     [ "core::NodePinDescriptor", "structcore_1_1NodePinDescriptor.html", null ],
+    [ "editor::ui::NodeView", "classeditor_1_1ui_1_1NodeView.html", null ],
     [ "core::Pin", "structcore_1_1Pin.html", null ],
     [ "core::Property", "structcore_1_1Property.html", null ],
     [ "render::Renderer", "classrender_1_1Renderer.html", null ],

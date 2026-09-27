@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['description_0',['Description',['../classcore_1_1IModule.html#a26323b4263d3df7953b7c50292316d0e',1,'core::IModule']]],
-  ['disconnect_1',['disconnect',['../classcore_1_1Graph.html#a49316a00a9ee4854dd45e088350f0ccf',1,'core::Graph::Disconnect(ConnectionId id)'],['../classcore_1_1Graph.html#a50719b04e9b39f866d6eea5387674348',1,'core::Graph::Disconnect(NodeId from, PinId out, NodeId to, PinId in)']]],
-  ['disconnectallinputpin_2',['DisconnectAllInputPin',['../classcore_1_1Graph.html#a4efdbbac321a4f9bb5cc5035ca6a33a1',1,'core::Graph']]],
-  ['disconnectalloutputpin_3',['DisconnectAllOutputPin',['../classcore_1_1Graph.html#a9d4f93acb14286d082f55b74d7badcbe',1,'core::Graph']]],
-  ['disconnectinputpin_4',['DisconnectInputPin',['../classcore_1_1Graph.html#a19140dfed5cfbbdabf5db847a6cc6674',1,'core::Graph']]],
-  ['disconnectnode_5',['DisconnectNode',['../classcore_1_1Graph.html#adff9624ebcd331054671e0622d186fba',1,'core::Graph']]],
-  ['disconnectoutputpin_6',['DisconnectOutputPin',['../classcore_1_1Graph.html#ad99f89d704f2f58ae9a037654e92e18e',1,'core::Graph']]]
+  ['capabilities_0',['Capabilities',['../classcore_1_1ModuleLoader.html#ad53e6255234199206ffda5f42f911222',1,'core::ModuleLoader']]],
+  ['capability_1',['capability',['../classcore_1_1IModule.html#a733ea0abf5eb5981bb09b82e1357b345',1,'core::IModule::Capability() noexcept'],['../classcore_1_1IModule.html#a5591075b39e03505ae50a1fac07964ce',1,'core::IModule::Capability() const noexcept'],['../classcore_1_1IModule.html#a2e66d799a60b6bd3b8c26585a9afb05f',1,'core::IModule::Capability(std::type_index type) noexcept=0'],['../classcore_1_1IModule.html#a6a67f5b6262f527d0c8f9ce4d1e0f97e',1,'core::IModule::Capability(std::type_index type) const noexcept=0']]],
+  ['close_2',['Close',['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary']]],
+  ['connect_3',['Connect',['../classcore_1_1Graph.html#a6861f20c4de4b61aeef14235df1da839',1,'core::Graph']]],
+  ['createmodule_4',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
+  ['createnode_5',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
+  ['current_5fid_6',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
 ];

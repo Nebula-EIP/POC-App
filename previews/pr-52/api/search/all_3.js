@@ -12,5 +12,6 @@ var searchData=
   ['disconnectinputpin_9',['DisconnectInputPin',['../classcore_1_1Graph.html#a19140dfed5cfbbdabf5db847a6cc6674',1,'core::Graph']]],
   ['disconnectnode_10',['DisconnectNode',['../classcore_1_1Graph.html#adff9624ebcd331054671e0622d186fba',1,'core::Graph']]],
   ['disconnectoutputpin_11',['DisconnectOutputPin',['../classcore_1_1Graph.html#ad99f89d704f2f58ae9a037654e92e18e',1,'core::Graph']]],
-  ['duplicatetypenameexception_12',['DuplicateTypeNameException',['../classcore_1_1DuplicateTypeNameException.html',1,'core']]]
+  ['draw_12',['draw',['../classeditor_1_1ui_1_1NodeCanvas.html#a24a20606f0b8fe227284659b86dcc61e',1,'editor::ui::NodeCanvas::Draw()'],['../classeditor_1_1ui_1_1NodeView.html#ac6f71bf4f63ad0df7b66038bc4690fe7',1,'editor::ui::NodeView::Draw()']]],
+  ['duplicatetypenameexception_13',['DuplicateTypeNameException',['../classcore_1_1DuplicateTypeNameException.html',1,'core']]]
 ];

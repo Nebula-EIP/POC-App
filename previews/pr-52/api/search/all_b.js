@@ -18,5 +18,6 @@ var searchData=
   ['modulenotfoundexception_15',['ModuleNotFoundException',['../classcore_1_1ModuleNotFoundException.html',1,'core']]],
   ['modules_16',['Modules',['../classcore_1_1ModuleLoader.html#ab284110ca7486ec46e848872948b1954',1,'core::ModuleLoader']]],
   ['modulesymbolnotfoundexception_17',['ModuleSymbolNotFoundException',['../classcore_1_1ModuleSymbolNotFoundException.html',1,'core']]],
-  ['modulevalidationexception_18',['ModuleValidationException',['../classcore_1_1ModuleValidationException.html',1,'core']]]
+  ['modulevalidationexception_18',['ModuleValidationException',['../classcore_1_1ModuleValidationException.html',1,'core']]],
+  ['moveby_19',['MoveBy',['../classeditor_1_1ui_1_1NodeView.html#ade584a88ce7649eeaab6997fdf926bb9',1,'editor::ui::NodeView']]]
 ];
