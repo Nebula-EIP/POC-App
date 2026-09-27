@@ -25,10 +25,6 @@ namespace {
 constexpr utils::WrappedColor kGridColor = utils::kDarkgray;
 constexpr Color kBackgroundColor = Color{30, 30, 30, 255};
 
-// The one place a raylib type (Camera2D) gets built, entirely internal to
-// this file — Camera itself never sees it. Built from the same
-// Zoom()/Target()/ViewportCenter() that WorldToScreen/ScreenToWorld use, so
-// the GPU transform (BeginMode2D) and manual hit-testing can never disagree.
 ::Camera2D BuildRaylibCamera2D(const Camera &camera) {
     const utils::WrappedVector2 kCenter = camera.ViewportCenter();
     const utils::WrappedVector2 kTarget = camera.Target();
@@ -76,6 +72,8 @@ void Renderer::ProcessInput(Camera &camera) noexcept {
     if (kWheel != 0.0F) {
         camera.ZoomAt(utils::GetCursorPositionWrapped(), kWheel);
     }
+
+    node_canvas_.ProcessInput(camera);
 }
 
 void Renderer::RenderFrame(const Camera &camera,
@@ -88,9 +86,7 @@ void Renderer::RenderFrame(const Camera &camera,
     if (callbacks.draw_links_) {
         callbacks.draw_links_(camera);
     }
-    if (callbacks.draw_nodes_) {
-        callbacks.draw_nodes_(camera);
-    }
+    node_canvas_.Draw(camera);
     EndMode2D();
 
     if (callbacks.draw_ui_) {
@@ -128,7 +124,7 @@ void Renderer::DrawGrid(const Camera &camera) const {
     const float kFirstVerticalLine =
         std::floor(kTopLeft.x_ / kGridSpacing) * kGridSpacing;
     for (float x = kFirstVerticalLine; x <= kBottomRight.x_;
-         x += kGridSpacing) {
+        x += kGridSpacing) {
         utils::DrawLineWrapped(utils::WrappedVector2{x, kTopLeft.y_},
                                utils::WrappedVector2{x, kBottomRight.y_},
                                kThickness, kGridColor);
@@ -137,7 +133,7 @@ void Renderer::DrawGrid(const Camera &camera) const {
     const float kFirstHorizontalLine =
         std::floor(kTopLeft.y_ / kGridSpacing) * kGridSpacing;
     for (float y = kFirstHorizontalLine; y <= kBottomRight.y_;
-         y += kGridSpacing) {
+        y += kGridSpacing) {
         utils::DrawLineWrapped(utils::WrappedVector2{kTopLeft.x_, y},
                                utils::WrappedVector2{kBottomRight.x_, y},
                                kThickness, kGridColor);

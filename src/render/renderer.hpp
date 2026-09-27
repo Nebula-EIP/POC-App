@@ -16,7 +16,8 @@
 #include <string>
 
 #include "camera.hpp"
-#include "raylib_wrapper.hpp"
+#include "ui/node_canvas.hpp"
+#include "utils/raylib_wrapper.hpp"
 
 namespace render {
 
@@ -26,7 +27,6 @@ namespace render {
  */
 struct FrameCallbacks {
     std::function<void(const Camera &)> draw_links_;
-    std::function<void(const Camera &)> draw_nodes_;
     std::function<void()> draw_ui_;
 };
 
@@ -45,25 +45,24 @@ class Renderer {
     Renderer(Renderer &&) = delete;
     Renderer &operator=(Renderer &&) = delete;
 
+    editor::ui::NodeCanvas node_canvas_;
+
     [[nodiscard]] bool ShouldClose() const noexcept;
 
     /**
-     * @brief Processes user input events and updates the camera accordingly.
+     * @brief Processes user input events and updates the camera and node
+     * canvas accordingly.
      *
      * @param camera The camera to be updated based on user input.
-     *
-     * @return void
      */
     void ProcessInput(Camera &camera) noexcept;
 
     /**
-     * @brief Renders a single frame, including the grid, links, nodes, and UI.
+     * @brief Renders a single frame: grid, links, nodes, then UI, in that
+     * order.
      *
      * @param camera The camera used for rendering the scene.
-     * @param callbacks The callbacks for rendering different parts of the
-     * frame.
-     *
-     * @return void
+     * @param callbacks The callbacks for rendering the remaining layers.
      */
     void RenderFrame(const Camera &camera, const FrameCallbacks &callbacks);
 
@@ -72,10 +71,7 @@ class Renderer {
      *        rendering frames until the window is closed.
      *
      * @param camera The camera used for rendering the scene.
-     * @param callbacks The callbacks for rendering different parts of the
-     * frame.
-     *
-     * @return
+     * @param callbacks The callbacks for rendering the remaining layers.
      */
     void Run(Camera &camera, const FrameCallbacks &callbacks);
 

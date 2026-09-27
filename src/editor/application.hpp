@@ -58,11 +58,6 @@ class Application {
     bool should_quit_ = false;
     utils::WrappedVector2 cursor_position_{0.0F, 0.0F};
 
-    // renderer_ opens the window and must outlive every module-derived
-    // resource, so it is declared (and destroyed last, i.e. first here)
-    // before loader_/module_/graph_. graph_ must still be destroyed before
-    // loader_ unloads its module and closes the shared library, so it stays
-    // declared after loader_/module_id_/module_, as before.
     render::Renderer renderer_;
     render::Camera camera_;
 
@@ -71,7 +66,7 @@ class Application {
 
     core::IModule *module_ = nullptr;
     core::Graph graph_;
-    // Tob bar variable
+    // Top bar variable
 };
 
 }  // namespace editor
