@@ -1,0 +1,5 @@
+<map id="src/editor/application.hpp" name="src/editor/application.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,5,192,31"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,79,192,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,44,101,79,96,79,96,44"/>
+</map>

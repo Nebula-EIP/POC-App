@@ -1,0 +1,24 @@
+<map id="src/core/graph/graph.hpp" name="src/core/graph/graph.hpp">
+<area shape="rect" id="Node000001" title="The graph is a collection of nodes connected together." alt="" coords="463,5,645,31"/>
+<area shape="rect" id="Node000002" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="5,86,188,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="471,36,200,81,159,89,158,83,199,76,470,30"/>
+<area shape="rect" id="Node000003" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="212,79,424,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="508,37,376,81,374,76,506,32"/>
+<area shape="rect" id="Node000004" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="448,79,660,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="557,44,557,79,551,79,551,44"/>
+<area shape="rect" id="Node000006" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="643,255,830,280"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="608,33,642,51,673,77,692,111,711,162,736,254,731,255,706,164,688,114,669,80,640,56,605,38"/>
+<area shape="rect" id="Node000008" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="735,79,869,119"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="604,32,743,76,742,81,602,37"/>
+<area shape="rect" id="Node000005" href="$importer__capability_8cpp.html" title="Implementation of the handler&#45;based importer capability." alt="" coords="448,167,660,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="557,133,557,166,551,166,551,133"/>
+<area shape="rect" id="Node000007" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="643,328,830,353"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="739,294,739,328,734,328,734,294"/>
+<area shape="rect" id="Node000009" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="735,167,869,207"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="805,133,805,166,799,166,799,133"/>
+<area shape="rect" id="Node000010" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="894,174,1067,199"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="854,122,958,172,956,176,852,127"/>
+<area shape="poly" id="edge10_Node000010_Node000006" title=" " alt="" coords="933,206,773,257,771,252,931,201"/>
+<area shape="rect" id="Node000011" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="895,255,1067,280"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="983,213,983,254,978,254,978,213"/>
+</map>
