@@ -78,22 +78,34 @@ void NodeCanvas::SelectInRectangle(utils::WrappedRectangle rectangle) {
 void NodeCanvas::ProcessInput(const render::Camera &camera) {
     const auto kCursor =
         camera.ScreenToWorld(utils::GetCursorPositionWrapped());
+
+    if (connection_drag_start_ && utils::IsLeftDown()) {
+        connection_drag_current_ = kCursor;
+    }
+
     if (utils::IsLeftClicked()) {
         const auto kHit = HitTest(kCursor);
         const bool kAdditive =
             utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl);
         if (kHit.has_value()) {
-            if (kAdditive) {
-                auto &view = *views_.at(kHit->node_id_);
-                view.SetSelected(!view.Selected());
-            } else if (!views_.at(kHit->node_id_)->Selected()) {
-                SelectOnly(kHit->node_id_);
-            }
-            drag_start_ = kCursor;
-            drag_origins_.clear();
-            for (const auto &[id, view] : views_) {
-                if (view->Selected()) {
-                    drag_origins_[id] = {view->Bounds().x_, view->Bounds().y_};
+            if (kHit->part_ == HitPart::kInputPin ||
+                kHit->part_ == HitPart::kOutputPin) {
+                connection_drag_start_ = kHit;
+                connection_drag_current_ = kCursor;
+            } else {
+                if (kAdditive) {
+                    auto &view = *views_.at(kHit->node_id_);
+                    view.SetSelected(!view.Selected());
+                } else if (!views_.at(kHit->node_id_)->Selected()) {
+                    SelectOnly(kHit->node_id_);
+                }
+                drag_start_ = kCursor;
+                drag_origins_.clear();
+                for (const auto &[id, view] : views_) {
+                    if (view->Selected()) {
+                        drag_origins_[id] = {view->Bounds().x_,
+                                             view->Bounds().y_};
+                    }
                 }
             }
         } else {
@@ -121,6 +133,16 @@ void NodeCanvas::ProcessInput(const render::Camera &camera) {
         SelectInRectangle(SelectionRectangle(*selection_start_, kCursor));
     }
     if (!utils::IsLeftDown()) {
+        if (connection_drag_start_) {
+            const auto kHit = HitTest(kCursor);
+            if (kHit.has_value() && (kHit->part_ == HitPart::kInputPin ||
+                                     kHit->part_ == HitPart::kOutputPin)) {
+                pending_connection_ =
+                    std::make_pair(*connection_drag_start_, *kHit);
+            }
+            connection_drag_start_.reset();
+            connection_drag_current_.reset();
+        }
         drag_start_.reset();
         selection_start_.reset();
         drag_origins_.clear();

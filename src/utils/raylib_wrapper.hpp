@@ -140,6 +140,7 @@ typedef struct WrappedCircle {
 /// Keyboard keys used by the editor. Values match raylib's KeyboardKey.
 enum class WrappedKey : int {
     kBackspace = 259,
+    kDelete = 261,
     kLeftControl = 341,
     kD = 68,
     kH = 72,

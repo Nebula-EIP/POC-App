@@ -12,6 +12,8 @@
 
 #include "application.hpp"
 
+#include <algorithm>
+#include <cmath>
 #include <source_location>
 #include <stdexcept>
 #include <string>
@@ -28,6 +30,43 @@ constexpr float kNodeHalfWidth = 50.0F;
 constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
+constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
+constexpr utils::WrappedColor kConnectionHovered = {255, 255, 255, 255};
+constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
+
+bool HitTestBezier(utils::WrappedVector2 point, utils::WrappedVector2 start,
+                   utils::WrappedVector2 end, float thickness) {
+    const float kOffset = std::max(std::abs(end.x_ - start.x_) / 2.0f, 40.0f);
+    utils::WrappedVector2 p0 = start;
+    utils::WrappedVector2 p1 = {start.x_ + kOffset, start.y_};
+    utils::WrappedVector2 p2 = {end.x_ - kOffset, end.y_};
+    utils::WrappedVector2 p3 = end;
+
+    utils::WrappedVector2 last_p = p0;
+    const int kSegments = 24;
+    for (int i = 1; i <= kSegments; ++i) {
+        float t = static_cast<float>(i) / kSegments;
+        float u = 1.0f - t;
+        float tt = t * t;
+        float uu = u * u;
+        float uuu = uu * u;
+        float ttt = tt * t;
+
+        utils::WrappedVector2 p;
+        p.x_ =
+            uuu * p0.x_ + 3 * uu * t * p1.x_ + 3 * u * tt * p2.x_ + ttt * p3.x_;
+        p.y_ =
+            uuu * p0.y_ + 3 * uu * t * p1.y_ + 3 * u * tt * p2.y_ + ttt * p3.y_;
+
+        if (utils::CheckCollisionPointLineWrapped(
+                point, last_p, p, static_cast<int>(thickness))) {
+            return true;
+        }
+        last_p = p;
+    }
+    return false;
+}
+
 }  // namespace
 
 Application::Application(std::filesystem::path module_path)
@@ -141,6 +180,71 @@ void Application::ProcessInput() {
 
     cursor_position_ = utils::GetCursorPositionWrapped();
 
+    if (utils::IsLeftClicked()) {
+        for (const auto &[id, view] : renderer_.node_canvas_.Views()) {
+            view->ClearErrorPin();
+        }
+    }
+
+    // Check for pending connection requests
+    if (auto pending = renderer_.node_canvas_.PopPendingConnectionRequest()) {
+        const auto &[start_hit, end_hit] = *pending;
+        if (start_hit.part_ == ui::HitPart::kOutputPin &&
+            end_hit.part_ == ui::HitPart::kInputPin) {
+            try {
+                graph_.Connect(start_hit.node_id_, start_hit.pin_id_,
+                               end_hit.node_id_, end_hit.pin_id_);
+            } catch (const std::exception &) {
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(end_hit.pin_id_);
+                }
+            }
+        } else if (start_hit.part_ == ui::HitPart::kInputPin &&
+                   end_hit.part_ == ui::HitPart::kOutputPin) {
+            try {
+                graph_.Connect(end_hit.node_id_, end_hit.pin_id_,
+                               start_hit.node_id_, start_hit.pin_id_);
+            } catch (const std::exception &) {
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(end_hit.pin_id_);
+                }
+            }
+        }
+    }
+
+    // Hit test for connection selection and deletion
+    const auto kCursorWorld = camera_.ScreenToWorld(cursor_position_);
+    if (utils::IsLeftClicked()) {
+        hovered_connection_ = std::nullopt;
+        const auto &views = renderer_.node_canvas_.Views();
+        for (const auto &[id, connection] : graph_.GetAllConnections()) {
+            if (!views.contains(connection.from_node_) ||
+                !views.contains(connection.to_node_)) {
+                continue;
+            }
+            const auto kStartPos = views.at(connection.from_node_)
+                                       ->GetPinPosition(connection.out_pin_);
+            const auto kEndPos = views.at(connection.to_node_)
+                                     ->GetPinPosition(connection.in_pin_);
+            if (kStartPos && kEndPos) {
+                if (HitTestBezier(kCursorWorld, *kStartPos, *kEndPos, 8.0f)) {
+                    hovered_connection_ = id;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (hovered_connection_ &&
+        utils::IsKeyPressedWrapped(utils::WrappedKey::kDelete)) {
+        graph_.Disconnect(*hovered_connection_);
+        hovered_connection_ = std::nullopt;
+    }
+
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kH)) {
         if (utils::IsCursorHiddenWrapped()) {
             utils::ShowCursorWrapped();
@@ -156,8 +260,40 @@ void Application::ProcessInput() {
     // Update top bar
 }
 
+void Application::DrawLinks(const render::Camera &camera) {
+    (void)camera;  // Unused but passed by callback
+    const auto &views = renderer_.node_canvas_.Views();
+    for (const auto &[id, connection] : graph_.GetAllConnections()) {
+        if (!views.contains(connection.from_node_) ||
+            !views.contains(connection.to_node_)) {
+            continue;
+        }
+        const auto kStartPos = views.at(connection.from_node_)
+                                   ->GetPinPosition(connection.out_pin_);
+        const auto kEndPos =
+            views.at(connection.to_node_)->GetPinPosition(connection.in_pin_);
+
+        if (kStartPos && kEndPos) {
+            const bool kIsHovered =
+                hovered_connection_ && *hovered_connection_ == id;
+            const auto kColor =
+                kIsHovered ? kConnectionHovered : kConnectionNormal;
+            utils::DrawLineBezierWrapped(*kStartPos, *kEndPos, 3.0f, kColor);
+        }
+    }
+
+    if (auto ghost_link = renderer_.node_canvas_.GetConnectionDragLine()) {
+        utils::DrawLineBezierWrapped(ghost_link->first, ghost_link->second,
+                                     3.0f, kConnectionGhost);
+    }
+}
+
 void Application::DrawFrame() {
-    renderer_.RenderFrame(camera_, render::FrameCallbacks{});
+    renderer_.RenderFrame(
+        camera_, render::FrameCallbacks{
+                     .draw_links_ =
+                         [this](const render::Camera &cam) { DrawLinks(cam); },
+                     .draw_ui_ = nullptr});
 }
 
 }  // namespace editor

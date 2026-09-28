@@ -125,42 +125,58 @@ utils::WrappedColor NodeView::TypeColor(core::DataType type) noexcept {
 }
 
 void NodeView::Draw(const render::Camera &camera) const {
+    (void)camera;  // Handled by Raylib's BeginMode2D
     const auto kColor = TypeColor(node_type_);
-    const auto kTopLeft = camera.WorldToScreen({bounds_.x_, bounds_.y_});
-    const float kZoom = camera.Zoom();
-    const float kWidth = bounds_.width_ * kZoom;
-    const float kHeight = bounds_.height_ * kZoom;
-    utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
-                                kBody);
-    utils::DrawRectangleWrapped(kTopLeft.x_, kTopLeft.y_, kWidth,
-                                kHeaderHeight * kZoom, kColor);
-    utils::DrawRectangleLinesWrapped(kTopLeft.x_, kTopLeft.y_, kWidth, kHeight,
+
+    utils::DrawRectangleWrapped(bounds_.x_, bounds_.y_, bounds_.width_,
+                                bounds_.height_, kBody);
+    utils::DrawRectangleWrapped(bounds_.x_, bounds_.y_, bounds_.width_,
+                                kHeaderHeight, kColor);
+    utils::DrawRectangleLinesWrapped(bounds_.x_, bounds_.y_, bounds_.width_,
+                                     bounds_.height_,
                                      selected_ ? kSelected : kBorder);
-    const int kScaledFont = std::max(8, static_cast<int>(kFontSize * kZoom));
-    utils::DrawTextWrapped(title_.c_str(),
-                           kTopLeft.x_ + kHorizontalPadding * kZoom,
-                           kTopLeft.y_ + 6.0F * kZoom, kScaledFont, kText);
+
+    utils::DrawTextWrapped(title_.c_str(), bounds_.x_ + kHorizontalPadding,
+                           bounds_.y_ + 6.0F, kFontSize, kText);
+
     for (const auto &port : inputs_) {
-        const auto kPortScreen = camera.WorldToScreen(
-            {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
-        utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * kZoom, TypeColor(port.type_));
-        const auto kTextScreen = camera.WorldToScreen(
-            {port.bounds_.x_ + 12.0F, port.bounds_.y_ + 1.0F});
-        utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
-                               kTextScreen.y_, kScaledFont, kMutedText);
+        auto color =
+            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
+        utils::DrawCircleWrapped(port.bounds_.x_ + kPortRadius,
+                                 port.bounds_.y_ + kPortRadius, kPortRadius,
+                                 color);
+        utils::DrawTextWrapped(port.name_.c_str(), port.bounds_.x_ + 12.0F,
+                               port.bounds_.y_ + 1.0F, kFontSize, kMutedText);
+    }
+
+    for (const auto &port : outputs_) {
+        auto color =
+            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
+        utils::DrawCircleWrapped(port.bounds_.x_ + kPortRadius,
+                                 port.bounds_.y_ + kPortRadius, kPortRadius,
+                                 color);
+        const float kPortWidth = TextWidth(port.name_);
+        utils::DrawTextWrapped(port.name_.c_str(),
+                               port.bounds_.x_ - kPortWidth - 8.0F,
+                               port.bounds_.y_ + 1.0F, kFontSize, kMutedText);
+    }
+}
+
+std::optional<utils::WrappedVector2> NodeView::GetPinPosition(
+    core::PinId pin_id) const noexcept {
+    for (const auto &port : inputs_) {
+        if (port.id_ == pin_id) {
+            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                         port.bounds_.y_ + kPortRadius};
+        }
     }
     for (const auto &port : outputs_) {
-        const auto kPortScreen = camera.WorldToScreen(
-            {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
-        utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * kZoom, TypeColor(port.type_));
-        const float kPortWidth = TextWidth(port.name_);
-        const auto kTextScreen = camera.WorldToScreen(
-            {port.bounds_.x_ - kPortWidth - 8.0F, port.bounds_.y_ + 1.0F});
-        utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
-                               kTextScreen.y_, kScaledFont, kMutedText);
+        if (port.id_ == pin_id) {
+            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                         port.bounds_.y_ + kPortRadius};
+        }
     }
+    return std::nullopt;
 }
 
 }  // namespace editor::ui

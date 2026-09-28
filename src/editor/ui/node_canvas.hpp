@@ -74,6 +74,35 @@ class NodeCanvas final {
         return views_;
     }
 
+    /**
+     * @brief Polls if a connection drag just ended and returns the requested
+     * connection.
+     */
+    std::optional<std::pair<HitResult, HitResult>>
+    PopPendingConnectionRequest() noexcept {
+        auto result = pending_connection_;
+        pending_connection_ = std::nullopt;
+        return result;
+    }
+
+    /**
+     * @brief Gets the current drag state for drawing ghost links.
+     */
+    std::optional<std::pair<utils::WrappedVector2, utils::WrappedVector2>>
+    GetConnectionDragLine() const noexcept {
+        if (connection_drag_start_ && connection_drag_current_) {
+            if (auto start_view = views_.find(connection_drag_start_->node_id_);
+                start_view != views_.end()) {
+                if (auto start_pos = start_view->second->GetPinPosition(
+                        connection_drag_start_->pin_id_)) {
+                    return std::make_pair(*start_pos,
+                                          *connection_drag_current_);
+                }
+            }
+        }
+        return std::nullopt;
+    }
+
    private:
     /**
      * @brief Selects only the specified node.
@@ -103,6 +132,10 @@ class NodeCanvas final {
     std::optional<utils::WrappedVector2> selection_start_;
     std::optional<utils::WrappedVector2> drag_start_;
     std::unordered_map<core::NodeId, utils::WrappedVector2> drag_origins_;
+
+    std::optional<HitResult> connection_drag_start_;
+    std::optional<utils::WrappedVector2> connection_drag_current_;
+    std::optional<std::pair<HitResult, HitResult>> pending_connection_;
 };
 
 }  // namespace editor::ui
