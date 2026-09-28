@@ -143,8 +143,10 @@ void NodeView::Draw(const render::Camera &camera) const {
     for (const auto &port : inputs_) {
         const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
+        auto color =
+            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
         utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * kZoom, TypeColor(port.type_));
+                                 kPortRadius * kZoom, color);
         const auto kTextScreen = camera.WorldToScreen(
             {port.bounds_.x_ + 12.0F, port.bounds_.y_ + 1.0F});
         utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
@@ -153,14 +155,33 @@ void NodeView::Draw(const render::Camera &camera) const {
     for (const auto &port : outputs_) {
         const auto kPortScreen = camera.WorldToScreen(
             {port.bounds_.x_ + kPortRadius, port.bounds_.y_ + kPortRadius});
+        auto color =
+            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
         utils::DrawCircleWrapped(kPortScreen.x_, kPortScreen.y_,
-                                 kPortRadius * kZoom, TypeColor(port.type_));
+                                 kPortRadius * kZoom, color);
         const float kPortWidth = TextWidth(port.name_);
         const auto kTextScreen = camera.WorldToScreen(
             {port.bounds_.x_ - kPortWidth - 8.0F, port.bounds_.y_ + 1.0F});
         utils::DrawTextWrapped(port.name_.c_str(), kTextScreen.x_,
                                kTextScreen.y_, kScaledFont, kMutedText);
     }
+}
+
+std::optional<utils::WrappedVector2> NodeView::GetPinPosition(
+    core::PinId pin_id) const noexcept {
+    for (const auto &port : inputs_) {
+        if (port.id_ == pin_id) {
+            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                         port.bounds_.y_ + kPortRadius};
+        }
+    }
+    for (const auto &port : outputs_) {
+        if (port.id_ == pin_id) {
+            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                         port.bounds_.y_ + kPortRadius};
+        }
+    }
+    return std::nullopt;
 }
 
 }  // namespace editor::ui

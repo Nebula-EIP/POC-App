@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -91,6 +92,16 @@ class NodeView final {
     void SetSelected(bool selected) noexcept { selected_ = selected; }
 
     /**
+     * @brief Marks a pin as having an error (e.g., failed connection).
+     */
+    void SetErrorPin(core::PinId pin) noexcept { error_pin_ = pin; }
+
+    /**
+     * @brief Clears the error state of pins.
+     */
+    void ClearErrorPin() noexcept { error_pin_ = 0; }
+
+    /**
      * @brief Moves the node by the specified delta.
      *
      * @param delta The amount to move the node.
@@ -105,6 +116,16 @@ class NodeView final {
      * @return The result of the hit test.
      */
     HitResult HitTest(utils::WrappedVector2 world_point) const noexcept;
+
+    /**
+     * @brief Gets the world position of a specific pin.
+     *
+     * @param pin_id The ID of the pin.
+     *
+     * @return The position of the pin, or std::nullopt if the pin is not found.
+     */
+    std::optional<utils::WrappedVector2> GetPinPosition(
+        core::PinId pin_id) const noexcept;
 
     /**
      * @brief Draws the node.
@@ -161,6 +182,7 @@ class NodeView final {
     std::vector<PortView> inputs_;
     std::vector<PortView> outputs_;
     bool selected_ = false;
+    core::PinId error_pin_ = 0;
 };
 
 }  // namespace editor::ui

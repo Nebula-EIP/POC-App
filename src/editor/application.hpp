@@ -52,6 +52,8 @@ class Application {
     void ProcessInput();
     void DrawFrame();
 
+    void DrawLinks(const render::Camera &camera);
+
     utils::WrappedVector2 SpawnPosition() const;
 
     std::filesystem::path module_path_;
@@ -66,6 +68,8 @@ class Application {
 
     core::IModule *module_ = nullptr;
     core::Graph graph_;
+
+    std::optional<core::ConnectionId> hovered_connection_;
     // Top bar variable
 };
 
