@@ -1,0 +1,29 @@
+<map id="core::ModuleException" name="core::ModuleException">
+<area shape="rect" id="Node000001" title="Base exception for errors related to module management." alt="" coords="363,134,533,159"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1ModuleAlreadyLoadedException.html" title="Thrown when a module is already loaded and cannot be loaded again." alt="" coords="597,5,800,45"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="474,123,522,88,580,55,611,43,613,48,582,60,524,93,477,128"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1ModuleInitializationException.html" title="Thrown when a module fails to initialize." alt="" coords="605,69,792,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="517,128,610,107,611,112,518,133"/>
+<area shape="rect" id="Node000006" href="$classcore_1_1ModuleLoadException.html" title="Thrown when a module fails to load." alt="" coords="598,134,799,159"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="547,144,598,144,598,149,547,149"/>
+<area shape="rect" id="Node000010" href="$classcore_1_1ModuleNotFoundException.html" title="Thrown when a module cannot be found or is invalid." alt="" coords="583,183,815,209"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="527,159,634,181,633,186,526,165"/>
+<area shape="rect" id="Node000011" href="$classcore_1_1ModuleValidationException.html" title="Thrown when a module fails validation." alt="" coords="581,243,816,269"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="481,164,528,192,582,219,647,241,645,246,580,224,526,197,479,169"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="192,134,315,159"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,144,362,144,362,149,328,149"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,134,144,159"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="157,144,192,144,192,149,157,149"/>
+<area shape="rect" id="Node000007" href="$classcore_1_1ModuleFileNotFoundException.html" title="Thrown when a module file cannot be found." alt="" coords="888,35,1079,75"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="791,128,815,119,839,103,863,86,897,72,899,77,865,90,842,107,817,124,793,133"/>
+<area shape="rect" id="Node000008" href="$classcore_1_1ModuleLoadFailedException.html" title="Thrown when a module file is invalid or cannot be loaded." alt="" coords="864,99,1103,125"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="813,130,878,122,879,127,813,135"/>
+<area shape="rect" id="Node000009" href="$classcore_1_1ModuleSymbolNotFoundException.html" title="Thrown when a module does not contain the required entry point." alt="" coords="875,149,1092,189"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="813,153,875,158,874,163,813,158"/>
+<area shape="rect" id="Node000012" href="$classcore_1_1IncompatibleModuleException.html" title="Thrown when a module&#39;s dependencies are not satisfied." alt="" coords="888,213,1079,253"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="830,243,888,238,888,244,830,248"/>
+<area shape="rect" id="Node000013" href="$classcore_1_1InvalidModuleException.html" title="Thrown when a module is invalid or does not meet the required interface." alt="" coords="876,278,1091,303"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="817,268,879,275,878,281,816,273"/>
+<area shape="rect" id="Node000014" href="$classcore_1_1InvalidModuleVersionException.html" title="Thrown when a module&#39;s version is incompatible with the core or other modules." alt="" coords="884,328,1083,368"/>
+<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="746,271,865,313,905,325,904,331,863,319,744,276"/>
+</map>
