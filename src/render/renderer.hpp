@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 26-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 29-09-2026
  */
 
 #pragma once
@@ -54,8 +54,11 @@ class Renderer {
      * canvas accordingly.
      *
      * @param camera The camera to be updated based on user input.
+     * @param pointer_captured True when an overlay (e.g. the top bar) owns the
+     * mouse this frame: the viewport is still updated, but pan, zoom and the
+     * node canvas ignore the mouse.
      */
-    void ProcessInput(Camera &camera) noexcept;
+    void ProcessInput(Camera &camera, bool pointer_captured = false) noexcept;
 
     /**
      * @brief Renders a single frame: grid, links, nodes, then UI, in that

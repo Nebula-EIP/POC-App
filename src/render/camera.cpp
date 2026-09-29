@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 26-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 29-09-2026
  */
 
 #include "camera.hpp"
@@ -41,16 +41,22 @@ void Camera::ZoomAt(utils::WrappedVector2 screen_anchor,
     if (wheel_delta == 0.0F) {
         return;
     }
+    SetZoom(zoom_ * std::pow(kZoomStep, wheel_delta), screen_anchor);
+}
 
+void Camera::SetZoom(float zoom, utils::WrappedVector2 screen_anchor) noexcept {
     const utils::WrappedVector2 kWorldUnderAnchor =
         ScreenToWorld(screen_anchor);
 
-    const float kRawZoom = zoom_ * std::pow(kZoomStep, wheel_delta);
-    zoom_ = std::clamp(kRawZoom, kMinZoom, kMaxZoom);
+    zoom_ = std::clamp(zoom, kMinZoom, kMaxZoom);
+    CenterOn(kWorldUnderAnchor, screen_anchor);
+}
 
+void Camera::CenterOn(utils::WrappedVector2 world,
+                      utils::WrappedVector2 screen_anchor) noexcept {
     const utils::WrappedVector2 kCenter = ViewportCenter();
-    target_.x_ = kWorldUnderAnchor.x_ - (screen_anchor.x_ - kCenter.x_) / zoom_;
-    target_.y_ = kWorldUnderAnchor.y_ - (screen_anchor.y_ - kCenter.y_) / zoom_;
+    target_.x_ = world.x_ - (screen_anchor.x_ - kCenter.x_) / zoom_;
+    target_.y_ = world.y_ - (screen_anchor.y_ - kCenter.y_) / zoom_;
 }
 
 void Camera::SetViewport(float width, float height) noexcept {
