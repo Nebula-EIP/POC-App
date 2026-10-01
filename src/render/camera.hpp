@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 26-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 29-09-2026
  */
 
 #pragma once
@@ -55,6 +55,29 @@ class Camera {
      */
     void ZoomAt(utils::WrappedVector2 screen_anchor,
                 float wheel_delta) noexcept;
+
+    /**
+     * @brief Sets an absolute zoom level, keeping the world point under
+     *        screen_anchor in place.
+     *
+     * @param zoom The requested zoom level, clamped to [kMinZoom, kMaxZoom].
+     * @param screen_anchor The screen point that must not move.
+     *
+     * @return void
+     */
+    void SetZoom(float zoom, utils::WrappedVector2 screen_anchor) noexcept;
+
+    /**
+     * @brief Moves the camera so that a world point is displayed at a given
+     *        screen point. The zoom level is left unchanged.
+     *
+     * @param world The world point to bring into view.
+     * @param screen_anchor Where that point must appear on screen.
+     *
+     * @return void
+     */
+    void CenterOn(utils::WrappedVector2 world,
+                  utils::WrappedVector2 screen_anchor) noexcept;
 
     /**
      * @brief Sets the viewport dimensions for the camera

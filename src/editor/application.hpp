@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 26-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 29-09-2026
  */
 
 #pragma once
@@ -22,6 +22,7 @@
 #include "modules/module.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
 
 namespace editor {
@@ -43,6 +44,8 @@ class Application {
     void DrawInitialFrame();
     void LoadModule();
     void BuildMenus();
+    void RecenterView();
+    void ResetZoom();
 
     void CreateNodeFromConfiguration(
         core::NodeType type, const core::capa::NodeConfiguration &config,
@@ -55,6 +58,7 @@ class Application {
     void DrawLinks(const render::Camera &camera);
 
     utils::WrappedVector2 SpawnPosition() const;
+    utils::WrappedVector2 CanvasCenter() const;
 
     std::filesystem::path module_path_;
     bool should_quit_ = false;
@@ -70,7 +74,8 @@ class Application {
     core::Graph graph_;
 
     std::optional<core::ConnectionId> hovered_connection_;
-    // Top bar variable
+
+    ui::TopBar top_bar_;
 };
 
 }  // namespace editor
