@@ -43,6 +43,8 @@ var hierarchy =
     [ "core::capa::ImportError", "structcore_1_1capa_1_1ImportError.html", null ],
     [ "core::capa::ImportRequest", "structcore_1_1capa_1_1ImportRequest.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
+    [ "editor::ui::Menu", "classeditor_1_1ui_1_1Menu.html", null ],
+    [ "editor::ui::MenuItem", "structeditor_1_1ui_1_1MenuItem.html", null ],
     [ "core::ModuleLoader", "classcore_1_1ModuleLoader.html", null ],
     [ "core::Node", "classcore_1_1Node.html", null ],
     [ "editor::ui::NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
@@ -89,6 +91,9 @@ var hierarchy =
       ] ]
     ] ],
     [ "core::detail::SharedLibrary", "classcore_1_1detail_1_1SharedLibrary.html", null ],
+    [ "editor::ui::TopBar", "classeditor_1_1ui_1_1TopBar.html", null ],
+    [ "editor::ui::TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", null ],
+    [ "editor::ui::TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ],
     [ "core::capa::ITypeListCapability::TypeDefinition", "structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html", null ],
     [ "core::capa::TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ],
     [ "core::IModule::Version", "structcore_1_1IModule_1_1Version.html", null ],

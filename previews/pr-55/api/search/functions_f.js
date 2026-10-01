@@ -7,8 +7,9 @@ var searchData=
   ['setproperty_4',['SetProperty',['../classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033',1,'core::Node']]],
   ['setselected_5',['SetSelected',['../classeditor_1_1ui_1_1NodeView.html#aa5b4d0708b848ea82450bac00475abcf',1,'editor::ui::NodeView']]],
   ['setviewport_6',['SetViewport',['../classrender_1_1Camera.html#a43b53912b9c56dc707a221a4ce6bcdf3',1,'render::Camera']]],
-  ['shutdown_7',['Shutdown',['../classcore_1_1IModule.html#a69864854c34a8905e39448b9235a73cf',1,'core::IModule']]],
-  ['size_8',['Size',['../classcore_1_1ModuleLoader.html#a571761d51f3891866664c289a7ebe40a',1,'core::ModuleLoader']]],
-  ['supportsnodetype_9',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]],
-  ['symbol_10',['Symbol',['../classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09',1,'core::detail::SharedLibrary']]]
+  ['setzoom_7',['SetZoom',['../classrender_1_1Camera.html#a65ad7a5e80e70e68eb7704406b6086f5',1,'render::Camera']]],
+  ['shutdown_8',['Shutdown',['../classcore_1_1IModule.html#a69864854c34a8905e39448b9235a73cf',1,'core::IModule']]],
+  ['size_9',['Size',['../classcore_1_1ModuleLoader.html#a571761d51f3891866664c289a7ebe40a',1,'core::ModuleLoader']]],
+  ['supportsnodetype_10',['supportsnodetype',['../classcore_1_1capa_1_1IRendererCapability.html#a5402806f0a8c9a28ca3d941120013c26',1,'core::capa::IRendererCapability::SupportsNodeType()'],['../classcore_1_1capa_1_1RendererCapability.html#ad21fe4c0525586e14d1dde126cb080cf',1,'core::capa::RendererCapability::SupportsNodeType()']]],
+  ['symbol_11',['Symbol',['../classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09',1,'core::detail::SharedLibrary']]]
 ];

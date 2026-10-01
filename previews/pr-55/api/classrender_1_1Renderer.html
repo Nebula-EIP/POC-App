@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab793f05988cc88657b257177d2787e99" id="r_ab793f05988cc88657b257177d2787e99"><td class="memItemLeft" align="right" valign="top"><a id="ab793f05988cc88657b257177d2787e99" name="ab793f05988cc88657b257177d2787e99"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>ShouldClose</b> () const noexcept</td></tr>
 <tr class="separator:ab793f05988cc88657b257177d2787e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79d7a15b2de3f1304b893fb47c86d10f" id="r_a79d7a15b2de3f1304b893fb47c86d10f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Renderer.html#a79d7a15b2de3f1304b893fb47c86d10f">ProcessInput</a> (<a class="el" href="classrender_1_1Camera.html">Camera</a> &amp;camera) noexcept</td></tr>
-<tr class="memdesc:a79d7a15b2de3f1304b893fb47c86d10f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes user input events and updates the camera and node canvas accordingly.  <br /></td></tr>
-<tr class="separator:a79d7a15b2de3f1304b893fb47c86d10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad1879f0516adce426a2d8ee8c5c62c7" id="r_aad1879f0516adce426a2d8ee8c5c62c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Renderer.html#aad1879f0516adce426a2d8ee8c5c62c7">ProcessInput</a> (<a class="el" href="classrender_1_1Camera.html">Camera</a> &amp;camera, bool pointer_captured=false) noexcept</td></tr>
+<tr class="memdesc:aad1879f0516adce426a2d8ee8c5c62c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes user input events and updates the camera and node canvas accordingly.  <br /></td></tr>
+<tr class="separator:aad1879f0516adce426a2d8ee8c5c62c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e12f4c988629f04bf38a413d338f01c" id="r_a6e12f4c988629f04bf38a413d338f01c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Renderer.html#a6e12f4c988629f04bf38a413d338f01c">RenderFrame</a> (const <a class="el" href="classrender_1_1Camera.html">Camera</a> &amp;camera, const <a class="el" href="structrender_1_1FrameCallbacks.html">FrameCallbacks</a> &amp;callbacks)</td></tr>
 <tr class="memdesc:a6e12f4c988629f04bf38a413d338f01c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders a single frame: grid, links, nodes, then UI, in that order.  <br /></td></tr>
 <tr class="separator:a6e12f4c988629f04bf38a413d338f01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,8 +158,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class that manages the rendering loop and drawing of the graph. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a79d7a15b2de3f1304b893fb47c86d10f" name="a79d7a15b2de3f1304b893fb47c86d10f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79d7a15b2de3f1304b893fb47c86d10f">&#9670;&#160;</a></span>ProcessInput()</h2>
+<a id="aad1879f0516adce426a2d8ee8c5c62c7" name="aad1879f0516adce426a2d8ee8c5c62c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad1879f0516adce426a2d8ee8c5c62c7">&#9670;&#160;</a></span>ProcessInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,8 +171,18 @@ Public Attributes</h2></td></tr>
           <td class="memname">void render::Renderer::ProcessInput </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classrender_1_1Camera.html">Camera</a> &amp;&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>pointer_captured</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -186,6 +196,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">camera</td><td>The camera to be updated based on user input. </td></tr>
+    <tr><td class="paramname">pointer_captured</td><td>True when an overlay (e.g. the top bar) owns the mouse this frame: the viewport is still updated, but pan, zoom and the node canvas ignore the mouse. </td></tr>
   </table>
   </dd>
 </dl>

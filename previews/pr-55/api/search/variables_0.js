@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['default_5fproperties_5f_0',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
-  ['description_5f_1',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
-  ['descriptor_2',['descriptor',['../structcore_1_1capa_1_1NodeExportRequest.html#a3a7428c2e2e518c3acf375dd15a714b5',1,'core::capa::NodeExportRequest']]]
+  ['any_5fdown_5f_0',['any_down_',['../structeditor_1_1ui_1_1TopBarInput.html#a2a8dafde9682b47a83d46aa0ebe3fcbb',1,'editor::ui::TopBarInput']]]
 ];

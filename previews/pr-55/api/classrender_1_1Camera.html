@@ -117,6 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb635a5f0fc25d73283d0e689aa32823" id="r_aeb635a5f0fc25d73283d0e689aa32823"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Camera.html#aeb635a5f0fc25d73283d0e689aa32823">ZoomAt</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> screen_anchor, float wheel_delta) noexcept</td></tr>
 <tr class="memdesc:aeb635a5f0fc25d73283d0e689aa32823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zooms the camera at a given screen anchor point, adjusting the zoom level and target position accordingly.  <br /></td></tr>
 <tr class="separator:aeb635a5f0fc25d73283d0e689aa32823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ad7a5e80e70e68eb7704406b6086f5" id="r_a65ad7a5e80e70e68eb7704406b6086f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Camera.html#a65ad7a5e80e70e68eb7704406b6086f5">SetZoom</a> (float zoom, <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> screen_anchor) noexcept</td></tr>
+<tr class="memdesc:a65ad7a5e80e70e68eb7704406b6086f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an absolute zoom level, keeping the world point under screen_anchor in place.  <br /></td></tr>
+<tr class="separator:a65ad7a5e80e70e68eb7704406b6086f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abff6b6d0f30b9569ef84776891b6dcca" id="r_abff6b6d0f30b9569ef84776891b6dcca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Camera.html#abff6b6d0f30b9569ef84776891b6dcca">CenterOn</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> world, <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> screen_anchor) noexcept</td></tr>
+<tr class="memdesc:abff6b6d0f30b9569ef84776891b6dcca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the camera so that a world point is displayed at a given screen point.  <br /></td></tr>
+<tr class="separator:abff6b6d0f30b9569ef84776891b6dcca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43b53912b9c56dc707a221a4ce6bcdf3" id="r_a43b53912b9c56dc707a221a4ce6bcdf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Camera.html#a43b53912b9c56dc707a221a4ce6bcdf3">SetViewport</a> (float width, float height) noexcept</td></tr>
 <tr class="memdesc:a43b53912b9c56dc707a221a4ce6bcdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the viewport dimensions for the camera.  <br /></td></tr>
 <tr class="separator:a43b53912b9c56dc707a221a4ce6bcdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +148,53 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kMa
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A 2D camera that handles panning and zooming, and provides conversion between world and screen coordinates. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abff6b6d0f30b9569ef84776891b6dcca" name="abff6b6d0f30b9569ef84776891b6dcca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abff6b6d0f30b9569ef84776891b6dcca">&#9670;&#160;</a></span>CenterOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void render::Camera::CenterOn </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
+          <td class="paramname"><em>screen_anchor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves the camera so that a world point is displayed at a given screen point. </p>
+<p>The zoom level is left unchanged.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world point to bring into view. </td></tr>
+    <tr><td class="paramname">screen_anchor</td><td>Where that point must appear on screen.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
 <a id="ab12c55929bcec0125c58de2f4ea615c3" name="ab12c55929bcec0125c58de2f4ea615c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab12c55929bcec0125c58de2f4ea615c3">&#9670;&#160;</a></span>Pan()</h2>
 
@@ -216,6 +269,52 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kMa
   <table class="params">
     <tr><td class="paramname">width</td><td>The width of the viewport in pixels. </td></tr>
     <tr><td class="paramname">height</td><td>The height of the viewport in pixels.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a65ad7a5e80e70e68eb7704406b6086f5" name="a65ad7a5e80e70e68eb7704406b6086f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65ad7a5e80e70e68eb7704406b6086f5">&#9670;&#160;</a></span>SetZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void render::Camera::SetZoom </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>zoom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a>&#160;</td>
+          <td class="paramname"><em>screen_anchor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets an absolute zoom level, keeping the world point under screen_anchor in place. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">zoom</td><td>The requested zoom level, clamped to [kMinZoom, kMaxZoom]. </td></tr>
+    <tr><td class="paramname">screen_anchor</td><td>The screen point that must not move.</td></tr>
   </table>
   </dd>
 </dl>

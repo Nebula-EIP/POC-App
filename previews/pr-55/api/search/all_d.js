@@ -4,11 +4,12 @@ var searchData=
   ['on_5fclick_5f_1',['on_click_',['../structcore_1_1capa_1_1Button.html#abb6b596f24d0af304971ba9dffbe6516',1,'core::capa::Button']]],
   ['open_2',['Open',['../classcore_1_1detail_1_1SharedLibrary.html#a4aa178f46262c2c96933e586c967a5ee',1,'core::detail::SharedLibrary']]],
   ['options_5f_3',['options_',['../structcore_1_1capa_1_1Select.html#a860f5c9464ce40b1406bdd0515a896bd',1,'core::capa::Select']]],
-  ['output_5fpins_5f_4',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
-  ['output_5fsymbols_5',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
-  ['outputpin_6',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
-  ['outputpinexists_7',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
-  ['outputpins_8',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
-  ['outputpinscount_9',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
-  ['ownership_20and_20lifetimes_10',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
+  ['other_5fpressed_5f_4',['other_pressed_',['../structeditor_1_1ui_1_1TopBarInput.html#a3eefc6498bd6189c335a52578cfb1553',1,'editor::ui::TopBarInput']]],
+  ['output_5fpins_5f_5',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
+  ['output_5fsymbols_6',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
+  ['outputpin_7',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
+  ['outputpinexists_8',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
+  ['outputpins_9',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
+  ['outputpinscount_10',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
+  ['ownership_20and_20lifetimes_11',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
 ];

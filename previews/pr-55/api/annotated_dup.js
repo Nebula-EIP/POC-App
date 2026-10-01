@@ -73,8 +73,13 @@ var annotated_dup =
       [ "ui", null, [
         [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
         [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
+        [ "Menu", "classeditor_1_1ui_1_1Menu.html", "classeditor_1_1ui_1_1Menu" ],
+        [ "MenuItem", "structeditor_1_1ui_1_1MenuItem.html", "structeditor_1_1ui_1_1MenuItem" ],
         [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", "classeditor_1_1ui_1_1NodeCanvas" ],
-        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ]
+        [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ],
+        [ "TopBar", "classeditor_1_1ui_1_1TopBar.html", "classeditor_1_1ui_1_1TopBar" ],
+        [ "TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", "structeditor_1_1ui_1_1TopBarInput" ],
+        [ "TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ]
       ] ],
       [ "Application", "classeditor_1_1Application.html", null ]
     ] ],
