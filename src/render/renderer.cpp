@@ -78,6 +78,8 @@ void Renderer::ProcessInput(Camera &camera) noexcept {
 
 void Renderer::RenderFrame(const Camera &camera,
                            const FrameCallbacks &callbacks) {
+    Vector2 scale = GetWindowScaleDPI();
+    SetMouseScale(1.0f / scale.x, 1.0f / scale.y);
     utils::BeginFrame();
     ClearBackground(kBackgroundColor);
 
