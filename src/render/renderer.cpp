@@ -39,7 +39,7 @@ constexpr Color kBackgroundColor = Color{30, 30, 30, 255};
 }  // namespace
 
 Renderer::Renderer(int width, int height, std::string title) {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(width, height, title.c_str());
 
     if (!utils::IsRaylibReady()) {
@@ -78,8 +78,6 @@ void Renderer::ProcessInput(Camera &camera) noexcept {
 
 void Renderer::RenderFrame(const Camera &camera,
                            const FrameCallbacks &callbacks) {
-    Vector2 scale = GetWindowScaleDPI();
-    SetMouseScale(1.0f / scale.x, 1.0f / scale.y);
     utils::BeginFrame();
     ClearBackground(kBackgroundColor);
 
