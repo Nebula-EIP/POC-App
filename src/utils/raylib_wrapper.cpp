@@ -7,6 +7,10 @@ static_assert(static_cast<int>(WrappedKey::kBackspace) == KEY_BACKSPACE);
 static_assert(static_cast<int>(WrappedKey::kLeftControl) == KEY_LEFT_CONTROL);
 static_assert(static_cast<int>(WrappedKey::kD) == KEY_D);
 static_assert(static_cast<int>(WrappedKey::kH) == KEY_H);
+static_assert(static_cast<int>(WrappedKey::kA) == KEY_A);
+static_assert(static_cast<int>(WrappedKey::kZ) == KEY_Z);
+static_assert(static_cast<int>(WrappedKey::kLeftShift) == KEY_LEFT_SHIFT);
+static_assert(static_cast<int>(WrappedKey::kLeftAlt) == KEY_LEFT_ALT);
 
 // Window functions
 

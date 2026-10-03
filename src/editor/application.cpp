@@ -139,17 +139,75 @@ void Application::LoadModule() {
 }
 
 void Application::BuildMenus() {
-    // Items without a command are not implemented yet: they are greyed out.
+    // Register actions
+    actions::ActionManager &am = action_manager_;
+
+    am.RegisterAction({"app.quit",
+                       "Quitter",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { should_quit_ = true; }});
+
+    am.RegisterAction({"view.recenter",
+                       "Recentrer",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { RecenterView(); }});
+
+    am.RegisterAction({"view.reset_zoom",
+                       "Zoom 100 %",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { ResetZoom(); }});
+
+    am.RegisterAction(
+        {"node.add_menu",
+         "Ajouter un Node",
+         {utils::WrappedKey::kA, false, true, false},  // Shift+A
+         [this] {
+             context_menu_.Clear();
+             if (module_ != nullptr) {
+                 // Populate node types
+                 core::NodeType type_id = 1;
+                 while (const auto *config =
+                            module_->Nodes()->RegisterNode(type_id)) {
+                     const core::NodeType kType = type_id;
+                     const std::string kName = std::string(*config);
+                     context_menu_.AddAction(kName, [this, kType]() {
+                         // We use the mouse position where the menu was opened
+                         const auto kCursorWorld =
+                             camera_.ScreenToWorld(cursor_position_);
+                         CreateNodeFromConfiguration(
+                             kType,
+                             module_->Nodes()->GetNodeConfiguration(kType),
+                             kCursorWorld);
+                     });
+                     ++type_id;
+                 }
+             }
+             context_menu_.OpenAt(cursor_position_, renderer_.ScreenSize().x_,
+                                  renderer_.ScreenSize().y_);
+         }});
+
+    // Build top bar
     top_bar_.AddMenu("Fichier")
         .AddAction("Nouveau")
         .AddAction("Ouvrir...")
         .AddAction("Enregistrer")
         .AddSeparator()
-        .AddAction("Quitter", [this] { should_quit_ = true; });
+        .AddAction(am.GetAction("app.quit")->display_name_,
+                   am.GetAction("app.quit")->callback_,
+                   am.GetAction("app.quit")->shortcut_.ToString());
 
     top_bar_.AddMenu("Affichage")
-        .AddAction("Recentrer", [this] { RecenterView(); })
-        .AddAction("Zoom 100 %", [this] { ResetZoom(); });
+        .AddAction(am.GetAction("view.recenter")->display_name_,
+                   am.GetAction("view.recenter")->callback_,
+                   am.GetAction("view.recenter")->shortcut_.ToString())
+        .AddAction(am.GetAction("view.reset_zoom")->display_name_,
+                   am.GetAction("view.reset_zoom")->callback_,
+                   am.GetAction("view.reset_zoom")->shortcut_.ToString());
+
+    top_bar_.AddMenu("Node").AddAction(
+        am.GetAction("node.add_menu")->display_name_,
+        am.GetAction("node.add_menu")->callback_,
+        am.GetAction("node.add_menu")->shortcut_.ToString());
 }
 
 void Application::RecenterView() {
@@ -217,12 +275,31 @@ utils::WrappedVector2 Application::SpawnPosition() const {
 }
 
 void Application::ProcessInput() {
-    // The top bar goes first: when it owns the mouse (click on the bar, open
-    // menu...), the canvas must not see it. Its commands run inside Update().
-    const bool kPointerCaptured = top_bar_.Update(ui::TopBar::ReadInput());
+    cursor_position_ = utils::GetCursorPositionWrapped();
+
+    // Context menu goes first. If it consumes input, others shouldn't.
+    ui::ContextMenuInput context_menu_input{
+        .cursor_ = cursor_position_,
+        .left_pressed_ = utils::IsLeftClicked(),
+        .right_pressed_ =
+            utils::IsRightClicked(),  // Wait, is there IsRightClicked?
+        .escape_pressed_ =
+            utils::IsKeyPressedWrapped(utils::WrappedKey::kEscape),
+        .screen_width_ = renderer_.ScreenSize().x_,
+        .screen_height_ = renderer_.ScreenSize().y_};
+    const bool kContextCaptured = context_menu_.Update(context_menu_input);
+
+    // The top bar goes second.
+    const bool kTopBarCaptured = top_bar_.Update(ui::TopBar::ReadInput());
+    const bool kPointerCaptured = kContextCaptured || kTopBarCaptured;
+
     renderer_.ProcessInput(camera_, kPointerCaptured);
 
-    cursor_position_ = utils::GetCursorPositionWrapped();
+    // Process shortcuts if pointer is not captured by a menu (or maybe always?)
+    // The requirement says: "Shortcuts must not trigger unrelated actions while
+    // the user is typing in a text field." For now we just process them.
+    action_manager_.ProcessShortcuts();
+
     const bool kCanvasClicked = !kPointerCaptured && utils::IsLeftClicked();
 
     if (kCanvasClicked) {
@@ -338,7 +415,11 @@ void Application::DrawFrame() {
                          [this](const render::Camera &cam) { DrawLinks(cam); },
                      // Screen space, after the canvas: pan and zoom never
                      // move the bar.
-                     .draw_ui_ = [this]() { top_bar_.Draw(); }});
+                     .draw_ui_ =
+                         [this]() {
+                             top_bar_.Draw();
+                             context_menu_.Draw();
+                         }});
 }
 
 }  // namespace editor

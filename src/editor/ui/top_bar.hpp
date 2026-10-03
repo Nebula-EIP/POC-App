@@ -37,6 +37,7 @@ using Command = std::function<void()>;
 struct MenuItem {
     std::string label_;
     Command command_;
+    std::string shortcut_text_;
     bool separator_ = false;
 
     /**
@@ -70,7 +71,8 @@ class Menu {
      * @param command The action to run. Leave it empty for an action that is
      * not implemented yet: the entry is then greyed out.
      */
-    Menu &AddAction(std::string label, Command command = {});
+    Menu &AddAction(std::string label, Command command = {},
+                    std::string shortcut_text = "");
 
     /**
      * @brief Appends a horizontal line between two groups of entries.

@@ -16,12 +16,14 @@
 #include <memory>
 #include <vector>
 
+#include "actions/action_manager.hpp"
 #include "graph/graph.hpp"
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/context_menu.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
 
@@ -76,6 +78,8 @@ class Application {
     std::optional<core::ConnectionId> hovered_connection_;
 
     ui::TopBar top_bar_;
+    ui::ContextMenu context_menu_;
+    actions::ActionManager action_manager_;
 };
 
 }  // namespace editor
