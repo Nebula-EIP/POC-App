@@ -1,0 +1,7 @@
+<map id="src/core/modules/capabilities/renderer_capability.hpp" name="src/core/modules/capabilities/renderer_capability.hpp">
+<area shape="rect" id="Node000001" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="115,5,327,45"/>
+<area shape="rect" id="Node000002" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="5,93,217,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,56,137,95,134,91,184,52"/>
+<area shape="rect" id="Node000003" href="$component__adapter_8hpp_source.html" title=" " alt="" coords="242,93,418,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="257,52,307,91,304,95,254,56"/>
+</map>

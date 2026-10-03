@@ -1,0 +1,12 @@
+<map id="src/editor/ui/top_bar.hpp" name="src/editor/ui/top_bar.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="67,5,245,31"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,167,192,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,39,90,57,70,80,65,102,70,126,80,148,92,165,87,168,76,150,65,127,60,102,66,77,86,53,112,35"/>
+<area shape="rect" id="Node000004" href="$context__menu_8hpp_source.html" title=" " alt="" coords="80,79,232,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="159,44,159,79,153,79,153,44"/>
+<area shape="rect" id="Node000005" href="$top__bar_8cpp.html" title="Implementation of the TopBar class and of the Menu builder." alt="" coords="256,86,435,111"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="197,33,319,84,317,88,195,38"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,240,192,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,206,101,240,96,240,96,206"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="136,132,109,168,105,165,132,128"/>
+</map>

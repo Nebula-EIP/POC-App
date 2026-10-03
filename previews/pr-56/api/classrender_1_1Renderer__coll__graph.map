@@ -1,0 +1,5 @@
+<map id="render::Renderer" name="render::Renderer">
+<area shape="rect" id="Node000001" title="A class that manages the rendering loop and drawing of the graph." alt="" coords="25,93,156,119"/>
+<area shape="rect" id="Node000002" href="$classeditor_1_1ui_1_1NodeCanvas.html" title="Represents a canvas for displaying and interacting with nodes." alt="" coords="5,5,176,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,45,93,93,88,93,88,45"/>
+</map>
