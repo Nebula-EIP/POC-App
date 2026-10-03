@@ -5,6 +5,8 @@ add_executable(Nebula
     ui/node_view.cpp
     ui/node_canvas.cpp
     ui/top_bar.cpp
+    ui/context_menu.cpp
+    actions/action_manager.cpp
 )
 
 target_include_directories(Nebula PRIVATE
