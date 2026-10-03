@@ -141,6 +141,8 @@ typedef struct WrappedCircle {
 enum class WrappedKey : int {
     kNone = 0,
     kA = 65,
+    kQ = 81,
+    kW = 87,
     kZ = 90,
     kLeftShift = 340,
     kLeftAlt = 342,
@@ -148,6 +150,9 @@ enum class WrappedKey : int {
     kBackspace = 259,
     kDelete = 261,
     kLeftControl = 341,
+    kRightControl = 345,
+    kRightShift = 344,
+    kRightAlt = 346,
     kD = 68,
     kH = 72,
 };

@@ -15,9 +15,14 @@ void ActionManager::TriggerAction(const std::string &id) const {
 }
 
 void ActionManager::ProcessShortcuts() const {
-    const bool kCtrl = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl);
-    const bool kShift = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftShift);
-    const bool kAlt = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftAlt);
+    const bool kCtrl =
+        utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl) ||
+        utils::IsKeyDownWrapped(utils::WrappedKey::kRightControl);
+    const bool kShift =
+        utils::IsKeyDownWrapped(utils::WrappedKey::kLeftShift) ||
+        utils::IsKeyDownWrapped(utils::WrappedKey::kRightShift);
+    const bool kAlt = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftAlt) ||
+                      utils::IsKeyDownWrapped(utils::WrappedKey::kRightAlt);
 
     for (const auto &[id, action] : actions_) {
         const auto &shortcut = action.shortcut_;
@@ -25,11 +30,20 @@ void ActionManager::ProcessShortcuts() const {
             continue;
         }
 
-        // Check if modifiers match exactly
         if (shortcut.ctrl_ == kCtrl && shortcut.shift_ == kShift &&
             shortcut.alt_ == kAlt) {
+            // Check for AZERTY 'A' which maps to 'Q' (81) in raylib
+            bool is_pressed = utils::IsKeyPressedWrapped(shortcut.key_);
+            if (shortcut.key_ == utils::WrappedKey::kA && !is_pressed) {
+                is_pressed = utils::IsKeyPressedWrapped(utils::WrappedKey::kQ);
+            }
+            if (shortcut.key_ == utils::WrappedKey::kZ && !is_pressed) {
+                // For completeness, AZERTY Z is QWERTY W
+                is_pressed = utils::IsKeyPressedWrapped(utils::WrappedKey::kW);
+            }
+
             // Only trigger on the exact frame the main key is pressed
-            if (utils::IsKeyPressedWrapped(shortcut.key_)) {
+            if (is_pressed) {
                 if (action.callback_) {
                     action.callback_();
                 }
