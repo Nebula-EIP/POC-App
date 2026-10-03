@@ -165,13 +165,11 @@ void Application::BuildMenus() {
              context_menu_.Clear();
              if (module_ != nullptr) {
                  // Populate node types
-                 core::NodeType type_id = 1;
-                 while (const auto *config =
-                            module_->Nodes()->RegisterNode(type_id)) {
-                     const core::NodeType kType = type_id;
-                     const std::string kName = std::string(*config);
+                 for (const auto &node_meta :
+                      module_->Nodes()->GetAvailableNodes()) {
+                     const core::NodeType kType = node_meta.type_;
+                     const std::string kName = node_meta.name_;
                      context_menu_.AddAction(kName, [this, kType]() {
-                         // We use the mouse position where the menu was opened
                          const auto kCursorWorld =
                              camera_.ScreenToWorld(cursor_position_);
                          CreateNodeFromConfiguration(
@@ -179,7 +177,6 @@ void Application::BuildMenus() {
                              module_->Nodes()->GetNodeConfiguration(kType),
                              kCursorWorld);
                      });
-                     ++type_id;
                  }
              }
              context_menu_.OpenAt(cursor_position_, renderer_.ScreenSize().x_,
