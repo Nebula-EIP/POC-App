@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 05-10-2026
  */
 
 #include "application.hpp"
@@ -163,20 +163,23 @@ void Application::BuildMenus() {
          {utils::WrappedKey::kA, false, true, false},  // Shift+A
          [this] {
              context_menu_.Clear();
+             // Spawn where the menu was opened, not where the item is
+             // clicked.
+             const utils::WrappedVector2 kSpawnWorld =
+                 camera_.ScreenToWorld(cursor_position_);
              if (module_ != nullptr) {
                  // Populate node types
                  for (const auto &node_meta :
                       module_->Nodes()->GetAvailableNodes()) {
                      const core::NodeType kType = node_meta.type_;
                      const std::string kName = node_meta.name_;
-                     context_menu_.AddAction(kName, [this, kType]() {
-                         const auto kCursorWorld =
-                             camera_.ScreenToWorld(cursor_position_);
-                         CreateNodeFromConfiguration(
-                             kType,
-                             module_->Nodes()->GetNodeConfiguration(kType),
-                             kCursorWorld);
-                     });
+                     context_menu_.AddAction(
+                         kName, [this, kType, kSpawnWorld]() {
+                             CreateNodeFromConfiguration(
+                                 kType,
+                                 module_->Nodes()->GetNodeConfiguration(kType),
+                                 kSpawnWorld);
+                         });
                  }
              }
              context_menu_.OpenAt(cursor_position_, renderer_.ScreenSize().x_,
