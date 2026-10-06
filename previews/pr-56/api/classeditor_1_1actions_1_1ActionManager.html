@@ -104,13 +104,11 @@ $(document).ready(function(){initNavTree('classeditor_1_1actions_1_1ActionManage
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0f9a8a826d17807c2fdc751f9cc91cc8" id="r_a0f9a8a826d17807c2fdc751f9cc91cc8"><td class="memItemLeft" align="right" valign="top"><a id="a0f9a8a826d17807c2fdc751f9cc91cc8" name="a0f9a8a826d17807c2fdc751f9cc91cc8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterAction</b> (<a class="el" href="structeditor_1_1actions_1_1Action.html">Action</a> action)</td></tr>
-<tr class="memdesc:a0f9a8a826d17807c2fdc751f9cc91cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an action in the system. <br /></td></tr>
+<tr class="memitem:a0f9a8a826d17807c2fdc751f9cc91cc8" id="r_a0f9a8a826d17807c2fdc751f9cc91cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1actions_1_1ActionManager.html#a0f9a8a826d17807c2fdc751f9cc91cc8">RegisterAction</a> (<a class="el" href="structeditor_1_1actions_1_1Action.html">Action</a> action)</td></tr>
+<tr class="memdesc:a0f9a8a826d17807c2fdc751f9cc91cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an action in the system.  <br /></td></tr>
 <tr class="separator:a0f9a8a826d17807c2fdc751f9cc91cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a9b303b896efe9ea6c047dfacc310d2" id="r_a9a9b303b896efe9ea6c047dfacc310d2"><td class="memItemLeft" align="right" valign="top"><a id="a9a9b303b896efe9ea6c047dfacc310d2" name="a9a9b303b896efe9ea6c047dfacc310d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>TriggerAction</b> (const std::string &amp;id) const</td></tr>
-<tr class="memdesc:a9a9b303b896efe9ea6c047dfacc310d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an action by its ID. <br /></td></tr>
+<tr class="memitem:a9a9b303b896efe9ea6c047dfacc310d2" id="r_a9a9b303b896efe9ea6c047dfacc310d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1actions_1_1ActionManager.html#a9a9b303b896efe9ea6c047dfacc310d2">TriggerAction</a> (const std::string &amp;id) const</td></tr>
+<tr class="memdesc:a9a9b303b896efe9ea6c047dfacc310d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers an action by its ID.  <br /></td></tr>
 <tr class="separator:a9a9b303b896efe9ea6c047dfacc310d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc8385eaea29a496e415cf9ad393615b" id="r_abc8385eaea29a496e415cf9ad393615b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1actions_1_1ActionManager.html#abc8385eaea29a496e415cf9ad393615b">ProcessShortcuts</a> () const</td></tr>
 <tr class="memdesc:abc8385eaea29a496e415cf9ad393615b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes all registered shortcuts based on current keyboard state.  <br /></td></tr>
@@ -163,9 +161,61 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>TriggerAction</b> (co
 
 </div>
 </div>
+<a id="a0f9a8a826d17807c2fdc751f9cc91cc8" name="a0f9a8a826d17807c2fdc751f9cc91cc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f9a8a826d17807c2fdc751f9cc91cc8">&#9670;&#160;</a></span>RegisterAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::actions::ActionManager::RegisterAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structeditor_1_1actions_1_1Action.html">Action</a>&#160;</td>
+          <td class="paramname"><em>action</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registers an action in the system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td>The action to register. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9a9b303b896efe9ea6c047dfacc310d2" name="a9a9b303b896efe9ea6c047dfacc310d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a9b303b896efe9ea6c047dfacc310d2">&#9670;&#160;</a></span>TriggerAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::actions::ActionManager::TriggerAction </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers an action by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The ID of the action to trigger. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/editor/actions/<a class="el" href="action__manager_8hpp_source.html">action_manager.hpp</a></li>
-<li>src/editor/actions/<b>action_manager.cpp</b></li>
+<li>src/editor/actions/<a class="el" href="action__manager_8cpp.html">action_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

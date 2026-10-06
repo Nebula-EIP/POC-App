@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['addaction_0',['addaction',['../classeditor_1_1ui_1_1ContextMenu.html#aeb32b3062145e05c2248c9ac130cc609',1,'editor::ui::ContextMenu::AddAction()'],['../classeditor_1_1ui_1_1Menu.html#a6072890ecb293c0ed42d87616696b52a',1,'editor::ui::Menu::AddAction()']]],
+  ['addaction_0',['addaction',['../classeditor_1_1ui_1_1ContextMenu.html#aeb32b3062145e05c2248c9ac130cc609',1,'editor::ui::ContextMenu::AddAction()'],['../classeditor_1_1ui_1_1Menu.html#a2d4266122d70aa3536d832235bc3cb6f',1,'editor::ui::Menu::AddAction()']]],
   ['addinputpin_1',['AddInputPin',['../classcore_1_1Graph.html#a14614efb6fb0c3553877ddb7b6cccf89',1,'core::Graph']]],
   ['addmenu_2',['AddMenu',['../classeditor_1_1ui_1_1TopBar.html#a42255216f470325484881daa3bcf5910',1,'editor::ui::TopBar']]],
   ['addnode_3',['AddNode',['../classeditor_1_1ui_1_1NodeCanvas.html#aa23f71e3c06ea56dc037352a87dacec6',1,'editor::ui::NodeCanvas']]],

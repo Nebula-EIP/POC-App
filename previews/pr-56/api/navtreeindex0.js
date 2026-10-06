@@ -1,7 +1,11 @@
 var NAVTREEINDEX0 =
 {
-"action_8hpp_source.html":[1,0,0,1,0,0],
-"action__manager_8hpp_source.html":[1,0,0,1,0,1],
+"action_8cpp.html":[1,0,0,1,0,0],
+"action_8hpp.html":[1,0,0,1,0,1],
+"action_8hpp_source.html":[1,0,0,1,0,1],
+"action__manager_8cpp.html":[1,0,0,1,0,2],
+"action__manager_8hpp.html":[1,0,0,1,0,3],
+"action__manager_8hpp_source.html":[1,0,0,1,0,3],
 "annotated.html":[0,0],
 "application_8cpp.html":[1,0,0,1,2],
 "application_8hpp.html":[1,0,0,1,3],
@@ -172,7 +176,7 @@ var NAVTREEINDEX0 =
 "classeditor_1_1ui_1_1ContextMenu.html#aeb32b3062145e05c2248c9ac130cc609":[0,0,1,1,1,0],
 "classeditor_1_1ui_1_1ContextMenu.html#af862c9538115722e9249d7a08256eb7f":[0,0,1,1,1,6],
 "classeditor_1_1ui_1_1Menu.html":[0,0,1,1,5],
-"classeditor_1_1ui_1_1Menu.html#a6072890ecb293c0ed42d87616696b52a":[0,0,1,1,5,0],
+"classeditor_1_1ui_1_1Menu.html#a2d4266122d70aa3536d832235bc3cb6f":[0,0,1,1,5,0],
 "classeditor_1_1ui_1_1Menu.html#a8798bb60649b74c6edf7546068a57490":[0,0,1,1,5,1],
 "classeditor_1_1ui_1_1NodeCanvas.html":[0,0,1,1,7],
 "classeditor_1_1ui_1_1NodeCanvas.html#a05021782ce2c64c62eae878e7512be8e":[0,0,1,1,7,2],
@@ -228,7 +232,9 @@ var NAVTREEINDEX0 =
 "component__adapter_8hpp_source.html":[1,0,0,1,1,0],
 "connection__exception_8hpp.html":[1,0,0,0,0,1,0],
 "connection__exception_8hpp_source.html":[1,0,0,0,0,1,0],
-"context__menu_8hpp_source.html":[1,0,0,1,1,1],
+"context__menu_8cpp.html":[1,0,0,1,1,1],
+"context__menu_8hpp.html":[1,0,0,1,1,2],
+"context__menu_8hpp_source.html":[1,0,0,1,1,2],
 "create__module_8hpp.html":[1,0,0,0,2,1],
 "create__module_8hpp.html#a09ba6e7ee43feb65138808f5bf04aaf4":[1,0,0,0,2,1,0],
 "create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823":[1,0,0,0,2,1,1],
@@ -243,11 +249,5 @@ var NAVTREEINDEX0 =
 "datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69":[1,0,0,0,1,0,6],
 "datatypes_8hpp.html#afb51450daa6bf9848e96d6bd97c4e744":[1,0,0,0,1,0,5],
 "datatypes_8hpp_source.html":[1,0,0,0,1,0],
-"dir_0a29b8064473fdeb1aa9852a35437c48.html":[1,0,0,0,0,2],
-"dir_1899e9f1443dc2c6d730bf840a3ce99f.html":[1,0,0,0,1],
-"dir_1b6b4bc6aed80eb48119088f59c24e55.html":[1,0,0,0,2],
-"dir_1c06c2a6762c1c430813a788f926cb2d.html":[1,0,0,0,0],
-"dir_2a88896ebea06b4ab2c436604ac3f3ed.html":[1,0,0,0,0,0],
-"dir_313caf1132e152dd9b58bea13a4052ca.html":[1,0,0,3],
-"dir_36e300334bb67166f1b726104a558c29.html":[1,0,0,0,3]
+"dir_0a29b8064473fdeb1aa9852a35437c48.html":[1,0,0,0,0,2]
 };
