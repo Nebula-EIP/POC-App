@@ -47,6 +47,7 @@ Renderer::Renderer(int width, int height, std::string title) {
     }
     window_ready_ = true;
     utils::SetFPS(60);
+    SetExitKey(KEY_NULL);
 }
 
 Renderer::~Renderer() {
@@ -59,9 +60,13 @@ bool Renderer::ShouldClose() const noexcept {
     return utils::ShouldCloseRaylib();
 }
 
-void Renderer::ProcessInput(Camera &camera) noexcept {
+void Renderer::ProcessInput(Camera &camera, bool pointer_captured) noexcept {
     const utils::WrappedVector2 kScreen = ScreenSize();
     camera.SetViewport(kScreen.x_, kScreen.y_);
+
+    if (pointer_captured) {
+        return;
+    }
 
     if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
         const Vector2 kDelta = GetMouseDelta();

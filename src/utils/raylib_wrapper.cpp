@@ -2,6 +2,7 @@
 
 namespace utils {
 
+static_assert(static_cast<int>(WrappedKey::kEscape) == KEY_ESCAPE);
 static_assert(static_cast<int>(WrappedKey::kBackspace) == KEY_BACKSPACE);
 static_assert(static_cast<int>(WrappedKey::kLeftControl) == KEY_LEFT_CONTROL);
 static_assert(static_cast<int>(WrappedKey::kD) == KEY_D);
@@ -31,6 +32,10 @@ void BeginFrame() { BeginDrawing(); }
 void EndFrame() { EndDrawing(); }
 
 void ClearScreen() { ClearBackground(RAYWHITE); }
+
+// Window queries
+
+float GetScreenWidthWrapped() { return static_cast<float>(GetScreenWidth()); }
 
 // Cursor functions
 
@@ -91,6 +96,10 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
     DrawText(text, x, y, fontSize, raylib_color);
 }
 
+float MeasureTextWrapped(const char *text, int fontSize) {
+    return static_cast<float>(MeasureText(text, fontSize));
+}
+
 // Input functions
 
 bool IsRightClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_RIGHT); }
@@ -100,6 +109,10 @@ bool IsLeftClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_LEFT); }
 bool IsRightDown() { return IsMouseButtonDown(MOUSE_BUTTON_RIGHT); }
 
 bool IsLeftDown() { return IsMouseButtonDown(MOUSE_BUTTON_LEFT); }
+
+bool IsMiddleClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE); }
+
+bool IsMiddleDown() { return IsMouseButtonDown(MOUSE_BUTTON_MIDDLE); }
 
 bool IsKeyPressedWrapped(WrappedKey key) {
     return IsKeyPressed(static_cast<int>(key));

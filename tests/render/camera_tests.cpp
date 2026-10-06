@@ -85,3 +85,40 @@ TEST(CameraTest, ZoomAtKeepsAnchorWorldPointUnderCursor) {
         camera.WorldToScreen(kWorldUnderAnchorBefore);
     ExpectNear(kScreenOfSameWorldPoint, kAnchor);
 }
+TEST(CameraTest, SetZoomKeepsTheAnchorInPlace) {
+    render::Camera camera;
+    camera.SetViewport(800.0F, 600.0F);
+    camera.ZoomAt(utils::WrappedVector2{100.0F, 100.0F}, 5.0F);
+    camera.Pan(utils::WrappedVector2{-60.0F, 25.0F});
+
+    const utils::WrappedVector2 kAnchor{400.0F, 315.0F};
+    const utils::WrappedVector2 kWorldBefore = camera.ScreenToWorld(kAnchor);
+    camera.SetZoom(1.0F, kAnchor);
+
+    EXPECT_NEAR(camera.Zoom(), 1.0F, kEpsilon);
+    ExpectNear(camera.ScreenToWorld(kAnchor), kWorldBefore);
+}
+
+TEST(CameraTest, SetZoomIsClamped) {
+    render::Camera camera;
+    camera.SetViewport(800.0F, 600.0F);
+
+    camera.SetZoom(100.0F, utils::WrappedVector2{0.0F, 0.0F});
+    EXPECT_NEAR(camera.Zoom(), render::Camera::kMaxZoom, kEpsilon);
+    camera.SetZoom(0.0F, utils::WrappedVector2{0.0F, 0.0F});
+    EXPECT_NEAR(camera.Zoom(), render::Camera::kMinZoom, kEpsilon);
+}
+
+TEST(CameraTest, CenterOnShowsTheWorldPointAtTheAnchor) {
+    render::Camera camera;
+    camera.SetViewport(800.0F, 600.0F);
+    camera.ZoomAt(utils::WrappedVector2{300.0F, 200.0F}, 2.0F);
+    const float kZoom = camera.Zoom();
+
+    const utils::WrappedVector2 kWorld{1234.0F, -567.0F};
+    const utils::WrappedVector2 kAnchor{400.0F, 315.0F};
+    camera.CenterOn(kWorld, kAnchor);
+
+    ExpectNear(camera.WorldToScreen(kWorld), kAnchor);
+    EXPECT_NEAR(camera.Zoom(), kZoom, kEpsilon);
+}

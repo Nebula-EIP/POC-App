@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 #include <source_location>
 #include <stdexcept>
 #include <string>
@@ -138,7 +139,47 @@ void Application::LoadModule() {
 }
 
 void Application::BuildMenus() {
-    // Function to build the top bar menus
+    // Items without a command are not implemented yet: they are greyed out.
+    top_bar_.AddMenu("Fichier")
+        .AddAction("Nouveau")
+        .AddAction("Ouvrir...")
+        .AddAction("Enregistrer")
+        .AddSeparator()
+        .AddAction("Quitter", [this] { should_quit_ = true; });
+
+    top_bar_.AddMenu("Affichage")
+        .AddAction("Recentrer", [this] { RecenterView(); })
+        .AddAction("Zoom 100 %", [this] { ResetZoom(); });
+}
+
+void Application::RecenterView() {
+    utils::WrappedVector2 center{0.0F, 0.0F};
+
+    const auto &views = renderer_.node_canvas_.Views();
+    if (!views.empty()) {
+        utils::WrappedVector2 min{std::numeric_limits<float>::max(),
+                                  std::numeric_limits<float>::max()};
+        utils::WrappedVector2 max{std::numeric_limits<float>::lowest(),
+                                  std::numeric_limits<float>::lowest()};
+        for (const auto &[id, view] : views) {
+            (void)id;
+            const utils::WrappedRectangle &bounds = view->Bounds();
+            min.x_ = std::min(min.x_, bounds.x_);
+            min.y_ = std::min(min.y_, bounds.y_);
+            max.x_ = std::max(max.x_, bounds.x_ + bounds.width_);
+            max.y_ = std::max(max.y_, bounds.y_ + bounds.height_);
+        }
+        center = {(min.x_ + max.x_) / 2.0F, (min.y_ + max.y_) / 2.0F};
+    }
+    camera_.CenterOn(center, CanvasCenter());
+}
+
+void Application::ResetZoom() { camera_.SetZoom(1.0F, CanvasCenter()); }
+
+utils::WrappedVector2 Application::CanvasCenter() const {
+    const utils::WrappedVector2 kScreen = renderer_.ScreenSize();
+    const float kTop = top_bar_.Height();
+    return {kScreen.x_ / 2.0F, kTop + (kScreen.y_ - kTop) / 2.0F};
 }
 
 void Application::CreateNodeFromConfiguration(
@@ -176,11 +217,15 @@ utils::WrappedVector2 Application::SpawnPosition() const {
 }
 
 void Application::ProcessInput() {
-    renderer_.ProcessInput(camera_);
+    // The top bar goes first: when it owns the mouse (click on the bar, open
+    // menu...), the canvas must not see it. Its commands run inside Update().
+    const bool kPointerCaptured = top_bar_.Update(ui::TopBar::ReadInput());
+    renderer_.ProcessInput(camera_, kPointerCaptured);
 
     cursor_position_ = utils::GetCursorPositionWrapped();
+    const bool kCanvasClicked = !kPointerCaptured && utils::IsLeftClicked();
 
-    if (utils::IsLeftClicked()) {
+    if (kCanvasClicked) {
         for (const auto &[id, view] : renderer_.node_canvas_.Views()) {
             view->ClearErrorPin();
         }
@@ -228,7 +273,7 @@ void Application::ProcessInput() {
 
     // Hit test for connection selection and deletion
     const auto kCursorWorld = camera_.ScreenToWorld(cursor_position_);
-    if (utils::IsLeftClicked()) {
+    if (kCanvasClicked) {
         hovered_connection_ = std::nullopt;
         const auto &views = renderer_.node_canvas_.Views();
         for (const auto &[id, connection] : graph_.GetAllConnections()) {
@@ -267,8 +312,6 @@ void Application::ProcessInput() {
         utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
         // Duplicate the selected node
     }
-
-    // Update top bar
 }
 
 void Application::DrawLinks(const render::Camera &camera) {
@@ -304,7 +347,9 @@ void Application::DrawFrame() {
         camera_, render::FrameCallbacks{
                      .draw_links_ =
                          [this](const render::Camera &cam) { DrawLinks(cam); },
-                     .draw_ui_ = nullptr});
+                     // Screen space, after the canvas: pan and zoom never
+                     // move the bar.
+                     .draw_ui_ = [this]() { top_bar_.Draw(); }});
 }
 
 }  // namespace editor

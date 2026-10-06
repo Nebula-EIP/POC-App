@@ -139,6 +139,7 @@ typedef struct WrappedCircle {
 
 /// Keyboard keys used by the editor. Values match raylib's KeyboardKey.
 enum class WrappedKey : int {
+    kEscape = 256,
     kBackspace = 259,
     kDelete = 261,
     kLeftControl = 341,
@@ -159,6 +160,9 @@ void BeginFrame();
 void EndFrame();
 void ClearScreen();
 
+// Window queries
+float GetScreenWidthWrapped();
+
 // Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
 bool IsCursorHiddenWrapped();
@@ -178,12 +182,15 @@ void DrawLineBezierWrapped(WrappedVector2 start, WrappedVector2 end,
                            float thick, WrappedColor color);
 void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color);
+float MeasureTextWrapped(const char *text, int fontSize);
 
 // Input functions
 bool IsRightClicked();
 bool IsLeftClicked();
 bool IsRightDown();
 bool IsLeftDown();
+bool IsMiddleClicked();
+bool IsMiddleDown();
 bool IsKeyPressedWrapped(WrappedKey key);
 bool IsKeyDownWrapped(WrappedKey key);
 int GetCharPressedWrapped();

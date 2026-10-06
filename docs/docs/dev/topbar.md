@@ -4,155 +4,73 @@ sidebar_position: 2
 
 # Editor Top Bar
 
-The top bar is the horizontal banner displayed at the top of the editor. It provides the main application menu, with dropdowns and actions associated with each entry.
+The top bar is the menu bar at the top of the editor window. It gives access
+to the main actions.
 
-It is implemented in `src/editor/ui/top_bar.hpp` and `src/editor/ui/top_bar.cpp`.
+It is implemented in `src/editor/ui/top_bar.hpp` and
+`src/editor/ui/top_bar.cpp`. The menus are built by the application in
+`Application::BuildMenus()` (`src/editor/application.cpp`).
 
-## Purpose
+## Rules
 
-The top bar is used to:
+- The bar is drawn in screen space, after the canvas: pan and zoom never move
+  it. It has a fixed height and always spans the whole window width, including
+  after a resize.
+- Menus open on click and close on a click outside, on a second click on their
+  title, or with Escape. While a menu is open, hovering another title switches
+  to it.
+- A mouse press on the bar, or while a menu is open, never reaches the canvas.
+- Menu items never call the core directly. Each one holds a **command** (a
+  `std::function<void()>`) provided by the application.
+- An item without a command is an action that is not implemented yet: it is
+  greyed out and does nothing.
 
-- display the editor's main menus
-- open and close dropdown lists
-- trigger actions via `on_click` callbacks
-- temporarily block graph interactions while a menu is open
+## Current menus
 
-## Data Structure
+| Menu      | Items                                                          |
+| --------- | -------------------------------------------------------------- |
+| Fichier   | Nouveau, Ouvrir..., Enregistrer (not implemented yet), Quitter |
+| Affichage | Recentrer, Zoom 100 %                                          |
 
-The public API relies on three structures.
+- **Recentrer** centers the view on the nodes (the middle of their bounding
+  box), in the part of the window below the bar. The zoom is unchanged.
+- **Zoom 100 %** sets the zoom back to 1, keeping the center of the view in
+  place.
 
-### `MenuItem`
+Both use `render::Camera::CenterOn()` and `render::Camera::SetZoom()`.
 
-Represents a clickable entry in a menu.
+## Adding a menu or an item
 
-```cpp
-struct MenuItem {
-    std::string label;
-    std::function<void()> on_click;
-};
-```
-
-- `label`: text shown in the dropdown
-- `on_click`: callback executed when the entry is clicked
-
-### `Menu`
-
-Represents a menu in the top bar.
-
-```cpp
-struct Menu {
-    std::string label;
-    std::vector<MenuItem> items;
-};
-```
-
-- `label`: label visible on the bar
-- `items`: the set of actions available in the menu
-
-### `TopBarStyle`
-
-Describes the appearance of the top bar.
-
-Main fields include:
-
-- `bar_height`: height of the main banner
-- `item_height`: height of each dropdown line
-- `horizontal_padding`: horizontal padding in tabs
-- `item_padding`: horizontal padding in items
-- `minimum_menu_width`: minimum width of a menu
-- `font_size`: text size
-- background, hover, text, and border colors
-
-## Behavior
-
-The `TopBar` class manages the interactive state of the banner.
-
-### Construction
+Add it in `Application::BuildMenus()`. The builder methods can be chained:
 
 ```cpp
-TopBar(std::vector<Menu> menus, TopBarStyle style = {});
+top_bar_.AddMenu("Aide")
+    .AddAction("Documentation", [this] { OpenDocumentation(); })
+    .AddSeparator()
+    .AddAction("Raccourcis");  // no command yet: greyed out
 ```
 
-The constructor receives the full list of menus and an optional style.
-
-### Update
+## Frame loop
 
 ```cpp
-void Update();
+// Input: the bar goes first.
+const bool captured = top_bar_.Update(ui::TopBar::ReadInput());  // may run a command
+renderer_.ProcessInput(camera_, captured);  // the canvas ignores the mouse if captured
+
+// Drawing, in the draw_ui_ callback of the renderer (screen space).
+top_bar_.Draw();
 ```
 
-`Update()` reads the mouse position and left-click state to:
+`Update()` returns `true` when the mouse belongs to the bar this frame: a menu
+is open, the cursor is over the bar, or the current press started on the bar.
+A drag that started on the canvas keeps going when it crosses the bar.
 
-- detect the hovered menu
-- detect the hovered item in an open menu
-- open or close a menu
-- call the clicked item's callback
+Escape no longer closes the window (`SetExitKey(KEY_NULL)` in the renderer): it
+closes the menus. Use Fichier > Quitter instead.
 
-### Drawing
+## Testing
 
-```cpp
-void Draw() const;
-```
-
-`Draw()` renders:
-
-- the main bar
-- the menu tabs
-- the active dropdown menu
-- visual hover states for the active menu or item
-
-### Blocking Graph Input
-
-```cpp
-bool BlocksGraphInput() const noexcept;
-```
-
-This method indicates whether the top bar should prevent interactions with the graph.
-
-It returns `true` when a menu is open or when a top bar element is under the mouse.
-
-## Placement Rules
-
-- each menu occupies a width calculated from the text and margins
-- the minimum width is controlled by `TopBarStyle::minimum_menu_width`
-- the dropdown uses the same width as its tab
-- if the menu would be drawn outside the window, it is shifted left to remain visible
-
-## Usage Example
-
-```cpp
-using editor_ui::Menu;
-using editor_ui::MenuItem;
-using editor_ui::TopBar;
-
-TopBar top_bar({
-    {"File", {
-        {"New", [] { /* create a new project */ }},
-        {"Open", [] { /* open a project */ }},
-    }},
-    {"Edit", {
-        {"Undo", [] { /* undo the last action */ }},
-    }},
-});
-
-// In the main loop
-top_bar.Update();
-top_bar.Draw();
-
-if (top_bar.BlocksGraphInput()) {
-    // Disable graph interactions while the menu is open
-}
-```
-
-## Important Notes
-
-- `SetMenus()` replaces the entire menu list and closes the current menu
-- `CloseMenu()` resets the hovered item state
-- `OpenMenu()` checks bounds before opening a menu
-- `ActivateItem()` silently ignores invalid indices
-
-## Current Limitations
-
-- the top bar depends on `raylib` for mouse input and rendering
-- the most robust unit tests therefore focus on the public API and observable internal state
-- full interaction tests would require an additional abstraction layer to simulate user input
+`TopBar::Update()` does not read raylib directly: it takes a `TopBarInput`, and
+the constructor accepts a text measuring function. The bar is therefore tested
+without a window in `tests/editor/top_bar_test.cpp`. The camera functions are
+tested in `tests/render/camera_tests.cpp`.
