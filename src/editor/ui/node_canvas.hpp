@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 27-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #pragma once

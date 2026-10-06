@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 26-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #include "application.hpp"
@@ -198,9 +198,12 @@ void Application::ProcessInput() {
                 if (auto view =
                         renderer_.node_canvas_.Views().find(end_hit.node_id_);
                     view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(
-                        end_hit.pin_id_,
-                        end_hit.part_ == ui::HitPart::kInputPin);
+                    view->second->SetErrorPin(end_hit.pin_id_, true);
+                }
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(start_hit.pin_id_, false);
                 }
             }
         } else if (start_hit.part_ == ui::HitPart::kInputPin &&
@@ -212,9 +215,12 @@ void Application::ProcessInput() {
                 if (auto view =
                         renderer_.node_canvas_.Views().find(start_hit.node_id_);
                     view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(
-                        start_hit.pin_id_,
-                        start_hit.part_ == ui::HitPart::kInputPin);
+                    view->second->SetErrorPin(start_hit.pin_id_, true);
+                }
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(end_hit.pin_id_, false);
                 }
             }
         }
