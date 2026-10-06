@@ -1,0 +1,5 @@
+<map id="editor::ui::TopBarStyle" name="editor::ui::TopBarStyle">
+<area shape="rect" id="Node000001" title="Sizes and colors of the top bar." alt="" coords="5,181,171,207"/>
+<area shape="rect" id="Node000002" href="$structutils_1_1WrappedColor.html" title=" " alt="" coords="13,5,163,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,44,91,181,85,181,85,44"/>
+</map>

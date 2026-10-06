@@ -1,0 +1,9 @@
+<map id="src/editor/ui/top_bar.hpp" name="src/editor/ui/top_bar.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="112,5,291,31"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,79,192,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,41,117,81,114,76,172,36"/>
+<area shape="rect" id="Node000004" href="$top__bar_8cpp.html" title="Implementation of the TopBar class and of the Menu builder." alt="" coords="216,79,395,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,36,290,76,287,81,228,41"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,152,192,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,118,101,152,96,152,96,118"/>
+</map>
