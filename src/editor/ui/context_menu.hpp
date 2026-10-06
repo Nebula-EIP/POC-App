@@ -1,3 +1,11 @@
+/**
+ * @file context_menu.hpp
+ * @brief ContextMenu UI component.
+ *
+ * @author Created by mathys-f
+ * @date Created on 06-10-2026
+ */
+
 #pragma once
 
 #include <functional>

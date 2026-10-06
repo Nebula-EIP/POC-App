@@ -1,3 +1,11 @@
+/**
+ * @file action_manager.hpp
+ * @brief ActionManager class for managing shortcuts and actions.
+ *
+ * @author Created by mathys-f
+ * @date Created on 06-10-2026
+ */
+
 #pragma once
 
 #include <unordered_map>
@@ -16,11 +24,13 @@ class ActionManager {
 
     /**
      * @brief Registers an action in the system.
+     * @param action The action to register.
      */
     void RegisterAction(Action action);
 
     /**
      * @brief Triggers an action by its ID.
+     * @param id The ID of the action to trigger.
      */
     void TriggerAction(const std::string &id) const;
 

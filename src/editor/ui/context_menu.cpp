@@ -1,3 +1,11 @@
+/**
+ * @file context_menu.cpp
+ * @brief Implementation of ContextMenu.
+ *
+ * @author Created by mathys-f
+ * @date Created on 06-10-2026
+ */
+
 #include "context_menu.hpp"
 
 #include <algorithm>
@@ -83,18 +91,20 @@ std::optional<std::size_t> ContextMenu::HitTest(
     }
 
     float current_y = kBounds.y_;
-    for (std::size_t i = 0; i < items_.size(); ++i) {
-        const float kHeight = ItemHeight(items_[i]);
+    std::size_t i = 0;
+    for (const auto &item : items_) {
+        const float kHeight = ItemHeight(item);
         utils::WrappedRectangle item_rect{kBounds.x_, current_y, kBounds.width_,
                                           kHeight};
 
         if (utils::CheckCollisionPointRecWrapped(point, item_rect)) {
-            if (items_[i].IsEnabled()) {
+            if (item.IsEnabled()) {
                 return i;
             }
             return std::nullopt;
         }
         current_y += kHeight;
+        ++i;
     }
 
     return std::nullopt;

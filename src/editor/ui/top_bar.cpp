@@ -35,9 +35,9 @@ bool Contains(utils::WrappedRectangle rectangle, utils::WrappedVector2 point) {
 Menu::Menu(std::string title) : title_(std::move(title)) {}
 
 Menu &Menu::AddAction(std::string label, Command command,
-                      std::string shortcut_text) {
+                      std::string shortcut_text, bool keep_open) {
     items_.push_back({std::move(label), std::move(command),
-                      std::move(shortcut_text), false});
+                      std::move(shortcut_text), false, keep_open});
     return *this;
 }
 
@@ -235,7 +235,9 @@ Command TopBar::HandleClick(const Hit &hit) {
         return {};  // Greyed out items keep the menu open.
     }
     Command command = item.command_;
-    Close();
+    if (!item.keep_open_) {
+        Close();
+    }
     return command;
 }
 

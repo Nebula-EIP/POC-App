@@ -143,12 +143,12 @@ void Application::BuildMenus() {
     actions::ActionManager &am = action_manager_;
 
     am.RegisterAction({"app.quit",
-                       "Quitter",
+                       "Quit",
                        {utils::WrappedKey::kNone, false, false, false},
                        [this] { should_quit_ = true; }});
 
     am.RegisterAction({"view.recenter",
-                       "Recentrer",
+                       "Recenter",
                        {utils::WrappedKey::kNone, false, false, false},
                        [this] { RecenterView(); }});
 
@@ -159,7 +159,7 @@ void Application::BuildMenus() {
 
     am.RegisterAction(
         {"node.add_menu",
-         "Ajouter un Node",
+         "Add Node",
          {utils::WrappedKey::kA, false, true, false},  // Shift+A
          [this] {
              context_menu_.Clear();
@@ -187,7 +187,7 @@ void Application::BuildMenus() {
          }});
 
     // Build top bar
-    top_bar_.AddMenu("Fichier")
+    top_bar_.AddMenu("File")
         .AddAction("Nouveau")
         .AddAction("Ouvrir...")
         .AddAction("Enregistrer")

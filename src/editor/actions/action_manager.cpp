@@ -1,3 +1,11 @@
+/**
+ * @file action_manager.cpp
+ * @brief Implementation of ActionManager.
+ *
+ * @author Created by mathys-f
+ * @date Created on 06-10-2026
+ */
+
 #include "action_manager.hpp"
 
 namespace editor::actions {
@@ -7,7 +15,8 @@ void ActionManager::RegisterAction(Action action) {
 }
 
 void ActionManager::TriggerAction(const std::string &id) const {
-    if (auto it = actions_.find(id); it != actions_.end()) {
+    auto it = actions_.find(id);
+    if (it != actions_.end()) {
         if (it->second.callback_) {
             it->second.callback_();
         }
@@ -21,8 +30,7 @@ void ActionManager::ProcessShortcuts() const {
     const bool kShift =
         utils::IsKeyDownWrapped(utils::WrappedKey::kLeftShift) ||
         utils::IsKeyDownWrapped(utils::WrappedKey::kRightShift);
-    const bool kAlt = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftAlt) ||
-                      utils::IsKeyDownWrapped(utils::WrappedKey::kRightAlt);
+    const bool kAlt = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftAlt);
 
     for (const auto &[id, action] : actions_) {
         const auto &shortcut = action.shortcut_;
@@ -53,7 +61,8 @@ void ActionManager::ProcessShortcuts() const {
 }
 
 const Action *ActionManager::GetAction(const std::string &id) const {
-    if (auto it = actions_.find(id); it != actions_.end()) {
+    auto it = actions_.find(id);
+    if (it != actions_.end()) {
         return &it->second;
     }
     return nullptr;

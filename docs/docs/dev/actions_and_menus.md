@@ -12,7 +12,7 @@ To add a new action, simply register it via the `ActionManager` in `Application:
 // 1. Define the action ID, Display Name, Shortcut, and Callback
 action_manager_.RegisterAction({
     "node.delete",                 // ID
-    "Supprimer le Node",           // Display Name
+    "Delete Node",           // Display Name
     {utils::WrappedKey::kDelete, false, false, false}, // Shortcut (Key, Ctrl, Shift, Alt)
     [this] { DeleteSelectedNode(); } // Callback
 });
