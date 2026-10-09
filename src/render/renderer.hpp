@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 09-10-2026
  */
 
 #pragma once
@@ -83,10 +83,15 @@ class Renderer {
     [[nodiscard]] utils::WrappedVector2 ScreenSize() const noexcept;
 
    private:
+    /**
+     * @brief Draws the adaptive grid (see grid.hpp): the coarse level fully
+     * opaque, the fine level faded in between, both 1 pixel wide on screen.
+     *
+     * @param camera The camera the grid is drawn through.
+     */
     void DrawGrid(const Camera &camera) const;
 
     bool window_ready_ = false;
-    static constexpr float kGridSpacing = 50.0F;
 };
 
 }  // namespace render
