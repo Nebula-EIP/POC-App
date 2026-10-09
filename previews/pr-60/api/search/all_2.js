@@ -25,9 +25,11 @@ var searchData=
   ['connectionid_22',['ConnectionId',['../datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54',1,'core']]],
   ['connectionoutcome_23',['ConnectionOutcome',['../structeditor_1_1ui_1_1ConnectionOutcome.html',1,'editor::ui']]],
   ['convention_24',['Error reporting convention',['../classcore_1_1ModuleLoader.html#autotoc_md0',1,'']]],
-  ['create_5fmodule_2ehpp_25',['create_module.hpp',['../create__module_8hpp.html',1,'']]],
-  ['createmodule_26',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
-  ['createmodulefunction_27',['CreateModuleFunction',['../loader_8hpp.html#a68f8b88b988e5946ab91a24c0f272470',1,'core']]],
-  ['createnode_28',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
-  ['current_5fid_29',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
+  ['copy_25',['Copy',['../classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7',1,'editor::ui::NodeClipboard']]],
+  ['copynodefrom_26',['CopyNodeFrom',['../classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9',1,'core::Graph']]],
+  ['create_5fmodule_2ehpp_27',['create_module.hpp',['../create__module_8hpp.html',1,'']]],
+  ['createmodule_28',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
+  ['createmodulefunction_29',['CreateModuleFunction',['../loader_8hpp.html#a68f8b88b988e5946ab91a24c0f272470',1,'core']]],
+  ['createnode_30',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
+  ['current_5fid_31',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
 ];

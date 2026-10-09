@@ -3,6 +3,7 @@ var classcore_1_1Graph =
     [ "AddInputPin", "classcore_1_1Graph.html#a14614efb6fb0c3553877ddb7b6cccf89", null ],
     [ "AddOutputPin", "classcore_1_1Graph.html#ab86c340ec79bfcaa8e89c1115920a309", null ],
     [ "Connect", "classcore_1_1Graph.html#a6861f20c4de4b61aeef14235df1da839", null ],
+    [ "CopyNodeFrom", "classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9", null ],
     [ "CreateNode", "classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14", null ],
     [ "Disconnect", "classcore_1_1Graph.html#a49316a00a9ee4854dd45e088350f0ccf", null ],
     [ "Disconnect", "classcore_1_1Graph.html#a50719b04e9b39f866d6eea5387674348", null ],

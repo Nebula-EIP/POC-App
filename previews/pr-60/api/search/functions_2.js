@@ -6,7 +6,9 @@ var searchData=
   ['clearerrorpin_3',['ClearErrorPin',['../classeditor_1_1ui_1_1NodeView.html#af96d7ac262159e4ca04c6f4eeea60bc0',1,'editor::ui::NodeView']]],
   ['close_4',['close',['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary::Close()'],['../classeditor_1_1ui_1_1TopBar.html#ad7e1faf854cf7f4c9abb31b7371b5f32',1,'editor::ui::TopBar::Close()']]],
   ['connect_5',['Connect',['../classcore_1_1Graph.html#a6861f20c4de4b61aeef14235df1da839',1,'core::Graph']]],
-  ['createmodule_6',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
-  ['createnode_7',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
-  ['current_5fid_8',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
+  ['copy_6',['Copy',['../classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7',1,'editor::ui::NodeClipboard']]],
+  ['copynodefrom_7',['CopyNodeFrom',['../classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9',1,'core::Graph']]],
+  ['createmodule_8',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
+  ['createnode_9',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
+  ['current_5fid_10',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
 ];

@@ -125,6 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab766a9e73e8638911e0461333e70a915" id="r_ab766a9e73e8638911e0461333e70a915"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1Node.html">Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ab766a9e73e8638911e0461333e70a915">DuplicateNode</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> id)</td></tr>
 <tr class="memdesc:ab766a9e73e8638911e0461333e70a915"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a copy of a node: same type, same pins (ids, names and types) and same properties.  <br /></td></tr>
 <tr class="separator:ab766a9e73e8638911e0461333e70a915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7c92810e42e4198ade33e77f9d298d9" id="r_ae7c92810e42e4198ade33e77f9d298d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore_1_1Node.html">Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9">CopyNodeFrom</a> (const <a class="el" href="classcore_1_1Graph.html">Graph</a> &amp;source, <a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> id)</td></tr>
+<tr class="memdesc:ae7c92810e42e4198ade33e77f9d298d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates in this graph a copy of a node of another graph (or of this one): same type, same pins (ids, names and types) and same properties.  <br /></td></tr>
+<tr class="separator:ae7c92810e42e4198ade33e77f9d298d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14614efb6fb0c3553877ddb7b6cccf89" id="r_a14614efb6fb0c3553877ddb7b6cccf89"><td class="memItemLeft" align="right" valign="top"><a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a14614efb6fb0c3553877ddb7b6cccf89">AddInputPin</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, const std::string_view &amp;name, <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> in_type)</td></tr>
 <tr class="memdesc:a14614efb6fb0c3553877ddb7b6cccf89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an input pin to a node.  <br /></td></tr>
 <tr class="separator:a14614efb6fb0c3553877ddb7b6cccf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,6 +338,51 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ae7c92810e42e4198ade33e77f9d298d9" name="ae7c92810e42e4198ade33e77f9d298d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c92810e42e4198ade33e77f9d298d9">&#9670;&#160;</a></span>CopyNodeFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1Node.html">Node</a> &amp; core::Graph::CopyNodeFrom </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates in this graph a copy of a node of another graph (or of this one): same type, same pins (ids, names and types) and same properties. </p>
+<p>The copy gets a new id of this graph and no connection.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The graph holding the node to copy. Required </td></tr>
+    <tr><td class="paramname">id</td><td>Id of the node to copy, in source. Required</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">`core::NodeNotFoundException`</td><td>The id is not in source.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The created node. </dd></dl>
 
 </div>
 </div>

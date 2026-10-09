@@ -51,6 +51,7 @@ var hierarchy =
     [ "core::Node", "classcore_1_1Node.html", null ],
     [ "editor::ui::NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
     [ "core::NodeCatalog", "classcore_1_1NodeCatalog.html", null ],
+    [ "editor::ui::NodeClipboard", "classeditor_1_1ui_1_1NodeClipboard.html", null ],
     [ "core::capa::NodeConfiguration", "structcore_1_1capa_1_1NodeConfiguration.html", null ],
     [ "core::capa::NodeDescriptor", "structcore_1_1capa_1_1NodeDescriptor.html", null ],
     [ "core::NodeDescriptor", "structcore_1_1NodeDescriptor.html", null ],
@@ -60,6 +61,7 @@ var hierarchy =
     [ "editor::ui::NodeView", "classeditor_1_1ui_1_1NodeView.html", null ],
     [ "editor::ui::NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", null ],
     [ "core::Pin", "structcore_1_1Pin.html", null ],
+    [ "editor::ui::PlacedNode", "structeditor_1_1ui_1_1PlacedNode.html", null ],
     [ "core::Property", "structcore_1_1Property.html", null ],
     [ "render::Renderer", "classrender_1_1Renderer.html", null ],
     [ "std::runtime_error", null, [

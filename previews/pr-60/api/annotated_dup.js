@@ -77,8 +77,10 @@ var annotated_dup =
         [ "Menu", "classeditor_1_1ui_1_1Menu.html", "classeditor_1_1ui_1_1Menu" ],
         [ "MenuItem", "structeditor_1_1ui_1_1MenuItem.html", "structeditor_1_1ui_1_1MenuItem" ],
         [ "NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", "classeditor_1_1ui_1_1NodeCanvas" ],
+        [ "NodeClipboard", "classeditor_1_1ui_1_1NodeClipboard.html", "classeditor_1_1ui_1_1NodeClipboard" ],
         [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ],
         [ "NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", "classeditor_1_1ui_1_1NotificationStack" ],
+        [ "PlacedNode", "structeditor_1_1ui_1_1PlacedNode.html", "structeditor_1_1ui_1_1PlacedNode" ],
         [ "TopBar", "classeditor_1_1ui_1_1TopBar.html", "classeditor_1_1ui_1_1TopBar" ],
         [ "TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", "structeditor_1_1ui_1_1TopBarInput" ],
         [ "TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ]

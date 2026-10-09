@@ -5,6 +5,8 @@ var dir_92dccbd6dd8271d99a6eedf36eee7e8d =
     [ "connection_request.hpp", "connection__request_8hpp.html", "connection__request_8hpp" ],
     [ "node_canvas.cpp", "node__canvas_8cpp.html", null ],
     [ "node_canvas.hpp", "node__canvas_8hpp.html", "node__canvas_8hpp" ],
+    [ "node_clipboard.cpp", "node__clipboard_8cpp.html", null ],
+    [ "node_clipboard.hpp", "node__clipboard_8hpp.html", "node__clipboard_8hpp" ],
     [ "node_view.cpp", "node__view_8cpp.html", null ],
     [ "node_view.hpp", "node__view_8hpp.html", "node__view_8hpp" ],
     [ "notification_stack.cpp", "notification__stack_8cpp.html", null ],

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Canvas Editing | Nebula Docs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://nebula-eip.github.io/POC-App/previews/pr-60/img/nebula-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://nebula-eip.github.io/POC-App/previews/pr-60/img/nebula-social-card.jpg"><meta data-rh="true" property="og:url" content="https://nebula-eip.github.io/POC-App/previews/pr-60/docs/dev/canvas-editing"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Canvas Editing | Nebula Docs"><meta data-rh="true" name="description" content="How nodes and connections are edited on the canvas. The actions live in"><meta data-rh="true" property="og:description" content="How nodes and connections are edited on the canvas. The actions live in"><link data-rh="true" rel="icon" href="/POC-App/previews/pr-60/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://nebula-eip.github.io/POC-App/previews/pr-60/docs/dev/canvas-editing"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-60/docs/dev/canvas-editing" hreflang="en"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-60/docs/dev/canvas-editing" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Canvas Editing","item":"https://nebula-eip.github.io/POC-App/previews/pr-60/docs/dev/canvas-editing"}]}</script><link rel="stylesheet" href="/POC-App/previews/pr-60/assets/css/styles.c360c6f3.css">
-<script src="/POC-App/previews/pr-60/assets/js/runtime~main.e68f8ee6.js" defer="defer"></script>
+<script src="/POC-App/previews/pr-60/assets/js/runtime~main.5b6cb08e.js" defer="defer"></script>
 <script src="/POC-App/previews/pr-60/assets/js/main.32ceb132.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -16,13 +16,21 @@
 <code>Application</code> (<code>src/editor/application.cpp</code>), on top of the selection and
 movement handled by <code>NodeCanvas</code> (<code>src/editor/ui/node_canvas.cpp</code>).</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="actions">Actions<a href="#actions" class="hash-link" aria-label="Direct link to Actions" title="Direct link to Actions" translate="no">​</a></h2>
-<table><thead><tr><th>Action</th><th>Mouse / keyboard</th><th>Menu</th></tr></thead><tbody><tr><td>Connect two pins</td><td>Drag from a pin to another pin</td><td>-</td></tr><tr><td>Select a connection</td><td>Click on it (it turns white)</td><td>-</td></tr><tr><td>Select nodes</td><td>Click, Ctrl+click, or drag a rectangle</td><td>-</td></tr><tr><td>Delete the selection</td><td><code>Suppr</code></td><td>Édition &gt; Supprimer</td></tr><tr><td>Duplicate the selected nodes</td><td><code>Ctrl+D</code></td><td>Édition &gt; Dupliquer</td></tr></tbody></table>
+<table><thead><tr><th>Action</th><th>Mouse / keyboard</th><th>Menu</th></tr></thead><tbody><tr><td>Connect two pins</td><td>Drag from a pin to another pin</td><td>-</td></tr><tr><td>Select a connection</td><td>Click on it (it turns white)</td><td>-</td></tr><tr><td>Select nodes</td><td>Click, Ctrl+click, or drag a rectangle</td><td>-</td></tr><tr><td>Delete the selection</td><td><code>Suppr</code></td><td>Édition &gt; Supprimer</td></tr><tr><td>Duplicate the selected nodes</td><td><code>Ctrl+D</code></td><td>Édition &gt; Dupliquer</td></tr><tr><td>Copy the selected nodes</td><td><code>Ctrl+C</code></td><td>Édition &gt; Copier</td></tr><tr><td>Paste</td><td><code>Ctrl+V</code> (at the cursor)</td><td>Édition &gt; Coller (middle of the view)</td></tr></tbody></table>
 <ul>
 <li class=""><strong>Delete</strong> removes the selected connection and the selected nodes.
 <code>Graph::RemoveNode</code> also removes every connection of a deleted node.</li>
 <li class=""><strong>Duplicate</strong> calls <code>Graph::DuplicateNode</code>: same type, same pins (ids, names,
 types) and same properties, a new id and <strong>no connection</strong>. Copies appear
 30 units down-right of their original and replace it in the selection.</li>
+<li class=""><strong>Copy / paste</strong> go through <code>ui::NodeClipboard</code>
+(<code>src/editor/ui/node_clipboard.hpp</code>). Copy snapshots the nodes into a graph
+of its own (<code>Graph::CopyNodeFrom</code>), so pasting still works after the
+originals are edited or deleted, any number of times. Pasted nodes are built
+like duplicates (same type, pins and properties, no connection), keep their
+layout relative to each other, and become the selection. The top-left corner
+of the group lands on the cursor (<code>Ctrl+V</code>) or the middle of the view (menu).
+Copying with nothing selected keeps the previous clipboard.</li>
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="connections">Connections<a href="#connections" class="hash-link" aria-label="Direct link to Connections" title="Direct link to Connections" translate="no">​</a></h2>
 <p>A pin drag is turned into a connection by <code>ui::RequestConnection</code>
