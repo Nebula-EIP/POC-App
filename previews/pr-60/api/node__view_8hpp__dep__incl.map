@@ -1,0 +1,22 @@
+<map id="src/editor/ui/node_view.hpp" name="src/editor/ui/node_view.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="222,5,357,45"/>
+<area shape="rect" id="Node000002" href="$connection__request_8hpp.html" title="Turns a pin&#45;to&#45;pin drag on the canvas into a graph connection, or into an error message the user can ..." alt="" coords="24,93,198,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,54,151,96,149,91,237,49"/>
+<area shape="rect" id="Node000005" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="222,93,357,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="292,59,292,93,287,93,287,59"/>
+<area shape="rect" id="Node000010" href="$node__view_8cpp.html" title="Implementation of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="381,93,516,133"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="338,50,415,91,412,96,335,54"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="31,343,218,368"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="54,143,31,160,13,183,8,201,14,220,33,259,60,292,111,341,107,344,56,296,29,261,9,222,3,201,9,180,27,156,51,138"/>
+<area shape="rect" id="Node000004" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="24,181,198,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="114,147,114,181,108,181,108,147"/>
+<area shape="rect" id="Node000006" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="222,181,357,221"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="292,147,292,181,287,181,287,147"/>
+<area shape="rect" id="Node000007" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="382,189,555,214"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="342,137,446,186,443,191,340,142"/>
+<area shape="rect" id="Node000008" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="102,269,288,295"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="416,220,236,272,234,267,415,215"/>
+<area shape="rect" id="Node000009" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="382,269,554,295"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="471,228,471,269,466,269,466,228"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="176,307,138,344,134,341,172,303"/>
+</map>

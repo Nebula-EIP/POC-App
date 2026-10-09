@@ -1,0 +1,9 @@
+<map id="src/editor/ui/notification_stack.hpp" name="src/editor/ui/notification_stack.hpp">
+<area shape="rect" id="Node000001" title="Stack of warning messages shown at the bottom center of the window." alt="" coords="113,5,289,45"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,101,192,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,56,115,102,111,98,166,52"/>
+<area shape="rect" id="Node000004" href="$notification__stack_8cpp.html" title="Implementation of the warning stack." alt="" coords="216,93,392,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="236,52,283,91,280,95,233,56"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,181,192,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,140,101,181,96,181,96,140"/>
+</map>

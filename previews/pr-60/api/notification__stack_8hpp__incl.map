@@ -1,0 +1,15 @@
+<map id="src/editor/ui/notification_stack.hpp" name="src/editor/ui/notification_stack.hpp">
+<area shape="rect" id="Node000001" title="Stack of warning messages shown at the bottom center of the window." alt="" coords="86,5,262,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,76,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,48,73,89,71,84,141,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="100,93,163,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,47,146,83,142,80,161,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="187,93,246,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="187,44,206,80,202,83,182,47"/>
+<area shape="rect" id="Node000005" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="270,93,449,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="219,43,321,85,319,90,217,48"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="279,167,349,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="354,120,331,157,326,154,350,118"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="373,167,433,192"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="369,118,391,154,387,156,364,120"/>
+</map>
