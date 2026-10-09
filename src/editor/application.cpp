@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 05-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #include "application.hpp"
@@ -320,7 +320,12 @@ void Application::ProcessInput() {
                 if (auto view =
                         renderer_.node_canvas_.Views().find(end_hit.node_id_);
                     view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(end_hit.pin_id_);
+                    view->second->SetErrorPin(end_hit.pin_id_, true);
+                }
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(start_hit.pin_id_, false);
                 }
             }
         } else if (start_hit.part_ == ui::HitPart::kInputPin &&
@@ -330,9 +335,14 @@ void Application::ProcessInput() {
                                start_hit.node_id_, start_hit.pin_id_);
             } catch (const std::exception &) {
                 if (auto view =
+                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(start_hit.pin_id_, true);
+                }
+                if (auto view =
                         renderer_.node_canvas_.Views().find(end_hit.node_id_);
                     view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(end_hit.pin_id_);
+                    view->second->SetErrorPin(end_hit.pin_id_, false);
                 }
             }
         }
@@ -348,10 +358,11 @@ void Application::ProcessInput() {
                 !views.contains(connection.to_node_)) {
                 continue;
             }
-            const auto kStartPos = views.at(connection.from_node_)
-                                       ->GetPinPosition(connection.out_pin_);
+            const auto kStartPos =
+                views.at(connection.from_node_)
+                    ->GetPinPosition(connection.out_pin_, false);
             const auto kEndPos = views.at(connection.to_node_)
-                                     ->GetPinPosition(connection.in_pin_);
+                                     ->GetPinPosition(connection.in_pin_, true);
             if (kStartPos && kEndPos) {
                 if (HitTestBezier(kCursorWorld, *kStartPos, *kEndPos, 8.0f)) {
                     hovered_connection_ = id;
@@ -389,9 +400,9 @@ void Application::DrawLinks(const render::Camera &camera) {
             continue;
         }
         const auto kStartPos = views.at(connection.from_node_)
-                                   ->GetPinPosition(connection.out_pin_);
-        const auto kEndPos =
-            views.at(connection.to_node_)->GetPinPosition(connection.in_pin_);
+                                   ->GetPinPosition(connection.out_pin_, false);
+        const auto kEndPos = views.at(connection.to_node_)
+                                 ->GetPinPosition(connection.in_pin_, true);
 
         if (kStartPos && kEndPos) {
             const bool kIsHovered =

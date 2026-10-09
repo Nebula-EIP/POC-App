@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 27-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #include "node_view.hpp"
@@ -140,8 +140,9 @@ void NodeView::Draw(const render::Camera &camera) const {
                            bounds_.y_ + 6.0F, kFontSize, kText);
 
     for (const auto &port : inputs_) {
-        auto color =
-            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
+        auto color = (port.id_ == error_pin_id_ && error_pin_is_input_)
+                         ? utils::kRed
+                         : TypeColor(port.type_);
         utils::DrawCircleWrapped(port.bounds_.x_ + kPortRadius,
                                  port.bounds_.y_ + kPortRadius, kPortRadius,
                                  color);
@@ -150,8 +151,9 @@ void NodeView::Draw(const render::Camera &camera) const {
     }
 
     for (const auto &port : outputs_) {
-        auto color =
-            (port.id_ == error_pin_) ? utils::kRed : TypeColor(port.type_);
+        auto color = (port.id_ == error_pin_id_ && !error_pin_is_input_)
+                         ? utils::kRed
+                         : TypeColor(port.type_);
         utils::DrawCircleWrapped(port.bounds_.x_ + kPortRadius,
                                  port.bounds_.y_ + kPortRadius, kPortRadius,
                                  color);
@@ -163,17 +165,20 @@ void NodeView::Draw(const render::Camera &camera) const {
 }
 
 std::optional<utils::WrappedVector2> NodeView::GetPinPosition(
-    core::PinId pin_id) const noexcept {
-    for (const auto &port : inputs_) {
-        if (port.id_ == pin_id) {
-            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
-                                         port.bounds_.y_ + kPortRadius};
+    core::PinId pin_id, bool is_input) const noexcept {
+    if (is_input) {
+        for (const auto &port : inputs_) {
+            if (port.id_ == pin_id) {
+                return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                             port.bounds_.y_ + kPortRadius};
+            }
         }
-    }
-    for (const auto &port : outputs_) {
-        if (port.id_ == pin_id) {
-            return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
-                                         port.bounds_.y_ + kPortRadius};
+    } else {
+        for (const auto &port : outputs_) {
+            if (port.id_ == pin_id) {
+                return utils::WrappedVector2{port.bounds_.x_ + kPortRadius,
+                                             port.bounds_.y_ + kPortRadius};
+            }
         }
     }
     return std::nullopt;

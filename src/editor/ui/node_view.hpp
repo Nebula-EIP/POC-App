@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 27-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #pragma once
@@ -94,12 +94,15 @@ class NodeView final {
     /**
      * @brief Marks a pin as having an error (e.g., failed connection).
      */
-    void SetErrorPin(core::PinId pin) noexcept { error_pin_ = pin; }
+    void SetErrorPin(core::PinId pin, bool is_input) noexcept {
+        error_pin_id_ = pin;
+        error_pin_is_input_ = is_input;
+    }
 
     /**
      * @brief Clears the error state of pins.
      */
-    void ClearErrorPin() noexcept { error_pin_ = 0; }
+    void ClearErrorPin() noexcept { error_pin_id_ = 0; }
 
     /**
      * @brief Moves the node by the specified delta.
@@ -125,7 +128,7 @@ class NodeView final {
      * @return The position of the pin, or std::nullopt if the pin is not found.
      */
     std::optional<utils::WrappedVector2> GetPinPosition(
-        core::PinId pin_id) const noexcept;
+        core::PinId pin_id, bool is_input) const noexcept;
 
     /**
      * @brief Draws the node.
@@ -182,7 +185,8 @@ class NodeView final {
     std::vector<PortView> inputs_;
     std::vector<PortView> outputs_;
     bool selected_ = false;
-    core::PinId error_pin_ = 0;
+    core::PinId error_pin_id_ = 0;
+    bool error_pin_is_input_ = false;
 };
 
 }  // namespace editor::ui
