@@ -4,13 +4,14 @@ var searchData=
   ['on_5fclick_5f_1',['on_click_',['../structcore_1_1capa_1_1Button.html#abb6b596f24d0af304971ba9dffbe6516',1,'core::capa::Button']]],
   ['opacity_2',['Opacity',['../classeditor_1_1ui_1_1NotificationStack.html#a96bf1ce02ddd75c2a61655a0944a68a7',1,'editor::ui::NotificationStack']]],
   ['open_3',['Open',['../classcore_1_1detail_1_1SharedLibrary.html#a4aa178f46262c2c96933e586c967a5ee',1,'core::detail::SharedLibrary']]],
-  ['options_5f_4',['options_',['../structcore_1_1capa_1_1Select.html#a860f5c9464ce40b1406bdd0515a896bd',1,'core::capa::Select']]],
-  ['other_5fpressed_5f_5',['other_pressed_',['../structeditor_1_1ui_1_1TopBarInput.html#a3eefc6498bd6189c335a52578cfb1553',1,'editor::ui::TopBarInput']]],
-  ['output_5fpins_5f_6',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
-  ['output_5fsymbols_7',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
-  ['outputpin_8',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
-  ['outputpinexists_9',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
-  ['outputpins_10',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
-  ['outputpinscount_11',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
-  ['ownership_20and_20lifetimes_12',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
+  ['openat_4',['OpenAt',['../classeditor_1_1ui_1_1ContextMenu.html#abbce80b4aa0be6868337fcfa4359a2b4',1,'editor::ui::ContextMenu']]],
+  ['options_5f_5',['options_',['../structcore_1_1capa_1_1Select.html#a860f5c9464ce40b1406bdd0515a896bd',1,'core::capa::Select']]],
+  ['other_5fpressed_5f_6',['other_pressed_',['../structeditor_1_1ui_1_1TopBarInput.html#a3eefc6498bd6189c335a52578cfb1553',1,'editor::ui::TopBarInput']]],
+  ['output_5fpins_5f_7',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
+  ['output_5fsymbols_8',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
+  ['outputpin_9',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
+  ['outputpinexists_10',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
+  ['outputpins_11',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
+  ['outputpinscount_12',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
+  ['ownership_20and_20lifetimes_13',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
 ];

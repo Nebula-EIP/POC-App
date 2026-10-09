@@ -1,5 +1,7 @@
 var hierarchy =
 [
+    [ "editor::actions::Action", "structeditor_1_1actions_1_1Action.html", null ],
+    [ "editor::actions::ActionManager", "classeditor_1_1actions_1_1ActionManager.html", null ],
     [ "editor::Application", "classeditor_1_1Application.html", null ],
     [ "render::Camera", "classrender_1_1Camera.html", null ],
     [ "editor::ui::ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
@@ -16,6 +18,9 @@ var hierarchy =
     ] ],
     [ "core::Connection", "structcore_1_1Connection.html", null ],
     [ "editor::ui::ConnectionOutcome", "structeditor_1_1ui_1_1ConnectionOutcome.html", null ],
+    [ "editor::ui::ContextMenu", "classeditor_1_1ui_1_1ContextMenu.html", null ],
+    [ "editor::ui::ContextMenuInput", "structeditor_1_1ui_1_1ContextMenuInput.html", null ],
+    [ "editor::ui::ContextMenuItem", "structeditor_1_1ui_1_1ContextMenuItem.html", null ],
     [ "editor::ui::NotificationStack::Entry", "structeditor_1_1ui_1_1NotificationStack_1_1Entry.html", null ],
     [ "std::exception", null, [
       [ "utils::BaseException", "classutils_1_1BaseException.html", null ]
@@ -96,6 +101,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "core::detail::SharedLibrary", "classcore_1_1detail_1_1SharedLibrary.html", null ],
+    [ "editor::actions::Shortcut", "structeditor_1_1actions_1_1Shortcut.html", null ],
     [ "editor::ui::TopBar", "classeditor_1_1ui_1_1TopBar.html", null ],
     [ "editor::ui::TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", null ],
     [ "editor::ui::TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ],

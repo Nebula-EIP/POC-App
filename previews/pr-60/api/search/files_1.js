@@ -5,5 +5,7 @@ var searchData=
   ['connection_5fexception_2ehpp_2',['connection_exception.hpp',['../connection__exception_8hpp.html',1,'']]],
   ['connection_5frequest_2ecpp_3',['connection_request.cpp',['../connection__request_8cpp.html',1,'']]],
   ['connection_5frequest_2ehpp_4',['connection_request.hpp',['../connection__request_8hpp.html',1,'']]],
-  ['create_5fmodule_2ehpp_5',['create_module.hpp',['../create__module_8hpp.html',1,'']]]
+  ['context_5fmenu_2ecpp_5',['context_menu.cpp',['../context__menu_8cpp.html',1,'']]],
+  ['context_5fmenu_2ehpp_6',['context_menu.hpp',['../context__menu_8hpp.html',1,'']]],
+  ['create_5fmodule_2ehpp_7',['create_module.hpp',['../create__module_8hpp.html',1,'']]]
 ];

@@ -70,9 +70,17 @@ var annotated_dup =
       [ "TypeMismatchException", "classcore_1_1TypeMismatchException.html", null ]
     ] ],
     [ "editor", null, [
+      [ "actions", null, [
+        [ "Action", "structeditor_1_1actions_1_1Action.html", null ],
+        [ "ActionManager", "classeditor_1_1actions_1_1ActionManager.html", "classeditor_1_1actions_1_1ActionManager" ],
+        [ "Shortcut", "structeditor_1_1actions_1_1Shortcut.html", null ]
+      ] ],
       [ "ui", null, [
         [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
         [ "ConnectionOutcome", "structeditor_1_1ui_1_1ConnectionOutcome.html", null ],
+        [ "ContextMenu", "classeditor_1_1ui_1_1ContextMenu.html", "classeditor_1_1ui_1_1ContextMenu" ],
+        [ "ContextMenuInput", "structeditor_1_1ui_1_1ContextMenuInput.html", null ],
+        [ "ContextMenuItem", "structeditor_1_1ui_1_1ContextMenuItem.html", null ],
         [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
         [ "Menu", "classeditor_1_1ui_1_1Menu.html", "classeditor_1_1ui_1_1Menu" ],
         [ "MenuItem", "structeditor_1_1ui_1_1MenuItem.html", "structeditor_1_1ui_1_1MenuItem" ],

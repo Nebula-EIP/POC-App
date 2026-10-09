@@ -1,10 +1,13 @@
 <map id="src/editor/ui" name="src/editor/ui">
-<area shape="rect" id="node1" href="dir_92dccbd6dd8271d99a6eedf36eee7e8d.html" title="ui" alt="" coords="51,52,90,77"/>
-<area shape="rect" id="node2" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html" title="core" alt="" coords="5,125,56,151"/>
-<area shape="poly" id="edge1" href="dir_000012_000002.html" alt="" coords="66,79,46,115,42,112,62,76"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000012_000002.html" title="7" alt="" coords="49,106,58,121"/>
-<area shape="rect" id="node3" href="dir_e488ee1cea97fb16abdb5ccc78d2123b.html" title="render" alt="" coords="80,125,144,151"/>
-<area shape="poly" id="edge2" href="dir_000012_000010.html" alt="" coords="80,76,101,112,96,115,75,79"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000012_000010.html" title="2" alt="" coords="99,98,108,113"/>
-<area shape="rect" id="clust1" href="dir_a31afd56823c6335224242a3eb4525db.html" title="editor" alt="" coords="40,16,101,88"/>
+<area shape="rect" id="node1" href="dir_8b2fd2915ace0e4519620a403eb7f406.html" title="actions" alt="" coords="27,125,96,151"/>
+<area shape="rect" id="node2" href="dir_92dccbd6dd8271d99a6eedf36eee7e8d.html" title="ui" alt="" coords="57,52,95,77"/>
+<area shape="poly" id="edge1" href="dir_000013_000000.html" alt="" coords="76,78,69,112,64,111,71,77"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000013_000000.html" title="1" alt="" coords="71,102,80,117"/>
+<area shape="rect" id="node3" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html" title="core" alt="" coords="120,125,171,151"/>
+<area shape="poly" id="edge2" href="dir_000013_000003.html" alt="" coords="89,76,127,114,123,117,86,80"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000013_000003.html" title="7" alt="" coords="123,99,132,114"/>
+<area shape="rect" id="node4" href="dir_e488ee1cea97fb16abdb5ccc78d2123b.html" title="render" alt="" coords="195,125,259,151"/>
+<area shape="poly" id="edge3" href="dir_000013_000011.html" alt="" coords="97,73,191,117,189,122,95,78"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000013_000011.html" title="2" alt="" coords="185,103,194,117"/>
+<area shape="rect" id="clust1" href="dir_a31afd56823c6335224242a3eb4525db.html" title="editor" alt="" coords="16,16,107,161"/>
 </map>

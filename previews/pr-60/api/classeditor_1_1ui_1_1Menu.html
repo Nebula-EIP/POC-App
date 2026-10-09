@@ -107,9 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a998aa1331b31efc059c5988bbc223ea8" id="r_a998aa1331b31efc059c5988bbc223ea8"><td class="memItemLeft" align="right" valign="top"><a id="a998aa1331b31efc059c5988bbc223ea8" name="a998aa1331b31efc059c5988bbc223ea8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Menu</b> (std::string title)</td></tr>
 <tr class="separator:a998aa1331b31efc059c5988bbc223ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7b40ef71fe85b9cc42cb984e9d368a1" id="r_aa7b40ef71fe85b9cc42cb984e9d368a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classeditor_1_1ui_1_1Menu.html">Menu</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1Menu.html#aa7b40ef71fe85b9cc42cb984e9d368a1">AddAction</a> (std::string label, <a class="el" href="top__bar_8hpp.html#a3568154ba13b56b3e7f30c080695fde4">Command</a> command={})</td></tr>
-<tr class="memdesc:aa7b40ef71fe85b9cc42cb984e9d368a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a clickable entry.  <br /></td></tr>
-<tr class="separator:aa7b40ef71fe85b9cc42cb984e9d368a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d4266122d70aa3536d832235bc3cb6f" id="r_a2d4266122d70aa3536d832235bc3cb6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classeditor_1_1ui_1_1Menu.html">Menu</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1Menu.html#a2d4266122d70aa3536d832235bc3cb6f">AddAction</a> (std::string label, <a class="el" href="top__bar_8hpp.html#a3568154ba13b56b3e7f30c080695fde4">Command</a> command={}, std::string shortcut_text=&quot;&quot;, bool keep_open=false)</td></tr>
+<tr class="memdesc:a2d4266122d70aa3536d832235bc3cb6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a clickable entry.  <br /></td></tr>
+<tr class="separator:a2d4266122d70aa3536d832235bc3cb6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8798bb60649b74c6edf7546068a57490" id="r_a8798bb60649b74c6edf7546068a57490"><td class="memItemLeft" align="right" valign="top"><a id="a8798bb60649b74c6edf7546068a57490" name="a8798bb60649b74c6edf7546068a57490"></a>
 <a class="el" href="classeditor_1_1ui_1_1Menu.html">Menu</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>AddSeparator</b> ()</td></tr>
 <tr class="memdesc:a8798bb60649b74c6edf7546068a57490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a horizontal line between two groups of entries. <br /></td></tr>
@@ -126,12 +126,12 @@ const std::vector&lt; <a class="el" href="structeditor_1_1ui_1_1MenuItem.html">M
 <p>The builder methods return the menu itself so that calls can be chained: </p><div class="fragment"><div class="line">top_bar.AddMenu(<span class="stringliteral">&quot;Aide&quot;</span>)</div>
 <div class="line">    .AddAction(<span class="stringliteral">&quot;Documentation&quot;</span>, [<span class="keyword">this</span>] { OpenDocumentation(); })</div>
 <div class="line">    .<a class="code hl_function" href="classeditor_1_1ui_1_1Menu.html#a8798bb60649b74c6edf7546068a57490">AddSeparator</a>()</div>
-<div class="line">    .<a class="code hl_function" href="classeditor_1_1ui_1_1Menu.html#aa7b40ef71fe85b9cc42cb984e9d368a1">AddAction</a>(<span class="stringliteral">&quot;A propos&quot;</span>);  <span class="comment">// no command yet: greyed out</span></div>
-<div class="ttc" id="aclasseditor_1_1ui_1_1Menu_html_a8798bb60649b74c6edf7546068a57490"><div class="ttname"><a href="classeditor_1_1ui_1_1Menu.html#a8798bb60649b74c6edf7546068a57490">editor::ui::Menu::AddSeparator</a></div><div class="ttdeci">Menu &amp; AddSeparator()</div><div class="ttdoc">Appends a horizontal line between two groups of entries.</div><div class="ttdef"><b>Definition</b> top_bar.cpp:42</div></div>
-<div class="ttc" id="aclasseditor_1_1ui_1_1Menu_html_aa7b40ef71fe85b9cc42cb984e9d368a1"><div class="ttname"><a href="classeditor_1_1ui_1_1Menu.html#aa7b40ef71fe85b9cc42cb984e9d368a1">editor::ui::Menu::AddAction</a></div><div class="ttdeci">Menu &amp; AddAction(std::string label, Command command={})</div><div class="ttdoc">Appends a clickable entry.</div><div class="ttdef"><b>Definition</b> top_bar.cpp:37</div></div>
+<div class="line">    .<a class="code hl_function" href="classeditor_1_1ui_1_1Menu.html#a2d4266122d70aa3536d832235bc3cb6f">AddAction</a>(<span class="stringliteral">&quot;A propos&quot;</span>);  <span class="comment">// no command yet: greyed out</span></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1Menu_html_a2d4266122d70aa3536d832235bc3cb6f"><div class="ttname"><a href="classeditor_1_1ui_1_1Menu.html#a2d4266122d70aa3536d832235bc3cb6f">editor::ui::Menu::AddAction</a></div><div class="ttdeci">Menu &amp; AddAction(std::string label, Command command={}, std::string shortcut_text=&quot;&quot;, bool keep_open=false)</div><div class="ttdoc">Appends a clickable entry.</div><div class="ttdef"><b>Definition</b> top_bar.cpp:37</div></div>
+<div class="ttc" id="aclasseditor_1_1ui_1_1Menu_html_a8798bb60649b74c6edf7546068a57490"><div class="ttname"><a href="classeditor_1_1ui_1_1Menu.html#a8798bb60649b74c6edf7546068a57490">editor::ui::Menu::AddSeparator</a></div><div class="ttdeci">Menu &amp; AddSeparator()</div><div class="ttdoc">Appends a horizontal line between two groups of entries.</div><div class="ttdef"><b>Definition</b> top_bar.cpp:44</div></div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa7b40ef71fe85b9cc42cb984e9d368a1" name="aa7b40ef71fe85b9cc42cb984e9d368a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7b40ef71fe85b9cc42cb984e9d368a1">&#9670;&#160;</a></span>AddAction()</h2>
+<a id="a2d4266122d70aa3536d832235bc3cb6f" name="a2d4266122d70aa3536d832235bc3cb6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d4266122d70aa3536d832235bc3cb6f">&#9670;&#160;</a></span>AddAction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +146,19 @@ const std::vector&lt; <a class="el" href="structeditor_1_1ui_1_1MenuItem.html">M
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="top__bar_8hpp.html#a3568154ba13b56b3e7f30c080695fde4">Command</a>&#160;</td>
-          <td class="paramname"><em>command</em> = <code>{}</code>&#160;</td>
+          <td class="paramname"><em>command</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>shortcut_text</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>keep_open</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
