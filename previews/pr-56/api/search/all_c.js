@@ -27,7 +27,7 @@ var searchData=
   ['nodemetadata_24',['NodeMetadata',['../structcore_1_1capa_1_1NodeMetadata.html',1,'core::capa']]],
   ['nodenotfoundexception_25',['NodeNotFoundException',['../classcore_1_1NodeNotFoundException.html',1,'core']]],
   ['nodepindescriptor_26',['NodePinDescriptor',['../structcore_1_1NodePinDescriptor.html',1,'core']]],
-  ['nodes_27',['nodes',['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()'],['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes']]],
+  ['nodes_27',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()']]],
   ['nodetype_28',['NodeType',['../datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e',1,'core']]],
   ['nodetypeexception_29',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['nodeview_30',['nodeview',['../classeditor_1_1ui_1_1NodeView.html#a265d15565a112730d7b97994375c2813',1,'editor::ui::NodeView::NodeView()'],['../classeditor_1_1ui_1_1NodeView.html',1,'editor::ui::NodeView']]],
