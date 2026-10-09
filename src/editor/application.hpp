@@ -25,9 +25,9 @@
 #include "modules/module.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/context_menu.hpp"
 #include "ui/node_clipboard.hpp"
 #include "ui/notification_stack.hpp"
-#include "ui/context_menu.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
 
