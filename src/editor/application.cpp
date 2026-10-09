@@ -145,13 +145,62 @@ void Application::LoadModule() {
 }
 
 void Application::BuildMenus() {
-    // Items without a command are not implemented yet: they are greyed out.
-    top_bar_.AddMenu("Fichier")
+    // Register actions
+    actions::ActionManager &am = action_manager_;
+
+    am.RegisterAction({"app.quit",
+                       "Quit",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { should_quit_ = true; }});
+
+    am.RegisterAction({"view.recenter",
+                       "Recenter",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { RecenterView(); }});
+
+    am.RegisterAction({"view.reset_zoom",
+                       "Zoom 100 %",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { ResetZoom(); }});
+
+    am.RegisterAction(
+        {"node.add_menu",
+         "Add Node",
+         {utils::WrappedKey::kA, false, true, false},  // Shift+A
+         [this] {
+             context_menu_.Clear();
+             // Spawn where the menu was opened, not where the item is
+             // clicked.
+             const utils::WrappedVector2 kSpawnWorld =
+                 camera_.ScreenToWorld(cursor_position_);
+             if (module_ != nullptr) {
+                 // Populate node types
+                 for (const auto &node_meta :
+                      module_->Nodes()->GetAvailableNodes()) {
+                     const core::NodeType kType = node_meta.type_;
+                     const std::string kName = node_meta.name_;
+                     context_menu_.AddAction(
+                         kName, [this, kType, kSpawnWorld]() {
+                             CreateNodeFromConfiguration(
+                                 kType,
+                                 module_->Nodes()->GetNodeConfiguration(kType),
+                                 kSpawnWorld);
+                         });
+                 }
+             }
+             context_menu_.OpenAt(cursor_position_, renderer_.ScreenSize().x_,
+                                  renderer_.ScreenSize().y_);
+         }});
+
+    // Build top bar
+    top_bar_.AddMenu("File")
         .AddAction("Nouveau")
         .AddAction("Ouvrir...")
         .AddAction("Enregistrer")
         .AddSeparator()
-        .AddAction("Quitter", [this] { should_quit_ = true; });
+        .AddAction(am.GetAction("app.quit")->display_name_,
+                   am.GetAction("app.quit")->callback_,
+                   am.GetAction("app.quit")->shortcut_.ToString());
 
     top_bar_.AddMenu("Édition")
         .AddAction("Copier (Ctrl+C)", [this] { CopySelection(); })
@@ -166,8 +215,17 @@ void Application::BuildMenus() {
         .AddAction("Supprimer (Suppr)", [this] { DeleteSelection(); });
 
     top_bar_.AddMenu("Affichage")
-        .AddAction("Recentrer", [this] { RecenterView(); })
-        .AddAction("Zoom 100 %", [this] { ResetZoom(); });
+        .AddAction(am.GetAction("view.recenter")->display_name_,
+                   am.GetAction("view.recenter")->callback_,
+                   am.GetAction("view.recenter")->shortcut_.ToString())
+        .AddAction(am.GetAction("view.reset_zoom")->display_name_,
+                   am.GetAction("view.reset_zoom")->callback_,
+                   am.GetAction("view.reset_zoom")->shortcut_.ToString());
+
+    top_bar_.AddMenu("Node").AddAction(
+        am.GetAction("node.add_menu")->display_name_,
+        am.GetAction("node.add_menu")->callback_,
+        am.GetAction("node.add_menu")->shortcut_.ToString());
 }
 
 void Application::RecenterView() {
@@ -235,12 +293,31 @@ utils::WrappedVector2 Application::SpawnPosition() const {
 }
 
 void Application::ProcessInput() {
-    // The top bar goes first: when it owns the mouse (click on the bar, open
-    // menu...), the canvas must not see it. Its commands run inside Update().
-    const bool kPointerCaptured = top_bar_.Update(ui::TopBar::ReadInput());
+    cursor_position_ = utils::GetCursorPositionWrapped();
+
+    // Context menu goes first. If it consumes input, others shouldn't.
+    ui::ContextMenuInput context_menu_input{
+        .cursor_ = cursor_position_,
+        .left_pressed_ = utils::IsLeftClicked(),
+        .right_pressed_ =
+            utils::IsRightClicked(),  // Wait, is there IsRightClicked?
+        .escape_pressed_ =
+            utils::IsKeyPressedWrapped(utils::WrappedKey::kEscape),
+        .screen_width_ = renderer_.ScreenSize().x_,
+        .screen_height_ = renderer_.ScreenSize().y_};
+    const bool kContextCaptured = context_menu_.Update(context_menu_input);
+
+    // The top bar goes second.
+    const bool kTopBarCaptured = top_bar_.Update(ui::TopBar::ReadInput());
+    const bool kPointerCaptured = kContextCaptured || kTopBarCaptured;
+
     renderer_.ProcessInput(camera_, kPointerCaptured);
 
-    cursor_position_ = utils::GetCursorPositionWrapped();
+    // Process shortcuts if pointer is not captured by a menu (or maybe always?)
+    // The requirement says: "Shortcuts must not trigger unrelated actions while
+    // the user is typing in a text field." For now we just process them.
+    action_manager_.ProcessShortcuts();
+
     const bool kCanvasClicked = !kPointerCaptured && utils::IsLeftClicked();
 
     if (kCanvasClicked) {
@@ -259,6 +336,68 @@ void Application::ProcessInput() {
         utils::IsKeyDownWrapped(utils::WrappedKey::kRightControl);
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kDelete)) {
         DeleteSelection();
+    // Check for pending connection requests
+    if (auto pending = renderer_.node_canvas_.PopPendingConnectionRequest()) {
+        const auto &[start_hit, end_hit] = *pending;
+        if (start_hit.part_ == ui::HitPart::kOutputPin &&
+            end_hit.part_ == ui::HitPart::kInputPin) {
+            try {
+                graph_.Connect(start_hit.node_id_, start_hit.pin_id_,
+                               end_hit.node_id_, end_hit.pin_id_);
+            } catch (const std::exception &) {
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(end_hit.pin_id_, true);
+                }
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(start_hit.pin_id_, false);
+                }
+            }
+        } else if (start_hit.part_ == ui::HitPart::kInputPin &&
+                   end_hit.part_ == ui::HitPart::kOutputPin) {
+            try {
+                graph_.Connect(end_hit.node_id_, end_hit.pin_id_,
+                               start_hit.node_id_, start_hit.pin_id_);
+            } catch (const std::exception &) {
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(start_hit.pin_id_, true);
+                }
+                if (auto view =
+                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
+                    view != renderer_.node_canvas_.Views().end()) {
+                    view->second->SetErrorPin(end_hit.pin_id_, false);
+                }
+            }
+        }
+    }
+
+    // Hit test for connection selection and deletion
+    const auto kCursorWorld = camera_.ScreenToWorld(cursor_position_);
+    if (kCanvasClicked) {
+        hovered_connection_ = std::nullopt;
+        const auto &views = renderer_.node_canvas_.Views();
+        for (const auto &[id, connection] : graph_.GetAllConnections()) {
+            if (!views.contains(connection.from_node_) ||
+                !views.contains(connection.to_node_)) {
+                continue;
+            }
+            const auto kStartPos =
+                views.at(connection.from_node_)
+                    ->GetPinPosition(connection.out_pin_, false);
+            const auto kEndPos = views.at(connection.to_node_)
+                                     ->GetPinPosition(connection.in_pin_, true);
+            if (kStartPos && kEndPos) {
+                if (HitTestBezier(kCursorWorld, *kStartPos, *kEndPos, 8.0f)) {
+                    hovered_connection_ = id;
+                    break;
+                }
+            }
+        }
     }
     if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
         DuplicateSelection();
@@ -471,6 +610,7 @@ void Application::DrawFrame() {
                              notifications_.Draw(renderer_.ScreenSize(),
                                                  utils::GetTimeWrapped());
                              top_bar_.Draw();
+                             context_menu_.Draw();
                          }});
 }
 

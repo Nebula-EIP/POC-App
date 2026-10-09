@@ -34,13 +34,15 @@ bool Contains(utils::WrappedRectangle rectangle, utils::WrappedVector2 point) {
 
 Menu::Menu(std::string title) : title_(std::move(title)) {}
 
-Menu &Menu::AddAction(std::string label, Command command) {
-    items_.push_back({std::move(label), std::move(command), false});
+Menu &Menu::AddAction(std::string label, Command command,
+                      std::string shortcut_text, bool keep_open) {
+    items_.push_back({std::move(label), std::move(command),
+                      std::move(shortcut_text), false, keep_open});
     return *this;
 }
 
 Menu &Menu::AddSeparator() {
-    items_.push_back({"", {}, true});
+    items_.push_back({"", {}, "", true});
     return *this;
 }
 
@@ -90,8 +92,13 @@ utils::WrappedRectangle TopBar::DropdownRect() const {
     float width = style_.min_dropdown_width_;
     float height = 2.0F * kDropdownPadding;
     for (const MenuItem &item : menu.Items()) {
-        width = std::max(width, measurer_(item.label_, style_.font_size_) +
-                                    2.0F * style_.item_padding_);
+        float item_width = measurer_(item.label_, style_.font_size_) +
+                           2.0F * style_.item_padding_;
+        if (!item.shortcut_text_.empty()) {
+            item_width +=
+                20.0F + measurer_(item.shortcut_text_, style_.font_size_);
+        }
+        width = std::max(width, item_width);
         height += ItemHeight(item);
     }
 
@@ -228,7 +235,9 @@ Command TopBar::HandleClick(const Hit &hit) {
         return {};  // Greyed out items keep the menu open.
     }
     Command command = item.command_;
-    Close();
+    if (!item.keep_open_) {
+        Close();
+    }
     return command;
 }
 
@@ -293,6 +302,16 @@ void TopBar::Draw() const {
             item.label_.c_str(), kItem.x_ + style_.item_padding_,
             kItem.y_ + (kItem.height_ - kFont) / 2.0F, style_.font_size_,
             kEnabled ? style_.text_ : style_.disabled_text_);
+
+        if (!item.shortcut_text_.empty()) {
+            const float kTextWidth =
+                measurer_(item.shortcut_text_, style_.font_size_);
+            utils::DrawTextWrapped(
+                item.shortcut_text_.c_str(),
+                kItem.x_ + kItem.width_ - style_.item_padding_ - kTextWidth,
+                kItem.y_ + (kItem.height_ - kFont) / 2.0F, style_.font_size_,
+                style_.disabled_text_);
+        }
     }
 }
 

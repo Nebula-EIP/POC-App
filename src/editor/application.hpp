@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+#include "actions/action_manager.hpp"
 #include "graph/graph.hpp"
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
@@ -26,6 +27,7 @@
 #include "render/renderer.hpp"
 #include "ui/node_clipboard.hpp"
 #include "ui/notification_stack.hpp"
+#include "ui/context_menu.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
 
@@ -95,6 +97,8 @@ class Application {
     ui::NodeClipboard clipboard_;
 
     ui::TopBar top_bar_;
+    ui::ContextMenu context_menu_;
+    actions::ActionManager action_manager_;
 };
 
 }  // namespace editor
