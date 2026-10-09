@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 27-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #pragma once
@@ -94,7 +94,8 @@ class NodeCanvas final {
             if (auto start_view = views_.find(connection_drag_start_->node_id_);
                 start_view != views_.end()) {
                 if (auto start_pos = start_view->second->GetPinPosition(
-                        connection_drag_start_->pin_id_)) {
+                        connection_drag_start_->pin_id_,
+                        connection_drag_start_->part_ == HitPart::kInputPin)) {
                     return std::make_pair(*start_pos,
                                           *connection_drag_current_);
                 }
