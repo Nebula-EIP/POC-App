@@ -143,6 +143,7 @@ enum class WrappedKey : int {
     kBackspace = 259,
     kDelete = 261,
     kLeftControl = 341,
+    kRightControl = 345,
     kD = 68,
     kH = 72,
 };
@@ -163,6 +164,10 @@ void ClearScreen();
 // Window queries
 float GetScreenWidthWrapped();
 
+// Time
+/// Seconds elapsed since the window was opened.
+double GetTimeWrapped();
+
 // Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
 bool IsCursorHiddenWrapped();
@@ -172,6 +177,8 @@ void HideCursorWrapped();
 // Draw functions
 void DrawRectangleWrapped(float x, float y, float width, float height,
                           WrappedColor color);
+/// Same as DrawRectangleWrapped, without rounding the rectangle to pixels.
+void DrawRectangleRecWrapped(WrappedRectangle rectangle, WrappedColor color);
 void DrawRectangleLinesWrapped(float x, float y, float width, float height,
                                WrappedColor color);
 void DrawCircleWrapped(float centerX, float centerY, float radius,

@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 09-10-2026
  */
 
 #include "application.hpp"
@@ -19,7 +19,9 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
+#include "ui/connection_request.hpp"
 #include "utils/logger.hpp"
 
 namespace editor {
@@ -32,8 +34,12 @@ constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
 constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
-constexpr utils::WrappedColor kConnectionHovered = {255, 255, 255, 255};
+constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
 constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
+// Screen pixels around a link that still select it.
+constexpr float kLinkPickTolerance = 8.0F;
+// World offset of a duplicated node from its original.
+constexpr float kDuplicateOffset = 30.0F;
 
 bool HitTestBezier(utils::WrappedVector2 point, utils::WrappedVector2 start,
                    utils::WrappedVector2 end, float thickness) {
@@ -147,6 +153,10 @@ void Application::BuildMenus() {
         .AddSeparator()
         .AddAction("Quitter", [this] { should_quit_ = true; });
 
+    top_bar_.AddMenu("Édition")
+        .AddAction("Dupliquer (Ctrl+D)", [this] { DuplicateSelection(); })
+        .AddAction("Supprimer (Suppr)", [this] { DeleteSelection(); });
+
     top_bar_.AddMenu("Affichage")
         .AddAction("Recentrer", [this] { RecenterView(); })
         .AddAction("Zoom 100 %", [this] { ResetZoom(); });
@@ -227,72 +237,23 @@ void Application::ProcessInput() {
 
     if (kCanvasClicked) {
         for (const auto &[id, view] : renderer_.node_canvas_.Views()) {
+            (void)id;
             view->ClearErrorPin();
         }
+        SelectConnectionAt(camera_.ScreenToWorld(cursor_position_));
     }
 
-    // Check for pending connection requests
-    if (auto pending = renderer_.node_canvas_.PopPendingConnectionRequest()) {
-        const auto &[start_hit, end_hit] = *pending;
-        if (start_hit.part_ == ui::HitPart::kOutputPin &&
-            end_hit.part_ == ui::HitPart::kInputPin) {
-            try {
-                graph_.Connect(start_hit.node_id_, start_hit.pin_id_,
-                               end_hit.node_id_, end_hit.pin_id_);
-            } catch (const std::exception &) {
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(
-                        end_hit.pin_id_,
-                        end_hit.part_ == ui::HitPart::kInputPin);
-                }
-            }
-        } else if (start_hit.part_ == ui::HitPart::kInputPin &&
-                   end_hit.part_ == ui::HitPart::kOutputPin) {
-            try {
-                graph_.Connect(end_hit.node_id_, end_hit.pin_id_,
-                               start_hit.node_id_, start_hit.pin_id_);
-            } catch (const std::exception &) {
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(
-                        start_hit.pin_id_,
-                        start_hit.part_ == ui::HitPart::kInputPin);
-                }
-            }
-        }
-    }
+    HandleConnectionRequest();
+    notifications_.Prune(utils::GetTimeWrapped());
 
-    // Hit test for connection selection and deletion
-    const auto kCursorWorld = camera_.ScreenToWorld(cursor_position_);
-    if (kCanvasClicked) {
-        hovered_connection_ = std::nullopt;
-        const auto &views = renderer_.node_canvas_.Views();
-        for (const auto &[id, connection] : graph_.GetAllConnections()) {
-            if (!views.contains(connection.from_node_) ||
-                !views.contains(connection.to_node_)) {
-                continue;
-            }
-            const auto kStartPos =
-                views.at(connection.from_node_)
-                    ->GetPinPosition(connection.out_pin_, false);
-            const auto kEndPos = views.at(connection.to_node_)
-                                     ->GetPinPosition(connection.in_pin_, true);
-            if (kStartPos && kEndPos) {
-                if (HitTestBezier(kCursorWorld, *kStartPos, *kEndPos, 8.0f)) {
-                    hovered_connection_ = id;
-                    break;
-                }
-            }
-        }
+    const bool kControlDown =
+        utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl) ||
+        utils::IsKeyDownWrapped(utils::WrappedKey::kRightControl);
+    if (utils::IsKeyPressedWrapped(utils::WrappedKey::kDelete)) {
+        DeleteSelection();
     }
-
-    if (hovered_connection_ &&
-        utils::IsKeyPressedWrapped(utils::WrappedKey::kDelete)) {
-        graph_.Disconnect(*hovered_connection_);
-        hovered_connection_ = std::nullopt;
+    if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
+        DuplicateSelection();
     }
 
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kH)) {
@@ -302,10 +263,119 @@ void Application::ProcessInput() {
             utils::HideCursorWrapped();
         }
     }
-    if (utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl) &&
-        utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
-        // Duplicate the selected node
+}
+
+void Application::HandleConnectionRequest() {
+    const auto kPending = renderer_.node_canvas_.PopPendingConnectionRequest();
+    if (!kPending) {
+        return;
     }
+
+    const ui::ConnectionOutcome kOutcome = ui::RequestConnection(
+        graph_, kPending->first, kPending->second,
+        [this](core::DataType type) { return TypeName(type); });
+    if (kOutcome.Succeeded() || kOutcome.error_.empty()) {
+        return;
+    }
+
+    if (kOutcome.faulty_pin_) {
+        const auto &views = renderer_.node_canvas_.Views();
+        if (const auto kView = views.find(kOutcome.faulty_pin_->node_id_);
+            kView != views.end()) {
+            kView->second->SetErrorPin(
+                kOutcome.faulty_pin_->pin_id_,
+                kOutcome.faulty_pin_->part_ == ui::HitPart::kInputPin);
+        }
+    }
+    ShowError(kOutcome.error_);
+}
+
+void Application::SelectConnectionAt(utils::WrappedVector2 world) {
+    selected_connection_.reset();
+
+    // A node (or one of its pins) above a link takes the click.
+    if (renderer_.node_canvas_.HitTest(world)) {
+        return;
+    }
+
+    const float kTolerance = kLinkPickTolerance / camera_.Zoom();
+    const auto &views = renderer_.node_canvas_.Views();
+    for (const auto &[id, connection] : graph_.GetAllConnections()) {
+        if (!views.contains(connection.from_node_) ||
+            !views.contains(connection.to_node_)) {
+            continue;
+        }
+        const auto kStartPos = views.at(connection.from_node_)
+                                   ->GetPinPosition(connection.out_pin_, false);
+        const auto kEndPos = views.at(connection.to_node_)
+                                 ->GetPinPosition(connection.in_pin_, true);
+        if (kStartPos && kEndPos &&
+            HitTestBezier(world, *kStartPos, *kEndPos, kTolerance)) {
+            selected_connection_ = id;
+            return;
+        }
+    }
+}
+
+void Application::DeleteSelection() {
+    if (selected_connection_) {
+        graph_.Disconnect(*selected_connection_);
+        selected_connection_.reset();
+    }
+
+    const std::vector<core::NodeId> kSelected =
+        renderer_.node_canvas_.SelectedNodes();
+    if (kSelected.empty()) {
+        return;
+    }
+    // Graph::RemoveNode also removes every connection of the node.
+    for (const core::NodeId kId : kSelected) {
+        graph_.RemoveNode(kId);
+    }
+    renderer_.node_canvas_.RemoveMissingNodes(graph_);
+}
+
+void Application::DuplicateSelection() {
+    const std::vector<core::NodeId> kSelected =
+        renderer_.node_canvas_.SelectedNodes();
+    if (kSelected.empty()) {
+        return;
+    }
+
+    std::vector<core::NodeId> copies;
+    copies.reserve(kSelected.size());
+    for (const core::NodeId kId : kSelected) {
+        const auto &views = renderer_.node_canvas_.Views();
+        const auto kView = views.find(kId);
+        if (kView == views.end()) {
+            continue;
+        }
+        std::string title = kView->second->Title();
+        const utils::WrappedRectangle kBounds = kView->second->Bounds();
+
+        // Same type, pins and properties; no connection.
+        const core::Node &copy = graph_.DuplicateNode(kId);
+        renderer_.node_canvas_.AddNode(
+            copy, std::move(title),
+            {kBounds.x_ + kDuplicateOffset, kBounds.y_ + kDuplicateOffset});
+        copies.push_back(copy.Id());
+    }
+
+    // The copies replace the originals in the selection, so they can be
+    // moved right away.
+    renderer_.node_canvas_.SetSelection(copies);
+    selected_connection_.reset();
+}
+
+std::string Application::TypeName(core::DataType type) const {
+    if (module_ == nullptr || module_->Types() == nullptr) {
+        return {};
+    }
+    return std::string(module_->Types()->TypeName(type));
+}
+
+void Application::ShowError(std::string message) {
+    notifications_.Push(std::move(message), utils::GetTimeWrapped());
 }
 
 void Application::DrawLinks(const render::Camera &camera) {
@@ -322,10 +392,10 @@ void Application::DrawLinks(const render::Camera &camera) {
                                  ->GetPinPosition(connection.in_pin_, true);
 
         if (kStartPos && kEndPos) {
-            const bool kIsHovered =
-                hovered_connection_ && *hovered_connection_ == id;
+            const bool kIsSelected =
+                selected_connection_ && *selected_connection_ == id;
             const auto kColor =
-                kIsHovered ? kConnectionHovered : kConnectionNormal;
+                kIsSelected ? kConnectionSelected : kConnectionNormal;
             utils::DrawLineBezierWrapped(*kStartPos, *kEndPos, 3.0f, kColor);
         }
     }
@@ -343,7 +413,12 @@ void Application::DrawFrame() {
                          [this](const render::Camera &cam) { DrawLinks(cam); },
                      // Screen space, after the canvas: pan and zoom never
                      // move the bar.
-                     .draw_ui_ = [this]() { top_bar_.Draw(); }});
+                     .draw_ui_ =
+                         [this]() {
+                             notifications_.Draw(renderer_.ScreenSize(),
+                                                 utils::GetTimeWrapped());
+                             top_bar_.Draw();
+                         }});
 }
 
 }  // namespace editor

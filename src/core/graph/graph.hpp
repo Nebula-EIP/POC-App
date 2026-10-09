@@ -8,8 +8,8 @@
  * @author Created by JeanBizeul
  * @date Created on 01-08-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 10-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 09-10-2026
  */
 
 #pragma once
@@ -86,6 +86,18 @@ class Graph {
      * False if the node is not in the graph.
      */
     bool RemoveNode(NodeId id);
+
+    /**
+     * @brief Creates a copy of a node: same type, same pins (ids, names and
+     * types) and same properties. The copy gets a new id and no connection.
+     *
+     * @param id Id of the node to copy. Required
+     *
+     * @throws `core::NodeNotFoundException` The id is invalid.
+     *
+     * @return The created node.
+     */
+    Node &DuplicateNode(NodeId id);
 
     /**
      * @brief Add an input pin to a node

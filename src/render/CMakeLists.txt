@@ -4,6 +4,8 @@ add_library(neb_render
     camera.cpp
     renderer.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/node_canvas.cpp
+    ${CMAKE_SOURCE_DIR}/src/editor/ui/notification_stack.cpp
+    ${CMAKE_SOURCE_DIR}/src/editor/ui/connection_request.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
 )
 

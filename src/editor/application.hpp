@@ -7,13 +7,15 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 09-10-2026
  */
 
 #pragma once
 
 #include <filesystem>
 #include <memory>
+#include <optional>
+#include <string>
 #include <vector>
 
 #include "graph/graph.hpp"
@@ -22,6 +24,7 @@
 #include "modules/module.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/notification_stack.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
 
@@ -51,6 +54,16 @@ class Application {
         core::NodeType type, const core::capa::NodeConfiguration &config,
         utils::WrappedVector2 position);
 
+    // Editing
+    void HandleConnectionRequest();
+    void SelectConnectionAt(utils::WrappedVector2 world);
+    void DeleteSelection();
+    void DuplicateSelection();
+    [[nodiscard]] std::string TypeName(core::DataType type) const;
+
+    // Feedback
+    void ShowError(std::string message);
+
     // Render
     void ProcessInput();
     void DrawFrame();
@@ -73,7 +86,9 @@ class Application {
     core::IModule *module_ = nullptr;
     core::Graph graph_;
 
-    std::optional<core::ConnectionId> hovered_connection_;
+    std::optional<core::ConnectionId> selected_connection_;
+
+    ui::NotificationStack notifications_;
 
     ui::TopBar top_bar_;
 };
