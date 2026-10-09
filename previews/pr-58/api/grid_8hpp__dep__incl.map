@@ -1,7 +1,0 @@
-<map id="src/render/grid.hpp" name="src/render/grid.hpp">
-<area shape="rect" id="Node000001" title="Adaptive canvas grid: picks which grid levels to draw for a given zoom, Blender style (a fine grid ne..." alt="" coords="95,5,239,31"/>
-<area shape="rect" id="Node000002" href="$grid_8cpp.html" title="Implementation of the adaptive canvas grid level selection." alt="" coords="5,79,148,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,41,93,81,90,76,140,37"/>
-<area shape="rect" id="Node000003" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="172,79,344,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,37,245,76,242,81,191,41"/>
-</map>
