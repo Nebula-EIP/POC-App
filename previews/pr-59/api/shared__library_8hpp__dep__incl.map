@@ -1,0 +1,17 @@
+<map id="src/core/modules/shared_library.hpp" name="src/core/modules/shared_library.hpp">
+<area shape="rect" id="Node000001" title="Thin RAII wrapper around the platform shared library API (dlopen/dlsym/dlclose on POSIX,..." alt="" coords="333,5,514,45"/>
+<area shape="rect" id="Node000002" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="213,101,418,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,56,332,102,329,98,387,52"/>
+<area shape="rect" id="Node000008" href="$shared__library_8cpp.html" title="Platform implementation of the SharedLibrary RAII wrapper." alt="" coords="442,93,623,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="460,52,510,91,507,95,457,56"/>
+<area shape="rect" id="Node000003" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="5,189,209,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,134,136,191,134,186,274,129"/>
+<area shape="rect" id="Node000004" href="$node__catalog_8hpp.html" title="Facade for accessing module nodes cleanly for the renderer." alt="" coords="233,181,397,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="318,140,318,181,313,181,313,140"/>
+<area shape="rect" id="Node000006" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="422,189,609,214"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="356,129,489,186,487,191,354,134"/>
+<area shape="rect" id="Node000005" href="$node__catalog_8cpp.html" title="Implementation of the node catalog." alt="" coords="233,269,397,309"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="318,235,318,269,313,269,313,235"/>
+<area shape="rect" id="Node000007" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="422,277,609,302"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="518,228,518,276,513,276,513,228"/>
+</map>
