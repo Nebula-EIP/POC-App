@@ -1,9 +1,0 @@
-<map id="src/editor/actions/action_manager.hpp" name="src/editor/actions/action_manager.hpp">
-<area shape="rect" id="Node000001" title="ActionManager class for managing shortcuts and actions." alt="" coords="102,5,261,45"/>
-<area shape="rect" id="Node000002" href="$action__manager_8cpp.html" title="Implementation of ActionManager." alt="" coords="5,93,163,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,56,107,95,104,91,148,52"/>
-<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="187,101,373,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,53,268,98,265,102,212,57"/>
-<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="187,181,373,207"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="283,140,283,181,277,181,277,140"/>
-</map>
