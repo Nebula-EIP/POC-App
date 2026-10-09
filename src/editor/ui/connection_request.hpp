@@ -34,9 +34,7 @@ struct ConnectionOutcome {
     std::string error_;
     std::optional<HitResult> faulty_pin_;
 
-    [[nodiscard]] bool Succeeded() const noexcept {
-        return connection_.has_value();
-    }
+    [[nodiscard]] bool Succeeded() const noexcept;
 };
 
 /**

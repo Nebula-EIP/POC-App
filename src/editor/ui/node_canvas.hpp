@@ -115,30 +115,13 @@ class NodeCanvas final {
      * connection.
      */
     std::optional<std::pair<HitResult, HitResult>>
-    PopPendingConnectionRequest() noexcept {
-        auto result = pending_connection_;
-        pending_connection_ = std::nullopt;
-        return result;
-    }
+    PopPendingConnectionRequest() noexcept;
 
     /**
      * @brief Gets the current drag state for drawing ghost links.
      */
     std::optional<std::pair<utils::WrappedVector2, utils::WrappedVector2>>
-    GetConnectionDragLine() const noexcept {
-        if (connection_drag_start_ && connection_drag_current_) {
-            if (auto start_view = views_.find(connection_drag_start_->node_id_);
-                start_view != views_.end()) {
-                if (auto start_pos = start_view->second->GetPinPosition(
-                        connection_drag_start_->pin_id_,
-                        connection_drag_start_->part_ == HitPart::kInputPin)) {
-                    return std::make_pair(*start_pos,
-                                          *connection_drag_current_);
-                }
-            }
-        }
-        return std::nullopt;
-    }
+    GetConnectionDragLine() const noexcept;
 
    private:
     /**

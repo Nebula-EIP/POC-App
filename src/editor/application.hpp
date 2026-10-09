@@ -63,6 +63,7 @@ class Application {
     void DeleteSelection();
     void DuplicateSelection();
     void CopySelection();
+    void CutSelection();
     void PasteClipboard(utils::WrappedVector2 world_anchor);
     [[nodiscard]] std::string TypeName(core::DataType type) const;
 

@@ -12,6 +12,10 @@
 
 namespace editor::ui {
 
+bool ContextMenuItem::IsEnabled() const {
+    return !separator_ && static_cast<bool>(command_);
+}
+
 ContextMenu::ContextMenu(TopBarStyle style, TextMeasurer measurer)
     : style_(style), measurer_(std::move(measurer)) {
     if (!measurer_) {

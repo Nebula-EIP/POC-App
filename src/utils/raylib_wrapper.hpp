@@ -157,6 +157,7 @@ enum class WrappedKey : int {
     kD = 68,
     kH = 72,
     kV = 86,
+    kX = 88,
 };
 
 // Window functions

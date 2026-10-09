@@ -203,6 +203,7 @@ void Application::BuildMenus() {
                    am.GetAction("app.quit")->shortcut_.ToString());
 
     top_bar_.AddMenu("Édition")
+        .AddAction("Couper (Ctrl+X)", [this] { CutSelection(); })
         .AddAction("Copier (Ctrl+C)", [this] { CopySelection(); })
         .AddAction("Coller (Ctrl+V)",
                    [this] {
@@ -343,6 +344,9 @@ void Application::ProcessInput() {
     if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kC)) {
         CopySelection();
     }
+    if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kX)) {
+        CutSelection();
+    }
     if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kV)) {
         PasteClipboard(camera_.ScreenToWorld(cursor_position_));
     }
@@ -474,6 +478,15 @@ void Application::CopySelection() {
         });
     }
     clipboard_.Copy(graph_, nodes);
+}
+
+void Application::CutSelection() {
+    // Without a selected node there is nothing to cut: keep the clipboard.
+    if (renderer_.node_canvas_.SelectedNodes().empty()) {
+        return;
+    }
+    CopySelection();
+    DeleteSelection();
 }
 
 void Application::PasteClipboard(utils::WrappedVector2 world_anchor) {

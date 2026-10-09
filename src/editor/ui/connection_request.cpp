@@ -89,4 +89,8 @@ ConnectionOutcome RequestConnection(core::Graph &graph, const HitResult &start,
     }
 }
 
+bool ConnectionOutcome::Succeeded() const noexcept {
+    return connection_.has_value();
+}
+
 }  // namespace editor::ui
