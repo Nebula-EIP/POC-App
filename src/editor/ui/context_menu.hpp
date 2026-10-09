@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-#include "../actions/action.hpp"
+#include "actions/action.hpp"
 #include "top_bar.hpp"  // Reuse TopBarStyle maybe?
 #include "utils/raylib_wrapper.hpp"
 
