@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 09-10-2026
  */
 
 #include "renderer.hpp"
@@ -15,8 +15,11 @@
 #include <raylib.h>
 
 #include <cmath>
+#include <cstdint>
 #include <stdexcept>
 #include <utility>
+
+#include "grid.hpp"
 
 namespace render {
 
@@ -34,6 +37,50 @@ constexpr Color kBackgroundColor = Color{30, 30, 30, 255};
         .rotation = 0.0F,
         .zoom = camera.Zoom(),
     };
+}
+
+struct GridBounds {
+    utils::WrappedVector2 top_left_;
+    utils::WrappedVector2 bottom_right_;
+};
+
+/**
+ * @brief Draws one grid level over the visible world area.
+ *
+ * @param skip_every Lines whose index is a multiple of this are skipped
+ * (they belong to the coarse level, drawn separately); 0 skips none.
+ */
+void DrawGridLevel(const GridBounds &bounds, float spacing, int skip_every,
+                   float thickness, utils::WrappedColor color) {
+    const auto kFirstColumn =
+        static_cast<std::int64_t>(std::floor(bounds.top_left_.x_ / spacing));
+    const auto kLastColumn =
+        static_cast<std::int64_t>(std::ceil(bounds.bottom_right_.x_ / spacing));
+    for (std::int64_t i = kFirstColumn; i <= kLastColumn; ++i) {
+        if (skip_every > 0 && i % skip_every == 0) {
+            continue;
+        }
+        const float kX = static_cast<float>(i) * spacing;
+        utils::DrawLineWrapped(
+            utils::WrappedVector2{kX, bounds.top_left_.y_},
+            utils::WrappedVector2{kX, bounds.bottom_right_.y_}, thickness,
+            color);
+    }
+
+    const auto kFirstRow =
+        static_cast<std::int64_t>(std::floor(bounds.top_left_.y_ / spacing));
+    const auto kLastRow =
+        static_cast<std::int64_t>(std::ceil(bounds.bottom_right_.y_ / spacing));
+    for (std::int64_t i = kFirstRow; i <= kLastRow; ++i) {
+        if (skip_every > 0 && i % skip_every == 0) {
+            continue;
+        }
+        const float kY = static_cast<float>(i) * spacing;
+        utils::DrawLineWrapped(
+            utils::WrappedVector2{bounds.top_left_.x_, kY},
+            utils::WrappedVector2{bounds.bottom_right_.x_, kY}, thickness,
+            color);
+    }
 }
 
 }  // namespace
@@ -120,29 +167,22 @@ utils::WrappedVector2 Renderer::ScreenSize() const noexcept {
 
 void Renderer::DrawGrid(const Camera &camera) const {
     const utils::WrappedVector2 kScreen = ScreenSize();
-    const utils::WrappedVector2 kTopLeft =
-        camera.ScreenToWorld(utils::WrappedVector2{0.0F, 0.0F});
-    const utils::WrappedVector2 kBottomRight = camera.ScreenToWorld(kScreen);
-
+    const GridBounds kBounds{
+        .top_left_ = camera.ScreenToWorld(utils::WrappedVector2{0.0F, 0.0F}),
+        .bottom_right_ = camera.ScreenToWorld(kScreen),
+    };
     const float kThickness = 1.0F / camera.Zoom();
+    const GridLevels kLevels = ComputeGridLevels(camera.Zoom());
 
-    const float kFirstVerticalLine =
-        std::floor(kTopLeft.x_ / kGridSpacing) * kGridSpacing;
-    for (float x = kFirstVerticalLine; x <= kBottomRight.x_;
-         x += kGridSpacing) {
-        utils::DrawLineWrapped(utils::WrappedVector2{x, kTopLeft.y_},
-                               utils::WrappedVector2{x, kBottomRight.y_},
-                               kThickness, kGridColor);
-    }
+    utils::WrappedColor fine_color = kGridColor;
+    fine_color.a_ = static_cast<unsigned char>(
+        std::lround(kLevels.fine_alpha_ * static_cast<float>(kGridColor.a_)));
 
-    const float kFirstHorizontalLine =
-        std::floor(kTopLeft.y_ / kGridSpacing) * kGridSpacing;
-    for (float y = kFirstHorizontalLine; y <= kBottomRight.y_;
-         y += kGridSpacing) {
-        utils::DrawLineWrapped(utils::WrappedVector2{kTopLeft.x_, y},
-                               utils::WrappedVector2{kBottomRight.x_, y},
-                               kThickness, kGridColor);
+    if (fine_color.a_ > 0) {
+        DrawGridLevel(kBounds, kLevels.fine_spacing_, kGridSubdivisions,
+                      kThickness, fine_color);
     }
+    DrawGridLevel(kBounds, kLevels.coarse_spacing_, 0, kThickness, kGridColor);
 }
 
 }  // namespace render

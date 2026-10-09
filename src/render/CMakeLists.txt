@@ -2,6 +2,7 @@
 
 add_library(neb_render
     camera.cpp
+    grid.cpp
     renderer.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/node_canvas.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
