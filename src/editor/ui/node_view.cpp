@@ -184,4 +184,9 @@ std::optional<utils::WrappedVector2> NodeView::GetPinPosition(
     return std::nullopt;
 }
 
+void NodeView::SetErrorPin(core::PinId pin, bool is_input) noexcept {
+    error_pin_id_ = pin;
+    error_pin_is_input_ = is_input;
+}
+
 }  // namespace editor::ui

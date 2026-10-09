@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 06-10-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 09-10-2026
  */
 
 #pragma once
@@ -44,10 +44,37 @@ class NodeCanvas final {
 
     /**
      * @brief Removes nodes from the canvas that are not present in the graph.
+     * Any drag in progress on a removed node (move or connection) is
+     * cancelled.
      *
      * @param graph The graph to compare against.
      */
     void RemoveMissingNodes(const core::Graph &graph);
+
+    /**
+     * @brief Gets the selected nodes, from back to front (draw order).
+     *
+     * @return The ids of the selected nodes.
+     */
+    [[nodiscard]] std::vector<core::NodeId> SelectedNodes() const;
+
+    /**
+     * @brief Selects exactly the given nodes (unknown ids are ignored) and
+     * brings them to the front, keeping their relative order.
+     *
+     * @param node_ids The nodes to select.
+     */
+    void SetSelection(const std::vector<core::NodeId> &node_ids);
+
+    /**
+     * @brief Performs a hit test on the canvas, front-most node first.
+     *
+     * @param point The point to test, in world space.
+     *
+     * @return The result of the hit test, or std::nullopt if no hit occurred.
+     */
+    [[nodiscard]] std::optional<HitResult> HitTest(
+        utils::WrappedVector2 point) const;
 
     /**
      * @brief Processes user input for the canvas.
@@ -75,34 +102,26 @@ class NodeCanvas final {
     }
 
     /**
+     * @brief Gets the selection rectangle being dragged, in world space.
+     *
+     * @return The normalized rectangle (positive width and height), or
+     * std::nullopt when no rectangle selection is in progress.
+     */
+    [[nodiscard]] std::optional<utils::WrappedRectangle>
+    ActiveSelectionRectangle() const noexcept;
+
+    /**
      * @brief Polls if a connection drag just ended and returns the requested
      * connection.
      */
     std::optional<std::pair<HitResult, HitResult>>
-    PopPendingConnectionRequest() noexcept {
-        auto result = pending_connection_;
-        pending_connection_ = std::nullopt;
-        return result;
-    }
+    PopPendingConnectionRequest() noexcept;
 
     /**
      * @brief Gets the current drag state for drawing ghost links.
      */
     std::optional<std::pair<utils::WrappedVector2, utils::WrappedVector2>>
-    GetConnectionDragLine() const noexcept {
-        if (connection_drag_start_ && connection_drag_current_) {
-            if (auto start_view = views_.find(connection_drag_start_->node_id_);
-                start_view != views_.end()) {
-                if (auto start_pos = start_view->second->GetPinPosition(
-                        connection_drag_start_->pin_id_,
-                        connection_drag_start_->part_ == HitPart::kInputPin)) {
-                    return std::make_pair(*start_pos,
-                                          *connection_drag_current_);
-                }
-            }
-        }
-        return std::nullopt;
-    }
+    GetConnectionDragLine() const noexcept;
 
    private:
     /**
@@ -113,24 +132,25 @@ class NodeCanvas final {
     void SelectOnly(core::NodeId node_id);
 
     /**
-     * @brief Selects all nodes within a rectangle.
+     * @brief Selects the nodes touching a rectangle, plus the nodes of
+     * selection_base_ (kept when the drag started with Ctrl held).
      *
      * @param rectangle The rectangle to select nodes in.
      */
     void SelectInRectangle(utils::WrappedRectangle rectangle);
 
     /**
-     * @brief Performs a hit test on the canvas.
+     * @brief Draws the selection rectangle being dragged, if any.
      *
-     * @param point The point to test, in world space.
-     *
-     * @return The result of the hit test, or std::nullopt if no hit occurred.
+     * @param camera The camera, to keep the border 1 pixel wide on screen.
      */
-    std::optional<HitResult> HitTest(utils::WrappedVector2 point) const;
+    void DrawSelectionRectangle(const render::Camera &camera) const;
 
     std::unordered_map<core::NodeId, std::unique_ptr<NodeView>> views_;
     std::vector<core::NodeId> draw_order_;
     std::optional<utils::WrappedVector2> selection_start_;
+    std::optional<utils::WrappedVector2> selection_current_;
+    std::vector<core::NodeId> selection_base_;
     std::optional<utils::WrappedVector2> drag_start_;
     std::unordered_map<core::NodeId, utils::WrappedVector2> drag_origins_;
 

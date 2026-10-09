@@ -28,9 +28,7 @@ struct ContextMenuItem {
     std::string shortcut_text_;
     bool separator_ = false;
 
-    [[nodiscard]] bool IsEnabled() const {
-        return !separator_ && static_cast<bool>(command_);
-    }
+    [[nodiscard]] bool IsEnabled() const;
 };
 
 /**

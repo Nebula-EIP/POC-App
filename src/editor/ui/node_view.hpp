@@ -94,10 +94,7 @@ class NodeView final {
     /**
      * @brief Marks a pin as having an error (e.g., failed connection).
      */
-    void SetErrorPin(core::PinId pin, bool is_input) noexcept {
-        error_pin_id_ = pin;
-        error_pin_is_input_ = is_input;
-    }
+    void SetErrorPin(core::PinId pin, bool is_input) noexcept;
 
     /**
      * @brief Clears the error state of pins.

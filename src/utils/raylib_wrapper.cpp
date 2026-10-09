@@ -6,6 +6,11 @@ static_assert(static_cast<int>(WrappedKey::kEscape) == KEY_ESCAPE);
 static_assert(static_cast<int>(WrappedKey::kBackspace) == KEY_BACKSPACE);
 static_assert(static_cast<int>(WrappedKey::kLeftControl) == KEY_LEFT_CONTROL);
 static_assert(static_cast<int>(WrappedKey::kRightControl) == KEY_RIGHT_CONTROL);
+static_assert(static_cast<int>(WrappedKey::kDelete) == KEY_DELETE);
+static_assert(static_cast<int>(WrappedKey::kX) == KEY_X);
+static_assert(static_cast<int>(WrappedKey::kC) == KEY_C);
+static_assert(static_cast<int>(WrappedKey::kH) == KEY_H);
+static_assert(static_cast<int>(WrappedKey::kV) == KEY_V);
 static_assert(static_cast<int>(WrappedKey::kRightShift) == KEY_RIGHT_SHIFT);
 static_assert(static_cast<int>(WrappedKey::kRightAlt) == KEY_RIGHT_ALT);
 static_assert(static_cast<int>(WrappedKey::kD) == KEY_D);
@@ -46,6 +51,10 @@ void ClearScreen() { ClearBackground(RAYWHITE); }
 
 float GetScreenWidthWrapped() { return static_cast<float>(GetScreenWidth()); }
 
+// Time
+
+double GetTimeWrapped() { return GetTime(); }
+
 // Cursor functions
 
 WrappedVector2 GetCursorPositionWrapped() {
@@ -67,6 +76,12 @@ void DrawRectangleWrapped(float x, float y, float width, float height,
                           WrappedColor color) {
     Color raylib_color = {color.r_, color.g_, color.b_, color.a_};
     DrawRectangle(x, y, width, height, raylib_color);
+}
+
+void DrawRectangleRecWrapped(WrappedRectangle rectangle, WrappedColor color) {
+    DrawRectangleRec(Rectangle{rectangle.x_, rectangle.y_, rectangle.width_,
+                               rectangle.height_},
+                     Color{color.r_, color.g_, color.b_, color.a_});
 }
 
 void DrawRectangleLinesWrapped(float x, float y, float width, float height,

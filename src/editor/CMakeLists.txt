@@ -2,8 +2,11 @@ add_executable(Nebula
     main.cpp
     application.cpp
     ui/component_adapter.cpp
+    ui/connection_request.cpp
     ui/node_view.cpp
     ui/node_canvas.cpp
+    ui/node_clipboard.cpp
+    ui/notification_stack.cpp
     ui/top_bar.cpp
     ui/context_menu.cpp
     actions/action.cpp
