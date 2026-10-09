@@ -1,0 +1,24 @@
+<map id="src/render/camera.hpp" name="src/render/camera.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="225,5,393,31"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,343,192,368"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="259,38,214,57,165,85,120,121,101,143,86,168,78,191,74,215,76,265,86,310,96,341,91,343,81,311,71,266,69,215,73,190,82,166,97,140,116,118,162,80,211,52,257,33"/>
+<area shape="rect" id="Node000004" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="97,167,231,207"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="280,40,255,59,231,80,198,126,175,168,170,165,194,123,227,77,252,54,277,36"/>
+<area shape="rect" id="Node000006" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="256,262,429,287"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="347,36,371,53,392,77,402,100,405,120,405,166,408,187,405,208,385,240,360,264,357,260,381,237,400,206,403,187,400,167,400,121,397,102,387,80,368,57,344,40"/>
+<area shape="rect" id="Node000008" href="$node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="242,79,377,119"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="312,44,312,79,307,79,307,44"/>
+<area shape="rect" id="Node000010" href="$camera_8cpp.html" title="Implementation of the Camera class, which handles 2D camera transformations." alt="" coords="466,86,633,111"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="358,32,515,83,514,89,356,37"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,416,192,441"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,382,101,416,96,416,96,382"/>
+<area shape="rect" id="Node000005" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="97,255,231,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="167,221,167,254,161,254,161,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="216,210,320,260,318,264,214,215"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="295,294,135,345,133,340,293,289"/>
+<area shape="rect" id="Node000007" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="257,343,429,368"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="345,301,345,342,340,342,340,301"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="267,128,197,169,194,164,264,123"/>
+<area shape="rect" id="Node000009" href="$node__view_8cpp.html" title="Implementation of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="255,167,390,207"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="317,132,322,166,317,167,312,133"/>
+</map>
