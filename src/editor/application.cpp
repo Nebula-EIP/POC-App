@@ -336,68 +336,6 @@ void Application::ProcessInput() {
         utils::IsKeyDownWrapped(utils::WrappedKey::kRightControl);
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kDelete)) {
         DeleteSelection();
-    // Check for pending connection requests
-    if (auto pending = renderer_.node_canvas_.PopPendingConnectionRequest()) {
-        const auto &[start_hit, end_hit] = *pending;
-        if (start_hit.part_ == ui::HitPart::kOutputPin &&
-            end_hit.part_ == ui::HitPart::kInputPin) {
-            try {
-                graph_.Connect(start_hit.node_id_, start_hit.pin_id_,
-                               end_hit.node_id_, end_hit.pin_id_);
-            } catch (const std::exception &) {
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(end_hit.pin_id_, true);
-                }
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(start_hit.pin_id_, false);
-                }
-            }
-        } else if (start_hit.part_ == ui::HitPart::kInputPin &&
-                   end_hit.part_ == ui::HitPart::kOutputPin) {
-            try {
-                graph_.Connect(end_hit.node_id_, end_hit.pin_id_,
-                               start_hit.node_id_, start_hit.pin_id_);
-            } catch (const std::exception &) {
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(start_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(start_hit.pin_id_, true);
-                }
-                if (auto view =
-                        renderer_.node_canvas_.Views().find(end_hit.node_id_);
-                    view != renderer_.node_canvas_.Views().end()) {
-                    view->second->SetErrorPin(end_hit.pin_id_, false);
-                }
-            }
-        }
-    }
-
-    // Hit test for connection selection and deletion
-    const auto kCursorWorld = camera_.ScreenToWorld(cursor_position_);
-    if (kCanvasClicked) {
-        hovered_connection_ = std::nullopt;
-        const auto &views = renderer_.node_canvas_.Views();
-        for (const auto &[id, connection] : graph_.GetAllConnections()) {
-            if (!views.contains(connection.from_node_) ||
-                !views.contains(connection.to_node_)) {
-                continue;
-            }
-            const auto kStartPos =
-                views.at(connection.from_node_)
-                    ->GetPinPosition(connection.out_pin_, false);
-            const auto kEndPos = views.at(connection.to_node_)
-                                     ->GetPinPosition(connection.in_pin_, true);
-            if (kStartPos && kEndPos) {
-                if (HitTestBezier(kCursorWorld, *kStartPos, *kEndPos, 8.0f)) {
-                    hovered_connection_ = id;
-                    break;
-                }
-            }
-        }
     }
     if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
         DuplicateSelection();
