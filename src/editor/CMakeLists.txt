@@ -5,6 +5,7 @@ add_executable(Nebula
     ui/connection_request.cpp
     ui/node_view.cpp
     ui/node_canvas.cpp
+    ui/node_clipboard.cpp
     ui/notification_stack.cpp
     ui/top_bar.cpp
 )

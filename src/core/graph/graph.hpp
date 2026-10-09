@@ -100,6 +100,20 @@ class Graph {
     Node &DuplicateNode(NodeId id);
 
     /**
+     * @brief Creates in this graph a copy of a node of another graph (or of
+     * this one): same type, same pins (ids, names and types) and same
+     * properties. The copy gets a new id of this graph and no connection.
+     *
+     * @param source The graph holding the node to copy. Required
+     * @param id Id of the node to copy, in source. Required
+     *
+     * @throws `core::NodeNotFoundException` The id is not in source.
+     *
+     * @return The created node.
+     */
+    Node &CopyNodeFrom(const Graph &source, NodeId id);
+
+    /**
      * @brief Add an input pin to a node
      *
      * @param node_id Id of the targeted node. Required

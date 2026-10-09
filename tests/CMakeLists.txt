@@ -15,6 +15,7 @@ if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES}
         editor/connection_request_test.cpp
         editor/node_canvas_test.cpp
+        editor/node_clipboard_test.cpp
         editor/node_view_test.cpp
         editor/notification_stack_test.cpp
         editor/top_bar_test.cpp

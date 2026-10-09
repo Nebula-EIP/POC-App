@@ -57,22 +57,25 @@ Node &Graph::CreateNode(core::NodeType type) {
     return nodes_.at(node.Id());
 }
 
-Node &Graph::DuplicateNode(NodeId id) {
-    if (!HasNode(id)) {
-        throw NodeNotFoundException("Node not found in the graph");
+Node &Graph::DuplicateNode(NodeId id) { return CopyNodeFrom(*this, id); }
+
+Node &Graph::CopyNodeFrom(const Graph &source, NodeId id) {
+    if (!source.HasNode(id)) {
+        throw NodeNotFoundException("Node not found in the source graph");
     }
 
-    Node &copy = CreateNode(nodes_.at(id).Type());
-    // Looked up after CreateNode: references to map elements survive a
-    // rehash, but there is no reason to rely on it.
-    const Node &source = nodes_.at(id);
+    Node &copy = CreateNode(source.nodes_.at(id).Type());
+    // Looked up after CreateNode: when source is this graph, the insertion
+    // may rehash. References to map elements survive it, but there is no
+    // reason to rely on it.
+    const Node &original = source.nodes_.at(id);
 
-    copy.input_pin_count_ = source.input_pin_count_;
-    copy.output_pin_count_ = source.output_pin_count_;
-    copy.input_pins_ = source.input_pins_;
-    copy.output_pins_ = source.output_pins_;
-    copy.property_id_count_ = source.property_id_count_;
-    copy.properties_ = source.properties_;
+    copy.input_pin_count_ = original.input_pin_count_;
+    copy.output_pin_count_ = original.output_pin_count_;
+    copy.input_pins_ = original.input_pins_;
+    copy.output_pins_ = original.output_pins_;
+    copy.property_id_count_ = original.property_id_count_;
+    copy.properties_ = original.properties_;
     return copy;
 }
 

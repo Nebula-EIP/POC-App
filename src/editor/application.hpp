@@ -24,6 +24,7 @@
 #include "modules/module.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/node_clipboard.hpp"
 #include "ui/notification_stack.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
@@ -59,6 +60,8 @@ class Application {
     void SelectConnectionAt(utils::WrappedVector2 world);
     void DeleteSelection();
     void DuplicateSelection();
+    void CopySelection();
+    void PasteClipboard(utils::WrappedVector2 world_anchor);
     [[nodiscard]] std::string TypeName(core::DataType type) const;
 
     // Feedback
@@ -89,6 +92,7 @@ class Application {
     std::optional<core::ConnectionId> selected_connection_;
 
     ui::NotificationStack notifications_;
+    ui::NodeClipboard clipboard_;
 
     ui::TopBar top_bar_;
 };

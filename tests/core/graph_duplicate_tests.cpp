@@ -1,6 +1,6 @@
 /**
  * @file graph_duplicate_tests.cpp
- * @brief Tests for Graph::DuplicateNode
+ * @brief Tests for Graph::DuplicateNode and Graph::CopyNodeFrom
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 09-10-2026
@@ -132,4 +132,30 @@ TEST(GraphRemoveNode, RemovesTheConnectionsOfTheNode) {
     const core::Connection &kLeft = graph.GetAllConnections().begin()->second;
     EXPECT_EQ(kLeft.from_node_, kA);
     EXPECT_EQ(kLeft.to_node_, kC);
+}
+
+TEST(GraphCopyNodeFrom, CopiesANodeFromAnotherGraph) {
+    core::Graph source;
+    const core::NodeId kSource = source.CreateNode(kNodeType).Id();
+    source.AddInputPin(kSource, "a", kIntType);
+    source.AddOutputPin(kSource, "b", kFloatType);
+    core::Graph target;
+    target.CreateNode(1);
+
+    const core::Node &copy = target.CopyNodeFrom(source, kSource);
+
+    EXPECT_EQ(copy.Type(), kNodeType);
+    ASSERT_EQ(copy.InputPinsCount(), 1U);
+    EXPECT_EQ(copy.InputPins()[0].name_, "a");
+    ASSERT_EQ(copy.OutputPinsCount(), 1U);
+    EXPECT_EQ(copy.OutputPins()[0].type_, kFloatType);
+    EXPECT_EQ(target.GetAllNodes().size(), 2U);
+    EXPECT_EQ(source.GetAllNodes().size(), 1U);
+}
+
+TEST(GraphCopyNodeFrom, ThrowsWhenTheNodeIsNotInTheSource) {
+    core::Graph source;
+    core::Graph target;
+    EXPECT_THROW(target.CopyNodeFrom(source, 1), core::NodeNotFoundException);
+    EXPECT_TRUE(target.GetAllNodes().empty());
 }

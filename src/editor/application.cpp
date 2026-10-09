@@ -154,6 +154,14 @@ void Application::BuildMenus() {
         .AddAction("Quitter", [this] { should_quit_ = true; });
 
     top_bar_.AddMenu("Édition")
+        .AddAction("Copier (Ctrl+C)", [this] { CopySelection(); })
+        .AddAction("Coller (Ctrl+V)",
+                   [this] {
+                       // From the menu the cursor is on the menu: paste in
+                       // the middle of the view instead.
+                       PasteClipboard(camera_.ScreenToWorld(CanvasCenter()));
+                   })
+        .AddSeparator()
         .AddAction("Dupliquer (Ctrl+D)", [this] { DuplicateSelection(); })
         .AddAction("Supprimer (Suppr)", [this] { DeleteSelection(); });
 
@@ -254,6 +262,12 @@ void Application::ProcessInput() {
     }
     if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kD)) {
         DuplicateSelection();
+    }
+    if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kC)) {
+        CopySelection();
+    }
+    if (kControlDown && utils::IsKeyPressedWrapped(utils::WrappedKey::kV)) {
+        PasteClipboard(camera_.ScreenToWorld(cursor_position_));
     }
 
     if (utils::IsKeyPressedWrapped(utils::WrappedKey::kH)) {
@@ -364,6 +378,45 @@ void Application::DuplicateSelection() {
     // The copies replace the originals in the selection, so they can be
     // moved right away.
     renderer_.node_canvas_.SetSelection(copies);
+    selected_connection_.reset();
+}
+
+void Application::CopySelection() {
+    std::vector<ui::PlacedNode> nodes;
+    const auto &views = renderer_.node_canvas_.Views();
+    for (const core::NodeId kId : renderer_.node_canvas_.SelectedNodes()) {
+        const auto kView = views.find(kId);
+        if (kView == views.end()) {
+            continue;
+        }
+        nodes.push_back(ui::PlacedNode{
+            .id_ = kId,
+            .title_ = kView->second->Title(),
+            .position_ = {kView->second->Bounds().x_,
+                          kView->second->Bounds().y_},
+        });
+    }
+    clipboard_.Copy(graph_, nodes);
+}
+
+void Application::PasteClipboard(utils::WrappedVector2 world_anchor) {
+    if (clipboard_.Empty()) {
+        return;
+    }
+
+    std::vector<core::NodeId> pasted_ids;
+    for (ui::PlacedNode &pasted : clipboard_.Paste(graph_, world_anchor)) {
+        const core::Node *node = graph_.GetNode(pasted.id_);
+        if (node == nullptr) {
+            continue;
+        }
+        renderer_.node_canvas_.AddNode(*node, std::move(pasted.title_),
+                                       pasted.position_);
+        pasted_ids.push_back(pasted.id_);
+    }
+
+    // The pasted nodes become the selection, so they can be moved right away.
+    renderer_.node_canvas_.SetSelection(pasted_ids);
     selected_connection_.reset();
 }
 

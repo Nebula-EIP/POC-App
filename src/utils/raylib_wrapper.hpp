@@ -144,8 +144,10 @@ enum class WrappedKey : int {
     kDelete = 261,
     kLeftControl = 341,
     kRightControl = 345,
+    kC = 67,
     kD = 68,
     kH = 72,
+    kV = 86,
 };
 
 // Window functions

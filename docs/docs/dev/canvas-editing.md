@@ -17,12 +17,22 @@ movement handled by `NodeCanvas` (`src/editor/ui/node_canvas.cpp`).
 | Select nodes | Click, Ctrl+click, or drag a rectangle | - |
 | Delete the selection | `Suppr` | Édition > Supprimer |
 | Duplicate the selected nodes | `Ctrl+D` | Édition > Dupliquer |
+| Copy the selected nodes | `Ctrl+C` | Édition > Copier |
+| Paste | `Ctrl+V` (at the cursor) | Édition > Coller (middle of the view) |
 
 - **Delete** removes the selected connection and the selected nodes.
   `Graph::RemoveNode` also removes every connection of a deleted node.
 - **Duplicate** calls `Graph::DuplicateNode`: same type, same pins (ids, names,
   types) and same properties, a new id and **no connection**. Copies appear
   30 units down-right of their original and replace it in the selection.
+- **Copy / paste** go through `ui::NodeClipboard`
+  (`src/editor/ui/node_clipboard.hpp`). Copy snapshots the nodes into a graph
+  of its own (`Graph::CopyNodeFrom`), so pasting still works after the
+  originals are edited or deleted, any number of times. Pasted nodes are built
+  like duplicates (same type, pins and properties, no connection), keep their
+  layout relative to each other, and become the selection. The top-left corner
+  of the group lands on the cursor (`Ctrl+V`) or the middle of the view (menu).
+  Copying with nothing selected keeps the previous clipboard.
 
 ## Connections
 
