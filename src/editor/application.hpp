@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -23,10 +23,11 @@
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
+#include "node_catalog/node_catalog.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
-#include "ui/context_menu.hpp"
 #include "ui/node_clipboard.hpp"
+#include "ui/node_picker.hpp"
 #include "ui/notification_stack.hpp"
 #include "ui/top_bar.hpp"
 #include "utils/raylib_wrapper.hpp"
@@ -53,9 +54,15 @@ class Application {
     void RecenterView();
     void ResetZoom();
 
+    // Node creation
+    void OpenNodePicker(utils::WrappedVector2 screen_position,
+                        utils::WrappedVector2 world_spawn);
+    void CreateNode(core::NodeType type, utils::WrappedVector2 position);
     void CreateNodeFromConfiguration(
         core::NodeType type, const core::capa::NodeConfiguration &config,
-        utils::WrappedVector2 position);
+        std::string title, utils::WrappedVector2 position);
+    [[nodiscard]] utils::WrappedVector2 FreeSpawnPosition(
+        utils::WrappedVector2 position) const;
 
     // Editing
     void HandleConnectionRequest();
@@ -90,6 +97,7 @@ class Application {
     core::ModuleId module_id_ = 0;
 
     core::IModule *module_ = nullptr;
+    core::NodeCatalog node_catalog_;
     core::Graph graph_;
 
     std::optional<core::ConnectionId> selected_connection_;
@@ -98,7 +106,7 @@ class Application {
     ui::NodeClipboard clipboard_;
 
     ui::TopBar top_bar_;
-    ui::ContextMenu context_menu_;
+    ui::NodePicker node_picker_;
     actions::ActionManager action_manager_;
 };
 

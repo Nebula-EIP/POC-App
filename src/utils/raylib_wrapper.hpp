@@ -148,6 +148,12 @@ enum class WrappedKey : int {
     kLeftAlt = 342,
     kEscape = 256,
     kBackspace = 259,
+    kEnter = 257,
+    kKpEnter = 335,
+    kUp = 265,
+    kDown = 264,
+    kLeft = 263,
+    kRight = 262,
     kDelete = 261,
     kLeftControl = 341,
     kRightControl = 345,
@@ -213,6 +219,8 @@ bool IsMiddleDown();
 bool IsKeyPressedWrapped(WrappedKey key);
 bool IsKeyDownWrapped(WrappedKey key);
 int GetCharPressedWrapped();
+/// Mouse wheel movement this frame: positive when scrolled up.
+float GetMouseWheelMoveWrapped();
 
 // Collision functions
 
