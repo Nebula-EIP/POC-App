@@ -6,7 +6,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 12-10-2026
  */
 
 #include "node_picker.hpp"
@@ -233,6 +233,7 @@ void NodePicker::Open(utils::WrappedVector2 position, float screen_width,
                                             1, kMaxVisibleRows);
     on_pick_ = std::move(on_pick);
     last_cursor_.reset();
+    typing_armed_ = false;
     is_open_ = true;
 
     position_ = position;
@@ -453,12 +454,23 @@ bool NodePicker::Update(const NodePickerInput &input) {
         return true;
     }
 
+    // The shortcut that opened the picker (Shift+A) also produces a
+    // character, which can arrive a frame late and repeats while the key is
+    // held. It is not part of the search: typing is accepted from the frame
+    // after the opening key is released.
+    const bool kAcceptTyping = typing_armed_;
+    if (!input.opening_key_down_) {
+        typing_armed_ = true;
+    }
+
     // Search field. A new search selects its first result.
     std::string query = query_;
     if (input.backspace_pressed_ && !query.empty()) {
         query.pop_back();
     }
-    query += input.typed_;
+    if (kAcceptTyping) {
+        query += input.typed_;
+    }
     if (query != query_) {
         query_ = std::move(query);
         selected_.reset();
