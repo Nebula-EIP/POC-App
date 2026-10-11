@@ -519,6 +519,12 @@ void Application::HandleConnectionRequest() {
     const ui::ConnectionOutcome kOutcome = ui::RequestConnection(
         graph_, kPending->first, kPending->second,
         [this](core::DataType type) { return TypeName(type); });
+    // A replaced link no longer exists: it cannot stay selected.
+    if (selected_connection_ &&
+        std::find(kOutcome.replaced_.begin(), kOutcome.replaced_.end(),
+                  *selected_connection_) != kOutcome.replaced_.end()) {
+        selected_connection_.reset();
+    }
     if (kOutcome.Succeeded() || kOutcome.error_.empty()) {
         return;
     }

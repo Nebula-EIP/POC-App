@@ -180,6 +180,19 @@ throw core::TypeMismatchException(
 
 ------------------------------------------------------------------------
 
+## `InputAlreadyConnectedException`
+
+Use when connecting an input pin that already has a connection. An input
+takes its value from a single output; an output can feed several inputs.
+
+``` cpp
+throw core::InputAlreadyConnectedException(
+    "Input pin 1 of node 4 is already connected."
+);
+```
+
+------------------------------------------------------------------------
+
 ## `CircularDependencyException`
 
 Use when the graph must remain acyclic and an operation would create a
@@ -216,6 +229,9 @@ Connection is invalid
 
 Types are incompatible
     -> TypeMismatchException
+
+Input already has a connection
+    -> InputAlreadyConnectedException
 
 Operation would create a cycle
     -> CircularDependencyException

@@ -27,6 +27,7 @@ ConnectionOutcome Failure(std::string message, const HitResult &pin) {
         .connection_ = std::nullopt,
         .error_ = std::move(message),
         .faulty_pin_ = pin,
+        .replaced_ = {},
     };
 }
 
@@ -67,12 +68,21 @@ ConnectionOutcome RequestConnection(core::Graph &graph, const HitResult &start,
     const HitResult &input = start.part_ == HitPart::kInputPin ? start : end;
 
     try {
-        return ConnectionOutcome{
-            .connection_ = graph.Connect(output.node_id_, output.pin_id_,
-                                         input.node_id_, input.pin_id_),
-            .error_ = {},
-            .faulty_pin_ = std::nullopt,
-        };
+        ConnectionOutcome outcome;
+        try {
+            outcome.connection_ = graph.Connect(output.node_id_, output.pin_id_,
+                                                input.node_id_, input.pin_id_);
+        } catch (const core::InputAlreadyConnectedException &) {
+            // The new connection takes priority over the one on the input.
+            // Types are checked before, so connecting again cannot fail on
+            // them.
+            outcome.replaced_ =
+                graph.PinConnections(input.node_id_, input.pin_id_, true);
+            graph.DisconnectInputPin(input.node_id_, input.pin_id_);
+            outcome.connection_ = graph.Connect(output.node_id_, output.pin_id_,
+                                                input.node_id_, input.pin_id_);
+        }
+        return outcome;
     } catch (const core::TypeMismatchException &) {
         const core::Node *from = graph.GetNode(output.node_id_);
         const core::Node *to = graph.GetNode(input.node_id_);

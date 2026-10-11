@@ -230,6 +230,10 @@ class Graph {
      *
      * The pins types must match.
      *
+     * An input pin accepts a single connection; an output pin can be
+     * connected to several inputs. Connecting the same two pins again
+     * returns the existing connection.
+     *
      * @param from Node owning the output pin
      * @param out Output pin
      * @param to Node owning the input pin
@@ -240,6 +244,8 @@ class Graph {
      * @throws `core::NodeNotFoundException` when a node does not exists
      * @throws `core::PinNotFoundException` when a pin does not exists
      * @throws `core::TypeMismatchException` when the pin's types mismatches
+     * @throws `core::InputAlreadyConnectedException` when the input pin is
+     * already connected to another output
      */
     ConnectionId Connect(NodeId from, PinId out, NodeId to, PinId in);
 

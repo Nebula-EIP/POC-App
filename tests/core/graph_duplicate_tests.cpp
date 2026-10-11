@@ -122,9 +122,10 @@ TEST(GraphRemoveNode, RemovesTheConnectionsOfTheNode) {
     const core::PinId kBOut = graph.AddOutputPin(kB, "out", kIntType);
     const core::NodeId kC = graph.CreateNode(kNodeType).Id();
     const core::PinId kCIn = graph.AddInputPin(kC, "in", kIntType);
+    const core::PinId kCOther = graph.AddInputPin(kC, "other", kIntType);
     graph.Connect(kA, kAOut, kB, kBIn);
     graph.Connect(kB, kBOut, kC, kCIn);
-    graph.Connect(kA, kAOut, kC, kCIn);
+    graph.Connect(kA, kAOut, kC, kCOther);
 
     ASSERT_TRUE(graph.RemoveNode(kB));
 

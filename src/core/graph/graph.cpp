@@ -255,6 +255,11 @@ ConnectionId Graph::Connect(NodeId from_node_id, PinId out_pin_id,
         throw TypeMismatchException("Pins types does not match");
     }
 
+    // An input takes its value from a single output.
+    if (!PinConnections(to_node_id, in_pin_id, true).empty()) {
+        throw InputAlreadyConnectedException("Input pin already connected");
+    }
+
     Connection connection;
     connection.data_type_ = out_pin->type_;
     connection.from_node_ = from_node->Id();
