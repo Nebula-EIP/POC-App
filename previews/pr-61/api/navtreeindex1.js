@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classutils_1_1BaseException.html":[0,0,3,0],
 "classutils_1_1BaseException.html#a5c33af9650789bba60d1a59664d7b214":[0,0,3,0,1],
 "classutils_1_1BaseException.html#aaa6d0635701d34a349aa159be024987f":[0,0,3,0,0],
 "classutils_1_1IdManager.html":[0,0,3,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "structeditor_1_1ui_1_1HitResult.html":[0,0,1,1,5],
 "structeditor_1_1ui_1_1MenuItem.html":[0,0,1,1,7],
 "structeditor_1_1ui_1_1MenuItem.html#afe6cb9984c9c4035f0cfb271147eca52":[0,0,1,1,7,0],
-"structeditor_1_1ui_1_1NodePickerEntry.html":[0,0,1,1,11],
-"structeditor_1_1ui_1_1NodePickerEntry.html#a20eb58933996fbd7674c04cb35cac5e3":[0,0,1,1,11,1]
+"structeditor_1_1ui_1_1NodePickerEntry.html":[0,0,1,1,11]
 };

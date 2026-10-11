@@ -35,7 +35,7 @@ var searchData=
   ['nodepickerentry_32',['NodePickerEntry',['../structeditor_1_1ui_1_1NodePickerEntry.html',1,'editor::ui']]],
   ['nodepickerinput_33',['NodePickerInput',['../structeditor_1_1ui_1_1NodePickerInput.html',1,'editor::ui']]],
   ['nodepindescriptor_34',['NodePinDescriptor',['../structcore_1_1NodePinDescriptor.html',1,'core']]],
-  ['nodes_35',['nodes',['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()'],['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes']]],
+  ['nodes_35',['nodes',['../structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d',1,'core::capa::ExportContext::nodes'],['../classcore_1_1IModule.html#aff9b4b609545483ed654e471e533787d',1,'core::IModule::Nodes()']]],
   ['nodetype_36',['NodeType',['../datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e',1,'core']]],
   ['nodetypeexception_37',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['nodeview_38',['nodeview',['../classeditor_1_1ui_1_1NodeView.html',1,'editor::ui::NodeView'],['../classeditor_1_1ui_1_1NodeView.html#a265d15565a112730d7b97994375c2813',1,'editor::ui::NodeView::NodeView()']]],

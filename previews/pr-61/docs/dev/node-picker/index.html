@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Adding Nodes (Node Picker) | Nebula Docs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://nebula-eip.github.io/POC-App/previews/pr-61/img/nebula-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://nebula-eip.github.io/POC-App/previews/pr-61/img/nebula-social-card.jpg"><meta data-rh="true" property="og:url" content="https://nebula-eip.github.io/POC-App/previews/pr-61/docs/dev/node-picker"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Adding Nodes (Node Picker) | Nebula Docs"><meta data-rh="true" name="description" content="A new project starts with an empty canvas. Nodes are added one at a time from"><meta data-rh="true" property="og:description" content="A new project starts with an empty canvas. Nodes are added one at a time from"><link data-rh="true" rel="icon" href="/POC-App/previews/pr-61/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://nebula-eip.github.io/POC-App/previews/pr-61/docs/dev/node-picker"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-61/docs/dev/node-picker" hreflang="en"><link data-rh="true" rel="alternate" href="https://nebula-eip.github.io/POC-App/previews/pr-61/docs/dev/node-picker" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adding Nodes (Node Picker)","item":"https://nebula-eip.github.io/POC-App/previews/pr-61/docs/dev/node-picker"}]}</script><link rel="stylesheet" href="/POC-App/previews/pr-61/assets/css/styles.c360c6f3.css">
-<script src="/POC-App/previews/pr-61/assets/js/runtime~main.5fb0dfd5.js" defer="defer"></script>
+<script src="/POC-App/previews/pr-61/assets/js/runtime~main.aff3f679.js" defer="defer"></script>
 <script src="/POC-App/previews/pr-61/assets/js/main.2b13247b.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -50,6 +50,11 @@ becomes the selection, so it can be moved right away.</li>
 <p>While the picker is open it owns the mouse and the keyboard: shortcuts
 (Delete, Ctrl+C, Shift+A, ...) are ignored so that typing a search never edits
 the graph.</p>
+<p>The character of the shortcut that opened the picker is never typed into the
+search: it can arrive one frame after the key press (Windows) and repeats while
+the key is held. The picker ignores typed characters on its first frame and
+until the shortcut key (<code>ActionManager::IsShortcutKeyDown(&quot;node.add_menu&quot;)</code>,
+AZERTY included) is released; after that, every key types normally.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="categories">Categories<a href="#categories" class="hash-link" aria-label="Direct link to Categories" title="Direct link to Categories" translate="no">​</a></h2>
 <p>A module gives the folder of each node with <code>NodeMetadata::category_</code>
 (folders separated by <code>/</code>). With the generic <code>capa::NodeListCapability</code>, pass

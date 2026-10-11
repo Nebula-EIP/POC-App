@@ -8,7 +8,7 @@ var searchData=
   ['iexportercapability_5',['IExporterCapability',['../classcore_1_1capa_1_1IExporterCapability.html',1,'core::capa']]],
   ['iimportercapability_6',['IImporterCapability',['../classcore_1_1capa_1_1IImporterCapability.html',1,'core::capa']]],
   ['imodule_7',['IModule',['../classcore_1_1IModule.html',1,'core']]],
-  ['importcode_8',['importcode',['../classcore_1_1capa_1_1ImporterCapability.html#a8592c5c1fbfd4bf9852841480f375549',1,'core::capa::ImporterCapability::ImportCode()'],['../classcore_1_1capa_1_1IImporterCapability.html#a79b3c331b202717697e386b1e23ed42d',1,'core::capa::IImporterCapability::ImportCode()']]],
+  ['importcode_8',['importcode',['../classcore_1_1capa_1_1IImporterCapability.html#a79b3c331b202717697e386b1e23ed42d',1,'core::capa::IImporterCapability::ImportCode()'],['../classcore_1_1capa_1_1ImporterCapability.html#a8592c5c1fbfd4bf9852841480f375549',1,'core::capa::ImporterCapability::ImportCode()']]],
   ['importentitykind_9',['ImportEntityKind',['../importer__capability_8hpp.html#af8d28bc981d8c736dd3bbc0a8e5e2634',1,'core::capa']]],
   ['importer_5fcapability_2ecpp_10',['importer_capability.cpp',['../importer__capability_8cpp.html',1,'']]],
   ['importer_5fcapability_2ehpp_11',['importer_capability.hpp',['../importer__capability_8hpp.html',1,'']]],
@@ -18,9 +18,9 @@ var searchData=
   ['incompatiblemoduleexception_15',['IncompatibleModuleException',['../classcore_1_1IncompatibleModuleException.html',1,'core']]],
   ['infobubble_16',['InfoBubble',['../structcore_1_1capa_1_1InfoBubble.html',1,'core::capa']]],
   ['initialize_17',['Initialize',['../classcore_1_1IModule.html#af323bea1ec1de2f8940e41a9f9ad6913',1,'core::IModule']]],
-  ['initializenodetypes_18',['initializenodetypes',['../classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354',1,'core::capa::IRendererCapability::InitializeNodeTypes()'],['../classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557',1,'core::capa::RendererCapability::InitializeNodeTypes()']]],
+  ['initializenodetypes_18',['initializenodetypes',['../classcore_1_1capa_1_1RendererCapability.html#a675acb83fb6564f30a8231d5e18eb557',1,'core::capa::RendererCapability::InitializeNodeTypes()'],['../classcore_1_1capa_1_1IRendererCapability.html#a61a5c11bbd5a85a750221458cb375354',1,'core::capa::IRendererCapability::InitializeNodeTypes()']]],
   ['initializepropertytypes_19',['initializepropertytypes',['../classcore_1_1capa_1_1NodeListCapability.html#a9ff23bb947327bb0750bdf4a9064e131',1,'core::capa::NodeListCapability::InitializePropertyTypes()'],['../classcore_1_1capa_1_1INodeListCapability.html#a3fe515bdf1fef460a94d5ef00bb05e26',1,'core::capa::INodeListCapability::InitializePropertyTypes()']]],
-  ['initializetypes_20',['initializetypes',['../classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94',1,'core::capa::RendererCapability::InitializeTypes()'],['../classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f',1,'core::capa::IRendererCapability::InitializeTypes()']]],
+  ['initializetypes_20',['initializetypes',['../classcore_1_1capa_1_1IRendererCapability.html#aec4a929ad63fff64a03b003cdabf1b5f',1,'core::capa::IRendererCapability::InitializeTypes()'],['../classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94',1,'core::capa::RendererCapability::InitializeTypes()']]],
   ['inodelistcapability_21',['INodeListCapability',['../classcore_1_1capa_1_1INodeListCapability.html',1,'core::capa']]],
   ['input_5fexpressions_22',['input_expressions',['../structcore_1_1capa_1_1NodeExportRequest.html#a40fec1d3ea1ba83505fb25b4198e77e2',1,'core::capa::NodeExportRequest']]],
   ['input_5fpins_5f_23',['input_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#abb7b6ee03e63201dcc3c6d93466d073e',1,'core::capa::NodeConfiguration']]],
@@ -38,6 +38,7 @@ var searchData=
   ['isexpanded_35',['IsExpanded',['../classeditor_1_1ui_1_1NodePicker.html#afd5ff98e22dbaf56dfdb0574dec176c1',1,'editor::ui::NodePicker']]],
   ['isopen_36',['IsOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a582dcbc4b388341c3f49bdea3915a7a0',1,'core::detail::SharedLibrary']]],
   ['issearching_37',['IsSearching',['../classeditor_1_1ui_1_1NodePicker.html#a6b041a378ebaaa673b06b2ece4b0630d',1,'editor::ui::NodePicker']]],
-  ['itemrect_38',['ItemRect',['../classeditor_1_1ui_1_1TopBar.html#af0650b458fefcdff710933c007cc5b7d',1,'editor::ui::TopBar']]],
-  ['itypelistcapability_39',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
+  ['isshortcutkeydown_38',['IsShortcutKeyDown',['../classeditor_1_1actions_1_1ActionManager.html#ad8863f4818246fc3f6cd5fca4bae88d7',1,'editor::actions::ActionManager']]],
+  ['itemrect_39',['ItemRect',['../classeditor_1_1ui_1_1TopBar.html#af0650b458fefcdff710933c007cc5b7d',1,'editor::ui::TopBar']]],
+  ['itypelistcapability_40',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
 ];

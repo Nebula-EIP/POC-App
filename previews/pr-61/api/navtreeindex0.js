@@ -164,10 +164,11 @@ var NAVTREEINDEX0 =
 "classcore_1_1detail_1_1SharedLibrary.html#ade34a2ad906b20f0462f32534f337e09":[0,0,0,1,0,4],
 "classeditor_1_1Application.html":[0,0,1,2],
 "classeditor_1_1actions_1_1ActionManager.html":[0,0,1,0,1],
-"classeditor_1_1actions_1_1ActionManager.html#a0f9a8a826d17807c2fdc751f9cc91cc8":[0,0,1,0,1,2],
-"classeditor_1_1actions_1_1ActionManager.html#a9a9b303b896efe9ea6c047dfacc310d2":[0,0,1,0,1,3],
+"classeditor_1_1actions_1_1ActionManager.html#a0f9a8a826d17807c2fdc751f9cc91cc8":[0,0,1,0,1,3],
+"classeditor_1_1actions_1_1ActionManager.html#a9a9b303b896efe9ea6c047dfacc310d2":[0,0,1,0,1,4],
 "classeditor_1_1actions_1_1ActionManager.html#ab94004decbf8344fb89c50d67a0e07ee":[0,0,1,0,1,0],
-"classeditor_1_1actions_1_1ActionManager.html#abc8385eaea29a496e415cf9ad393615b":[0,0,1,0,1,1],
+"classeditor_1_1actions_1_1ActionManager.html#abc8385eaea29a496e415cf9ad393615b":[0,0,1,0,1,2],
+"classeditor_1_1actions_1_1ActionManager.html#ad8863f4818246fc3f6cd5fca4bae88d7":[0,0,1,0,1,1],
 "classeditor_1_1ui_1_1ComponentAdapter.html":[0,0,1,1,0],
 "classeditor_1_1ui_1_1ContextMenu.html":[0,0,1,1,2],
 "classeditor_1_1ui_1_1ContextMenu.html#a091741b1b3336519a5a468d4c10fe453":[0,0,1,1,2,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classrender_1_1Renderer.html":[0,0,2,2],
 "classrender_1_1Renderer.html#a6e12f4c988629f04bf38a413d338f01c":[0,0,2,2,1],
 "classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0":[0,0,2,2,2],
-"classrender_1_1Renderer.html#aad1879f0516adce426a2d8ee8c5c62c7":[0,0,2,2,0],
-"classutils_1_1BaseException.html":[0,0,3,0]
+"classrender_1_1Renderer.html#aad1879f0516adce426a2d8ee8c5c62c7":[0,0,2,2,0]
 };

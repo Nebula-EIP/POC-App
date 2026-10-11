@@ -14,5 +14,6 @@ var searchData=
   ['isexpanded_11',['IsExpanded',['../classeditor_1_1ui_1_1NodePicker.html#afd5ff98e22dbaf56dfdb0574dec176c1',1,'editor::ui::NodePicker']]],
   ['isopen_12',['IsOpen',['../classcore_1_1detail_1_1SharedLibrary.html#a582dcbc4b388341c3f49bdea3915a7a0',1,'core::detail::SharedLibrary']]],
   ['issearching_13',['IsSearching',['../classeditor_1_1ui_1_1NodePicker.html#a6b041a378ebaaa673b06b2ece4b0630d',1,'editor::ui::NodePicker']]],
-  ['itemrect_14',['ItemRect',['../classeditor_1_1ui_1_1TopBar.html#af0650b458fefcdff710933c007cc5b7d',1,'editor::ui::TopBar']]]
+  ['isshortcutkeydown_14',['IsShortcutKeyDown',['../classeditor_1_1actions_1_1ActionManager.html#ad8863f4818246fc3f6cd5fca4bae88d7',1,'editor::actions::ActionManager']]],
+  ['itemrect_15',['ItemRect',['../classeditor_1_1ui_1_1TopBar.html#af0650b458fefcdff710933c007cc5b7d',1,'editor::ui::TopBar']]]
 ];
