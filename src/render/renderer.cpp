@@ -48,7 +48,7 @@ Renderer::Renderer(int width, int height, std::string title) {
     flags |= FLAG_WINDOW_HIGHDPI;
 #endif
     SetConfigFlags(flags);
-    InitWindow(width, height, title.c_str());
+    utils::InitRaylib(width, height, title.c_str(), flags);
 
     if (!utils::IsRaylibReady()) {
         throw std::runtime_error("Raylib window initialization failed");

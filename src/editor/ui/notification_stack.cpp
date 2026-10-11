@@ -23,6 +23,7 @@ constexpr float kBottomMargin = 24.0F;
 // Vertical gap between two stacked warnings.
 constexpr float kGap = 6.0F;
 constexpr float kSideMargin = 12.0F;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kBackground = {90, 30, 30, 235};
 constexpr utils::WrappedColor kBorder = {230, 80, 80, 255};
 constexpr utils::WrappedColor kText = {255, 255, 255, 255};
@@ -73,9 +74,9 @@ void NotificationStack::Draw(utils::WrappedVector2 screen, double now) const {
                                         Faded(kBackground, kOpacity));
             utils::DrawRectangleLinesWrapped(kX, y, kWidth, kHeight,
                                              Faded(kBorder, kOpacity));
-            utils::DrawTextWrapped(it->text_.c_str(), kX + kPadding,
-                                   y + kPadding, kFontSize,
-                                   Faded(kText, kOpacity));
+            utils::DrawTextExWrapped(it->text_.c_str(), kX + kPadding,
+                                     y + kPadding, kFontSize, kSpacing,
+                                     Faded(kText, kOpacity));
         }
         y -= kHeight + kGap;
     }
