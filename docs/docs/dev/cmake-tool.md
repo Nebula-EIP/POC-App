@@ -1,312 +1,312 @@
-# Guide Utilisateur - Outil de Compilation CMake
+# User Guide - CMake Compilation Tool
 
-## Vue d'ensemble
+## Overview
 
-L'outil de compilation CMake intégré à l'éditeur permet de compiler rapidement des fichiers C++ individuels avec des options personnalisables, sans avoir à gérer manuellement la configuration CMake.
+The CMake compilation tool integrated into the editor allows you to quickly compile individual C++ files with customizable options, without having to manually manage the CMake configuration.
 
-## Table des matières
+## Table of Contents
 
-- [Vue d'ensemble](#vue-densemble)
-- [Démarrage rapide](#démarrage-rapide)
-- [Interface utilisateur](#interface-utilisateur)
-- [Options de compilation](#options-de-compilation)
-- [Exemples d'utilisation](#exemples-dutilisation)
-- [Dépannage](#dépannage)
+- [Overview](#overview)
+- [Quick Start](#quick-start)
+- [User Interface](#user-interface)
+- [Compilation Options](#compilation-options)
+- [Usage Examples](#usage-examples)
+- [Troubleshooting](#troubleshooting)
 
-## Démarrage rapide
+## Quick Start
 
-### Compilation simple
+### Simple Compilation
 
-1. Ouvrez un fichier C++ dans l'éditeur
-2. Accédez au menu **Outils** → **Compiler avec CMake**
-3. Cliquez sur **Compiler**
-4. L'exécutable sera généré dans le répertoire de build
+1. Open a C++ file in the editor
+2. Go to the **Tools** menu → **Compile with CMake**
+3. Click on **Compile**
+4. The executable will be generated in the build directory
 
-### Compilation et exécution
+### Compile and Run
 
-1. Ouvrez votre fichier source C++
-2. Accédez au menu **Outils** → **Compiler et Exécuter**
-3. Le fichier sera compilé puis exécuté automatiquement
-4. La sortie s'affichera dans le terminal intégré
+1. Open your C++ source file
+2. Go to the **Tools** menu → **Compile and Run**
+3. The file will be compiled and then run automatically
+4. The output will be displayed in the integrated terminal
 
-## Interface utilisateur
+## User Interface
 
-### Panneau de configuration de compilation
+### Compilation Configuration Panel
 
-Lorsque vous lancez l'outil de compilation CMake, une fenêtre de configuration s'ouvre avec les sections suivantes :
+When you launch the CMake compilation tool, a configuration window opens with the following sections:
 
-#### 1. **Fichier source**
-- **Chemin** : Chemin complet du fichier à compiler (automatiquement rempli avec le fichier actif)
-- **Bouton Parcourir** : Permet de sélectionner un autre fichier source
+#### 1. **Source File**
+- **Path**: Full path of the file to compile (automatically populated with the active file)
+- **Browse Button**: Allows selecting another source file
 
-#### 2. **Configuration générale**
+#### 2. **General Configuration**
 
-##### Standard C++
-Sélectionnez le standard C++ à utiliser :
+##### C++ Standard
+Select the C++ standard to use:
 - C++11 (ISO/IEC 14882:2011)
 - C++14 (ISO/IEC 14882:2014)
 - C++17 (ISO/IEC 14882:2017)
 - C++20 (ISO/IEC 14882:2020)
-- **C++23** (ISO/IEC 14882:2023) - *Par défaut*
+- **C++23** (ISO/IEC 14882:2023) - *Default*
 
-##### Type de build
-Choisissez le type de compilation :
-- **Release** : Optimisé pour la performance (par défaut)
-- **Debug** : Avec symboles de débogage, sans optimisation
-- **RelWithDebInfo** : Optimisé avec informations de débogage
-- **MinSizeRel** : Optimisé pour la taille du binaire
+##### Build Type
+Choose the compilation type:
+- **Release**: Optimized for performance (default)
+- **Debug**: With debugging symbols, no optimization
+- **RelWithDebInfo**: Optimized with debugging information
+- **MinSizeRel**: Optimized for binary size
 
-##### Nom de sortie
-- **Champ texte** : Nom personnalisé pour l'exécutable
-- Si laissé vide, utilise le nom du fichier source
+##### Output Name
+- **Text field**: Custom name for the executable
+- If left empty, uses the source file name
 
-#### 3. **Options avancées**
+#### 3. **Advanced Options**
 
-##### Drapeaux de compilation
-Liste des drapeaux passés au compilateur :
-- **Ajouter un drapeau** : Bouton `+` pour ajouter un nouveau drapeau
-- **Exemples** : `-Wall`, `-Wextra`, `-pedantic`, `-O3`, etc.
-- **Supprimer** : Cliquez sur `✖` à côté d'un drapeau pour le retirer
+##### Compilation Flags
+List of flags passed to the compiler:
+- **Add a flag**: `+` button to add a new flag
+- **Examples**: `-Wall`, `-Wextra`, `-pedantic`, `-O3`, etc.
+- **Remove**: Click on `✖` next to a flag to remove it
 
-##### Drapeaux de liaison
-Liste des options pour l'éditeur de liens :
-- **Ajouter un drapeau** : Bouton `+` pour ajouter
-- **Exemples** : `-lpthread`, `-lm`, `-static`, etc.
+##### Linker Flags
+List of options for the linker:
+- **Add a flag**: `+` button to add
+- **Examples**: `-lpthread`, `-lm`, `-static`, etc.
 
-##### Répertoires d'inclusion
-Chemins des fichiers d'en-tête supplémentaires :
-- **Ajouter un chemin** : Bouton `+` pour ajouter
-- **Parcourir** : Sélectionner un répertoire via le navigateur de fichiers
-- **Exemples** : `/usr/local/include`, `./include`, `../external/headers`
+##### Include Directories
+Paths for additional header files:
+- **Add a path**: `+` button to add
+- **Browse**: Select a directory via the file browser
+- **Examples**: `/usr/local/include`, `./include`, `../external/headers`
 
-##### Bibliothèques
-Noms des bibliothèques à lier :
-- **Ajouter une bibliothèque** : Bouton `+`
-- **Exemples** : `pthread`, `m` (math), `boost_filesystem`
-- **Note** : Ne pas inclure le préfixe `lib` ni l'extension
+##### Libraries
+Names of libraries to link:
+- **Add a library**: `+` button
+- **Examples**: `pthread`, `m` (math), `boost_filesystem`
+- **Note**: Do not include the `lib` prefix or the extension
 
-##### Définitions de préprocesseur
-Macros et définitions pour le préprocesseur :
-- **Ajouter une définition** : Bouton `+`
-- **Format** : `NOM=valeur` ou simplement `NOM`
-- **Exemples** :
+##### Preprocessor Definitions
+Macros and definitions for the preprocessor:
+- **Add a definition**: `+` button
+- **Format**: `NAME=value` or simply `NAME`
+- **Examples**:
   - `DEBUG_MODE=1`
   - `VERSION=2.5`
   - `ENABLE_LOGGING`
 
-#### 4. **Options d'exécution**
+#### 4. **Execution Options**
 
-##### Répertoire de build
-- **Chemin** : Emplacement où CMake génère les fichiers de build
-- **Par défaut** : `./cmake_build_<nom_fichier>`
-- **Bouton Parcourir** : Choisir un répertoire personnalisé
-- **Nettoyer le build** : Case à cocher pour supprimer le répertoire avant compilation
+##### Build Directory
+- **Path**: Location where CMake generates build files
+- **Default**: `./cmake_build_<file_name>`
+- **Browse button**: Choose a custom directory
+- **Clean build**: Checkbox to delete the directory before compilation
 
-##### Mode verbeux
-- **Case à cocher** : Active l'affichage détaillé de la compilation
-- **Utilité** : Voir toutes les commandes CMake et du compilateur exécutées
+##### Verbose Mode
+- **Checkbox**: Enables detailed display of the compilation
+- **Utility**: See all executed CMake and compiler commands
 
-##### Exécuter après compilation
-- **Case à cocher** : Lance automatiquement l'exécutable après une compilation réussie
-- **Terminal** : L'exécution s'affiche dans le terminal intégré
+##### Run after compilation
+- **Checkbox**: Automatically launches the executable after a successful compilation
+- **Terminal**: Execution is displayed in the integrated terminal
 
 #### 5. **Actions**
 
-##### Bouton "Compiler"
-- Lance la compilation avec les options configurées
-- **Icône** : 🔨 ou ⚙️
-- **Raccourci** : `Ctrl+B` (configurable)
+##### Compile Button
+- Launches compilation with the configured options
+- **Icon**: 🔨 or ⚙️
+- **Shortcut**: `Ctrl+B` (configurable)
 
-##### Bouton "Compiler et Exécuter"
-- Équivalent à cocher "Exécuter après compilation" puis compiler
-- **Icône** : ▶️
-- **Raccourci** : `Ctrl+Shift+B` (configurable)
+##### Compile and Run Button
+- Equivalent to checking "Run after compilation" then compiling
+- **Icon**: ▶️
+- **Shortcut**: `Ctrl+Shift+B` (configurable)
 
-##### Bouton "Annuler"
-- Ferme le panneau sans compiler
-- **Raccourci** : `Échap`
+##### Cancel Button
+- Closes the panel without compiling
+- **Shortcut**: `Esc`
 
-##### Bouton "Réinitialiser"
-- Restaure les paramètres par défaut
-- Conserve uniquement le chemin du fichier source
+##### Reset Button
+- Restores default settings
+- Keeps only the source file path
 
-## Options de compilation
+## Compilation Options
 
-### Standards C++ supportés
+### Supported C++ Standards
 
-| Standard | Description | Fonctionnalités clés |
+| Standard | Description | Key features |
 |----------|-------------|---------------------|
-| C++11 | Premier standard moderne | Lambdas, auto, move semantics |
-| C++14 | Améliorations mineures | Generic lambdas, return type deduction |
-| C++17 | Évolution majeure | std::optional, std::filesystem, structured bindings |
-| C++20 | Standard moderne | Concepts, ranges, coroutines, modules |
-| C++23 | Dernier standard | std::expected, multidimensional subscript, ranges improvements |
+| C++11 | First modern standard | Lambdas, auto, move semantics |
+| C++14 | Minor improvements | Generic lambdas, return type deduction |
+| C++17 | Major evolution | std::optional, std::filesystem, structured bindings |
+| C++20 | Modern standard | Concepts, ranges, coroutines, modules |
+| C++23 | Latest standard | std::expected, multidimensional subscript, ranges improvements |
 
-### Types de build expliqués
+### Build Types Explained
 
 #### Release (Production)
 ```
-Optimisations : -O3
-Symboles debug : Non
-Usage : Version finale, performance maximale
-Taille binaire : Moyenne
+Optimizations: -O3
+Debug symbols: No
+Usage: Final release, maximum performance
+Binary size: Medium
 ```
 
-#### Debug (Développement)
+#### Debug (Development)
 ```
-Optimisations : -O0
-Symboles debug : Complets (-g)
-Usage : Développement, débogage avec GDB/LLDB
-Taille binaire : Large
+Optimizations: -O0
+Debug symbols: Complete (-g)
+Usage: Development, debugging with GDB/LLDB
+Binary size: Large
 ```
 
 #### RelWithDebInfo (Profiling)
 ```
-Optimisations : -O2
-Symboles debug : Oui (-g)
-Usage : Profiling, analyse de performance
-Taille binaire : Large
+Optimizations: -O2
+Debug symbols: Yes (-g)
+Usage: Profiling, performance analysis
+Binary size: Large
 ```
 
-#### MinSizeRel (Embarqué)
+#### MinSizeRel (Embedded)
 ```
-Optimisations : -Os (taille)
-Symboles debug : Non
-Usage : Systèmes embarqués, contraintes mémoire
-Taille binaire : Minimale
-```
-
-### Drapeaux de compilation courants
-
-#### Avertissements
-```
--Wall          # Active les avertissements de base
--Wextra        # Avertissements supplémentaires
--Werror        # Traite les avertissements comme des erreurs
--pedantic      # Respect strict du standard
--Wshadow       # Avertit des variables cachées
--Wconversion   # Avertit des conversions implicites
+Optimizations: -Os (size)
+Debug symbols: No
+Usage: Embedded systems, memory constraints
+Binary size: Minimal
 ```
 
-#### Optimisations
+### Common Compilation Flags
+
+#### Warnings
 ```
--O0            # Aucune optimisation (debug)
--O1            # Optimisations basiques
--O2            # Optimisations standard (recommandé)
--O3            # Optimisations agressives
--Os            # Optimisation pour la taille
--Ofast         # -O3 + optimisations non conformes IEEE
--march=native  # Optimisations pour le CPU actuel
+-Wall          # Enables basic warnings
+-Wextra        # Additional warnings
+-Werror        # Treats warnings as errors
+-pedantic      # Strict adherence to the standard
+-Wshadow       # Warns about shadowed variables
+-Wconversion   # Warns about implicit conversions
 ```
 
-#### Débogage et analyse
+#### Optimizations
 ```
--g             # Informations de débogage
--g3            # Informations de débogage maximales
--fsanitize=address        # AddressSanitizer (détection de fuites mémoire)
+-O0            # No optimization (debug)
+-O1            # Basic optimizations
+-O2            # Standard optimizations (recommended)
+-O3            # Aggressive optimizations
+-Os            # Optimization for size
+-Ofast         # -O3 + non-IEEE compliant optimizations
+-march=native  # Optimizations for current CPU
+```
+
+#### Debugging and Analysis
+```
+-g             # Debugging information
+-g3            # Maximum debugging information
+-fsanitize=address        # AddressSanitizer (memory leak detection)
 -fsanitize=thread         # ThreadSanitizer (race conditions)
 -fsanitize=undefined      # UndefinedBehaviorSanitizer
--fno-omit-frame-pointer   # Conserve les pointeurs de frame (profiling)
+-fno-omit-frame-pointer   # Keeps frame pointers (profiling)
 ```
 
-### Drapeaux de liaison courants
+### Common Linker Flags
 
 ```
--lpthread      # Bibliothèque POSIX threads
--lm            # Bibliothèque mathématique
--ldl           # Chargement dynamique
--static        # Liaison statique
--Wl,-rpath,.   # Chemin de recherche runtime
+-lpthread      # POSIX threads library
+-lm            # Math library
+-ldl           # Dynamic loading
+-static        # Static linking
+-Wl,-rpath,.   # Runtime search path
 ```
 
-## Exemples d'utilisation
+## Usage Examples
 
-### Exemple 1 : Programme simple
+### Example 1: Simple Program
 
-**Contexte** : Compiler un fichier `hello.cpp` basique
+**Context**: Compile a basic `hello.cpp` file
 
-**Configuration** :
-- Standard C++ : C++17
-- Type de build : Release
-- Options avancées : Aucune
+**Configuration**:
+- C++ Standard: C++17
+- Build Type: Release
+- Advanced Options: None
 
-**Résultat** : Exécutable `hello` dans `./cmake_build_hello/bin/`
+**Result**: Executable `hello` in `./cmake_build_hello/bin/`
 
 ---
 
-### Exemple 2 : Programme avec avertissements stricts
+### Example 2: Program with Strict Warnings
 
-**Contexte** : Code de production nécessitant qualité maximale
+**Context**: Production code requiring maximum quality
 
-**Configuration** :
-- Standard C++ : C++20
-- Type de build : Release
-- Drapeaux de compilation :
+**Configuration**:
+- C++ Standard: C++20
+- Build Type: Release
+- Compilation Flags:
   - `-Wall`
   - `-Wextra`
   - `-Werror`
   - `-pedantic`
 
-**Résultat** : Compilation échoue si des avertissements sont présents
+**Result**: Compilation fails if warnings are present
 
 ---
 
-### Exemple 3 : Débogage avec sanitizer
+### Example 3: Debugging with Sanitizer
 
-**Contexte** : Recherche de fuites mémoire
+**Context**: Memory leak search
 
-**Configuration** :
-- Standard C++ : C++17
-- Type de build : Debug
-- Drapeaux de compilation :
+**Configuration**:
+- C++ Standard: C++17
+- Build Type: Debug
+- Compilation Flags:
   - `-fsanitize=address`
   - `-fno-omit-frame-pointer`
   - `-g`
-- Drapeaux de liaison :
+- Linker Flags:
   - `-fsanitize=address`
-- Exécuter après compilation : ✓
+- Run after compilation: ✓
 
-**Résultat** : Programme s'exécute avec AddressSanitizer actif
+**Result**: Program runs with AddressSanitizer active
 
 ---
 
-### Exemple 4 : Utilisation de bibliothèques externes
+### Example 4: Using External Libraries
 
-**Contexte** : Programme utilisant Boost.Filesystem
+**Context**: Program using Boost.Filesystem
 
-**Configuration** :
-- Standard C++ : C++17
-- Type de build : Release
-- Répertoires d'inclusion :
+**Configuration**:
+- C++ Standard: C++17
+- Build Type: Release
+- Include Directories:
   - `/usr/local/include`
-- Bibliothèques :
+- Libraries:
   - `boost_filesystem`
   - `boost_system`
-- Drapeaux de liaison :
+- Linker Flags:
   - `-lpthread`
 
 ---
 
-### Exemple 5 : Compilation conditionnelle
+### Example 5: Conditional Compilation
 
-**Contexte** : Code avec sections DEBUG/RELEASE
+**Context**: Code with DEBUG/RELEASE sections
 
-**Configuration Debug** :
-- Standard C++ : C++20
-- Type de build : Debug
-- Définitions :
+**Debug Configuration**:
+- C++ Standard: C++20
+- Build Type: Debug
+- Definitions:
   - `DEBUG_MODE=1`
   - `LOG_LEVEL=VERBOSE`
   - `ENABLE_ASSERTIONS`
 
-**Configuration Release** :
-- Standard C++ : C++20
-- Type de build : Release
-- Définitions :
+**Release Configuration**:
+- C++ Standard: C++20
+- Build Type: Release
+- Definitions:
   - `NDEBUG`
   - `LOG_LEVEL=ERROR`
 
-**Code exemple** :
+**Example code**:
 ```cpp
 #ifdef DEBUG_MODE
     std::cout << "Debug: Variable value = " << var << std::endl;
@@ -315,9 +315,9 @@ Taille binaire : Minimale
 
 ---
 
-### Exemple 6 : Projet multi-fichiers avec en-têtes
+### Example 6: Multi-file Project with Headers
 
-**Structure** :
+**Structure**:
 ```
 project/
 ├── src/
@@ -329,224 +329,224 @@ project/
     └── helper.cpp
 ```
 
-**Configuration** :
-- Standard C++ : C++23
-- Type de build : Release
-- Répertoires d'inclusion :
+**Configuration**:
+- C++ Standard: C++23
+- Build Type: Release
+- Include Directories:
   - `./include`
   - `./lib`
 
-**Note** : Pour plusieurs fichiers source, créez une bibliothèque statique ou utilisez un CMakeLists.txt complet
+**Note**: For multiple source files, create a static library or use a full CMakeLists.txt
 
 ---
 
-### Exemple 7 : Optimisation maximale
+### Example 7: Maximum Optimization
 
-**Contexte** : Code critique en performance (calcul scientifique)
+**Context**: Performance-critical code (scientific computing)
 
-**Configuration** :
-- Standard C++ : C++20
-- Type de build : Release
-- Drapeaux de compilation :
+**Configuration**:
+- C++ Standard: C++20
+- Build Type: Release
+- Compilation Flags:
   - `-O3`
   - `-march=native`
   - `-flto` (Link Time Optimization)
   - `-funroll-loops`
-- Drapeaux de liaison :
+- Linker Flags:
   - `-flto`
 
 ---
 
-### Exemple 8 : Build minimal pour embarqué
+### Example 8: Minimal Build for Embedded
 
-**Contexte** : Système embarqué avec contraintes mémoire
+**Context**: Embedded system with memory constraints
 
-**Configuration** :
-- Standard C++ : C++17
-- Type de build : MinSizeRel
-- Drapeaux de compilation :
+**Configuration**:
+- C++ Standard: C++17
+- Build Type: MinSizeRel
+- Compilation Flags:
   - `-fno-exceptions`
   - `-fno-rtti`
   - `-ffunction-sections`
   - `-fdata-sections`
-- Drapeaux de liaison :
+- Linker Flags:
   - `-Wl,--gc-sections`
   - `-static`
 
-## Dépannage
+## Troubleshooting
 
-### Problèmes courants
+### Common Issues
 
-#### 1. "Fichier d'en-tête introuvable"
+#### 1. "Header file not found"
 
-**Symptôme** :
+**Symptom**:
 ```
 fatal error: myheader.hpp: No such file or directory
 ```
 
-**Solution** :
-- Ajoutez le chemin dans **Répertoires d'inclusion**
-- Vérifiez que le chemin est correct (absolu ou relatif au fichier source)
+**Solution**:
+- Add the path in **Include Directories**
+- Verify that the path is correct (absolute or relative to the source file)
 
-#### 2. "Référence indéfinie" lors de la liaison
+#### 2. "Undefined reference" during linking
 
-**Symptôme** :
+**Symptom**:
 ```
 undefined reference to `pthread_create'
 ```
 
-**Solution** :
-- Ajoutez la bibliothèque manquante dans **Bibliothèques** (ex: `pthread`)
-- Ou ajoutez le drapeau de liaison correspondant (ex: `-lpthread`)
+**Solution**:
+- Add the missing library in **Libraries** (e.g., `pthread`)
+- Or add the corresponding linker flag (e.g., `-lpthread`)
 
-#### 3. "Fonctionnalité C++ non supportée"
+#### 3. "C++ feature not supported"
 
-**Symptôme** :
+**Symptom**:
 ```
 error: 'std::filesystem' is not a namespace-name
 ```
 
-**Solution** :
-- Augmentez le **Standard C++** (ex: C++17 minimum pour std::filesystem)
-- Vérifiez la compatibilité de votre compilateur
+**Solution**:
+- Increase the **C++ Standard** (e.g., C++17 minimum for std::filesystem)
+- Check your compiler's compatibility
 
-#### 4. Compilation réussie mais exécutable introuvable
+#### 4. Compilation successful but executable not found
 
-**Symptôme** :
+**Symptom**:
 ```
 Compilation completed but executable not found
 ```
 
-**Solution** :
-- Vérifiez le **Répertoire de build**
-- Essayez de cocher **Nettoyer le build** avant compilation
-- Vérifiez les permissions du système de fichiers
+**Solution**:
+- Check the **Build Directory**
+- Try checking **Clean build** before compilation
+- Check file system permissions
 
-#### 5. Erreurs de sanitizer lors de l'exécution
+#### 5. Sanitizer errors during execution
 
-**Symptôme** :
+**Symptom**:
 ```
 AddressSanitizer: heap-use-after-free
 ```
 
-**Solution** :
-- Ce n'est pas une erreur de l'outil mais une erreur détectée dans votre code
-- Utilisez les informations fournies pour localiser le bug
-- Compilez avec `-g` pour obtenir des numéros de ligne précis
+**Solution**:
+- This is not a tool error but an error detected in your code
+- Use the provided information to locate the bug
+- Compile with `-g` to get precise line numbers
 
-#### 6. Compilation lente
+#### 6. Slow compilation
 
-**Solution** :
-- Ne cochez pas **Nettoyer le build** pour les compilations incrémentales
-- Réduisez le niveau d'optimisation pendant le développement (utilisez Debug)
-- Désactivez **Mode verbeux** sauf en cas de problème
+**Solution**:
+- Do not check **Clean build** for incremental compilations
+- Reduce the optimization level during development (use Debug)
+- Disable **Verbose Mode** unless there is an issue
 
 #### 7. Message "CMake configuration failed"
 
-**Symptôme** :
+**Symptom**:
 ```
 CMake Error: Could not create named generator
 ```
 
-**Solution** :
-- Vérifiez que CMake est installé (`cmake --version`)
-- Vérifiez que le compilateur C++ est accessible
-- Essayez de nettoyer le répertoire de build
+**Solution**:
+- Verify that CMake is installed (`cmake --version`)
+- Verify that the C++ compiler is accessible
+- Try to clean the build directory
 
-## Raccourcis clavier
+## Keyboard Shortcuts
 
-| Action | Raccourci | Description |
+| Action | Shortcut | Description |
 |--------|-----------|-------------|
-| Compiler le fichier actif | `Ctrl+B` | Ouvre le panneau de compilation |
-| Compiler et exécuter | `Ctrl+Shift+B` | Compile puis exécute |
-| Arrêter la compilation | `Ctrl+C` | Arrête le processus en cours |
-| Fermer le panneau | `Échap` | Ferme sans compiler |
-| Naviguer entre champs | `Tab` | Passe au champ suivant |
-| Activer/désactiver option | `Espace` | Pour les cases à cocher |
+| Compile the active file | `Ctrl+B` | Opens the compilation panel |
+| Compile and run | `Ctrl+Shift+B` | Compiles then executes |
+| Stop compilation | `Ctrl+C` | Stops the running process |
+| Close the panel | `Esc` | Closes without compiling |
+| Navigate between fields | `Tab` | Moves to the next field |
+| Enable/disable option | `Space` | For checkboxes |
 
-## Astuces et bonnes pratiques
+## Tips and Best Practices
 
-### 1. Profils de compilation
+### 1. Compilation Profiles
 
-Créez des profils réutilisables pour vos configurations courantes :
-- **Dev** : C++20, Debug, -Wall -Wextra
-- **Prod** : C++20, Release, -O3 -Wall -Werror
-- **Profile** : C++20, RelWithDebInfo, -fno-omit-frame-pointer
+Create reusable profiles for your common configurations:
+- **Dev**: C++20, Debug, -Wall -Wextra
+- **Prod**: C++20, Release, -O3 -Wall -Werror
+- **Profile**: C++20, RelWithDebInfo, -fno-omit-frame-pointer
 
-### 2. Drapeaux recommandés par cas d'usage
+### 2. Recommended Flags by Use Case
 
-**Développement quotidien** :
+**Daily development**:
 ```
 -Wall -Wextra -g
 ```
 
-**Code de production** :
+**Production code**:
 ```
 -Wall -Wextra -Werror -O3 -DNDEBUG
 ```
 
-**Recherche de bugs** :
+**Bug hunting**:
 ```
 -Wall -Wextra -g -fsanitize=address -fsanitize=undefined
 ```
 
-**Performance critique** :
+**Critical performance**:
 ```
 -O3 -march=native -flto -DNDEBUG
 ```
 
-### 3. Organisation des builds
+### 3. Build Organization
 
-- Utilisez des répertoires de build séparés pour Debug/Release
-- Exemple : `./cmake_build_debug` et `./cmake_build_release`
-- Ne versionnez pas les répertoires de build dans Git
+- Use separate build directories for Debug/Release
+- Example: `./cmake_build_debug` and `./cmake_build_release`
+- Do not version build directories in Git
 
-### 4. Compilation incrémentale
+### 4. Incremental Compilation
 
-- Ne nettoyez le build que si nécessaire
-- CMake reconstruira uniquement les fichiers modifiés
-- Gain de temps considérable sur les gros projets
+- Only clean the build if necessary
+- CMake will only rebuild modified files
+- Considerable time savings on large projects
 
-### 5. Mode verbeux
+### 5. Verbose Mode
 
-- Activez-le pour comprendre ce qui se passe en cas d'erreur
-- Désactivez-le pour les compilations rapides sans problème
-- Utile pour déboguer les problèmes de liaison
+- Enable it to understand what happens in case of an error
+- Disable it for fast compilations without issues
+- Useful for debugging linking issues
 
-## Limites actuelles
+## Current Limitations
 
-### Fichier source unique
-L'outil est conçu pour compiler **un seul fichier source** à la fois. Pour des projets multi-fichiers complexes :
-- Utilisez un `CMakeLists.txt` complet dans votre projet
-- Ou créez une bibliothèque statique puis liez-la
+### Single Source File
+The tool is designed to compile **a single source file** at a time. For complex multi-file projects:
+- Use a complete `CMakeLists.txt` in your project
+- Or create a static library and then link it
 
-### Pas de cache de configuration
-Les paramètres ne sont pas sauvegardés entre les sessions. Pour réutiliser une configuration :
-- Créez des profils personnalisés (fonctionnalité future)
-- Ou utilisez l'outil CLI avec un script
+### No Configuration Cache
+Settings are not saved between sessions. To reuse a configuration:
+- Create custom profiles (planned future feature)
+- Or use the CLI tool with a script
 
-### Compilation croisée
-La compilation croisée (cross-compilation) n'est pas supportée via l'interface graphique. Utilisez CMake directement pour ces cas avancés.
+### Cross-compilation
+Cross-compilation is not supported via the graphical interface. Use CMake directly for these advanced cases.
 
-## Support et ressources
+## Support and Resources
 
-### Documentation technique
+### Technical Documentation
 - [CMake Official Documentation](https://cmake.org/documentation/)
 - [GCC Compiler Options](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html)
 - [Clang Compiler Options](https://clang.llvm.org/docs/ClangCommandLineReference.html)
 
-### Standards C++
+### C++ Standards
 - [C++17 Reference](https://en.cppreference.com/w/cpp/17)
 - [C++20 Reference](https://en.cppreference.com/w/cpp/20)
 - [C++23 Reference](https://en.cppreference.com/w/cpp/23)
 
-### Outils de débogage
+### Debugging Tools
 - [AddressSanitizer Documentation](https://github.com/google/sanitizers/wiki/AddressSanitizer)
 - [GDB Tutorial](https://www.gnu.org/software/gdb/documentation/)
 - [Valgrind User Manual](https://valgrind.org/docs/manual/manual.html)
 
 ---
 
-**Version** : 1.0
-**Dernière mise à jour** : Mars 2026
-**Auteur** : Équipe Nebula Editor
+**Version**: 1.0
+**Last update**: March 2026
+**Author**: Nebula Editor Team

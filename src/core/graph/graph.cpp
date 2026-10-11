@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 08-09-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 08-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 09-10-2026
  */
 
 #include "graph.hpp"
@@ -55,6 +55,28 @@ Node &Graph::CreateNode(core::NodeType type) {
 
     nodes_.emplace(node.Id(), std::move(node));
     return nodes_.at(node.Id());
+}
+
+Node &Graph::DuplicateNode(NodeId id) { return CopyNodeFrom(*this, id); }
+
+Node &Graph::CopyNodeFrom(const Graph &source, NodeId id) {
+    if (!source.HasNode(id)) {
+        throw NodeNotFoundException("Node not found in the source graph");
+    }
+
+    Node &copy = CreateNode(source.nodes_.at(id).Type());
+    // Looked up after CreateNode: when source is this graph, the insertion
+    // may rehash. References to map elements survive it, but there is no
+    // reason to rely on it.
+    const Node &original = source.nodes_.at(id);
+
+    copy.input_pin_count_ = original.input_pin_count_;
+    copy.output_pin_count_ = original.output_pin_count_;
+    copy.input_pins_ = original.input_pins_;
+    copy.output_pins_ = original.output_pins_;
+    copy.property_id_count_ = original.property_id_count_;
+    copy.properties_ = original.properties_;
+    return copy;
 }
 
 bool Graph::RemoveNode(NodeId id) {

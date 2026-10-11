@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 06-10-2026
  */
 
 #include "renderer.hpp"
@@ -86,7 +86,15 @@ void DrawGridLevel(const GridBounds &bounds, float spacing, int skip_every,
 }  // namespace
 
 Renderer::Renderer(int width, int height, std::string title) {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
+    // FLAG_WINDOW_HIGHDPI is only reliable on macOS. On Windows, raylib 5.5
+    // does not refresh its DPI scale on resize (maximize, fullscreen), so the
+    // mouse position and the drawing drift apart. GLFW already makes the
+    // process DPI aware there, so the window simply works in real pixels.
+    unsigned int flags = FLAG_WINDOW_RESIZABLE;
+#if defined(__APPLE__)
+    flags |= FLAG_WINDOW_HIGHDPI;
+#endif
+    SetConfigFlags(flags);
     InitWindow(width, height, title.c_str());
 
     if (!utils::IsRaylibReady()) {
