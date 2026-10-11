@@ -44,7 +44,6 @@ Renderer::Renderer(int width, int height, std::string title) {
     // mouse position and the drawing drift apart. GLFW already makes the
     // process DPI aware there, so the window simply works in real pixels.
     unsigned int flags = FLAG_WINDOW_RESIZABLE;
-    flags |= FLAG_FULLSCREEN_MODE;
 #if defined(__APPLE__)
     flags |= FLAG_WINDOW_HIGHDPI;
 #endif
