@@ -1,0 +1,9 @@
+<map id="src/editor/ui/node_clipboard.hpp" name="src/editor/ui/node_clipboard.hpp">
+<area shape="rect" id="Node000001" title="Copy / paste of canvas nodes (Ctrl+C / Ctrl+V)" alt="" coords="123,5,258,45"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,101,192,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,57,113,102,110,98,159,53"/>
+<area shape="rect" id="Node000004" href="$node__clipboard_8cpp.html" title="Implementation of the node clipboard." alt="" coords="217,93,351,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,53,265,91,262,95,220,57"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,181,192,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,140,101,181,96,181,96,140"/>
+</map>

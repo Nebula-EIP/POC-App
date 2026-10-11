@@ -123,10 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa5b4d0708b848ea82450bac00475abcf" id="r_aa5b4d0708b848ea82450bac00475abcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeView.html#aa5b4d0708b848ea82450bac00475abcf">SetSelected</a> (bool selected) noexcept</td></tr>
 <tr class="memdesc:aa5b4d0708b848ea82450bac00475abcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the selected state of the node.  <br /></td></tr>
 <tr class="separator:aa5b4d0708b848ea82450bac00475abcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a706563b19bb236570be0d9e5e4ee7d78" id="r_a706563b19bb236570be0d9e5e4ee7d78"><td class="memItemLeft" align="right" valign="top"><a id="a706563b19bb236570be0d9e5e4ee7d78" name="a706563b19bb236570be0d9e5e4ee7d78"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetErrorPin</b> (<a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">core::PinId</a> pin) noexcept</td></tr>
-<tr class="memdesc:a706563b19bb236570be0d9e5e4ee7d78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a pin as having an error (e.g., failed connection). <br /></td></tr>
-<tr class="separator:a706563b19bb236570be0d9e5e4ee7d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f9a61e910842cd453478f50f59dfdf" id="r_a07f9a61e910842cd453478f50f59dfdf"><td class="memItemLeft" align="right" valign="top"><a id="a07f9a61e910842cd453478f50f59dfdf" name="a07f9a61e910842cd453478f50f59dfdf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetErrorPin</b> (<a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">core::PinId</a> pin, bool is_input) noexcept</td></tr>
+<tr class="memdesc:a07f9a61e910842cd453478f50f59dfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a pin as having an error (e.g., failed connection). <br /></td></tr>
+<tr class="separator:a07f9a61e910842cd453478f50f59dfdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af96d7ac262159e4ca04c6f4eeea60bc0" id="r_af96d7ac262159e4ca04c6f4eeea60bc0"><td class="memItemLeft" align="right" valign="top"><a id="af96d7ac262159e4ca04c6f4eeea60bc0" name="af96d7ac262159e4ca04c6f4eeea60bc0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () noexcept</td></tr>
 <tr class="memdesc:af96d7ac262159e4ca04c6f4eeea60bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the error state of pins. <br /></td></tr>
@@ -137,9 +137,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
 <tr class="memitem:a2c1d9f0fe5ac6f6afac1085389ee1dc3" id="r_a2c1d9f0fe5ac6f6afac1085389ee1dc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structeditor_1_1ui_1_1HitResult.html">HitResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeView.html#a2c1d9f0fe5ac6f6afac1085389ee1dc3">HitTest</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> world_point) const noexcept</td></tr>
 <tr class="memdesc:a2c1d9f0fe5ac6f6afac1085389ee1dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a hit test on the node.  <br /></td></tr>
 <tr class="separator:a2c1d9f0fe5ac6f6afac1085389ee1dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a445d63448c220fd951387623e7d30fde" id="r_a445d63448c220fd951387623e7d30fde"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeView.html#a445d63448c220fd951387623e7d30fde">GetPinPosition</a> (<a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">core::PinId</a> pin_id) const noexcept</td></tr>
-<tr class="memdesc:a445d63448c220fd951387623e7d30fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the world position of a specific pin.  <br /></td></tr>
-<tr class="separator:a445d63448c220fd951387623e7d30fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a636edb65c49438610e683b2b99bb4137" id="r_a636edb65c49438610e683b2b99bb4137"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeView.html#a636edb65c49438610e683b2b99bb4137">GetPinPosition</a> (<a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">core::PinId</a> pin_id, bool is_input) const noexcept</td></tr>
+<tr class="memdesc:a636edb65c49438610e683b2b99bb4137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the world position of a specific pin.  <br /></td></tr>
+<tr class="separator:a636edb65c49438610e683b2b99bb4137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f71bf4f63ad0df7b66038bc4690fe7" id="r_ac6f71bf4f63ad0df7b66038bc4690fe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeView.html#ac6f71bf4f63ad0df7b66038bc4690fe7">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera) const</td></tr>
 <tr class="memdesc:ac6f71bf4f63ad0df7b66038bc4690fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node.  <br /></td></tr>
 <tr class="separator:ac6f71bf4f63ad0df7b66038bc4690fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,8 +246,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
 
 </div>
 </div>
-<a id="a445d63448c220fd951387623e7d30fde" name="a445d63448c220fd951387623e7d30fde"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a445d63448c220fd951387623e7d30fde">&#9670;&#160;</a></span>GetPinPosition()</h2>
+<a id="a636edb65c49438610e683b2b99bb4137" name="a636edb65c49438610e683b2b99bb4137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a636edb65c49438610e683b2b99bb4137">&#9670;&#160;</a></span>GetPinPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,8 +259,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
           <td class="memname">std::optional&lt; <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> &gt; editor::ui::NodeView::GetPinPosition </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">core::PinId</a>&#160;</td>
-          <td class="paramname"><em>pin_id</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>pin_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>

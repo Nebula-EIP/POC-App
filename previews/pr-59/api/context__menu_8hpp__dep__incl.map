@@ -1,0 +1,9 @@
+<map id="src/editor/ui/context_menu.hpp" name="src/editor/ui/context_menu.hpp">
+<area shape="rect" id="Node000001" title="ContextMenu UI component." alt="" coords="119,5,271,45"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,101,192,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,57,114,102,110,98,161,53"/>
+<area shape="rect" id="Node000004" href="$context__menu_8cpp.html" title="Implementation of ContextMenu." alt="" coords="216,93,368,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="228,52,272,91,269,95,225,56"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,181,192,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,140,101,181,96,181,96,140"/>
+</map>
