@@ -1,0 +1,29 @@
+<map id="src/render/camera.hpp" name="src/render/camera.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="116,5,284,31"/>
+<area shape="rect" id="Node000002" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="5,343,192,368"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,43,154,81,120,131,87,191,64,255,61,275,64,294,76,320,91,341,86,344,71,322,59,295,55,275,59,254,82,189,115,129,150,77,179,40"/>
+<area shape="rect" id="Node000004" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="161,167,295,207"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,44,227,166,222,167,202,45"/>
+<area shape="rect" id="Node000006" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="73,262,247,287"/>
+<area shape="poly" id="edge15_Node000001_Node000006" title=" " alt="" coords="192,44,170,99,152,167,150,187,152,206,160,261,155,262,147,207,145,187,147,166,165,98,187,42"/>
+<area shape="rect" id="Node000008" href="$node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="238,79,373,119"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="228,37,282,76,278,81,225,41"/>
+<area shape="rect" id="Node000012" href="$camera_8cpp.html" title="Implementation of the Camera class, which handles 2D camera transformations." alt="" coords="397,86,563,111"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="255,32,440,83,439,89,253,37"/>
+<area shape="rect" id="Node000003" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="277,416,464,441"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,369,327,413,326,418,155,374"/>
+<area shape="rect" id="Node000005" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="271,255,406,295"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="265,213,316,252,313,257,262,217"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="207,219,171,263,167,260,202,216"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="145,300,110,344,106,341,141,296"/>
+<area shape="rect" id="Node000007" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="217,343,389,368"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="194,292,283,340,280,345,192,296"/>
+<area shape="poly" id="edge12_Node000008_Node000004" title=" " alt="" coords="281,131,247,168,243,165,277,127"/>
+<area shape="rect" id="Node000009" href="$connection__request_8hpp.html" title="Turns a pin&#45;to&#45;pin drag on the canvas into a graph connection, or into an error message the user can ..." alt="" coords="478,167,653,207"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="376,121,509,164,508,169,375,126"/>
+<area shape="rect" id="Node000011" href="$node__view_8cpp.html" title="Implementation of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="319,167,454,207"/>
+<area shape="poly" id="edge13_Node000008_Node000011" title=" " alt="" coords="335,127,371,165,367,168,331,131"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="598,215,611,233,622,254,626,275,620,296,601,321,579,343,528,378,474,403,424,418,422,413,472,398,525,373,576,339,597,318,615,293,620,275,617,255,607,236,593,219"/>
+<area shape="rect" id="Node000010" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="430,255,605,295"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="550,220,530,256,526,253,546,217"/>
+</map>

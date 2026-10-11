@@ -1,0 +1,11 @@
+<map id="src/core/exception/graph_exception/connection_exception.hpp" name="src/core/exception/graph_exception/connection_exception.hpp">
+<area shape="rect" id="Node000001" title="Defines exceptions related to connection operations." alt="" coords="213,5,423,60"/>
+<area shape="rect" id="Node000002" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="5,115,188,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,68,125,118,123,113,242,63"/>
+<area shape="rect" id="Node000003" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="212,108,424,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="321,74,321,108,315,108,315,74"/>
+<area shape="rect" id="Node000005" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="448,108,623,148"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="393,63,493,106,490,110,391,68"/>
+<area shape="rect" id="Node000004" href="$importer__capability_8cpp.html" title="Implementation of the handler&#45;based importer capability." alt="" coords="212,196,424,236"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="321,162,321,196,315,196,315,162"/>
+</map>
