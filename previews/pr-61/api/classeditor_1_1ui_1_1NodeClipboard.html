@@ -120,7 +120,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Size</b> () co
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds copies of nodes, to paste them later, any number of times. </p>
-<p><a class="el" href="classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7" title="Replaces the clipboard content with copies of the given nodes.">Copy()</a> snapshots the nodes into a graph of its own: the clipboard keeps working after the originals are edited or deleted. <a class="el" href="classeditor_1_1ui_1_1NodeClipboard.html#af775a3f54088be6c0e1d25b4e3a9cf79" title="Creates copies of the clipboard nodes in a graph.">Paste()</a> creates new nodes with the same type, pins and properties and no connection (like a duplication), keeping their layout relative to each other. </p>
+<p><a class="el" href="classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7" title="Replaces the clipboard content with copies of the given nodes.">Copy()</a> snapshots the nodes, and the connections between them, into a graph of its own: the clipboard keeps working after the originals are edited or deleted. <a class="el" href="classeditor_1_1ui_1_1NodeClipboard.html#af775a3f54088be6c0e1d25b4e3a9cf79" title="Creates copies of the clipboard nodes in a graph.">Paste()</a> creates new nodes with the same type, pins and properties, keeping their layout relative to each other, and links them like the copied nodes were linked to each other. Connections to nodes that were not copied are not pasted. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9e3acf56c555187acedf2b8903e7bff7" name="a9e3acf56c555187acedf2b8903e7bff7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e3acf56c555187acedf2b8903e7bff7">&#9670;&#160;</a></span>Copy()</h2>
@@ -153,7 +153,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Size</b> () co
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">graph</td><td>The graph holding the nodes. </td></tr>
-    <tr><td class="paramname">nodes</td><td>The nodes to copy, with their title and position. Nodes missing from graph are skipped. </td></tr>
+    <tr><td class="paramname">nodes</td><td>The nodes to copy, with their title and position. Nodes missing from graph are skipped. The connections whose two ends are among these nodes are copied too. </td></tr>
   </table>
   </dd>
 </dl>
@@ -194,7 +194,7 @@ std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Size</b> () co
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The created nodes, with their title and position. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The created nodes, with their title and position. They are already connected to each other in graph. </dd></dl>
 
 </div>
 </div>
