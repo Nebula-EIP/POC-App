@@ -11,7 +11,7 @@
  * @date Created on 04-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 04-09-2026
+ * @date Last modified on 11-10-2026
  */
 
 #include "renderer_capability.hpp"
@@ -70,6 +70,20 @@ ComponentList RendererCapability::GetNodeComponents(
     }
 
     return kProvider->second(node_id, node_type, properties);
+}
+
+void RendererCapability::SetPropertyChangeHandler(
+    PropertyChangeHandler handler) {
+    property_change_handler_ = std::move(handler);
+}
+
+bool RendererCapability::NotifyPropertyChange(
+    NodeId node_id, const PropertyMap &changes) const {
+    if (!property_change_handler_) {
+        return false;
+    }
+    property_change_handler_(node_id, changes);
+    return true;
 }
 
 }  // namespace core::capa

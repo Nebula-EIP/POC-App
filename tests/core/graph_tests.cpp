@@ -779,3 +779,74 @@ TEST(GraphIntegration, OperationsAfterNodeRemovalDontCrash)
     EXPECT_FALSE(graph.HasNode(id1));
     EXPECT_EQ(graph.GetNode(id1), nullptr);
 }
+
+TEST(GraphPinType, ChangesTheTypeOfAFreePin)
+{
+    core::Graph graph;
+    core::Node &node = graph.CreateNode(1);
+    const core::PinId in = graph.AddInputPin(node.Id(), "in", 2);
+    const core::PinId out = graph.AddOutputPin(node.Id(), "out", 2);
+
+    graph.SetPinType(node.Id(), out, false, 3);
+    graph.SetPinType(node.Id(), in, true, 4);
+
+    EXPECT_EQ(graph.GetNode(node.Id())->OutputPin(out)->type_, 3);
+    EXPECT_EQ(graph.GetNode(node.Id())->InputPin(in)->type_, 4);
+}
+
+TEST(GraphPinType, RefusesToChangeAConnectedPin)
+{
+    core::Graph graph;
+    const core::NodeId from = graph.CreateNode(1).Id();
+    const core::PinId out = graph.AddOutputPin(from, "out", 2);
+    const core::NodeId to = graph.CreateNode(1).Id();
+    const core::PinId in = graph.AddInputPin(to, "in", 2);
+    graph.Connect(from, out, to, in);
+
+    EXPECT_THROW(graph.SetPinType(from, out, false, 3),
+                 core::TypeMismatchException);
+    EXPECT_THROW(graph.SetPinType(to, in, true, 3),
+                 core::TypeMismatchException);
+    EXPECT_EQ(graph.GetNode(from)->OutputPin(out)->type_, 2);
+    EXPECT_EQ(graph.GetAllConnections().size(), 1U);
+
+    // Same type: nothing to do, even when connected.
+    EXPECT_NO_THROW(graph.SetPinType(from, out, false, 2));
+}
+
+TEST(GraphPinType, ReportsUnknownNodesAndPins)
+{
+    core::Graph graph;
+    const core::NodeId id = graph.CreateNode(1).Id();
+    graph.AddOutputPin(id, "out", 2);
+
+    EXPECT_THROW(graph.SetPinType(id + 1, 1, false, 3),
+                 core::NodeNotFoundException);
+    EXPECT_THROW(graph.SetPinType(id, 9, false, 3),
+                 core::PinNotFoundException);
+    EXPECT_THROW(graph.SetPinType(id, 1, true, 3),
+                 core::PinNotFoundException);
+}
+
+TEST(GraphPinType, ListsTheConnectionsOfAPin)
+{
+    core::Graph graph;
+    const core::NodeId from = graph.CreateNode(1).Id();
+    const core::PinId out = graph.AddOutputPin(from, "out", 2);
+    const core::NodeId first = graph.CreateNode(1).Id();
+    const core::PinId first_in = graph.AddInputPin(first, "in", 2);
+    const core::NodeId second = graph.CreateNode(1).Id();
+    const core::PinId second_in = graph.AddInputPin(second, "in", 2);
+
+    EXPECT_TRUE(graph.PinConnections(from, out, false).empty());
+
+    const core::ConnectionId a = graph.Connect(from, out, first, first_in);
+    const core::ConnectionId b = graph.Connect(from, out, second, second_in);
+
+    EXPECT_EQ(graph.PinConnections(from, out, false),
+              (std::vector<core::ConnectionId>{a, b}));
+    EXPECT_EQ(graph.PinConnections(first, first_in, true),
+              std::vector<core::ConnectionId>{a});
+    // An output id is not mistaken for an input id.
+    EXPECT_TRUE(graph.PinConnections(from, out, true).empty());
+}

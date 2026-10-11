@@ -407,4 +407,40 @@ TEST(RendererCapabilityTest, CanBeDestroyedPolymorphically) {
     EXPECT_TRUE(renderer->SupportsNodeType(kSupportedNodeType));
 }
 
+TEST(RendererCapabilityTest, PropertyChangesWithoutHandlerAreDropped) {
+    const RendererCapability renderer;
+    EXPECT_FALSE(renderer.NotifyPropertyChange(1, {}));
+}
+
+TEST(RendererCapabilityTest, ForwardsPropertyChangesToTheHandler) {
+    RendererCapability renderer;
+    NodeId received_node = 0;
+    PropertyMap received;
+    IRendererCapability &capability = renderer;
+    capability.SetPropertyChangeHandler(
+        [&](NodeId node_id, const PropertyMap &changes) {
+            received_node = node_id;
+            received = changes;
+        });
+
+    const PropertyMap kChanges{
+        {3, core::Property{.type_id_ = 0, .value_ = 2.0}}};
+    EXPECT_TRUE(renderer.NotifyPropertyChange(8, kChanges));
+
+    EXPECT_EQ(received_node, 8U);
+    ASSERT_EQ(received.size(), 1U);
+    EXPECT_DOUBLE_EQ(std::any_cast<double>(received.at(3).value_), 2.0);
+}
+
+TEST(RendererCapabilityTest, AnEmptyHandlerStopsForwarding) {
+    RendererCapability renderer;
+    int calls = 0;
+    renderer.SetPropertyChangeHandler(
+        [&calls](NodeId, const PropertyMap &) { ++calls; });
+    renderer.SetPropertyChangeHandler({});
+
+    EXPECT_FALSE(renderer.NotifyPropertyChange(1, {}));
+    EXPECT_EQ(calls, 0);
+}
+
 }  // namespace

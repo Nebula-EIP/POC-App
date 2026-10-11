@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 21-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 21-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -47,6 +47,13 @@ class CNodeListCapability : public core::capa::INodeListCapability {
         const std::unordered_map<std::string, core::PropertyTypeId> &property_types) override;
 
     core::capa::NodeConfiguration GetNodeConfiguration(core::NodeType type) const override;
+
+    /**
+     * @brief Configuration of a node instance: a Variable or a Literal outputs
+     * the type stored in its kType property ("int" when missing).
+     */
+    core::capa::NodeConfiguration ResolveNodeConfiguration(
+        core::NodeType type, const core::PropertyMap &properties) const override;
 
    private:
     struct RegisteredNode {
@@ -112,6 +119,9 @@ class CNodeListCapability : public core::capa::INodeListCapability {
     core::capa::NodeConfiguration GetForConfig() const;
     
     core::DataType GetTypeId(std::string_view name) const;
+
+    /// Name of the registered node type, empty when unknown.
+    std::string NodeName(core::NodeType type) const;
 };
 
 }  // namespace c_module

@@ -55,6 +55,10 @@ float GetScreenWidthWrapped() { return static_cast<float>(GetScreenWidth()); }
 
 double GetTimeWrapped() { return GetTime(); }
 
+bool IsKeyPressedRepeatWrapped(WrappedKey key) {
+    return IsKeyPressedRepeat(static_cast<int>(key));
+}
+
 // Cursor functions
 
 WrappedVector2 GetCursorPositionWrapped() {

@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 06-10-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "renderer.hpp"
@@ -99,7 +99,7 @@ void Renderer::RenderFrame(const Camera &camera,
     if (callbacks.draw_links_) {
         callbacks.draw_links_(camera);
     }
-    node_canvas_.Draw(camera);
+    node_canvas_.Draw(camera, callbacks.draw_node_content_);
     EndMode2D();
 
     if (callbacks.draw_ui_) {

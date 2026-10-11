@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 06-08-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 07-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -90,6 +90,25 @@ class INodeListCapability : public ICapability {
      * @return The configuration needed to build the specified node.
      */
     virtual NodeConfiguration GetNodeConfiguration(NodeType type) const = 0;
+
+    /**
+     * @brief Get the configuration of a node instance for its current
+     * properties.
+     *
+     * Some nodes adapt their pins to their properties (a typed literal outputs
+     * the type it holds). The editor calls this after each property change
+     * and matches the returned pins with the node's pins by position.
+     * The default implementation ignores the properties.
+     *
+     * @param type The node type.
+     * @param properties The properties of the node instance.
+     * @return The configuration matching these properties.
+     */
+    virtual NodeConfiguration ResolveNodeConfiguration(
+        NodeType type, const PropertyMap &properties) const {
+        (void)properties;
+        return GetNodeConfiguration(type);
+    }
 };
 
 /**

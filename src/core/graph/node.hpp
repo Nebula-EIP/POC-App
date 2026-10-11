@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 01-08-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 27-08-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -134,6 +134,13 @@ class Node {
      * @return A const pointer to the property if it exists, nullptr otherwise
      */
     const Property *GetProperty(PropertyId) const noexcept;
+
+    /**
+     * @brief Retrieves every property of the node
+     *
+     * @return A constant reference to the node's property map
+     */
+    const PropertyMap &Properties() const noexcept;
 
     /**
      * @brief Add a property

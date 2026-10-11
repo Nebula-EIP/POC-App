@@ -6,7 +6,7 @@
  * @date Created on 08-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 
 #include "graph.hpp"
@@ -147,6 +147,47 @@ void Graph::RemoveOutputPin(NodeId node_id, PinId pin_id) {
     DisconnectOutputPin(node_id, pin_id);
     nodes_.at(node_id).RemoveOutputPin(pin_id);
     /// Same as last method
+}
+
+void Graph::SetPinType(NodeId node_id, PinId pin_id, bool is_input,
+                       DataType type) {
+    if (!HasNode(node_id)) {
+        throw core::NodeNotFoundException("Node not found in the graph");
+    }
+
+    Node &node = nodes_.at(node_id);
+    std::vector<Pin> &pins = is_input ? node.input_pins_ : node.output_pins_;
+    const auto kPin =
+        std::find_if(pins.begin(), pins.end(),
+                     [pin_id](const Pin &pin) { return pin.id_ == pin_id; });
+    if (kPin == pins.end()) {
+        throw PinNotFoundException(is_input ? "Input pin not found"
+                                            : "Output pin not found");
+    }
+    if (kPin->type_ == type) {
+        return;
+    }
+    if (!PinConnections(node_id, pin_id, is_input).empty()) {
+        throw TypeMismatchException(
+            "Cannot change the type of a connected pin");
+    }
+    kPin->type_ = type;
+}
+
+std::vector<ConnectionId> Graph::PinConnections(NodeId node_id, PinId pin_id,
+                                                bool is_input) const {
+    std::vector<ConnectionId> result;
+    for (const auto &[id, connection] : connections_) {
+        const bool kMatches = is_input ? (connection.to_node_ == node_id &&
+                                          connection.in_pin_ == pin_id)
+                                       : (connection.from_node_ == node_id &&
+                                          connection.out_pin_ == pin_id);
+        if (kMatches) {
+            result.push_back(id);
+        }
+    }
+    std::sort(result.begin(), result.end());
+    return result;
 }
 
 #pragma endregion Pins

@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 06-10-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -128,6 +128,31 @@ class NodeView final {
         core::PinId pin_id, bool is_input) const noexcept;
 
     /**
+     * @brief Rebuilds the pins after they changed in the graph (type, name).
+     *
+     * The position of the node is kept.
+     *
+     * @param node The node this view displays.
+     */
+    void Refresh(const core::Node &node);
+
+    /**
+     * @brief Reserves room under the pins for the node's fields.
+     *
+     * The node grows to fit; {0, 0} removes the room.
+     *
+     * @param size Width and height the fields need.
+     */
+    void SetContentSize(utils::WrappedVector2 size);
+
+    /**
+     * @brief Area where the node's fields are drawn (world space).
+     *
+     * Empty (zero height) when no content size was set.
+     */
+    [[nodiscard]] utils::WrappedRectangle ContentBounds() const noexcept;
+
+    /**
      * @brief Draws the node.
      *
      * @param camera The camera to use for drawing.
@@ -174,6 +199,7 @@ class NodeView final {
      * @param node The core node to use for layout.
      */
     void RebuildLayout(const core::Node &node);
+    void Layout();
 
     core::NodeId node_id_;
     core::NodeType node_type_;
@@ -181,6 +207,7 @@ class NodeView final {
     utils::WrappedRectangle bounds_{};
     std::vector<PortView> inputs_;
     std::vector<PortView> outputs_;
+    utils::WrappedVector2 content_size_{0.0F, 0.0F};
     bool selected_ = false;
     core::PinId error_pin_id_ = 0;
     bool error_pin_is_input_ = false;
