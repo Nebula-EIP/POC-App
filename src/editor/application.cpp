@@ -38,7 +38,6 @@ constexpr int kLoadingTextSize = 20;
 constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
 constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
 constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
-// Screen pixels around a link that still select it.
 constexpr float kLinkPickTolerance = 8.0F;
 // World offset of a duplicated node from its original.
 constexpr float kDuplicateOffset = 30.0F;
