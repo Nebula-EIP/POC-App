@@ -74,10 +74,10 @@ Configuration Configuration::Load(const std::filesystem::path &config_file) {
         throw std::runtime_error("Invalid configuration file: " +
                                  config_file.string());
     }
-    configuration.module_folder = kModuleFolder;
-    if (configuration.module_folder.is_relative()) {
-        configuration.module_folder =
-            config_file.parent_path() / configuration.module_folder;
+    configuration.module_folder_ = kModuleFolder;
+    if (configuration.module_folder_.is_relative()) {
+        configuration.module_folder_ =
+            config_file.parent_path() / configuration.module_folder_;
     }
     return configuration;
 }
