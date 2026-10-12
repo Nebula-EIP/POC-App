@@ -10,7 +10,7 @@
  * @date Last modified on 12-10-2026
  */
 
- #pragma once
+#pragma once
 
 #include <filesystem>
 
