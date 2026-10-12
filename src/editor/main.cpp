@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
             argc == 3 ? argv[2] : editor::Configuration::kDefaultFile;
         const editor::Configuration kConfiguration =
             editor::Configuration::Load(kConfigFile);
-        editor::Application app{kConfiguration.module_folder};
+        editor::Application app{kConfiguration.module_folder_};
         return app.Run();
     } catch (const std::exception &error) {
         std::cerr << "fatal: " << error.what() << '\n';
