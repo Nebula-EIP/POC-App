@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('configuration_8hpp_source.html',''); i
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *kDefaultFile = <span class="stringliteral">&quot;config.json&quot;</span>;</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *kDefaultModuleFolder = <span class="stringliteral">&quot;modules&quot;</span>;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::filesystem::path module_folder;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::filesystem::path module_folder_;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structeditor_1_1Configuration.html">Configuration</a> Load(</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">const</span> std::filesystem::path &amp;config_file = kDefaultFile);</div>
