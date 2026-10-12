@@ -1,0 +1,5 @@
+<map id="editor::actions::Action" name="editor::actions::Action">
+<area shape="rect" id="Node000001" title="Represents an action that can be triggered by a shortcut, a menu, or the toolbar." alt="" coords="12,93,176,119"/>
+<area shape="rect" id="Node000002" href="$structeditor_1_1actions_1_1Shortcut.html" title="Represents a keyboard shortcut." alt="" coords="5,5,183,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,45,97,93,91,93,91,45"/>
+</map>
