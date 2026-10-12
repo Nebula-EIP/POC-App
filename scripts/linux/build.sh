@@ -12,11 +12,12 @@ cmake --build ${BUILD_DIR} \
 
 MODULE_DIR="${BUILD_DIR}/manual-modules"
 mkdir -p "${MODULE_DIR}"
-MODULE_FILE="${BUILD_DIR}/bin/${BUILD_TYPE}/fixture_valid_module.so"
+MODULE_FILE="${BUILD_DIR}/modules/neb_c_module.so"
 if [ ! -f "${MODULE_FILE}" ]; then
-    echo "Valid module fixture was not built" >&2
+    echo "Nebula C module was not built" >&2
     exit 1
 fi
+rm -f "${MODULE_DIR}/fixture_valid_module.so"
 cp "${MODULE_FILE}" "${MODULE_DIR}/"
 
 if [ ! -f config.json ]; then

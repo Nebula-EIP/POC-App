@@ -27,11 +27,12 @@ if errorlevel 1 (
 
 set MODULE_DIR=%BUILD_DIR%\manual-modules
 if not exist "%MODULE_DIR%" mkdir "%MODULE_DIR%"
-if not exist "%BUILD_DIR%\bin\%BUILD_TYPE%\fixture_valid_module.dll" (
-    echo Valid module fixture was not built
+if not exist "%BUILD_DIR%\modules\%BUILD_TYPE%\neb_c_module.dll" (
+    echo Nebula C module was not built
     exit /b 1
 )
-copy /Y "%BUILD_DIR%\bin\%BUILD_TYPE%\fixture_valid_module.dll" "%MODULE_DIR%\" >nul
+del /Q "%MODULE_DIR%\fixture_valid_module.dll" 2>nul
+copy /Y "%BUILD_DIR%\modules\%BUILD_TYPE%\neb_c_module.dll" "%MODULE_DIR%\" >nul
 
 if not exist "config.json" (
     >"config.json" echo {
