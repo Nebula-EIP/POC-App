@@ -37,6 +37,17 @@ git clone https://github.com/Nebula-EIP/POC-App.git
 cd POC-App
 ```
 
+### Module configuration
+
+At startup, Nebula reads `config.json` from the current directory. The file is
+optional: when it is absent, the default module folder is `modules`. Copy
+`config.example.json` to `config.json` and change `module_folder` to load
+modules from another folder. Relative folders are resolved from the directory
+containing the configuration file. The application never creates or overwrites
+this file automatically.
+
+Use `--config <path>` to load a configuration from another location.
+
 **Linux**
 ```bash
 ./scripts/linux/dev.sh
