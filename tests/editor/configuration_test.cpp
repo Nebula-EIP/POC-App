@@ -10,7 +10,7 @@
  * @date Last modified on 12-10-2026
  */
 
- #include "configuration.hpp"
+#include "configuration.hpp"
 
 #include <gtest/gtest.h>
 
@@ -36,7 +36,7 @@ TEST_F(ConfigurationTest, UsesDefaultsWhenFileIsMissing) {
     const editor::Configuration configuration =
         editor::Configuration::Load(directory_ / "missing.json");
 
-    EXPECT_EQ(configuration.module_folder, "modules");
+    EXPECT_EQ(configuration.module_folder_, "modules");
 }
 
 TEST_F(ConfigurationTest, ResolvesRelativeFolderFromConfigurationDirectory) {
@@ -46,7 +46,7 @@ TEST_F(ConfigurationTest, ResolvesRelativeFolderFromConfigurationDirectory) {
     const editor::Configuration configuration =
         editor::Configuration::Load(config_file);
 
-    EXPECT_EQ(configuration.module_folder, directory_ / "plugins");
+    EXPECT_EQ(configuration.module_folder_, directory_ / "plugins");
 }
 
 TEST_F(ConfigurationTest, RejectsInvalidFolderValue) {
