@@ -23,6 +23,7 @@ target_include_directories(neb_c_module
 
 # Inform that the lib data can be safely copied over
 set_target_properties(neb_c_module PROPERTIES
+    PREFIX ""
     POSITION_INDEPENDENT_CODE ON
 )
 
