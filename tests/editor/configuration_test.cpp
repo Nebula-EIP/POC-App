@@ -1,7 +1,7 @@
 /**
  * @file Configuration_test.cpp
- * @brief Implementation tests for the Configuration class, which handles the loading
- *        and parsing of configuration files for the editor.
+ * @brief Implementation tests for the Configuration class, which handles the
+ * loading and parsing of configuration files for the editor.
  *
  * @author Created by Nolan Papa
  * @date Created on 12-10-2026
@@ -16,14 +16,19 @@
 
 #include <filesystem>
 #include <fstream>
+#include <string>
 
 namespace {
 
 class ConfigurationTest : public testing::Test {
    protected:
     void SetUp() override {
-        directory_ = std::filesystem::temp_directory_path() /
-                     "nebula_configuration_test";
+        const auto *test_info =
+            testing::UnitTest::GetInstance()->current_test_info();
+        directory_ =
+            std::filesystem::temp_directory_path() /
+            ("nebula_configuration_test_" + std::string{test_info->name()});
+        std::filesystem::remove_all(directory_);
         std::filesystem::create_directories(directory_);
     }
 
