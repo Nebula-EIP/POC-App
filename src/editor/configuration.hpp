@@ -24,7 +24,7 @@ struct Configuration {
     static constexpr const char *kDefaultFile = "config.json";
     static constexpr const char *kDefaultModuleFolder = "modules";
 
-    std::filesystem::path module_folder;
+    std::filesystem::path module_folder_;
 
     [[nodiscard]] static Configuration Load(
         const std::filesystem::path &config_file = kDefaultFile);
