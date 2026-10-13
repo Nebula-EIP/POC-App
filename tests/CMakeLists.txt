@@ -14,6 +14,7 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/core/modules/fixtures/")
 if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES}
         editor/connection_request_test.cpp
+        editor/configuration_test.cpp
         editor/node_canvas_test.cpp
         editor/node_clipboard_test.cpp
         editor/node_view_test.cpp
@@ -26,6 +27,7 @@ if(TEST_SOURCES)
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/configuration.cpp
     )
 
     # Allow includes for core tests
