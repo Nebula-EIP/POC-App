@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kcreatemodulesymbol_0',['kCreateModuleSymbol',['../loader_8hpp.html#a9a2f32b3dcc4545c61d09eba4ac12a28',1,'core']]]
+  ['graph_0',['graph',['../structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033',1,'core::capa::ExportContext']]]
 ];

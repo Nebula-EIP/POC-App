@@ -99,6 +99,7 @@ var annotated_dup =
     [ "render", null, [
       [ "Camera", "classrender_1_1Camera.html", "classrender_1_1Camera" ],
       [ "FrameCallbacks", "structrender_1_1FrameCallbacks.html", null ],
+      [ "GridLevels", "structrender_1_1GridLevels.html", "structrender_1_1GridLevels" ],
       [ "Renderer", "classrender_1_1Renderer.html", "classrender_1_1Renderer" ]
     ] ],
     [ "utils", null, [

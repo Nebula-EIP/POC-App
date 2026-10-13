@@ -51,7 +51,7 @@ var NAVTREEINDEX =
 [
 "action_8cpp.html",
 "connection__request_8cpp.html",
-"type__list__capability__exception_8hpp_source.html"
+"structutils_1_1WrappedCircle.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
