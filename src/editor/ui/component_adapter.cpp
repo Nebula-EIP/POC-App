@@ -33,6 +33,7 @@ using utils::WrappedColor;
 using utils::WrappedRectangle;
 
 constexpr int kFontSize = 18;
+constexpr float kSpacing = 2.0F;
 constexpr float kRowHeight = 30.0F;
 constexpr WrappedColor kText = utils::kWhite;
 constexpr WrappedColor kPanel = utils::kDarkgray;
@@ -50,13 +51,13 @@ float Clamp(float value, float minimum, float maximum) {
 
 void DrawField(WrappedRectangle rectangle, const std::string &label,
                const std::string &value, bool enabled) {
-    utils::DrawTextWrapped(label.c_str(), rectangle.x_, rectangle.y_, kFontSize,
-                           enabled ? kText : kDisabled);
+    utils::DrawTextExWrapped(label.c_str(), rectangle.x_, rectangle.y_,
+                             kFontSize, kSpacing, enabled ? kText : kDisabled);
     utils::DrawRectangleWrapped(rectangle.x_ + 100.0F, rectangle.y_,
                                 rectangle.width_ - 100.0F, rectangle.height_,
                                 enabled ? kControl : kPanel);
-    utils::DrawTextWrapped(value.c_str(), rectangle.x_ + 108.0F,
-                           rectangle.y_ + 5.0F, kFontSize, kText);
+    utils::DrawTextExWrapped(value.c_str(), rectangle.x_ + 108.0F,
+                             rectangle.y_ + 5.0F, kFontSize, kSpacing, kText);
 }
 
 }  // namespace
@@ -74,11 +75,13 @@ void ComponentAdapter::Draw(core::NodeId node_id,
             [&](const auto &value) {
                 using T = std::decay_t<decltype(value)>;
                 if constexpr (std::is_same_v<T, Label>) {
-                    utils::DrawTextWrapped(value.text_.c_str(), kRow.x_,
-                                           kRow.y_, kFontSize, kText);
+                    utils::DrawTextExWrapped(value.text_.c_str(), kRow.x_,
+                                             kRow.y_, kFontSize, kSpacing,
+                                             kText);
                 } else if constexpr (std::is_same_v<T, InfoBubble>) {
-                    utils::DrawTextWrapped(value.text_.c_str(), kRow.x_,
-                                           kRow.y_, kFontSize, utils::kYellow);
+                    utils::DrawTextExWrapped(value.text_.c_str(), kRow.x_,
+                                             kRow.y_, kFontSize, kSpacing,
+                                             utils::kYellow);
                 } else if constexpr (std::is_same_v<T, Separator>) {
                     utils::DrawRectangleWrapped(kRow.x_, kRow.y_ + 14.0F,
                                                 kRow.width_, 1.0F, kControl);
@@ -166,8 +169,9 @@ void ComponentAdapter::Draw(core::NodeId node_id,
                                          value.options_.size());
                     }
                 } else {
-                    utils::DrawTextWrapped("Unsupported component", kRow.x_,
-                                           kRow.y_, kFontSize, utils::kRed);
+                    utils::DrawTextExWrapped("Unsupported component", kRow.x_,
+                                             kRow.y_, kFontSize, kSpacing,
+                                             utils::kRed);
                 }
             },
             component);

@@ -29,10 +29,13 @@ namespace editor {
 namespace {
 constexpr int kDefaultWidth = 800;
 constexpr int kDefaultHeight = 600;
+int ScreenWidth() { return GetMonitorWidth(GetCurrentMonitor()); }
+int ScreenHeight() { return GetMonitorHeight(GetCurrentMonitor()); }
 constexpr float kNodeHalfWidth = 50.0F;
 constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
 constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
 constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
@@ -103,10 +106,10 @@ void Application::DrawInitialFrame() {
                      .draw_links_ = {},
                      .draw_ui_ =
                          []() {
-                             utils::DrawTextWrapped(
+                             utils::DrawTextExWrapped(
                                  "Loading module...", kLoadingTextPosition,
                                  kLoadingTextPosition, kLoadingTextSize,
-                                 utils::kDarkgray);
+                                 kSpacing, utils::kDarkgray);
                          },
                  });
 }

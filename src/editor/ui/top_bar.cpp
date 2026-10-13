@@ -19,6 +19,7 @@ namespace editor::ui {
 namespace {
 constexpr float kDropdownPadding = 4.0F;
 constexpr float kShadowOffset = 3.0F;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kShadow = {0, 0, 0, 70};
 
 bool Contains(utils::WrappedRectangle rectangle, utils::WrappedVector2 point) {
@@ -260,9 +261,10 @@ void TopBar::Draw() const {
             utils::DrawRectangleWrapped(kRect.x_, kRect.y_, kRect.width_,
                                         kRect.height_ - 1.0F, style_.hover_);
         }
-        utils::DrawTextWrapped(
-            menus_[menu].Title().c_str(), kRect.x_ + style_.title_padding_,
-            (style_.height_ - kFont) / 2.0F, style_.font_size_, style_.text_);
+        utils::DrawTextExWrapped(menus_[menu].Title().c_str(),
+                                 kRect.x_ + style_.title_padding_,
+                                 (style_.height_ - kFont) / 2.0F,
+                                 style_.font_size_, kSpacing, style_.text_);
     }
 
     if (!open_menu_.has_value() || *open_menu_ >= menus_.size()) {
@@ -298,19 +300,19 @@ void TopBar::Draw() const {
                                         kItem.width_ - 2.0F, kItem.height_,
                                         style_.hover_);
         }
-        utils::DrawTextWrapped(
+        utils::DrawTextExWrapped(
             item.label_.c_str(), kItem.x_ + style_.item_padding_,
             kItem.y_ + (kItem.height_ - kFont) / 2.0F, style_.font_size_,
-            kEnabled ? style_.text_ : style_.disabled_text_);
+            kSpacing, kEnabled ? style_.text_ : style_.disabled_text_);
 
         if (!item.shortcut_text_.empty()) {
             const float kTextWidth =
                 measurer_(item.shortcut_text_, style_.font_size_);
-            utils::DrawTextWrapped(
+            utils::DrawTextExWrapped(
                 item.shortcut_text_.c_str(),
                 kItem.x_ + kItem.width_ - style_.item_padding_ - kTextWidth,
                 kItem.y_ + (kItem.height_ - kFont) / 2.0F, style_.font_size_,
-                style_.disabled_text_);
+                kSpacing, style_.disabled_text_);
         }
     }
 }
