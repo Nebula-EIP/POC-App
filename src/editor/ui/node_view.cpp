@@ -27,6 +27,7 @@ constexpr float kMaxWidth = 360.0F;
 // Space between the pins and the node's fields.
 constexpr float kContentGap = 4.0F;
 constexpr int kFontSize = 16;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kBody = {42, 47, 56, 255};
 constexpr utils::WrappedColor kBorder = {220, 225, 232, 255};
 constexpr utils::WrappedColor kSelected = {255, 214, 72, 255};
@@ -168,8 +169,8 @@ void NodeView::Draw(const render::Camera &camera) const {
                                      bounds_.height_,
                                      selected_ ? kSelected : kBorder);
 
-    utils::DrawTextWrapped(title_.c_str(), bounds_.x_ + kHorizontalPadding,
-                           bounds_.y_ + 6.0F, kFontSize, kText);
+    utils::DrawTextExWrapped(title_.c_str(), bounds_.x_ + kHorizontalPadding,
+                             bounds_.y_ + 6.0F, kFontSize, kSpacing, kText);
 
     for (const auto &port : inputs_) {
         auto color = (port.id_ == error_pin_id_ && error_pin_is_input_)
@@ -178,8 +179,9 @@ void NodeView::Draw(const render::Camera &camera) const {
         utils::DrawCircleWrapped(port.bounds_.x_ + kPortRadius,
                                  port.bounds_.y_ + kPortRadius, kPortRadius,
                                  color);
-        utils::DrawTextWrapped(port.name_.c_str(), port.bounds_.x_ + 12.0F,
-                               port.bounds_.y_ + 1.0F, kFontSize, kMutedText);
+        utils::DrawTextExWrapped(port.name_.c_str(), port.bounds_.x_ + 12.0F,
+                                 port.bounds_.y_ + 1.0F, kFontSize, kSpacing,
+                                 kMutedText);
     }
 
     for (const auto &port : outputs_) {
@@ -190,9 +192,9 @@ void NodeView::Draw(const render::Camera &camera) const {
                                  port.bounds_.y_ + kPortRadius, kPortRadius,
                                  color);
         const float kPortWidth = TextWidth(port.name_);
-        utils::DrawTextWrapped(port.name_.c_str(),
-                               port.bounds_.x_ - kPortWidth - 8.0F,
-                               port.bounds_.y_ + 1.0F, kFontSize, kMutedText);
+        utils::DrawTextExWrapped(
+            port.name_.c_str(), port.bounds_.x_ - kPortWidth - 8.0F,
+            port.bounds_.y_ + 1.0F, kFontSize, kSpacing, kMutedText);
     }
 }
 

@@ -37,6 +37,7 @@ using utils::WrappedColor;
 using utils::WrappedRectangle;
 
 constexpr int kFontSize = 16;
+constexpr float kSpacing = 2.0F;
 constexpr float kCharWidth = 8.0F;
 constexpr float kLabelGap = 12.0F;
 constexpr float kMinControlWidth = 96.0F;
@@ -219,8 +220,8 @@ void DrawBoxText(WrappedRectangle box, const std::string &text,
                  WrappedColor color, bool keep_end = false) {
     const std::string kShown =
         Fit(text, box.width_ - 2.0F * kControlPadding, keep_end);
-    utils::DrawTextWrapped(kShown.c_str(), box.x_ + kControlPadding,
-                           box.y_ + 2.0F, kFontSize, color);
+    utils::DrawTextExWrapped(kShown.c_str(), box.x_ + kControlPadding,
+                             box.y_ + 2.0F, kFontSize, kSpacing, color);
 }
 
 }  // namespace
@@ -557,21 +558,22 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                            open_list_->component_id_ == IdOf(component);
 
     if (const std::string *label = LabelOf(component)) {
-        utils::DrawTextWrapped(
+        utils::DrawTextExWrapped(
             Fit(*label, kControl.x_ - kRow.x_, false).c_str(), kRow.x_,
-            kRow.y_ + 4.0F, kFontSize, kMutedText);
+            kRow.y_ + 4.0F, kFontSize, kSpacing, kMutedText);
     }
 
     std::visit(
         [&](const auto &value) {
             using T = std::decay_t<decltype(value)>;
             if constexpr (std::is_same_v<T, Label>) {
-                utils::DrawTextWrapped(
+                utils::DrawTextExWrapped(
                     Fit(value.text_, kRow.width_, false).c_str(), kRow.x_,
-                    kRow.y_ + 4.0F, kFontSize, kText);
+                    kRow.y_ + 4.0F, kFontSize, kSpacing, kText);
             } else if constexpr (std::is_same_v<T, InfoBubble>) {
-                utils::DrawTextWrapped(value.text_.c_str(), kRow.x_,
-                                       kRow.y_ + 4.0F, kFontSize, kWarningText);
+                utils::DrawTextExWrapped(value.text_.c_str(), kRow.x_,
+                                         kRow.y_ + 4.0F, kFontSize, kSpacing,
+                                         kWarningText);
             } else if constexpr (std::is_same_v<T, Separator>) {
                 utils::DrawRectangleWrapped(kRow.x_,
                                             kRow.y_ + kRow.height_ / 2.0F,
@@ -632,10 +634,10 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                                  kSquare.width_ - 6.0F, kSquare.height_ - 6.0F},
                                 kAccent);
                     }
-                    utils::DrawTextWrapped(value.value_ ? "vrai" : "faux",
-                                           kSquare.x_ + kSize + 6.0F,
-                                           kControl.y_ + 2.0F, kFontSize,
-                                           kValueColor);
+                    utils::DrawTextExWrapped(value.value_ ? "vrai" : "faux",
+                                             kSquare.x_ + kSize + 6.0F,
+                                             kControl.y_ + 2.0F, kFontSize,
+                                             kSpacing, kValueColor);
                 } else if constexpr (std::is_same_v<T, Select>) {
                     const std::string kSelected =
                         value.selected_index_ < value.options_.size()
@@ -679,9 +681,9 @@ void ComponentAdapter::DrawOverlay(core::NodeId node_id,
                          TextWidth(edit_->error_) + 2.0F * kControlPadding),
                 kBubbleHeight};
             DrawBox(kBubble, kErrorBubble);
-            utils::DrawTextWrapped(edit_->error_.c_str(),
-                                   kBubble.x_ + kControlPadding,
-                                   kBubble.y_ + 3.0F, kFontSize, kText);
+            utils::DrawTextExWrapped(
+                edit_->error_.c_str(), kBubble.x_ + kControlPadding,
+                kBubble.y_ + 3.0F, kFontSize, kSpacing, kText);
         }
     }
 

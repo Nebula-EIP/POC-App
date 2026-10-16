@@ -27,6 +27,7 @@ constexpr float kGap = 6.0F;
 constexpr float kSideMargin = 12.0F;
 // Space between two lines of a long warning.
 constexpr float kLineGap = 4.0F;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kBackground = {90, 30, 30, 235};
 constexpr utils::WrappedColor kBorder = {230, 80, 80, 255};
 constexpr utils::WrappedColor kText = {255, 255, 255, 255};
@@ -116,8 +117,9 @@ void NotificationStack::Draw(utils::WrappedVector2 screen, double now) const {
                                              Faded(kBorder, kOpacity));
             float line_y = kY + kPadding;
             for (const std::string &line : kLines) {
-                utils::DrawTextWrapped(line.c_str(), kX + kPadding, line_y,
-                                       kFontSize, Faded(kText, kOpacity));
+                utils::DrawTextExWrapped(line.c_str(), kX + kPadding, line_y,
+                                         kFontSize, kSpacing,
+                                         Faded(kText, kOpacity));
                 line_y += static_cast<float>(kFontSize) + kLineGap;
             }
         }

@@ -159,6 +159,7 @@ void ContextMenu::Draw() const {
         const auto &item = items_[i];
         const float kHeight = ItemHeight(item);
         const float kItemCenterY = current_y + kHeight / 2.0F;
+        const float kSpacing = 2.0F;
 
         if (item.separator_) {
             utils::DrawLineWrapped(
@@ -177,21 +178,21 @@ void ContextMenu::Draw() const {
             // Label
             utils::WrappedColor text_color =
                 item.IsEnabled() ? style_.text_ : style_.disabled_text_;
-            utils::DrawTextWrapped(
+            utils::DrawTextExWrapped(
                 item.label_.c_str(), kBounds.x_ + style_.item_padding_,
                 kItemCenterY - static_cast<float>(style_.font_size_) / 2.0F,
-                style_.font_size_, text_color);
+                style_.font_size_, kSpacing, text_color);
 
             // Shortcut
             if (!item.shortcut_text_.empty()) {
                 const float kTextWidth =
                     measurer_(item.shortcut_text_, style_.font_size_);
-                utils::DrawTextWrapped(
+                utils::DrawTextExWrapped(
                     item.shortcut_text_.c_str(),
                     kBounds.x_ + kBounds.width_ - style_.item_padding_ -
                         kTextWidth,
                     kItemCenterY - static_cast<float>(style_.font_size_) / 2.0F,
-                    style_.font_size_, style_.disabled_text_);
+                    style_.font_size_, kSpacing, style_.disabled_text_);
             }
         }
 
