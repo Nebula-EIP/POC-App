@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 
 #include <string>
+#include <vector>
 
 using editor::ui::NotificationStack;
 
@@ -74,4 +75,23 @@ TEST(NotificationStack, FadesOutAtTheEnd) {
                 0.5F, 0.001F);
     EXPECT_FLOAT_EQ(NotificationStack::Opacity(kEntry, 4.0), 0.0F);
     EXPECT_FLOAT_EQ(NotificationStack::Opacity(kEntry, 10.0), 0.0F);
+}
+
+TEST(NotificationStack, LongWarningsWrapAtSpaces) {
+    const auto kMeasure = [](const std::string &text) {
+        return static_cast<float>(text.size()) * 10.0F;
+    };
+
+    EXPECT_EQ(NotificationStack::WrapText("Court", 100.0F, kMeasure),
+              std::vector<std::string>{"Court"});
+    EXPECT_EQ(
+        NotificationStack::WrapText("un deux trois quatre", 100.0F, kMeasure),
+        (std::vector<std::string>{"un deux", "trois", "quatre"}));
+    // A word wider than the limit keeps its own line.
+    EXPECT_EQ(
+        NotificationStack::WrapText("a anticonstitutionnellement b", 100.0F,
+                                    kMeasure),
+        (std::vector<std::string>{"a", "anticonstitutionnellement", "b"}));
+    EXPECT_EQ(NotificationStack::WrapText("", 100.0F, kMeasure),
+              std::vector<std::string>{""});
 }

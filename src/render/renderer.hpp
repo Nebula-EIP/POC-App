@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -28,6 +28,11 @@ namespace render {
 struct FrameCallbacks {
     std::function<void(const Camera &)> draw_links_;
     std::function<void()> draw_ui_;
+    /**
+     * @brief World space, after each node: draws the node's fields.
+     *
+     */
+    editor::ui::NodeCanvas::NodeContentDrawer draw_node_content_;
 };
 
 /**

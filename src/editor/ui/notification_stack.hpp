@@ -10,7 +10,9 @@
 
 #include <cstddef>
 #include <deque>
+#include <functional>
 #include <string>
+#include <vector>
 
 #include "utils/raylib_wrapper.hpp"
 
@@ -71,6 +73,21 @@ class NotificationStack final {
      * @return The opacity, in [0, 1].
      */
     [[nodiscard]] static float Opacity(const Entry &entry, double now) noexcept;
+
+    /**
+     * @brief Splits a text into lines no wider than max_width, at spaces.
+     *
+     * A single word wider than max_width stays on its own line.
+     *
+     * @param text The text.
+     * @param max_width The widest line allowed.
+     * @param measure Width of a text.
+     *
+     * @return The lines, at least one.
+     */
+    [[nodiscard]] static std::vector<std::string> WrapText(
+        const std::string &text, float max_width,
+        const std::function<float(const std::string &)> &measure);
 
     /**
      * @brief Draws the warnings, newest at the bottom center of the screen.
