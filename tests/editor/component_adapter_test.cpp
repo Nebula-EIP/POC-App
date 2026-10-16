@@ -30,7 +30,10 @@ using editor::ui::ComponentInput;
 constexpr core::NodeId kNode = 4;
 constexpr utils::WrappedRectangle kBounds{100.0F, 50.0F, 200.0F, 96.0F};
 
-/// Centre of the control of a row.
+/**
+ * @brief Centre of the control of a row.
+ *
+ */
 utils::WrappedVector2 RowCenter(const ComponentList &components,
                                 std::size_t index) {
     const auto kControl =

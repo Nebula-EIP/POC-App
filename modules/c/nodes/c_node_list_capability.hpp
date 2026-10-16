@@ -120,7 +120,10 @@ class CNodeListCapability : public core::capa::INodeListCapability {
     
     core::DataType GetTypeId(std::string_view name) const;
 
-    /// Name of the registered node type, empty when unknown.
+    /**
+     * @brief Name of the registered node type, empty when unknown.
+     *
+     */
     std::string NodeName(core::NodeType type) const;
 };
 

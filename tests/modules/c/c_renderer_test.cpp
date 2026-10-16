@@ -52,7 +52,10 @@ PropertyMap Literal(const std::string &type, std::any value) {
         {kValue, Property{.type_id_ = kValue, .value_ = std::move(value)}}};
 }
 
-/// Records the last change reported by a component.
+/**
+ * @brief Records the last change reported by a component.
+ *
+ */
 struct Recorder {
     core::NodeId node_ = 0;
     PropertyMap changes_;

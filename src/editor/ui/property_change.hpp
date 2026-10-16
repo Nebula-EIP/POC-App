@@ -21,7 +21,10 @@
 
 namespace editor::ui {
 
-/// A pin whose type changes with the properties.
+/**
+ * @brief A pin whose type changes with the properties.
+ *
+ */
 struct PinTypeChange {
     core::PinId pin_id_ = 0;
     bool is_input_ = false;
@@ -29,13 +32,22 @@ struct PinTypeChange {
     core::DataType to_ = 0;
 };
 
-/// Result of a property change request.
+/**
+ * @brief Result of a property change request.
+ *
+ */
 struct PropertyChangeOutcome {
     bool applied_ = false;
     std::vector<PinTypeChange> pin_changes_;  ///< Applied (or refused) changes
-    /// Connections that prevent the change (empty when applied).
+    /**
+     * @brief Connections that prevent the change (empty when applied).
+     *
+     */
     std::vector<core::ConnectionId> blocking_connections_;
-    /// Pin of the edited node that is still connected, when refused.
+    /**
+     * @brief Pin of the edited node that is still connected, when refused.
+     *
+     */
     std::optional<PinTypeChange> blocked_pin_;
     std::string error_;  ///< French message when refused
 };

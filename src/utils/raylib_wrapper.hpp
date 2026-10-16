@@ -186,7 +186,10 @@ float GetScreenWidthWrapped();
 // Time
 /// Seconds elapsed since the window was opened.
 double GetTimeWrapped();
-/// True when a held key repeats this frame (text editing).
+/**
+ * @brief True when a held key repeats this frame (text editing).
+ *
+ */
 bool IsKeyPressedRepeatWrapped(WrappedKey key);
 
 // Cursor functions

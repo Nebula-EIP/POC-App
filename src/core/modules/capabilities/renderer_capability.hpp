@@ -449,7 +449,10 @@ class RendererCapability final : public IRendererCapability {
     ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                     const PropertyMap &properties) override;
 
-    /// @brief Replace the handler receiving property changes.
+    /**
+     * @brief Replace the handler receiving property changes.
+     *
+     */
     void SetPropertyChangeHandler(PropertyChangeHandler handler) override;
 
     /**

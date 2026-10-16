@@ -65,14 +65,27 @@ class Application {
     void HandleConnectionRequest();
 
     // Node fields (values and settings)
-    /// The node whose fields can be edited: the only selected node.
+    /**
+     * @brief The node whose fields can be edited: the only selected node.
+     *
+     */
     [[nodiscard]] std::optional<core::NodeId> EditedNode() const;
-    /// Rebuilds the fields of every node from the graph and sizes the nodes.
+    /**
+     * @brief Rebuilds the fields of every node from the graph and sizes the
+     * nodes.
+     *
+     */
     void RefreshNodeFields();
-    /// Sends this frame's input to the fields of the edited node.
-    /// @return true when the fields used the click.
+    /**
+     * @brief Sends this frame's input to the fields of the edited node.
+     * @return true when the fields used the click.
+     *
+     */
     bool UpdateNodeFields(const ui::ComponentInput &input);
-    /// Applies the property changes reported by the fields to the graph.
+    /**
+     * @brief Applies the property changes reported by the fields to the graph.
+     *
+     */
     void ApplyPropertyChanges();
     void SelectConnectionAt(utils::WrappedVector2 world);
     void DeleteSelection();

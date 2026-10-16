@@ -39,7 +39,11 @@ struct ComponentInput {
     bool enter_ = false;
     bool escape_ = false;
 
-    /// Reads this frame's mouse and keyboard; drains the typed characters.
+    /**
+     * @brief Reads this frame's mouse and keyboard; drains the typed
+     * characters.
+     *
+     */
     static ComponentInput Read(utils::WrappedVector2 cursor);
 };
 
@@ -54,7 +58,10 @@ struct ComponentInput {
  */
 class ComponentAdapter final {
    public:
-    /// Height of one component row.
+    /**
+     * @brief Height of one component row.
+     *
+     */
     static constexpr float kRowHeight = 24.0F;
 
     /**
@@ -106,22 +113,40 @@ class ComponentAdapter final {
     void Draw(core::NodeId node_id, const core::capa::ComponentList &components,
               utils::WrappedRectangle bounds, bool active) const;
 
-    /// True while a text or number field has the keyboard.
+    /**
+     * @brief True while a text or number field has the keyboard.
+     *
+     */
     [[nodiscard]] bool IsEditingText() const noexcept;
 
-    /// True while a select list is open.
+    /**
+     * @brief True while a select list is open.
+     *
+     */
     [[nodiscard]] bool IsListOpen() const noexcept;
 
-    /// Node of the focused field or open list, if any.
+    /**
+     * @brief Node of the focused field or open list, if any.
+     *
+     */
     [[nodiscard]] std::optional<core::NodeId> FocusedNode() const noexcept;
 
-    /// Text being typed in the focused field (empty when none).
+    /**
+     * @brief Text being typed in the focused field (empty when none).
+     *
+     */
     [[nodiscard]] const std::string &EditedText() const noexcept;
 
-    /// Explanation of why the typed text is invalid (empty when valid).
+    /**
+     * @brief Explanation of why the typed text is invalid (empty when valid).
+     *
+     */
     [[nodiscard]] const std::string &EditError() const noexcept;
 
-    /// Drops the current edit and closes any list, without applying.
+    /**
+     * @brief Drops the current edit and closes any list, without applying.
+     *
+     */
     void CancelEdit() noexcept;
 
     /**
@@ -149,7 +174,10 @@ class ComponentAdapter final {
                                       const core::capa::NumberField &field,
                                       double *value);
 
-    /// Text shown for a number (no decimals for an integer field).
+    /**
+     * @brief Text shown for a number (no decimals for an integer field).
+     *
+     */
     static std::string FormatNumber(double value, bool integer);
 
    private:

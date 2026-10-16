@@ -169,7 +169,11 @@ std::size_t IndexOf(std::string_view value, const auto &options) {
                : static_cast<std::size_t>(kPosition - options.begin());
 }
 
-/// Select listing the value types; the callback receives the new type name.
+/**
+ * @brief Select listing the value types; the callback receives the new type
+ * name.
+ *
+ */
 core::capa::Select TypeSelect(
     const PropertyMap &properties,
     std::function<void(const std::string &)> on_type) {
@@ -361,7 +365,10 @@ ComponentList Function(core::NodeId node_id, core::NodeType,
     return components;
 }
 
-/// Nodes without settings: nothing to edit.
+/**
+ * @brief Nodes without settings: nothing to edit.
+ *
+ */
 ComponentList NoSettings(core::NodeId, core::NodeType, const PropertyMap &,
                          const PropertyUpdate &) {
     return {};
@@ -373,7 +380,10 @@ std::string FormatNumber(double value, bool integer) {
     return text;
 }
 
-/// Text written by the user for a value, whatever its stored type.
+/**
+ * @brief Text written by the user for a value, whatever its stored type.
+ *
+ */
 std::string ValueText(const Property &value, std::string_view type) {
     if (const auto *number = std::any_cast<double>(&value.value_)) {
         return FormatNumber(*number, type == "int");

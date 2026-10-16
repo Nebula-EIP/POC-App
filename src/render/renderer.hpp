@@ -28,7 +28,10 @@ namespace render {
 struct FrameCallbacks {
     std::function<void(const Camera &)> draw_links_;
     std::function<void()> draw_ui_;
-    /// World space, after each node: draws the node's fields.
+    /**
+     * @brief World space, after each node: draws the node's fields.
+     *
+     */
     editor::ui::NodeCanvas::NodeContentDrawer draw_node_content_;
 };
 

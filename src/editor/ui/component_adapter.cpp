@@ -59,7 +59,10 @@ constexpr WrappedColor kListBackground = {35, 40, 48, 250};
 constexpr WrappedColor kListSelected = {70, 100, 150, 255};
 constexpr WrappedColor kSeparator = {90, 96, 108, 255};
 
-/// Number of characters (UTF-8 code points) of a text.
+/**
+ * @brief Number of characters (UTF-8 code points) of a text.
+ *
+ */
 std::size_t CodePoints(const std::string &text) {
     return static_cast<std::size_t>(
         std::count_if(text.begin(), text.end(), [](char character) {
@@ -100,7 +103,11 @@ void AppendCodePoint(std::string &text, int code_point) {
     }
 }
 
-/// Shortens a text to a width: keeps the end when editing (caret visible).
+/**
+ * @brief Shortens a text to a width: keeps the end when editing (caret
+ * visible).
+ *
+ */
 std::string Fit(const std::string &text, float width, bool keep_end) {
     const auto kMax =
         static_cast<std::size_t>(std::max(width, 0.0F) / kCharWidth);
@@ -130,7 +137,10 @@ core::capa::ComponentId IdOf(const Component &component) {
     return std::visit([](const auto &value) { return value.id_; }, component);
 }
 
-/// Label drawn in the left column, or nullptr for full-width components.
+/**
+ * @brief Label drawn in the left column, or nullptr for full-width components.
+ *
+ */
 const std::string *LabelOf(const Component &component) {
     return std::visit(
         [](const auto &value) -> const std::string * {
@@ -158,7 +168,10 @@ float LabelColumn(const ComponentList &components) {
     return width;
 }
 
-/// Width the content of a component needs (without its label).
+/**
+ * @brief Width the content of a component needs (without its label).
+ *
+ */
 float ContentWidth(const Component &component) {
     return std::visit(
         [](const auto &value) -> float {

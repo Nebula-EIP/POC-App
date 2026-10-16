@@ -85,7 +85,10 @@ class NodeCanvas final {
      */
     void ProcessInput(const render::Camera &camera);
 
-    /// Draws what a node holds (its fields), right after the node itself.
+    /**
+     * @brief Draws what a node holds (its fields), right after the node itself.
+     *
+     */
     using NodeContentDrawer = std::function<void(const NodeView &view)>;
 
     /**

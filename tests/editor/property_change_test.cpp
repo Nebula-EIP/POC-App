@@ -32,7 +32,10 @@ constexpr core::NodeType kBrokenNode = 3;
 constexpr core::PropertyId kTypeProperty = 5;
 constexpr core::PropertyId kValueProperty = 2;
 
-/// A typed node outputs the type in its property 5 (a DataType).
+/**
+ * @brief A typed node outputs the type in its property 5 (a DataType).
+ *
+ */
 class FakeNodes final : public core::capa::INodeListCapability {
    public:
     const std::string_view *RegisterNode(

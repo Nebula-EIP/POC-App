@@ -38,18 +38,30 @@ inline constexpr core::PropertyId kCondition = 4;
 inline constexpr core::PropertyId kType = 5;
 }  // namespace properties
 
-/// Value types a variable or a literal can hold (C type names).
+/**
+ * @brief Value types a variable or a literal can hold (C type names).
+ *
+ */
 inline constexpr std::array<std::string_view, 5> kValueTypes = {
     "int", "float", "bool", "char", "string"};
 
-/// Type used when a node has no (or an unknown) type property.
+/**
+ * @brief Type used when a node has no (or an unknown) type property.
+ *
+ */
 inline constexpr std::string_view kDefaultValueType = "int";
 
-/// Operators offered by the binary expression node.
+/**
+ * @brief Operators offered by the binary expression node.
+ *
+ */
 inline constexpr std::array<std::string_view, 5> kOperators = {"+", "-", "*",
                                                                "/", "%"};
 
-/// Receives the properties changed by a component, applied together.
+/**
+ * @brief Receives the properties changed by a component, applied together.
+ *
+ */
 using PropertyUpdate =
     std::function<void(core::NodeId, const core::PropertyMap &)>;
 
