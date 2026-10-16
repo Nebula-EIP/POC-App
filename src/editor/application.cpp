@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 16-10-2026
  */
 
 #include "application.hpp"
@@ -31,8 +31,6 @@ namespace editor {
 namespace {
 constexpr int kDefaultWidth = 800;
 constexpr int kDefaultHeight = 600;
-int ScreenWidth() { return GetMonitorWidth(GetCurrentMonitor()); }
-int ScreenHeight() { return GetMonitorHeight(GetCurrentMonitor()); }
 constexpr float kNodeHalfWidth = 50.0F;
 constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
@@ -82,7 +80,7 @@ bool HitTestBezier(utils::WrappedVector2 point, utils::WrappedVector2 start,
 
 Application::Application(std::filesystem::path module_path)
     : module_path_(std::move(module_path)),
-      renderer_(ScreenWidth(), ScreenHeight(), "Nebula") {}
+      renderer_(kDefaultWidth, kDefaultHeight, "Nebula") {}
 
 int Application::Run() {
     DrawInitialFrame();
