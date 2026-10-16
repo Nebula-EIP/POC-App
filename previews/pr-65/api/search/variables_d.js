@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['selected_5findex_5f_0',['selected_index_',['../structcore_1_1capa_1_1Select.html#a1235696801c112ab58fd4bc103ab6f04',1,'core::capa::Select']]],
-  ['step_5f_1',['step_',['../structcore_1_1capa_1_1NumberField.html#a0545721c5e1dedc8aed7e290e3af59df',1,'core::capa::NumberField::step_'],['../structcore_1_1capa_1_1Slider.html#af83dc5b451d0a2f0aac3f6120eda4d9d',1,'core::capa::Slider::step_']]]
+  ['pin_5fchanges_5f_0',['pin_changes_',['../structeditor_1_1ui_1_1PropertyChangeOutcome.html#aa5821c4a991e747e7ebc4a0a593d1239',1,'editor::ui::PropertyChangeOutcome']]],
+  ['position_5f_1',['position_',['../structeditor_1_1ui_1_1PlacedNode.html#a18561ca285fc48a1c1c4cfe3f2b51dfb',1,'editor::ui::PlacedNode']]]
 ];

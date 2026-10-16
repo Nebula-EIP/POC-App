@@ -51,7 +51,7 @@ var NAVTREEINDEX =
 [
 "action_8cpp.html",
 "classrender_1_1Camera.html#aeb635a5f0fc25d73283d0e689aa32823",
-"structcore_1_1capa_1_1Select.html#a99e33c1acb0bfc6eb0fc9e556552188b"
+"structcore_1_1capa_1_1NumberField.html#a9fb253f5b59fab6352c7ecfaae8f3547"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

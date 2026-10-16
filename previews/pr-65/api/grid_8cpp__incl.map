@@ -1,0 +1,9 @@
+<map id="src/render/grid.cpp" name="src/render/grid.cpp">
+<area shape="rect" id="Node000001" title="Implementation of the adaptive canvas grid level selection." alt="" coords="75,5,218,31"/>
+<area shape="rect" id="Node000002" href="$grid_8hpp.html" title="Adaptive canvas grid: picks which grid levels to draw for a given zoom, Blender style (a fine grid ne..." alt="" coords="5,79,80,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,33,73,73,70,68,128,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="104,79,189,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,31,149,65,144,65,144,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="214,79,277,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,29,220,68,217,73,161,33"/>
+</map>
