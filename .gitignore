@@ -32,6 +32,7 @@ __pycache__/
 # Nebula specific
 .nebula/
 code-generated/
+config.json
 
 # Documentation build artifacts
 docs/static/api/
