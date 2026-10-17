@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['read_5fonly_5f_0',['read_only_',['../structcore_1_1capa_1_1TextField.html#ab6db3d180bff30fbe4c63bfd06d81fda',1,'core::capa::TextField']]]
+  ['path_5f_0',['path_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#a925fcee23f3bbdf35d7b1871801853a3',1,'editor::ui::NodePicker::Row']]],
+  ['position_5f_1',['position_',['../structeditor_1_1ui_1_1PlacedNode.html#a18561ca285fc48a1c1c4cfe3f2b51dfb',1,'editor::ui::PlacedNode']]]
 ];

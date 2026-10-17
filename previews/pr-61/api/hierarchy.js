@@ -29,6 +29,7 @@ var hierarchy =
     [ "core::capa::ExportError", "structcore_1_1capa_1_1ExportError.html", null ],
     [ "render::FrameCallbacks", "structrender_1_1FrameCallbacks.html", null ],
     [ "core::Graph", "classcore_1_1Graph.html", null ],
+    [ "render::GridLevels", "structrender_1_1GridLevels.html", null ],
     [ "editor::ui::HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
     [ "core::ICapability", "classcore_1_1ICapability.html", [
       [ "core::capa::IExporterCapability", "classcore_1_1capa_1_1IExporterCapability.html", null ],

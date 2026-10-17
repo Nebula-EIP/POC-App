@@ -246,8 +246,8 @@ var NAVTREEINDEX0 =
 "classrender_1_1Camera.html#ab12c55929bcec0125c58de2f4ea615c3":[0,0,2,0,1],
 "classrender_1_1Camera.html#abff6b6d0f30b9569ef84776891b6dcca":[0,0,2,0,0],
 "classrender_1_1Camera.html#aeb635a5f0fc25d73283d0e689aa32823":[0,0,2,0,4],
-"classrender_1_1Renderer.html":[0,0,2,2],
-"classrender_1_1Renderer.html#a6e12f4c988629f04bf38a413d338f01c":[0,0,2,2,1],
-"classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0":[0,0,2,2,2],
-"classrender_1_1Renderer.html#aad1879f0516adce426a2d8ee8c5c62c7":[0,0,2,2,0]
+"classrender_1_1Renderer.html":[0,0,2,3],
+"classrender_1_1Renderer.html#a6e12f4c988629f04bf38a413d338f01c":[0,0,2,3,1],
+"classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0":[0,0,2,3,2],
+"classrender_1_1Renderer.html#aad1879f0516adce426a2d8ee8c5c62c7":[0,0,2,3,0]
 };

@@ -5,11 +5,12 @@ var searchData=
   ['centeron_2',['CenterOn',['../classrender_1_1Camera.html#abff6b6d0f30b9569ef84776891b6dcca',1,'render::Camera']]],
   ['clear_3',['Clear',['../classeditor_1_1ui_1_1ContextMenu.html#a510948ef7a3786a826e37f29ffa87e89',1,'editor::ui::ContextMenu']]],
   ['clearerrorpin_4',['ClearErrorPin',['../classeditor_1_1ui_1_1NodeView.html#af96d7ac262159e4ca04c6f4eeea60bc0',1,'editor::ui::NodeView']]],
-  ['close_5',['close',['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary::Close()'],['../classeditor_1_1ui_1_1TopBar.html#ad7e1faf854cf7f4c9abb31b7371b5f32',1,'editor::ui::TopBar::Close()'],['../classeditor_1_1ui_1_1ContextMenu.html#a35a354f0071102ad1c75d78d557a2860',1,'editor::ui::ContextMenu::Close()']]],
-  ['connect_6',['Connect',['../classcore_1_1Graph.html#a6861f20c4de4b61aeef14235df1da839',1,'core::Graph']]],
-  ['copy_7',['Copy',['../classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7',1,'editor::ui::NodeClipboard']]],
-  ['copynodefrom_8',['CopyNodeFrom',['../classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9',1,'core::Graph']]],
-  ['createmodule_9',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
-  ['createnode_10',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
-  ['current_5fid_11',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
+  ['close_5',['close',['../classeditor_1_1ui_1_1ContextMenu.html#a35a354f0071102ad1c75d78d557a2860',1,'editor::ui::ContextMenu::Close()'],['../classeditor_1_1ui_1_1TopBar.html#ad7e1faf854cf7f4c9abb31b7371b5f32',1,'editor::ui::TopBar::Close()'],['../classcore_1_1detail_1_1SharedLibrary.html#a0b35d550842eb03b4164cf2cb426b6c9',1,'core::detail::SharedLibrary::Close()']]],
+  ['computegridlevels_6',['ComputeGridLevels',['../grid_8cpp.html#ab08e509930878b3d888ae808c4b4e47f',1,'render']]],
+  ['connect_7',['Connect',['../classcore_1_1Graph.html#a6861f20c4de4b61aeef14235df1da839',1,'core::Graph']]],
+  ['copy_8',['Copy',['../classeditor_1_1ui_1_1NodeClipboard.html#a9e3acf56c555187acedf2b8903e7bff7',1,'editor::ui::NodeClipboard']]],
+  ['copynodefrom_9',['CopyNodeFrom',['../classcore_1_1Graph.html#ae7c92810e42e4198ade33e77f9d298d9',1,'core::Graph']]],
+  ['createmodule_10',['CreateModule',['../create__module_8hpp.html#a5ba26e5ee95b2745706354dca25ed823',1,'create_module.hpp']]],
+  ['createnode_11',['CreateNode',['../classcore_1_1Graph.html#abb906c990d8144790e381f686d23ff14',1,'core::Graph']]],
+  ['current_5fid_12',['current_id',['../classutils_1_1IdManager.html#ab6a420ffbd0e266ed290441fe5de7442',1,'utils::IdManager']]]
 ];

@@ -52,7 +52,7 @@ var NAVTREEINDEX =
 [
 "action_8cpp.html",
 "classutils_1_1BaseException.html",
-"structeditor_1_1ui_1_1NodePickerEntry.html#a20eb58933996fbd7674c04cb35cac5e3"
+"structeditor_1_1actions_1_1Shortcut.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
