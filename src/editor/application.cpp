@@ -7,14 +7,16 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 12-10-2026
  */
 
 #include "application.hpp"
 
 #include <algorithm>
 #include <cmath>
+#include <exception>
 #include <limits>
+#include <optional>
 #include <source_location>
 #include <stdexcept>
 #include <string>
@@ -131,20 +133,16 @@ void Application::LoadModule() {
     while (module_->Types()->RegisterType(type_id) != nullptr) {
         ++type_id;
     }
-    core::NodeType node_type_id = 1;
-    while (module_->Nodes()->RegisterNode(node_type_id) != nullptr) {
-        ++node_type_id;
-    }
 
-    const auto kAvailableNodes = module_->Nodes()->GetAvailableNodes();
-    for (std::size_t index = 0; index < kAvailableNodes.size(); ++index) {
-        const auto &metadata = kAvailableNodes[index];
-        CreateNodeFromConfiguration(
-            metadata.type_,
-            module_->Nodes()->GetNodeConfiguration(metadata.type_),
-            {40.0F + 220.0F * static_cast<float>(index % 3),
-             40.0F + 150.0F * static_cast<float>(index / 3)});
-    }
+    // The catalog hands out the node type ids. The project starts empty: the
+    // user adds nodes from the "Add Node" menu or with its shortcut.
+    node_catalog_.Update(loader_);
+    node_picker_.SetEntries(
+        ui::EntriesFromCatalog(node_catalog_, [this](core::ModuleId id) {
+            const core::IModule *module = loader_.Module(id);
+            return module != nullptr ? std::string(module->Name())
+                                     : "Module " + std::to_string(id);
+        }));
 }
 
 void Application::BuildMenus() {
@@ -166,34 +164,16 @@ void Application::BuildMenus() {
                        {utils::WrappedKey::kNone, false, false, false},
                        [this] { ResetZoom(); }});
 
-    am.RegisterAction(
-        {"node.add_menu",
-         "Add Node",
-         {utils::WrappedKey::kA, false, true, false},  // Shift+A
-         [this] {
-             context_menu_.Clear();
-             // Spawn where the menu was opened, not where the item is
-             // clicked.
-             const utils::WrappedVector2 kSpawnWorld =
-                 camera_.ScreenToWorld(cursor_position_);
-             if (module_ != nullptr) {
-                 // Populate node types
-                 for (const auto &node_meta :
-                      module_->Nodes()->GetAvailableNodes()) {
-                     const core::NodeType kType = node_meta.type_;
-                     const std::string kName = node_meta.name_;
-                     context_menu_.AddAction(
-                         kName, [this, kType, kSpawnWorld]() {
-                             CreateNodeFromConfiguration(
-                                 kType,
-                                 module_->Nodes()->GetNodeConfiguration(kType),
-                                 kSpawnWorld);
-                         });
-                 }
-             }
-             context_menu_.OpenAt(cursor_position_, renderer_.ScreenSize().x_,
-                                  renderer_.ScreenSize().y_);
-         }});
+    am.RegisterAction({"node.add_menu",
+                       "Add Node",
+                       {utils::WrappedKey::kA, false, true, false},  // Shift+A
+                       [this] {
+                           // Nodes appear where the menu was opened, not
+                           // where the entry is clicked.
+                           OpenNodePicker(
+                               cursor_position_,
+                               camera_.ScreenToWorld(cursor_position_));
+                       }});
 
     // Build top bar
     top_bar_.AddMenu("File")
@@ -226,9 +206,20 @@ void Application::BuildMenus() {
                    am.GetAction("view.reset_zoom")->callback_,
                    am.GetAction("view.reset_zoom")->shortcut_.ToString());
 
+    // Opened from the bar, the picker hangs under the menu title and the
+    // nodes appear in the middle of the view: the cursor is on the bar.
+    const std::size_t kNodeMenu = top_bar_.Menus().size();
     top_bar_.AddMenu("Node").AddAction(
         am.GetAction("node.add_menu")->display_name_,
-        am.GetAction("node.add_menu")->callback_,
+        [this, kNodeMenu] {
+            const utils::WrappedRectangle kTitle =
+                top_bar_.TitleRect(kNodeMenu);
+            const utils::WrappedVector2 kCenter =
+                camera_.ScreenToWorld(CanvasCenter());
+            OpenNodePicker({kTitle.x_, top_bar_.Height()},
+                           FreeSpawnPosition({kCenter.x_ - kNodeHalfWidth,
+                                              kCenter.y_ - kNodeHalfHeight}));
+        },
         am.GetAction("node.add_menu")->shortcut_.ToString());
 }
 
@@ -262,9 +253,44 @@ utils::WrappedVector2 Application::CanvasCenter() const {
     return {kScreen.x_ / 2.0F, kTop + (kScreen.y_ - kTop) / 2.0F};
 }
 
+void Application::OpenNodePicker(utils::WrappedVector2 screen_position,
+                                 utils::WrappedVector2 world_spawn) {
+    top_bar_.Close();
+    node_picker_.Open(screen_position, renderer_.ScreenSize().x_,
+                      renderer_.ScreenSize().y_,
+                      [this, world_spawn](core::NodeType type) {
+                          CreateNode(type, world_spawn);
+                      });
+}
+
+void Application::CreateNode(core::NodeType type,
+                             utils::WrappedVector2 position) {
+    const std::optional<core::NodeDescriptor> kDescriptor =
+        node_catalog_.GetNode(type);
+    core::IModule *module =
+        kDescriptor ? loader_.Module(kDescriptor->module_id_) : nullptr;
+    if (!kDescriptor || module == nullptr || module->Nodes() == nullptr) {
+        ShowError("Node unavailable: its module is no longer loaded.");
+        return;
+    }
+
+    core::capa::NodeConfiguration config;
+    try {
+        // A fresh configuration per node: each node gets its own copy of
+        // the module's default values.
+        config = module->Nodes()->GetNodeConfiguration(type);
+    } catch (const std::exception &error) {
+        ShowError("Cannot create " + kDescriptor->name_ + ": " + error.what());
+        return;
+    }
+
+    CreateNodeFromConfiguration(type, config, kDescriptor->name_, position);
+    selected_connection_.reset();
+}
+
 void Application::CreateNodeFromConfiguration(
     core::NodeType type, const core::capa::NodeConfiguration &config,
-    utils::WrappedVector2 position) {
+    std::string title, utils::WrappedVector2 position) {
     core::Node &node = graph_.CreateNode(type);
 
     for (const auto &pin : config.input_pins_) {
@@ -279,16 +305,32 @@ void Application::CreateNodeFromConfiguration(
         (void)property_id;
         node.AddProperty(property);
     }
-    std::string title = "Node";
-    if (module_ != nullptr) {
-        for (const auto &metadata : module_->Nodes()->GetAvailableNodes()) {
-            if (metadata.type_ == type) {
-                title = metadata.name_;
+    renderer_.node_canvas_.AddNode(node, std::move(title), position);
+    // The new node becomes the selection, so it can be moved right away.
+    renderer_.node_canvas_.SetSelection({node.Id()});
+}
+
+utils::WrappedVector2 Application::FreeSpawnPosition(
+    utils::WrappedVector2 position) const {
+    // Several nodes created at the same place would hide each other: move
+    // down-right until the spot is free.
+    const auto &views = renderer_.node_canvas_.Views();
+    bool taken = true;
+    while (taken) {
+        taken = false;
+        for (const auto &[id, view] : views) {
+            (void)id;
+            const utils::WrappedRectangle &bounds = view->Bounds();
+            if (std::abs(bounds.x_ - position.x_) < 1.0F &&
+                std::abs(bounds.y_ - position.y_) < 1.0F) {
+                position.x_ += kDuplicateOffset;
+                position.y_ += kDuplicateOffset;
+                taken = true;
                 break;
             }
         }
     }
-    renderer_.node_canvas_.AddNode(node, std::move(title), position);
+    return position;
 }
 
 utils::WrappedVector2 Application::SpawnPosition() const {
@@ -299,28 +341,32 @@ utils::WrappedVector2 Application::SpawnPosition() const {
 void Application::ProcessInput() {
     cursor_position_ = utils::GetCursorPositionWrapped();
 
-    // Context menu goes first. If it consumes input, others shouldn't.
-    ui::ContextMenuInput context_menu_input{
-        .cursor_ = cursor_position_,
-        .left_pressed_ = utils::IsLeftClicked(),
-        .right_pressed_ =
-            utils::IsRightClicked(),  // Wait, is there IsRightClicked?
-        .escape_pressed_ =
-            utils::IsKeyPressedWrapped(utils::WrappedKey::kEscape),
-        .screen_width_ = renderer_.ScreenSize().x_,
-        .screen_height_ = renderer_.ScreenSize().y_};
-    const bool kContextCaptured = context_menu_.Update(context_menu_input);
+    // The node picker goes first: while open it owns the mouse and the
+    // keyboard. Its input is only read while open, because reading consumes
+    // the typed characters.
+    const bool kPickerWasOpen = node_picker_.IsOpen();
+    bool picker_captured = false;
+    if (kPickerWasOpen) {
+        ui::NodePickerInput picker_input = ui::NodePicker::ReadInput();
+        picker_input.screen_width_ = renderer_.ScreenSize().x_;
+        picker_input.screen_height_ = renderer_.ScreenSize().y_;
+        picker_input.opening_key_down_ =
+            action_manager_.IsShortcutKeyDown("node.add_menu");
+        picker_captured = node_picker_.Update(picker_input);
+    }
 
     // The top bar goes second.
     const bool kTopBarCaptured = top_bar_.Update(ui::TopBar::ReadInput());
-    const bool kPointerCaptured = kContextCaptured || kTopBarCaptured;
+    const bool kPointerCaptured =
+        picker_captured || kTopBarCaptured || node_picker_.IsOpen();
 
     renderer_.ProcessInput(camera_, kPointerCaptured);
 
-    // Process shortcuts if pointer is not captured by a menu (or maybe always?)
-    // The requirement says: "Shortcuts must not trigger unrelated actions while
-    // the user is typing in a text field." For now we just process them.
-    action_manager_.ProcessShortcuts();
+    // Typing a search must not trigger shortcuts.
+    const bool kKeyboardCaptured = kPickerWasOpen || node_picker_.IsOpen();
+    if (!kKeyboardCaptured) {
+        action_manager_.ProcessShortcuts();
+    }
 
     const bool kCanvasClicked = !kPointerCaptured && utils::IsLeftClicked();
 
@@ -334,6 +380,10 @@ void Application::ProcessInput() {
 
     HandleConnectionRequest();
     notifications_.Prune(utils::GetTimeWrapped());
+
+    if (kKeyboardCaptured) {
+        return;
+    }
 
     const bool kControlDown =
         utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl) ||
@@ -564,7 +614,7 @@ void Application::DrawFrame() {
                              notifications_.Draw(renderer_.ScreenSize(),
                                                  utils::GetTimeWrapped());
                              top_bar_.Draw();
-                             context_menu_.Draw();
+                             node_picker_.Draw();
                          }});
 }
 

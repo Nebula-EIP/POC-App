@@ -59,3 +59,17 @@ TEST(NodeListCapabilityTest, InitializePropertyTypes) {
     
     capability.InitializePropertyTypes(property_types);
 }
+
+TEST(NodeListCapabilityTest, CategoryIsExposedInMetadata) {
+    NodeListCapability capability;
+    capability.RegisterNode("Loop", "A loop", {}, "Flow/Loops");
+    capability.RegisterNode("Print", "Prints", {});
+
+    ASSERT_NE(capability.RegisterNode(1), nullptr);
+    ASSERT_NE(capability.RegisterNode(2), nullptr);
+
+    auto nodes = capability.GetAvailableNodes();
+    ASSERT_EQ(nodes.size(), 2);
+    EXPECT_EQ(nodes[0].category_, "Flow/Loops");
+    EXPECT_TRUE(nodes[1].category_.empty());
+}

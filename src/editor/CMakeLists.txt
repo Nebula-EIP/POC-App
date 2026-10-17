@@ -9,6 +9,7 @@ add_executable(Nebula
     ui/notification_stack.cpp
     ui/top_bar.cpp
     ui/context_menu.cpp
+    ui/node_picker.cpp
     actions/action.cpp
     actions/action_manager.cpp
 )
@@ -20,6 +21,7 @@ target_include_directories(Nebula PRIVATE
 target_link_libraries(Nebula PRIVATE
     neb_graph
     core_modules
+    core_node_catalog
     utils
     raylib
     project_warnings

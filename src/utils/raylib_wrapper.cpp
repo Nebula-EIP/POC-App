@@ -233,6 +233,8 @@ bool IsKeyDownWrapped(WrappedKey key) {
 
 int GetCharPressedWrapped() { return GetCharPressed(); }
 
+float GetMouseWheelMoveWrapped() { return GetMouseWheelMove(); }
+
 // Collision functions
 
 bool CheckCollisionRecsWrapped(WrappedRectangle rec1, WrappedRectangle rec2) {

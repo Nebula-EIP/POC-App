@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 21-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 21-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -53,6 +53,7 @@ class CNodeListCapability : public core::capa::INodeListCapability {
         core::NodeType id_;
         std::string name_;
         std::string description_;
+        std::string category_;
     };
 
     core::capa::ITypeListCapability *types_capa_;
@@ -92,6 +93,20 @@ class CNodeListCapability : public core::capa::INodeListCapability {
         "Function output return",
         "Print to console",
         "For loop"
+    };
+
+    // Folders of each node in the editor's "Add Node" menu, same order.
+    std::vector<std::string> pending_categories_ = {
+        "Data",
+        "Data",
+        "Math",
+        "Flow",
+        "Flow/Loops",
+        "Functions",
+        "Functions",
+        "Functions",
+        "IO",
+        "Flow/Loops"
     };
 
     mutable std::size_t next_node_index_ = 0;
