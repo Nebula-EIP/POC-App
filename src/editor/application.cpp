@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 12-10-2026
  */
 
 #include "application.hpp"
@@ -347,6 +347,8 @@ void Application::ProcessInput() {
         ui::NodePickerInput picker_input = ui::NodePicker::ReadInput();
         picker_input.screen_width_ = renderer_.ScreenSize().x_;
         picker_input.screen_height_ = renderer_.ScreenSize().y_;
+        picker_input.opening_key_down_ =
+            action_manager_.IsShortcutKeyDown("node.add_menu");
         picker_captured = node_picker_.Update(picker_input);
     }
 

@@ -53,6 +53,12 @@ While the picker is open it owns the mouse and the keyboard: shortcuts
 (Delete, Ctrl+C, Shift+A, ...) are ignored so that typing a search never edits
 the graph.
 
+The character of the shortcut that opened the picker is never typed into the
+search: it can arrive one frame after the key press (Windows) and repeats while
+the key is held. The picker ignores typed characters on its first frame and
+until the shortcut key (`ActionManager::IsShortcutKeyDown("node.add_menu")`,
+AZERTY included) is released; after that, every key types normally.
+
 ## Categories
 
 A module gives the folder of each node with `NodeMetadata::category_`

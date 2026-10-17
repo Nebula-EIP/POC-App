@@ -7,7 +7,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 12-10-2026
  */
 
 #pragma once
@@ -65,7 +65,9 @@ struct NodePickerInput {
     bool left_key_pressed_ = false;
     bool right_key_pressed_ = false;
     bool backspace_pressed_ = false;
-    std::string typed_;   ///< Characters typed this frame.
+    std::string typed_;  ///< Characters typed this frame.
+    /// The key of the shortcut that opened the picker is still held.
+    bool opening_key_down_ = false;
     float wheel_ = 0.0F;  ///< Positive when the wheel is scrolled up.
     float screen_width_ = 0.0F;
     float screen_height_ = 0.0F;
@@ -242,6 +244,9 @@ class NodePicker final {
     std::size_t scroll_ = 0;
     std::size_t visible_rows_ = 1;
     std::optional<utils::WrappedVector2> last_cursor_;
+    /// Typed characters go to the search. Off when the picker opens, so that
+    /// the character of the opening shortcut is not typed.
+    bool typing_armed_ = false;
     static inline bool skip_typed = false;
 };
 

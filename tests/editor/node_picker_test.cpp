@@ -10,7 +10,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 12-10-2026
  */
 
 #include "ui/node_picker.hpp"
@@ -92,9 +92,15 @@ class NodePickerTest : public ::testing::Test {
 
     void SetUp() override { picker_.SetEntries(SampleEntries()); }
 
-    void Open() {
+    void OpenOnly() {
         picker_.Open(kOpenAt, kScreenWidth, kScreenHeight,
                      [this](core::NodeType type) { picked_.push_back(type); });
+    }
+
+    /// Opens, then runs the first frame, which never takes typed characters.
+    void Open() {
+        OpenOnly();
+        picker_.Update(Idle());
     }
 
     std::vector<std::string> Labels() const {
@@ -310,6 +316,47 @@ TEST_F(NodePickerTest, LeftRightDoNothingWhileSearching) {
     EXPECT_FALSE(picker_.IsExpanded("C"));
 }
 
+TEST_F(NodePickerTest, ShortcutCharacterIsNotTyped) {
+    OpenOnly();
+    // Shift+A opened the picker: its 'A' arrives late and repeats while held.
+    NodePickerInput held = Type("A");
+    held.opening_key_down_ = true;
+    picker_.Update(held);
+    picker_.Update(held);
+    EXPECT_TRUE(picker_.Query().empty());
+    EXPECT_FALSE(picker_.IsSearching());
+
+    // Released in the same frame as a late character: still not typed.
+    picker_.Update(Type("A"));
+    EXPECT_TRUE(picker_.Query().empty());
+
+    // Typing works from then on, the 'a' key included.
+    picker_.Update(Type("a"));
+    EXPECT_EQ(picker_.Query(), "a");
+    NodePickerInput again = Type("b");
+    again.opening_key_down_ = true;  // 'a' held again later: typing stays on
+    picker_.Update(again);
+    EXPECT_EQ(picker_.Query(), "ab");
+}
+
+TEST_F(NodePickerTest, FirstFrameAfterOpeningIgnoresTyping) {
+    OpenOnly();
+    picker_.Update(Type("x"));
+    EXPECT_TRUE(picker_.Query().empty());
+    picker_.Update(Type("x"));
+    EXPECT_EQ(picker_.Query(), "x");
+}
+
+TEST_F(NodePickerTest, BackspaceStillWorksWhileOpeningKeyIsHeld) {
+    Open();
+    picker_.Update(Type("ab"));
+    NodePickerInput input = Idle();
+    input.backspace_pressed_ = true;
+    input.opening_key_down_ = true;
+    picker_.Update(input);
+    EXPECT_EQ(picker_.Query(), "a");
+}
+
 // ---------------------------------------------------------------------------
 // Mouse
 
@@ -331,7 +378,7 @@ TEST_F(NodePickerTest, SameNodeCanBePickedSeveralTimes) {
 }
 
 TEST_F(NodePickerTest, HoverSelectsOnlyWhenTheCursorMoves) {
-    Open();
+    OpenOnly();
     const WrappedVector2 kOnGraphics =
         Center(*picker_.RowRect(RowOf("Graphics")));
     // The cursor that opened the picker does not select what is under it.
