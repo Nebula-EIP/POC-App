@@ -242,6 +242,7 @@ class NodePicker final {
     std::size_t scroll_ = 0;
     std::size_t visible_rows_ = 1;
     std::optional<utils::WrappedVector2> last_cursor_;
+    static inline bool skip_typed = false;
 };
 
 }  // namespace editor::ui

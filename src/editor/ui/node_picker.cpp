@@ -227,6 +227,11 @@ void NodePicker::Open(utils::WrappedVector2 position, float screen_width,
     selected_.reset();
     scroll_ = 0;
     RebuildRows();
+    // Drop characters still queued from the key press that opened the
+    // picker (e.g. the "A" of Shift+A), otherwise they land in the search.
+    while (utils::GetCharPressedWrapped() > 0) {
+    }
+    skip_typed = true;
     // Sized for the whole tree, so that the box does not jump while folders
     // are opened or a search is typed.
     visible_rows_ = std::clamp<std::size_t>(folders_.size() + entries_.size(),
@@ -434,11 +439,14 @@ NodePickerInput NodePicker::ReadInput() {
         utils::IsKeyPressedWrapped(utils::WrappedKey::kBackspace);
     for (int character = utils::GetCharPressedWrapped(); character > 0;
          character = utils::GetCharPressedWrapped()) {
-        // The default font only draws ASCII.
-        if (character >= kFirstPrintable && character <= kLastPrintable) {
+        // The default font only draws ASCII. The first read after Open()
+        // discards the character of the key that opened the picker.
+        if (!skip_typed && character >= kFirstPrintable &&
+            character <= kLastPrintable) {
             input.typed_.push_back(static_cast<char>(character));
         }
     }
+    skip_typed = false;
     input.wheel_ = utils::GetMouseWheelMoveWrapped();
     input.screen_width_ = utils::GetScreenWidthWrapped();
     return input;
