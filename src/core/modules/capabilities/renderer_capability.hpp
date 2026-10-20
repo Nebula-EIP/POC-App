@@ -13,7 +13,7 @@
  * @date Created on 10-08-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 04-09-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -101,6 +101,15 @@ struct TextField : public ComponentBase {
     /** @brief Indicates whether the text field can currently be interacted
      * with. */
     bool enabled_ = true;
+
+    /**
+     * @brief Optional check run on the edited text before it is applied.
+     *
+     * @param value Text entered by the user.
+     * @return An explanation of why the text is invalid, or an empty string
+     * when it is valid. Invalid text is never passed to on_change_.
+     */
+    std::function<std::string(const std::string &value)> validate_;
 
     /**
      * @brief Callback executed when the text field value changes.
@@ -349,6 +358,27 @@ class IRendererCapability : public ICapability {
      */
     virtual ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                             const PropertyMap &properties) = 0;
+
+    /**
+     * @brief Function receiving the property changes made through the
+     * components.
+     *
+     * @param node_id Node whose properties change.
+     * @param changes Properties to set on the node, applied together.
+     */
+    using PropertyChangeHandler =
+        std::function<void(NodeId node_id, const PropertyMap &changes)>;
+
+    /**
+     * @brief Sets the function called when a component changes properties.
+     *
+     * Components only describe the interface: their callbacks report the new
+     * property values to this handler, and the application applies them to
+     * the graph. Each call replaces the previous handler.
+     *
+     * @param handler The handler, or an empty function to drop changes.
+     */
+    virtual void SetPropertyChangeHandler(PropertyChangeHandler handler) = 0;
 };
 
 /**
@@ -419,7 +449,25 @@ class RendererCapability final : public IRendererCapability {
     ComponentList GetNodeComponents(NodeId node_id, NodeType node_type,
                                     const PropertyMap &properties) override;
 
+    /**
+     * @brief Replace the handler receiving property changes.
+     *
+     */
+    void SetPropertyChangeHandler(PropertyChangeHandler handler) override;
+
+    /**
+     * @brief Forward property changes to the handler, if any.
+     *
+     * Component callbacks call this to report new property values.
+     *
+     * @param node_id Node whose properties change.
+     * @param changes Properties to set on the node.
+     * @return true when a handler received the changes.
+     */
+    bool NotifyPropertyChange(NodeId node_id, const PropertyMap &changes) const;
+
    private:
+    PropertyChangeHandler property_change_handler_;
     std::unordered_map<DataType, std::string> types_;
     std::unordered_map<NodeType, std::string> node_types_;
     std::unordered_map<NodeType, ComponentProvider> providers_;

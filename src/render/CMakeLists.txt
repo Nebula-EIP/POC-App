@@ -9,6 +9,8 @@ add_library(neb_render
     ${CMAKE_SOURCE_DIR}/src/editor/ui/notification_stack.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/connection_request.cpp
     ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
+    ${CMAKE_SOURCE_DIR}/src/editor/ui/component_adapter.cpp
+    ${CMAKE_SOURCE_DIR}/src/editor/ui/property_change.cpp
 )
 
 target_include_directories(neb_render PUBLIC

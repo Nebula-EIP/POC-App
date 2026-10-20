@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 #include "node_canvas.hpp"
 
@@ -204,8 +204,15 @@ void NodeCanvas::ProcessInput(const render::Camera &camera) {
     }
 }
 
-void NodeCanvas::Draw(const render::Camera &camera) const {
-    for (const auto kId : draw_order_) views_.at(kId)->Draw(camera);
+void NodeCanvas::Draw(const render::Camera &camera,
+                      const NodeContentDrawer &draw_content) const {
+    for (const auto kId : draw_order_) {
+        const NodeView &view = *views_.at(kId);
+        view.Draw(camera);
+        if (draw_content) {
+            draw_content(view);
+        }
+    }
     DrawSelectionRectangle(camera);
 }
 
