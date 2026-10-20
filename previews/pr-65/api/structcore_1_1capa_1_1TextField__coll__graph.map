@@ -1,5 +1,0 @@
-<map id="core::capa::TextField" name="core::capa::TextField">
-<area shape="rect" id="Node000001" title="Editable text field component." alt="" coords="30,79,185,104"/>
-<area shape="rect" id="Node000002" href="$structcore_1_1capa_1_1ComponentBase.html" title="Base information shared by every UI component." alt="" coords="5,5,209,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,44,110,79,105,79,105,44"/>
-</map>
