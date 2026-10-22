@@ -227,6 +227,8 @@ bool IsMiddleDown();
 bool IsKeyPressedWrapped(WrappedKey key);
 bool IsKeyDownWrapped(WrappedKey key);
 int GetCharPressedWrapped();
+/// Mouse wheel movement this frame: positive when scrolled up.
+float GetMouseWheelMoveWrapped();
 
 // Collision functions
 

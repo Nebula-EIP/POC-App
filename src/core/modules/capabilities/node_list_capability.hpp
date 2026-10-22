@@ -30,6 +30,9 @@ struct NodeMetadata {
     NodeType type_;  ///< Unique identifier for the node type within the module.
     std::string name_;         ///< Human-readable name of the node.
     std::string description_;  ///< Short description of the node's behavior.
+    /// Where the node is listed in the editor's "Add Node" menu: folders
+    /// separated by '/', e.g. "Flow/Loops". Empty: directly under the module.
+    std::string category_;
 };
 
 /**
@@ -128,11 +131,13 @@ class NodeListCapability final : public INodeListCapability {
      * @param name The human-readable name of the node.
      * @param description The description of the node.
      * @param config The configuration of the node.
+     * @param category Folders of the node in the "Add Node" menu, separated
+     * by '/' (e.g. "Flow/Loops"). Empty: directly under the module.
      * @throws NodeAlreadyExistsException if a node with the same name is
      * already registered.
      */
     void RegisterNode(std::string name, std::string description,
-                      NodeConfiguration config);
+                      NodeConfiguration config, std::string category = {});
 
     const std::string_view *RegisterNode(
         NodeType node_type) const noexcept override;
@@ -150,6 +155,7 @@ class NodeListCapability final : public INodeListCapability {
         std::string name_;
         std::string description_;
         NodeConfiguration config_;
+        std::string category_;
     };
 
     std::list<PendingNode> pending_nodes_;

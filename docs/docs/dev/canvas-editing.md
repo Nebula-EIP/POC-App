@@ -32,8 +32,12 @@ movement handled by `NodeCanvas` (`src/editor/ui/node_canvas.cpp`).
   (`src/editor/ui/node_clipboard.hpp`). Copy snapshots the nodes into a graph
   of its own (`Graph::CopyNodeFrom`), so pasting still works after the
   originals are edited or deleted, any number of times. Pasted nodes are built
-  like duplicates (same type, pins and properties, no connection), keep their
-  layout relative to each other, and become the selection. The top-left corner
+  like duplicates (same type, pins and properties), keep their layout relative
+  to each other, and become the selection. The **connections between copied
+  nodes are pasted too**: each paste links its own copies like the originals
+  were linked. Connections to a node that was not copied are left out, so a
+  paste never touches the rest of the graph. Cut then paste therefore moves a
+  group with its internal links. The top-left corner
   of the group lands on the cursor (`Ctrl+V`) or the middle of the view (menu).
   Copying with nothing selected keeps the previous clipboard.
 

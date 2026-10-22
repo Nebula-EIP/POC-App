@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 07-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 07-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "node_list_capability.hpp"
@@ -16,7 +16,8 @@
 namespace core::capa {
 
 void NodeListCapability::RegisterNode(std::string name, std::string description,
-                                      NodeConfiguration config) {
+                                      NodeConfiguration config,
+                                      std::string category) {
     for (const auto &node : pending_nodes_) {
         if (node.name_ == name) {
             throw NodeAlreadyExistsException(
@@ -30,8 +31,8 @@ void NodeListCapability::RegisterNode(std::string name, std::string description,
         }
     }
 
-    pending_nodes_.push_back(
-        {std::move(name), std::move(description), std::move(config)});
+    pending_nodes_.push_back({std::move(name), std::move(description),
+                              std::move(config), std::move(category)});
     pending_names_.push_back(pending_nodes_.back().name_);
 }
 
@@ -45,7 +46,8 @@ const std::string_view *NodeListCapability::RegisterNode(
     auto it = pending_nodes_.begin();
     std::advance(it, next_node_index_);
 
-    available_nodes_.push_back({node_type, it->name_, it->description_});
+    available_nodes_.push_back(
+        {node_type, it->name_, it->description_, it->category_});
     node_configs_[node_type] = it->config_;
 
     std::string_view *name_ptr = &pending_names_[next_node_index_];
