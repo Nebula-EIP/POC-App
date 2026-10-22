@@ -1,7 +1,0 @@
-<map id="src/editor/ui/connection_request.hpp" name="src/editor/ui/connection_request.hpp">
-<area shape="rect" id="Node000001" title="Turns a pin&#45;to&#45;pin drag on the canvas into a graph connection, or into an error message the user can ..." alt="" coords="114,5,289,45"/>
-<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,101,192,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,56,115,102,111,98,166,52"/>
-<area shape="rect" id="Node000003" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="217,93,391,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="236,52,283,91,280,95,233,56"/>
-</map>
