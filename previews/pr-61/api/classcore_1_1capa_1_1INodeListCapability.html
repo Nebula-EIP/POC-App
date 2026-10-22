@@ -138,6 +138,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a306c4827dcc3ac0404b3e7e7f6db30" id="r_a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#a4a306c4827dcc3ac0404b3e7e7f6db30">GetNodeConfiguration</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> type) const =0</td></tr>
 <tr class="memdesc:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the layout and default configuration for a specific node type.  <br /></td></tr>
 <tr class="separator:a4a306c4827dcc3ac0404b3e7e7f6db30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2ba5aa06747247f32f2153e833a91b4" id="r_ab2ba5aa06747247f32f2153e833a91b4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1INodeListCapability.html#ab2ba5aa06747247f32f2153e833a91b4">ResolveNodeConfiguration</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> type, const PropertyMap &amp;properties) const</td></tr>
+<tr class="memdesc:ab2ba5aa06747247f32f2153e833a91b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the configuration of a node instance for its current properties.  <br /></td></tr>
+<tr class="separator:ab2ba5aa06747247f32f2153e833a91b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the capability providing custom nodes. </p>
@@ -279,6 +282,53 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to a string_view with the new node name, nullptr if all the nodes of the capability have been assigned. </dd></dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3">core::capa::NodeListCapability</a>.</p>
+
+</div>
+</div>
+<a id="ab2ba5aa06747247f32f2153e833a91b4" name="ab2ba5aa06747247f32f2153e833a91b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ba5aa06747247f32f2153e833a91b4">&#9670;&#160;</a></span>ResolveNodeConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> core::capa::INodeListCapability::ResolveNodeConfiguration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const PropertyMap &amp;&#160;</td>
+          <td class="paramname"><em>properties</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the configuration of a node instance for its current properties. </p>
+<p>Some nodes adapt their pins to their properties (a typed literal outputs the type it holds). The editor calls this after each property change and matches the returned pins with the node's pins by position. The default implementation ignores the properties.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The node type. </td></tr>
+    <tr><td class="paramname">properties</td><td>The properties of the node instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The configuration matching these properties. </dd></dl>
 
 </div>
 </div>

@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('node__canvas_8hpp.html',''); initResiz
 
 <p>Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -110,55 +111,57 @@ Include dependency graph for node_canvas.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="node__canvas_8hpp__incl.png" border="0" usemap="#asrc_2editor_2ui_2node__canvas_8hpp" alt=""/></div>
 <map name="asrc_2editor_2ui_2node__canvas_8hpp" id="asrc_2editor_2ui_2node__canvas_8hpp">
-<area shape="rect" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="480,5,615,45"/>
-<area shape="rect" title=" " alt="" coords="105,167,182,192"/>
-<area shape="poly" title=" " alt="" coords="481,39,382,61,328,76,276,96,218,127,170,161,167,156,215,123,274,91,327,71,381,55,479,34"/>
-<area shape="rect" title=" " alt="" coords="585,167,659,192"/>
-<area shape="poly" title=" " alt="" coords="559,45,613,153,608,155,554,47"/>
-<area shape="rect" title=" " alt="" coords="5,313,129,339"/>
-<area shape="poly" title=" " alt="" coords="480,37,360,58,292,75,225,96,151,121,122,137,95,168,79,201,70,236,68,300,62,300,65,235,74,199,90,165,119,133,148,116,224,91,290,70,359,53,479,32"/>
-<area shape="rect" title=" " alt="" coords="503,313,565,339"/>
-<area shape="poly" title=" " alt="" coords="549,46,538,300,532,299,544,46"/>
-<area shape="rect" href="graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="287,93,415,119"/>
-<area shape="poly" title=" " alt="" coords="501,48,394,91,392,86,499,43"/>
-<area shape="rect" href="node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="637,93,756,119"/>
-<area shape="poly" title=" " alt="" coords="584,43,664,84,661,89,582,48"/>
-<area shape="rect" href="camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="836,167,981,192"/>
-<area shape="poly" title=" " alt="" coords="615,40,691,61,770,91,832,124,883,157,880,161,829,128,768,96,689,66,614,45"/>
-<area shape="poly" title=" " alt="" coords="319,121,191,165,189,160,317,116"/>
-<area shape="poly" title=" " alt="" coords="338,121,95,307,92,303,335,117"/>
-<area shape="poly" title=" " alt="" coords="379,116,415,136,451,165,477,198,499,235,528,299,523,301,494,237,473,201,447,169,412,141,377,121"/>
-<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="243,240,358,265"/>
-<area shape="poly" title=" " alt="" coords="350,120,312,228,307,226,345,118"/>
-<area shape="rect" href="node_8hpp.html" title="Definition of the Node class." alt="" coords="354,167,437,192"/>
-<area shape="poly" title=" " alt="" coords="361,118,383,154,379,156,356,120"/>
-<area shape="poly" title=" " alt="" coords="264,268,119,312,117,307,262,263"/>
-<area shape="poly" title=" " alt="" coords="339,263,491,309,489,314,337,268"/>
-<area shape="rect" title=" " alt="" coords="153,313,200,339"/>
-<area shape="poly" title=" " alt="" coords="282,268,210,309,207,304,279,263"/>
-<area shape="rect" title=" " alt="" coords="224,313,295,339"/>
-<area shape="poly" title=" " alt="" coords="296,267,275,303,271,300,292,264"/>
-<area shape="rect" title=" " alt="" coords="411,313,478,339"/>
-<area shape="poly" title=" " alt="" coords="325,263,410,305,408,309,323,268"/>
-<area shape="rect" title=" " alt="" coords="654,313,713,339"/>
-<area shape="poly" title=" " alt="" coords="359,262,641,314,640,319,358,267"/>
-<area shape="rect" title=" " alt="" coords="319,313,387,339"/>
-<area shape="poly" title=" " alt="" coords="311,264,338,301,334,304,307,267"/>
-<area shape="poly" title=" " alt="" coords="409,191,515,302,512,305,405,194"/>
-<area shape="poly" title=" " alt="" coords="382,194,329,234,326,229,379,190"/>
-<area shape="poly" title=" " alt="" coords="402,192,439,300,434,301,397,193"/>
-<area shape="poly" title=" " alt="" coords="687,121,646,159,642,155,683,117"/>
-<area shape="poly" title=" " alt="" coords="698,120,690,154,674,193,648,228,619,259,563,307,560,303,615,256,644,225,669,191,685,152,692,118"/>
-<area shape="poly" title=" " alt="" coords="704,118,718,166,725,216,718,266,702,303,697,301,713,265,719,216,713,167,699,120"/>
-<area shape="poly" title=" " alt="" coords="649,121,451,168,450,163,648,116"/>
-<area shape="poly" title=" " alt="" coords="732,116,862,160,861,165,730,121"/>
-<area shape="rect" href="raylib__wrapper_8hpp_source.html" title=" " alt="" coords="802,240,981,265"/>
-<area shape="poly" title=" " alt="" coords="714,117,866,229,863,234,711,121"/>
-<area shape="poly" title=" " alt="" coords="908,193,900,228,895,226,903,192"/>
-<area shape="rect" title=" " alt="" coords="901,313,972,339"/>
-<area shape="poly" title=" " alt="" coords="901,264,924,300,920,303,897,267"/>
-<area shape="rect" title=" " alt="" coords="817,313,877,339"/>
-<area shape="poly" title=" " alt="" coords="886,267,864,303,859,300,882,264"/>
+<area shape="rect" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="437,5,572,45"/>
+<area shape="rect" title=" " alt="" coords="5,93,92,119"/>
+<area shape="poly" title=" " alt="" coords="438,41,112,96,106,97,105,92,111,91,437,35"/>
+<area shape="rect" title=" " alt="" coords="167,167,245,192"/>
+<area shape="poly" title=" " alt="" coords="438,47,378,68,317,96,270,127,231,159,227,155,266,122,314,91,376,63,436,42"/>
+<area shape="rect" title=" " alt="" coords="613,167,687,192"/>
+<area shape="poly" title=" " alt="" coords="536,43,566,65,596,92,621,123,640,153,635,156,616,126,592,95,563,69,533,48"/>
+<area shape="rect" title=" " alt="" coords="59,313,183,339"/>
+<area shape="poly" title=" " alt="" coords="438,35,368,48,291,72,253,89,217,111,185,137,158,168,140,201,130,236,123,300,118,299,125,235,136,199,153,165,181,133,214,106,250,84,289,67,367,42,437,30"/>
+<area shape="rect" title=" " alt="" coords="556,313,619,339"/>
+<area shape="poly" title=" " alt="" coords="513,45,571,239,585,299,580,301,566,241,508,46"/>
+<area shape="rect" href="graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="327,93,455,119"/>
+<area shape="poly" title=" " alt="" coords="479,48,421,87,418,83,476,43"/>
+<area shape="rect" href="node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="665,93,784,119"/>
+<area shape="poly" title=" " alt="" coords="558,43,680,86,678,91,556,48"/>
+<area shape="rect" href="camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="864,167,1009,192"/>
+<area shape="poly" title=" " alt="" coords="573,33,680,54,740,71,798,91,861,123,912,157,909,161,858,128,796,96,738,76,679,60,572,38"/>
+<area shape="poly" title=" " alt="" coords="363,121,250,164,248,159,361,116"/>
+<area shape="poly" title=" " alt="" coords="379,121,148,306,144,302,375,117"/>
+<area shape="poly" title=" " alt="" coords="418,116,454,136,491,165,520,198,544,235,579,299,574,302,540,238,515,202,487,169,451,141,415,121"/>
+<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="283,240,398,265"/>
+<area shape="poly" title=" " alt="" coords="390,120,352,228,347,226,385,118"/>
+<area shape="rect" href="node_8hpp.html" title="Definition of the Node class." alt="" coords="394,167,477,192"/>
+<area shape="poly" title=" " alt="" coords="401,118,423,154,419,156,396,120"/>
+<area shape="poly" title=" " alt="" coords="306,268,170,312,168,307,305,263"/>
+<area shape="poly" title=" " alt="" coords="381,263,543,309,542,314,380,268"/>
+<area shape="rect" title=" " alt="" coords="207,313,253,339"/>
+<area shape="poly" title=" " alt="" coords="324,268,261,308,258,303,321,263"/>
+<area shape="rect" title=" " alt="" coords="277,313,348,339"/>
+<area shape="poly" title=" " alt="" coords="339,267,325,302,320,300,334,265"/>
+<area shape="rect" title=" " alt="" coords="465,313,531,339"/>
+<area shape="poly" title=" " alt="" coords="367,263,461,305,459,310,365,268"/>
+<area shape="rect" title=" " alt="" coords="695,313,754,339"/>
+<area shape="poly" title=" " alt="" coords="399,262,682,314,681,319,398,267"/>
+<area shape="rect" title=" " alt="" coords="372,313,440,339"/>
+<area shape="poly" title=" " alt="" coords="353,264,388,301,384,305,349,267"/>
+<area shape="poly" title=" " alt="" coords="448,191,520,263,565,303,561,307,516,267,444,194"/>
+<area shape="poly" title=" " alt="" coords="422,194,369,234,366,229,419,190"/>
+<area shape="poly" title=" " alt="" coords="442,191,470,264,487,300,483,302,465,266,437,193"/>
+<area shape="poly" title=" " alt="" coords="715,121,674,159,670,155,711,117"/>
+<area shape="poly" title=" " alt="" coords="725,119,717,153,702,193,681,226,657,257,612,306,608,302,653,254,677,223,697,191,712,152,720,118"/>
+<area shape="poly" title=" " alt="" coords="732,118,746,166,751,216,746,266,737,301,732,300,741,265,746,216,741,167,727,120"/>
+<area shape="poly" title=" " alt="" coords="679,121,491,167,490,162,678,116"/>
+<area shape="poly" title=" " alt="" coords="760,116,890,160,889,165,758,121"/>
+<area shape="rect" href="raylib__wrapper_8hpp_source.html" title=" " alt="" coords="830,240,1009,265"/>
+<area shape="poly" title=" " alt="" coords="742,117,894,229,891,234,739,121"/>
+<area shape="poly" title=" " alt="" coords="936,193,928,228,923,226,931,192"/>
+<area shape="rect" title=" " alt="" coords="929,313,1000,339"/>
+<area shape="poly" title=" " alt="" coords="929,264,952,300,948,303,925,267"/>
+<area shape="rect" title=" " alt="" coords="845,313,905,339"/>
+<area shape="poly" title=" " alt="" coords="914,267,892,303,887,300,910,264"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -193,7 +196,7 @@ Classes</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Created by Nolan Papa </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on 26-09-2026</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Last modified by ArthuryanLoheac </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>Last modified on 09-10-2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Last modified on 11-10-2026 </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

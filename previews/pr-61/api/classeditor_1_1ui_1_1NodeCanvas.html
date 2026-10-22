@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classeditor_1_1ui_1_1NodeCanvas.html',
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classeditor_1_1ui_1_1NodeCanvas-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">editor::ui::NodeCanvas Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div></div>
@@ -102,6 +103,13 @@ $(document).ready(function(){initNavTree('classeditor_1_1ui_1_1NodeCanvas.html',
 
 <p><code>#include &lt;<a class="el" href="node__canvas_8hpp_source.html">node_canvas.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a355177090b21da22a104d171e5c9d14d" id="r_a355177090b21da22a104d171e5c9d14d"><td class="memItemLeft" align="right" valign="top"><a id="a355177090b21da22a104d171e5c9d14d" name="a355177090b21da22a104d171e5c9d14d"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>NodeContentDrawer</b> = std::function&lt; void(const <a class="el" href="classeditor_1_1ui_1_1NodeView.html">NodeView</a> &amp;view)&gt;</td></tr>
+<tr class="memdesc:a355177090b21da22a104d171e5c9d14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws what a node holds (its fields), right after the node itself. <br /></td></tr>
+<tr class="separator:a355177090b21da22a104d171e5c9d14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa23f71e3c06ea56dc037352a87dacec6" id="r_aa23f71e3c06ea56dc037352a87dacec6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#aa23f71e3c06ea56dc037352a87dacec6">AddNode</a> (const <a class="el" href="classcore_1_1Node.html">core::Node</a> &amp;node, std::string title, <a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> position)</td></tr>
@@ -122,9 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9a853ebbd56cdb26c00ff54135784b07" id="r_a9a853ebbd56cdb26c00ff54135784b07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a9a853ebbd56cdb26c00ff54135784b07">ProcessInput</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera)</td></tr>
 <tr class="memdesc:a9a853ebbd56cdb26c00ff54135784b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes user input for the canvas.  <br /></td></tr>
 <tr class="separator:a9a853ebbd56cdb26c00ff54135784b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24a20606f0b8fe227284659b86dcc61e" id="r_a24a20606f0b8fe227284659b86dcc61e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a24a20606f0b8fe227284659b86dcc61e">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera) const</td></tr>
-<tr class="memdesc:a24a20606f0b8fe227284659b86dcc61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the canvas and all its nodes.  <br /></td></tr>
-<tr class="separator:a24a20606f0b8fe227284659b86dcc61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3daeed3e97c3e611787fc2c41d58a763" id="r_a3daeed3e97c3e611787fc2c41d58a763"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a3daeed3e97c3e611787fc2c41d58a763">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera, const <a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a355177090b21da22a104d171e5c9d14d">NodeContentDrawer</a> &amp;draw_content={}) const</td></tr>
+<tr class="memdesc:a3daeed3e97c3e611787fc2c41d58a763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the canvas and all its nodes.  <br /></td></tr>
+<tr class="separator:a3daeed3e97c3e611787fc2c41d58a763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a604140fc2cf97d03c3ff5a992e4d4d" id="r_a6a604140fc2cf97d03c3ff5a992e4d4d"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">core::NodeId</a>, std::unique_ptr&lt; <a class="el" href="classeditor_1_1ui_1_1NodeView.html">NodeView</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a6a604140fc2cf97d03c3ff5a992e4d4d">Views</a> () const noexcept</td></tr>
 <tr class="memdesc:a6a604140fc2cf97d03c3ff5a992e4d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the views of the nodes in the canvas.  <br /></td></tr>
 <tr class="separator:a6a604140fc2cf97d03c3ff5a992e4d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,8 +224,8 @@ std::optional&lt; std::pair&lt; <a class="el" href="structutils_1_1WrappedVector
 
 </div>
 </div>
-<a id="a24a20606f0b8fe227284659b86dcc61e" name="a24a20606f0b8fe227284659b86dcc61e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24a20606f0b8fe227284659b86dcc61e">&#9670;&#160;</a></span>Draw()</h2>
+<a id="a3daeed3e97c3e611787fc2c41d58a763" name="a3daeed3e97c3e611787fc2c41d58a763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3daeed3e97c3e611787fc2c41d58a763">&#9670;&#160;</a></span>Draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,8 +234,18 @@ std::optional&lt; std::pair&lt; <a class="el" href="structutils_1_1WrappedVector
           <td class="memname">void editor::ui::NodeCanvas::Draw </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classeditor_1_1ui_1_1NodeCanvas.html#a355177090b21da22a104d171e5c9d14d">NodeContentDrawer</a> &amp;&#160;</td>
+          <td class="paramname"><em>draw_content</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -236,6 +254,7 @@ std::optional&lt; std::pair&lt; <a class="el" href="structutils_1_1WrappedVector
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">camera</td><td>The camera the nodes are drawn against. </td></tr>
+    <tr><td class="paramname">draw_content</td><td>Optional, called after each node so its fields are covered by the nodes drawn above it. </td></tr>
   </table>
   </dd>
 </dl>

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['default_5fproperties_5f_0',['default_properties_',['../structcore_1_1capa_1_1NodeConfiguration.html#a6f150ec52be6d1eff685a7a999e50fb8',1,'core::capa::NodeConfiguration']]],
-  ['depth_5f_1',['depth_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#a595fb3989278545a4a81971e45e9b2c8',1,'editor::ui::NodePicker::Row']]],
-  ['description_5f_2',['description_',['../structcore_1_1capa_1_1NodeMetadata.html#aba05f869f552c7561559eaf97f4e89ab',1,'core::capa::NodeMetadata']]],
-  ['descriptor_3',['descriptor',['../structcore_1_1capa_1_1NodeExportRequest.html#a3a7428c2e2e518c3acf375dd15a714b5',1,'core::capa::NodeExportRequest']]]
+  ['category_5f_0',['category_',['../structcore_1_1capa_1_1NodeMetadata.html#ac4c52cb6733520244035ea6fc0f2cdb7',1,'core::capa::NodeMetadata::category_'],['../structcore_1_1NodeDescriptor.html#a62febbbdd52342f5fc72f4c801a7fed7',1,'core::NodeDescriptor::category_'],['../structeditor_1_1ui_1_1NodePickerEntry.html#a7b70290b5c82f91b46ced500061a5ed0',1,'editor::ui::NodePickerEntry::category_']]],
+  ['coarse_5fspacing_5f_1',['coarse_spacing_',['../structrender_1_1GridLevels.html#a539ba8d1c3153f43f4a4b9af5b46597d',1,'render::GridLevels']]]
 ];

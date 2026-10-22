@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('classcore_1_1capa_1_1IRendererCapabili
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classcore_1_1capa_1_1IRendererCapability-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">core::capa::IRendererCapability Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -124,6 +125,12 @@ Collaboration diagram for core::capa::IRendererCapability:</div>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a0c9fff1c805ca928b5479b3608b1af68" id="r_a0c9fff1c805ca928b5479b3608b1af68"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a0c9fff1c805ca928b5479b3608b1af68">PropertyChangeHandler</a> = std::function&lt; void(<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, const PropertyMap &amp;changes)&gt;</td></tr>
+<tr class="memdesc:a0c9fff1c805ca928b5479b3608b1af68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function receiving the property changes made through the components.  <br /></td></tr>
+<tr class="separator:a0c9fff1c805ca928b5479b3608b1af68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a53c6039f652c3baa0c4ad6ad904d183b" id="r_a53c6039f652c3baa0c4ad6ad904d183b"><td class="memItemLeft" align="right" valign="top"><a id="a53c6039f652c3baa0c4ad6ad904d183b" name="a53c6039f652c3baa0c4ad6ad904d183b"></a>
@@ -142,13 +149,40 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
 <tr class="memitem:aed67be4eb78a0999011716499ef8f9b6" id="r_aed67be4eb78a0999011716499ef8f9b6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9">ComponentList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#aed67be4eb78a0999011716499ef8f9b6">GetNodeComponents</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type, const PropertyMap &amp;properties)=0</td></tr>
 <tr class="memdesc:aed67be4eb78a0999011716499ef8f9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the UI components used to display a specific node.  <br /></td></tr>
 <tr class="separator:aed67be4eb78a0999011716499ef8f9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ad5b02823b69e37e71559511aa947fe" id="r_a7ad5b02823b69e37e71559511aa947fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a7ad5b02823b69e37e71559511aa947fe">SetPropertyChangeHandler</a> (<a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a0c9fff1c805ca928b5479b3608b1af68">PropertyChangeHandler</a> handler)=0</td></tr>
+<tr class="memdesc:a7ad5b02823b69e37e71559511aa947fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the function called when a component changes properties.  <br /></td></tr>
+<tr class="separator:a7ad5b02823b69e37e71559511aa947fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the capability providing custom node rendering. </p>
 <p>This capability allows a module to describe how its nodes should be displayed by providing UI components to the application's renderer.</p>
 <p>The capability must not perform any rendering itself. It only describes the components to display and provides the callbacks associated with user interactions.</p>
 <p>This capability is optional for modules. Nodes that do not provide custom rendering can be displayed using the application's default renderer. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a0c9fff1c805ca928b5479b3608b1af68" name="a0c9fff1c805ca928b5479b3608b1af68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9fff1c805ca928b5479b3608b1af68">&#9670;&#160;</a></span>PropertyChangeHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a0c9fff1c805ca928b5479b3608b1af68">core::capa::IRendererCapability::PropertyChangeHandler</a> =  std::function&lt;void(<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, const PropertyMap &amp;changes)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function receiving the property changes made through the components. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_id</td><td><a class="el" href="classcore_1_1Node.html" title="Forward def to make it a friend.">Node</a> whose properties change. </td></tr>
+    <tr><td class="paramname">changes</td><td>Properties to set on the node, applied together. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="aed67be4eb78a0999011716499ef8f9b6" name="aed67be4eb78a0999011716499ef8f9b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed67be4eb78a0999011716499ef8f9b6">&#9670;&#160;</a></span>GetNodeComponents()</h2>
 
@@ -274,6 +308,43 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><b>~IRendererCapabili
 </dl>
 
 <p>Implemented in <a class="el" href="classcore_1_1capa_1_1RendererCapability.html#aa24f4c6ac442be07ff27278b03f8af94">core::capa::RendererCapability</a>.</p>
+
+</div>
+</div>
+<a id="a7ad5b02823b69e37e71559511aa947fe" name="a7ad5b02823b69e37e71559511aa947fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ad5b02823b69e37e71559511aa947fe">&#9670;&#160;</a></span>SetPropertyChangeHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::capa::IRendererCapability::SetPropertyChangeHandler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1capa_1_1IRendererCapability.html#a0c9fff1c805ca928b5479b3608b1af68">PropertyChangeHandler</a>&#160;</td>
+          <td class="paramname"><em>handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the function called when a component changes properties. </p>
+<p>Components only describe the interface: their callbacks report the new property values to this handler, and the application applies them to the graph. Each call replaces the previous handler.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handler</td><td>The handler, or an empty function to drop changes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classcore_1_1capa_1_1RendererCapability.html#aaf9fbaac6a28103f9b6c8c4cfdab3fa1">core::capa::RendererCapability</a>.</p>
 
 </div>
 </div>

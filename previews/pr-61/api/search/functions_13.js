@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zoomat_0',['ZoomAt',['../classrender_1_1Camera.html#aeb635a5f0fc25d73283d0e689aa32823',1,'render::Camera']]]
+  ['wraptext_0',['WrapText',['../classeditor_1_1ui_1_1NotificationStack.html#ac30939237f0dc1ae5590e6d7d0cb7506',1,'editor::ui::NotificationStack']]]
 ];

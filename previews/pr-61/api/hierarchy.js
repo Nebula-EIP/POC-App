@@ -16,6 +16,7 @@ var hierarchy =
       [ "core::capa::Slider", "structcore_1_1capa_1_1Slider.html", null ],
       [ "core::capa::TextField", "structcore_1_1capa_1_1TextField.html", null ]
     ] ],
+    [ "editor::ui::ComponentInput", "structeditor_1_1ui_1_1ComponentInput.html", null ],
     [ "core::Connection", "structcore_1_1Connection.html", null ],
     [ "editor::ui::ConnectionOutcome", "structeditor_1_1ui_1_1ConnectionOutcome.html", null ],
     [ "editor::ui::ContextMenu", "classeditor_1_1ui_1_1ContextMenu.html", null ],
@@ -70,13 +71,16 @@ var hierarchy =
     [ "editor::ui::NodeView", "classeditor_1_1ui_1_1NodeView.html", null ],
     [ "editor::ui::NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", null ],
     [ "core::Pin", "structcore_1_1Pin.html", null ],
+    [ "editor::ui::PinTypeChange", "structeditor_1_1ui_1_1PinTypeChange.html", null ],
     [ "editor::ui::PlacedNode", "structeditor_1_1ui_1_1PlacedNode.html", null ],
     [ "core::Property", "structcore_1_1Property.html", null ],
+    [ "editor::ui::PropertyChangeOutcome", "structeditor_1_1ui_1_1PropertyChangeOutcome.html", null ],
     [ "render::Renderer", "classrender_1_1Renderer.html", null ],
     [ "editor::ui::NodePicker::Row", "structeditor_1_1ui_1_1NodePicker_1_1Row.html", null ],
     [ "std::runtime_error", null, [
       [ "core::Exception", "classcore_1_1Exception.html", [
         [ "core::ConnectionException", "classcore_1_1ConnectionException.html", [
+          [ "core::InputAlreadyConnectedException", "classcore_1_1InputAlreadyConnectedException.html", null ],
           [ "core::PinNotFoundException", "classcore_1_1PinNotFoundException.html", null ],
           [ "core::TypeMismatchException", "classcore_1_1TypeMismatchException.html", null ]
         ] ],

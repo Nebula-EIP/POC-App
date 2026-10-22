@@ -8,5 +8,6 @@ var searchData=
   ['addoutputpin_5',['AddOutputPin',['../classcore_1_1Graph.html#ab86c340ec79bfcaa8e89c1115920a309',1,'core::Graph']]],
   ['addproperty_6',['AddProperty',['../classcore_1_1Node.html#aad2096b06b72b1c67b6b0b2170131271',1,'core::Node']]],
   ['addseparator_7',['addseparator',['../classeditor_1_1ui_1_1ContextMenu.html#a1733f5977fbc7c3ecdf7a6017aa073aa',1,'editor::ui::ContextMenu::AddSeparator()'],['../classeditor_1_1ui_1_1Menu.html#a8798bb60649b74c6edf7546068a57490',1,'editor::ui::Menu::AddSeparator()']]],
-  ['author_8',['Author',['../classcore_1_1IModule.html#aa365c02919d02140b87220cc57f08e42',1,'core::IModule']]]
+  ['applypropertychange_8',['ApplyPropertyChange',['../property__change_8cpp.html#a0db24ef2182309dbfb9645f201ce4eab',1,'editor::ui']]],
+  ['author_9',['Author',['../classcore_1_1IModule.html#aa365c02919d02140b87220cc57f08e42',1,'core::IModule']]]
 ];

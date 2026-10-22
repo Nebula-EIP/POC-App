@@ -120,10 +120,13 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>error_</b></td
 <tr class="memitem:ad21d4103291d3d74f1d0c5daecdb38b0" id="r_ad21d4103291d3d74f1d0c5daecdb38b0"><td class="memItemLeft" align="right" valign="top"><a id="ad21d4103291d3d74f1d0c5daecdb38b0" name="ad21d4103291d3d74f1d0c5daecdb38b0"></a>
 std::optional&lt; <a class="el" href="structeditor_1_1ui_1_1HitResult.html">HitResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>faulty_pin_</b></td></tr>
 <tr class="separator:ad21d4103291d3d74f1d0c5daecdb38b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3cf4784965d642a0421d8a68340518" id="r_a3a3cf4784965d642a0421d8a68340518"><td class="memItemLeft" align="right" valign="top"><a id="a3a3cf4784965d642a0421d8a68340518" name="a3a3cf4784965d642a0421d8a68340518"></a>
+std::vector&lt; <a class="el" href="datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54">core::ConnectionId</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>replaced_</b></td></tr>
+<tr class="separator:a3a3cf4784965d642a0421d8a68340518"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Result of a connection request. </p>
-<p>On success connection_ holds the new (or already existing) connection and error_ is empty. On failure connection_ is empty, error_ explains why, and faulty_pin_ is the pin to highlight. When the drag ends on the pin it started from, nothing happens: both connection_ and error_ are empty. </p>
+<p>On success connection_ holds the new (or already existing) connection and error_ is empty. On failure connection_ is empty, error_ explains why, and faulty_pin_ is the pin to highlight. When the drag ends on the pin it started from, nothing happens: both connection_ and error_ are empty. replaced_ lists the connections removed because the new one took their input. </p>
 </div><hr/>The documentation for this struct was generated from the following files:<ul>
 <li>src/editor/ui/<a class="el" href="connection__request_8hpp_source.html">connection_request.hpp</a></li>
 <li>src/editor/ui/<a class="el" href="connection__request_8cpp.html">connection_request.cpp</a></li>

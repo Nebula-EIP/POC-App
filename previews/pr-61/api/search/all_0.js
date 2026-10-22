@@ -19,5 +19,6 @@ var searchData=
   ['application_16',['Application',['../classeditor_1_1Application.html',1,'editor']]],
   ['application_2ecpp_17',['application.cpp',['../application_8cpp.html',1,'']]],
   ['application_2ehpp_18',['application.hpp',['../application_8hpp.html',1,'']]],
-  ['author_19',['Author',['../classcore_1_1IModule.html#aa365c02919d02140b87220cc57f08e42',1,'core::IModule']]]
+  ['applypropertychange_19',['ApplyPropertyChange',['../property__change_8cpp.html#a0db24ef2182309dbfb9645f201ce4eab',1,'editor::ui']]],
+  ['author_20',['Author',['../classcore_1_1IModule.html#aa365c02919d02140b87220cc57f08e42',1,'core::IModule']]]
 ];

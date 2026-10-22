@@ -19,7 +19,9 @@ var classcore_1_1Graph =
     [ "GetNode", "classcore_1_1Graph.html#a1ca6891cb68a835e25923564bbe6b934", null ],
     [ "GetNode", "classcore_1_1Graph.html#aa6d909af5560715a8e261696943030e6", null ],
     [ "HasNode", "classcore_1_1Graph.html#a62e32ff456496a7fd94b9dd6dacb63df", null ],
+    [ "PinConnections", "classcore_1_1Graph.html#a2ae34c15ff960031a3bdf46d473544d7", null ],
     [ "RemoveInputPin", "classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051", null ],
     [ "RemoveNode", "classcore_1_1Graph.html#accb521fa18921ba80f21bc8cf3b4ee5b", null ],
-    [ "RemoveOutputPin", "classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc", null ]
+    [ "RemoveOutputPin", "classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc", null ],
+    [ "SetPinType", "classcore_1_1Graph.html#a9290398fb8fd47a33691b756598a6f20", null ]
 ];

@@ -1,8 +1,9 @@
 var classeditor_1_1ui_1_1NodeCanvas =
 [
+    [ "NodeContentDrawer", "classeditor_1_1ui_1_1NodeCanvas.html#a355177090b21da22a104d171e5c9d14d", null ],
     [ "ActiveSelectionRectangle", "classeditor_1_1ui_1_1NodeCanvas.html#a47b1da69b06f2730e19bb3fd3ec089b9", null ],
     [ "AddNode", "classeditor_1_1ui_1_1NodeCanvas.html#aa23f71e3c06ea56dc037352a87dacec6", null ],
-    [ "Draw", "classeditor_1_1ui_1_1NodeCanvas.html#a24a20606f0b8fe227284659b86dcc61e", null ],
+    [ "Draw", "classeditor_1_1ui_1_1NodeCanvas.html#a3daeed3e97c3e611787fc2c41d58a763", null ],
     [ "GetConnectionDragLine", "classeditor_1_1ui_1_1NodeCanvas.html#a05021782ce2c64c62eae878e7512be8e", null ],
     [ "HitTest", "classeditor_1_1ui_1_1NodeCanvas.html#ae848a43c20980867476ecfe1c7df563f", null ],
     [ "PopPendingConnectionRequest", "classeditor_1_1ui_1_1NodeCanvas.html#a4fa9be777cf705ea66cf822c95aa2bba", null ],
