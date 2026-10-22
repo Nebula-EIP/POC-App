@@ -80,13 +80,13 @@ bool HitTestBezier(utils::WrappedVector2 point, utils::WrappedVector2 start,
 }  // namespace
 
 Application::Application(std::filesystem::path module_path)
-    : module_path_(std::move(module_path)),
+    : module_folder_(std::move(module_path)),
       renderer_(kDefaultWidth, kDefaultHeight, "Nebula") {}
 
 int Application::Run() {
     DrawInitialFrame();
 
-    LoadModule();
+    LoadModules();
     BuildMenus();
 
     while (!renderer_.ShouldClose() && !should_quit_) {
@@ -115,18 +115,66 @@ void Application::DrawInitialFrame() {
                  });
 }
 
-void Application::LoadModule() {
-    module_id_ = loader_.Load(module_path_);
-    module_ = loader_.Module(module_id_);
-
-    if (module_ == nullptr) {
-        throw std::runtime_error("Loaded module " + module_path_.string() +
-                                 " could not be resolved by id");
+void Application::LoadModules() {
+    std::error_code error;
+    if (!std::filesystem::is_directory(module_folder_, error) || error) {
+        throw std::runtime_error("Module folder is missing or invalid: " +
+                                 module_folder_.string());
     }
 
-    utils::Logger::GetInstance().Log(utils::LogLevel::kInfo,
-                                     std::source_location::current(),
-                                     "Loaded module {}", module_path_.string());
+    std::vector<std::filesystem::path> module_paths;
+    for (const auto &entry :
+         std::filesystem::directory_iterator(module_folder_, error)) {
+        if (error) {
+            throw std::runtime_error("Unable to read module folder '" +
+                                     module_folder_.string() +
+                                     "': " + error.message());
+        }
+        if (!entry.is_regular_file(error) || error) {
+            continue;
+        }
+        const std::string kExtension = entry.path().extension().string();
+#if defined(_WIN32)
+        if (kExtension == ".dll") {
+#else
+        if (kExtension == ".so") {
+#endif
+            module_paths.push_back(entry.path());
+        }
+    }
+    if (error) {
+        throw std::runtime_error("Unable to read module folder '" +
+                                 module_folder_.string() +
+                                 "': " + error.message());
+    }
+    std::sort(module_paths.begin(), module_paths.end());
+    if (module_paths.empty()) {
+        throw std::runtime_error("No module library was found in folder: " +
+                                 module_folder_.string());
+    }
+
+    for (const auto &module_path : module_paths) {
+        try {
+            const core::ModuleId kId = loader_.Load(module_path);
+            if (module_ == nullptr) {
+                module_id_ = kId;
+                module_ = loader_.Module(kId);
+            }
+        } catch (const std::exception &error) {
+            throw std::runtime_error("Failed to load module '" +
+                                     module_path.string() +
+                                     "': " + error.what());
+        }
+    }
+
+    if (module_ == nullptr) {
+        throw std::runtime_error("No module could be resolved from folder: " +
+                                 module_folder_.string());
+    }
+
+    utils::Logger::GetInstance().Log(
+        utils::LogLevel::kInfo, std::source_location::current(),
+        "Loaded {} module(s) from {}", loader_.Size(), module_folder_.string());
 
     core::DataType type_id = 1;
     while (module_->Types()->RegisterType(type_id) != nullptr) {

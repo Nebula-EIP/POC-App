@@ -15,6 +15,7 @@ if(TEST_SOURCES)
     add_executable(unit_tests ${TEST_SOURCES}
         editor/component_adapter_test.cpp
         editor/connection_request_test.cpp
+        editor/configuration_test.cpp
         editor/node_canvas_test.cpp
         editor/node_clipboard_test.cpp
         editor/node_picker_test.cpp
@@ -30,6 +31,7 @@ if(TEST_SOURCES)
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_picker.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/configuration.cpp
     )
 
     # Allow includes for core tests

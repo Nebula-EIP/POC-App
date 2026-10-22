@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 22-10-2026
  */
 
 #pragma once
@@ -38,9 +38,22 @@
 
 namespace editor {
 
+/**
+ * @brief Coordinates the editor window, graph editing, rendering, and module
+ * loading lifecycle.
+ */
 class Application {
    public:
-    explicit Application(std::filesystem::path module_path);
+    /**
+     * @brief Creates an editor application using the given module folder.
+     *
+     * @param module_folder The folder containing loadable module libraries.
+     */
+    explicit Application(std::filesystem::path module_folder);
+
+    /**
+     * @brief Releases the editor application resources.
+     */
     ~Application() = default;
 
     Application(const Application &) = delete;
@@ -48,17 +61,47 @@ class Application {
     Application(Application &&) = delete;
     Application &operator=(Application &&) = delete;
 
+    /**
+     * @brief Runs the editor until the window is closed or quit is requested.
+     *
+     * @return The application exit status.
+     */
     int Run();
 
    private:
     // Startup
+    /**
+     * @brief Draws the temporary frame shown while startup is in progress.
+     */
     void DrawInitialFrame();
-    void LoadModule();
+
+    /**
+     * @brief Loads and registers all supported modules from the module folder.
+     */
+    void LoadModules();
+
+    /**
+     * @brief Registers the menus and actions used by the editor.
+     */
     void BuildMenus();
+
+    /**
+     * @brief Centers the camera on the nodes currently displayed.
+     */
     void RecenterView();
+
+    /**
+     * @brief Restores the camera zoom to its default level.
+     */
     void ResetZoom();
 
-    // Node creation
+    /**
+     * @brief Creates a graph node and its editor view from module metadata.
+     *
+     * @param type The module node type to create.
+     * @param config The node pins and default properties.
+     * @param position The initial node position in world coordinates.
+     */
     void OpenNodePicker(utils::WrappedVector2 screen_position,
                         utils::WrappedVector2 world_spawn);
     void CreateNode(core::NodeType type, utils::WrappedVector2 position);
@@ -69,6 +112,9 @@ class Application {
         utils::WrappedVector2 position) const;
 
     // Editing
+    /**
+     * @brief Handles a connection request emitted by the node canvas.
+     */
     void HandleConnectionRequest();
 
     // Node fields (values and settings)
@@ -94,27 +140,91 @@ class Application {
      *
      */
     void ApplyPropertyChanges();
+
+    /**
+     * @brief Selects the connection under the given world-space position.
+     *
+     * @param world The position in world coordinates.
+     */
     void SelectConnectionAt(utils::WrappedVector2 world);
+
+    /**
+     * @brief Deletes the current node or connection selection.
+     */
     void DeleteSelection();
+
+    /**
+     * @brief Duplicates the currently selected nodes.
+     */
     void DuplicateSelection();
+
+    /**
+     * @brief Copies the current selection to the clipboard.
+     */
     void CopySelection();
+
+    /**
+     * @brief Copies the current selection and removes it from the graph.
+     */
     void CutSelection();
+
+    /**
+     * @brief Pastes clipboard nodes near the given world-space anchor.
+     *
+     * @param world_anchor The position around which pasted nodes are placed.
+     */
     void PasteClipboard(utils::WrappedVector2 world_anchor);
+
+    /**
+     * @brief Gets the display name associated with a data type.
+     *
+     * @param type The data type whose name is requested.
+     *
+     * @return The display name of the type.
+     */
     [[nodiscard]] std::string TypeName(core::DataType type) const;
 
     // Feedback
+    /**
+     * @brief Displays an error message through the editor notification system.
+     *
+     * @param message The error message to display.
+     */
     void ShowError(std::string message);
 
     // Render
+    /**
+     * @brief Processes input for menus, the canvas, and editor actions.
+     */
     void ProcessInput();
+
+    /**
+     * @brief Renders one complete editor frame.
+     */
     void DrawFrame();
 
+    /**
+     * @brief Draws the graph connections, including selected and ghost links.
+     *
+     * @param camera The camera used to transform graph coordinates.
+     */
     void DrawLinks(const render::Camera &camera);
 
+    /**
+     * @brief Computes the default position for a newly created node.
+     *
+     * @return The node spawn position in world coordinates.
+     */
     utils::WrappedVector2 SpawnPosition() const;
+
+    /**
+     * @brief Computes the center of the canvas below the top bar.
+     *
+     * @return The canvas center in screen coordinates.
+     */
     utils::WrappedVector2 CanvasCenter() const;
 
-    std::filesystem::path module_path_;
+    std::filesystem::path module_folder_;
     bool should_quit_ = false;
     utils::WrappedVector2 cursor_position_{0.0F, 0.0F};
 

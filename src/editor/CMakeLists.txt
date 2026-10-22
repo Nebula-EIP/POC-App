@@ -1,6 +1,7 @@
 add_executable(Nebula
     main.cpp
     application.cpp
+    configuration.cpp
     ui/connection_request.cpp
     ui/node_view.cpp
     ui/node_canvas.cpp
