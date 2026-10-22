@@ -4,6 +4,9 @@
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 09-10-2026
+ *
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 12-10-2026
  */
 
 #pragma once
@@ -29,10 +32,12 @@ struct PlacedNode {
 /**
  * @brief Holds copies of nodes, to paste them later, any number of times.
  *
- * Copy() snapshots the nodes into a graph of its own: the clipboard keeps
- * working after the originals are edited or deleted. Paste() creates new
- * nodes with the same type, pins and properties and no connection (like a
- * duplication), keeping their layout relative to each other.
+ * Copy() snapshots the nodes, and the connections between them, into a graph
+ * of its own: the clipboard keeps working after the originals are edited or
+ * deleted. Paste() creates new nodes with the same type, pins and properties,
+ * keeping their layout relative to each other, and links them like the
+ * copied nodes were linked to each other. Connections to nodes that were not
+ * copied are not pasted.
  */
 class NodeClipboard final {
    public:
@@ -44,7 +49,8 @@ class NodeClipboard final {
      *
      * @param graph The graph holding the nodes.
      * @param nodes The nodes to copy, with their title and position. Nodes
-     * missing from graph are skipped.
+     * missing from graph are skipped. The connections whose two ends are
+     * among these nodes are copied too.
      */
     void Copy(const core::Graph &graph, const std::vector<PlacedNode> &nodes);
 
@@ -55,7 +61,8 @@ class NodeClipboard final {
      * @param anchor World position of the top-left corner of the pasted
      * group (the copied nodes' bounding box).
      *
-     * @return The created nodes, with their title and position.
+     * @return The created nodes, with their title and position. They are
+     * already connected to each other in graph.
      */
     std::vector<PlacedNode> Paste(core::Graph &graph,
                                   utils::WrappedVector2 anchor) const;

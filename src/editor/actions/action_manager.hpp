@@ -4,6 +4,9 @@
  *
  * @author Created by mathys-f
  * @date Created on 06-10-2026
+ *
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 12-10-2026
  */
 
 #pragma once
@@ -45,6 +48,13 @@ class ActionManager {
      * @return Pointer to the action, or nullptr if not found.
      */
     const Action *GetAction(const std::string &id) const;
+
+    /**
+     * @brief Whether the main key of an action's shortcut is held (modifiers
+     * ignored, AZERTY aliases included).
+     * @return false when the action does not exist or has no shortcut.
+     */
+    bool IsShortcutKeyDown(const std::string &id) const;
 
    private:
     std::unordered_map<std::string, Action> actions_;

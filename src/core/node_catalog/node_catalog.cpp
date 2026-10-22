@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 25-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 25-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "node_catalog.hpp"
@@ -44,7 +44,8 @@ void NodeCatalog::Update(ModuleLoader &loader) {
             NodeDescriptor desc;
             desc.id_ = meta.type_;
             desc.name_ = meta.name_;
-            desc.category_ = meta.description_;
+            desc.description_ = meta.description_;
+            desc.category_ = meta.category_;
             desc.module_id_ = module->Id();
 
             auto config = nodes_cap->GetNodeConfiguration(meta.type_);

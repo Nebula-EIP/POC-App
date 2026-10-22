@@ -31,6 +31,7 @@ It is implemented in `src/editor/ui/top_bar.hpp` and
 | --------- | -------------------------------------------------------------- |
 | Fichier   | Nouveau, Ouvrir..., Enregistrer (not implemented yet), Quitter |
 | Affichage | Recentrer, Zoom 100 %                                          |
+| Node      | Add Node (Shift+A): opens the [node picker](./node-picker.md)  |
 
 - **Recentrer** centers the view on the nodes (the middle of their bounding
   box), in the part of the window below the bar. The zoom is unchanged.

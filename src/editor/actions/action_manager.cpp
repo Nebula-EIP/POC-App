@@ -4,6 +4,9 @@
  *
  * @author Created by mathys-f
  * @date Created on 06-10-2026
+ *
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 12-10-2026
  */
 
 #include "action_manager.hpp"
@@ -21,6 +24,35 @@ void ActionManager::TriggerAction(const std::string &id) const {
             it->second.callback_();
         }
     }
+}
+
+namespace {
+
+/// Key at the same place on an AZERTY keyboard: raylib reports the physical
+/// QWERTY key, so AZERTY 'A' is 'Q' and AZERTY 'Z' is 'W'.
+utils::WrappedKey AzertyAlias(utils::WrappedKey key) {
+    switch (key) {
+        case utils::WrappedKey::kA:
+            return utils::WrappedKey::kQ;
+        case utils::WrappedKey::kZ:
+            return utils::WrappedKey::kW;
+        default:
+            return utils::WrappedKey::kNone;
+    }
+}
+
+}  // namespace
+
+bool ActionManager::IsShortcutKeyDown(const std::string &id) const {
+    const Action *action = GetAction(id);
+    if (action == nullptr || !action->shortcut_.IsValid()) {
+        return false;
+    }
+    const utils::WrappedKey kKey = action->shortcut_.key_;
+    const utils::WrappedKey kAlias = AzertyAlias(kKey);
+    return utils::IsKeyDownWrapped(kKey) ||
+           (kAlias != utils::WrappedKey::kNone &&
+            utils::IsKeyDownWrapped(kAlias));
 }
 
 void ActionManager::ProcessShortcuts() const {

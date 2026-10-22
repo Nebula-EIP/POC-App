@@ -18,6 +18,7 @@ if(TEST_SOURCES)
         editor/configuration_test.cpp
         editor/node_canvas_test.cpp
         editor/node_clipboard_test.cpp
+        editor/node_picker_test.cpp
         editor/node_view_test.cpp
         editor/notification_stack_test.cpp
         editor/property_change_test.cpp
@@ -28,6 +29,7 @@ if(TEST_SOURCES)
         ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/ui/node_picker.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/configuration.cpp
     )

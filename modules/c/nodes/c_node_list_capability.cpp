@@ -35,7 +35,8 @@ const std::string_view *CNodeListCapability::RegisterNode(core::NodeType node_ty
     registered_nodes_.push_back({
         node_type, 
         pending_names_[next_node_index_], 
-        pending_descriptions_[next_node_index_]
+        pending_descriptions_[next_node_index_],
+        pending_categories_[next_node_index_]
     });
     
     const std::string_view *name_ptr = &pending_names_views_[next_node_index_];
@@ -47,7 +48,7 @@ const std::string_view *CNodeListCapability::RegisterNode(core::NodeType node_ty
 std::vector<core::capa::NodeMetadata> CNodeListCapability::GetAvailableNodes() const noexcept {
     std::vector<core::capa::NodeMetadata> metadata;
     for (const auto &node : registered_nodes_) {
-        metadata.push_back({node.id_, node.name_, node.description_});
+        metadata.push_back({node.id_, node.name_, node.description_, node.category_});
     }
     return metadata;
 }

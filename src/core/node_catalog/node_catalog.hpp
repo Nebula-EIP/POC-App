@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 25-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 25-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -35,6 +35,8 @@ struct NodePinDescriptor {
 struct NodeDescriptor {
     NodeType id_;
     std::string name_;
+    std::string description_;
+    /// Folders of the node, separated by '/'. Empty: directly under the module.
     std::string category_;
     std::vector<NodePinDescriptor> pins_;
     ModuleId module_id_;
