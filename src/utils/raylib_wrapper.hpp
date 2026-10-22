@@ -148,6 +148,12 @@ enum class WrappedKey : int {
     kLeftAlt = 342,
     kEscape = 256,
     kBackspace = 259,
+    kEnter = 257,
+    kKpEnter = 335,
+    kUp = 265,
+    kDown = 264,
+    kLeft = 263,
+    kRight = 262,
     kDelete = 261,
     kLeftControl = 341,
     kRightControl = 345,
@@ -180,6 +186,11 @@ float GetScreenWidthWrapped();
 // Time
 /// Seconds elapsed since the window was opened.
 double GetTimeWrapped();
+/**
+ * @brief True when a held key repeats this frame (text editing).
+ *
+ */
+bool IsKeyPressedRepeatWrapped(WrappedKey key);
 
 // Cursor functions
 WrappedVector2 GetCursorPositionWrapped();

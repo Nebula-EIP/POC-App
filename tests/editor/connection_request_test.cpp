@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 
 #include <string>
+#include <vector>
 
 #include "graph/graph.hpp"
 
@@ -175,4 +176,84 @@ TEST(ConnectionRequest, InputAndOutputSharingAnIdAreDistinct) {
     EXPECT_EQ(
         nodes.graph_.GetAllConnections().at(*kOutcome.connection_).from_node_,
         nodes.source_);
+}
+
+TEST(ConnectionRequest, ANewLinkReplacesTheOneOnTheInput) {
+    TwoNodes nodes;
+    const core::NodeId kOther = nodes.graph_.CreateNode(1).Id();
+    const core::PinId kOtherOut =
+        nodes.graph_.AddOutputPin(kOther, "out", kIntType);
+    const auto kFirst = editor::ui::RequestConnection(
+        nodes.graph_, Output(nodes.source_, nodes.source_out_),
+        Input(nodes.target_, nodes.target_int_in_));
+    ASSERT_TRUE(kFirst.Succeeded());
+    EXPECT_TRUE(kFirst.replaced_.empty());
+
+    // Dragged from the occupied input towards another output.
+    const auto kOutcome = editor::ui::RequestConnection(
+        nodes.graph_, Input(nodes.target_, nodes.target_int_in_),
+        Output(kOther, kOtherOut));
+
+    ASSERT_TRUE(kOutcome.Succeeded());
+    EXPECT_TRUE(kOutcome.error_.empty());
+    EXPECT_EQ(kOutcome.replaced_,
+              std::vector<core::ConnectionId>{*kFirst.connection_});
+    ASSERT_EQ(nodes.graph_.GetAllConnections().size(), 1U);
+    const core::Connection &kLink =
+        nodes.graph_.GetAllConnections().at(*kOutcome.connection_);
+    EXPECT_EQ(kLink.from_node_, kOther);
+    EXPECT_EQ(kLink.to_node_, nodes.target_);
+    EXPECT_EQ(kLink.in_pin_, nodes.target_int_in_);
+}
+
+TEST(ConnectionRequest, ARefusedLinkKeepsTheOneOnTheInput) {
+    TwoNodes nodes;
+    const core::NodeId kOther = nodes.graph_.CreateNode(1).Id();
+    const core::PinId kFloatOut =
+        nodes.graph_.AddOutputPin(kOther, "out", kFloatType);
+    const auto kFirst = editor::ui::RequestConnection(
+        nodes.graph_, Output(nodes.source_, nodes.source_out_),
+        Input(nodes.target_, nodes.target_int_in_));
+
+    const auto kOutcome = editor::ui::RequestConnection(
+        nodes.graph_, Output(kOther, kFloatOut),
+        Input(nodes.target_, nodes.target_int_in_), NameTypes);
+
+    EXPECT_FALSE(kOutcome.Succeeded());
+    EXPECT_NE(kOutcome.error_.find("incompatibles"), std::string::npos);
+    EXPECT_TRUE(kOutcome.replaced_.empty());
+    ASSERT_EQ(nodes.graph_.GetAllConnections().size(), 1U);
+    EXPECT_TRUE(nodes.graph_.GetAllConnections().contains(*kFirst.connection_));
+}
+
+TEST(ConnectionRequest, AnOutputCanFeedSeveralInputs) {
+    TwoNodes nodes;
+    const core::NodeId kOther = nodes.graph_.CreateNode(1).Id();
+    const core::PinId kOtherIn =
+        nodes.graph_.AddInputPin(kOther, "in", kIntType);
+
+    EXPECT_TRUE(editor::ui::RequestConnection(
+                    nodes.graph_, Output(nodes.source_, nodes.source_out_),
+                    Input(nodes.target_, nodes.target_int_in_))
+                    .Succeeded());
+    EXPECT_TRUE(editor::ui::RequestConnection(
+                    nodes.graph_, Output(nodes.source_, nodes.source_out_),
+                    Input(kOther, kOtherIn))
+                    .Succeeded());
+    EXPECT_EQ(nodes.graph_.GetAllConnections().size(), 2U);
+}
+
+TEST(ConnectionRequest, RedrawingAnExistingLinkIsNotAnError) {
+    TwoNodes nodes;
+    const auto kFirst = editor::ui::RequestConnection(
+        nodes.graph_, Output(nodes.source_, nodes.source_out_),
+        Input(nodes.target_, nodes.target_int_in_));
+    const auto kAgain = editor::ui::RequestConnection(
+        nodes.graph_, Output(nodes.source_, nodes.source_out_),
+        Input(nodes.target_, nodes.target_int_in_));
+
+    ASSERT_TRUE(kAgain.Succeeded());
+    EXPECT_EQ(kAgain.connection_, kFirst.connection_);
+    EXPECT_TRUE(kAgain.replaced_.empty());
+    EXPECT_EQ(nodes.graph_.GetAllConnections().size(), 1U);
 }

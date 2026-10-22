@@ -12,6 +12,7 @@
 #include <functional>
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "graph/graph.hpp"
 #include "node_view.hpp"
@@ -28,11 +29,14 @@ using TypeNameResolver = std::function<std::string(core::DataType)>;
  * error_ is empty. On failure connection_ is empty, error_ explains why, and
  * faulty_pin_ is the pin to highlight. When the drag ends on the pin it
  * started from, nothing happens: both connection_ and error_ are empty.
+ * replaced_ lists the connections removed because the new one took their
+ * input.
  */
 struct ConnectionOutcome {
     std::optional<core::ConnectionId> connection_;
     std::string error_;
     std::optional<HitResult> faulty_pin_;
+    std::vector<core::ConnectionId> replaced_;
 
     [[nodiscard]] bool Succeeded() const noexcept;
 };
@@ -40,6 +44,10 @@ struct ConnectionOutcome {
 /**
  * @brief Connects the two pins of a drag, in whichever order they were
  * picked (output to input, or input to output).
+ *
+ * An input accepts a single connection: the new connection takes priority
+ * and replaces the one already on the input (an output can still feed
+ * several inputs).
  *
  * Rejected with a message: two inputs, two outputs, a node linked to itself,
  * mismatching types, and any other error raised by core::Graph::Connect.

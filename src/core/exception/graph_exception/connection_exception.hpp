@@ -42,4 +42,15 @@ class TypeMismatchException : public ConnectionException {
     using ConnectionException::ConnectionException;
 };
 
+/**
+ * @brief Thrown when connecting an input pin that already has a connection.
+ *
+ * An input takes its value from a single output. An output can still feed
+ * several inputs.
+ */
+class InputAlreadyConnectedException : public ConnectionException {
+   public:
+    using ConnectionException::ConnectionException;
+};
+
 }  // namespace core

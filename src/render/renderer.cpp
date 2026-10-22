@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 26-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 06-10-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 16-10-2026
  */
 
 #include "renderer.hpp"
@@ -101,6 +101,11 @@ Renderer::Renderer(int width, int height, std::string title) {
         throw std::runtime_error("Raylib window initialization failed");
     }
     window_ready_ = true;
+    // Fills the screen without covering the taskbar. Sizing the window from
+    // the monitor (or with a 0x0 size) makes it as large as the whole
+    // display plus its title bar and borders, so it overflows on Windows.
+    // The default size stays the restored size when unmaximized.
+    MaximizeWindow();
     utils::SetFPS(60);
     SetExitKey(KEY_NULL);
 }
@@ -146,7 +151,7 @@ void Renderer::RenderFrame(const Camera &camera,
     if (callbacks.draw_links_) {
         callbacks.draw_links_(camera);
     }
-    node_canvas_.Draw(camera);
+    node_canvas_.Draw(camera, callbacks.draw_node_content_);
     EndMode2D();
 
     if (callbacks.draw_ui_) {

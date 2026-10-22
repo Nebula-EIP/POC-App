@@ -8,6 +8,9 @@
 
 #include <gtest/gtest.h>
 
+#include <any>
+#include <string>
+
 #include "graph/graph.hpp"
 
 // Helper fixture for Node tests that need a Graph
@@ -452,4 +455,20 @@ TEST_F(NodeTest, PropertyLifecycle)
     newProp.type_id_ = 99;
     core::PropertyId newId = node.AddProperty(newProp);
     EXPECT_TRUE(node.HasProperty(newId));
+}
+
+TEST(NodeProperties, PropertiesListsEveryProperty)
+{
+    core::Graph graph;
+    core::Node &node = graph.CreateNode(1);
+    EXPECT_TRUE(node.Properties().empty());
+
+    node.SetProperty(2, {.type_id_ = 0, .value_ = 4.0});
+    node.SetProperty(5, {.type_id_ = 0, .value_ = std::string{"int"}});
+
+    ASSERT_EQ(node.Properties().size(), 2U);
+    EXPECT_DOUBLE_EQ(std::any_cast<double>(node.Properties().at(2).value_),
+                     4.0);
+    EXPECT_EQ(std::any_cast<std::string>(node.Properties().at(5).value_),
+              "int");
 }

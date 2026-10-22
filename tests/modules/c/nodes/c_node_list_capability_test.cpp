@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <any>
+#include <string>
 #include "nodes/c_node_list_capability.hpp"
 #include "modules/capabilities/type_list_capability.hpp"
 
@@ -79,6 +81,45 @@ TEST_F(CNodeListCapabilityTest, ForConfig) {
     EXPECT_EQ(config.input_pins_[2].name_, "step");
     EXPECT_EQ(config.output_pins_.size(), 1);
     EXPECT_EQ(config.output_pins_[0].name_, "body");
+}
+
+TEST_F(CNodeListCapabilityTest, TypedNodesStartAsInt) {
+    for (const core::NodeType type : {1, 2}) {  // Variable, Literal
+        auto config = node_capa_->GetNodeConfiguration(type);
+        ASSERT_TRUE(config.default_properties_.count(properties::kType));
+        EXPECT_EQ(std::any_cast<std::string>(
+                      config.default_properties_.at(properties::kType).value_),
+                  "int");
+        EXPECT_EQ(config.output_pins_[0].type_, types_capa_->TypeId("int"));
+    }
+    auto variable = node_capa_->GetNodeConfiguration(1);
+    EXPECT_EQ(std::any_cast<std::string>(
+                  variable.default_properties_.at(properties::kName).value_),
+              "variable");
+}
+
+TEST_F(CNodeListCapabilityTest, TypedNodesOutputTheirStoredType) {
+    core::PropertyMap properties{
+        {properties::kType, {properties::kType, std::string("float")}}};
+
+    auto literal = node_capa_->ResolveNodeConfiguration(2, properties);
+    EXPECT_EQ(literal.output_pins_[0].type_, types_capa_->TypeId("float"));
+    auto variable = node_capa_->ResolveNodeConfiguration(1, properties);
+    EXPECT_EQ(variable.output_pins_[0].type_, types_capa_->TypeId("float"));
+
+    // Unknown or void types fall back to int.
+    properties[properties::kType] = {properties::kType, std::string("void")};
+    literal = node_capa_->ResolveNodeConfiguration(2, properties);
+    EXPECT_EQ(literal.output_pins_[0].type_, types_capa_->TypeId("int"));
+    literal = node_capa_->ResolveNodeConfiguration(2, {});
+    EXPECT_EQ(literal.output_pins_[0].type_, types_capa_->TypeId("int"));
+}
+
+TEST_F(CNodeListCapabilityTest, OtherNodesIgnoreTheTypeProperty) {
+    core::PropertyMap properties{
+        {properties::kType, {properties::kType, std::string("float")}}};
+    auto op = node_capa_->ResolveNodeConfiguration(3, properties);
+    EXPECT_EQ(op.output_pins_[0].type_, types_capa_->TypeId("int"));
 }
 
 class CNodeListCatalogueTest : public ::testing::TestWithParam<std::pair<int, std::string>> {

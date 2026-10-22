@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by mathys-f
- * @date Last modified on 06-10-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "node_view.hpp"
@@ -24,6 +24,8 @@ constexpr float kHorizontalPadding = 12.0F;
 constexpr float kPortRadius = 5.0F;
 constexpr float kMinWidth = 150.0F;
 constexpr float kMaxWidth = 360.0F;
+// Space between the pins and the node's fields.
+constexpr float kContentGap = 4.0F;
 constexpr int kFontSize = 16;
 constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kBody = {42, 47, 56, 255};
@@ -49,15 +51,24 @@ float NodeView::TextWidth(const std::string &text) noexcept {
 void NodeView::RebuildLayout(const core::Node &node) {
     inputs_.clear();
     outputs_.clear();
-    float content_width = TextWidth(title_);
     for (const auto &pin : node.InputPins()) {
-        content_width = std::max(content_width, TextWidth(pin.name_));
         inputs_.push_back({pin.id_, pin.name_, pin.type_, {}});
     }
     for (const auto &pin : node.OutputPins()) {
-        content_width = std::max(content_width, TextWidth(pin.name_));
         outputs_.push_back({pin.id_, pin.name_, pin.type_, {}});
     }
+    Layout();
+}
+
+void NodeView::Layout() {
+    float content_width = TextWidth(title_);
+    for (const auto &port : inputs_) {
+        content_width = std::max(content_width, TextWidth(port.name_));
+    }
+    for (const auto &port : outputs_) {
+        content_width = std::max(content_width, TextWidth(port.name_));
+    }
+    content_width = std::max(content_width, content_size_.x_);
 
     bounds_.width_ = std::clamp(content_width + 2.0F * kHorizontalPadding,
                                 kMinWidth, kMaxWidth);
@@ -65,6 +76,9 @@ void NodeView::RebuildLayout(const core::Node &node) {
     bounds_.height_ = kHeaderHeight +
                       static_cast<float>(kRows) * kPortRowHeight +
                       kHorizontalPadding;
+    if (content_size_.y_ > 0.0F) {
+        bounds_.height_ += content_size_.y_ + kContentGap;
+    }
 
     for (std::size_t index = 0; index < inputs_.size(); ++index) {
         inputs_[index].bounds_ = {
@@ -80,6 +94,24 @@ void NodeView::RebuildLayout(const core::Node &node) {
                 static_cast<float>(index) * kPortRowHeight + 7.0F,
             2.0F * kPortRadius, 2.0F * kPortRadius};
     }
+}
+
+void NodeView::Refresh(const core::Node &node) { RebuildLayout(node); }
+
+void NodeView::SetContentSize(utils::WrappedVector2 size) {
+    if (size.x_ == content_size_.x_ && size.y_ == content_size_.y_) {
+        return;
+    }
+    content_size_ = size;
+    Layout();
+}
+
+utils::WrappedRectangle NodeView::ContentBounds() const noexcept {
+    const std::size_t kRows = std::max(inputs_.size(), outputs_.size());
+    return {bounds_.x_ + kHorizontalPadding,
+            bounds_.y_ + kHeaderHeight +
+                static_cast<float>(kRows) * kPortRowHeight + kContentGap,
+            bounds_.width_ - 2.0F * kHorizontalPadding, content_size_.y_};
 }
 
 void NodeView::MoveBy(utils::WrappedVector2 delta) noexcept {
