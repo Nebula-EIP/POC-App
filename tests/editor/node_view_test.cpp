@@ -5,8 +5,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 26-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
  #include <gtest/gtest.h>
@@ -53,4 +53,47 @@ TEST(NodeViewLayout, KeepsLongTitlesWithinBoundedWidth) {
 
     EXPECT_GE(view.Bounds().width_, 150.0F);
     EXPECT_LE(view.Bounds().width_, 360.0F);
+}
+
+TEST(NodeViewContent, GrowsToFitTheFieldsBelowThePins) {
+    core::Graph graph;
+    core::Node &node = graph.CreateNode(2);
+    graph.AddOutputPin(node.Id(), "out", 1);
+    editor::ui::NodeView view(node, "Literal", {10.0F, 20.0F});
+    const utils::WrappedRectangle kBefore = view.Bounds();
+    EXPECT_EQ(view.ContentBounds().height_, 0.0F);
+
+    view.SetContentSize({250.0F, 48.0F});
+
+    const utils::WrappedRectangle kContent = view.ContentBounds();
+    EXPECT_GE(view.Bounds().width_, 250.0F);
+    EXPECT_GT(view.Bounds().height_, kBefore.height_ + 48.0F - 1.0F);
+    EXPECT_FLOAT_EQ(kContent.height_, 48.0F);
+    EXPECT_GE(kContent.y_, kBefore.y_ + 30.0F + 24.0F);  // header + pin row
+    EXPECT_LE(kContent.y_ + kContent.height_,
+              view.Bounds().y_ + view.Bounds().height_);
+    // The output pin follows the right edge.
+    const auto kPin = view.GetPinPosition(1, false);
+    ASSERT_TRUE(kPin.has_value());
+    EXPECT_FLOAT_EQ(kPin->x_, view.Bounds().x_ + view.Bounds().width_);
+
+    view.SetContentSize({0.0F, 0.0F});
+    EXPECT_FLOAT_EQ(view.Bounds().height_, kBefore.height_);
+}
+
+TEST(NodeViewContent, RefreshKeepsThePositionAndTheContent) {
+    core::Graph graph;
+    core::Node &node = graph.CreateNode(2);
+    const core::PinId out = graph.AddOutputPin(node.Id(), "out", 1);
+    editor::ui::NodeView view(node, "Literal", {10.0F, 20.0F});
+    view.SetContentSize({100.0F, 24.0F});
+    view.MoveBy({5.0F, 5.0F});
+    const utils::WrappedRectangle kBefore = view.Bounds();
+
+    graph.SetPinType(node.Id(), out, false, 3);
+    view.Refresh(*graph.GetNode(node.Id()));
+
+    EXPECT_FLOAT_EQ(view.Bounds().x_, kBefore.x_);
+    EXPECT_FLOAT_EQ(view.Bounds().y_, kBefore.y_);
+    EXPECT_FLOAT_EQ(view.Bounds().height_, kBefore.height_);
 }

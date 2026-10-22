@@ -9,7 +9,7 @@
  * @date Created on 01-08-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -170,6 +170,36 @@ class Graph {
     void RemoveOutputPin(NodeId node_id, PinId pin_id);
 
     /**
+     * @brief Changes the data type of a pin
+     *
+     * Connections are never changed implicitly: a connected pin keeps its
+     * type unless the new type is the same.
+     *
+     * @param node_id Id of the targeted node. Required
+     * @param pin_id Id of the pin on that node. Required
+     * @param is_input true for an input pin, false for an output pin
+     * @param type New data type of the pin
+     *
+     * @throws `core::NodeNotFoundException` The node_id is invalid.
+     * @throws `core::PinNotFoundException` The pin does not exist.
+     * @throws `core::TypeMismatchException` The pin is connected and the
+     * type differs: disconnect it first.
+     */
+    void SetPinType(NodeId node_id, PinId pin_id, bool is_input, DataType type);
+
+    /**
+     * @brief Lists the connections attached to a pin
+     *
+     * @param node_id Id of the node
+     * @param pin_id Id of the pin on that node
+     * @param is_input true for an input pin, false for an output pin
+     *
+     * @return Ids of the connections using this pin (empty if none)
+     */
+    std::vector<ConnectionId> PinConnections(NodeId node_id, PinId pin_id,
+                                             bool is_input) const;
+
+    /**
      * @brief Retreive the id of a connection between two pins
      *
      * @param from Node owning the output pin
@@ -200,6 +230,10 @@ class Graph {
      *
      * The pins types must match.
      *
+     * An input pin accepts a single connection; an output pin can be
+     * connected to several inputs. Connecting the same two pins again
+     * returns the existing connection.
+     *
      * @param from Node owning the output pin
      * @param out Output pin
      * @param to Node owning the input pin
@@ -210,6 +244,8 @@ class Graph {
      * @throws `core::NodeNotFoundException` when a node does not exists
      * @throws `core::PinNotFoundException` when a pin does not exists
      * @throws `core::TypeMismatchException` when the pin's types mismatches
+     * @throws `core::InputAlreadyConnectedException` when the input pin is
+     * already connected to another output
      */
     ConnectionId Connect(NodeId from, PinId out, NodeId to, PinId in);
 

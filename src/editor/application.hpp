@@ -16,16 +16,20 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "actions/action_manager.hpp"
 #include "graph/graph.hpp"
 #include "modules/capabilities/node_list_capability.hpp"
+#include "modules/capabilities/renderer_capability.hpp"
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
 #include "node_catalog/node_catalog.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
+#include "ui/component_adapter.hpp"
 #include "ui/node_clipboard.hpp"
 #include "ui/node_picker.hpp"
 #include "ui/notification_stack.hpp"
@@ -66,6 +70,30 @@ class Application {
 
     // Editing
     void HandleConnectionRequest();
+
+    // Node fields (values and settings)
+    /**
+     * @brief The node whose fields can be edited: the only selected node.
+     *
+     */
+    [[nodiscard]] std::optional<core::NodeId> EditedNode() const;
+    /**
+     * @brief Rebuilds the fields of every node from the graph and sizes the
+     * nodes.
+     *
+     */
+    void RefreshNodeFields();
+    /**
+     * @brief Sends this frame's input to the fields of the edited node.
+     * @return true when the fields used the click.
+     *
+     */
+    bool UpdateNodeFields(const ui::ComponentInput &input);
+    /**
+     * @brief Applies the property changes reported by the fields to the graph.
+     *
+     */
+    void ApplyPropertyChanges();
     void SelectConnectionAt(utils::WrappedVector2 world);
     void DeleteSelection();
     void DuplicateSelection();
@@ -101,6 +129,13 @@ class Application {
     core::Graph graph_;
 
     std::optional<core::ConnectionId> selected_connection_;
+
+    core::capa::IRendererCapability *node_renderer_ = nullptr;
+    ui::ComponentAdapter node_fields_;
+    std::unordered_map<core::NodeId, core::capa::ComponentList>
+        node_components_;
+    std::vector<std::pair<core::NodeId, core::PropertyMap>>
+        pending_property_changes_;
 
     ui::NotificationStack notifications_;
     ui::NodeClipboard clipboard_;

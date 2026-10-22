@@ -56,6 +56,14 @@ window:
 | Different types | Types incompatibles : la sortie « int » ne peut pas aller dans l'entrée « bool ». |
 | Any other graph error | Connexion impossible : ... |
 
+An input accepts a **single** connection and the **new link takes priority**:
+dropping a link on an occupied input removes the old link and keeps the new one
+(`ConnectionOutcome::replaced_` lists the removed links). If the new link is
+refused (types, ...), the old one stays. An output can feed **several** inputs.
+`Graph::Connect` itself never replaces: it throws
+`InputAlreadyConnectedException`, and `ui::RequestConnection` does the
+replacement. Drawing the same link again returns the existing connection.
+
 Releasing on the pin the drag started from does nothing.
 
 ## Warnings

@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 08-08-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 08-08-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "node.hpp"
@@ -86,6 +86,8 @@ const Property *Node::GetProperty(PropertyId id) const noexcept {
         return &property_pos->second;
     }
 }
+
+const PropertyMap &Node::Properties() const noexcept { return properties_; }
 
 PropertyId Node::AddProperty(Property property) {
     PropertyId id = property_id_count_++;

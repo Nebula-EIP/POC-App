@@ -167,12 +167,13 @@ enum class WrappedKey : int {
 };
 
 // Window functions
-void InitRaylib(int width, int height, const char *title,
-                bool resizable = false);
+void InitRaylib(int width, int height, const char *title, unsigned int flags);
 bool IsRaylibReady();
 bool ShouldCloseRaylib();
 void SetFPS(int fps);
 void CloseRaylib();
+void LoadDefaultFontWrapped(const char *path, int baseSize = 64);
+Font GetDefaultFontWrapped();
 
 // Frame functions
 void BeginFrame();
@@ -185,6 +186,11 @@ float GetScreenWidthWrapped();
 // Time
 /// Seconds elapsed since the window was opened.
 double GetTimeWrapped();
+/**
+ * @brief True when a held key repeats this frame (text editing).
+ *
+ */
+bool IsKeyPressedRepeatWrapped(WrappedKey key);
 
 // Cursor functions
 WrappedVector2 GetCursorPositionWrapped();
@@ -207,6 +213,8 @@ void DrawLineBezierWrapped(WrappedVector2 start, WrappedVector2 end,
                            float thick, WrappedColor color);
 void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color);
+void DrawTextExWrapped(const char *text, float x, float y, int fontSize,
+                       float spacing, WrappedColor color);
 float MeasureTextWrapped(const char *text, int fontSize);
 
 // Input functions

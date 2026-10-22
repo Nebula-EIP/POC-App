@@ -22,13 +22,15 @@ static_assert(static_cast<int>(WrappedKey::kZ) == KEY_Z);
 static_assert(static_cast<int>(WrappedKey::kLeftShift) == KEY_LEFT_SHIFT);
 static_assert(static_cast<int>(WrappedKey::kLeftAlt) == KEY_LEFT_ALT);
 
+Font font = {};
+bool font_loaded = false;
+
 // Window functions
 
-void InitRaylib(int width, int height, const char *title, bool resizable) {
-    if (resizable) {
-        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    }
+void InitRaylib(int width, int height, const char *title, unsigned int flags) {
+    SetConfigFlags(flags);
     InitWindow(width, height, title);
+    LoadDefaultFontWrapped("src/utils/Fonts/InterVariable.ttf", 64);
 }
 
 bool IsRaylibReady() { return IsWindowReady(); }
@@ -37,7 +39,82 @@ bool ShouldCloseRaylib() { return WindowShouldClose(); }
 
 void SetFPS(int fps) { SetTargetFPS(fps); }
 
-void CloseRaylib() { CloseWindow(); }
+void CloseRaylib() {
+    if (font_loaded) {
+        UnloadFont(font);
+        font_loaded = false;
+    }
+    CloseWindow();
+}
+
+void LoadDefaultFontWrapped(const char *path, int baseSize) {
+    int codepoints[95 + 32];
+
+    for (int i = 0; i < 95; i++) {
+        codepoints[i] = 32 + i;
+    }
+
+    int french_codepoints[] = {
+        192,  // À
+        194,  // Â
+        199,  // Ç
+        200,  // È
+        201,  // É
+        202,  // Ê
+        203,  // Ë
+        206,  // Î
+        207,  // Ï
+        212,  // Ô
+        217,  // Ù
+        219,  // Û
+        220,  // Ü
+        224,  // à
+        226,  // â
+        231,  // ç
+        232,  // è
+        233,  // é
+        234,  // ê
+        235,  // ë
+        238,  // î
+        239,  // ï
+        244,  // ô
+        249,  // ù
+        251,  // û
+        252,  // ü
+        338,  // Œ
+        339,  // œ
+        376,  // Ÿ
+        255,  // ÿ
+        171,  // «
+        187   // »
+    };
+
+    int french_count = sizeof(french_codepoints) / sizeof(french_codepoints[0]);
+
+    for (int i = 0; i < french_count; i++) {
+        codepoints[95 + i] = french_codepoints[i];
+    }
+
+    int codepoint_count = 95 + french_count;
+
+    if (font_loaded) {
+        UnloadFont(font);
+        font_loaded = false;
+    }
+
+    if (IsFileExtension(path, ".ttf") || IsFileExtension(path, ".otf")) {
+        font = LoadFontEx(path, baseSize, codepoints, codepoint_count);
+    } else {
+        font = LoadFont(path);
+    }
+
+    if (font.texture.id != 0) {
+        SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
+        font_loaded = true;
+    }
+}
+
+Font GetDefaultFontWrapped() { return font_loaded ? font : GetFontDefault(); }
 
 // Frame functions
 
@@ -54,6 +131,10 @@ float GetScreenWidthWrapped() { return static_cast<float>(GetScreenWidth()); }
 // Time
 
 double GetTimeWrapped() { return GetTime(); }
+
+bool IsKeyPressedRepeatWrapped(WrappedKey key) {
+    return IsKeyPressedRepeat(static_cast<int>(key));
+}
 
 // Cursor functions
 
@@ -118,6 +199,14 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color) {
     Color raylib_color = {color.r_, color.g_, color.b_, color.a_};
     DrawText(text, x, y, fontSize, raylib_color);
+}
+
+void DrawTextExWrapped(const char *text, float x, float y, int fontSize,
+                       float spacing, WrappedColor color) {
+    Color raylib_color = {color.r_, color.g_, color.b_, color.a_};
+    Vector2 position = {x, y};
+    DrawTextEx(GetDefaultFontWrapped(), text, position, fontSize, spacing,
+               raylib_color);
 }
 
 float MeasureTextWrapped(const char *text, int fontSize) {

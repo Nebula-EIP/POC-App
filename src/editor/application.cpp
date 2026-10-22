@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 12-10-2026
+ * @date Last modified on 22-10-2026
  */
 
 #include "application.hpp"
@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "ui/connection_request.hpp"
+#include "ui/property_change.hpp"
 #include "utils/logger.hpp"
 
 namespace editor {
@@ -35,10 +36,10 @@ constexpr float kNodeHalfWidth = 50.0F;
 constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
+constexpr float kSpacing = 2.0F;
 constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
 constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
 constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
-// Screen pixels around a link that still select it.
 constexpr float kLinkPickTolerance = 8.0F;
 // World offset of a duplicated node from its original.
 constexpr float kDuplicateOffset = 30.0F;
@@ -105,11 +106,12 @@ void Application::DrawInitialFrame() {
                      .draw_links_ = {},
                      .draw_ui_ =
                          []() {
-                             utils::DrawTextWrapped(
+                             utils::DrawTextExWrapped(
                                  "Loading module...", kLoadingTextPosition,
                                  kLoadingTextPosition, kLoadingTextSize,
-                                 utils::kDarkgray);
+                                 kSpacing, utils::kDarkgray);
                          },
+                     .draw_node_content_ = {},
                  });
 }
 
@@ -129,6 +131,16 @@ void Application::LoadModule() {
     core::DataType type_id = 1;
     while (module_->Types()->RegisterType(type_id) != nullptr) {
         ++type_id;
+    }
+
+    // The fields of the nodes report their changes here; they are applied to
+    // the graph once the fields are done with the frame's input.
+    node_renderer_ = module_->Capability<core::capa::IRendererCapability>();
+    if (node_renderer_ != nullptr) {
+        node_renderer_->SetPropertyChangeHandler(
+            [this](core::NodeId node_id, const core::PropertyMap &changes) {
+                pending_property_changes_.emplace_back(node_id, changes);
+            });
     }
 
     // The catalog hands out the node type ids. The project starts empty: the
@@ -298,9 +310,9 @@ void Application::CreateNodeFromConfiguration(
         graph_.AddOutputPin(node.Id(), pin.name_, pin.type_);
     }
 
+    // Keep the ids chosen by the module: its fields read them back by id.
     for (const auto &[property_id, property] : config.default_properties_) {
-        (void)property_id;
-        node.AddProperty(property);
+        node.SetProperty(property_id, property);
     }
     renderer_.node_canvas_.AddNode(node, std::move(title), position);
     // The new node becomes the selection, so it can be moved right away.
@@ -357,15 +369,39 @@ void Application::ProcessInput() {
     const bool kPointerCaptured =
         picker_captured || kTopBarCaptured || node_picker_.IsOpen();
 
-    renderer_.ProcessInput(camera_, kPointerCaptured);
+    // The fields of the selected node go third: a click on a field (or an
+    // open list hanging below the node) must not reach the canvas.
+    RefreshNodeFields();
+    ui::ComponentInput field_input =
+        ui::ComponentInput::Read(camera_.ScreenToWorld(cursor_position_));
+    if (kPointerCaptured) {
+        field_input.left_pressed_ = false;
+    }
+    const std::optional<core::NodeId> kEditedBefore = EditedNode();
+    const bool kFieldsCaptured = UpdateNodeFields(field_input);
 
     // Typing a search must not trigger shortcuts.
     const bool kKeyboardCaptured = kPickerWasOpen || node_picker_.IsOpen();
-    if (!kKeyboardCaptured) {
+    renderer_.ProcessInput(camera_, kPointerCaptured || kFieldsCaptured);
+
+    // A click that selects a node can also reach its fields right away.
+    const std::optional<core::NodeId> kEditedAfter = EditedNode();
+    if (!kFieldsCaptured && field_input.left_pressed_ && kEditedAfter &&
+        kEditedAfter != kEditedBefore) {
+        ui::ComponentInput click_only;
+        click_only.cursor_ = field_input.cursor_;
+        click_only.left_pressed_ = true;
+        UpdateNodeFields(click_only);
+    }
+
+    // While typing in a field, keys belong to the field.
+    const bool kTyping = node_fields_.IsEditingText();
+    if (!kKeyboardCaptured && !kTyping) {
         action_manager_.ProcessShortcuts();
     }
 
-    const bool kCanvasClicked = !kPointerCaptured && utils::IsLeftClicked();
+    const bool kCanvasClicked =
+        !kPointerCaptured && !kFieldsCaptured && utils::IsLeftClicked();
 
     if (kCanvasClicked) {
         for (const auto &[id, view] : renderer_.node_canvas_.Views()) {
@@ -378,7 +414,7 @@ void Application::ProcessInput() {
     HandleConnectionRequest();
     notifications_.Prune(utils::GetTimeWrapped());
 
-    if (kKeyboardCaptured) {
+    if (kKeyboardCaptured || kTyping) {
         return;
     }
 
@@ -410,6 +446,116 @@ void Application::ProcessInput() {
     }
 }
 
+std::optional<core::NodeId> Application::EditedNode() const {
+    const std::vector<core::NodeId> kSelected =
+        renderer_.node_canvas_.SelectedNodes();
+    if (kSelected.size() != 1) {
+        return std::nullopt;
+    }
+    return kSelected.front();
+}
+
+void Application::RefreshNodeFields() {
+    // Fields of removed nodes are forgotten.
+    std::erase_if(node_components_, [this](const auto &entry) {
+        return !renderer_.node_canvas_.Views().contains(entry.first);
+    });
+    if (const auto kFocused = node_fields_.FocusedNode();
+        kFocused && !renderer_.node_canvas_.Views().contains(*kFocused)) {
+        node_fields_.ClearNode(*kFocused);
+    }
+
+    for (const auto &[id, view] : renderer_.node_canvas_.Views()) {
+        core::capa::ComponentList components;
+        const core::Node *node = graph_.GetNode(id);
+        if (node != nullptr && node_renderer_ != nullptr &&
+            node_renderer_->SupportsNodeType(node->Type())) {
+            try {
+                components = node_renderer_->GetNodeComponents(
+                    id, node->Type(), node->Properties());
+            } catch (const std::exception &error) {
+                utils::Logger::GetInstance().Log(
+                    utils::LogLevel::kError, std::source_location::current(),
+                    "Fields of node {} unavailable: {}", id, error.what());
+            }
+        }
+        view->SetContentSize(ui::ComponentAdapter::PreferredSize(components));
+        node_components_[id] = std::move(components);
+    }
+}
+
+bool Application::UpdateNodeFields(const ui::ComponentInput &input) {
+    const std::optional<core::NodeId> kEdited = EditedNode();
+    if (!kEdited) {
+        // Nothing is edited any more (selection cleared or several nodes).
+        node_fields_.CancelEdit();
+        return false;
+    }
+    const auto &views = renderer_.node_canvas_.Views();
+    const auto kView = views.find(*kEdited);
+    if (kView == views.end()) {
+        return false;
+    }
+    const bool kCaptured =
+        node_fields_.Update(*kEdited, node_components_[*kEdited],
+                            kView->second->ContentBounds(), input);
+    for (std::string &message : node_fields_.TakeMessages()) {
+        ShowError(std::move(message));
+    }
+    ApplyPropertyChanges();
+    return kCaptured;
+}
+
+void Application::ApplyPropertyChanges() {
+    if (pending_property_changes_.empty()) {
+        return;
+    }
+    // Take them: applying may not add new ones, but be safe.
+    auto changes = std::move(pending_property_changes_);
+    pending_property_changes_.clear();
+
+    const auto kTitle = [this](core::NodeId node_id) {
+        const auto &views = renderer_.node_canvas_.Views();
+        const auto kView = views.find(node_id);
+        return kView == views.end() ? std::string{"?"} : kView->second->Title();
+    };
+    for (const auto &[node_id, properties] : changes) {
+        const ui::PropertyChangeOutcome kOutcome = ui::ApplyPropertyChange(
+            graph_, module_ != nullptr ? module_->Nodes() : nullptr, node_id,
+            properties, [this](core::DataType type) { return TypeName(type); },
+            kTitle);
+
+        const auto &views = renderer_.node_canvas_.Views();
+        const auto kView = views.find(node_id);
+        if (kOutcome.applied_) {
+            const core::Node *node = graph_.GetNode(node_id);
+            if (!kOutcome.pin_changes_.empty() && node != nullptr &&
+                kView != views.end()) {
+                kView->second->Refresh(*node);
+            }
+            continue;
+        }
+
+        std::string message = kOutcome.error_;
+        if (kOutcome.blocked_pin_ && kView != views.end()) {
+            kView->second->SetErrorPin(kOutcome.blocked_pin_->pin_id_,
+                                       kOutcome.blocked_pin_->is_input_);
+        }
+        if (!kOutcome.blocking_connections_.empty()) {
+            // Select only the link, so Suppr removes it and nothing else.
+            renderer_.node_canvas_.SetSelection({});
+            node_fields_.CancelEdit();
+            selected_connection_ = kOutcome.blocking_connections_.front();
+            message += kOutcome.blocking_connections_.size() == 1
+                           ? " (sélectionnée : Suppr)"
+                           : " (la première est sélectionnée : Suppr)";
+        }
+        ShowError(std::move(message));
+    }
+    // Show the new values this frame already.
+    RefreshNodeFields();
+}
+
 void Application::HandleConnectionRequest() {
     const auto kPending = renderer_.node_canvas_.PopPendingConnectionRequest();
     if (!kPending) {
@@ -419,6 +565,12 @@ void Application::HandleConnectionRequest() {
     const ui::ConnectionOutcome kOutcome = ui::RequestConnection(
         graph_, kPending->first, kPending->second,
         [this](core::DataType type) { return TypeName(type); });
+    // A replaced link no longer exists: it cannot stay selected.
+    if (selected_connection_ &&
+        std::find(kOutcome.replaced_.begin(), kOutcome.replaced_.end(),
+                  *selected_connection_) != kOutcome.replaced_.end()) {
+        selected_connection_.reset();
+    }
     if (kOutcome.Succeeded() || kOutcome.error_.empty()) {
         return;
     }
@@ -611,7 +763,20 @@ void Application::DrawFrame() {
                              notifications_.Draw(renderer_.ScreenSize(),
                                                  utils::GetTimeWrapped());
                              top_bar_.Draw();
-                             node_picker_.Draw();
+                            node_picker_.Draw();
+                         },
+                     // World space, right after each node.
+                     .draw_node_content_ =
+                         [this](const ui::NodeView &view) {
+                            const auto kComponents =
+                                node_components_.find(view.NodeId());
+                            if (kComponents == node_components_.end()) {
+                                return;
+                            }
+                            node_fields_.Draw(view.NodeId(),
+                                              kComponents->second,
+                                              view.ContentBounds(),
+                                              EditedNode() == view.NodeId());
                          }});
 }
 

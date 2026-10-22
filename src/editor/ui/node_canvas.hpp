@@ -7,11 +7,12 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 09-10-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <optional>
 #include <unordered_map>
@@ -85,11 +86,20 @@ class NodeCanvas final {
     void ProcessInput(const render::Camera &camera);
 
     /**
+     * @brief Draws what a node holds (its fields), right after the node itself.
+     *
+     */
+    using NodeContentDrawer = std::function<void(const NodeView &view)>;
+
+    /**
      * @brief Draws the canvas and all its nodes.
      *
      * @param camera The camera the nodes are drawn against.
+     * @param draw_content Optional, called after each node so its fields are
+     * covered by the nodes drawn above it.
      */
-    void Draw(const render::Camera &camera) const;
+    void Draw(const render::Camera &camera,
+              const NodeContentDrawer &draw_content = {}) const;
 
     /**
      * @brief Gets the views of the nodes in the canvas.

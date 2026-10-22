@@ -48,6 +48,13 @@ class CNodeListCapability : public core::capa::INodeListCapability {
 
     core::capa::NodeConfiguration GetNodeConfiguration(core::NodeType type) const override;
 
+    /**
+     * @brief Configuration of a node instance: a Variable or a Literal outputs
+     * the type stored in its kType property ("int" when missing).
+     */
+    core::capa::NodeConfiguration ResolveNodeConfiguration(
+        core::NodeType type, const core::PropertyMap &properties) const override;
+
    private:
     struct RegisteredNode {
         core::NodeType id_;
@@ -127,6 +134,12 @@ class CNodeListCapability : public core::capa::INodeListCapability {
     core::capa::NodeConfiguration GetForConfig() const;
     
     core::DataType GetTypeId(std::string_view name) const;
+
+    /**
+     * @brief Name of the registered node type, empty when unknown.
+     *
+     */
+    std::string NodeName(core::NodeType type) const;
 };
 
 }  // namespace c_module

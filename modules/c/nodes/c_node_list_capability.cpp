@@ -11,6 +11,7 @@
 
 #include "c_node_list_capability.hpp"
 
+#include <any>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -64,15 +65,39 @@ core::DataType CNodeListCapability::GetTypeId(std::string_view name) const {
     return 0; // Fallback
 }
 
-core::capa::NodeConfiguration CNodeListCapability::GetNodeConfiguration(core::NodeType type) const {
-    // Find the node by type
-    std::string name;
+std::string CNodeListCapability::NodeName(core::NodeType type) const {
     for (const auto &node : registered_nodes_) {
         if (node.id_ == type) {
-            name = node.name_;
-            break;
+            return node.name_;
         }
     }
+    return {};
+}
+
+core::capa::NodeConfiguration CNodeListCapability::ResolveNodeConfiguration(
+    core::NodeType type, const core::PropertyMap &properties) const {
+    core::capa::NodeConfiguration config = GetNodeConfiguration(type);
+    const std::string kName = NodeName(type);
+    if (kName != "Variable" && kName != "Literal") {
+        return config;
+    }
+    std::string value_type = "int";
+    if (const auto kProperty = properties.find(properties::kType);
+        kProperty != properties.end()) {
+        if (const auto *text = std::any_cast<std::string>(&kProperty->second.value_)) {
+            if (GetTypeId(*text) != 0 && *text != "void") {
+                value_type = *text;
+            }
+        }
+    }
+    for (auto &pin : config.output_pins_) {
+        pin.type_ = GetTypeId(value_type);
+    }
+    return config;
+}
+
+core::capa::NodeConfiguration CNodeListCapability::GetNodeConfiguration(core::NodeType type) const {
+    std::string name = NodeName(type);
     
     if (name.empty()) {
         throw core::NodeTypeException("Unknown node type requested.");
@@ -95,7 +120,8 @@ core::capa::NodeConfiguration CNodeListCapability::GetNodeConfiguration(core::No
 core::capa::NodeConfiguration CNodeListCapability::GetVariableConfig() const {
     core::capa::NodeConfiguration config;
     config.output_pins_.push_back({1, "out", GetTypeId("int")});
-    config.default_properties_[properties::kName] = {properties::kName, std::string("")};
+    config.default_properties_[properties::kName] = {properties::kName, std::string("variable")};
+    config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
     return config;
 }
 
@@ -103,6 +129,7 @@ core::capa::NodeConfiguration CNodeListCapability::GetLiteralConfig() const {
     core::capa::NodeConfiguration config;
     config.output_pins_.push_back({1, "out", GetTypeId("int")});
     config.default_properties_[properties::kValue] = {properties::kValue, 0.0};
+    config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
     return config;
 }
 

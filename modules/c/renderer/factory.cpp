@@ -5,8 +5,8 @@
  * @author Created by Nolan Papa
  * @date Created on 20-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 20-09-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 11-10-2026
  */
 
 #include "../modules_inits.hpp"
@@ -14,6 +14,11 @@
 
 core::capa::RendererCapability *CreateRendererCapa() {
     auto *renderer = new core::capa::RendererCapability();
-    c_module::renderer::RegisterProviders(*renderer);
+    // Component callbacks report their changes to the application's handler.
+    c_module::renderer::RegisterProviders(
+        *renderer,
+        [renderer](core::NodeId node_id, const core::PropertyMap &changes) {
+            renderer->NotifyPropertyChange(node_id, changes);
+        });
     return renderer;
 }

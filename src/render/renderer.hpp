@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 11-10-2026
  */
 
 #pragma once
@@ -28,6 +28,11 @@ namespace render {
 struct FrameCallbacks {
     std::function<void(const Camera &)> draw_links_;
     std::function<void()> draw_ui_;
+    /**
+     * @brief World space, after each node: draws the node's fields.
+     *
+     */
+    editor::ui::NodeCanvas::NodeContentDrawer draw_node_content_;
 };
 
 /**
@@ -83,10 +88,15 @@ class Renderer {
     [[nodiscard]] utils::WrappedVector2 ScreenSize() const noexcept;
 
    private:
+    /**
+     * @brief Draws the adaptive grid (see grid.hpp): the coarse level fully
+     * opaque, the fine level faded in between, both 1 pixel wide on screen.
+     *
+     * @param camera The camera the grid is drawn through.
+     */
     void DrawGrid(const Camera &camera) const;
 
     bool window_ready_ = false;
-    static constexpr float kGridSpacing = 50.0F;
 };
 
 }  // namespace render
