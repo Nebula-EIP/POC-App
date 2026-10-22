@@ -2,11 +2,11 @@ var searchData=
 [
   ['read_0',['Read',['../structeditor_1_1ui_1_1ComponentInput.html#a3e7bcd541ab105491e74163955f0e7e4',1,'editor::ui::ComponentInput']]],
   ['read_5fonly_5f_1',['read_only_',['../structcore_1_1capa_1_1TextField.html#ab6db3d180bff30fbe4c63bfd06d81fda',1,'core::capa::TextField']]],
-  ['readinput_2',['ReadInput',['../classeditor_1_1ui_1_1TopBar.html#a3db784d28342eda5402a8d1a51400838',1,'editor::ui::TopBar']]],
+  ['readinput_2',['readinput',['../classeditor_1_1ui_1_1TopBar.html#a3db784d28342eda5402a8d1a51400838',1,'editor::ui::TopBar::ReadInput()'],['../classeditor_1_1ui_1_1NodePicker.html#a62f488cd8c5703fa0bca903ef67b472b',1,'editor::ui::NodePicker::ReadInput()']]],
   ['refresh_3',['Refresh',['../classeditor_1_1ui_1_1NodeView.html#a92a3d6ee9d07cfd9896aa9a460d5b60f',1,'editor::ui::NodeView']]],
   ['registeraction_4',['RegisterAction',['../classeditor_1_1actions_1_1ActionManager.html#a0f9a8a826d17807c2fdc751f9cc91cc8',1,'editor::actions::ActionManager']]],
   ['registerednodetypecount_5',['RegisteredNodeTypeCount',['../classcore_1_1capa_1_1RendererCapability.html#a2a6f451c943348745fe7eb8830f09a9c',1,'core::capa::RendererCapability']]],
-  ['registernode_6',['registernode',['../classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3',1,'core::capa::NodeListCapability::RegisterNode(NodeType node_type) const noexcept override'],['../classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d',1,'core::capa::NodeListCapability::RegisterNode(std::string name, std::string description, NodeConfiguration config)'],['../classcore_1_1capa_1_1INodeListCapability.html#a14cb6a1c8c61c21622ad41f6d2b99fce',1,'core::capa::INodeListCapability::RegisterNode()']]],
+  ['registernode_6',['registernode',['../classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3',1,'core::capa::NodeListCapability::RegisterNode(NodeType node_type) const noexcept override'],['../classcore_1_1capa_1_1NodeListCapability.html#a55af9c66f83dcb41b1ff251215d67828',1,'core::capa::NodeListCapability::RegisterNode(std::string name, std::string description, NodeConfiguration config, std::string category={})'],['../classcore_1_1capa_1_1INodeListCapability.html#a14cb6a1c8c61c21622ad41f6d2b99fce',1,'core::capa::INodeListCapability::RegisterNode()']]],
   ['registernoderenderer_7',['RegisterNodeRenderer',['../classcore_1_1capa_1_1RendererCapability.html#a57e53231b8e87bbeb97bcde24279f37f',1,'core::capa::RendererCapability']]],
   ['registertype_8',['registertype',['../classcore_1_1capa_1_1ITypeListCapability.html#aad32f015caa287eb51dfccf78d97ea37',1,'core::capa::ITypeListCapability::RegisterType()'],['../classcore_1_1capa_1_1TypeListCapability.html#a721035ab49599e712c0ef731ffacecb2',1,'core::capa::TypeListCapability::RegisterType()']]],
   ['removeinputpin_9',['RemoveInputPin',['../classcore_1_1Graph.html#a41116c59cdf6b277b2cd17bc68585051',1,'core::Graph']]],
@@ -24,5 +24,9 @@ var searchData=
   ['reporting_20convention_21',['Error reporting convention',['../classcore_1_1ModuleLoader.html#autotoc_md0',1,'']]],
   ['requestconnection_22',['RequestConnection',['../connection__request_8cpp.html#a35d3966adf560a94e4b01da2ca7fd75d',1,'editor::ui']]],
   ['resolvenodeconfiguration_23',['ResolveNodeConfiguration',['../classcore_1_1capa_1_1INodeListCapability.html#ab2ba5aa06747247f32f2153e833a91b4',1,'core::capa::INodeListCapability']]],
-  ['run_24',['run',['../classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7',1,'editor::Application::Run()'],['../classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0',1,'render::Renderer::Run()']]]
+  ['row_24',['Row',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html',1,'editor::ui::NodePicker']]],
+  ['rowkind_25',['RowKind',['../classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227',1,'editor::ui::NodePicker']]],
+  ['rowrect_26',['RowRect',['../classeditor_1_1ui_1_1NodePicker.html#a966daca0264061ffa9c858b1e0528543',1,'editor::ui::NodePicker']]],
+  ['rows_27',['Rows',['../classeditor_1_1ui_1_1NodePicker.html#aacd02b6907f26f1ecbc462413175ce42',1,'editor::ui::NodePicker']]],
+  ['run_28',['run',['../classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7',1,'editor::Application::Run()'],['../classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0',1,'render::Renderer::Run()']]]
 ];

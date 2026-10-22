@@ -328,29 +328,30 @@ $(document).ready(function(){initNavTree('raylib__wrapper_8hpp_source.html','');
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keywordtype">bool</span> IsKeyPressedWrapped(WrappedKey key);</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="keywordtype">bool</span> IsKeyDownWrapped(WrappedKey key);</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keywordtype">int</span> GetCharPressedWrapped();</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">// Collision functions</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="keywordtype">float</span> GetMouseWheelMoveWrapped();</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="keywordtype">bool</span> CheckCollisionRecsWrapped(WrappedRectangle rec1, WrappedRectangle rec2);</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="keywordtype">bool</span> CheckCollisionCirclesWrapped(WrappedCircle circle1, WrappedCircle circle2);</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="keywordtype">bool</span> CheckCollisionCircleRecWrapped(WrappedCircle circle, WrappedRectangle rec);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="keywordtype">bool</span> CheckCollisionCircleLineWrapped(WrappedCircle circle, WrappedVector2 start,</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                                     WrappedVector2 end);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keywordtype">bool</span> CheckCollisionPointRecWrapped(WrappedVector2 point, WrappedRectangle rec);</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="keywordtype">bool</span> CheckCollisionPointCircleWrapped(WrappedVector2 point,</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                                      WrappedCircle circle);</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keywordtype">bool</span> CheckCollisionPointTriangleWrapped(WrappedVector2 point, WrappedVector2 v1,</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                                        WrappedVector2 v2, WrappedVector2 v3);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="keywordtype">bool</span> CheckCollisionPointLineWrapped(WrappedVector2 point, WrappedVector2 start,</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                                    WrappedVector2 end, <span class="keywordtype">int</span> threshold);</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keywordtype">bool</span> CheckCollisionPointPolyWrapped(WrappedVector2 point,</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                                    WrappedVector2 *vertices, <span class="keywordtype">int</span> vertexCount);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="keywordtype">bool</span> CheckCollisionLinesWrapped(WrappedVector2 start1, WrappedVector2 end1,</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                                WrappedVector2 start2, WrappedVector2 end2);</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>WrappedRectangle GetCollisionRecWrapped(WrappedRectangle rec1,</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                                        WrappedRectangle rec2);</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}  <span class="comment">// namespace utils</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment">// Collision functions</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="keywordtype">bool</span> CheckCollisionRecsWrapped(WrappedRectangle rec1, WrappedRectangle rec2);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="keywordtype">bool</span> CheckCollisionCirclesWrapped(WrappedCircle circle1, WrappedCircle circle2);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="keywordtype">bool</span> CheckCollisionCircleRecWrapped(WrappedCircle circle, WrappedRectangle rec);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keywordtype">bool</span> CheckCollisionCircleLineWrapped(WrappedCircle circle, WrappedVector2 start,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                                     WrappedVector2 end);</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="keywordtype">bool</span> CheckCollisionPointRecWrapped(WrappedVector2 point, WrappedRectangle rec);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keywordtype">bool</span> CheckCollisionPointCircleWrapped(WrappedVector2 point,</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                                      WrappedCircle circle);</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="keywordtype">bool</span> CheckCollisionPointTriangleWrapped(WrappedVector2 point, WrappedVector2 v1,</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                                        WrappedVector2 v2, WrappedVector2 v3);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keywordtype">bool</span> CheckCollisionPointLineWrapped(WrappedVector2 point, WrappedVector2 start,</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                                    WrappedVector2 end, <span class="keywordtype">int</span> threshold);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="keywordtype">bool</span> CheckCollisionPointPolyWrapped(WrappedVector2 point,</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                                    WrappedVector2 *vertices, <span class="keywordtype">int</span> vertexCount);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="keywordtype">bool</span> CheckCollisionLinesWrapped(WrappedVector2 start1, WrappedVector2 end1,</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                                WrappedVector2 start2, WrappedVector2 end2);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>WrappedRectangle GetCollisionRecWrapped(WrappedRectangle rec1,</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                                        WrappedRectangle rec2);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}  <span class="comment">// namespace utils</span></div>
 <div class="ttc" id="astructutils_1_1WrappedCircle_html"><div class="ttname"><a href="structutils_1_1WrappedCircle.html">utils::WrappedCircle</a></div><div class="ttdef"><b>Definition</b> raylib_wrapper.hpp:134</div></div>
 <div class="ttc" id="astructutils_1_1WrappedColor_html"><div class="ttname"><a href="structutils_1_1WrappedColor.html">utils::WrappedColor</a></div><div class="ttdef"><b>Definition</b> raylib_wrapper.hpp:88</div></div>
 <div class="ttc" id="astructutils_1_1WrappedRectangle_html"><div class="ttname"><a href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a></div><div class="ttdef"><b>Definition</b> raylib_wrapper.hpp:127</div></div>

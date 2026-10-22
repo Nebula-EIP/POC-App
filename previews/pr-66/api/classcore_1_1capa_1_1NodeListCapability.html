@@ -129,9 +129,9 @@ Collaboration diagram for core::capa::NodeListCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2c549533c9f5a8c1377c148c20ce369d" id="r_a2c549533c9f5a8c1377c148c20ce369d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a2c549533c9f5a8c1377c148c20ce369d">RegisterNode</a> (std::string name, std::string description, <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> config)</td></tr>
-<tr class="memdesc:a2c549533c9f5a8c1377c148c20ce369d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a node for the module.  <br /></td></tr>
-<tr class="separator:a2c549533c9f5a8c1377c148c20ce369d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55af9c66f83dcb41b1ff251215d67828" id="r_a55af9c66f83dcb41b1ff251215d67828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a55af9c66f83dcb41b1ff251215d67828">RegisterNode</a> (std::string name, std::string description, <a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a> config, std::string category={})</td></tr>
+<tr class="memdesc:a55af9c66f83dcb41b1ff251215d67828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a node for the module.  <br /></td></tr>
+<tr class="separator:a55af9c66f83dcb41b1ff251215d67828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55636ce0051766dc06ec22ef4e24ccd3" id="r_a55636ce0051766dc06ec22ef4e24ccd3"><td class="memItemLeft" align="right" valign="top">const std::string_view *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1capa_1_1NodeListCapability.html#a55636ce0051766dc06ec22ef4e24ccd3">RegisterNode</a> (<a class="el" href="datatypes_8hpp.html#abb8f90246848a3fda11fe170bb618f8e">NodeType</a> node_type) const noexcept override</td></tr>
 <tr class="memdesc:a55636ce0051766dc06ec22ef4e24ccd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the core to retrieve the nodes the capability wants to export.  <br /></td></tr>
 <tr class="separator:a55636ce0051766dc06ec22ef4e24ccd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,8 +293,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c549533c9f5a8c1377c148c20ce369d" name="a2c549533c9f5a8c1377c148c20ce369d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c549533c9f5a8c1377c148c20ce369d">&#9670;&#160;</a></span>RegisterNode() <span class="overload">[2/2]</span></h2>
+<a id="a55af9c66f83dcb41b1ff251215d67828" name="a55af9c66f83dcb41b1ff251215d67828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55af9c66f83dcb41b1ff251215d67828">&#9670;&#160;</a></span>RegisterNode() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +315,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structcore_1_1capa_1_1NodeConfiguration.html">NodeConfiguration</a>&#160;</td>
-          <td class="paramname"><em>config</em>&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>category</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -331,6 +337,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">name</td><td>The human-readable name of the node. </td></tr>
     <tr><td class="paramname">description</td><td>The description of the node. </td></tr>
     <tr><td class="paramname">config</td><td>The configuration of the node. </td></tr>
+    <tr><td class="paramname">category</td><td>Folders of the node in the "Add Node" menu, separated by '/' (e.g. "Flow/Loops"). Empty: directly under the module. </td></tr>
   </table>
   </dd>
 </dl>

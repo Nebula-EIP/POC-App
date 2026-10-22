@@ -116,6 +116,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab94004decbf8344fb89c50d67a0e07ee" id="r_ab94004decbf8344fb89c50d67a0e07ee"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structeditor_1_1actions_1_1Action.html">Action</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1actions_1_1ActionManager.html#ab94004decbf8344fb89c50d67a0e07ee">GetAction</a> (const std::string &amp;id) const</td></tr>
 <tr class="memdesc:ab94004decbf8344fb89c50d67a0e07ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an action by its ID.  <br /></td></tr>
 <tr class="separator:ab94004decbf8344fb89c50d67a0e07ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8863f4818246fc3f6cd5fca4bae88d7" id="r_ad8863f4818246fc3f6cd5fca4bae88d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1actions_1_1ActionManager.html#ad8863f4818246fc3f6cd5fca4bae88d7">IsShortcutKeyDown</a> (const std::string &amp;id) const</td></tr>
+<tr class="memdesc:ad8863f4818246fc3f6cd5fca4bae88d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the main key of an action's shortcut is held (modifiers ignored, AZERTY aliases included).  <br /></td></tr>
+<tr class="separator:ad8863f4818246fc3f6cd5fca4bae88d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages actions and their keyboard shortcuts. </p>
@@ -138,6 +141,27 @@ Public Member Functions</h2></td></tr>
 
 <p>Gets an action by its ID. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the action, or nullptr if not found. </dd></dl>
+
+</div>
+</div>
+<a id="ad8863f4818246fc3f6cd5fca4bae88d7" name="ad8863f4818246fc3f6cd5fca4bae88d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8863f4818246fc3f6cd5fca4bae88d7">&#9670;&#160;</a></span>IsShortcutKeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool editor::actions::ActionManager::IsShortcutKeyDown </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether the main key of an action's shortcut is held (modifiers ignored, AZERTY aliases included). </p>
+<dl class="section return"><dt>Returns</dt><dd>false when the action does not exist or has no shortcut. </dd></dl>
 
 </div>
 </div>

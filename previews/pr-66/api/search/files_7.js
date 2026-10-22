@@ -10,8 +10,10 @@ var searchData=
   ['node_5fexception_2ehpp_7',['node_exception.hpp',['../node__exception_8hpp.html',1,'']]],
   ['node_5flist_5fcapability_2ecpp_8',['node_list_capability.cpp',['../node__list__capability_8cpp.html',1,'']]],
   ['node_5flist_5fcapability_2ehpp_9',['node_list_capability.hpp',['../node__list__capability_8hpp.html',1,'']]],
-  ['node_5fview_2ecpp_10',['node_view.cpp',['../node__view_8cpp.html',1,'']]],
-  ['node_5fview_2ehpp_11',['node_view.hpp',['../node__view_8hpp.html',1,'']]],
-  ['notification_5fstack_2ecpp_12',['notification_stack.cpp',['../notification__stack_8cpp.html',1,'']]],
-  ['notification_5fstack_2ehpp_13',['notification_stack.hpp',['../notification__stack_8hpp.html',1,'']]]
+  ['node_5fpicker_2ecpp_10',['node_picker.cpp',['../node__picker_8cpp.html',1,'']]],
+  ['node_5fpicker_2ehpp_11',['node_picker.hpp',['../node__picker_8hpp.html',1,'']]],
+  ['node_5fview_2ecpp_12',['node_view.cpp',['../node__view_8cpp.html',1,'']]],
+  ['node_5fview_2ehpp_13',['node_view.hpp',['../node__view_8hpp.html',1,'']]],
+  ['notification_5fstack_2ecpp_14',['notification_stack.cpp',['../notification__stack_8cpp.html',1,'']]],
+  ['notification_5fstack_2ehpp_15',['notification_stack.hpp',['../notification__stack_8hpp.html',1,'']]]
 ];

@@ -1,5 +1,16 @@
 <map id="src/core/node_catalog/node_catalog.hpp" name="src/core/node_catalog/node_catalog.hpp">
-<area shape="rect" id="Node000001" title="Facade for accessing module nodes cleanly for the renderer." alt="" coords="5,5,169,45"/>
+<area shape="rect" id="Node000001" title="Facade for accessing module nodes cleanly for the renderer." alt="" coords="125,5,289,45"/>
 <area shape="rect" id="Node000002" href="$node__catalog_8cpp.html" title="Implementation of the node catalog." alt="" coords="5,93,169,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,59,90,93,85,93,85,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,56,115,95,112,91,168,51"/>
+<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="114,189,301,214"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,59,210,188,205,188,205,59"/>
+<area shape="rect" id="Node000006" href="$node__picker_8hpp.html" title="Declaration of the NodePicker class, the searchable tree of the nodes provided by the loaded modules,..." alt="" coords="245,93,380,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="243,52,291,91,288,95,239,56"/>
+<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="19,269,206,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="184,225,128,271,125,267,181,221"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="230,269,377,295"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="234,221,291,267,287,271,230,225"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="280,144,224,190,220,186,277,140"/>
+<area shape="rect" id="Node000007" href="$node__picker_8cpp.html" title="Implementation of the NodePicker class." alt="" coords="325,181,460,221"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="342,142,377,179,373,183,338,145"/>
 </map>

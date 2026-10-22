@@ -94,8 +94,10 @@ var menudata={children:[
 {text:"r",url:"functions_vars.html#index_r"},
 {text:"s",url:"functions_vars.html#index_s"},
 {text:"t",url:"functions_vars.html#index_t"},
-{text:"v",url:"functions_vars.html#index_v"}]},
-{text:"Typedefs",url:"functions_type.html"}]}]},
+{text:"v",url:"functions_vars.html#index_v"},
+{text:"w",url:"functions_vars.html#index_w"}]},
+{text:"Typedefs",url:"functions_type.html"},
+{text:"Enumerations",url:"functions_enum.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[

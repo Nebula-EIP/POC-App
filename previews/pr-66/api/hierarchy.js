@@ -65,6 +65,9 @@ var hierarchy =
     [ "core::NodeDescriptor", "structcore_1_1NodeDescriptor.html", null ],
     [ "core::capa::NodeExportRequest", "structcore_1_1capa_1_1NodeExportRequest.html", null ],
     [ "core::capa::NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", null ],
+    [ "editor::ui::NodePicker", "classeditor_1_1ui_1_1NodePicker.html", null ],
+    [ "editor::ui::NodePickerEntry", "structeditor_1_1ui_1_1NodePickerEntry.html", null ],
+    [ "editor::ui::NodePickerInput", "structeditor_1_1ui_1_1NodePickerInput.html", null ],
     [ "core::NodePinDescriptor", "structcore_1_1NodePinDescriptor.html", null ],
     [ "editor::ui::NodeView", "classeditor_1_1ui_1_1NodeView.html", null ],
     [ "editor::ui::NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", null ],
@@ -74,6 +77,7 @@ var hierarchy =
     [ "core::Property", "structcore_1_1Property.html", null ],
     [ "editor::ui::PropertyChangeOutcome", "structeditor_1_1ui_1_1PropertyChangeOutcome.html", null ],
     [ "render::Renderer", "classrender_1_1Renderer.html", null ],
+    [ "editor::ui::NodePicker::Row", "structeditor_1_1ui_1_1NodePicker_1_1Row.html", null ],
     [ "std::runtime_error", null, [
       [ "core::Exception", "classcore_1_1Exception.html", [
         [ "core::ConnectionException", "classcore_1_1ConnectionException.html", [
