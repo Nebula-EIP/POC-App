@@ -13,6 +13,7 @@ var classcore_1_1Node =
     [ "OutputPinExists", "classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789", null ],
     [ "OutputPins", "classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5", null ],
     [ "OutputPinsCount", "classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0", null ],
+    [ "Properties", "classcore_1_1Node.html#a9f0d458769a478c10564fd5edb19b744", null ],
     [ "RemoveProperty", "classcore_1_1Node.html#abd443b30e296e0e8be098ca4fab207b3", null ],
     [ "SetProperty", "classcore_1_1Node.html#a2fbb404d7a1023ebfd112fabc9c9e033", null ],
     [ "Type", "classcore_1_1Node.html#a8cb2821fa5214cd1f3eae8f17eda3f2c", null ]

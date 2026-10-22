@@ -1,6 +1,7 @@
 var dir_92dccbd6dd8271d99a6eedf36eee7e8d =
 [
-    [ "component_adapter.hpp", "component__adapter_8hpp_source.html", null ],
+    [ "component_adapter.cpp", "component__adapter_8cpp.html", null ],
+    [ "component_adapter.hpp", "component__adapter_8hpp.html", "component__adapter_8hpp" ],
     [ "connection_request.cpp", "connection__request_8cpp.html", "connection__request_8cpp" ],
     [ "connection_request.hpp", "connection__request_8hpp.html", "connection__request_8hpp" ],
     [ "context_menu.cpp", "context__menu_8cpp.html", null ],
@@ -13,6 +14,8 @@ var dir_92dccbd6dd8271d99a6eedf36eee7e8d =
     [ "node_view.hpp", "node__view_8hpp.html", "node__view_8hpp" ],
     [ "notification_stack.cpp", "notification__stack_8cpp.html", null ],
     [ "notification_stack.hpp", "notification__stack_8hpp.html", "notification__stack_8hpp" ],
+    [ "property_change.cpp", "property__change_8cpp.html", "property__change_8cpp" ],
+    [ "property_change.hpp", "property__change_8hpp.html", "property__change_8hpp" ],
     [ "top_bar.cpp", "top__bar_8cpp.html", null ],
     [ "top_bar.hpp", "top__bar_8hpp.html", "top__bar_8hpp" ]
 ];

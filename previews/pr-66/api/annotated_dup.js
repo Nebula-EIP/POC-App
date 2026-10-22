@@ -42,6 +42,7 @@ var annotated_dup =
       [ "ICapability", "classcore_1_1ICapability.html", null ],
       [ "IModule", "classcore_1_1IModule.html", "classcore_1_1IModule" ],
       [ "IncompatibleModuleException", "classcore_1_1IncompatibleModuleException.html", null ],
+      [ "InputAlreadyConnectedException", "classcore_1_1InputAlreadyConnectedException.html", null ],
       [ "InternalException", "classcore_1_1InternalException.html", null ],
       [ "InvalidModuleException", "classcore_1_1InvalidModuleException.html", null ],
       [ "InvalidModuleVersionException", "classcore_1_1InvalidModuleVersionException.html", null ],
@@ -76,7 +77,8 @@ var annotated_dup =
         [ "Shortcut", "structeditor_1_1actions_1_1Shortcut.html", null ]
       ] ],
       [ "ui", null, [
-        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
+        [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", "classeditor_1_1ui_1_1ComponentAdapter" ],
+        [ "ComponentInput", "structeditor_1_1ui_1_1ComponentInput.html", "structeditor_1_1ui_1_1ComponentInput" ],
         [ "ConnectionOutcome", "structeditor_1_1ui_1_1ConnectionOutcome.html", null ],
         [ "ContextMenu", "classeditor_1_1ui_1_1ContextMenu.html", "classeditor_1_1ui_1_1ContextMenu" ],
         [ "ContextMenuInput", "structeditor_1_1ui_1_1ContextMenuInput.html", null ],
@@ -88,7 +90,9 @@ var annotated_dup =
         [ "NodeClipboard", "classeditor_1_1ui_1_1NodeClipboard.html", "classeditor_1_1ui_1_1NodeClipboard" ],
         [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ],
         [ "NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", "classeditor_1_1ui_1_1NotificationStack" ],
+        [ "PinTypeChange", "structeditor_1_1ui_1_1PinTypeChange.html", null ],
         [ "PlacedNode", "structeditor_1_1ui_1_1PlacedNode.html", "structeditor_1_1ui_1_1PlacedNode" ],
+        [ "PropertyChangeOutcome", "structeditor_1_1ui_1_1PropertyChangeOutcome.html", "structeditor_1_1ui_1_1PropertyChangeOutcome" ],
         [ "TopBar", "classeditor_1_1ui_1_1TopBar.html", "classeditor_1_1ui_1_1TopBar" ],
         [ "TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", "structeditor_1_1ui_1_1TopBarInput" ],
         [ "TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ]
@@ -98,7 +102,7 @@ var annotated_dup =
     ] ],
     [ "render", null, [
       [ "Camera", "classrender_1_1Camera.html", "classrender_1_1Camera" ],
-      [ "FrameCallbacks", "structrender_1_1FrameCallbacks.html", null ],
+      [ "FrameCallbacks", "structrender_1_1FrameCallbacks.html", "structrender_1_1FrameCallbacks" ],
       [ "GridLevels", "structrender_1_1GridLevels.html", "structrender_1_1GridLevels" ],
       [ "Renderer", "classrender_1_1Renderer.html", "classrender_1_1Renderer" ]
     ] ],

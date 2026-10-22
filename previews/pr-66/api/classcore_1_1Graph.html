@@ -140,6 +140,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0766b84aa834dee65ae4fe939e8d7dbc" id="r_a0766b84aa834dee65ae4fe939e8d7dbc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a0766b84aa834dee65ae4fe939e8d7dbc">RemoveOutputPin</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a> pin_id)</td></tr>
 <tr class="memdesc:a0766b84aa834dee65ae4fe939e8d7dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an output pin from a node.  <br /></td></tr>
 <tr class="separator:a0766b84aa834dee65ae4fe939e8d7dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9290398fb8fd47a33691b756598a6f20" id="r_a9290398fb8fd47a33691b756598a6f20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a9290398fb8fd47a33691b756598a6f20">SetPinType</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a> pin_id, bool is_input, <a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a> type)</td></tr>
+<tr class="memdesc:a9290398fb8fd47a33691b756598a6f20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the data type of a pin.  <br /></td></tr>
+<tr class="separator:a9290398fb8fd47a33691b756598a6f20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ae34c15ff960031a3bdf46d473544d7" id="r_a2ae34c15ff960031a3bdf46d473544d7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54">ConnectionId</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#a2ae34c15ff960031a3bdf46d473544d7">PinConnections</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> node_id, <a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a> pin_id, bool is_input) const</td></tr>
+<tr class="memdesc:a2ae34c15ff960031a3bdf46d473544d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists the connections attached to a pin.  <br /></td></tr>
+<tr class="separator:a2ae34c15ff960031a3bdf46d473544d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5bae14c8b4079e82c8fcaee92e4f4e6" id="r_ab5bae14c8b4079e82c8fcaee92e4f4e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54">ConnectionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore_1_1Graph.html#ab5bae14c8b4079e82c8fcaee92e4f4e6">GetConnectionId</a> (<a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> from, <a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a> out, <a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a> to, <a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a> in) const</td></tr>
 <tr class="memdesc:ab5bae14c8b4079e82c8fcaee92e4f4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreive the id of a connection between two pins.  <br /></td></tr>
 <tr class="separator:ab5bae14c8b4079e82c8fcaee92e4f4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,6 +326,7 @@ Public Member Functions</h2></td></tr>
 <p>Connects two pins. </p>
 <p>Only an output pin can be connected to an input pin and vice-versa.</p>
 <p>The pins types must match.</p>
+<p>An input pin accepts a single connection; an output pin can be connected to several inputs. Connecting the same two pins again returns the existing connection.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">from</td><td><a class="el" href="classcore_1_1Node.html" title="Forward def to make it a friend.">Node</a> owning the output pin </td></tr>
@@ -335,6 +342,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">`core::NodeNotFoundException`</td><td>when a node does not exists </td></tr>
     <tr><td class="paramname">`core::PinNotFoundException`</td><td>when a pin does not exists </td></tr>
     <tr><td class="paramname">`core::TypeMismatchException`</td><td>when the pin's types mismatches </td></tr>
+    <tr><td class="paramname">`core::InputAlreadyConnectedException`</td><td>when the input pin is already connected to another output </td></tr>
   </table>
   </dd>
 </dl>
@@ -892,6 +900,51 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2ae34c15ff960031a3bdf46d473544d7" name="a2ae34c15ff960031a3bdf46d473544d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae34c15ff960031a3bdf46d473544d7">&#9670;&#160;</a></span>PinConnections()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="datatypes_8hpp.html#aa9d276a7b7f98022bfd53d482fe5be54">ConnectionId</a> &gt; core::Graph::PinConnections </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
+          <td class="paramname"><em>node_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a>&#160;</td>
+          <td class="paramname"><em>pin_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lists the connections attached to a pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_id</td><td>Id of the node </td></tr>
+    <tr><td class="paramname">pin_id</td><td>Id of the pin on that node </td></tr>
+    <tr><td class="paramname">is_input</td><td>true for an input pin, false for an output pin</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ids of the connections using this pin (empty if none) </dd></dl>
+
+</div>
+</div>
 <a id="a41116c59cdf6b277b2cd17bc68585051" name="a41116c59cdf6b277b2cd17bc68585051"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41116c59cdf6b277b2cd17bc68585051">&#9670;&#160;</a></span>RemoveInputPin()</h2>
 
@@ -1008,6 +1061,66 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method disconnects all connection to this pin ! </dd></dl>
 <p>Same as last method</p>
+
+</div>
+</div>
+<a id="a9290398fb8fd47a33691b756598a6f20" name="a9290398fb8fd47a33691b756598a6f20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9290398fb8fd47a33691b756598a6f20">&#9670;&#160;</a></span>SetPinType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::Graph::SetPinType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#adb6f25f6d274110367a1702e366e2e69">NodeId</a>&#160;</td>
+          <td class="paramname"><em>node_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a59403334a91a1839ed989bed43401bac">PinId</a>&#160;</td>
+          <td class="paramname"><em>pin_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="datatypes_8hpp.html#a4a6ba581eac603821fad74118ef1cfb8">DataType</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the data type of a pin. </p>
+<p>Connections are never changed implicitly: a connected pin keeps its type unless the new type is the same.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_id</td><td>Id of the targeted node. Required </td></tr>
+    <tr><td class="paramname">pin_id</td><td>Id of the pin on that node. Required </td></tr>
+    <tr><td class="paramname">is_input</td><td>true for an input pin, false for an output pin </td></tr>
+    <tr><td class="paramname">type</td><td>New data type of the pin</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">`core::NodeNotFoundException`</td><td>The node_id is invalid. </td></tr>
+    <tr><td class="paramname">`core::PinNotFoundException`</td><td>The pin does not exist. </td></tr>
+    <tr><td class="paramname">`core::TypeMismatchException`</td><td>The pin is connected and the type differs: disconnect it first. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

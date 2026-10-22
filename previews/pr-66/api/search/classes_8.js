@@ -11,10 +11,11 @@ var searchData=
   ['incompatiblemoduleexception_8',['IncompatibleModuleException',['../classcore_1_1IncompatibleModuleException.html',1,'core']]],
   ['infobubble_9',['InfoBubble',['../structcore_1_1capa_1_1InfoBubble.html',1,'core::capa']]],
   ['inodelistcapability_10',['INodeListCapability',['../classcore_1_1capa_1_1INodeListCapability.html',1,'core::capa']]],
-  ['internalexception_11',['InternalException',['../classcore_1_1InternalException.html',1,'core']]],
-  ['invalidmoduleexception_12',['InvalidModuleException',['../classcore_1_1InvalidModuleException.html',1,'core']]],
-  ['invalidmoduleversionexception_13',['InvalidModuleVersionException',['../classcore_1_1InvalidModuleVersionException.html',1,'core']]],
-  ['invalidnodeexception_14',['InvalidNodeException',['../classcore_1_1InvalidNodeException.html',1,'core']]],
-  ['irenderercapability_15',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
-  ['itypelistcapability_16',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
+  ['inputalreadyconnectedexception_11',['InputAlreadyConnectedException',['../classcore_1_1InputAlreadyConnectedException.html',1,'core']]],
+  ['internalexception_12',['InternalException',['../classcore_1_1InternalException.html',1,'core']]],
+  ['invalidmoduleexception_13',['InvalidModuleException',['../classcore_1_1InvalidModuleException.html',1,'core']]],
+  ['invalidmoduleversionexception_14',['InvalidModuleVersionException',['../classcore_1_1InvalidModuleVersionException.html',1,'core']]],
+  ['invalidnodeexception_15',['InvalidNodeException',['../classcore_1_1InvalidNodeException.html',1,'core']]],
+  ['irenderercapability_16',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
+  ['itypelistcapability_17',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
 ];
