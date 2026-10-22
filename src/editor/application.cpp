@@ -763,20 +763,20 @@ void Application::DrawFrame() {
                              notifications_.Draw(renderer_.ScreenSize(),
                                                  utils::GetTimeWrapped());
                              top_bar_.Draw();
-                            node_picker_.Draw();
+                             node_picker_.Draw();
                          },
                      // World space, right after each node.
                      .draw_node_content_ =
                          [this](const ui::NodeView &view) {
-                            const auto kComponents =
-                                node_components_.find(view.NodeId());
-                            if (kComponents == node_components_.end()) {
-                                return;
-                            }
-                            node_fields_.Draw(view.NodeId(),
-                                              kComponents->second,
-                                              view.ContentBounds(),
-                                              EditedNode() == view.NodeId());
+                             const auto kComponents =
+                                 node_components_.find(view.NodeId());
+                             if (kComponents == node_components_.end()) {
+                                 return;
+                             }
+                             node_fields_.Draw(view.NodeId(),
+                                               kComponents->second,
+                                               view.ContentBounds(),
+                                               EditedNode() == view.NodeId());
                          }});
 }
 
