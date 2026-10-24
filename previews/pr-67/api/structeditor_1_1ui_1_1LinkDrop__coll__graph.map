@@ -1,0 +1,7 @@
+<map id="editor::ui::LinkDrop" name="editor::ui::LinkDrop">
+<area shape="rect" id="Node000001" title="A link drag released on empty canvas: no pin, no node." alt="" coords="97,93,243,119"/>
+<area shape="rect" id="Node000002" href="$structeditor_1_1ui_1_1HitResult.html" title="Represents the result of a hit test on a node." alt="" coords="5,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,38,159,91,156,95,100,42"/>
+<area shape="rect" id="Node000003" href="$structutils_1_1WrappedVector2.html" title=" " alt="" coords="178,5,343,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,42,184,95,181,91,237,38"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="src/editor/ui/top_bar.hpp" name="src/editor/ui/top_bar.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="205,5,383,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,76,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,33,90,79,89,74,253,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="100,79,187,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="271,33,182,75,179,70,269,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="211,79,286,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,32,266,69,261,66,284,30"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="310,79,369,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="304,30,327,66,322,69,299,32"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="393,79,456,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="316,28,393,70,390,74,314,33"/>
+<area shape="rect" id="Node000007" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="481,79,659,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="339,28,513,73,511,78,338,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="489,152,560,177"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="565,106,542,142,537,139,560,103"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="584,152,644,177"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="580,103,602,139,597,142,575,106"/>
+</map>
