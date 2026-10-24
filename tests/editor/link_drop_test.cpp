@@ -336,8 +336,9 @@ TEST_F(LinkDropTest, PickOnAConnectedInputReplacesItsLink) {
     const core::ConnectionId kOldLink = graph_.Connect(
         kOld, Pin(kOld, "out", false).pin_id_, kOperator, kDragged.pin_id_);
 
-    const NodePickerEntry *variable =
-        Find(Entries(kDragged), "Variable", "out");
+    // Kept alive: Find() points into the list.
+    const auto kEntries = Entries(kDragged);
+    const NodePickerEntry *variable = Find(kEntries, "Variable", "out");
     ASSERT_NE(variable, nullptr);
     const core::NodeId kNew = Create("Variable");
     const auto kOutcome =
