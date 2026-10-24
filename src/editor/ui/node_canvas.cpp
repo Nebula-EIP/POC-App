@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 24-10-2026
  */
 #include "node_canvas.hpp"
 
@@ -67,6 +67,10 @@ void NodeCanvas::RemoveMissingNodes(const core::Graph &graph) {
          !views_.contains(pending_connection_->second.node_id_))) {
         pending_connection_.reset();
     }
+    if (pending_link_drop_ &&
+        !views_.contains(pending_link_drop_->pin_.node_id_)) {
+        pending_link_drop_.reset();
+    }
 }
 
 std::vector<core::NodeId> NodeCanvas::SelectedNodes() const {
@@ -123,18 +127,42 @@ void NodeCanvas::SelectInRectangle(utils::WrappedRectangle rectangle) {
     }
 }
 
-void NodeCanvas::ProcessInput(const render::Camera &camera) {
-    const auto kCursor =
-        camera.ScreenToWorld(utils::GetCursorPositionWrapped());
+CanvasInput NodeCanvas::ReadInput(const render::Camera &camera,
+                                  bool pointer_captured) {
+    const utils::WrappedVector2 kScreen = utils::GetCursorPositionWrapped();
+    // The viewport is the window: twice its center.
+    const utils::WrappedVector2 kCenter = camera.ViewportCenter();
+    CanvasInput input;
+    input.cursor_ = camera.ScreenToWorld(kScreen);
+    input.left_pressed_ = utils::IsLeftClicked();
+    input.left_down_ = utils::IsLeftDown();
+    input.additive_ = utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl);
+    input.in_window_ = kScreen.x_ >= 0.0F && kScreen.y_ >= 0.0F &&
+                       kScreen.x_ < 2.0F * kCenter.x_ &&
+                       kScreen.y_ < 2.0F * kCenter.y_;
+    input.pointer_captured_ = pointer_captured;
+    return input;
+}
 
-    if (connection_drag_start_ && utils::IsLeftDown()) {
+void NodeCanvas::ProcessInput(const render::Camera &camera,
+                              bool pointer_captured) {
+    Update(ReadInput(camera, pointer_captured));
+}
+
+void NodeCanvas::Update(const CanvasInput &input) {
+    const auto kCursor = input.cursor_;
+    // While another part of the editor owns the pointer, nothing starts and
+    // nothing moves; a drag released meanwhile is only ended below.
+    const bool kLeftPressed = input.left_pressed_ && !input.pointer_captured_;
+    const bool kLeftDown = input.left_down_ && !input.pointer_captured_;
+
+    if (connection_drag_start_ && kLeftDown) {
         connection_drag_current_ = kCursor;
     }
 
-    if (utils::IsLeftClicked()) {
+    if (kLeftPressed) {
         const auto kHit = HitTest(kCursor);
-        const bool kAdditive =
-            utils::IsKeyDownWrapped(utils::WrappedKey::kLeftControl);
+        const bool kAdditive = input.additive_;
         if (kHit.has_value()) {
             if (kHit->part_ == HitPart::kInputPin ||
                 kHit->part_ == HitPart::kOutputPin) {
@@ -170,7 +198,7 @@ void NodeCanvas::ProcessInput(const render::Camera &camera) {
                 kAdditive ? SelectedNodes() : std::vector<core::NodeId>{};
         }
     }
-    if (utils::IsLeftDown() && drag_start_.has_value()) {
+    if (kLeftDown && drag_start_.has_value()) {
         const auto kDelta = utils::WrappedVector2{kCursor.x_ - drag_start_->x_,
                                                   kCursor.y_ - drag_start_->y_};
         for (const auto &[id, origin] : drag_origins_) {
@@ -181,21 +209,27 @@ void NodeCanvas::ProcessInput(const render::Camera &camera) {
                          origin.y_ + kDelta.y_ - kCurrent.y_});
         }
     }
-    if (utils::IsLeftDown() && selection_start_.has_value()) {
+    if (kLeftDown && selection_start_.has_value()) {
         selection_current_ = kCursor;
         SelectInRectangle(MakeRectangle(*selection_start_, kCursor));
     }
-    if (!utils::IsLeftDown()) {
-        if (connection_drag_start_) {
+    if (!input.left_down_) {
+        if (connection_drag_start_ && !input.pointer_captured_ &&
+            input.in_window_) {
             const auto kHit = HitTest(kCursor);
             if (kHit.has_value() && (kHit->part_ == HitPart::kInputPin ||
                                      kHit->part_ == HitPart::kOutputPin)) {
                 pending_connection_ =
                     std::make_pair(*connection_drag_start_, *kHit);
+            } else if (!kHit.has_value()) {
+                // Empty canvas: the application offers the nodes that can
+                // be linked to the pin. A node body takes nothing.
+                pending_link_drop_ = LinkDrop{.pin_ = *connection_drag_start_,
+                                              .world_ = kCursor};
             }
-            connection_drag_start_.reset();
-            connection_drag_current_.reset();
         }
+        connection_drag_start_.reset();
+        connection_drag_current_.reset();
         drag_start_.reset();
         selection_start_.reset();
         selection_current_.reset();
@@ -251,6 +285,12 @@ std::optional<std::pair<HitResult, HitResult>>
 NodeCanvas::PopPendingConnectionRequest() noexcept {
     auto result = pending_connection_;
     pending_connection_ = std::nullopt;
+    return result;
+}
+
+std::optional<LinkDrop> NodeCanvas::PopPendingLinkDrop() noexcept {
+    auto result = pending_link_drop_;
+    pending_link_drop_ = std::nullopt;
     return result;
 }
 

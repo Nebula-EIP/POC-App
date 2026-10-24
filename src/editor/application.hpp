@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 22-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #pragma once
@@ -30,6 +30,8 @@
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
 #include "ui/component_adapter.hpp"
+#include "ui/connection_request.hpp"
+#include "ui/node_canvas.hpp"
 #include "ui/node_clipboard.hpp"
 #include "ui/node_picker.hpp"
 #include "ui/notification_stack.hpp"
@@ -104,8 +106,10 @@ class Application {
      */
     void OpenNodePicker(utils::WrappedVector2 screen_position,
                         utils::WrappedVector2 world_spawn);
-    void CreateNode(core::NodeType type, utils::WrappedVector2 position);
-    void CreateNodeFromConfiguration(
+    /// @return The created node, or nothing when it could not be created.
+    std::optional<core::NodeId> CreateNode(core::NodeType type,
+                                           utils::WrappedVector2 position);
+    core::NodeId CreateNodeFromConfiguration(
         core::NodeType type, const core::capa::NodeConfiguration &config,
         std::string title, utils::WrappedVector2 position);
     [[nodiscard]] utils::WrappedVector2 FreeSpawnPosition(
@@ -116,6 +120,27 @@ class Application {
      * @brief Handles a connection request emitted by the node canvas.
      */
     void HandleConnectionRequest();
+
+    /**
+     * @brief Opens the node picker in connection mode when a link drag was
+     * released on empty canvas, on the nodes that can be linked to the
+     * dragged pin. The ghost link stays drawn while the picker is open.
+     */
+    void HandleLinkDrop();
+
+    /**
+     * @brief Creates the node of a picked connection entry at the drop point
+     * and links it to the dragged pin. When the link is refused, the node is
+     * removed again and the error is shown.
+     */
+    void CreateLinkedNode(const ui::NodePickerEntry &entry,
+                          const ui::LinkDrop &drop);
+
+    /**
+     * @brief Shows the error of a refused connection and highlights its pin,
+     * and forgets the selected link when the connection replaced it.
+     */
+    void ReportConnectionOutcome(const ui::ConnectionOutcome &outcome);
 
     // Node fields (values and settings)
     /**
@@ -183,6 +208,13 @@ class Application {
      * @return The display name of the type.
      */
     [[nodiscard]] std::string TypeName(core::DataType type) const;
+
+    /// Name of a type of the given module (type ids are given per module).
+    [[nodiscard]] std::string TypeName(core::ModuleId module_id,
+                                       core::DataType type);
+
+    /// Displayed name of a module, the top folder of the node picker.
+    [[nodiscard]] std::string ModuleName(core::ModuleId module_id) const;
 
     // Feedback
     /**
@@ -252,6 +284,9 @@ class Application {
 
     ui::TopBar top_bar_;
     ui::NodePicker node_picker_;
+    /// Link dropped on empty canvas, while the picker offers the nodes to
+    /// link to it. Its ghost link is drawn until a pick or a cancel.
+    std::optional<ui::LinkDrop> link_drop_;
     actions::ActionManager action_manager_;
 };
 

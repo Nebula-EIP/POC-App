@@ -19,7 +19,8 @@ It is implemented in `src/editor/ui/node_picker.hpp` and
 | Top bar: **Node > Add Node** | Under the **Node** title | Centre of the view (shifted when a node is already there) |
 | Shortcut **Shift+A** (`node.add_menu` action) | At the mouse cursor | Canvas position under the cursor when the picker was opened |
 
-Both open the same list.
+Both open the same list. A link released on empty canvas opens it too, in
+connection mode (see below).
 
 ## Using it
 
@@ -59,6 +60,55 @@ the key is held. The picker ignores typed characters on its first frame and
 until the shortcut key (`ActionManager::IsShortcutKeyDown("node.add_menu")`,
 AZERTY included) is released; after that, every key types normally.
 
+## From a dropped link (connection mode)
+
+Dragging a link from a pin and releasing it on **empty canvas** opens the
+picker at the cursor, like Unity's Shader Graph. The ghost link stays drawn
+from the pin to the drop point while the picker is open.
+
+- It lists only the pins that can be linked to the dragged one, **one entry
+  per pin**, labelled `Node » pin (type)` (e.g. `Operator » left (int)` and
+  `Operator » right (int)`). Dragged from an output: inputs of the same type;
+  from an input: outputs of the same type. Only the nodes of the dragged
+  node's module are offered, since type ids are given per module.
+- Same tree (module > categories, no empty folder) and keys as the normal
+  picker. The search matches the **node name and the pin name**
+  (case-insensitive), not the type. Nothing compatible: `Aucun node`.
+- A pick creates the node with the module's defaults, placed so that the
+  picked pin sits on the drop point, links it to the dragged pin with
+  `ui::RequestConnection` (same rules and messages as a manual link; a link
+  on a connected input replaces it) and selects it. If the link is refused,
+  the node is removed again and the error is shown.
+- Escape or a click outside cancels: no node, no link, the ghost disappears.
+- Released on a pin, the link is made directly. Released on a node body, on
+  the top bar or outside the window, nothing happens.
+
+Shift+A and **Node > Add Node** keep listing every node.
+
+How it is built:
+
+- `NodeCanvas::Update(CanvasInput)` (raylib-free; `ProcessInput` reads raylib
+  into a `CanvasInput`) records the drop, read once with
+  `NodeCanvas::PopPendingLinkDrop()`. A drag released while another part of
+  the editor owns the pointer (top bar) ends there without anything.
+- `ui::CheckConnectionRule()` (`connection_request.hpp`) holds the rules
+  (pins, opposite directions, different nodes, same type). Both
+  `RequestConnection()` and the candidate list use it, so the picker never
+  offers a link that would be refused.
+- `src/editor/ui/link_drop.{hpp,cpp}`: `FindDraggedPin()`,
+  `LinkDropEntries()` (catalog to entries), `ResolvePickerPin()` and
+  `LinkNewNode()`. Catalog pins (`NodePinDescriptor`) have no id: an entry
+  keeps the pin's direction and **index among the pins of that direction**,
+  which is the order `Graph::AddInputPin`/`AddOutputPin` follow when the node
+  is created; `ResolvePickerPin()` reads the real id back from the created
+  node and checks the name and type.
+- `NodePicker::OpenForConnection()` shows the given entries and calls back
+  with the picked `NodePickerEntry` (its `pin_` included); the entries of
+  `SetEntries()` come back at the next `Open()`.
+- `Application::HandleLinkDrop()` / `CreateLinkedNode()` wire it; the ghost
+  link is `Application::link_drop_`, cleared on pick or when the picker
+  closes.
+
 ## Categories
 
 A module gives the folder of each node with `NodeMetadata::category_`
@@ -90,5 +140,11 @@ share values.
 `tests/editor/node_picker_test.cpp` drives the picker through
 `NodePickerInput` with a fixed-width text measurer, without a window: tree
 building, folders opening and closing (mouse and keyboard), flat search,
-picking, closing, scrolling, and the conversion from the catalog of the C
-module.
+picking, closing, scrolling, the conversion from the catalog of the C
+module, and the connection mode.
+
+`tests/editor/link_drop_test.cpp` checks the candidates against the C module
+(direction, type, module, one entry per pin), the pin of the created node, and
+the link made after a pick (refused link removes the node).
+`tests/editor/node_canvas_test.cpp` checks where a link drag ends: empty
+canvas, pin, node body, outside the window, over the top bar.
