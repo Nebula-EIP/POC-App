@@ -6,7 +6,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 12-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #include "node_picker.hpp"
@@ -93,6 +93,13 @@ NodePicker::NodePicker(TopBarStyle style, TextMeasurer measurer)
 }
 
 void NodePicker::SetEntries(std::vector<NodePickerEntry> entries) {
+    catalog_entries_ = std::move(entries);
+    if (!connection_mode_) {
+        ShowEntries(catalog_entries_);
+    }
+}
+
+void NodePicker::ShowEntries(std::vector<NodePickerEntry> entries) {
     entries_ = std::move(entries);
     BuildTree();
     width_ = ComputeWidth();
@@ -153,11 +160,22 @@ void NodePicker::AddFolderRows(std::size_t folder, std::size_t depth) {
 
 void NodePicker::AddSearchRows() {
     const std::string kNeedle = Lower(query_);
+    // Earliest match among the names of an entry (its node name and pin name
+    // in connection mode), or npos.
+    const auto kFind = [&](const NodePickerEntry &entry) {
+        if (entry.search_names_.empty()) {
+            return Lower(entry.name_).find(kNeedle);
+        }
+        std::size_t found = std::string::npos;
+        for (const std::string &name : entry.search_names_) {
+            found = std::min(found, Lower(name).find(kNeedle));
+        }
+        return found;
+    };
     // Names starting with the search first, then names containing it.
     for (const bool kPrefixPass : {true, false}) {
         for (std::size_t index = 0; index < entries_.size(); ++index) {
-            const std::size_t kFound =
-                Lower(entries_[index].name_).find(kNeedle);
+            const std::size_t kFound = kFind(entries_[index]);
             if (kFound == std::string::npos || (kFound == 0) != kPrefixPass) {
                 continue;
             }
@@ -218,6 +236,28 @@ void NodePicker::RebuildRows() {
 
 void NodePicker::Open(utils::WrappedVector2 position, float screen_width,
                       float screen_height, PickCallback on_pick) {
+    if (connection_mode_) {
+        connection_mode_ = false;
+        ShowEntries(catalog_entries_);
+    }
+    OpenAt(position, screen_width, screen_height);
+    on_pick_ = std::move(on_pick);
+}
+
+void NodePicker::OpenForConnection(std::vector<NodePickerEntry> entries,
+                                   utils::WrappedVector2 position,
+                                   float screen_width, float screen_height,
+                                   EntryPickCallback on_pick) {
+    connection_mode_ = true;
+    ShowEntries(std::move(entries));
+    OpenAt(position, screen_width, screen_height);
+    on_pick_entry_ = std::move(on_pick);
+}
+
+void NodePicker::OpenAt(utils::WrappedVector2 position, float screen_width,
+                        float screen_height) {
+    on_pick_ = nullptr;
+    on_pick_entry_ = nullptr;
     query_.clear();
     expanded_.clear();
     // A single module: its folder is opened right away, saving a click.
@@ -236,7 +276,6 @@ void NodePicker::Open(utils::WrappedVector2 position, float screen_width,
     // are opened or a search is typed.
     visible_rows_ = std::clamp<std::size_t>(folders_.size() + entries_.size(),
                                             1, kMaxVisibleRows);
-    on_pick_ = std::move(on_pick);
     last_cursor_.reset();
     typing_armed_ = false;
     is_open_ = true;
@@ -255,6 +294,7 @@ void NodePicker::Open(utils::WrappedVector2 position, float screen_width,
 void NodePicker::Close() noexcept {
     is_open_ = false;
     on_pick_ = nullptr;
+    on_pick_entry_ = nullptr;
 }
 
 // ---------------------------------------------------------------------------
@@ -409,11 +449,16 @@ void NodePicker::Pick(std::size_t row) {
     if (row >= rows_.size() || rows_[row].kind_ != RowKind::kEntry) {
         return;
     }
-    const core::NodeType kType = entries_[rows_[row].entry_].type_;
+    // Copied: the callbacks may reopen the picker, replacing the entries.
+    const NodePickerEntry kEntry = entries_[rows_[row].entry_];
     PickCallback callback = std::move(on_pick_);
+    EntryPickCallback entry_callback = std::move(on_pick_entry_);
     Close();
     if (callback) {
-        callback(kType);
+        callback(kEntry.type_);
+    }
+    if (entry_callback) {
+        entry_callback(kEntry);
     }
 }
 

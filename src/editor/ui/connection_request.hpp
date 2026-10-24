@@ -5,10 +5,14 @@
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 09-10-2026
+ *
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 24-10-2026
  */
 
 #pragma once
 
+#include <cstdint>
 #include <functional>
 #include <optional>
 #include <string>
@@ -21,6 +25,38 @@ namespace editor::ui {
 
 /// Returns the display name of a data type (empty when unknown).
 using TypeNameResolver = std::function<std::string(core::DataType)>;
+
+/**
+ * @brief One end of a possible connection, as the rules see it.
+ */
+struct PinEnd {
+    /// Node of the pin. Empty for a node that does not exist yet (a node the
+    /// picker could create): it is never the node of the other end.
+    std::optional<core::NodeId> node_;
+    HitPart part_ = HitPart::kNone;
+    /// Type of the pin. Empty when unknown: the type rule is then skipped.
+    std::optional<core::DataType> type_;
+};
+
+/// Rule a connection between two pins breaks, or kAllowed.
+enum class ConnectionRule : std::uint8_t {
+    kAllowed,
+    kNotAPin,        ///< One end is not a pin.
+    kSameDirection,  ///< Two inputs or two outputs.
+    kSameNode,       ///< A node linked to itself.
+    kTypeMismatch,   ///< The pins do not carry the same type.
+};
+
+/**
+ * @brief The rules of a connection, shared by RequestConnection and the node
+ * picker opened from a link dropped on empty canvas, so that the picker never
+ * offers a connection that would then be refused.
+ *
+ * Checked in this order: both ends are pins, opposite directions, two
+ * different nodes, same type.
+ */
+[[nodiscard]] ConnectionRule CheckConnectionRule(const PinEnd &start,
+                                                 const PinEnd &end) noexcept;
 
 /**
  * @brief Result of a connection request.
@@ -49,8 +85,9 @@ struct ConnectionOutcome {
  * and replaces the one already on the input (an output can still feed
  * several inputs).
  *
- * Rejected with a message: two inputs, two outputs, a node linked to itself,
- * mismatching types, and any other error raised by core::Graph::Connect.
+ * Rejected with a message when CheckConnectionRule refuses the pins (two
+ * inputs, two outputs, a node linked to itself, mismatching types), and on
+ * any other error raised by core::Graph::Connect.
  *
  * @param graph The graph to connect in.
  * @param start The pin the drag started from.

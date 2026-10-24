@@ -16,6 +16,7 @@ if(TEST_SOURCES)
         editor/component_adapter_test.cpp
         editor/connection_request_test.cpp
         editor/configuration_test.cpp
+        editor/link_drop_test.cpp
         editor/node_canvas_test.cpp
         editor/node_clipboard_test.cpp
         editor/node_picker_test.cpp
@@ -30,6 +31,7 @@ if(TEST_SOURCES)
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_picker.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/ui/link_drop.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/configuration.cpp
     )

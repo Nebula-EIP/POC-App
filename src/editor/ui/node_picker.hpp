@@ -7,7 +7,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 12-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #pragma once
@@ -29,13 +29,30 @@
 namespace editor::ui {
 
 /**
+ * @brief A pin of a node not created yet, by direction and position: the pin
+ * ids are only given when the node is created (core::Graph::AddInputPin and
+ * AddOutputPin, in the order of the module configuration).
+ */
+struct PickerPin {
+    bool is_input_ = true;
+    std::size_t index_ = 0;  ///< Among the pins of the same direction.
+    std::string name_;
+    core::DataType type_ = 0;
+};
+
+/**
  * @brief One node the picker can create.
  */
 struct NodePickerEntry {
     core::NodeType type_ = 0;
-    std::string name_;
+    std::string name_;      ///< Displayed label.
     std::string module_;    ///< Top-level folder of the entry.
     std::string category_;  ///< Sub-folders, separated by '/'. May be empty.
+    /// Connection mode: the pin of the new node to link to the dragged pin.
+    std::optional<PickerPin> pin_{};
+    /// Names a search matches (the node name and the pin name). Empty: the
+    /// search matches name_.
+    std::vector<std::string> search_names_{};
 };
 
 /**
@@ -89,6 +106,11 @@ struct NodePickerInput {
  * callback given to Open() with the node type. Escape or a click outside
  * closes it without creating anything.
  *
+ * OpenForConnection() opens it in connection mode, on a list of its own (the
+ * nodes that can be linked to a dragged pin, one entry per pin) with the same
+ * tree and search; the entries given to SetEntries() come back at the next
+ * Open().
+ *
  * Each frame, call Update() before anything else reads the input: while it
  * is open the picker owns the mouse and the keyboard. Then call Draw() after
  * the canvas has been drawn.
@@ -97,6 +119,7 @@ class NodePicker final {
    public:
     using TextMeasurer = std::function<float(const std::string &, int)>;
     using PickCallback = std::function<void(core::NodeType)>;
+    using EntryPickCallback = std::function<void(const NodePickerEntry &)>;
 
     /// Kind of a displayed row.
     enum class RowKind : std::uint8_t { kFolder, kEntry, kEmpty };
@@ -124,6 +147,7 @@ class NodePicker final {
      */
     void SetEntries(std::vector<NodePickerEntry> entries);
 
+    /// Entries listed now: the connection list in connection mode.
     [[nodiscard]] const std::vector<NodePickerEntry> &Entries() const noexcept {
         return entries_;
     }
@@ -137,9 +161,25 @@ class NodePicker final {
     void Open(utils::WrappedVector2 position, float screen_width,
               float screen_height, PickCallback on_pick);
 
+    /**
+     * @brief Opens the picker in connection mode, like Open() but on the given
+     * entries instead of the ones of SetEntries(). With no entries it shows
+     * "Aucun node" and picks nothing.
+     *
+     * @param on_pick Called with the picked entry, its pin included.
+     */
+    void OpenForConnection(std::vector<NodePickerEntry> entries,
+                           utils::WrappedVector2 position, float screen_width,
+                           float screen_height, EntryPickCallback on_pick);
+
     void Close() noexcept;
 
     [[nodiscard]] bool IsOpen() const noexcept { return is_open_; }
+
+    /// Whether the entries listed are a connection list.
+    [[nodiscard]] bool IsConnectionMode() const noexcept {
+        return connection_mode_;
+    }
 
     /**
      * @brief Reads this frame's input from raylib. Consumes the typed
@@ -200,6 +240,10 @@ class NodePicker final {
         std::vector<std::size_t> entries_;  ///< Indices in entries_.
     };
 
+    /// Lists these entries: rebuilds the tree and the width.
+    void ShowEntries(std::vector<NodePickerEntry> entries);
+    void OpenAt(utils::WrappedVector2 position, float screen_width,
+                float screen_height);
     void BuildTree();
     std::size_t FolderChild(std::optional<std::size_t> parent,
                             const std::string &name);
@@ -229,6 +273,8 @@ class NodePicker final {
     TopBarStyle style_;
     TextMeasurer measurer_;
     std::vector<NodePickerEntry> entries_;
+    std::vector<NodePickerEntry> catalog_entries_;  ///< From SetEntries().
+    bool connection_mode_ = false;
     std::vector<Folder> folders_;
     std::vector<std::size_t> roots_;
     std::set<std::string> expanded_;
@@ -237,6 +283,7 @@ class NodePicker final {
     bool is_open_ = false;
     utils::WrappedVector2 position_{0.0F, 0.0F};
     PickCallback on_pick_;
+    EntryPickCallback on_pick_entry_;
 
     std::string query_;
     std::vector<Row> rows_;
