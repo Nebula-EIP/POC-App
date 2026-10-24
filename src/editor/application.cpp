@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 22-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #include "application.hpp"
@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "ui/connection_request.hpp"
+#include "ui/link_drop.hpp"
 #include "ui/property_change.hpp"
 #include "utils/logger.hpp"
 
@@ -194,12 +195,8 @@ void Application::LoadModules() {
     // The catalog hands out the node type ids. The project starts empty: the
     // user adds nodes from the "Add Node" menu or with its shortcut.
     node_catalog_.Update(loader_);
-    node_picker_.SetEntries(
-        ui::EntriesFromCatalog(node_catalog_, [this](core::ModuleId id) {
-            const core::IModule *module = loader_.Module(id);
-            return module != nullptr ? std::string(module->Name())
-                                     : "Module " + std::to_string(id);
-        }));
+    node_picker_.SetEntries(ui::EntriesFromCatalog(
+        node_catalog_, [this](core::ModuleId id) { return ModuleName(id); }));
 }
 
 void Application::BuildMenus() {
@@ -320,15 +317,15 @@ void Application::OpenNodePicker(utils::WrappedVector2 screen_position,
                       });
 }
 
-void Application::CreateNode(core::NodeType type,
-                             utils::WrappedVector2 position) {
+std::optional<core::NodeId> Application::CreateNode(
+    core::NodeType type, utils::WrappedVector2 position) {
     const std::optional<core::NodeDescriptor> kDescriptor =
         node_catalog_.GetNode(type);
     core::IModule *module =
         kDescriptor ? loader_.Module(kDescriptor->module_id_) : nullptr;
     if (!kDescriptor || module == nullptr || module->Nodes() == nullptr) {
         ShowError("Node unavailable: its module is no longer loaded.");
-        return;
+        return std::nullopt;
     }
 
     core::capa::NodeConfiguration config;
@@ -338,14 +335,16 @@ void Application::CreateNode(core::NodeType type,
         config = module->Nodes()->GetNodeConfiguration(type);
     } catch (const std::exception &error) {
         ShowError("Cannot create " + kDescriptor->name_ + ": " + error.what());
-        return;
+        return std::nullopt;
     }
 
-    CreateNodeFromConfiguration(type, config, kDescriptor->name_, position);
+    const core::NodeId kId =
+        CreateNodeFromConfiguration(type, config, kDescriptor->name_, position);
     selected_connection_.reset();
+    return kId;
 }
 
-void Application::CreateNodeFromConfiguration(
+core::NodeId Application::CreateNodeFromConfiguration(
     core::NodeType type, const core::capa::NodeConfiguration &config,
     std::string title, utils::WrappedVector2 position) {
     core::Node &node = graph_.CreateNode(type);
@@ -365,6 +364,7 @@ void Application::CreateNodeFromConfiguration(
     renderer_.node_canvas_.AddNode(node, std::move(title), position);
     // The new node becomes the selection, so it can be moved right away.
     renderer_.node_canvas_.SetSelection({node.Id()});
+    return node.Id();
 }
 
 utils::WrappedVector2 Application::FreeSpawnPosition(
@@ -410,6 +410,11 @@ void Application::ProcessInput() {
         picker_input.opening_key_down_ =
             action_manager_.IsShortcutKeyDown("node.add_menu");
         picker_captured = node_picker_.Update(picker_input);
+    }
+    // Escape or a click outside closed the connection picker: the dropped
+    // link is cancelled. A pick has already used it.
+    if (link_drop_ && !node_picker_.IsOpen()) {
+        link_drop_.reset();
     }
 
     // The top bar goes second.
@@ -460,6 +465,7 @@ void Application::ProcessInput() {
     }
 
     HandleConnectionRequest();
+    HandleLinkDrop();
     notifications_.Prune(utils::GetTimeWrapped());
 
     if (kKeyboardCaptured || kTyping) {
@@ -610,29 +616,102 @@ void Application::HandleConnectionRequest() {
         return;
     }
 
-    const ui::ConnectionOutcome kOutcome = ui::RequestConnection(
+    ReportConnectionOutcome(ui::RequestConnection(
         graph_, kPending->first, kPending->second,
-        [this](core::DataType type) { return TypeName(type); });
+        [this](core::DataType type) { return TypeName(type); }));
+}
+
+void Application::ReportConnectionOutcome(
+    const ui::ConnectionOutcome &outcome) {
     // A replaced link no longer exists: it cannot stay selected.
     if (selected_connection_ &&
-        std::find(kOutcome.replaced_.begin(), kOutcome.replaced_.end(),
-                  *selected_connection_) != kOutcome.replaced_.end()) {
+        std::find(outcome.replaced_.begin(), outcome.replaced_.end(),
+                  *selected_connection_) != outcome.replaced_.end()) {
         selected_connection_.reset();
     }
-    if (kOutcome.Succeeded() || kOutcome.error_.empty()) {
+    if (outcome.Succeeded() || outcome.error_.empty()) {
         return;
     }
 
-    if (kOutcome.faulty_pin_) {
+    if (outcome.faulty_pin_) {
         const auto &views = renderer_.node_canvas_.Views();
-        if (const auto kView = views.find(kOutcome.faulty_pin_->node_id_);
+        if (const auto kView = views.find(outcome.faulty_pin_->node_id_);
             kView != views.end()) {
             kView->second->SetErrorPin(
-                kOutcome.faulty_pin_->pin_id_,
-                kOutcome.faulty_pin_->part_ == ui::HitPart::kInputPin);
+                outcome.faulty_pin_->pin_id_,
+                outcome.faulty_pin_->part_ == ui::HitPart::kInputPin);
         }
     }
-    ShowError(kOutcome.error_);
+    ShowError(outcome.error_);
+}
+
+void Application::HandleLinkDrop() {
+    const std::optional<ui::LinkDrop> kDrop =
+        renderer_.node_canvas_.PopPendingLinkDrop();
+    if (!kDrop) {
+        return;
+    }
+
+    std::vector<ui::NodePickerEntry> entries;
+    if (const auto kDragged =
+            ui::FindDraggedPin(graph_, node_catalog_, kDrop->pin_)) {
+        const core::ModuleId kModule = kDragged->module_id_;
+        entries = ui::LinkDropEntries(
+            node_catalog_, *kDragged,
+            [this](core::ModuleId id) { return ModuleName(id); },
+            [this, kModule](core::DataType type) {
+                return TypeName(kModule, type);
+            });
+    }
+
+    top_bar_.Close();
+    link_drop_ = kDrop;
+    // The picker opens where the link was released (the cursor, this frame).
+    node_picker_.OpenForConnection(
+        std::move(entries), camera_.WorldToScreen(kDrop->world_),
+        renderer_.ScreenSize().x_, renderer_.ScreenSize().y_,
+        [this, kDrop](const ui::NodePickerEntry &entry) {
+            link_drop_.reset();
+            CreateLinkedNode(entry, *kDrop);
+        });
+}
+
+void Application::CreateLinkedNode(const ui::NodePickerEntry &entry,
+                                   const ui::LinkDrop &drop) {
+    if (!entry.pin_ || !graph_.HasNode(drop.pin_.node_id_)) {
+        return;
+    }
+    const std::vector<core::NodeId> kPreviousSelection =
+        renderer_.node_canvas_.SelectedNodes();
+    const std::optional<core::NodeId> kNode =
+        CreateNode(entry.type_, drop.world_);
+    if (!kNode) {
+        return;
+    }
+
+    // Moved so that the linked pin sits on the drop point.
+    const auto &views = renderer_.node_canvas_.Views();
+    const core::Node *node = graph_.GetNode(*kNode);
+    const auto kView = views.find(*kNode);
+    if (node != nullptr && kView != views.end()) {
+        if (const auto kPin = ui::ResolvePickerPin(*node, *entry.pin_)) {
+            if (const auto kPinPosition = kView->second->GetPinPosition(
+                    kPin->pin_id_, entry.pin_->is_input_)) {
+                kView->second->MoveBy({drop.world_.x_ - kPinPosition->x_,
+                                       drop.world_.y_ - kPinPosition->y_});
+            }
+        }
+    }
+
+    const ui::ConnectionOutcome kOutcome =
+        ui::LinkNewNode(graph_, drop.pin_, *kNode, *entry.pin_,
+                        [this](core::DataType type) { return TypeName(type); });
+    if (!kOutcome.Succeeded()) {
+        // LinkNewNode removed the node: its view goes too.
+        renderer_.node_canvas_.RemoveMissingNodes(graph_);
+        renderer_.node_canvas_.SetSelection(kPreviousSelection);
+    }
+    ReportConnectionOutcome(kOutcome);
 }
 
 void Application::SelectConnectionAt(utils::WrappedVector2 world) {
@@ -767,6 +846,21 @@ std::string Application::TypeName(core::DataType type) const {
     return std::string(module_->Types()->TypeName(type));
 }
 
+std::string Application::TypeName(core::ModuleId module_id,
+                                  core::DataType type) {
+    core::IModule *module = loader_.Module(module_id);
+    if (module == nullptr || module->Types() == nullptr) {
+        return {};
+    }
+    return std::string(module->Types()->TypeName(type));
+}
+
+std::string Application::ModuleName(core::ModuleId module_id) const {
+    const core::IModule *module = loader_.Module(module_id);
+    return module != nullptr ? std::string(module->Name())
+                             : "Module " + std::to_string(module_id);
+}
+
 void Application::ShowError(std::string message) {
     notifications_.Push(std::move(message), utils::GetTimeWrapped());
 }
@@ -796,6 +890,18 @@ void Application::DrawLinks(const render::Camera &camera) {
     if (auto ghost_link = renderer_.node_canvas_.GetConnectionDragLine()) {
         utils::DrawLineBezierWrapped(ghost_link->first, ghost_link->second,
                                      3.0f, kConnectionGhost);
+    }
+    // The dropped link stays drawn while the picker offers the nodes.
+    if (link_drop_) {
+        if (const auto kView = views.find(link_drop_->pin_.node_id_);
+            kView != views.end()) {
+            if (const auto kStart = kView->second->GetPinPosition(
+                    link_drop_->pin_.pin_id_,
+                    link_drop_->pin_.part_ == ui::HitPart::kInputPin)) {
+                utils::DrawLineBezierWrapped(*kStart, link_drop_->world_, 3.0f,
+                                             kConnectionGhost);
+            }
+        }
     }
 }
 

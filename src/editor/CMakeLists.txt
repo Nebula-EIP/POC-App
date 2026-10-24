@@ -10,6 +10,7 @@ add_executable(Nebula
     ui/top_bar.cpp
     ui/context_menu.cpp
     ui/node_picker.cpp
+    ui/link_drop.cpp
     actions/action.cpp
     actions/action_manager.cpp
 )

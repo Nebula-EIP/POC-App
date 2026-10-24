@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 16-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #include "renderer.hpp"
@@ -125,6 +125,9 @@ void Renderer::ProcessInput(Camera &camera, bool pointer_captured) noexcept {
     camera.SetViewport(kScreen.x_, kScreen.y_);
 
     if (pointer_captured) {
+        // The canvas still sees the release, so that a drag released over
+        // the top bar or a popup ends there instead of later.
+        node_canvas_.ProcessInput(camera, true);
         return;
     }
 

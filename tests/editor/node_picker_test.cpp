@@ -1,7 +1,7 @@
 /**
  * @file node_picker_test.cpp
  * @brief Unit tests for the NodePicker class: tree of modules and categories,
- * flat search, keyboard and mouse picking, closing.
+ * flat search, keyboard and mouse picking, closing, connection mode.
  *
  * No window is opened: input is fed through NodePickerInput and text is
  * measured with a fixed width per character.
@@ -10,7 +10,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 12-10-2026
+ * @date Last modified on 24-10-2026
  */
 
 #include "ui/node_picker.hpp"
@@ -498,6 +498,162 @@ TEST(NodePickerCatalogTest, EntriesComeFromTheCatalog) {
         EXPECT_EQ(kNode->category_, entry.category_);
         EXPECT_EQ(kNode->module_id_, kId);
     }
+}
+
+// ---------------------------------------------------------------------------
+// Connection mode
+
+namespace {
+
+NodePickerEntry PinEntry(core::NodeType type, const std::string &node,
+                         const std::string &pin, std::size_t index,
+                         const std::string &category) {
+    NodePickerEntry entry;
+    entry.type_ = type;
+    entry.name_ = node + " > " + pin + " (int)";
+    entry.module_ = "C";
+    entry.category_ = category;
+    entry.pin_ = editor::ui::PickerPin{
+        .is_input_ = true, .index_ = index, .name_ = pin, .type_ = 1};
+    entry.search_names_ = {node, pin};
+    return entry;
+}
+
+std::vector<NodePickerEntry> ConnectionEntries() {
+    return {
+        PinEntry(3, "Operator", "left", 0, "Math"),
+        PinEntry(3, "Operator", "right", 1, "Math"),
+        PinEntry(4, "For", "init", 0, "Flow/Loops"),
+        PinEntry(4, "For", "step", 2, "Flow/Loops"),
+    };
+}
+
+}  // namespace
+
+class NodePickerConnectionTest : public NodePickerTest {
+   protected:
+    std::vector<NodePickerEntry> picked_entries_;
+
+    void OpenForConnection(std::vector<NodePickerEntry> entries) {
+        picker_.OpenForConnection(std::move(entries), kOpenAt, kScreenWidth,
+                                  kScreenHeight,
+                                  [this](const NodePickerEntry &entry) {
+                                      picked_entries_.push_back(entry);
+                                  });
+        picker_.Update(Idle());
+    }
+};
+
+TEST_F(NodePickerConnectionTest, ShowsTheGivenEntriesAsATree) {
+    OpenForConnection(ConnectionEntries());
+
+    EXPECT_TRUE(picker_.IsOpen());
+    EXPECT_TRUE(picker_.IsConnectionMode());
+    // Single module: open at once; empty folders never appear.
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"C", "Math", "Flow"}));
+
+    ClickRow("Math");
+    ClickRow("Flow");
+    ClickRow("Loops");
+    EXPECT_EQ(Labels(), (std::vector<std::string>{
+                            "C", "Math", "Operator > left (int)",
+                            "Operator > right (int)", "Flow", "Loops",
+                            "For > init (int)", "For > step (int)"}));
+}
+
+TEST_F(NodePickerConnectionTest, SearchMatchesNodeAndPinNames) {
+    OpenForConnection(ConnectionEntries());
+
+    picker_.Update(Type("RIGHT"));
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"Operator > right (int)"}));
+
+    picker_.Update(Key(&NodePickerInput::backspace_pressed_));
+    picker_.Update(Key(&NodePickerInput::backspace_pressed_));
+    picker_.Update(Key(&NodePickerInput::backspace_pressed_));
+    picker_.Update(Key(&NodePickerInput::backspace_pressed_));
+    picker_.Update(Key(&NodePickerInput::backspace_pressed_));
+    picker_.Update(Type("oper"));
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"Operator > left (int)",
+                                                  "Operator > right (int)"}));
+}
+
+TEST_F(NodePickerConnectionTest, SearchDoesNotMatchTheTypeInTheLabel) {
+    OpenForConnection(ConnectionEntries());
+
+    picker_.Update(Type("int"));
+    // Every label holds "(int)", but only node and pin names are searched.
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"Aucun node"}));
+}
+
+TEST_F(NodePickerConnectionTest, SearchPutsPrefixMatchesFirst) {
+    OpenForConnection(ConnectionEntries());
+
+    picker_.Update(Type("f"));
+    // "For" starts with it, "left" only contains it.
+    EXPECT_EQ(Labels(),
+              (std::vector<std::string>{"For > init (int)", "For > step (int)",
+                                        "Operator > left (int)"}));
+}
+
+TEST_F(NodePickerConnectionTest, PickGivesTheEntryWithItsPin) {
+    OpenForConnection(ConnectionEntries());
+    picker_.Update(Type("right"));
+    picker_.Update(Key(&NodePickerInput::enter_pressed_));
+
+    EXPECT_FALSE(picker_.IsOpen());
+    ASSERT_EQ(picked_entries_.size(), 1U);
+    EXPECT_EQ(picked_entries_.front().type_, 3U);
+    ASSERT_TRUE(picked_entries_.front().pin_.has_value());
+    EXPECT_EQ(picked_entries_.front().pin_->name_, "right");
+    EXPECT_EQ(picked_entries_.front().pin_->index_, 1U);
+    EXPECT_TRUE(picked_.empty());
+}
+
+TEST_F(NodePickerConnectionTest, NoCompatibleNodeShowsAucunNode) {
+    OpenForConnection({});
+
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"Aucun node"}));
+    EXPECT_EQ(picker_.Rows().front().kind_, RowKind::kEmpty);
+    picker_.Update(Key(&NodePickerInput::enter_pressed_));
+    picker_.Update(Click(Center(*picker_.RowRect(0))));
+    EXPECT_TRUE(picked_entries_.empty());
+}
+
+TEST_F(NodePickerConnectionTest, EscapeAndClickOutsideCancel) {
+    OpenForConnection(ConnectionEntries());
+    picker_.Update(Key(&NodePickerInput::escape_pressed_));
+    EXPECT_FALSE(picker_.IsOpen());
+
+    OpenForConnection(ConnectionEntries());
+    EXPECT_FALSE(picker_.Update(Click(kOutside)));
+    EXPECT_FALSE(picker_.IsOpen());
+    EXPECT_TRUE(picked_entries_.empty());
+}
+
+TEST_F(NodePickerConnectionTest, NormalOpenListsEveryNodeAgain) {
+    OpenForConnection(ConnectionEntries());
+    picker_.Update(Key(&NodePickerInput::escape_pressed_));
+
+    Open();
+    EXPECT_FALSE(picker_.IsConnectionMode());
+    EXPECT_EQ(picker_.Entries().size(), SampleEntries().size());
+    EXPECT_EQ(Labels(), (std::vector<std::string>{"C", "Graphics"}));
+
+    picker_.Update(Type("lit"));
+    picker_.Update(Key(&NodePickerInput::enter_pressed_));
+    EXPECT_EQ(picked_, (std::vector<core::NodeType>{5}));
+    EXPECT_TRUE(picked_entries_.empty());
+}
+
+TEST_F(NodePickerConnectionTest, SetEntriesDuringConnectionModeIsKeptForLater) {
+    OpenForConnection(ConnectionEntries());
+    picker_.SetEntries({{42, "Only", "M", ""}});
+    EXPECT_EQ(picker_.Entries().size(), ConnectionEntries().size());
+
+    picker_.Close();
+    Open();
+    ASSERT_EQ(picker_.Entries().size(), 1U);
+    EXPECT_EQ(picker_.Entries().front().type_, 42U);
 }
 
 }  // namespace
