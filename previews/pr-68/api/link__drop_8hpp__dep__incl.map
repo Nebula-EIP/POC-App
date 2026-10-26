@@ -1,0 +1,7 @@
+<map id="src/editor/ui/link_drop.hpp" name="src/editor/ui/link_drop.hpp">
+<area shape="rect" id="Node000001" title="A link dragged from a pin and released on empty canvas: the nodes that can be linked to the pin,..." alt="" coords="126,5,253,45"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,101,192,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,57,113,102,109,98,158,53"/>
+<area shape="rect" id="Node000003" href="$link__drop_8cpp.html" title="Implementation of the link drop helpers." alt="" coords="217,93,343,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="221,53,262,91,258,95,217,57"/>
+</map>
