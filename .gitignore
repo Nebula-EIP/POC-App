@@ -36,3 +36,6 @@ config.json
 
 # Documentation build artifacts
 docs/static/api/
+
+# Nebula files
+*.nebula
