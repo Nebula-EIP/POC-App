@@ -50,6 +50,20 @@ CPMAddPackage(
     OPTIONS "JSON_BuildTests OFF" "JSON_Install OFF"
 )
 
+# Add portable-file-dialogs for native open/save dialogs (header-only)
+CPMAddPackage(
+    NAME portable_file_dialogs
+    GITHUB_REPOSITORY samhocevar/portable-file-dialogs
+    GIT_TAG 0.1.0
+    DOWNLOAD_ONLY YES
+)
+
+if(portable_file_dialogs_ADDED)
+    add_library(portable_file_dialogs INTERFACE)
+    target_include_directories(portable_file_dialogs
+        SYSTEM INTERFACE ${portable_file_dialogs_SOURCE_DIR})
+endif()
+
 # Add raylib for rendering and window management
 CPMAddPackage(
     NAME raylib

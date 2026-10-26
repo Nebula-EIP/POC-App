@@ -12,6 +12,8 @@
 
 #include "application.hpp"
 
+#include <portable-file-dialogs.h>
+
 #include <algorithm>
 #include <cmath>
 #include <exception>
@@ -23,6 +25,7 @@
 #include <utility>
 #include <vector>
 
+#include "project/nebula_file.hpp"
 #include "ui/connection_request.hpp"
 #include "ui/link_drop.hpp"
 #include "ui/property_change.hpp"
@@ -89,6 +92,7 @@ int Application::Run() {
 
     LoadModules();
     BuildMenus();
+    saved_snapshot_ = Snapshot();
 
     while (!renderer_.ShouldClose() && !should_quit_) {
         ProcessInput();
@@ -203,11 +207,6 @@ void Application::BuildMenus() {
     // Register actions
     actions::ActionManager &am = action_manager_;
 
-    am.RegisterAction({"app.quit",
-                       "Quit",
-                       {utils::WrappedKey::kNone, false, false, false},
-                       [this] { should_quit_ = true; }});
-
     am.RegisterAction({"view.recenter",
                        "Recenter",
                        {utils::WrappedKey::kNone, false, false, false},
@@ -229,11 +228,38 @@ void Application::BuildMenus() {
                                camera_.ScreenToWorld(cursor_position_));
                        }});
 
+    am.RegisterAction({"file.new",
+                       "Nouveau",
+                       {utils::WrappedKey::kNone, true, false, false},
+                       [this] { NewProject(); }});
+    am.RegisterAction({"file.open",
+                       "Ouvrir...",
+                       {utils::WrappedKey::kNone, true, false, false},
+                       [this] { OpenProject(); }});
+    am.RegisterAction({"file.save",
+                       "Enregistrer",
+                       {utils::WrappedKey::kNone, true, false, false},
+                       [this] { SaveProject(false); }});
+    am.RegisterAction({"file.save_as",
+                       "Enregistrer sous...",
+                       {utils::WrappedKey::kNone, true, true, false},
+                       [this] { SaveProject(true); }});
+    // Quit also asks about unsaved changes.
+    am.RegisterAction({"app.quit",
+                       "Quit",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] {
+                           if (ConfirmDiscardChanges()) {
+                               should_quit_ = true;
+                           }
+                       }});
+
     // Build top bar
     top_bar_.AddMenu("File")
-        .AddAction("Nouveau")
-        .AddAction("Ouvrir...")
-        .AddAction("Enregistrer")
+        .AddAction("Nouveau", [this] { NewProject(); })
+        .AddAction("Ouvrir...", [this] { OpenProject(); })
+        .AddAction("Enregistrer", [this] { SaveProject(false); })
+        .AddAction("Enregistrer sous...", [this] { SaveProject(true); })
         .AddSeparator()
         .AddAction(am.GetAction("app.quit")->display_name_,
                    am.GetAction("app.quit")->callback_,
@@ -932,6 +958,241 @@ void Application::DrawFrame() {
                                                view.ContentBounds(),
                                                EditedNode() == view.NodeId());
                          }});
+}
+
+namespace {
+const std::vector<std::string> kNebulaFilter = {"Nebula project (*.nebula)",
+                                                "*.nebula"};
+
+// Waits for a pfd dialog without freezing the window: the frames keep being
+// drawn, so the window manager does not report "not responding".
+template <typename Dialog, typename Pump>
+auto WaitFor(Dialog &dialog, Pump pump) {
+    while (!dialog.ready(16)) {
+        pump();
+    }
+    return dialog.result();
+}
+}  // namespace
+
+project::NebulaDocument Application::BuildDocument() const {
+    project::NebulaDocument document;
+    document.metadata_ = project_metadata_;
+
+    const auto &views = renderer_.node_canvas_.Views();
+    for (const auto &[id, node] : graph_.GetAllNodes()) {
+        project::NebulaNode saved;
+        saved.id_ = id;
+        saved.type_ = node.Type();
+        if (const auto kDescriptor = node_catalog_.GetNode(node.Type())) {
+            saved.type_name_ = kDescriptor->name_;
+        }
+        for (const core::Pin &pin : node.InputPins()) {
+            saved.inputs_.push_back({pin.id_, pin.name_, pin.type_});
+        }
+        for (const core::Pin &pin : node.OutputPins()) {
+            saved.outputs_.push_back({pin.id_, pin.name_, pin.type_});
+        }
+        saved.properties_ = node.Properties();
+        if (const auto kView = views.find(id); kView != views.end()) {
+            saved.title_ = kView->second->Title();
+            saved.x_ = kView->second->Bounds().x_;
+            saved.y_ = kView->second->Bounds().y_;
+        }
+        document.nodes_.push_back(std::move(saved));
+    }
+    for (const auto &[id, connection] : graph_.GetAllConnections()) {
+        (void)id;
+        document.connections_.push_back(
+            {connection.from_node_, connection.out_pin_, connection.to_node_,
+             connection.in_pin_});
+    }
+    return document;
+}
+
+std::string Application::Snapshot() const {
+    project::NebulaDocument document = BuildDocument();
+    document.metadata_ = {};  // Timestamps must not make a project "dirty".
+    return project::ToJsonString(document);
+}
+
+bool Application::HasUnsavedChanges() const {
+    try {
+        return Snapshot() != saved_snapshot_;
+    } catch (const project::NebulaFileError &) {
+        return true;  // Unserializable content: treat as modified.
+    }
+}
+
+bool Application::ConfirmDiscardChanges() {
+    if (!HasUnsavedChanges()) {
+        return true;
+    }
+    pfd::message box("Nebula",
+                     "The project has unsaved changes. Save them first?",
+                     pfd::choice::yes_no_cancel, pfd::icon::question);
+    switch (WaitFor(box, [this] { DrawFrame(); })) {
+        case pfd::button::yes:
+            return SaveProject(false);
+        case pfd::button::no:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool Application::SaveProject(bool save_as) {
+    std::filesystem::path path = project_path_;
+    if (save_as || path.empty()) {
+        const std::string kStart =
+            project_path_.empty() ? std::filesystem::current_path().string()
+                                  : project_path_.parent_path().string();
+        top_bar_.Close();
+        pfd::save_file dialog("Save project", kStart, kNebulaFilter);
+        const std::string kChosen = WaitFor(dialog, [this] { DrawFrame(); });
+        if (kChosen.empty()) {
+            return false;
+        }
+        path = kChosen;
+        if (path.extension() != ".nebula") {
+            path += ".nebula";
+        }
+        project_metadata_.project_name_ = path.stem().string();
+    }
+
+    const std::string kNow = project::NowIso8601();
+    if (project_metadata_.created_at_.empty()) {
+        project_metadata_.created_at_ = kNow;
+    }
+    project_metadata_.modified_at_ = kNow;
+
+    try {
+        project::WriteNebulaFile(path, BuildDocument());
+    } catch (const std::exception &error) {
+        ShowError(std::string("Save failed: ") + error.what());
+        return false;
+    }
+    project_path_ = path;
+    saved_snapshot_ = Snapshot();
+    return true;
+}
+
+void Application::ClearGraph() {
+    std::vector<core::NodeId> ids;
+    for (const auto &[id, node] : graph_.GetAllNodes()) {
+        (void)node;
+        ids.push_back(id);
+    }
+    for (const core::NodeId kId : ids) {
+        graph_.RemoveNode(kId);
+    }
+    renderer_.node_canvas_.RemoveMissingNodes(graph_);
+    renderer_.node_canvas_.SetSelection({});
+    selected_connection_.reset();
+    link_drop_.reset();
+    node_fields_.CancelEdit();
+    pending_property_changes_.clear();
+    node_components_.clear();
+}
+
+void Application::NewProject() {
+    if (!ConfirmDiscardChanges()) {
+        return;
+    }
+    ClearGraph();
+    project_path_.clear();
+    project_metadata_ = {};
+    saved_snapshot_ = Snapshot();
+}
+
+void Application::OpenProject() {
+    if (!ConfirmDiscardChanges()) {
+        return;
+    }
+    const std::string kStart = project_path_.empty()
+                                   ? std::filesystem::current_path().string()
+                                   : project_path_.parent_path().string();
+    top_bar_.Close();
+    pfd::open_file dialog("Open project", kStart, kNebulaFilter);
+    const std::vector<std::string> kSelected =
+        WaitFor(dialog, [this] { DrawFrame(); });
+    if (kSelected.empty()) {
+        return;
+    }
+    const std::filesystem::path kPath = kSelected.front();
+
+    // 1. Read and validate everything BEFORE touching the current project.
+    project::NebulaDocument document;
+    try {
+        document = project::ReadNebulaFile(kPath);
+    } catch (const std::exception &error) {
+        ShowError(std::string("Open failed: ") + error.what());
+        return;
+    }
+    for (const project::NebulaNode &node : document.nodes_) {
+        const auto kDescriptor = node_catalog_.GetNode(node.type_);
+        if (!kDescriptor || (!node.type_name_.empty() &&
+                             kDescriptor->name_ != node.type_name_)) {
+            ShowError("Open failed: node " + std::to_string(node.id_) + " ('" +
+                      node.type_name_ +
+                      "') is not provided by the loaded modules.");
+            return;
+        }
+    }
+
+    // 2. Replace the current project.
+    ClearGraph();
+    std::unordered_map<core::NodeId, core::NodeId> node_map;
+    std::unordered_map<core::NodeId,
+                       std::unordered_map<core::PinId, core::PinId>>
+        input_map;
+    std::unordered_map<core::NodeId,
+                       std::unordered_map<core::PinId, core::PinId>>
+        output_map;
+
+    for (const project::NebulaNode &saved : document.nodes_) {
+        core::Node &node = graph_.CreateNode(saved.type_);
+        node_map[saved.id_] = node.Id();
+        for (const project::NebulaPin &pin : saved.inputs_) {
+            input_map[saved.id_][pin.id_] =
+                graph_.AddInputPin(node.Id(), pin.name_, pin.type_);
+        }
+        for (const project::NebulaPin &pin : saved.outputs_) {
+            output_map[saved.id_][pin.id_] =
+                graph_.AddOutputPin(node.Id(), pin.name_, pin.type_);
+        }
+        for (const auto &[property_id, property] : saved.properties_) {
+            node.SetProperty(property_id, property);
+        }
+        std::string title = saved.title_;
+        if (title.empty()) {
+            title = node_catalog_.GetNode(saved.type_)->name_;
+        }
+        renderer_.node_canvas_.AddNode(node, std::move(title),
+                                       {saved.x_, saved.y_});
+    }
+
+    std::size_t skipped = 0;
+    for (const project::NebulaConnection &c : document.connections_) {
+        try {
+            graph_.Connect(node_map.at(c.source_node_id_),
+                           output_map.at(c.source_node_id_).at(c.source_pin_),
+                           node_map.at(c.target_node_id_),
+                           input_map.at(c.target_node_id_).at(c.target_pin_));
+        } catch (const std::exception &) {
+            ++skipped;  // e.g. pin types no longer compatible.
+        }
+    }
+    if (skipped > 0) {
+        ShowError(std::to_string(skipped) +
+                  " connection(s) could not be restored.");
+    }
+
+    renderer_.node_canvas_.SetSelection({});
+    RecenterView();
+    project_path_ = kPath;
+    project_metadata_ = document.metadata_;
+    saved_snapshot_ = Snapshot();
 }
 
 }  // namespace editor
