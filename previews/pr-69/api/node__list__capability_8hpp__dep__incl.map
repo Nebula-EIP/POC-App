@@ -1,0 +1,46 @@
+<map id="src/core/modules/capabilities/node_list_capability.hpp" name="src/core/modules/capabilities/node_list_capability.hpp">
+<area shape="rect" id="Node000001" title="Defines the capability for a module to provide custom nodes." alt="" coords="451,5,663,45"/>
+<area shape="rect" id="Node000002" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="5,93,217,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="446,51,209,96,208,91,445,45"/>
+<area shape="rect" id="Node000003" href="$node__list__capability_8cpp.html" title="Implementation of the node list capability for modules." alt="" coords="241,93,453,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="499,53,394,96,392,91,497,48"/>
+<area shape="rect" id="Node000004" href="$module_8hpp.html" title="Module interface." alt="" coords="767,101,981,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="640,46,832,98,831,103,639,52"/>
+<area shape="rect" id="Node000010" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="735,453,922,478"/>
+<area shape="poly" id="edge23_Node000001_Node000010" title=" " alt="" coords="677,25,751,31,832,42,915,62,995,91,1043,110,1083,128,1099,140,1111,155,1119,175,1122,200,1122,291,1120,325,1113,352,1098,375,1073,399,1039,423,1001,440,961,452,923,460,922,455,960,447,999,435,1036,418,1070,395,1093,372,1108,350,1115,324,1117,291,1117,200,1114,176,1107,158,1095,144,1080,133,1041,115,993,96,914,67,831,47,750,36,676,30"/>
+<area shape="rect" id="Node000017" href="$property__change_8hpp.html" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="477,93,636,133"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="559,59,559,93,554,93,554,59"/>
+<area shape="rect" id="Node000005" href="$create__module_8hpp.html" title="External function to create a new module instance." alt="" coords="785,181,963,221"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="877,140,877,181,871,181,871,140"/>
+<area shape="rect" id="Node000006" href="$loader_8hpp.html" title="Module loader interface." alt="" coords="555,189,761,214"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="833,134,688,191,686,186,831,129"/>
+<area shape="rect" id="Node000009" href="$node__catalog_8cpp.html" title="Implementation of the node catalog." alt="" coords="867,357,1031,397"/>
+<area shape="poly" id="edge21_Node000004_Node000009" title=" " alt="" coords="920,129,952,150,966,164,978,180,987,203,991,228,988,278,975,323,961,358,956,356,970,321,982,277,986,228,982,205,973,183,962,167,949,154,917,134"/>
+<area shape="poly" id="edge22_Node000004_Node000010" title=" " alt="" coords="927,129,967,149,985,163,1001,180,1042,235,1057,262,1068,288,1074,314,1072,342,1063,370,1045,399,1021,424,990,442,957,454,923,462,922,457,955,449,988,437,1017,420,1041,396,1058,367,1067,341,1068,315,1063,289,1053,264,1038,238,997,183,982,167,964,154,925,133"/>
+<area shape="rect" id="Node000007" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="404,277,608,302"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="627,223,528,279,525,274,624,219"/>
+<area shape="rect" id="Node000008" href="$node__catalog_8hpp.html" title="Facade for accessing module nodes cleanly for the renderer." alt="" coords="632,269,796,309"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="675,224,704,267,699,270,671,227"/>
+<area shape="poly" id="edge19_Node000006_Node000010" title=" " alt="" coords="731,216,774,236,793,250,809,268,823,291,832,317,840,370,838,419,834,453,828,452,833,418,834,370,827,318,818,293,805,271,790,254,771,240,729,221"/>
+<area shape="rect" id="Node000015" href="$node__picker_8hpp.html" title="Declaration of the NodePicker class, the searchable tree of the nodes provided by the loaded modules,..." alt="" coords="541,357,676,397"/>
+<area shape="poly" id="edge20_Node000006_Node000015" title=" " alt="" coords="583,219,464,245,417,259,393,271,384,290,387,306,400,320,421,333,479,353,542,365,541,370,477,358,419,338,396,324,382,308,379,289,389,267,415,254,463,240,582,214"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="779,312,898,355,896,360,777,317"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="736,319,823,451,819,454,732,322"/>
+<area shape="rect" id="Node000013" href="$link__drop_8hpp.html" title="A link dragged from a pin and released on empty canvas: the nodes that can be linked to the pin,..." alt="" coords="579,445,705,485"/>
+<area shape="poly" id="edge12_Node000008_Node000013" title=" " alt="" coords="712,324,703,360,690,398,660,447,655,444,685,396,698,359,706,323"/>
+<area shape="poly" id="edge15_Node000008_Node000015" title=" " alt="" coords="682,320,634,359,630,355,679,316"/>
+<area shape="rect" id="Node000011" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="549,541,735,566"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="792,486,668,543,666,538,790,481"/>
+<area shape="rect" id="Node000012" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="759,541,906,566"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="833,492,835,540,829,540,827,492"/>
+<area shape="poly" id="edge13_Node000013_Node000011" title=" " alt="" coords="645,499,645,540,639,540,639,499"/>
+<area shape="rect" id="Node000014" href="$link__drop_8cpp.html" title="Implementation of the link drop helpers." alt="" coords="397,533,524,573"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="591,494,502,536,499,531,589,489"/>
+<area shape="poly" id="edge16_Node000015_Node000010" title=" " alt="" coords="671,400,800,450,798,455,669,405"/>
+<area shape="poly" id="edge17_Node000015_Node000013" title=" " alt="" coords="623,409,637,444,632,446,618,411"/>
+<area shape="rect" id="Node000016" href="$node__picker_8cpp.html" title="Implementation of the NodePicker class." alt="" coords="420,445,555,485"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="572,407,516,447,513,443,569,403"/>
+<area shape="poly" id="edge25_Node000017_Node000011" title=" " alt="" coords="468,140,404,161,378,172,361,183,339,207,326,230,320,255,318,288,318,379,320,399,325,416,343,441,372,461,409,483,441,498,488,513,589,538,588,543,486,518,439,503,406,488,369,465,340,445,320,418,315,400,313,379,313,288,314,254,321,228,335,204,358,179,376,167,402,156,467,134"/>
+<area shape="rect" id="Node000018" href="$property__change_8cpp.html" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="372,181,531,221"/>
+<area shape="poly" id="edge26_Node000017_Node000018" title=" " alt="" coords="525,144,476,183,473,179,521,140"/>
+</map>
