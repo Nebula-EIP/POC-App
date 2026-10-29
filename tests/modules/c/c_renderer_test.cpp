@@ -5,8 +5,8 @@
  * @author Created by Nolan Papa
  * @date Created on 20-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #include <gtest/gtest.h>
@@ -25,9 +25,13 @@ using c_module::renderer::ValidateString;
 using c_module::renderer::node_types::kBinaryExpression;
 using c_module::renderer::node_types::kConditional;
 using c_module::renderer::node_types::kDeclaration;
+using c_module::renderer::node_types::kFor;
 using c_module::renderer::node_types::kFunction;
+using c_module::renderer::node_types::kFunctionInput;
+using c_module::renderer::node_types::kFunctionOutput;
 using c_module::renderer::node_types::kLiteral;
 using c_module::renderer::node_types::kLoop;
+using c_module::renderer::node_types::kPrint;
 using c_module::renderer::properties::kCondition;
 using c_module::renderer::properties::kName;
 using c_module::renderer::properties::kOperator;
@@ -74,13 +78,17 @@ TEST(CRendererTest, RegistersEveryEditableNodeFamily) {
     RendererCapability renderer;
     c_module::renderer::RegisterProviders(renderer);
 
-    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 6U);
+    EXPECT_EQ(renderer.RegisteredNodeTypeCount(), 10U);
     EXPECT_TRUE(renderer.SupportsNodeType(kDeclaration));
     EXPECT_TRUE(renderer.SupportsNodeType(kLiteral));
     EXPECT_TRUE(renderer.SupportsNodeType(kBinaryExpression));
     EXPECT_TRUE(renderer.SupportsNodeType(kConditional));
     EXPECT_TRUE(renderer.SupportsNodeType(kLoop));
     EXPECT_TRUE(renderer.SupportsNodeType(kFunction));
+    EXPECT_TRUE(renderer.SupportsNodeType(kFunctionInput));
+    EXPECT_TRUE(renderer.SupportsNodeType(kFunctionOutput));
+    EXPECT_TRUE(renderer.SupportsNodeType(kPrint));
+    EXPECT_TRUE(renderer.SupportsNodeType(kFor));
 }
 
 TEST(CRendererTest, DeclarationEditsItsNameAndType) {
@@ -212,20 +220,21 @@ TEST(CRendererTest, OperatorOffersTheSupportedOperators) {
     Recorder recorder;
     c_module::renderer::RegisterProviders(renderer, recorder.Handler());
 
-    PropertyMap properties{{kOperator, Text("*")}};
+    PropertyMap properties{{kOperator, Text("*")}, {kType, Text("int")}};
     auto components =
         renderer.GetNodeComponents(5, kBinaryExpression, properties);
-    ASSERT_EQ(components.size(), 1U);
+    ASSERT_EQ(components.size(), 2U);
     auto &select = std::get<Select>(components[0]);
     EXPECT_EQ(select.options_,
-              (std::vector<std::string>{"+", "-", "*", "/", "%"}));
+              (std::vector<std::string>{"+", "-", "*", "/", "%", "==", "!=",
+                                        "<", "<=", ">", ">=", "&&", "||"}));
     EXPECT_EQ(select.selected_index_, 2U);
 
     select.on_change_(4);
     EXPECT_EQ(
         std::any_cast<std::string>(recorder.changes_.at(kOperator).value_),
         "%");
-    select.on_change_(9);  // out of range: ignored
+    select.on_change_(99);  // out of range: ignored
     EXPECT_EQ(recorder.calls_, 1);
 }
 

@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 21-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #include "c_node_list_capability.hpp"
@@ -78,21 +78,88 @@ core::capa::NodeConfiguration CNodeListCapability::ResolveNodeConfiguration(
     core::NodeType type, const core::PropertyMap &properties) const {
     core::capa::NodeConfiguration config = GetNodeConfiguration(type);
     const std::string kName = NodeName(type);
-    if (kName != "Variable" && kName != "Literal") {
-        return config;
-    }
-    std::string value_type = "int";
-    if (const auto kProperty = properties.find(properties::kType);
-        kProperty != properties.end()) {
-        if (const auto *text = std::any_cast<std::string>(&kProperty->second.value_)) {
-            if (GetTypeId(*text) != 0 && *text != "void") {
-                value_type = *text;
+
+    const auto kReadType = [this, &properties](std::string fallback) {
+        const auto kProperty = properties.find(properties::kType);
+        if (kProperty != properties.end()) {
+            const auto *kText =
+                std::any_cast<std::string>(&kProperty->second.value_);
+            if (kText != nullptr && GetTypeId(*kText) != 0 &&
+                *kText != "void") {
+                return *kText;
             }
         }
+        return fallback;
+    };
+
+    if (kName == "Variable") {
+        const core::DataType kDataType = GetTypeId(kReadType("int"));
+        for (auto &pin : config.input_pins_) {
+            pin.type_ = kDataType;
+        }
+        for (auto &pin : config.output_pins_) {
+            pin.type_ = kDataType;
+        }
+        return config;
     }
-    for (auto &pin : config.output_pins_) {
-        pin.type_ = GetTypeId(value_type);
+
+    if (kName == "Literal") {
+        const core::DataType kDataType = GetTypeId(kReadType("int"));
+        for (auto &pin : config.output_pins_) {
+            pin.type_ = kDataType;
+        }
+        return config;
     }
+
+    if (kName == "Operator") {
+        const core::DataType kOperandType = GetTypeId(kReadType("int"));
+        std::string op = "+";
+        const auto kOpProperty = properties.find(properties::kOperator);
+        if (kOpProperty != properties.end()) {
+            const auto *kOpText =
+                std::any_cast<std::string>(&kOpProperty->second.value_);
+            if (kOpText != nullptr) {
+                op = *kOpText;
+            }
+        }
+        const bool kIsLogical = (op == "&&" || op == "||");
+        const bool kIsComparison =
+            (op == "==" || op == "!=" || op == "<" || op == "<=" ||
+             op == ">" || op == ">=");
+        const core::DataType kInputType =
+            kIsLogical ? GetTypeId("bool") : kOperandType;
+        const core::DataType kOutputType =
+            (kIsLogical || kIsComparison) ? GetTypeId("bool") : kOperandType;
+        for (auto &pin : config.input_pins_) {
+            pin.type_ = kInputType;
+        }
+        for (auto &pin : config.output_pins_) {
+            pin.type_ = kOutputType;
+        }
+        return config;
+    }
+
+    if (kName == "FunctionInput") {
+        if (config.output_pins_.size() > 1) {
+            config.output_pins_[1].type_ = GetTypeId(kReadType("int"));
+        }
+        return config;
+    }
+
+    if (kName == "FunctionOutput") {
+        if (config.input_pins_.size() > 1) {
+            config.input_pins_[1].type_ = GetTypeId(kReadType("int"));
+        }
+        return config;
+    }
+
+    if (kName == "Print") {
+        if (config.input_pins_.size() > 1) {
+            config.input_pins_[1].type_ = GetTypeId(kReadType("string"));
+        }
+        return config;
+    }
+
     return config;
 }
 
@@ -119,6 +186,7 @@ core::capa::NodeConfiguration CNodeListCapability::GetNodeConfiguration(core::No
 
 core::capa::NodeConfiguration CNodeListCapability::GetVariableConfig() const {
     core::capa::NodeConfiguration config;
+    config.input_pins_.push_back({1, "in", GetTypeId("int")});
     config.output_pins_.push_back({1, "out", GetTypeId("int")});
     config.default_properties_[properties::kName] = {properties::kName, std::string("variable")};
     config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
@@ -139,22 +207,27 @@ core::capa::NodeConfiguration CNodeListCapability::GetOperatorConfig() const {
     config.input_pins_.push_back({2, "right", GetTypeId("int")});
     config.output_pins_.push_back({1, "result", GetTypeId("int")});
     config.default_properties_[properties::kOperator] = {properties::kOperator, std::string("+")};
+    config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
     return config;
 }
 
 core::capa::NodeConfiguration CNodeListCapability::GetConditionConfig() const {
     core::capa::NodeConfiguration config;
-    config.input_pins_.push_back({1, "cond", GetTypeId("bool")});
+    config.input_pins_.push_back({1, "in", GetTypeId("void")});
+    config.input_pins_.push_back({2, "cond", GetTypeId("bool")});
     config.output_pins_.push_back({1, "true", GetTypeId("void")});
     config.output_pins_.push_back({2, "false", GetTypeId("void")});
+    config.output_pins_.push_back({3, "out", GetTypeId("void")});
     config.default_properties_[properties::kCondition] = {properties::kCondition, false};
     return config;
 }
 
 core::capa::NodeConfiguration CNodeListCapability::GetLoopConfig() const {
     core::capa::NodeConfiguration config;
-    config.input_pins_.push_back({1, "cond", GetTypeId("bool")});
+    config.input_pins_.push_back({1, "in", GetTypeId("void")});
+    config.input_pins_.push_back({2, "cond", GetTypeId("bool")});
     config.output_pins_.push_back({1, "body", GetTypeId("void")});
+    config.output_pins_.push_back({2, "exit", GetTypeId("void")});
     return config;
 }
 
@@ -169,12 +242,17 @@ core::capa::NodeConfiguration CNodeListCapability::GetFunctionConfig() const {
 core::capa::NodeConfiguration CNodeListCapability::GetFunctionInputConfig() const {
     core::capa::NodeConfiguration config;
     config.output_pins_.push_back({1, "flow", GetTypeId("void")});
+    config.output_pins_.push_back({2, "out", GetTypeId("int")});
+    config.default_properties_[properties::kName] = {properties::kName, std::string("param")};
+    config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
     return config;
 }
 
 core::capa::NodeConfiguration CNodeListCapability::GetFunctionOutputConfig() const {
     core::capa::NodeConfiguration config;
     config.input_pins_.push_back({1, "flow", GetTypeId("void")});
+    config.input_pins_.push_back({2, "value", GetTypeId("int")});
+    config.default_properties_[properties::kType] = {properties::kType, std::string("int")};
     return config;
 }
 
@@ -182,15 +260,21 @@ core::capa::NodeConfiguration CNodeListCapability::GetPrintConfig() const {
     core::capa::NodeConfiguration config;
     config.input_pins_.push_back({1, "control", GetTypeId("void")});
     config.input_pins_.push_back({2, "value", GetTypeId("string")});
+    config.output_pins_.push_back({1, "out", GetTypeId("void")});
+    config.default_properties_[properties::kType] = {properties::kType, std::string("string")};
     return config;
 }
 
 core::capa::NodeConfiguration CNodeListCapability::GetForConfig() const {
     core::capa::NodeConfiguration config;
-    config.input_pins_.push_back({1, "init", GetTypeId("int")});
-    config.input_pins_.push_back({2, "cond", GetTypeId("bool")});
-    config.input_pins_.push_back({3, "step", GetTypeId("int")});
+    config.input_pins_.push_back({1, "in", GetTypeId("void")});
+    config.input_pins_.push_back({2, "init", GetTypeId("int")});
+    config.input_pins_.push_back({3, "cond", GetTypeId("bool")});
+    config.input_pins_.push_back({4, "step", GetTypeId("int")});
     config.output_pins_.push_back({1, "body", GetTypeId("void")});
+    config.output_pins_.push_back({2, "index", GetTypeId("int")});
+    config.output_pins_.push_back({3, "exit", GetTypeId("void")});
+    config.default_properties_[properties::kName] = {properties::kName, std::string("i")};
     return config;
 }
 
