@@ -5,8 +5,8 @@
  * @author Created by Nolan Papa
  * @date Created on 20-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #pragma once
@@ -28,6 +28,10 @@ inline constexpr core::NodeType kBinaryExpression = 3;
 inline constexpr core::NodeType kConditional = 4;
 inline constexpr core::NodeType kLoop = 5;
 inline constexpr core::NodeType kFunction = 6;
+inline constexpr core::NodeType kFunctionInput = 7;
+inline constexpr core::NodeType kFunctionOutput = 8;
+inline constexpr core::NodeType kPrint = 9;
+inline constexpr core::NodeType kFor = 10;
 }  // namespace node_types
 
 namespace properties {
@@ -55,8 +59,9 @@ inline constexpr std::string_view kDefaultValueType = "int";
  * @brief Operators offered by the binary expression node.
  *
  */
-inline constexpr std::array<std::string_view, 5> kOperators = {"+", "-", "*",
-                                                               "/", "%"};
+inline constexpr std::array<std::string_view, 13> kOperators = {
+    "+",  "-",  "*", "/",  "%",  "==", "!=",
+    "<",  "<=", ">", ">=", "&&", "||"};
 
 /**
  * @brief Receives the properties changed by a component, applied together.

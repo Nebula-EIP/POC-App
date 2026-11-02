@@ -11,6 +11,9 @@
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 24-10-2026
+ *
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #include "ui/link_drop.hpp"
@@ -149,8 +152,10 @@ TEST_F(LinkDropTest, FromAnOutputListsTheInputsOfTheSameType) {
 
     const auto kLabels = Labels(kEntries);
     EXPECT_EQ(kLabels, (std::vector<std::string>{
+                           Label("Variable", "in", "int"),
                            Label("Operator", "left", "int"),
                            Label("Operator", "right", "int"),
+                           Label("FunctionOutput", "value", "int"),
                            Label("For", "init", "int"),
                            Label("For", "step", "int"),
                        }));
@@ -170,6 +175,8 @@ TEST_F(LinkDropTest, FromAnInputListsTheOutputsOfTheSameType) {
                                     Label("Variable", "out", "int"),
                                     Label("Literal", "out", "int"),
                                     Label("Operator", "result", "int"),
+                                    Label("FunctionInput", "out", "int"),
+                                    Label("For", "index", "int"),
                                 }));
     for (const auto &entry : kEntries) {
         EXPECT_FALSE(entry.pin_->is_input_) << entry.name_;
@@ -180,7 +187,7 @@ TEST_F(LinkDropTest, OtherTypesAreNotListed) {
     const core::NodeId kCondition = Create("Condition");
     const auto kEntries = Entries(Pin(kCondition, "cond", true));
 
-    // Only bool outputs: there are none in the C module.
+    // Only bool outputs: there are none in the default C module catalog.
     EXPECT_TRUE(kEntries.empty()) << ::testing::PrintToString(Labels(kEntries));
 
     // A void output only reaches void inputs.
@@ -207,9 +214,9 @@ TEST_F(LinkDropTest, ANodeWithSeveralPinsIsListedOncePerPin) {
     EXPECT_EQ(left->search_names_,
               (std::vector<std::string>{"Operator", "left"}));
 
-    // For: init and step are the 1st and 3rd inputs (cond is a bool).
-    EXPECT_EQ(Find(kEntries, "For", "init")->pin_->index_, 0U);
-    EXPECT_EQ(Find(kEntries, "For", "step")->pin_->index_, 2U);
+    // For: init and step are the 2nd and 4th inputs (in is void, cond is bool).
+    EXPECT_EQ(Find(kEntries, "For", "init")->pin_->index_, 1U);
+    EXPECT_EQ(Find(kEntries, "For", "step")->pin_->index_, 3U);
 }
 
 TEST_F(LinkDropTest, OnlyTheNodesOfTheDraggedModuleAreListed) {
@@ -232,7 +239,7 @@ TEST_F(LinkDropTest, UnknownTypeNamesFallBackToTheTypeId) {
     ASSERT_FALSE(kEntries.empty());
     EXPECT_EQ(
         kEntries.front().name_,
-        Label("Operator", "left", "type " + std::to_string(kDragged->type_)));
+        Label("Variable", "in", "type " + std::to_string(kDragged->type_)));
 }
 
 TEST_F(LinkDropTest, NoDraggedPinWithoutNodeOrPin) {

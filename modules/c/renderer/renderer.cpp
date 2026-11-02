@@ -5,8 +5,8 @@
  * @author Created by Nolan Papa
  * @date Created on 20-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #include "renderer.hpp"
@@ -328,6 +328,10 @@ ComponentList BinaryExpression(core::NodeId node_id, core::NodeType,
         }
     };
     components.emplace_back(std::move(select));
+    components.emplace_back(
+        TypeSelect(properties, [node_id, update](const std::string &type) {
+            Set(node_id, c_properties::kType, type, update);
+        }));
     return components;
 }
 
@@ -362,6 +366,17 @@ ComponentList Function(core::NodeId node_id, core::NodeType,
     } else {
         components.emplace_back(NameField(node_id, *kName, update));
     }
+    return components;
+}
+
+ComponentList TypedValue(core::NodeId node_id, core::NodeType,
+                         const PropertyMap &properties,
+                         const PropertyUpdate &update) {
+    ComponentList components;
+    components.emplace_back(
+        TypeSelect(properties, [node_id, update](const std::string &type) {
+            Set(node_id, c_properties::kType, type, update);
+        }));
     return components;
 }
 
@@ -439,6 +454,10 @@ void RegisterProviders(core::capa::RendererCapability &renderer,
     kRegister(node_types::kConditional, Conditional);
     kRegister(node_types::kLoop, NoSettings);
     kRegister(node_types::kFunction, Function);
+    kRegister(node_types::kFunctionInput, Declaration);
+    kRegister(node_types::kFunctionOutput, TypedValue);
+    kRegister(node_types::kPrint, TypedValue);
+    kRegister(node_types::kFor, Function);
 }
 
 std::string ValueType(const core::PropertyMap &properties) {

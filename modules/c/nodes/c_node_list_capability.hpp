@@ -5,8 +5,8 @@
  * @author Created by mathys-f
  * @date Created on 21-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 29-10-2026
  */
 
 #pragma once
@@ -49,8 +49,8 @@ class CNodeListCapability : public core::capa::INodeListCapability {
     core::capa::NodeConfiguration GetNodeConfiguration(core::NodeType type) const override;
 
     /**
-     * @brief Configuration of a node instance: a Variable or a Literal outputs
-     * the type stored in its kType property ("int" when missing).
+     * @brief Configuration of a node instance: resolves pin data types based on
+     * stored properties (kType and kOperator) for typed and operator nodes.
      */
     core::capa::NodeConfiguration ResolveNodeConfiguration(
         core::NodeType type, const core::PropertyMap &properties) const override;
