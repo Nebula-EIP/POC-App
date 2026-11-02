@@ -13,6 +13,8 @@ add_executable(Nebula
     ui/link_drop.cpp
     actions/action.cpp
     actions/action_manager.cpp
+    project/nebula_file.cpp
+    project/file_dialogs.cpp
 )
 
 target_include_directories(Nebula PRIVATE
@@ -27,4 +29,6 @@ target_link_libraries(Nebula PRIVATE
     raylib
     project_warnings
     neb_render
+    nlohmann_json::nlohmann_json
+    portable_file_dialogs
 )

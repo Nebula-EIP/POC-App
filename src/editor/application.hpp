@@ -27,6 +27,7 @@
 #include "modules/loader.hpp"
 #include "modules/module.hpp"
 #include "node_catalog/node_catalog.hpp"
+#include "project/nebula_file.hpp"
 #include "render/camera.hpp"
 #include "render/renderer.hpp"
 #include "ui/component_adapter.hpp"
@@ -256,6 +257,43 @@ class Application {
      */
     utils::WrappedVector2 CanvasCenter() const;
 
+    /**
+     * @brief Create a new project, clearing the current graph
+     */
+    void NewProject();
+
+    /**
+     * @brief Open a saved project from a .nebula file,
+     *        clearing the current graph
+     */
+    void OpenProject();
+
+    /**
+     * @brief Save current project to a .nebula file,
+     *        optionally asking for a new file name if save_as is true
+     *
+     * @return true if the project was saved successfully,
+     *         false if the user cancelled the operation
+     */
+    bool SaveProject(bool save_as);
+
+    /**
+     * @brief Ask to save unsaved changes before discarding them
+     *
+     * @return true if the user confirmed to discard changes,
+     *         false if they cancelled
+     */
+    bool ConfirmDiscardChanges();
+
+    [[nodiscard]] bool HasUnsavedChanges() const;
+    [[nodiscard]] project::NebulaDocument BuildDocument() const;
+    [[nodiscard]] std::string Snapshot() const;
+
+    /**
+     * @brief Clear the graph
+     */
+    void ClearGraph();
+
     std::filesystem::path module_folder_;
     bool should_quit_ = false;
     utils::WrappedVector2 cursor_position_{0.0F, 0.0F};
@@ -288,6 +326,10 @@ class Application {
     /// link to it. Its ghost link is drawn until a pick or a cancel.
     std::optional<ui::LinkDrop> link_drop_;
     actions::ActionManager action_manager_;
+
+    std::filesystem::path project_path_;
+    project::NebulaMetadata project_metadata_;
+    std::string saved_snapshot_;
 };
 
 }  // namespace editor
