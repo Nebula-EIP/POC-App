@@ -14,6 +14,7 @@ add_executable(Nebula
     actions/action.cpp
     actions/action_manager.cpp
     project/nebula_file.cpp
+    project/file_dialogs.cpp
 )
 
 target_include_directories(Nebula PRIVATE

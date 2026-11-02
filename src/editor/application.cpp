@@ -12,8 +12,6 @@
 
 #include "application.hpp"
 
-#include <portable-file-dialogs.h>
-
 #include <algorithm>
 #include <cmath>
 #include <exception>
@@ -25,6 +23,7 @@
 #include <utility>
 #include <vector>
 
+#include "project/file_dialogs.hpp"
 #include "project/nebula_file.hpp"
 #include "ui/connection_request.hpp"
 #include "ui/link_drop.hpp"
@@ -960,21 +959,6 @@ void Application::DrawFrame() {
                          }});
 }
 
-namespace {
-const std::vector<std::string> kNebulaFilter = {"Nebula project (*.nebula)",
-                                                "*.nebula"};
-
-// Waits for a pfd dialog without freezing the window: the frames keep being
-// drawn, so the window manager does not report "not responding".
-template <typename Dialog, typename Pump>
-auto WaitFor(Dialog &dialog, Pump pump) {
-    while (!dialog.ready(16)) {
-        pump();
-    }
-    return dialog.result();
-}
-}  // namespace
-
 project::NebulaDocument Application::BuildDocument() const {
     project::NebulaDocument document;
     document.metadata_ = project_metadata_;
@@ -1028,13 +1012,11 @@ bool Application::ConfirmDiscardChanges() {
     if (!HasUnsavedChanges()) {
         return true;
     }
-    pfd::message box("Nebula",
-                     "The project has unsaved changes. Save them first?",
-                     pfd::choice::yes_no_cancel, pfd::icon::question);
-    switch (WaitFor(box, [this] { DrawFrame(); })) {
-        case pfd::button::yes:
+    top_bar_.Close();
+    switch (project::AskSaveChanges([this] { DrawFrame(); })) {
+        case project::SaveChoice::kYes:
             return SaveProject(false);
-        case pfd::button::no:
+        case project::SaveChoice::kNo:
             return true;
         default:
             return false;
@@ -1044,16 +1026,16 @@ bool Application::ConfirmDiscardChanges() {
 bool Application::SaveProject(bool save_as) {
     std::filesystem::path path = project_path_;
     if (save_as || path.empty()) {
-        const std::string kStart =
-            project_path_.empty() ? std::filesystem::current_path().string()
-                                  : project_path_.parent_path().string();
+        const std::filesystem::path kStart =
+            project_path_.empty() ? std::filesystem::current_path()
+                                  : project_path_.parent_path();
         top_bar_.Close();
-        pfd::save_file dialog("Save project", kStart, kNebulaFilter);
-        const std::string kChosen = WaitFor(dialog, [this] { DrawFrame(); });
-        if (kChosen.empty()) {
+        const auto kChosen =
+            project::PickSaveFile(kStart, [this] { DrawFrame(); });
+        if (!kChosen) {
             return false;
         }
-        path = kChosen;
+        path = *kChosen;
         if (path.extension() != ".nebula") {
             path += ".nebula";
         }
@@ -1109,17 +1091,16 @@ void Application::OpenProject() {
     if (!ConfirmDiscardChanges()) {
         return;
     }
-    const std::string kStart = project_path_.empty()
-                                   ? std::filesystem::current_path().string()
-                                   : project_path_.parent_path().string();
+    const std::filesystem::path kStart = project_path_.empty()
+                                             ? std::filesystem::current_path()
+                                             : project_path_.parent_path();
     top_bar_.Close();
-    pfd::open_file dialog("Open project", kStart, kNebulaFilter);
-    const std::vector<std::string> kSelected =
-        WaitFor(dialog, [this] { DrawFrame(); });
-    if (kSelected.empty()) {
+    const auto kSelected =
+        project::PickOpenFile(kStart, [this] { DrawFrame(); });
+    if (!kSelected) {
         return;
     }
-    const std::filesystem::path kPath = kSelected.front();
+    const std::filesystem::path kPath = *kSelected;
 
     // 1. Read and validate everything BEFORE touching the current project.
     project::NebulaDocument document;

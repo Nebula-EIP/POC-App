@@ -62,6 +62,10 @@ if(portable_file_dialogs_ADDED)
     add_library(portable_file_dialogs INTERFACE)
     target_include_directories(portable_file_dialogs
         SYSTEM INTERFACE ${portable_file_dialogs_SOURCE_DIR})
+    if(WIN32)
+        target_link_libraries(portable_file_dialogs
+            INTERFACE ole32 shell32 comdlg32 uuid)
+    endif()
 endif()
 
 # Add raylib for rendering and window management
