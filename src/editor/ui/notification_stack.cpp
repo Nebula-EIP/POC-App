@@ -14,6 +14,8 @@
 #include <utility>
 #include <vector>
 
+#include "utils/palette.hpp"
+
 namespace editor::ui {
 
 namespace {
@@ -28,9 +30,9 @@ constexpr float kSideMargin = 12.0F;
 // Space between two lines of a long warning.
 constexpr float kLineGap = 4.0F;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kBackground = {90, 30, 30, 235};
-constexpr utils::WrappedColor kBorder = {230, 80, 80, 255};
-constexpr utils::WrappedColor kText = {255, 255, 255, 255};
+constexpr utils::WrappedColor kBackground = palette::notification::kBackground;
+constexpr utils::WrappedColor kBorder = palette::notification::kBorder;
+constexpr utils::WrappedColor kText = palette::notification::kText;
 
 utils::WrappedColor Faded(utils::WrappedColor color, float opacity) {
     color.a_ = static_cast<unsigned char>(

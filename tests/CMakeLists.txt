@@ -24,6 +24,7 @@ if(TEST_SOURCES)
         editor/notification_stack_test.cpp
         editor/property_change_test.cpp
         editor/top_bar_test.cpp
+        utils/palette_test.cpp
         modules/c/c_module_tests.cpp
         modules/c/c_renderer_test.cpp
         modules/c/nodes/c_node_list_capability_test.cpp
