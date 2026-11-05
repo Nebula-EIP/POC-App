@@ -17,9 +17,11 @@
 namespace editor::ui {
 
 namespace {
-constexpr float kDropdownPadding = 4.0F;
+constexpr float kDropdownPadding = 6.0F;
 constexpr float kDropdownRadius = 6.0F;
-constexpr float kSpacing = 2.0F;
+// Gap between the shortcut of an item and its label.
+constexpr float kShortcutGap = 32.0F;
+constexpr float kSpacing = 1.0F;
 
 bool Contains(utils::WrappedRectangle rectangle, utils::WrappedVector2 point) {
     return point.x_ >= rectangle.x_ &&
@@ -105,8 +107,8 @@ utils::WrappedRectangle TopBar::DropdownRect() const {
         float item_width = measurer_(item.label_, style_.font_size_) +
                            2.0F * style_.item_padding_;
         if (!item.shortcut_text_.empty()) {
-            item_width +=
-                20.0F + measurer_(item.shortcut_text_, style_.font_size_);
+            item_width += kShortcutGap +
+                          measurer_(item.shortcut_text_, style_.font_size_);
         }
         width = std::max(width, item_width);
         height += ItemHeight(item);
@@ -316,7 +318,7 @@ void TopBar::Draw() const {
         }
         utils::WrappedColor text_color = style_.disabled_text_;
         if (kEnabled) {
-            text_color = kHovered ? style_.hover_text_ : style_.text_;
+            text_color = kHovered ? style_.hover_text_ : style_.item_text_;
         }
         utils::DrawTextExWrapped(item.label_.c_str(),
                                  kItem.x_ + style_.item_padding_,

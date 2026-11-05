@@ -26,8 +26,8 @@ It is implemented in `src/editor/ui/top_bar.hpp` and
   greyed out and does nothing.
 - The bar is 57 px high, `#22232C` with `#909195` text, and casts a black
   25 % shadow on the canvas (offset 4, blur 4). Menu titles are 32 px bold
-  (`src/utils/Fonts/Inter-Bold.ttf`, `utils::FontWeight::kBold`), menu items
-  16 px regular. Sizes and colors are in
+  (`src/utils/Fonts/Inter-Bold.ttf`, `utils::FontWeight::kBold`). The
+  drop-down menus use 20 px items, 36 px high, at least 240 px wide. Sizes and colors are in
   `TopBarStyle`; the colors come from the
   [color palette](./color-palette.md) (`palette::top_bar`).
 

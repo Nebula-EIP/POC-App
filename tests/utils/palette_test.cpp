@@ -56,33 +56,63 @@ TEST(Palette, ProjectColorsMatchTheDesign) {
     ExpectColor(palette::top_bar::kShadow, 0, 0, 0, 64);
 }
 
+TEST(Palette, ChasmColorsMatchTheDesign) {
+    ExpectColor(palette::chasm::kSilver, 0xAE, 0xAE, 0xB4, 255);
+    ExpectColor(palette::chasm::kSlate, 0x4E, 0x4F, 0x56, 255);
+    ExpectColor(palette::chasm::kCharcoal, 0x24, 0x25, 0x2C, 255);
+    ExpectColor(palette::chasm::kAbyss, 0x16, 0x17, 0x1D, 255);
+    ExpectColor(palette::chasm::kGreen, 0x6E, 0xA1, 0x7D, 255);
+    ExpectColor(palette::chasm::kRed, 0xA8, 0x47, 0x4A, 255);
+    ExpectColor(palette::chasm::kViolet, 0x7E, 0x7F, 0xCD, 255);
+    ExpectColor(palette::chasm::kOrange, 0xD1, 0x9D, 0x82, 255);
+    ExpectColor(palette::chasm::kBlue, 0x76, 0xA1, 0xE1, 255);
+}
+
+namespace {
+
+bool SameColor(utils::WrappedColor left, utils::WrappedColor right) {
+    return left.r_ == right.r_ && left.g_ == right.g_ && left.b_ == right.b_ &&
+           left.a_ == right.a_;
+}
+
+}  // namespace
+
 TEST(Palette, TypeColorLooksTypesUpByName) {
-    const utils::WrappedColor kInt = palette::TypeColor("int");
-    EXPECT_EQ(kInt.r_, palette::type::kInt.r_);
-    EXPECT_EQ(kInt.g_, palette::type::kInt.g_);
-    EXPECT_EQ(kInt.b_, palette::type::kInt.b_);
-
-    const utils::WrappedColor kFlow =
-        palette::TypeColor(palette::type::kFlowTypeName);
-    EXPECT_EQ(kFlow.r_, palette::type::kFlow.r_);
-
-    const utils::WrappedColor kUnknown = palette::TypeColor("matrix");
-    EXPECT_EQ(kUnknown.r_, palette::type::kUnknown.r_);
-    EXPECT_EQ(kUnknown.g_, palette::type::kUnknown.g_);
-    EXPECT_EQ(kUnknown.b_, palette::type::kUnknown.b_);
+    EXPECT_TRUE(SameColor(palette::TypeColor("int"), palette::chasm::kBlue));
+    EXPECT_TRUE(
+        SameColor(palette::TypeColor("float"), palette::chasm::kViolet));
+    EXPECT_TRUE(
+        SameColor(palette::TypeColor("string"), palette::chasm::kGreen));
+    EXPECT_TRUE(SameColor(palette::TypeColor("bool"), palette::chasm::kRed));
+    EXPECT_TRUE(SameColor(palette::TypeColor(palette::type::kFlowTypeName),
+                          palette::type::kFlow));
 }
 
-TEST(Palette, CategoryAccentUsesTheRootFolder) {
-    EXPECT_EQ(palette::CategoryAccent("Flow").r_, palette::accent::kFlow.r_);
-    EXPECT_EQ(palette::CategoryAccent("Flow/Loops").r_,
-              palette::accent::kFlow.r_);
-    EXPECT_EQ(palette::CategoryAccent("Functions").r_,
-              palette::accent::kFunction.r_);
+TEST(Palette, OtherTypesAreGreyAndCustomTypesOrange) {
+    EXPECT_TRUE(SameColor(palette::TypeColor("char"), palette::chasm::kSlate));
+    EXPECT_TRUE(SameColor(palette::TypeColor("matrix"), palette::type::kOther));
+    EXPECT_TRUE(
+        SameColor(palette::TypeColor("Player", true), palette::chasm::kOrange));
 }
 
-TEST(Palette, CategoryWithoutAccentIsTransparent) {
-    EXPECT_EQ(palette::CategoryAccent("Data").a_, 0);
-    EXPECT_EQ(palette::CategoryAccent("").a_, 0);
+TEST(Palette, NodeAccentFollowsTheKindOfNode) {
+    // Entry points in red, branches and loops in white, variables in blue.
+    EXPECT_TRUE(SameColor(palette::NodeAccent("Function", "Functions"),
+                          palette::chasm::kRed));
+    EXPECT_TRUE(SameColor(palette::NodeAccent("FunctionOutput", "Functions"),
+                          palette::chasm::kRed));
+    EXPECT_TRUE(SameColor(palette::NodeAccent("Condition", "Flow"),
+                          palette::chasm::kSilver));
+    EXPECT_TRUE(SameColor(palette::NodeAccent("For", "Flow/Loops"),
+                          palette::chasm::kSilver));
+    EXPECT_TRUE(SameColor(palette::NodeAccent("Variable", "Data"),
+                          palette::chasm::kBlue));
+}
+
+TEST(Palette, NodesWithoutAccentAreTransparent) {
+    EXPECT_EQ(palette::NodeAccent("Literal", "Data").a_, 0);
+    EXPECT_EQ(palette::NodeAccent("Operator", "Math").a_, 0);
+    EXPECT_EQ(palette::NodeAccent("", "").a_, 0);
     // A folder only starting like a known one is not that one.
-    EXPECT_EQ(palette::CategoryAccent("Flowers").a_, 0);
+    EXPECT_EQ(palette::NodeAccent("Rose", "Flowers").a_, 0);
 }

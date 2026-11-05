@@ -52,8 +52,9 @@ struct HitResult {
 struct NodePaint {
     /// Name of a pin type ("int", "void"...): picks its color and shape.
     std::function<std::string(core::DataType)> type_name_;
-    /// Category of a node type ("Flow/Loops"): picks the header's accent.
-    std::function<std::string(core::NodeType)> category_;
+    /// Color of the line at the top of a node type (palette::NodeAccent()),
+    /// fully transparent for none.
+    std::function<utils::WrappedColor(core::NodeType)> accent_;
     /// Whether a pin has a link: filled when linked, hollow otherwise.
     std::function<bool(core::NodeId, core::PinId, bool is_input)> pin_linked_;
 };

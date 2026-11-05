@@ -112,15 +112,15 @@ struct TopBarInput {
 struct TopBarStyle {
     float height_ = 57.0F;
     float title_padding_ = 16.0F;
-    float item_height_ = 26.0F;
-    float separator_height_ = 9.0F;
-    float item_padding_ = 14.0F;
-    float min_dropdown_width_ = 180.0F;
+    float item_height_ = 36.0F;
+    float separator_height_ = 13.0F;
+    float item_padding_ = 18.0F;
+    float min_dropdown_width_ = 240.0F;
     /// Drop shadow under the bar (and the open menu): offset and blur.
     float shadow_offset_ = 4.0F;
     float shadow_blur_ = 4.0F;
     /// Menu items, in the drop-down menus.
-    int font_size_ = 16;
+    int font_size_ = 20;
     /// Menu titles, in the bar.
     int title_font_size_ = 32;
     float title_spacing_ = 1.0F;
@@ -130,6 +130,7 @@ struct TopBarStyle {
     utils::WrappedColor hover_ = palette::top_bar::kHover;
     utils::WrappedColor border_ = palette::top_bar::kBorder;
     utils::WrappedColor text_ = palette::top_bar::kText;
+    utils::WrappedColor item_text_ = palette::top_bar::kItemText;
     utils::WrappedColor hover_text_ = palette::top_bar::kTextHover;
     utils::WrappedColor disabled_text_ = palette::top_bar::kDisabledText;
     utils::WrappedColor shadow_ = palette::top_bar::kShadow;

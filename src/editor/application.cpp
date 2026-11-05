@@ -202,18 +202,19 @@ void Application::LoadModules() {
         node_catalog_, [this](core::ModuleId id) { return ModuleName(id); }));
 
     // The nodes take their colors from the palette: pins by type and by
-    // whether they are linked, the header accent by category.
-    std::unordered_map<core::NodeType, std::string> categories;
+    // whether they are linked, the line at the top by node and category.
+    std::unordered_map<core::NodeType, utils::WrappedColor> accents;
     for (const core::NodeDescriptor &descriptor : node_catalog_.GetNodes()) {
-        categories[descriptor.id_] = descriptor.category_;
+        accents[descriptor.id_] =
+            palette::NodeAccent(descriptor.name_, descriptor.category_);
     }
     renderer_.node_canvas_.SetPaint(ui::NodePaint{
         .type_name_ = [this](core::DataType type) { return TypeName(type); },
-        .category_ =
-            [categories = std::move(categories)](core::NodeType type) {
-                const auto kCategory = categories.find(type);
-                return kCategory != categories.end() ? kCategory->second
-                                                     : std::string{};
+        .accent_ =
+            [accents = std::move(accents)](core::NodeType type) {
+                const auto kAccent = accents.find(type);
+                return kAccent != accents.end() ? kAccent->second
+                                                : palette::accent::kNone;
             },
         .pin_linked_ =
             [this](core::NodeId node, core::PinId pin, bool is_input) {

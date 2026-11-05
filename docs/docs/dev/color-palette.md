@@ -22,16 +22,17 @@ utils::DrawRectangleRecWrapped(bar, palette::top_bar::kBackground);
 
 | Section                 | Used by                                         |
 | ----------------------- | ----------------------------------------------- |
+| `palette::chasm`        | The Chasm palette of the design (see below)     |
 | `palette::base`         | Colors shared by several sections               |
 | `palette::canvas`       | Canvas background, grid, rectangle selection    |
 | `palette::top_bar`      | Menu bar and its drop-down menus                |
-| `palette::popup`        | Node picker                                     |
+| `palette::popup`        | Node picker, drawn like a node card             |
 | `palette::node`         | Node cards: header, body, title, pin names      |
 | `palette::field`        | Values and settings drawn inside the nodes      |
 | `palette::link`         | Selected link, link being dragged               |
 | `palette::notification` | Warnings at the bottom of the window            |
 | `palette::type`         | Pins and links, by data type                    |
-| `palette::accent`       | Line above the node header, by node category    |
+| `palette::accent`       | Line at the top of the nodes, by kind of node   |
 
 ## Adding a color
 
@@ -51,29 +52,71 @@ A color can reuse another one (`kDropdown = top_bar::kBackground`) or another
 one with a different opacity (`WithOpacity(base::kAccent, 0.12F)`). Colors are
 `constexpr`: they cost nothing at run time.
 
-## Pin types and node categories
+## The Chasm palette
+
+The design's palette. The other sections reuse these colors by name
+(`kInt = chasm::kBlue`), so the pins, links and accents stay in the palette.
+
+| Name             | Value     | Name             | Value     |
+| ---------------- | --------- | ---------------- | --------- |
+| `chasm::kSilver`   | `#AEAEB4` | `chasm::kRed`    | `#A8474A` |
+| `chasm::kSlate`    | `#4E4F56` | `chasm::kViolet` | `#7E7FCD` |
+| `chasm::kCharcoal` | `#24252C` | `chasm::kOrange` | `#D19D82` |
+| `chasm::kAbyss`    | `#16171D` | `chasm::kBlue`   | `#76A1E1` |
+| `chasm::kGreen`    | `#6EA17D` |                  |           |
+
+## Pin types
 
 Pins and links take the color of their data type, looked up by the name the
-module gives the type. A node gets a line above its header in the color of its
-category (its root folder: `Flow/Loops` uses `Flow`). Both are tables: adding a
-type or a category is one line.
+module gives the type:
+
+| Type                    | Color  |
+| ----------------------- | ------ |
+| `int`                   | blue   |
+| `float`                 | violet |
+| `string`                | green  |
+| `bool`                  | red    |
+| custom (user defined)   | orange |
+| any other (`char`...)   | grey   |
+| `void` (execution flow) | silver, drawn as a triangle |
 
 ```cpp
 inline constexpr Entry kColors[] = {
     {kFlowTypeName, kFlow}, {"int", kInt}, {"float", kFloat},
-    {"bool", kBool}, {"char", kChar}, {"string", kString},
+    {"string", kString}, {"bool", kBool},
 };
 
-palette::TypeColor("int");             // type::kInt, type::kUnknown if absent
-palette::CategoryAccent("Flow/Loops"); // accent::kFlow, transparent if absent
+palette::TypeColor("int");           // type::kInt
+palette::TypeColor("char");          // type::kOther (grey)
+palette::TypeColor("Player", true);  // type::kCustom (orange)
 ```
 
-The pins of the execution flow type (`type::kFlowTypeName`, `"void"`) are drawn
-as triangles, the other pins as half discs. A pin without a link is hollow.
+No module declares custom types yet: `is_custom` is there for when one does.
+A pin without a link is hollow.
 
-The nodes get the type names, categories and links through
-`ui::NodePaint`, given once by the application with
-`NodeCanvas::SetPaint()`.
+## Node accents
+
+The line at the top of a node (and the marker before its name in the node
+picker) tells what kind of node it is:
+
+| Color | Nodes                                   | Rule                         |
+| ----- | --------------------------------------- | ---------------------------- |
+| Red   | Entry points: Function, its input/output | category `Functions`        |
+| White | Branches (Condition) and loops          | category `Flow`, `Flow/...`  |
+| Blue  | Nodes that set a variable               | node `Variable`              |
+| None  | Everything else                         |                              |
+
+A node is first looked up by name (`accent::kNodes`), then by the root folder
+of its category (`accent::kCategories`):
+
+```cpp
+palette::NodeAccent("Variable", "Data");   // accent::kVariable (blue)
+palette::NodeAccent("For", "Flow/Loops");  // accent::kBranch (white)
+palette::NodeAccent("Literal", "Data");    // accent::kNone (no line)
+```
+
+The nodes get the type names, accents and links through `ui::NodePaint`,
+given once by the application with `NodeCanvas::SetPaint()`.
 
 ## Design values
 

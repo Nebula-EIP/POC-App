@@ -255,11 +255,13 @@ TEST_F(TopBarTest, MenuStaysInsideANarrowWindow) {
     ClickTitle(1);
     TopBarInput input = Hover(kCanvasPoint);
     // Room for the menu, but not from where its title is.
-    input.screen_width_ = bar_.TitleRect(1).x_ + 150.0F;
+    const float kRoomFromTitle =
+        editor::ui::TopBarStyle{}.min_dropdown_width_ - 10.0F;
+    input.screen_width_ = bar_.TitleRect(1).x_ + kRoomFromTitle;
     bar_.Update(input);
 
     const WrappedRectangle kItem = bar_.ItemRect(0);
-    ASSERT_GT(kItem.width_, 150.0F);
+    ASSERT_GT(kItem.width_, kRoomFromTitle);
     ASSERT_LE(kItem.width_, input.screen_width_);
     EXPECT_LE(kItem.x_ + kItem.width_, input.screen_width_);
     EXPECT_GE(kItem.x_, 0.0F);

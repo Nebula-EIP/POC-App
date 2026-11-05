@@ -36,10 +36,9 @@ constexpr float kCornerRadius = 6.0F;
 constexpr utils::WrappedVector2 kShadowOffset = {0.0F, 2.0F};
 constexpr float kShadowBlur = 8.0F;
 constexpr float kSelectedOutline = 1.5F;
-// Accent line above the header: thickness, gap to the card, and margin on
-// each side as a share of the width.
+// Accent line at the top of the header, touching the top of the card:
+// thickness, and margin on each side as a share of the width.
 constexpr float kAccentThickness = 2.0F;
-constexpr float kAccentGap = 3.0F;
 constexpr float kAccentInset = 0.12F;
 
 // Pins: half discs (data) or triangles (execution flow) on the card's edge,
@@ -218,17 +217,14 @@ void NodeView::Draw(const render::Camera &camera,
             palette::node::kSelectedOutline);
     }
 
-    // Accent line above the header, in the color of the node's category.
+    // Accent line at the top of the card, in the color of the node's kind.
     const utils::WrappedColor kAccent =
-        paint.category_ ? palette::CategoryAccent(paint.category_(node_type_))
-                        : palette::accent::kNone;
+        paint.accent_ ? paint.accent_(node_type_) : palette::accent::kNone;
     if (kAccent.a_ > 0) {
         const float kInset = bounds_.width_ * kAccentInset;
         utils::DrawRectangleRoundedWrapped(
-            {bounds_.x_ + kInset,
-             bounds_.y_ - kAccentGap - (selected_ ? kSelectedOutline : 0.0F) -
-                 kAccentThickness,
-             bounds_.width_ - 2.0F * kInset, kAccentThickness},
+            {bounds_.x_ + kInset, bounds_.y_, bounds_.width_ - 2.0F * kInset,
+             kAccentThickness},
             kAccentThickness / 2.0F, kAccent);
     }
 
