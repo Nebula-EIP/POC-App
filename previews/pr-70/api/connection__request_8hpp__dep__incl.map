@@ -1,0 +1,17 @@
+<map id="src/editor/ui/connection_request.hpp" name="src/editor/ui/connection_request.hpp">
+<area shape="rect" id="Node000001" title="Turns a pin&#45;to&#45;pin drag on the canvas into a graph connection, or into an error message the user can ..." alt="" coords="214,5,389,45"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="176,189,363,214"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,58,267,94,263,120,263,146,269,188,264,189,258,146,257,119,261,93,278,56"/>
+<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="15,101,201,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,53,135,103,133,98,245,49"/>
+<area shape="rect" id="Node000005" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="277,93,451,133"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="325,55,352,92,348,95,321,58"/>
+<area shape="rect" id="Node000006" href="$link__drop_8hpp.html" title="A link dragged from a pin and released on empty canvas: the nodes that can be linked to the pin,..." alt="" coords="475,93,602,133"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="367,48,488,91,486,96,365,53"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="143,130,249,186,246,191,141,135"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="5,189,152,214"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="102,140,85,189,80,187,97,138"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="467,140,306,191,304,186,466,135"/>
+<area shape="rect" id="Node000007" href="$link__drop_8cpp.html" title="Implementation of the link drop helpers." alt="" coords="475,181,602,221"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="541,147,541,181,536,181,536,147"/>
+</map>
