@@ -7,11 +7,12 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <string>
 #include <vector>
@@ -39,6 +40,22 @@ struct HitResult {
     core::NodeId node_id_ = 0;
     core::PinId pin_id_ = 0;
     HitPart part_ = HitPart::kNone;
+};
+
+/**
+ * @brief What the nodes need from the rest of the editor to be drawn in the
+ * project's colors (see utils/palette.hpp).
+ *
+ * Every member is optional: without it, pins are drawn in a neutral color,
+ * filled, and the header has no accent.
+ */
+struct NodePaint {
+    /// Name of a pin type ("int", "void"...): picks its color and shape.
+    std::function<std::string(core::DataType)> type_name_;
+    /// Category of a node type ("Flow/Loops"): picks the header's accent.
+    std::function<std::string(core::NodeType)> category_;
+    /// Whether a pin has a link: filled when linked, hollow otherwise.
+    std::function<bool(core::NodeId, core::PinId, bool is_input)> pin_linked_;
 };
 
 /**
@@ -153,11 +170,12 @@ class NodeView final {
     [[nodiscard]] utils::WrappedRectangle ContentBounds() const noexcept;
 
     /**
-     * @brief Draws the node.
+     * @brief Draws the node: shadow, card, header accent, title and pins.
      *
      * @param camera The camera to use for drawing.
+     * @param paint Type names, categories and links, for the colors.
      */
-    void Draw(const render::Camera &camera) const;
+    void Draw(const render::Camera &camera, const NodePaint &paint = {}) const;
 
    private:
     /**
@@ -176,13 +194,14 @@ class NodeView final {
     };
 
     /**
-     * @brief Gets the color associated with a data type.
+     * @brief Draws one pin on the edge of the node, and its name.
      *
-     * @param type The data type.
-     *
-     * @return The color associated with the data type.
+     * @param port The pin.
+     * @param is_input Whether it is on the left (input) or right edge.
+     * @param paint Type names and links, for the color and shape.
      */
-    static utils::WrappedColor TypeColor(core::DataType type) noexcept;
+    void DrawPort(const PortView &port, bool is_input,
+                  const NodePaint &paint) const;
 
     /**
      * @brief Gets the width of a string when rendered.

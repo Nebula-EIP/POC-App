@@ -7,7 +7,7 @@
  * @date Created on 19-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "application.hpp"
@@ -20,6 +20,7 @@
 #include <source_location>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -27,6 +28,7 @@
 #include "ui/link_drop.hpp"
 #include "ui/property_change.hpp"
 #include "utils/logger.hpp"
+#include "utils/palette.hpp"
 
 namespace editor {
 
@@ -38,9 +40,10 @@ constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
-constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
-constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
+constexpr utils::WrappedColor kConnectionSelected = palette::link::kSelected;
+constexpr utils::WrappedColor kConnectionGhost = palette::link::kGhost;
+constexpr float kConnectionThickness = 2.0F;
+constexpr float kSelectedConnectionThickness = 3.0F;
 constexpr float kLinkPickTolerance = 8.0F;
 // World offset of a duplicated node from its original.
 constexpr float kDuplicateOffset = 30.0F;
@@ -110,7 +113,7 @@ void Application::DrawInitialFrame() {
                              utils::DrawTextExWrapped(
                                  "Loading module...", kLoadingTextPosition,
                                  kLoadingTextPosition, kLoadingTextSize,
-                                 kSpacing, utils::kDarkgray);
+                                 kSpacing, palette::canvas::kLoadingText);
                          },
                      .draw_node_content_ = {},
                  });
@@ -197,6 +200,26 @@ void Application::LoadModules() {
     node_catalog_.Update(loader_);
     node_picker_.SetEntries(ui::EntriesFromCatalog(
         node_catalog_, [this](core::ModuleId id) { return ModuleName(id); }));
+
+    // The nodes take their colors from the palette: pins by type and by
+    // whether they are linked, the header accent by category.
+    std::unordered_map<core::NodeType, std::string> categories;
+    for (const core::NodeDescriptor &descriptor : node_catalog_.GetNodes()) {
+        categories[descriptor.id_] = descriptor.category_;
+    }
+    renderer_.node_canvas_.SetPaint(ui::NodePaint{
+        .type_name_ = [this](core::DataType type) { return TypeName(type); },
+        .category_ =
+            [categories = std::move(categories)](core::NodeType type) {
+                const auto kCategory = categories.find(type);
+                return kCategory != categories.end() ? kCategory->second
+                                                     : std::string{};
+            },
+        .pin_linked_ =
+            [this](core::NodeId node, core::PinId pin, bool is_input) {
+                return !graph_.PinConnections(node, pin, is_input).empty();
+            },
+    });
 }
 
 void Application::BuildMenus() {
@@ -879,17 +902,24 @@ void Application::DrawLinks(const render::Camera &camera) {
                                  ->GetPinPosition(connection.in_pin_, true);
 
         if (kStartPos && kEndPos) {
+            // A link has the color of its type, white while selected.
             const bool kIsSelected =
                 selected_connection_ && *selected_connection_ == id;
             const auto kColor =
-                kIsSelected ? kConnectionSelected : kConnectionNormal;
-            utils::DrawLineBezierWrapped(*kStartPos, *kEndPos, 3.0f, kColor);
+                kIsSelected
+                    ? kConnectionSelected
+                    : palette::TypeColor(TypeName(connection.data_type_));
+            utils::DrawLineBezierWrapped(*kStartPos, *kEndPos,
+                                         kIsSelected
+                                             ? kSelectedConnectionThickness
+                                             : kConnectionThickness,
+                                         kColor);
         }
     }
 
     if (auto ghost_link = renderer_.node_canvas_.GetConnectionDragLine()) {
         utils::DrawLineBezierWrapped(ghost_link->first, ghost_link->second,
-                                     3.0f, kConnectionGhost);
+                                     kConnectionThickness, kConnectionGhost);
     }
     // The dropped link stays drawn while the picker offers the nodes.
     if (link_drop_) {
@@ -898,7 +928,8 @@ void Application::DrawLinks(const render::Camera &camera) {
             if (const auto kStart = kView->second->GetPinPosition(
                     link_drop_->pin_.pin_id_,
                     link_drop_->pin_.part_ == ui::HitPart::kInputPin)) {
-                utils::DrawLineBezierWrapped(*kStart, link_drop_->world_, 3.0f,
+                utils::DrawLineBezierWrapped(*kStart, link_drop_->world_,
+                                             kConnectionThickness,
                                              kConnectionGhost);
             }
         }

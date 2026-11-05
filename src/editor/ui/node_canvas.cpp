@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 #include "node_canvas.hpp"
 
@@ -16,10 +16,13 @@
 #include <optional>
 #include <vector>
 
+#include "utils/palette.hpp"
+
 namespace editor::ui {
 namespace {
-constexpr utils::WrappedColor kSelectionFill = {100, 160, 255, 40};
-constexpr utils::WrappedColor kSelectionBorder = {100, 160, 255, 200};
+constexpr utils::WrappedColor kSelectionFill = palette::canvas::kSelectionFill;
+constexpr utils::WrappedColor kSelectionBorder =
+    palette::canvas::kSelectionBorder;
 
 utils::WrappedRectangle MakeRectangle(utils::WrappedVector2 first,
                                       utils::WrappedVector2 second) {
@@ -242,7 +245,7 @@ void NodeCanvas::Draw(const render::Camera &camera,
                       const NodeContentDrawer &draw_content) const {
     for (const auto kId : draw_order_) {
         const NodeView &view = *views_.at(kId);
-        view.Draw(camera);
+        view.Draw(camera, paint_);
         if (draw_content) {
             draw_content(view);
         }

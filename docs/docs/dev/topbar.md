@@ -24,6 +24,12 @@ It is implemented in `src/editor/ui/top_bar.hpp` and
   `std::function<void()>`) provided by the application.
 - An item without a command is an action that is not implemented yet: it is
   greyed out and does nothing.
+- The bar is 57 px high, `#22232C` with `#909195` text, and casts a black
+  25 % shadow on the canvas (offset 4, blur 4). Menu titles are 32 px bold
+  (`src/utils/Fonts/Inter-Bold.ttf`, `utils::FontWeight::kBold`), menu items
+  16 px regular. Sizes and colors are in
+  `TopBarStyle`; the colors come from the
+  [color palette](./color-palette.md) (`palette::top_bar`).
 
 ## Current menus
 

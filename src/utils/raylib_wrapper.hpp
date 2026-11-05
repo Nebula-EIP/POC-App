@@ -172,8 +172,19 @@ bool IsRaylibReady();
 bool ShouldCloseRaylib();
 void SetFPS(int fps);
 void CloseRaylib();
+/// Weight of the text drawn with DrawTextExWrapped.
+enum class FontWeight { kRegular, kBold };
+
 void LoadDefaultFontWrapped(const char *path, int baseSize = 64);
+/**
+ * @brief Loads the font used for FontWeight::kBold text. Until then, bold
+ * text is drawn with the default font.
+ *
+ */
+void LoadBoldFontWrapped(const char *path, int baseSize = 64);
 Font GetDefaultFontWrapped();
+/// The font of a weight: the bold one when loaded, else the default one.
+Font GetFontWrapped(FontWeight weight);
 
 // Frame functions
 void BeginFrame();
@@ -205,8 +216,57 @@ void DrawRectangleWrapped(float x, float y, float width, float height,
 void DrawRectangleRecWrapped(WrappedRectangle rectangle, WrappedColor color);
 void DrawRectangleLinesWrapped(float x, float y, float width, float height,
                                WrappedColor color);
+/**
+ * @brief Draws a rectangle with rounded corners.
+ *
+ * @param radius Radius of the corners, in the same unit as the rectangle.
+ */
+void DrawRectangleRoundedWrapped(WrappedRectangle rectangle, float radius,
+                                 WrappedColor color);
+/**
+ * @brief Draws the outline of a rectangle with rounded corners, outside of
+ * the rectangle.
+ *
+ * @param radius Radius of the corners, in the same unit as the rectangle.
+ * @param thick Width of the outline.
+ */
+void DrawRectangleRoundedLinesWrapped(WrappedRectangle rectangle, float radius,
+                                      float thick, WrappedColor color);
+/**
+ * @brief Draws a soft drop shadow under a rectangle, like a design tool's
+ * "drop shadow" effect. Draw it before the rectangle.
+ *
+ * @param radius Radius of the rectangle's corners.
+ * @param offset Shift of the shadow from the rectangle.
+ * @param blur How far the shadow fades out around its edges.
+ * @param color Color and opacity of the shadow at its densest.
+ */
+void DrawShadowWrapped(WrappedRectangle rectangle, float radius,
+                       WrappedVector2 offset, float blur, WrappedColor color);
+/// Draws a rectangle fading vertically from the top color to the bottom one.
+void DrawRectangleGradientVWrapped(WrappedRectangle rectangle, WrappedColor top,
+                                   WrappedColor bottom);
 void DrawCircleWrapped(float centerX, float centerY, float radius,
                        WrappedColor color);
+/**
+ * @brief Draws a slice of a disc.
+ *
+ * Angles are in degrees: 0 points right, 90 down (screen coordinates).
+ */
+void DrawCircleSectorWrapped(WrappedVector2 center, float radius,
+                             float start_angle, float end_angle,
+                             WrappedColor color);
+/**
+ * @brief Draws a slice of a ring (a circle outline of a given width).
+ *
+ * Angles are in degrees: 0 points right, 90 down (screen coordinates).
+ */
+void DrawRingWrapped(WrappedVector2 center, float inner_radius,
+                     float outer_radius, float start_angle, float end_angle,
+                     WrappedColor color);
+/// Draws a filled triangle; the vertices can be given in any order.
+void DrawTriangleWrapped(WrappedVector2 v1, WrappedVector2 v2,
+                         WrappedVector2 v3, WrappedColor color);
 void DrawLineWrapped(WrappedVector2 start, WrappedVector2 end, float thick,
                      WrappedColor color);
 void DrawLineBezierWrapped(WrappedVector2 start, WrappedVector2 end,
@@ -214,8 +274,12 @@ void DrawLineBezierWrapped(WrappedVector2 start, WrappedVector2 end,
 void DrawTextWrapped(const char *text, float x, float y, int fontSize,
                      WrappedColor color);
 void DrawTextExWrapped(const char *text, float x, float y, int fontSize,
-                       float spacing, WrappedColor color);
+                       float spacing, WrappedColor color,
+                       FontWeight weight = FontWeight::kRegular);
 float MeasureTextWrapped(const char *text, int fontSize);
+/// Width of a text drawn with DrawTextExWrapped (needs an open window).
+float MeasureTextExWrapped(const char *text, int fontSize, float spacing,
+                           FontWeight weight = FontWeight::kRegular);
 
 // Input functions
 bool IsRightClicked();

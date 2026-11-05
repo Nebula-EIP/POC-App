@@ -9,7 +9,7 @@
  * @date Created on 29-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "ui/top_bar.hpp"
@@ -263,4 +263,31 @@ TEST_F(TopBarTest, MenuStaysInsideANarrowWindow) {
     ASSERT_LE(kItem.width_, input.screen_width_);
     EXPECT_LE(kItem.x_ + kItem.width_, input.screen_width_);
     EXPECT_GE(kItem.x_, 0.0F);
+}
+
+TEST_F(TopBarTest, DefaultStyleFollowsTheProjectPalette) {
+    const editor::ui::TopBarStyle kStyle;
+
+    EXPECT_FLOAT_EQ(bar_.Height(), 57.0F);
+    EXPECT_EQ(kStyle.bar_.r_, palette::top_bar::kBackground.r_);
+    EXPECT_EQ(kStyle.bar_.g_, palette::top_bar::kBackground.g_);
+    EXPECT_EQ(kStyle.bar_.b_, palette::top_bar::kBackground.b_);
+    EXPECT_EQ(kStyle.text_.r_, palette::top_bar::kText.r_);
+    EXPECT_EQ(kStyle.shadow_.a_, palette::top_bar::kShadow.a_);
+    EXPECT_EQ(kStyle.title_font_size_, 32);
+    EXPECT_EQ(kStyle.title_weight_, utils::FontWeight::kBold);
+}
+
+TEST(TopBarTitleTest, TitlesAreMeasuredAtTheTitleFontSize) {
+    editor::ui::TopBarStyle style;
+    style.title_font_size_ = 32;
+    style.font_size_ = 16;
+    style.title_padding_ = 10.0F;
+    // One pixel per character and per point of font size.
+    TopBar bar{style, [](const std::string &text, int font_size) {
+                   return static_cast<float>(text.size() * font_size);
+               }};
+    bar.AddMenu("File").AddAction("Quit", [] {});
+
+    EXPECT_FLOAT_EQ(bar.TitleRect(0).width_, 4.0F * 32.0F + 2.0F * 10.0F);
 }

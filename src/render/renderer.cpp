@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "renderer.hpp"
@@ -20,13 +20,14 @@
 #include <utility>
 
 #include "grid.hpp"
+#include "utils/palette.hpp"
 
 namespace render {
 
 namespace {
 
-constexpr utils::WrappedColor kGridColor = utils::kDarkgray;
-constexpr Color kBackgroundColor = Color{30, 30, 30, 255};
+constexpr utils::WrappedColor kGridColor = palette::canvas::kGrid;
+constexpr utils::WrappedColor kBackgroundColor = palette::canvas::kBackground;
 
 ::Camera2D BuildRaylibCamera2D(const Camera &camera) {
     const utils::WrappedVector2 kCenter = camera.ViewportCenter();
@@ -147,7 +148,8 @@ void Renderer::ProcessInput(Camera &camera, bool pointer_captured) noexcept {
 void Renderer::RenderFrame(const Camera &camera,
                            const FrameCallbacks &callbacks) {
     utils::BeginFrame();
-    ClearBackground(kBackgroundColor);
+    ClearBackground(Color{kBackgroundColor.r_, kBackgroundColor.g_,
+                          kBackgroundColor.b_, kBackgroundColor.a_});
 
     BeginMode2D(BuildRaylibCamera2D(camera));
     DrawGrid(camera);

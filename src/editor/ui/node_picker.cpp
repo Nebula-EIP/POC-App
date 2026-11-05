@@ -6,7 +6,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "node_picker.hpp"
@@ -26,10 +26,11 @@ constexpr float kSearchMargin = 6.0F;
 constexpr float kIndent = 14.0F;
 constexpr float kArrowWidth = 14.0F;
 constexpr float kScrollbarWidth = 4.0F;
-constexpr float kShadowOffset = 3.0F;
-constexpr utils::WrappedColor kShadow = {0, 0, 0, 70};
-constexpr utils::WrappedColor kSearchBackground = {24, 24, 28, 255};
-constexpr utils::WrappedColor kFolderText = {140, 160, 200, 255};
+constexpr float kRadius = 6.0F;
+constexpr utils::WrappedColor kShadow = palette::popup::kShadow;
+constexpr utils::WrappedColor kSearchBackground =
+    palette::popup::kSearchBackground;
+constexpr utils::WrappedColor kFolderText = palette::popup::kFolderText;
 constexpr const char *kPlaceholder = "Rechercher...";
 constexpr const char *kNoResult = "Aucun node";
 constexpr char kCategorySeparator = '/';
@@ -603,20 +604,18 @@ void NodePicker::Draw() const {
     const float kFont = static_cast<float>(style_.font_size_);
     const utils::WrappedRectangle kBounds = Bounds();
 
-    utils::DrawRectangleWrapped(kBounds.x_ + kShadowOffset,
-                                kBounds.y_ + kShadowOffset, kBounds.width_,
-                                kBounds.height_, kShadow);
-    utils::DrawRectangleWrapped(kBounds.x_, kBounds.y_, kBounds.width_,
-                                kBounds.height_, style_.dropdown_);
-    utils::DrawRectangleLinesWrapped(kBounds.x_, kBounds.y_, kBounds.width_,
-                                     kBounds.height_, style_.border_);
+    utils::DrawShadowWrapped(kBounds, kRadius, {0.0F, style_.shadow_offset_},
+                             style_.shadow_blur_, kShadow);
+    utils::DrawRectangleRoundedWrapped(kBounds, kRadius, style_.dropdown_);
+    utils::DrawRectangleRoundedLinesWrapped(kBounds, kRadius, 1.0F,
+                                            style_.border_);
 
     // Search field, with a caret after the text.
     const utils::WrappedRectangle kSearch = SearchRect();
-    utils::DrawRectangleWrapped(kSearch.x_, kSearch.y_, kSearch.width_,
-                                kSearch.height_, kSearchBackground);
-    utils::DrawRectangleLinesWrapped(kSearch.x_, kSearch.y_, kSearch.width_,
-                                     kSearch.height_, style_.border_);
+    utils::DrawRectangleRoundedWrapped(kSearch, kRadius / 2.0F,
+                                       kSearchBackground);
+    utils::DrawRectangleRoundedLinesWrapped(kSearch, kRadius / 2.0F, 1.0F,
+                                            style_.border_);
     const float kTextY = kSearch.y_ + (kSearch.height_ - kFont) / 2.0F;
     const float kTextX = kSearch.x_ + style_.item_padding_ / 2.0F;
     if (query_.empty()) {
@@ -624,12 +623,12 @@ void NodePicker::Draw() const {
                                style_.disabled_text_);
     } else {
         utils::DrawTextWrapped(query_.c_str(), kTextX, kTextY,
-                               style_.font_size_, style_.text_);
+                               style_.font_size_, style_.hover_text_);
     }
     const float kCaretX =
         kTextX + (query_.empty() ? 0.0F : measurer_(query_, style_.font_size_));
     utils::DrawRectangleWrapped(kCaretX + 1.0F, kTextY, 1.0F, kFont,
-                                style_.text_);
+                                style_.hover_text_);
 
     // Rows.
     for (std::size_t row = scroll_;
@@ -642,10 +641,13 @@ void NodePicker::Draw() const {
         const float kRowTextY = kRect->y_ + (kRect->height_ - kFont) / 2.0F;
         const float kLabelX = kRect->x_ + TextX(current.depth_);
 
-        if (selected_ == row && current.kind_ != RowKind::kEmpty) {
-            utils::DrawRectangleWrapped(kRect->x_ + 1.0F, kRect->y_,
-                                        kRect->width_ - 2.0F, kRect->height_,
-                                        style_.hover_);
+        const bool kSelected =
+            selected_ == row && current.kind_ != RowKind::kEmpty;
+        if (kSelected) {
+            utils::DrawRectangleRoundedWrapped(
+                {kRect->x_ + kPadding, kRect->y_,
+                 kRect->width_ - 2.0F * kPadding, kRect->height_},
+                kRadius / 2.0F, style_.hover_);
         }
         switch (current.kind_) {
             case RowKind::kFolder:
@@ -657,9 +659,10 @@ void NodePicker::Draw() const {
                                        kFolderText);
                 break;
             case RowKind::kEntry:
-                utils::DrawTextWrapped(current.label_.c_str(), kLabelX,
-                                       kRowTextY, style_.font_size_,
-                                       style_.text_);
+                utils::DrawTextWrapped(
+                    current.label_.c_str(), kLabelX, kRowTextY,
+                    style_.font_size_,
+                    kSelected ? style_.hover_text_ : style_.text_);
                 break;
             case RowKind::kEmpty:
                 utils::DrawTextWrapped(current.label_.c_str(), kLabelX,

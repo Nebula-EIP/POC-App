@@ -6,7 +6,7 @@
  * @date Created on 29-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "top_bar.hpp"
@@ -18,9 +18,8 @@ namespace editor::ui {
 
 namespace {
 constexpr float kDropdownPadding = 4.0F;
-constexpr float kShadowOffset = 3.0F;
+constexpr float kDropdownRadius = 6.0F;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kShadow = {0, 0, 0, 70};
 
 bool Contains(utils::WrappedRectangle rectangle, utils::WrappedVector2 point) {
     return point.x_ >= rectangle.x_ &&
@@ -52,11 +51,21 @@ Menu &Menu::AddSeparator() {
 
 TopBar::TopBar(TopBarStyle style, TextMeasurer measurer)
     : style_(style), measurer_(std::move(measurer)) {
-    if (!measurer_) {
-        measurer_ = [](const std::string &text, int font_size) {
-            return utils::MeasureTextWrapped(text.c_str(), font_size);
-        };
+    if (measurer_) {
+        title_measurer_ = measurer_;
+        return;
     }
+    // Same fonts and spacings as the drawing, so that the titles and the
+    // shortcuts line up with their text.
+    measurer_ = [](const std::string &text, int font_size) {
+        return utils::MeasureTextExWrapped(text.c_str(), font_size, kSpacing);
+    };
+    title_measurer_ = [spacing = style_.title_spacing_,
+                       weight = style_.title_weight_](const std::string &text,
+                                                      int font_size) {
+        return utils::MeasureTextExWrapped(text.c_str(), font_size, spacing,
+                                           weight);
+    };
 }
 
 Menu &TopBar::AddMenu(std::string title) {
@@ -66,7 +75,7 @@ Menu &TopBar::AddMenu(std::string title) {
 }
 
 float TopBar::TitleWidth(const Menu &menu) const {
-    return measurer_(menu.Title(), style_.font_size_) +
+    return title_measurer_(menu.Title(), style_.title_font_size_) +
            2.0F * style_.title_padding_;
 }
 
@@ -249,22 +258,27 @@ void TopBar::Draw() const {
     const float kWidth =
         screen_width_ > 0.0F ? screen_width_ : utils::GetScreenWidthWrapped();
     const float kFont = static_cast<float>(style_.font_size_);
+    const float kTitleFont = static_cast<float>(style_.title_font_size_);
+    const utils::WrappedVector2 kShadowOffset{0.0F, style_.shadow_offset_};
 
-    utils::DrawRectangleWrapped(0.0F, 0.0F, kWidth, style_.height_,
-                                style_.bar_);
-    utils::DrawRectangleWrapped(0.0F, style_.height_ - 1.0F, kWidth, 1.0F,
-                                style_.border_);
+    // The shadow first: the bar hides the part of it that is under the bar.
+    const utils::WrappedRectangle kBar{0.0F, 0.0F, kWidth, style_.height_};
+    utils::DrawShadowWrapped(kBar, 0.0F, kShadowOffset, style_.shadow_blur_,
+                             style_.shadow_);
+    utils::DrawRectangleRecWrapped(kBar, style_.bar_);
 
     for (std::size_t menu = 0; menu < menus_.size(); ++menu) {
         const utils::WrappedRectangle kRect = TitleRect(menu);
-        if (open_menu_ == menu || hovered_title_ == menu) {
-            utils::DrawRectangleWrapped(kRect.x_, kRect.y_, kRect.width_,
-                                        kRect.height_ - 1.0F, style_.hover_);
+        const bool kHighlighted = open_menu_ == menu || hovered_title_ == menu;
+        if (kHighlighted) {
+            utils::DrawRectangleRecWrapped(kRect, style_.hover_);
         }
-        utils::DrawTextExWrapped(menus_[menu].Title().c_str(),
-                                 kRect.x_ + style_.title_padding_,
-                                 (style_.height_ - kFont) / 2.0F,
-                                 style_.font_size_, kSpacing, style_.text_);
+        utils::DrawTextExWrapped(
+            menus_[menu].Title().c_str(), kRect.x_ + style_.title_padding_,
+            (style_.height_ - kTitleFont) / 2.0F, style_.title_font_size_,
+            style_.title_spacing_,
+            kHighlighted ? style_.hover_text_ : style_.text_,
+            style_.title_weight_);
     }
 
     if (!open_menu_.has_value() || *open_menu_ >= menus_.size()) {
@@ -272,14 +286,12 @@ void TopBar::Draw() const {
     }
 
     const utils::WrappedRectangle kDropdown = DropdownRect();
-    utils::DrawRectangleWrapped(kDropdown.x_ + kShadowOffset,
-                                kDropdown.y_ + kShadowOffset, kDropdown.width_,
-                                kDropdown.height_, kShadow);
-    utils::DrawRectangleWrapped(kDropdown.x_, kDropdown.y_, kDropdown.width_,
-                                kDropdown.height_, style_.dropdown_);
-    utils::DrawRectangleLinesWrapped(kDropdown.x_, kDropdown.y_,
-                                     kDropdown.width_, kDropdown.height_,
-                                     style_.border_);
+    utils::DrawShadowWrapped(kDropdown, kDropdownRadius, kShadowOffset,
+                             style_.shadow_blur_, style_.shadow_);
+    utils::DrawRectangleRoundedWrapped(kDropdown, kDropdownRadius,
+                                       style_.dropdown_);
+    utils::DrawRectangleRoundedLinesWrapped(kDropdown, kDropdownRadius, 1.0F,
+                                            style_.border_);
 
     const std::vector<MenuItem> &items = menus_[*open_menu_].Items();
     for (std::size_t index = 0; index < items.size(); ++index) {
@@ -295,15 +307,21 @@ void TopBar::Draw() const {
         }
 
         const bool kEnabled = item.IsEnabled();
-        if (kEnabled && hovered_item_ == index) {
-            utils::DrawRectangleWrapped(kItem.x_ + 1.0F, kItem.y_,
-                                        kItem.width_ - 2.0F, kItem.height_,
-                                        style_.hover_);
+        const bool kHovered = kEnabled && hovered_item_ == index;
+        if (kHovered) {
+            utils::DrawRectangleRoundedWrapped(
+                {kItem.x_ + kDropdownPadding, kItem.y_,
+                 kItem.width_ - 2.0F * kDropdownPadding, kItem.height_},
+                kDropdownRadius / 2.0F, style_.hover_);
         }
-        utils::DrawTextExWrapped(
-            item.label_.c_str(), kItem.x_ + style_.item_padding_,
-            kItem.y_ + (kItem.height_ - kFont) / 2.0F, style_.font_size_,
-            kSpacing, kEnabled ? style_.text_ : style_.disabled_text_);
+        utils::WrappedColor text_color = style_.disabled_text_;
+        if (kEnabled) {
+            text_color = kHovered ? style_.hover_text_ : style_.text_;
+        }
+        utils::DrawTextExWrapped(item.label_.c_str(),
+                                 kItem.x_ + style_.item_padding_,
+                                 kItem.y_ + (kItem.height_ - kFont) / 2.0F,
+                                 style_.font_size_, kSpacing, text_color);
 
         if (!item.shortcut_text_.empty()) {
             const float kTextWidth =
