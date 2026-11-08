@@ -52,7 +52,7 @@ var NAVTREEINDEX =
 [
 "action_8cpp.html",
 "classeditor_1_1ui_1_1NodeView.html#a92a3d6ee9d07cfd9896aa9a460d5b60f",
-"shared__library_8cpp.html"
+"raylib__wrapper_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

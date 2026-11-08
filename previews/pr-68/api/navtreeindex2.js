@@ -1,5 +1,15 @@
 var NAVTREEINDEX2 =
 {
+"raylib__wrapper_8hpp_source.html":[1,0,0,3,3],
+"renderer_8cpp.html":[1,0,0,2,4],
+"renderer_8hpp.html":[1,0,0,2,5],
+"renderer_8hpp_source.html":[1,0,0,2,5],
+"renderer__capability_8cpp.html":[1,0,0,0,2,0,5],
+"renderer__capability_8hpp.html":[1,0,0,0,2,0,6],
+"renderer__capability_8hpp.html#a01aaac99a851c69934a5bf199e0795a4":[1,0,0,0,2,0,6,12],
+"renderer__capability_8hpp.html#a02055e69cd0138411c3c7cefdff08aa9":[1,0,0,0,2,0,6,14],
+"renderer__capability_8hpp.html#aa3bf30afc64b048c312617d69f6f514d":[1,0,0,0,2,0,6,13],
+"renderer__capability_8hpp_source.html":[1,0,0,0,2,0,6],
 "shared__library_8cpp.html":[1,0,0,0,2,6],
 "shared__library_8hpp.html":[1,0,0,0,2,7],
 "shared__library_8hpp_source.html":[1,0,0,0,2,7],
