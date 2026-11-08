@@ -1,5 +1,0 @@
-<map id="editor::ui::ComponentInput" name="editor::ui::ComponentInput">
-<area shape="rect" id="Node000001" title="Input of one frame for the component fields." alt="" coords="5,93,201,119"/>
-<area shape="rect" id="Node000002" href="$structutils_1_1WrappedVector2.html" title=" " alt="" coords="21,5,186,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,45,106,93,101,93,101,45"/>
-</map>
