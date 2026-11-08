@@ -1,3 +1,11 @@
+/**
+ * @file nebula_file.cpp
+ * @brief Savefile and loadfile for Nebula editor.
+ *
+ * @author Created by Nathan Bezard
+ * @date Created on 01-11-2026
+ */
+
 #include "project/nebula_file.hpp"
 
 #include <algorithm>

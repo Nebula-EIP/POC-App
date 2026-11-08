@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @author Last modified by NathanBezard
+ * @date Last modified on 08-11-2026
  */
 
 #include "application.hpp"
@@ -228,20 +228,20 @@ void Application::BuildMenus() {
                        }});
 
     am.RegisterAction({"file.new",
-                       "Nouveau",
-                       {utils::WrappedKey::kNone, true, false, false},
+                       "New",
+                       {utils::WrappedKey::kN, true, false, false},
                        [this] { NewProject(); }});
     am.RegisterAction({"file.open",
-                       "Ouvrir...",
-                       {utils::WrappedKey::kNone, true, false, false},
+                       "Open...",
+                       {utils::WrappedKey::kO, true, false, false},
                        [this] { OpenProject(); }});
     am.RegisterAction({"file.save",
-                       "Enregistrer",
-                       {utils::WrappedKey::kNone, true, false, false},
+                       "Save",
+                       {utils::WrappedKey::kS, true, false, false},
                        [this] { SaveProject(false); }});
     am.RegisterAction({"file.save_as",
-                       "Enregistrer sous...",
-                       {utils::WrappedKey::kNone, true, true, false},
+                       "Save as...",
+                       {utils::WrappedKey::kS, true, true, false},
                        [this] { SaveProject(true); }});
     // Quit also asks about unsaved changes.
     am.RegisterAction({"app.quit",
@@ -255,10 +255,18 @@ void Application::BuildMenus() {
 
     // Build top bar
     top_bar_.AddMenu("File")
-        .AddAction("Nouveau", [this] { NewProject(); })
-        .AddAction("Ouvrir...", [this] { OpenProject(); })
-        .AddAction("Enregistrer", [this] { SaveProject(false); })
-        .AddAction("Enregistrer sous...", [this] { SaveProject(true); })
+        .AddAction(am.GetAction("file.new")->display_name_,
+                   am.GetAction("file.new")->callback_,
+                   am.GetAction("file.new")->shortcut_.ToString())
+        .AddAction(am.GetAction("file.open")->display_name_,
+                   am.GetAction("file.open")->callback_,
+                   am.GetAction("file.open")->shortcut_.ToString())
+        .AddAction(am.GetAction("file.save")->display_name_,
+                   am.GetAction("file.save")->callback_,
+                   am.GetAction("file.save")->shortcut_.ToString())
+        .AddAction(am.GetAction("file.save_as")->display_name_,
+                   am.GetAction("file.save_as")->callback_,
+                   am.GetAction("file.save_as")->shortcut_.ToString())
         .AddSeparator()
         .AddAction(am.GetAction("app.quit")->display_name_,
                    am.GetAction("app.quit")->callback_,
