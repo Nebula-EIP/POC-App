@@ -76,6 +76,14 @@ var annotated_dup =
         [ "ActionManager", "classeditor_1_1actions_1_1ActionManager.html", "classeditor_1_1actions_1_1ActionManager" ],
         [ "Shortcut", "structeditor_1_1actions_1_1Shortcut.html", null ]
       ] ],
+      [ "project", null, [
+        [ "NebulaConnection", "structeditor_1_1project_1_1NebulaConnection.html", null ],
+        [ "NebulaDocument", "structeditor_1_1project_1_1NebulaDocument.html", null ],
+        [ "NebulaFileError", "classeditor_1_1project_1_1NebulaFileError.html", null ],
+        [ "NebulaMetadata", "structeditor_1_1project_1_1NebulaMetadata.html", null ],
+        [ "NebulaNode", "structeditor_1_1project_1_1NebulaNode.html", "structeditor_1_1project_1_1NebulaNode" ],
+        [ "NebulaPin", "structeditor_1_1project_1_1NebulaPin.html", null ]
+      ] ],
       [ "ui", null, [
         [ "CanvasInput", "structeditor_1_1ui_1_1CanvasInput.html", "structeditor_1_1ui_1_1CanvasInput" ],
         [ "ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", "classeditor_1_1ui_1_1ComponentAdapter" ],

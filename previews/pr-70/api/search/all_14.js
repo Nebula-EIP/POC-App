@@ -7,5 +7,6 @@ var searchData=
   ['wrappedcolor_4',['WrappedColor',['../structutils_1_1WrappedColor.html',1,'utils']]],
   ['wrappedrectangle_5',['WrappedRectangle',['../structutils_1_1WrappedRectangle.html',1,'utils']]],
   ['wrappedvector2_6',['WrappedVector2',['../structutils_1_1WrappedVector2.html',1,'utils']]],
-  ['wraptext_7',['WrapText',['../classeditor_1_1ui_1_1NotificationStack.html#ac30939237f0dc1ae5590e6d7d0cb7506',1,'editor::ui::NotificationStack']]]
+  ['wraptext_7',['WrapText',['../classeditor_1_1ui_1_1NotificationStack.html#ac30939237f0dc1ae5590e6d7d0cb7506',1,'editor::ui::NotificationStack']]],
+  ['writenebulafile_8',['WriteNebulaFile',['../nebula__file_8cpp.html#a176b89b7c78b931e652f3c564c1f9d2f',1,'editor::project']]]
 ];

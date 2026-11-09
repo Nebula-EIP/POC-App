@@ -61,6 +61,11 @@ var hierarchy =
     [ "editor::ui::Menu", "classeditor_1_1ui_1_1Menu.html", null ],
     [ "editor::ui::MenuItem", "structeditor_1_1ui_1_1MenuItem.html", null ],
     [ "core::ModuleLoader", "classcore_1_1ModuleLoader.html", null ],
+    [ "editor::project::NebulaConnection", "structeditor_1_1project_1_1NebulaConnection.html", null ],
+    [ "editor::project::NebulaDocument", "structeditor_1_1project_1_1NebulaDocument.html", null ],
+    [ "editor::project::NebulaMetadata", "structeditor_1_1project_1_1NebulaMetadata.html", null ],
+    [ "editor::project::NebulaNode", "structeditor_1_1project_1_1NebulaNode.html", null ],
+    [ "editor::project::NebulaPin", "structeditor_1_1project_1_1NebulaPin.html", null ],
     [ "core::Node", "classcore_1_1Node.html", null ],
     [ "editor::ui::NodeCanvas", "classeditor_1_1ui_1_1NodeCanvas.html", null ],
     [ "core::NodeCatalog", "classcore_1_1NodeCatalog.html", null ],
@@ -116,7 +121,8 @@ var hierarchy =
           [ "core::NodeNotFoundException", "classcore_1_1NodeNotFoundException.html", null ],
           [ "core::NodeTypeException", "classcore_1_1NodeTypeException.html", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "editor::project::NebulaFileError", "classeditor_1_1project_1_1NebulaFileError.html", null ]
     ] ],
     [ "core::detail::SharedLibrary", "classcore_1_1detail_1_1SharedLibrary.html", null ],
     [ "editor::actions::Shortcut", "structeditor_1_1actions_1_1Shortcut.html", null ],

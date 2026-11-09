@@ -58,8 +58,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "action_8cpp.html",
-"classeditor_1_1ui_1_1NodeView.html#a8a77f6dc5417b263b26cbe22afdc2482",
-"palette_8hpp_source.html"
+"classeditor_1_1ui_1_1NodeView.html#a87319e1055b613f71be4a4389ad6ed95",
+"palette_8hpp.html#a18d101ff51199ca3683e34d5320970d3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
