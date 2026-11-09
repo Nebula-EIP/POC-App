@@ -132,7 +132,8 @@ void Renderer::ProcessInput(Camera &camera, bool pointer_captured) noexcept {
         return;
     }
 
-    if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
+    if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE) ||
+        (IsKeyDown(KEY_SPACE) && IsMouseButtonDown(MOUSE_BUTTON_LEFT))) {
         const Vector2 kDelta = GetMouseDelta();
         camera.Pan(utils::WrappedVector2{kDelta.x, kDelta.y});
     }
