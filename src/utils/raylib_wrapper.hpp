@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 
+#include <string>
 #include <utility>
 
 namespace utils {
@@ -155,6 +156,8 @@ enum class WrappedKey : int {
     kLeft = 263,
     kRight = 262,
     kDelete = 261,
+    kHome = 268,
+    kEnd = 269,
     kLeftControl = 341,
     kRightControl = 345,
     kC = 67,
@@ -180,6 +183,7 @@ Font GetDefaultFontWrapped();
 
 // Frame functions
 void BeginFrame();
+/// Ends the frame; also counts frames for IsLeftDoubleClicked.
 void EndFrame();
 void ClearScreen();
 
@@ -219,6 +223,8 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
 void DrawTextExWrapped(const char *text, float x, float y, int fontSize,
                        float spacing, WrappedColor color);
 float MeasureTextWrapped(const char *text, int fontSize);
+/// Width of a text drawn with DrawTextExWrapped (needs an open window).
+float MeasureTextExWrapped(const char *text, int fontSize, float spacing);
 
 // Input functions
 bool IsRightClicked();
@@ -227,9 +233,30 @@ bool IsRightDown();
 bool IsLeftDown();
 bool IsMiddleClicked();
 bool IsMiddleDown();
+/**
+ * @brief True when this frame's left press is the second click of a double
+ * click: close in time and position (screen pixels) to the previous press.
+ * A third click starts a new sequence. Same answer for every call of a frame.
+ *
+ */
+bool IsLeftDoubleClicked();
 bool IsKeyPressedWrapped(WrappedKey key);
 bool IsKeyDownWrapped(WrappedKey key);
 int GetCharPressedWrapped();
+/// True when the key was pressed this frame or repeats while held.
+bool IsKeyPressedOrRepeatWrapped(WrappedKey key);
+/// True while either Shift key is held.
+bool IsShiftDownWrapped();
+/// True while either Control key is held.
+bool IsControlDownWrapped();
+/// True while either Alt key is held (AltGr counts as Ctrl + Alt).
+bool IsAltDownWrapped();
+
+// Clipboard functions
+/// UTF-8 text of the system clipboard; empty when it holds no text.
+std::string GetClipboardTextWrapped();
+/// Puts a UTF-8 text in the system clipboard.
+void SetClipboardTextWrapped(const std::string &text);
 /// Mouse wheel movement this frame: positive when scrolled up.
 float GetMouseWheelMoveWrapped();
 

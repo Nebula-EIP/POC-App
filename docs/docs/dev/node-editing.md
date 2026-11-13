@@ -37,7 +37,7 @@ NotifyPropertyChange(id, changes)  -> pending_property_changes_
 
 | Component | Interaction |
 | --- | --- |
-| `TextField` | Click to edit, type, `Entrée` applies, `Échap` cancels |
+| `TextField` | Click to edit (caret where clicked), type, `Entrée` applies, `Échap` cancels |
 | `NumberField` | Same as a text field; accepts `,` as decimal separator |
 | `Checkbox` | Click toggles |
 | `Select` | Click opens the list, click an option |
@@ -50,8 +50,56 @@ NotifyPropertyChange(id, changes)  -> pending_property_changes_
 - `TextField::validate_` (optional, set by the module) returns the reason why a
   text is invalid. Number fields are checked by the adapter: number, integer,
   bounds.
-- While a field has the keyboard, editor shortcuts (`Suppr`, `Ctrl+C`, ...)
-  are ignored.
+- While a field has the keyboard, editor shortcuts (`Suppr`, `Ctrl+C`,
+  `Ctrl+V`, `Maj+A`, ...) are ignored, also on the frame where `Entrée` or
+  `Échap` ends the edit.
+
+## Text input
+
+The edited text or number field behaves like a standard single-line input.
+Everything lives in `ui::ComponentAdapter`; `ComponentInput::Read()` turns
+raylib's input into flags, so the behavior is unit tested without a window.
+
+| Input | Effect |
+| --- | --- |
+| Click | Places the caret on the closest character boundary |
+| Click and drag | Selects; past an edge, the text scrolls (one character per frame) |
+| Double click | Selects the whole text |
+| `Maj` + click | Extends the selection to the click |
+| `←` `→` / `Début` `Fin` | Move the caret; with a selection, `←`/`→` go to its start/end |
+| `Ctrl` + `←` `→` | Start of the previous word / end of the next word |
+| `Maj` + any move | Extends the selection |
+| Typing / `Ctrl+V` | Replaces the selection, else inserts at the caret |
+| `Retour arrière` / `Suppr` | Remove the selection, else the character before / after the caret (a word with `Ctrl`) |
+| `Ctrl+A` | Selects all |
+| `Ctrl+C` / `Ctrl+X` | Copy / cut the selection to the system clipboard (nothing when empty) |
+
+- Positions (`Caret()`, `Selection()`, `FirstVisibleCharacter()`) count UTF-8
+  characters, never bytes. Words are letters, digits, `_` and any non-ASCII
+  character.
+- Pasted text loses its line breaks and other control characters (a field
+  holds one line). The letter of a `Ctrl` shortcut is never typed.
+- raylib reports physical QWERTY keys: `Ctrl+Q` is also select all (AZERTY
+  `A`). `AltGr` (Ctrl + Alt) is not a shortcut, so `@`, `#`, `{`... type
+  normally.
+- Positions are computed in world space with the real font
+  (`ComponentAdapter::TextMeasurer`, default `MeasureTextExWrapped`), so the
+  caret matches the glyphs at any zoom; `Draw(..., pixel_size = 1 / zoom)`
+  keeps the caret at least 1.5 screen pixels wide. Tests inject a fixed-width
+  measurer and a fake `ComponentAdapter::Clipboard`.
+- A long text scrolls so the caret stays visible, and scrolls back when the
+  end of the text fits again. The caret blinks and shows again as soon as it
+  moves.
+- A press in a field followed by a drag selects text: `Update()` reports the
+  pointer as captured until release, so the canvas neither moves the node nor
+  starts a rectangle selection. This also holds when the press first selected
+  the node.
+- New raylib wrappers: `kHome`, `kEnd`, `IsKeyPressedOrRepeatWrapped`,
+  `IsShiftDownWrapped`, `IsControlDownWrapped`, `IsAltDownWrapped`,
+  `IsLeftDoubleClicked` (0.4 s, 4 screen pixels; one answer per frame),
+  `GetClipboardTextWrapped`, `SetClipboardTextWrapped`,
+  `MeasureTextExWrapped`.
+- Out of scope: undo inside a field, multi-line input.
 
 ## C module
 

@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 08-11-2026
+ * @author Last modified by ArthuryanLoheac
+ * @date Last modified on 13-11-2026
  */
 
 #include "application.hpp"
@@ -464,6 +464,9 @@ void Application::ProcessInput() {
         field_input.left_pressed_ = false;
     }
     const std::optional<core::NodeId> kEditedBefore = EditedNode();
+    // Keys used by a field this frame (even the Enter or Escape that ends
+    // the edit) must not reach the editor shortcuts.
+    const bool kWasTyping = node_fields_.IsEditingText();
     const bool kFieldsCaptured = UpdateNodeFields(field_input);
 
     // Typing a search must not trigger shortcuts.
@@ -477,11 +480,16 @@ void Application::ProcessInput() {
         ui::ComponentInput click_only;
         click_only.cursor_ = field_input.cursor_;
         click_only.left_pressed_ = true;
+        click_only.left_down_ = field_input.left_down_;
+        click_only.double_click_ = field_input.double_click_;
+        click_only.shift_ = field_input.shift_;
+        click_only.time_ = field_input.time_;
         UpdateNodeFields(click_only);
     }
 
-    // While typing in a field, keys belong to the field.
-    const bool kTyping = node_fields_.IsEditingText();
+    // While typing in a field, keys (Ctrl+C/V/A, Suppr...) belong to the
+    // field.
+    const bool kTyping = kWasTyping || node_fields_.IsEditingText();
     if (!kKeyboardCaptured && !kTyping) {
         action_manager_.ProcessShortcuts();
     }
@@ -963,7 +971,8 @@ void Application::DrawFrame() {
                              node_fields_.Draw(view.NodeId(),
                                                kComponents->second,
                                                view.ContentBounds(),
-                                               EditedNode() == view.NodeId());
+                                               EditedNode() == view.NodeId(),
+                                               1.0F / camera_.Zoom());
                          }});
 }
 
