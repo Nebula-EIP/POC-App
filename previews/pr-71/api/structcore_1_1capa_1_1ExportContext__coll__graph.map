@@ -1,0 +1,12 @@
+<map id="core::capa::ExportContext" name="core::capa::ExportContext">
+<area shape="rect" id="Node000001" title="Shared context available to all exporter capability methods." alt="" coords="267,168,457,193"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1capa_1_1ITypeListCapability.html" title="List of types the core needs to load and provide to the module owning this capabability." alt="" coords="5,80,225,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,107,330,165,328,170,161,113"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="174,5,302,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="208,40,136,82,134,77,205,35"/>
+<area shape="rect" id="Node000004" href="$classcore_1_1capa_1_1INodeListCapability.html" title="Interface for the capability providing custom nodes." alt="" coords="250,80,474,105"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="271,35,343,77,341,82,268,40"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="365,119,365,167,359,167,359,119"/>
+<area shape="rect" id="Node000005" href="$classcore_1_1Graph.html" title="Collection of linked nodes." alt="" coords="499,80,596,105"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="511,114,388,170,386,165,509,109"/>
+</map>

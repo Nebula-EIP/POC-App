@@ -1,0 +1,17 @@
+<map id="src/render/camera.cpp" name="src/render/camera.cpp">
+<area shape="rect" id="Node000001" title="Implementation of the Camera class, which handles 2D camera transformations." alt="" coords="163,5,329,31"/>
+<area shape="rect" id="Node000002" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="81,79,179,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,33,162,74,159,69,226,28"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="203,79,289,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="249,31,249,65,243,65,243,31"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="313,79,376,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="263,29,319,68,316,73,260,33"/>
+<area shape="rect" id="Node000003" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="41,152,219,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,104,133,138,127,138,127,104"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,225,76,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="117,179,68,219,64,214,114,175"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="101,225,159,251"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="133,178,133,212,127,212,127,178"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="184,225,244,251"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="145,175,191,214,188,218,142,179"/>
+</map>

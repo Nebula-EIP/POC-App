@@ -1,0 +1,29 @@
+<map id="src/editor/ui/notification_stack.cpp" name="src/editor/ui/notification_stack.cpp">
+<area shape="rect" id="Node000001" title="Implementation of the warning stack." alt="" coords="556,5,732,45"/>
+<area shape="rect" id="Node000002" href="$notification__stack_8hpp.html" title="Stack of warning messages shown at the bottom center of the window." alt="" coords="215,93,380,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="562,48,362,93,361,88,560,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,240,64,265"/>
+<area shape="poly" id="edge13_Node000001_Node000006" title=" " alt="" coords="556,36,391,56,296,73,203,96,152,108,111,116,75,133,59,148,42,168,36,182,32,196,32,226,27,226,27,196,31,180,38,165,55,144,72,129,109,111,151,102,202,91,295,68,390,50,555,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="569,167,631,192"/>
+<area shape="poly" id="edge15_Node000001_Node000007" title=" " alt="" coords="641,47,610,154,605,153,636,45"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="577,240,637,265"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="650,45,655,111,653,152,645,193,627,230,622,228,640,191,647,152,649,111,644,46"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="707,93,792,119"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="671,43,724,83,721,87,668,48"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="817,93,879,119"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="694,43,806,86,804,91,692,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="73,167,143,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,121,153,164,151,159,266,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="167,167,230,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="283,121,227,161,224,156,280,117"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="254,167,341,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="300,119,300,153,295,153,295,119"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="218,121,125,141,87,154,62,169,52,181,45,196,38,227,33,226,40,194,47,178,58,165,85,149,124,136,217,116"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="350,116,556,164,554,169,348,121"/>
+<area shape="rect" id="Node000008" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="365,167,544,192"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="324,116,418,159,416,163,322,121"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="388,195,78,247,77,241,387,189"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="419,240,490,265"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="457,192,457,226,452,226,452,192"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="480,190,571,232,569,237,478,194"/>
+</map>

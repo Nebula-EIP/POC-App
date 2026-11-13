@@ -1,0 +1,16 @@
+<map id="src/editor/actions/action.cpp" name="src/editor/actions/action.cpp">
+<area shape="rect" id="Node000001" title="Implementation of Action and Shortcut." alt="" coords="63,5,197,45"/>
+<area shape="rect" id="Node000002" href="$action_8hpp.html" title="Action and Shortcut structures." alt="" coords="85,93,175,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,46,133,79,127,79,127,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,92,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,121,74,160,70,156,115,117"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="119,240,178,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="134,119,148,226,143,227,129,119"/>
+<area shape="rect" id="Node000005" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="167,167,346,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="152,116,225,157,223,162,149,121"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="241,194,179,235,176,230,238,190"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="212,240,283,265"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="258,193,253,227,248,226,252,192"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="307,240,367,265"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="271,190,315,229,312,233,268,194"/>
+</map>

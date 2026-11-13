@@ -1,0 +1,5 @@
+<map id="editor::ui::DraggedPin" name="editor::ui::DraggedPin">
+<area shape="rect" id="Node000001" title="The pin a link was dragged from, with what the candidates must match." alt="" coords="5,93,168,119"/>
+<area shape="rect" id="Node000002" href="$structeditor_1_1ui_1_1HitResult.html" title="Represents the result of a hit test on a node." alt="" coords="13,5,161,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,45,89,93,84,93,84,45"/>
+</map>
