@@ -7,15 +7,17 @@
  * @date Created on 20-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @date Last modified on 13-11-2026
  */
 
 #pragma once
 
 #include <cstddef>
+#include <functional>
 #include <optional>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "core/graph/datatypes.hpp"
@@ -28,20 +30,37 @@ namespace editor::ui {
  * @brief Input of one frame for the component fields.
  *
  * The cursor is in the same space as the bounds given to the adapter (world
- * space when the fields are drawn inside the nodes).
+ * space when the fields are drawn inside the nodes). Keys are true on the
+ * frame they are pressed and while they repeat.
  */
 struct ComponentInput {
     utils::WrappedVector2 cursor_{0.0F, 0.0F};
     bool left_pressed_ = false;
     bool left_down_ = false;
+    /// left_pressed_ is the second click of a double click.
+    bool double_click_ = false;
     std::string typed_;  ///< UTF-8 text typed this frame
     bool backspace_ = false;
+    bool delete_ = false;
     bool enter_ = false;
     bool escape_ = false;
+    bool left_ = false;   ///< Left arrow
+    bool right_ = false;  ///< Right arrow
+    bool home_ = false;
+    bool end_ = false;
+    /// Shift held: caret moves and clicks extend the selection.
+    bool shift_ = false;
+    /// Ctrl held (not AltGr): arrows, Backspace and Delete work by word.
+    bool control_ = false;
+    bool select_all_ = false;  ///< Ctrl+A
+    bool copy_ = false;        ///< Ctrl+C
+    bool cut_ = false;         ///< Ctrl+X
+    bool paste_ = false;       ///< Ctrl+V
+    double time_ = 0.0;        ///< Seconds, makes the caret blink
 
     /**
      * @brief Reads this frame's mouse and keyboard; drains the typed
-     * characters.
+     * characters. Call it once per frame (double clicks are detected here).
      *
      */
     static ComponentInput Read(utils::WrappedVector2 cursor);
@@ -55,9 +74,42 @@ struct ComponentInput {
  * a value of its own, except the text being typed. Text and number fields are
  * applied on Enter or when clicking elsewhere, and only when valid; Escape
  * cancels. While a text is invalid its explanation is drawn under the field.
+ *
+ * The edited field works like a standard single-line text input: a caret and
+ * a selection placed with the mouse (click, drag, double click selects all)
+ * and the keyboard (arrows, Home, End, Ctrl for words, Shift to select,
+ * Ctrl+A/C/X/V). Caret and selection positions count UTF-8 characters, not
+ * bytes. Long texts scroll so that the caret stays visible.
  */
 class ComponentAdapter final {
    public:
+    /**
+     * @brief Measures the width of a text drawn in a field, in the units of
+     * the bounds given to the adapter.
+     *
+     */
+    using TextMeasurer = std::function<float(const std::string &)>;
+
+    /**
+     * @brief Access to the clipboard used by Ctrl+C, Ctrl+X and Ctrl+V.
+     *
+     */
+    struct Clipboard {
+        std::function<std::string()> read_;
+        std::function<void(const std::string &)> write_;
+    };
+
+    /**
+     * @brief Creates the adapter.
+     *
+     * @param measurer Measures field texts. Defaults to the editor font;
+     * without a window, to the estimate used for the layout.
+     * @param clipboard Defaults to the system clipboard; without a window,
+     * an empty one.
+     */
+    explicit ComponentAdapter(TextMeasurer measurer = {},
+                              Clipboard clipboard = {});
+
     /**
      * @brief Height of one component row.
      *
@@ -99,7 +151,8 @@ class ComponentAdapter final {
      * @param input This frame's input.
      *
      * @return true when the click was on one of the fields (or an open
-     * list), so nothing else should use it.
+     * list), or while the mouse selects text in a field: nothing else should
+     * use the pointer.
      */
     bool Update(core::NodeId node_id,
                 const core::capa::ComponentList &components,
@@ -109,9 +162,12 @@ class ComponentAdapter final {
      * @brief Draws the components.
      *
      * @param active true when the node can be edited (it is selected).
+     * @param pixel_size Size of one screen pixel in the units of the bounds
+     * (1 / zoom), so the caret stays visible at any zoom.
      */
     void Draw(core::NodeId node_id, const core::capa::ComponentList &components,
-              utils::WrappedRectangle bounds, bool active) const;
+              utils::WrappedRectangle bounds, bool active,
+              float pixel_size = 1.0F) const;
 
     /**
      * @brief True while a text or number field has the keyboard.
@@ -142,6 +198,35 @@ class ComponentAdapter final {
      *
      */
     [[nodiscard]] const std::string &EditError() const noexcept;
+
+    /**
+     * @brief Caret position in the edited text, in UTF-8 characters (0 when
+     * nothing is edited).
+     *
+     */
+    [[nodiscard]] std::size_t Caret() const noexcept;
+
+    /**
+     * @brief Selected characters of the edited text: [first, second), in
+     * UTF-8 characters. Empty (first == second == caret) when nothing is
+     * selected.
+     *
+     */
+    [[nodiscard]] std::pair<std::size_t, std::size_t> Selection()
+        const noexcept;
+
+    /**
+     * @brief Text of the selection (empty when nothing is selected).
+     *
+     */
+    [[nodiscard]] std::string SelectedText() const;
+
+    /**
+     * @brief First character drawn in the edited field: above 0 when a long
+     * text is scrolled to show the caret.
+     *
+     */
+    [[nodiscard]] std::size_t FirstVisibleCharacter() const noexcept;
 
     /**
      * @brief Drops the current edit and closes any list, without applying.
@@ -186,6 +271,11 @@ class ComponentAdapter final {
         core::capa::ComponentId component_id_ = 0;
         std::string text_;
         std::string error_;
+        std::size_t caret_ = 0;    ///< In UTF-8 characters
+        std::size_t anchor_ = 0;   ///< Other end of the selection
+        std::size_t scroll_ = 0;   ///< First character drawn
+        bool dragging_ = false;    ///< The mouse is selecting text
+        double caret_time_ = 0.0;  ///< Last caret move, restarts the blink
     };
 
     struct OpenList {
@@ -200,13 +290,51 @@ class ComponentAdapter final {
     bool HandleOpenList(const core::capa::ComponentList &components,
                         utils::WrappedRectangle bounds,
                         const ComponentInput &input);
+    bool HandleEditInput(const core::capa::ComponentList &components,
+                         utils::WrappedRectangle bounds, std::size_t index,
+                         const ComponentInput &input);
+    bool HandleClick(core::NodeId node_id,
+                     const core::capa::ComponentList &components,
+                     utils::WrappedRectangle bounds,
+                     const ComponentInput &input);
+    void ClickField(core::NodeId node_id,
+                    const core::capa::ComponentList &components,
+                    utils::WrappedRectangle bounds, std::size_t index,
+                    const ComponentInput &input);
+    bool EditText(const ComponentInput &input);
+    void Insert(const std::string &text);
+    void EraseRange(std::size_t first, std::size_t last);
+    bool EraseSelection();
+    void MoveCaret(std::size_t position, bool extend);
+    void KeepCaretVisible(const core::capa::ComponentList &components,
+                          utils::WrappedRectangle bounds);
+
+    /// Width of the characters [first, last) of a text.
+    float Span(const std::string &text, std::size_t first,
+               std::size_t last) const;
+    /// Distance from the start of character first to the caret before last.
+    float CaretOffset(const std::string &text, std::size_t first,
+                      std::size_t last) const;
+    /// Last character boundary drawn from first within a width.
+    std::size_t LastVisible(const std::string &text, std::size_t first,
+                            float width) const;
+    /// Character boundary under a point of a field being edited.
+    std::size_t IndexAt(utils::WrappedRectangle control,
+                        utils::WrappedVector2 point, bool dragging) const;
+    void DrawValue(utils::WrappedRectangle box, const std::string &text,
+                   utils::WrappedColor color) const;
+    void DrawEditedText(utils::WrappedRectangle control,
+                        float pixel_size) const;
     void DrawRow(const core::capa::ComponentList &components,
                  utils::WrappedRectangle bounds, std::size_t index,
-                 core::NodeId node_id, bool active) const;
+                 core::NodeId node_id, bool active, float pixel_size) const;
     void DrawOverlay(core::NodeId node_id,
                      const core::capa::ComponentList &components,
                      utils::WrappedRectangle bounds) const;
 
+    TextMeasurer measurer_;
+    Clipboard clipboard_;
+    double now_ = 0.0;  ///< Time of the last update, for the caret blink
     std::optional<Edit> edit_;
     std::optional<OpenList> open_list_;
     std::vector<std::string> messages_;

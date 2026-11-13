@@ -1,5 +1,8 @@
 #include "raylib_wrapper.hpp"
 
+#include <cmath>
+#include <cstdint>
+
 namespace utils {
 
 static_assert(static_cast<int>(WrappedKey::kEscape) == KEY_ESCAPE);
@@ -21,9 +24,25 @@ static_assert(static_cast<int>(WrappedKey::kW) == KEY_W);
 static_assert(static_cast<int>(WrappedKey::kZ) == KEY_Z);
 static_assert(static_cast<int>(WrappedKey::kLeftShift) == KEY_LEFT_SHIFT);
 static_assert(static_cast<int>(WrappedKey::kLeftAlt) == KEY_LEFT_ALT);
+static_assert(static_cast<int>(WrappedKey::kHome) == KEY_HOME);
+static_assert(static_cast<int>(WrappedKey::kEnd) == KEY_END);
+static_assert(static_cast<int>(WrappedKey::kLeft) == KEY_LEFT);
+static_assert(static_cast<int>(WrappedKey::kRight) == KEY_RIGHT);
 
 Font font = {};
 bool font_loaded = false;
+
+namespace {
+
+/// Longest delay between the two clicks of a double click, in seconds.
+constexpr double kDoubleClickDelay = 0.4;
+/// Farthest the second click can be from the first, in screen pixels.
+constexpr float kDoubleClickDistance = 4.0F;
+
+/// Frames ended so far: IsLeftDoubleClicked answers once per frame.
+std::uint64_t frame_count = 0;
+
+}  // namespace
 
 // Window functions
 
@@ -120,7 +139,10 @@ Font GetDefaultFontWrapped() { return font_loaded ? font : GetFontDefault(); }
 
 void BeginFrame() { BeginDrawing(); }
 
-void EndFrame() { EndDrawing(); }
+void EndFrame() {
+    EndDrawing();
+    ++frame_count;
+}
 
 void ClearScreen() { ClearBackground(RAYWHITE); }
 
@@ -213,6 +235,12 @@ float MeasureTextWrapped(const char *text, int fontSize) {
     return static_cast<float>(MeasureText(text, fontSize));
 }
 
+float MeasureTextExWrapped(const char *text, int fontSize, float spacing) {
+    return MeasureTextEx(GetDefaultFontWrapped(), text,
+                         static_cast<float>(fontSize), spacing)
+        .x;
+}
+
 // Input functions
 
 bool IsRightClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_RIGHT); }
@@ -227,6 +255,30 @@ bool IsMiddleClicked() { return IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE); }
 
 bool IsMiddleDown() { return IsMouseButtonDown(MOUSE_BUTTON_MIDDLE); }
 
+bool IsLeftDoubleClicked() {
+    static std::uint64_t answered_frame = ~std::uint64_t{0};
+    static bool answer = false;
+    static double last_time = -1.0;
+    static Vector2 last_position = {0.0F, 0.0F};
+    if (answered_frame == frame_count) {
+        return answer;
+    }
+    answered_frame = frame_count;
+    answer = false;
+    if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        return answer;
+    }
+    const double kNow = GetTime();
+    const Vector2 kPosition = GetMousePosition();
+    answer = last_time >= 0.0 && kNow - last_time <= kDoubleClickDelay &&
+             std::hypot(kPosition.x - last_position.x,
+                        kPosition.y - last_position.y) <= kDoubleClickDistance;
+    // After a double click, the next click starts a new sequence.
+    last_time = answer ? -1.0 : kNow;
+    last_position = kPosition;
+    return answer;
+}
+
 bool IsKeyPressedWrapped(WrappedKey key) {
     return IsKeyPressed(static_cast<int>(key));
 }
@@ -236,6 +288,34 @@ bool IsKeyDownWrapped(WrappedKey key) {
 }
 
 int GetCharPressedWrapped() { return GetCharPressed(); }
+
+bool IsKeyPressedOrRepeatWrapped(WrappedKey key) {
+    return IsKeyPressed(static_cast<int>(key)) ||
+           IsKeyPressedRepeat(static_cast<int>(key));
+}
+
+bool IsShiftDownWrapped() {
+    return IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT);
+}
+
+bool IsControlDownWrapped() {
+    return IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
+}
+
+bool IsAltDownWrapped() {
+    return IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT);
+}
+
+// Clipboard functions
+
+std::string GetClipboardTextWrapped() {
+    const char *text = GetClipboardText();
+    return text != nullptr ? std::string{text} : std::string{};
+}
+
+void SetClipboardTextWrapped(const std::string &text) {
+    SetClipboardText(text.c_str());
+}
 
 float GetMouseWheelMoveWrapped() { return GetMouseWheelMove(); }
 
