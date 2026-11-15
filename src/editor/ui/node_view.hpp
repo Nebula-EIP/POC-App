@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 15-11-2026
  */
 
 #pragma once
@@ -97,9 +97,36 @@ class NodeView final {
     void SetErrorPin(core::PinId pin, bool is_input) noexcept;
 
     /**
-     * @brief Clears the error state of pins.
+     * @brief Gets the ID of the currently highlighted error pin, or 0 if none.
      */
-    void ClearErrorPin() noexcept { error_pin_id_ = 0; }
+    [[nodiscard]] core::PinId ErrorPinId() const noexcept {
+        return error_pin_id_;
+    }
+
+    /**
+     * @brief Checks whether the currently highlighted error pin is an input.
+     */
+    [[nodiscard]] bool ErrorPinIsInput() const noexcept {
+        return error_pin_is_input_;
+    }
+
+    /**
+     * @brief Marks the node itself as having a validation error.
+     */
+    void SetHasError(bool has_error) noexcept { has_error_ = has_error; }
+
+    /**
+     * @brief Checks whether the node is currently marked with an error.
+     */
+    [[nodiscard]] bool HasError() const noexcept { return has_error_; }
+
+    /**
+     * @brief Clears the error state of pins and the node border.
+     */
+    void ClearErrorPin() noexcept {
+        error_pin_id_ = 0;
+        has_error_ = false;
+    }
 
     /**
      * @brief Moves the node by the specified delta.
@@ -209,6 +236,7 @@ class NodeView final {
     std::vector<PortView> outputs_;
     utils::WrappedVector2 content_size_{0.0F, 0.0F};
     bool selected_ = false;
+    bool has_error_ = false;
     core::PinId error_pin_id_ = 0;
     bool error_pin_is_input_ = false;
 };

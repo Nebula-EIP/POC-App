@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 11-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 15-11-2026
  */
 
 #include "node_view.hpp"
@@ -165,9 +165,10 @@ void NodeView::Draw(const render::Camera &camera) const {
                                 bounds_.height_, kBody);
     utils::DrawRectangleWrapped(bounds_.x_, bounds_.y_, bounds_.width_,
                                 kHeaderHeight, kColor);
+    const auto kBorderColor =
+        has_error_ ? utils::kRed : (selected_ ? kSelected : kBorder);
     utils::DrawRectangleLinesWrapped(bounds_.x_, bounds_.y_, bounds_.width_,
-                                     bounds_.height_,
-                                     selected_ ? kSelected : kBorder);
+                                     bounds_.height_, kBorderColor);
 
     utils::DrawTextExWrapped(title_.c_str(), bounds_.x_ + kHorizontalPadding,
                              bounds_.y_ + 6.0F, kFontSize, kSpacing, kText);

@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 15-11-2026
  */
 
 #pragma once
@@ -224,6 +224,15 @@ class Application {
      * @param message The error message to display.
      */
     void ShowError(std::string message);
+
+    /**
+     * @brief Validates the current graph for C++ export or compilation,
+     * highlighting affected nodes/pins and displaying error messages.
+     *
+     * @return true if the graph is valid and ready for export/compilation,
+     * false when blocking errors remain.
+     */
+    bool ValidateGraph();
 
     // Render
     /**

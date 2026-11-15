@@ -6,8 +6,8 @@
  * @author Created by NathanBezard
  * @date Created on 19-09-2026
  *
- * @author Last modified by NathanBezard
- * @date Last modified on 08-11-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 15-11-2026
  */
 
 #include "application.hpp"
@@ -26,6 +26,7 @@
 #include "project/file_dialogs.hpp"
 #include "project/nebula_file.hpp"
 #include "ui/connection_request.hpp"
+#include "ui/graph_validation.hpp"
 #include "ui/link_drop.hpp"
 #include "ui/property_change.hpp"
 #include "utils/logger.hpp"
@@ -227,6 +228,11 @@ void Application::BuildMenus() {
                                camera_.ScreenToWorld(cursor_position_));
                        }});
 
+    am.RegisterAction({"graph.validate",
+                       "Check Graph",
+                       {utils::WrappedKey::kNone, false, false, false},
+                       [this] { (void)ValidateGraph(); }});
+
     am.RegisterAction({"file.new",
                        "New",
                        {utils::WrappedKey::kN, true, false, false},
@@ -296,18 +302,24 @@ void Application::BuildMenus() {
     // Opened from the bar, the picker hangs under the menu title and the
     // nodes appear in the middle of the view: the cursor is on the bar.
     const std::size_t kNodeMenu = top_bar_.Menus().size();
-    top_bar_.AddMenu("Node").AddAction(
-        am.GetAction("node.add_menu")->display_name_,
-        [this, kNodeMenu] {
-            const utils::WrappedRectangle kTitle =
-                top_bar_.TitleRect(kNodeMenu);
-            const utils::WrappedVector2 kCenter =
-                camera_.ScreenToWorld(CanvasCenter());
-            OpenNodePicker({kTitle.x_, top_bar_.Height()},
-                           FreeSpawnPosition({kCenter.x_ - kNodeHalfWidth,
-                                              kCenter.y_ - kNodeHalfHeight}));
-        },
-        am.GetAction("node.add_menu")->shortcut_.ToString());
+    top_bar_.AddMenu("Node")
+        .AddAction(
+            am.GetAction("node.add_menu")->display_name_,
+            [this, kNodeMenu] {
+                const utils::WrappedRectangle kTitle =
+                    top_bar_.TitleRect(kNodeMenu);
+                const utils::WrappedVector2 kCenter =
+                    camera_.ScreenToWorld(CanvasCenter());
+                OpenNodePicker(
+                    {kTitle.x_, top_bar_.Height()},
+                    FreeSpawnPosition({kCenter.x_ - kNodeHalfWidth,
+                                       kCenter.y_ - kNodeHalfHeight}));
+            },
+            am.GetAction("node.add_menu")->shortcut_.ToString())
+        .AddSeparator()
+        .AddAction(am.GetAction("graph.validate")->display_name_,
+                   am.GetAction("graph.validate")->callback_,
+                   am.GetAction("graph.validate")->shortcut_.ToString());
 }
 
 void Application::RecenterView() {
@@ -896,6 +908,20 @@ std::string Application::ModuleName(core::ModuleId module_id) const {
 
 void Application::ShowError(std::string message) {
     notifications_.Push(std::move(message), utils::GetTimeWrapped());
+}
+
+bool Application::ValidateGraph() {
+    const auto kResult = ui::ValidateGraphForCodegen(
+        graph_, renderer_.node_canvas_, &node_catalog_,
+        module_ != nullptr ? module_->Nodes() : nullptr,
+        module_ != nullptr ? module_->Types() : nullptr);
+    if (!kResult.is_valid_) {
+        for (const auto &error : kResult.errors_) {
+            ShowError(error.message_);
+        }
+        return false;
+    }
+    return true;
 }
 
 void Application::DrawLinks(const render::Camera &camera) {

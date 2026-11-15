@@ -11,6 +11,7 @@ add_executable(Nebula
     ui/context_menu.cpp
     ui/node_picker.cpp
     ui/link_drop.cpp
+    ui/graph_validation.cpp
     actions/action.cpp
     actions/action_manager.cpp
     project/nebula_file.cpp
