@@ -1,0 +1,13 @@
+<map id="src/core/graph/graph_validator.hpp" name="src/core/graph/graph_validator.hpp">
+<area shape="rect" id="Node000001" title="Validates a graph before C++ code generation or compilation." alt="" coords="209,5,364,50"/>
+<area shape="rect" id="Node000002" href="$graph__validator_8cpp.html" title="Implementation of the GraphValidator class for pre&#45;codegen checks." alt="" coords="5,98,160,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,59,133,100,130,95,226,55"/>
+<area shape="rect" id="Node000003" href="$graph__validator_8hpp.html" title="Forwarding header for core::GraphValidator." alt="" coords="184,106,389,134"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="288,63,289,107,284,105,285,68"/>
+<area shape="rect" id="Node000004" href="$graph__validation_8hpp.html" title="Runs graph validation for C++ code generation and highlights affected nodes and pins in the editor ca..." alt="" coords="413,98,552,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="348,54,438,97,433,98,347,60"/>
+<area shape="rect" id="Node000005" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="296,199,482,227"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="452,152,404,201,401,196,447,154"/>
+<area shape="rect" id="Node000006" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation and node/pin error highlighting." alt="" coords="506,191,646,235"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="516,151,556,191,551,190,514,156"/>
+</map>

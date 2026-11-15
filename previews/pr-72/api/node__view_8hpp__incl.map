@@ -1,0 +1,36 @@
+<map id="src/editor/ui/node_view.hpp" name="src/editor/ui/node_view.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="151,5,286,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,98,80,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,53,86,93,83,89,173,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="68,249,126,277"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="210,51,113,237,108,234,205,50"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="150,249,212,277"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,48,197,99,187,171,184,235,179,232,182,171,192,97,208,53"/>
+<area shape="rect" id="Node000005" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="207,98,329,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="232,48,255,85,250,84,231,53"/>
+<area shape="rect" id="Node000012" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="532,98,676,126"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="286,41,529,93,525,96,286,46"/>
+<area shape="rect" id="Node000013" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="556,174,734,201"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="277,48,598,166,593,170,276,53"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="263,125,198,237,194,234,258,127"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="236,249,302,277"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="270,124,271,234,266,232,266,128"/>
+<area shape="rect" id="Node000007" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="307,174,421,201"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="286,124,337,164,332,164,284,129"/>
+<area shape="poly" id="edge11_Node000007_Node000003" title=" " alt="" coords="314,204,142,251,141,246,312,199"/>
+<area shape="poly" id="edge14_Node000007_Node000004" title=" " alt="" coords="334,201,228,246,226,241,329,202"/>
+<area shape="poly" id="edge10_Node000007_Node000006" title=" " alt="" coords="349,201,299,242,297,237,344,203"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="417,249,462,277"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="378,199,418,239,413,238,376,204"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="486,249,556,277"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="393,199,482,243,477,242,391,204"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="580,249,703,277"/>
+<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="414,199,579,245,574,245,413,205"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="326,249,394,277"/>
+<area shape="poly" id="edge13_Node000007_Node000011" title=" " alt="" coords="365,200,363,235,359,232,361,204"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="612,124,633,161,628,159,610,129"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="811,249,882,277"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="682,199,799,244,794,244,681,205"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="728,249,787,277"/>
+<area shape="poly" id="edge18_Node000013_Node000015" title=" " alt="" coords="666,199,727,241,722,240,664,204"/>
+</map>

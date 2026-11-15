@@ -1,0 +1,62 @@
+<map id="src/core/graph/graph.hpp" name="src/core/graph/graph.hpp">
+<area shape="rect" id="Node000001" title="The graph is a collection of nodes connected together." alt="" coords="857,5,1039,33"/>
+<area shape="rect" id="Node000002" href="$graph_8cpp.html" title="Implementation of the graph class." alt="" coords="29,90,210,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="839,27,561,47,392,63,223,84,179,91,176,87,222,78,391,57,561,42,844,24"/>
+<area shape="rect" id="Node000003" href="$graph_2graph__validator_8hpp.html" title="Validates a graph before C++ code generation or compilation." alt="" coords="235,81,389,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="839,30,640,52,408,84,390,87,388,82,407,78,639,47,844,28"/>
+<area shape="rect" id="Node000006" href="$graph__validation_8hpp.html" title="Runs graph validation for C++ code generation and highlights affected nodes and pins in the editor ca..." alt="" coords="700,174,839,218"/>
+<area shape="poly" id="edge21_Node000001_Node000006" title=" " alt="" coords="949,47,944,88,936,109,925,127,906,145,885,160,840,181,838,176,883,155,903,141,920,124,931,107,939,87,946,51"/>
+<area shape="rect" id="Node000009" href="$exporter__capability_8hpp_source.html" title=" " alt="" coords="464,81,675,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="870,38,671,83,669,78,874,36"/>
+<area shape="rect" id="Node000010" href="$importer__capability_8hpp.html" title="Defines the IImporterCapability interface for modules." alt="" coords="700,81,911,126"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="914,40,844,83,842,78,910,42"/>
+<area shape="rect" id="Node000012" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="1527,275,1713,302"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1054,17,1234,19,1447,27,1552,35,1648,46,1729,60,1790,79,1843,104,1887,136,1902,155,1909,175,1908,197,1895,220,1867,240,1822,256,1714,279,1713,273,1821,251,1864,235,1891,217,1903,196,1904,176,1897,158,1883,140,1840,109,1788,83,1728,65,1647,51,1551,40,1446,32,1233,24,1055,22"/>
+<area shape="rect" id="Node000014" href="$connection__request_8hpp.html" title="Turns a pin&#45;to&#45;pin drag on the canvas into a graph connection, or into an error message the user can ..." alt="" coords="1094,174,1268,218"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="1054,27,1109,46,1134,60,1156,79,1171,101,1180,126,1184,175,1180,172,1175,128,1166,104,1153,83,1131,65,1107,51,1054,33"/>
+<area shape="rect" id="Node000016" href="$link__drop_8hpp.html" title="A link dragged from a pin and released on empty canvas: the nodes that can be linked to the pin,..." alt="" coords="662,266,788,311"/>
+<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="839,27,605,49,505,64,471,73,454,83,432,116,425,149,433,182,454,217,474,238,495,250,516,256,539,258,589,257,618,258,650,264,664,270,659,269,649,269,618,263,589,262,539,263,515,261,493,255,471,242,450,220,428,184,420,149,427,114,450,79,469,68,503,59,604,43,844,25"/>
+<area shape="rect" id="Node000018" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="1311,81,1446,126"/>
+<area shape="poly" id="edge23_Node000001_Node000018" title=" " alt="" coords="1032,34,1314,89,1308,90,1032,39"/>
+<area shape="rect" id="Node000022" href="$node__clipboard_8hpp.html" title="Copy / paste of canvas nodes (Ctrl+C / Ctrl+V)." alt="" coords="1643,81,1778,126"/>
+<area shape="poly" id="edge30_Node000001_Node000022" title=" " alt="" coords="1054,29,1645,94,1640,96,1054,35"/>
+<area shape="rect" id="Node000024" href="$property__change_8hpp.html" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="985,81,1142,126"/>
+<area shape="poly" id="edge33_Node000001_Node000024" title=" " alt="" coords="979,40,1036,81,1030,80,978,45"/>
+<area shape="rect" id="Node000004" href="$graph__validator_8cpp.html" title="Implementation of the GraphValidator class for pre&#45;codegen checks." alt="" coords="5,174,160,218"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="241,134,139,175,136,171,245,130"/>
+<area shape="rect" id="Node000005" href="$graph__validator_8hpp.html" title="Forwarding header for core::GraphValidator." alt="" coords="184,182,389,210"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="303,138,292,183,288,180,300,143"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="404,117,539,141,687,171,702,176,696,177,686,176,538,146,405,123"/>
+<area shape="rect" id="Node000007" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="798,368,983,395"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="793,229,884,368,879,366,790,233"/>
+<area shape="rect" id="Node000008" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation and node/pin error highlighting." alt="" coords="498,266,638,311"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="710,224,617,268,615,263,704,226"/>
+<area shape="rect" id="Node000011" href="$importer__capability_8cpp.html" title="Implementation of the handler&#45;based importer capability." alt="" coords="464,174,675,218"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="737,131,627,176,625,171,732,132"/>
+<area shape="poly" id="edge12_Node000012_Node000007" title=" " alt="" coords="1520,305,1476,314,984,373,983,367,1475,308,1515,306"/>
+<area shape="rect" id="Node000013" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="1547,368,1693,395"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1622,316,1622,369,1618,365,1618,320"/>
+<area shape="poly" id="edge15_Node000014_Node000007" title=" " alt="" coords="1184,232,1179,275,1170,295,1158,313,1129,331,1085,347,981,370,980,364,1083,341,1126,326,1154,309,1166,293,1173,273,1180,236"/>
+<area shape="poly" id="edge16_Node000014_Node000012" title=" " alt="" coords="1283,216,1557,274,1552,274,1283,222"/>
+<area shape="rect" id="Node000015" href="$connection__request_8cpp.html" title="Implementation of the canvas connection request." alt="" coords="970,266,1144,311"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="1142,227,1088,268,1086,263,1137,228"/>
+<area shape="poly" id="edge18_Node000014_Node000016" title=" " alt="" coords="1082,219,789,278,788,273,1077,219"/>
+<area shape="poly" id="edge19_Node000016_Node000007" title=" " alt="" coords="779,316,869,367,864,367,777,321"/>
+<area shape="rect" id="Node000017" href="$link__drop_8cpp.html" title="Implementation of the link drop helpers." alt="" coords="647,359,774,404"/>
+<area shape="poly" id="edge20_Node000016_Node000017" title=" " alt="" coords="721,324,716,361,712,357,717,328"/>
+<area shape="poly" id="edge25_Node000018_Node000006" title=" " alt="" coords="1294,117,902,176,840,186,839,181,901,171,1299,116"/>
+<area shape="poly" id="edge24_Node000018_Node000012" title=" " alt="" coords="1462,113,1566,136,1609,152,1637,172,1647,198,1646,227,1639,254,1629,276,1625,272,1634,252,1641,226,1642,199,1632,175,1607,157,1564,141,1461,119"/>
+<area shape="rect" id="Node000019" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="1489,174,1623,218"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="1435,130,1516,174,1511,173,1434,136"/>
+<area shape="rect" id="Node000020" href="$renderer_8hpp.html" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="1292,182,1465,210"/>
+<area shape="poly" id="edge27_Node000018_Node000020" title=" " alt="" coords="1380,139,1381,183,1376,180,1377,143"/>
+<area shape="poly" id="edge28_Node000020_Node000012" title=" " alt="" coords="1428,213,1587,274,1582,274,1427,218"/>
+<area shape="rect" id="Node000021" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="1293,275,1464,302"/>
+<area shape="poly" id="edge29_Node000020_Node000021" title=" " alt="" coords="1380,223,1381,276,1376,273,1377,227"/>
+<area shape="poly" id="edge31_Node000022_Node000012" title=" " alt="" coords="1706,140,1697,180,1681,220,1659,251,1635,277,1633,272,1655,248,1676,217,1692,179,1702,143"/>
+<area shape="rect" id="Node000023" href="$node__clipboard_8cpp.html" title="Implementation of the node clipboard." alt="" coords="1747,174,1882,218"/>
+<area shape="poly" id="edge32_Node000022_Node000023" title=" " alt="" coords="1747,133,1792,174,1787,172,1746,138"/>
+<area shape="poly" id="edge34_Node000024_Node000007" title=" " alt="" coords="973,123,933,146,917,159,903,175,890,199,882,225,877,280,882,330,889,368,885,365,877,331,872,280,877,224,886,197,899,172,913,156,931,142,968,125"/>
+<area shape="rect" id="Node000025" href="$property__change_8cpp.html" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="913,174,1070,218"/>
+<area shape="poly" id="edge35_Node000024_Node000025" title=" " alt="" coords="1040,136,1010,176,1007,171,1035,139"/>
+</map>

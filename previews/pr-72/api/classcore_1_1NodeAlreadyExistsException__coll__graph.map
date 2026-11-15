@@ -1,0 +1,9 @@
+<map id="core::NodeAlreadyExistsException" name="core::NodeAlreadyExistsException">
+<area shape="rect" id="Node000001" title="Thrown when two incompatible data types are used together." alt="" coords="5,232,250,260"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1NodeException.html" title="Base exception for errors related to graph operations." alt="" coords="50,157,205,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,198,130,233,125,231,126,202"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="67,81,188,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,122,130,157,125,155,126,127"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="58,5,197,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="128,46,130,81,125,80,127,51"/>
+</map>
