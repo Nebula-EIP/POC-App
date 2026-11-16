@@ -7,7 +7,7 @@
  * @date Created on 29-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 29-09-2026
+ * @date Last modified on 05-11-2026
  */
 
 #pragma once
@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+#include "utils/palette.hpp"
 #include "utils/raylib_wrapper.hpp"
 
 namespace editor::ui {
@@ -109,19 +110,30 @@ struct TopBarInput {
  * @brief Sizes and colors of the top bar.
  */
 struct TopBarStyle {
-    float height_ = 30.0F;
-    float title_padding_ = 12.0F;
-    float item_height_ = 26.0F;
-    float separator_height_ = 9.0F;
-    float item_padding_ = 14.0F;
-    float min_dropdown_width_ = 180.0F;
-    int font_size_ = 16;
-    utils::WrappedColor bar_ = {24, 24, 28, 255};
-    utils::WrappedColor dropdown_ = {36, 36, 42, 255};
-    utils::WrappedColor hover_ = {62, 62, 74, 255};
-    utils::WrappedColor border_ = {70, 70, 82, 255};
-    utils::WrappedColor text_ = {235, 235, 240, 255};
-    utils::WrappedColor disabled_text_ = {100, 100, 110, 255};
+    float height_ = 57.0F;
+    float title_padding_ = 16.0F;
+    float item_height_ = 36.0F;
+    float separator_height_ = 13.0F;
+    float item_padding_ = 18.0F;
+    float min_dropdown_width_ = 240.0F;
+    /// Drop shadow under the bar (and the open menu): offset and blur.
+    float shadow_offset_ = 4.0F;
+    float shadow_blur_ = 4.0F;
+    /// Menu items, in the drop-down menus.
+    int font_size_ = 20;
+    /// Menu titles, in the bar.
+    int title_font_size_ = 32;
+    float title_spacing_ = 1.0F;
+    utils::FontWeight title_weight_ = utils::FontWeight::kBold;
+    utils::WrappedColor bar_ = palette::top_bar::kBackground;
+    utils::WrappedColor dropdown_ = palette::top_bar::kDropdown;
+    utils::WrappedColor hover_ = palette::top_bar::kHover;
+    utils::WrappedColor border_ = palette::top_bar::kBorder;
+    utils::WrappedColor text_ = palette::top_bar::kText;
+    utils::WrappedColor item_text_ = palette::top_bar::kItemText;
+    utils::WrappedColor hover_text_ = palette::top_bar::kTextHover;
+    utils::WrappedColor disabled_text_ = palette::top_bar::kDisabledText;
+    utils::WrappedColor shadow_ = palette::top_bar::kShadow;
 };
 
 /**
@@ -141,8 +153,10 @@ class TopBar final {
 
     /**
      * @param style Sizes and colors.
-     * @param measurer Text measuring function. Defaults to raylib's, which
-     * needs an open window; tests pass their own.
+     * @param measurer Text measuring function, for the titles (at
+     * title_font_size_) and the items (at font_size_). Defaults to raylib's
+     * with the fonts of the drawing, which needs an open window; tests pass
+     * their own.
      */
     explicit TopBar(TopBarStyle style = {}, TextMeasurer measurer = {});
 
@@ -228,6 +242,8 @@ class TopBar final {
 
     TopBarStyle style_;
     TextMeasurer measurer_;
+    /// Measures the titles: their font is not the items' one.
+    TextMeasurer title_measurer_;
     std::vector<Menu> menus_;
 
     std::optional<std::size_t> open_menu_;

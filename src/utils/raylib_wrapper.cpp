@@ -1,5 +1,9 @@
 #include "raylib_wrapper.hpp"
 
+#include <algorithm>
+#include <cmath>
+#include <utility>
+
 namespace utils {
 
 static_assert(static_cast<int>(WrappedKey::kEscape) == KEY_ESCAPE);
@@ -24,6 +28,8 @@ static_assert(static_cast<int>(WrappedKey::kLeftAlt) == KEY_LEFT_ALT);
 
 Font font = {};
 bool font_loaded = false;
+Font bold_font = {};
+bool bold_font_loaded = false;
 
 // Window functions
 
@@ -31,6 +37,7 @@ void InitRaylib(int width, int height, const char *title, unsigned int flags) {
     SetConfigFlags(flags);
     InitWindow(width, height, title);
     LoadDefaultFontWrapped("src/utils/Fonts/InterVariable.ttf", 64);
+    LoadBoldFontWrapped("src/utils/Fonts/Inter-Bold.ttf", 64);
 }
 
 bool IsRaylibReady() { return IsWindowReady(); }
@@ -44,10 +51,22 @@ void CloseRaylib() {
         UnloadFont(font);
         font_loaded = false;
     }
+    if (bold_font_loaded) {
+        UnloadFont(bold_font);
+        bold_font_loaded = false;
+    }
     CloseWindow();
 }
 
-void LoadDefaultFontWrapped(const char *path, int baseSize) {
+namespace {
+
+/**
+ * @brief Loads a font with the ASCII and French characters, smoothed when
+ * scaled.
+ *
+ * @return The font, with a texture id of 0 when it could not be loaded.
+ */
+Font LoadFontWithCodepoints(const char *path, int baseSize) {
     int codepoints[95 + 32];
 
     for (int i = 0; i < 95; i++) {
@@ -97,24 +116,47 @@ void LoadDefaultFontWrapped(const char *path, int baseSize) {
 
     int codepoint_count = 95 + french_count;
 
+    Font loaded = {};
+    if (IsFileExtension(path, ".ttf") || IsFileExtension(path, ".otf")) {
+        loaded = LoadFontEx(path, baseSize, codepoints, codepoint_count);
+    } else {
+        loaded = LoadFont(path);
+    }
+
+    if (loaded.texture.id != 0) {
+        SetTextureFilter(loaded.texture, TEXTURE_FILTER_BILINEAR);
+    }
+    return loaded;
+}
+
+}  // namespace
+
+void LoadDefaultFontWrapped(const char *path, int baseSize) {
     if (font_loaded) {
         UnloadFont(font);
         font_loaded = false;
     }
+    font = LoadFontWithCodepoints(path, baseSize);
+    font_loaded = font.texture.id != 0;
+}
 
-    if (IsFileExtension(path, ".ttf") || IsFileExtension(path, ".otf")) {
-        font = LoadFontEx(path, baseSize, codepoints, codepoint_count);
-    } else {
-        font = LoadFont(path);
+void LoadBoldFontWrapped(const char *path, int baseSize) {
+    if (bold_font_loaded) {
+        UnloadFont(bold_font);
+        bold_font_loaded = false;
     }
-
-    if (font.texture.id != 0) {
-        SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
-        font_loaded = true;
-    }
+    bold_font = LoadFontWithCodepoints(path, baseSize);
+    bold_font_loaded = bold_font.texture.id != 0;
 }
 
 Font GetDefaultFontWrapped() { return font_loaded ? font : GetFontDefault(); }
+
+Font GetFontWrapped(FontWeight weight) {
+    if (weight == FontWeight::kBold && bold_font_loaded) {
+        return bold_font;
+    }
+    return GetDefaultFontWrapped();
+}
 
 // Frame functions
 
@@ -171,10 +213,124 @@ void DrawRectangleLinesWrapped(float x, float y, float width, float height,
     DrawRectangleLines(x, y, width, height, raylib_color);
 }
 
+namespace {
+
+// Segments per rounded corner and per half circle.
+constexpr int kCornerSegments = 8;
+constexpr int kArcSegments = 24;
+
+/**
+ * @brief Converts a corner radius into raylib's roundness, a ratio of the
+ * shortest side of the rectangle.
+ */
+float Roundness(WrappedRectangle rectangle, float radius) {
+    const float kShortest = std::min(rectangle.width_, rectangle.height_);
+    if (kShortest <= 0.0F || radius <= 0.0F) {
+        return 0.0F;
+    }
+    return std::min(2.0F * radius / kShortest, 1.0F);
+}
+
+}  // namespace
+
+void DrawRectangleRoundedWrapped(WrappedRectangle rectangle, float radius,
+                                 WrappedColor color) {
+    DrawRectangleRounded(Rectangle{rectangle.x_, rectangle.y_, rectangle.width_,
+                                   rectangle.height_},
+                         Roundness(rectangle, radius), kCornerSegments,
+                         Color{color.r_, color.g_, color.b_, color.a_});
+}
+
+void DrawRectangleRoundedLinesWrapped(WrappedRectangle rectangle, float radius,
+                                      float thick, WrappedColor color) {
+    DrawRectangleRoundedLinesEx(Rectangle{rectangle.x_, rectangle.y_,
+                                          rectangle.width_, rectangle.height_},
+                                Roundness(rectangle, radius), kCornerSegments,
+                                thick,
+                                Color{color.r_, color.g_, color.b_, color.a_});
+}
+
+void DrawShadowWrapped(WrappedRectangle rectangle, float radius,
+                       WrappedVector2 offset, float blur, WrappedColor color) {
+    constexpr int kMaxLayers = 12;
+    if (blur <= 0.0F) {
+        DrawRectangleRoundedWrapped(
+            {rectangle.x_ + offset.x_, rectangle.y_ + offset.y_,
+             rectangle.width_, rectangle.height_},
+            radius, color);
+        return;
+    }
+
+    // Stacked translucent layers, from slightly inside the shadow's edge to
+    // `blur` outside of it: the opacity fades out across the blur, and the
+    // layers add up to `color` where they all overlap.
+    const int kLayers =
+        std::clamp(static_cast<int>(std::lround(2.0F * blur)), 1, kMaxLayers);
+    const float kAlpha = static_cast<float>(color.a_);
+    WrappedColor layer_color = color;
+    layer_color.a_ = static_cast<unsigned char>(std::max(
+        1L, std::lround(255.0F * (1.0F - std::pow(1.0F - kAlpha / 255.0F,
+                                                  1.0F / kLayers)))));
+    for (int layer = 0; layer < kLayers; ++layer) {
+        const float kSpread = -blur / 2.0F + 1.5F * blur *
+                                                 static_cast<float>(layer + 1) /
+                                                 static_cast<float>(kLayers);
+        DrawRectangleRoundedWrapped({rectangle.x_ + offset.x_ - kSpread,
+                                     rectangle.y_ + offset.y_ - kSpread,
+                                     rectangle.width_ + 2.0F * kSpread,
+                                     rectangle.height_ + 2.0F * kSpread},
+                                    std::max(radius + kSpread, 0.0F),
+                                    layer_color);
+    }
+}
+
+void DrawRectangleGradientVWrapped(WrappedRectangle rectangle, WrappedColor top,
+                                   WrappedColor bottom) {
+    // The float variant keeps sub-pixel positions under a zoomed camera.
+    // raylib 5.5 colors the corners top-left, bottom-left, bottom-right then
+    // top-right, whatever its parameter names say (as DrawRectangleGradientV).
+    DrawRectangleGradientEx(Rectangle{rectangle.x_, rectangle.y_,
+                                      rectangle.width_, rectangle.height_},
+                            Color{top.r_, top.g_, top.b_, top.a_},
+                            Color{bottom.r_, bottom.g_, bottom.b_, bottom.a_},
+                            Color{bottom.r_, bottom.g_, bottom.b_, bottom.a_},
+                            Color{top.r_, top.g_, top.b_, top.a_});
+}
+
 void DrawCircleWrapped(float centerX, float centerY, float radius,
                        WrappedColor color) {
     Color raylib_color = {color.r_, color.g_, color.b_, color.a_};
     DrawCircle(centerX, centerY, radius, raylib_color);
+}
+
+void DrawCircleSectorWrapped(WrappedVector2 center, float radius,
+                             float start_angle, float end_angle,
+                             WrappedColor color) {
+    DrawCircleSector(Vector2{center.x_, center.y_}, radius, start_angle,
+                     end_angle, kArcSegments,
+                     Color{color.r_, color.g_, color.b_, color.a_});
+}
+
+void DrawRingWrapped(WrappedVector2 center, float inner_radius,
+                     float outer_radius, float start_angle, float end_angle,
+                     WrappedColor color) {
+    DrawRing(Vector2{center.x_, center.y_}, inner_radius, outer_radius,
+             start_angle, end_angle, kArcSegments,
+             Color{color.r_, color.g_, color.b_, color.a_});
+}
+
+void DrawTriangleWrapped(WrappedVector2 v1, WrappedVector2 v2,
+                         WrappedVector2 v3, WrappedColor color) {
+    // raylib only fills triangles given counter-clockwise (as seen on
+    // screen): swap two vertices when they turn the other way.
+    const float kCross =
+        (v2.x_ - v1.x_) * (v3.y_ - v1.y_) - (v2.y_ - v1.y_) * (v3.x_ - v1.x_);
+    if (kCross > 0.0F) {
+        std::swap(v2, v3);
+    }
+    DrawTriangle(Vector2{v1.x_, v1.y_}, Vector2{v2.x_, v2.y_},
+                 Vector2{v3.x_, v3.y_},
+                 Color{color.r_, color.g_, color.b_, color.a_});
 }
 
 void DrawLineWrapped(WrappedVector2 start, WrappedVector2 end, float thick,
@@ -202,15 +358,22 @@ void DrawTextWrapped(const char *text, float x, float y, int fontSize,
 }
 
 void DrawTextExWrapped(const char *text, float x, float y, int fontSize,
-                       float spacing, WrappedColor color) {
+                       float spacing, WrappedColor color, FontWeight weight) {
     Color raylib_color = {color.r_, color.g_, color.b_, color.a_};
     Vector2 position = {x, y};
-    DrawTextEx(GetDefaultFontWrapped(), text, position, fontSize, spacing,
+    DrawTextEx(GetFontWrapped(weight), text, position, fontSize, spacing,
                raylib_color);
 }
 
 float MeasureTextWrapped(const char *text, int fontSize) {
     return static_cast<float>(MeasureText(text, fontSize));
+}
+
+float MeasureTextExWrapped(const char *text, int fontSize, float spacing,
+                           FontWeight weight) {
+    return MeasureTextEx(GetFontWrapped(weight), text,
+                         static_cast<float>(fontSize), spacing)
+        .x;
 }
 
 // Input functions
