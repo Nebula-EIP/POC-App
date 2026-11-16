@@ -6,7 +6,7 @@
  * @date Created on 11-10-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #include "node_picker.hpp"
@@ -21,15 +21,22 @@ namespace editor::ui {
 
 namespace {
 constexpr std::size_t kMaxVisibleRows = 12;
-constexpr float kPadding = 4.0F;
-constexpr float kSearchMargin = 6.0F;
-constexpr float kIndent = 14.0F;
-constexpr float kArrowWidth = 14.0F;
-constexpr float kScrollbarWidth = 4.0F;
-constexpr float kShadowOffset = 3.0F;
-constexpr utils::WrappedColor kShadow = {0, 0, 0, 70};
-constexpr utils::WrappedColor kSearchBackground = {24, 24, 28, 255};
-constexpr utils::WrappedColor kFolderText = {140, 160, 200, 255};
+constexpr float kPadding = 6.0F;
+constexpr float kSearchMargin = 8.0F;
+constexpr float kIndent = 16.0F;
+constexpr float kArrowWidth = 18.0F;
+constexpr float kScrollbarWidth = 6.0F;
+constexpr float kSpacing = 1.0F;
+
+// Drawn like a node card: header (search) and body (rows), rounded, with a
+// soft shadow.
+constexpr float kRadius = 6.0F;
+constexpr float kSearchRadius = 4.0F;
+constexpr float kShadowBlur = 8.0F;
+constexpr float kChevronSize = 8.0F;
+constexpr float kMarkerWidth = 3.0F;
+constexpr float kMarkerHeight = 14.0F;
+constexpr float kMarkerGap = 8.0F;
 constexpr const char *kPlaceholder = "Rechercher...";
 constexpr const char *kNoResult = "Aucun node";
 constexpr char kCategorySeparator = '/';
@@ -85,8 +92,10 @@ std::vector<NodePickerEntry> EntriesFromCatalog(
 NodePicker::NodePicker(TopBarStyle style, TextMeasurer measurer)
     : style_(style), measurer_(std::move(measurer)) {
     if (!measurer_) {
+        // Same font and spacing as the drawing.
         measurer_ = [](const std::string &text, int font_size) {
-            return utils::MeasureTextWrapped(text.c_str(), font_size);
+            return utils::MeasureTextExWrapped(text.c_str(), font_size,
+                                               kSpacing);
         };
     }
     width_ = ComputeWidth();
@@ -602,34 +611,43 @@ void NodePicker::Draw() const {
     }
     const float kFont = static_cast<float>(style_.font_size_);
     const utils::WrappedRectangle kBounds = Bounds();
+    const utils::WrappedRectangle kSearch = SearchRect();
 
-    utils::DrawRectangleWrapped(kBounds.x_ + kShadowOffset,
-                                kBounds.y_ + kShadowOffset, kBounds.width_,
-                                kBounds.height_, kShadow);
-    utils::DrawRectangleWrapped(kBounds.x_, kBounds.y_, kBounds.width_,
-                                kBounds.height_, style_.dropdown_);
-    utils::DrawRectangleLinesWrapped(kBounds.x_, kBounds.y_, kBounds.width_,
-                                     kBounds.height_, style_.border_);
+    // Card: body color everywhere, header color behind the search field.
+    utils::DrawShadowWrapped(kBounds, kRadius, {0.0F, style_.shadow_offset_},
+                             kShadowBlur, palette::popup::kShadow);
+    utils::DrawRectangleRoundedWrapped(kBounds, kRadius,
+                                       palette::popup::kBackground);
+    const float kHeaderHeight =
+        kSearch.y_ + kSearch.height_ + kSearchMargin - kBounds.y_;
+    utils::DrawRectangleRoundedWrapped(
+        {kBounds.x_, kBounds.y_, kBounds.width_, kHeaderHeight}, kRadius,
+        palette::popup::kHeader);
+    utils::DrawRectangleRecWrapped(
+        {kBounds.x_, kBounds.y_ + kHeaderHeight - kRadius, kBounds.width_,
+         kRadius},
+        palette::popup::kHeader);
 
     // Search field, with a caret after the text.
-    const utils::WrappedRectangle kSearch = SearchRect();
-    utils::DrawRectangleWrapped(kSearch.x_, kSearch.y_, kSearch.width_,
-                                kSearch.height_, kSearchBackground);
-    utils::DrawRectangleLinesWrapped(kSearch.x_, kSearch.y_, kSearch.width_,
-                                     kSearch.height_, style_.border_);
+    utils::DrawRectangleRoundedWrapped(kSearch, kSearchRadius,
+                                       palette::popup::kSearchBackground);
+    utils::DrawRectangleRoundedLinesWrapped(kSearch, kSearchRadius, 1.0F,
+                                            palette::popup::kSearchBorder);
     const float kTextY = kSearch.y_ + (kSearch.height_ - kFont) / 2.0F;
     const float kTextX = kSearch.x_ + style_.item_padding_ / 2.0F;
     if (query_.empty()) {
-        utils::DrawTextWrapped(kPlaceholder, kTextX, kTextY, style_.font_size_,
-                               style_.disabled_text_);
+        utils::DrawTextExWrapped(kPlaceholder, kTextX, kTextY,
+                                 style_.font_size_, kSpacing,
+                                 palette::popup::kPlaceholder);
     } else {
-        utils::DrawTextWrapped(query_.c_str(), kTextX, kTextY,
-                               style_.font_size_, style_.text_);
+        utils::DrawTextExWrapped(query_.c_str(), kTextX, kTextY,
+                                 style_.font_size_, kSpacing,
+                                 palette::popup::kSelectedText);
     }
     const float kCaretX =
         kTextX + (query_.empty() ? 0.0F : measurer_(query_, style_.font_size_));
     utils::DrawRectangleWrapped(kCaretX + 1.0F, kTextY, 1.0F, kFont,
-                                style_.text_);
+                                palette::popup::kSelectedText);
 
     // Rows.
     for (std::size_t row = scroll_;
@@ -640,31 +658,63 @@ void NodePicker::Draw() const {
         }
         const Row &current = rows_[row];
         const float kRowTextY = kRect->y_ + (kRect->height_ - kFont) / 2.0F;
+        const float kRowMiddle = kRect->y_ + kRect->height_ / 2.0F;
         const float kLabelX = kRect->x_ + TextX(current.depth_);
 
-        if (selected_ == row && current.kind_ != RowKind::kEmpty) {
-            utils::DrawRectangleWrapped(kRect->x_ + 1.0F, kRect->y_,
-                                        kRect->width_ - 2.0F, kRect->height_,
-                                        style_.hover_);
+        const bool kSelected =
+            selected_ == row && current.kind_ != RowKind::kEmpty;
+        if (kSelected) {
+            utils::DrawRectangleRoundedWrapped(
+                {kRect->x_ + kPadding, kRect->y_,
+                 kRect->width_ - 2.0F * kPadding, kRect->height_},
+                kSearchRadius, palette::popup::kSelected);
         }
         switch (current.kind_) {
-            case RowKind::kFolder:
-                utils::DrawTextWrapped(current.expanded_ ? "v" : ">",
-                                       kLabelX - kArrowWidth, kRowTextY,
-                                       style_.font_size_, kFolderText);
-                utils::DrawTextWrapped(current.label_.c_str(), kLabelX,
-                                       kRowTextY, style_.font_size_,
-                                       kFolderText);
+            case RowKind::kFolder: {
+                // Chevron: pointing right when closed, down when open.
+                const float kX = kLabelX - kArrowWidth / 2.0F - kSpacing;
+                const float kHalf = kChevronSize / 2.0F;
+                if (current.expanded_) {
+                    utils::DrawTriangleWrapped(
+                        {kX - kHalf, kRowMiddle - kHalf / 2.0F},
+                        {kX + kHalf, kRowMiddle - kHalf / 2.0F},
+                        {kX, kRowMiddle + kHalf / 2.0F + 1.0F},
+                        palette::popup::kFolderText);
+                } else {
+                    utils::DrawTriangleWrapped(
+                        {kX - kHalf / 2.0F, kRowMiddle - kHalf},
+                        {kX - kHalf / 2.0F, kRowMiddle + kHalf},
+                        {kX + kHalf / 2.0F + 1.0F, kRowMiddle},
+                        palette::popup::kFolderText);
+                }
+                utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
+                                         kRowTextY, style_.font_size_, kSpacing,
+                                         palette::popup::kFolderText);
                 break;
-            case RowKind::kEntry:
-                utils::DrawTextWrapped(current.label_.c_str(), kLabelX,
-                                       kRowTextY, style_.font_size_,
-                                       style_.text_);
+            }
+            case RowKind::kEntry: {
+                // Marker in the color of the line on top of the node.
+                const NodePickerEntry &entry = entries_[current.entry_];
+                const utils::WrappedColor kAccent =
+                    palette::NodeAccent(entry.name_, entry.category_);
+                if (kAccent.a_ > 0) {
+                    utils::DrawRectangleRoundedWrapped(
+                        {kLabelX - kMarkerGap - kMarkerWidth,
+                         kRowMiddle - kMarkerHeight / 2.0F, kMarkerWidth,
+                         kMarkerHeight},
+                        kMarkerWidth / 2.0F, kAccent);
+                }
+                utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
+                                         kRowTextY, style_.font_size_, kSpacing,
+                                         kSelected
+                                             ? palette::popup::kSelectedText
+                                             : palette::popup::kText);
                 break;
+            }
             case RowKind::kEmpty:
-                utils::DrawTextWrapped(current.label_.c_str(), kLabelX,
-                                       kRowTextY, style_.font_size_,
-                                       style_.disabled_text_);
+                utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
+                                         kRowTextY, style_.font_size_, kSpacing,
+                                         palette::popup::kEmptyText);
                 break;
         }
     }
@@ -679,10 +729,12 @@ void NodePicker::Draw() const {
                                  static_cast<float>(rows_.size());
             const float kOffset = static_cast<float>(scroll_) /
                                   static_cast<float>(rows_.size()) * kTrack;
-            utils::DrawRectangleWrapped(
-                kBounds.x_ + kBounds.width_ - kScrollbarWidth - 1.0F,
-                kFirst->y_ + kOffset, kScrollbarWidth - 1.0F,
-                std::max(kTrack * kRatio, 8.0F), style_.border_);
+            const float kThumbWidth = kScrollbarWidth / 2.0F;
+            utils::DrawRectangleRoundedWrapped(
+                {kBounds.x_ + kBounds.width_ - kScrollbarWidth,
+                 kFirst->y_ + kOffset, kThumbWidth,
+                 std::max(kTrack * kRatio, 8.0F)},
+                kThumbWidth / 2.0F, palette::popup::kScrollbar);
         }
     }
 }
