@@ -1,0 +1,15 @@
+<map id="src/utils/palette.hpp" name="src/utils/palette.hpp">
+<area shape="rect" id="Node000001" title="The project color palette: every color the editor draws with, by name, in one place." alt="" coords="68,5,218,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,71,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,36,71,74,67,70,126,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,81,192,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="145,31,146,66,141,64,142,36"/>
+<area shape="rect" id="Node000004" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="216,81,393,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,31,265,73,260,75,172,36"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="182,157,252,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="291,108,245,149,243,144,286,110"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="276,157,334,184"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="307,107,307,143,302,139,303,111"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="358,157,417,184"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="320,107,364,147,359,146,319,112"/>
+</map>

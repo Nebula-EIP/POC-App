@@ -1,16 +1,16 @@
 <map id="src/core/modules/capabilities/renderer_capability.hpp" name="src/core/modules/capabilities/renderer_capability.hpp">
-<area shape="rect" id="Node000001" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="148,5,360,45"/>
-<area shape="rect" id="Node000002" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="5,93,217,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,55,144,96,141,91,210,50"/>
-<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="161,189,347,214"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="257,59,257,188,251,188,251,59"/>
-<area shape="rect" id="Node000006" href="$component__adapter_8hpp.html" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="291,93,467,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="295,51,353,91,350,95,292,56"/>
-<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="66,269,253,295"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,225,175,271,172,267,228,221"/>
-<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="277,269,423,295"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="280,221,337,267,334,271,277,225"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="341,144,272,191,269,186,338,139"/>
-<area shape="rect" id="Node000007" href="$component__adapter_8cpp.html" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="371,181,547,221"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="408,142,444,179,440,183,404,145"/>
+<area shape="rect" id="Node000001" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="148,5,359,50"/>
+<area shape="rect" id="Node000002" href="$renderer__capability_8cpp.html" title="Implementation of the RendererCapability class." alt="" coords="5,98,217,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,61,147,100,143,96,208,57"/>
+<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="160,199,347,227"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,63,256,199,251,198,252,67"/>
+<area shape="rect" id="Node000006" href="$component__adapter_8hpp.html" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="291,98,467,143"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="296,56,352,97,346,98,295,62"/>
+<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="66,283,252,311"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="229,237,175,285,172,281,224,238"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="275,283,422,311"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="281,235,336,283,331,283,279,240"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="339,151,273,201,271,196,334,153"/>
+<area shape="rect" id="Node000007" href="$component__adapter_8cpp.html" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="371,191,547,235"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="409,152,443,191,438,190,407,157"/>
 </map>

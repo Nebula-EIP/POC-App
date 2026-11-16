@@ -1,11 +1,11 @@
 var searchData=
 [
   ['main_2ecpp_0',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['max_5f_1',['max_',['../structcore_1_1capa_1_1Slider.html#a6ab6f4ea34d9a39de93e4f4438e703b3',1,'core::capa::Slider::max_'],['../structcore_1_1capa_1_1NumberField.html#a3f5020195df3ce5c0820c75127db3028',1,'core::capa::NumberField::max_']]],
+  ['max_5f_1',['max_',['../structcore_1_1capa_1_1NumberField.html#a3f5020195df3ce5c0820c75127db3028',1,'core::capa::NumberField::max_'],['../structcore_1_1capa_1_1Slider.html#a6ab6f4ea34d9a39de93e4f4438e703b3',1,'core::capa::Slider::max_']]],
   ['menu_2',['Menu',['../classeditor_1_1ui_1_1Menu.html',1,'editor::ui']]],
   ['menuitem_3',['MenuItem',['../structeditor_1_1ui_1_1MenuItem.html',1,'editor::ui']]],
-  ['min_5f_4',['min_',['../structcore_1_1capa_1_1Slider.html#ae056ae886c12caf5fa34edba5a9746de',1,'core::capa::Slider::min_'],['../structcore_1_1capa_1_1NumberField.html#a14c19af674debbf778637804381b9e59',1,'core::capa::NumberField::min_']]],
-  ['module_5',['module',['../classcore_1_1ModuleLoader.html#a0f24161635bdcf62e745469b53a95454',1,'core::ModuleLoader::Module(std::string_view name) const noexcept'],['../classcore_1_1ModuleLoader.html#ad0332203759fc544e3d2267efb2c2111',1,'core::ModuleLoader::Module(ModuleId id) const noexcept'],['../classcore_1_1ModuleLoader.html#a2e7e22e7b936e2e5f65ff801c0cc5a00',1,'core::ModuleLoader::Module(std::string_view name) noexcept'],['../classcore_1_1ModuleLoader.html#aea14a5c8a58e713f75347f106460747f',1,'core::ModuleLoader::Module(ModuleId id) noexcept']]],
+  ['min_5f_4',['min_',['../structcore_1_1capa_1_1NumberField.html#a14c19af674debbf778637804381b9e59',1,'core::capa::NumberField::min_'],['../structcore_1_1capa_1_1Slider.html#ae056ae886c12caf5fa34edba5a9746de',1,'core::capa::Slider::min_']]],
+  ['module_5',['Module',['../classcore_1_1ModuleLoader.html#aea14a5c8a58e713f75347f106460747f',1,'core::ModuleLoader::Module(ModuleId id) noexcept'],['../classcore_1_1ModuleLoader.html#a2e7e22e7b936e2e5f65ff801c0cc5a00',1,'core::ModuleLoader::Module(std::string_view name) noexcept'],['../classcore_1_1ModuleLoader.html#ad0332203759fc544e3d2267efb2c2111',1,'core::ModuleLoader::Module(ModuleId id) const noexcept'],['../classcore_1_1ModuleLoader.html#a0f24161635bdcf62e745469b53a95454',1,'core::ModuleLoader::Module(std::string_view name) const noexcept']]],
   ['module_2ehpp_6',['module.hpp',['../module_8hpp.html',1,'']]],
   ['module_5f_7',['module_',['../structeditor_1_1ui_1_1NodePickerEntry.html#a20eb58933996fbd7674c04cb35cac5e3',1,'editor::ui::NodePickerEntry']]],
   ['module_5fexception_2ehpp_8',['module_exception.hpp',['../module__exception_8hpp.html',1,'']]],
@@ -15,7 +15,7 @@ var searchData=
   ['modulealreadyloadedexception_12',['ModuleAlreadyLoadedException',['../classcore_1_1ModuleAlreadyLoadedException.html',1,'core']]],
   ['moduleexception_13',['ModuleException',['../classcore_1_1ModuleException.html',1,'core']]],
   ['modulefilenotfoundexception_14',['ModuleFileNotFoundException',['../classcore_1_1ModuleFileNotFoundException.html',1,'core']]],
-  ['moduleid_15',['ModuleId',['../datatypes_8hpp.html#afb51450daa6bf9848e96d6bd97c4e744',1,'core']]],
+  ['moduleid_15',['ModuleId',['../datatypes_8hpp.html#ac9c7204d1b2fb88c70323d674ad3e8f4',1,'core']]],
   ['moduleinitializationexception_16',['ModuleInitializationException',['../classcore_1_1ModuleInitializationException.html',1,'core']]],
   ['moduleloader_17',['ModuleLoader',['../classcore_1_1ModuleLoader.html',1,'core']]],
   ['moduleloadexception_18',['ModuleLoadException',['../classcore_1_1ModuleLoadException.html',1,'core']]],

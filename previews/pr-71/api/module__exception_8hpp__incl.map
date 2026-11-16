@@ -1,7 +1,7 @@
 <map id="src/core/exception/module_exception/module_exception.hpp" name="src/core/exception/module_exception/module_exception.hpp">
-<area shape="rect" id="Node000001" title="Defines exceptions related to module management." alt="" coords="5,5,204,60"/>
-<area shape="rect" id="Node000002" href="$exception_8hpp_source.html" title=" " alt="" coords="13,108,196,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,60,107,94,102,94,102,60"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="61,181,148,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,134,107,168,102,168,102,134"/>
+<area shape="rect" id="Node000001" title="Defines exceptions related to module management." alt="" coords="5,5,204,67"/>
+<area shape="rect" id="Node000002" href="$exception_8hpp_source.html" title=" " alt="" coords="14,115,195,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,65,107,100,102,99,103,70"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="62,191,147,218"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,141,107,176,102,174,103,145"/>
 </map>

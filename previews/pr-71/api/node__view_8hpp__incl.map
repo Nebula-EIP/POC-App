@@ -1,37 +1,39 @@
 <map id="src/editor/ui/node_view.hpp" name="src/editor/ui/node_view.hpp">
-<area shape="rect" id="Node000001" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="277,5,412,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="14,93,89,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,47,103,94,101,89,276,42"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="590,240,649,265"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="365,44,444,117,538,190,593,230,590,234,535,194,440,121,362,48"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,240,68,265"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="294,48,247,69,201,96,158,129,117,166,57,231,53,227,114,162,154,125,198,91,245,64,292,43"/>
-<area shape="rect" id="Node000005" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="211,93,334,119"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="329,47,295,85,291,81,325,44"/>
-<area shape="rect" id="Node000012" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="455,93,600,119"/>
-<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="389,43,489,85,487,90,387,48"/>
-<area shape="rect" id="Node000013" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="549,167,727,192"/>
-<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="413,33,529,56,580,72,614,91,625,105,633,121,640,152,634,153,628,123,621,108,611,95,578,77,527,61,412,38"/>
-<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="258,121,146,194,72,236,69,231,143,190,255,117"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="93,240,159,265"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="265,121,197,194,152,233,149,229,193,190,261,117"/>
-<area shape="rect" id="Node000007" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="265,167,379,192"/>
-<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="283,117,308,154,304,157,279,121"/>
-<area shape="poly" id="edge11_Node000007_Node000003" title=" " alt="" coords="375,190,577,237,576,242,374,195"/>
-<area shape="poly" id="edge14_Node000007_Node000004" title=" " alt="" coords="275,195,82,242,81,237,274,190"/>
-<area shape="poly" id="edge10_Node000007_Node000006" title=" " alt="" coords="291,195,172,238,170,233,290,190"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="519,240,565,265"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="358,189,506,237,505,242,357,195"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="184,240,255,265"/>
-<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="307,194,249,234,246,230,304,190"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="279,240,403,265"/>
-<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="328,192,337,226,332,228,323,193"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="427,240,495,265"/>
-<area shape="poly" id="edge13_Node000007_Node000011" title=" " alt="" coords="345,190,427,231,425,236,343,194"/>
-<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="547,116,610,157,607,161,544,121"/>
-<area shape="poly" id="edge18_Node000013_Node000003" title=" " alt="" coords="637,193,628,228,623,226,632,192"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="757,240,828,265"/>
-<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="664,190,756,232,754,237,662,194"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="673,240,733,265"/>
-<area shape="poly" id="edge19_Node000013_Node000015" title=" " alt="" coords="651,191,685,228,682,232,647,194"/>
+<area shape="rect" id="Node000001" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="261,5,396,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,98,92,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,51,108,96,105,91,262,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="115,98,190,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="280,52,196,93,193,89,284,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="670,249,728,277"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,48,601,199,667,241,662,241,598,204,361,53"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="92,249,154,277"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="306,49,257,100,193,174,143,239,140,235,189,171,253,96,302,52"/>
+<area shape="rect" id="Node000006" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="267,98,390,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="330,48,331,84,326,81,327,53"/>
+<area shape="rect" id="Node000013" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="624,98,769,126"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="396,41,625,93,620,95,396,47"/>
+<area shape="rect" id="Node000014" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="610,174,788,201"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="396,45,467,67,540,96,609,130,668,166,663,165,606,134,538,100,465,72,396,50"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="321,124,290,164,247,203,209,228,169,247,168,242,206,223,244,199,287,160,317,127"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="178,249,244,277"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="328,124,319,163,299,203,277,225,252,243,249,239,273,221,294,200,314,161,324,128"/>
+<area shape="rect" id="Node000008" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="366,174,480,201"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="346,124,397,164,392,164,345,129"/>
+<area shape="poly" id="edge12_Node000008_Node000004" title=" " alt="" coords="477,199,657,248,652,249,476,205"/>
+<area shape="poly" id="edge15_Node000008_Node000005" title=" " alt="" coords="367,204,170,251,169,246,365,199"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="388,202,259,248,258,243,383,202"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="600,249,646,277"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="459,199,589,248,583,248,458,205"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="268,249,338,277"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="404,201,338,244,336,239,399,203"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="362,249,485,277"/>
+<area shape="poly" id="edge13_Node000008_Node000011" title=" " alt="" coords="425,200,425,235,421,232,421,204"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="510,249,577,277"/>
+<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="445,199,512,241,507,241,444,204"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="699,124,700,160,696,156,695,128"/>
+<area shape="poly" id="edge19_Node000014_Node000004" title=" " alt="" coords="701,200,701,235,697,232,697,204"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="836,249,906,277"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="730,199,829,243,824,243,729,204"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="752,249,812,277"/>
+<area shape="poly" id="edge20_Node000014_Node000016" title=" " alt="" coords="715,199,758,240,753,238,713,204"/>
 </map>

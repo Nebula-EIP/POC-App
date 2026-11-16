@@ -1,50 +1,50 @@
 <map id="src/core/modules/capabilities/importer_capability.hpp" name="src/core/modules/capabilities/importer_capability.hpp">
-<area shape="rect" id="Node000001" title="Defines the IImporterCapability interface for modules." alt="" coords="387,5,599,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="35,343,106,368"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="387,29,287,33,181,44,132,53,90,64,56,78,34,95,17,122,9,153,9,185,14,218,35,281,59,329,54,332,30,283,9,220,4,186,4,152,12,120,30,92,54,73,88,59,131,47,180,39,286,28,387,24"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="883,343,949,368"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="600,30,722,39,852,52,960,70,997,80,1018,91,1035,122,1040,155,1034,189,1020,224,1001,257,979,287,939,335,935,331,975,284,996,254,1015,221,1029,188,1034,155,1030,124,1014,95,995,85,959,75,851,58,721,45,599,35"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="68,108,151,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="388,44,278,64,163,96,143,104,141,99,162,91,277,59,387,38"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="175,108,262,133"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="423,48,350,69,274,96,254,105,252,100,272,91,349,64,421,43"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="311,343,369,368"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="387,30,293,35,194,46,110,66,79,79,58,95,45,114,39,132,39,151,45,169,69,204,108,238,156,269,207,296,299,336,297,341,204,301,153,274,105,242,65,208,40,171,34,151,34,132,41,112,54,92,76,74,108,60,193,41,292,30,387,25"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="538,108,635,133"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="514,44,567,96,563,100,510,47"/>
-<area shape="rect" id="Node000008" href="$connection__exception_8hpp.html" title="Defines exceptions related to connection operations." alt="" coords="660,93,828,148"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="545,43,661,86,660,91,543,48"/>
-<area shape="rect" id="Node000011" href="$node__exception_8hpp.html" title="Defines exceptions related to node operations." alt="" coords="286,101,514,141"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="476,47,430,93,427,89,473,44"/>
-<area shape="rect" id="Node000012" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="852,108,1004,133"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="600,42,716,63,841,91,880,101,879,107,839,96,715,69,599,47"/>
-<area shape="rect" id="Node000020" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="1079,108,1207,133"/>
-<area shape="poly" id="edge28_Node000001_Node000020" title=" " alt="" coords="600,31,814,51,938,68,1061,91,1099,101,1098,106,1059,96,937,73,813,56,599,36"/>
-<area shape="rect" id="Node000009" href="$exception_8hpp_source.html" title=" " alt="" coords="339,196,522,221"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="660,148,486,195,485,190,659,142"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="387,269,474,295"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="433,222,433,256,428,256,428,222"/>
-<area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="409,140,424,182,419,184,404,142"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="927,196,1004,221"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="935,132,957,182,952,184,931,135"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="485,343,609,368"/>
-<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="893,136,799,167,721,198,671,231,626,271,567,334,563,330,622,267,667,227,719,194,797,162,891,131"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="795,343,858,368"/>
-<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="925,135,840,331,835,329,920,133"/>
-<area shape="rect" id="Node000016" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="636,269,751,295"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="894,136,813,166,775,183,750,198,724,227,706,258,701,256,720,224,746,194,773,178,811,161,892,131"/>
-<area shape="rect" id="Node000019" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="760,196,843,221"/>
-<area shape="poly" id="edge24_Node000012_Node000019" title=" " alt="" coords="912,136,831,190,828,186,909,131"/>
-<area shape="poly" id="edge18_Node000016_Node000002" title=" " alt="" coords="636,293,120,351,119,346,636,287"/>
-<area shape="poly" id="edge19_Node000016_Node000003" title=" " alt="" coords="730,292,870,337,869,342,728,297"/>
-<area shape="poly" id="edge20_Node000016_Node000006" title=" " alt="" coords="637,297,383,348,382,343,636,292"/>
-<area shape="poly" id="edge21_Node000016_Node000014" title=" " alt="" coords="671,297,584,339,582,334,669,292"/>
-<area shape="poly" id="edge23_Node000016_Node000015" title=" " alt="" coords="716,292,794,334,792,338,713,297"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="633,343,679,368"/>
-<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="689,296,671,332,666,329,685,294"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="703,343,771,368"/>
-<area shape="poly" id="edge22_Node000016_Node000018" title=" " alt="" coords="703,294,725,330,721,332,698,296"/>
-<area shape="poly" id="edge25_Node000019_Node000003" title=" " alt="" coords="813,220,900,330,896,334,809,223"/>
-<area shape="poly" id="edge26_Node000019_Node000015" title=" " alt="" coords="806,221,825,329,820,329,801,222"/>
-<area shape="poly" id="edge27_Node000019_Node000016" title=" " alt="" coords="785,224,724,264,721,259,782,219"/>
+<area shape="rect" id="Node000001" title="Defines the IImporterCapability interface for modules." alt="" coords="388,5,599,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="39,359,108,387"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="385,31,287,37,182,48,133,57,91,68,58,83,35,100,18,128,10,160,9,194,14,228,35,294,60,345,55,346,30,296,9,229,3,194,4,159,13,126,31,96,55,78,89,63,132,52,181,43,287,32,389,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="879,359,945,387"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="599,33,721,43,851,56,959,74,996,84,1016,96,1035,127,1040,162,1034,197,1020,233,1001,267,979,299,937,350,934,345,975,296,997,264,1015,231,1029,196,1034,162,1030,129,1013,100,994,89,958,79,851,62,721,48,599,38"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="71,115,153,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="385,45,279,67,166,100,147,109,144,105,164,96,278,62,389,42"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="177,115,263,143"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="411,52,347,74,277,100,257,110,254,105,275,96,345,69,416,49"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="312,359,370,387"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="385,32,293,39,196,50,112,70,81,84,61,100,48,119,42,138,41,157,47,176,71,213,109,248,157,281,208,310,301,354,296,355,205,314,154,286,106,253,67,216,42,178,36,158,36,137,43,117,57,96,79,79,110,65,195,45,293,33,389,29"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="538,115,635,143"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="514,48,567,104,562,104,513,53"/>
+<area shape="rect" id="Node000008" href="$connection__exception_8hpp.html" title="Defines exceptions related to connection operations." alt="" coords="659,98,826,160"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="548,48,655,91,649,92,548,53"/>
+<area shape="rect" id="Node000011" href="$node__exception_8hpp.html" title="Defines exceptions related to node operations." alt="" coords="288,106,515,151"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="475,49,433,97,430,93,471,52"/>
+<area shape="rect" id="Node000012" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="851,115,1002,143"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="599,44,716,66,839,95,879,109,874,110,838,101,714,72,600,49"/>
+<area shape="rect" id="Node000020" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="1078,115,1205,143"/>
+<area shape="poly" id="edge28_Node000001_Node000020" title=" " alt="" coords="599,32,813,53,937,71,1059,95,1098,109,1093,109,1058,101,936,76,812,58,599,38"/>
+<area shape="rect" id="Node000009" href="$exception_8hpp_source.html" title=" " alt="" coords="341,208,523,235"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="656,157,647,162,495,206,493,200,646,157,661,155"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="389,283,475,311"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="434,234,434,269,430,266,430,238"/>
+<area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="410,149,425,194,420,192,407,154"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="926,208,1002,235"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="933,141,955,195,950,192,931,145"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="485,359,608,387"/>
+<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="890,143,795,178,720,210,669,243,624,285,567,349,564,345,621,281,666,239,717,205,794,173,884,144"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="793,359,855,387"/>
+<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="923,142,837,346,834,343,919,144"/>
+<area shape="rect" id="Node000016" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="635,283,749,311"/>
+<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="892,143,811,177,774,194,750,210,724,239,705,271,702,267,720,236,746,206,772,190,809,172,887,144"/>
+<area shape="rect" id="Node000019" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="759,208,841,235"/>
+<area shape="poly" id="edge24_Node000012_Node000019" title=" " alt="" coords="911,142,832,201,830,196,906,144"/>
+<area shape="poly" id="edge18_Node000016_Node000002" title=" " alt="" coords="635,308,124,368,123,363,634,303"/>
+<area shape="poly" id="edge19_Node000016_Node000003" title=" " alt="" coords="732,309,867,356,862,356,731,314"/>
+<area shape="poly" id="edge20_Node000016_Node000006" title=" " alt="" coords="637,310,386,365,385,360,632,310"/>
+<area shape="poly" id="edge21_Node000016_Node000014" title=" " alt="" coords="669,311,587,354,585,349,663,312"/>
+<area shape="poly" id="edge23_Node000016_Node000015" title=" " alt="" coords="716,309,790,352,784,351,715,314"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="632,359,677,387"/>
+<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="687,310,670,347,666,343,683,313"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="701,359,768,387"/>
+<area shape="poly" id="edge22_Node000016_Node000018" title=" " alt="" coords="701,309,722,347,717,344,698,314"/>
+<area shape="poly" id="edge25_Node000019_Node000003" title=" " alt="" coords="811,233,896,347,891,346,808,238"/>
+<area shape="poly" id="edge26_Node000019_Node000015" title=" " alt="" coords="804,234,822,345,817,342,800,237"/>
+<area shape="poly" id="edge27_Node000019_Node000016" title=" " alt="" coords="783,235,725,277,723,272,778,237"/>
 </map>

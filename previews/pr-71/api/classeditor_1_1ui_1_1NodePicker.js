@@ -1,11 +1,7 @@
 var classeditor_1_1ui_1_1NodePicker =
 [
     [ "Row", "structeditor_1_1ui_1_1NodePicker_1_1Row.html", "structeditor_1_1ui_1_1NodePicker_1_1Row" ],
-    [ "RowKind", "classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227", [
-      [ "kFolder", "classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227a78e0d4157d174d4b230e74ed86e25746", null ],
-      [ "kEntry", "classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227a73f5df6d8b5f83cae53811e096b500f6", null ],
-      [ "kEmpty", "classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227a65d0c57fb98927f91459ad92c864def8", null ]
-    ] ],
+    [ "RowKind", "classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227", null ],
     [ "NodePicker", "classeditor_1_1ui_1_1NodePicker.html#a3363156c29a2d455ab43cbf74065f828", null ],
     [ "Entries", "classeditor_1_1ui_1_1NodePicker.html#a6dc3dfc07e874b0e900b6acdde2cc987", null ],
     [ "IsConnectionMode", "classeditor_1_1ui_1_1NodePicker.html#aa39d3b52990cfef12d82b94352c23ed6", null ],

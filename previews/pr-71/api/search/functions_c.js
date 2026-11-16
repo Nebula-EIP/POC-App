@@ -1,7 +1,7 @@
 var searchData=
 [
   ['opacity_0',['Opacity',['../classeditor_1_1ui_1_1NotificationStack.html#a96bf1ce02ddd75c2a61655a0944a68a7',1,'editor::ui::NotificationStack']]],
-  ['open_1',['open',['../classcore_1_1detail_1_1SharedLibrary.html#a4aa178f46262c2c96933e586c967a5ee',1,'core::detail::SharedLibrary::Open()'],['../classeditor_1_1ui_1_1NodePicker.html#a90b0443c4faf9a841ed5a06fa7536c1e',1,'editor::ui::NodePicker::Open()']]],
+  ['open_1',['Open',['../classcore_1_1detail_1_1SharedLibrary.html#a4aa178f46262c2c96933e586c967a5ee',1,'core::detail::SharedLibrary::Open()'],['../classeditor_1_1ui_1_1NodePicker.html#a90b0443c4faf9a841ed5a06fa7536c1e',1,'editor::ui::NodePicker::Open()']]],
   ['openat_2',['OpenAt',['../classeditor_1_1ui_1_1ContextMenu.html#abbce80b4aa0be6868337fcfa4359a2b4',1,'editor::ui::ContextMenu']]],
   ['openforconnection_3',['OpenForConnection',['../classeditor_1_1ui_1_1NodePicker.html#a0c39269be7fe92bc700b87b49f3c24c4',1,'editor::ui::NodePicker']]],
   ['optionbounds_4',['OptionBounds',['../classeditor_1_1ui_1_1ComponentAdapter.html#a6d85694b5e8faf099346bf11a9e7020d',1,'editor::ui::ComponentAdapter']]],
