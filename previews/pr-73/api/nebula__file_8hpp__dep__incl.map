@@ -1,0 +1,12 @@
+<map id="src/editor/project/nebula_file.hpp" name="src/editor/project/nebula_file.hpp">
+<area shape="rect" id="Node000001" title="Savefile and loadfile for Nebula editor." alt="" coords="163,5,294,50"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,191,191,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,60,145,78,126,100,113,122,106,147,101,191,96,189,101,146,109,120,121,96,141,74,169,57"/>
+<area shape="rect" id="Node000003" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="136,106,322,134"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,63,231,107,226,105,227,68"/>
+<area shape="rect" id="Node000005" href="$nebula__file_8cpp.html" title="Savefile and loadfile for Nebula editor." alt="" coords="346,98,477,143"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="287,55,371,97,365,98,286,60"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="198,143,120,192,118,188,192,143"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="214,191,360,218"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="248,145,281,191,276,190,246,149"/>
+</map>
