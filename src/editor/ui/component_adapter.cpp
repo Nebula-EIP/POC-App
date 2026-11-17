@@ -50,23 +50,6 @@ constexpr float kBubbleHeight = 22.0F;
 constexpr float kBoxRadius = 3.0F;
 constexpr float kUnderlineThickness = 1.5F;
 
-constexpr WrappedColor kText = palette::field::kValue;
-constexpr WrappedColor kMutedText = palette::field::kLabel;
-constexpr WrappedColor kDisabledText = palette::field::kDisabledText;
-constexpr WrappedColor kWarningText = palette::field::kWarningText;
-constexpr WrappedColor kFieldIdle = palette::field::kIdle;
-constexpr WrappedColor kField = palette::field::kActive;
-constexpr WrappedColor kFieldEditing = palette::field::kEditing;
-constexpr WrappedColor kStroke = palette::field::kStroke;
-constexpr WrappedColor kAccent = palette::field::kAccent;
-constexpr WrappedColor kError = palette::field::kError;
-constexpr WrappedColor kErrorBubble = palette::field::kErrorBubble;
-constexpr WrappedColor kErrorText = palette::field::kErrorText;
-constexpr WrappedColor kListBackground = palette::field::kListBackground;
-constexpr WrappedColor kListSelected = palette::field::kListSelected;
-constexpr WrappedColor kListText = palette::field::kListText;
-constexpr WrappedColor kSeparator = palette::field::kSeparator;
-
 /**
  * @brief Number of characters (UTF-8 code points) of a text.
  *
@@ -582,6 +565,7 @@ bool ComponentAdapter::Update(core::NodeId node_id,
 void ComponentAdapter::DrawRow(const ComponentList &components,
                                WrappedRectangle bounds, std::size_t index,
                                core::NodeId node_id, bool active) const {
+    const palette::Palette::Field &colors = palette::Get().field_;
     const Component &component = components[index];
     const WrappedRectangle kRow = RowBounds(bounds, index);
     const WrappedRectangle kControl = ControlBounds(components, bounds, index);
@@ -593,7 +577,7 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
     if (const std::string *label = LabelOf(component)) {
         utils::DrawTextExWrapped(
             Fit(*label, kControl.x_ - kRow.x_, false).c_str(), kRow.x_,
-            kRow.y_ + 4.0F, kFontSize, kSpacing, kMutedText);
+            kRow.y_ + 4.0F, kFontSize, kSpacing, colors.label_);
     }
 
     std::visit(
@@ -602,15 +586,15 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
             if constexpr (std::is_same_v<T, Label>) {
                 utils::DrawTextExWrapped(
                     Fit(value.text_, kRow.width_, false).c_str(), kRow.x_,
-                    kRow.y_ + 4.0F, kFontSize, kSpacing, kText);
+                    kRow.y_ + 4.0F, kFontSize, kSpacing, colors.value_);
             } else if constexpr (std::is_same_v<T, InfoBubble>) {
                 utils::DrawTextExWrapped(value.text_.c_str(), kRow.x_,
                                          kRow.y_ + 4.0F, kFontSize, kSpacing,
-                                         kWarningText);
+                                         colors.warning_text_);
             } else if constexpr (std::is_same_v<T, Separator>) {
-                utils::DrawRectangleWrapped(kRow.x_,
-                                            kRow.y_ + kRow.height_ / 2.0F,
-                                            kRow.width_, 1.0F, kSeparator);
+                utils::DrawRectangleWrapped(
+                    kRow.x_, kRow.y_ + kRow.height_ / 2.0F, kRow.width_, 1.0F,
+                    colors.separator_);
             } else {
                 bool enabled = true;
                 if constexpr (std::is_same_v<T, TextField>) {
@@ -619,32 +603,37 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                     enabled = value.enabled_;
                 }
                 const WrappedColor kBoxColor =
-                    kEditing ? kFieldEditing
-                             : (active && enabled ? kField : kFieldIdle);
+                    kEditing
+                        ? colors.editing_
+                        : (active && enabled ? colors.active_ : colors.idle_);
                 DrawBox(kControl, kBoxColor);
                 const WrappedColor kValueColor =
-                    enabled ? kText : kDisabledText;
+                    enabled ? colors.value_ : colors.disabled_text_;
 
                 if constexpr (std::is_same_v<T, Button>) {
                     DrawBoxText(kControl, value.label_, kValueColor);
                 } else if constexpr (std::is_same_v<T, TextField>) {
                     if (kEditing) {
-                        DrawBoxText(kControl, edit_->text_ + "|", kText, true);
+                        DrawBoxText(kControl, edit_->text_ + "|", colors.value_,
+                                    true);
                     } else {
                         DrawBoxText(kControl, value.value_, kValueColor);
-                        DrawUnderline(kControl,
-                                      enabled ? kStroke : kDisabledText);
+                        DrawUnderline(kControl, enabled
+                                                    ? colors.stroke_
+                                                    : colors.disabled_text_);
                     }
                 } else if constexpr (std::is_same_v<T, NumberField>) {
                     if (kEditing) {
-                        DrawBoxText(kControl, edit_->text_ + "|", kText, true);
+                        DrawBoxText(kControl, edit_->text_ + "|", colors.value_,
+                                    true);
                     } else {
                         DrawBoxText(
                             kControl,
                             FormatNumber(value.value_, value.is_integer_),
                             kValueColor);
-                        DrawUnderline(kControl,
-                                      enabled ? kStroke : kDisabledText);
+                        DrawUnderline(kControl, enabled
+                                                    ? colors.stroke_
+                                                    : colors.disabled_text_);
                     }
                 } else if constexpr (std::is_same_v<T, Slider>) {
                     const double kRange = value.max_ - value.min_;
@@ -655,7 +644,7 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                                      : 0.0F;
                     DrawBox({kControl.x_, kControl.y_, kControl.width_ * kRatio,
                              kControl.height_},
-                            kAccent);
+                            colors.accent_);
                     DrawBoxText(kControl,
                                 FormatNumber(value.value_, value.is_integer_),
                                 kValueColor);
@@ -664,7 +653,7 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                     const WrappedRectangle kSquare{
                         kControl.x_ + 4.0F, kControl.y_ + 3.0F, kSize, kSize};
                     const WrappedColor kMarkColor =
-                        enabled ? kStroke : kDisabledText;
+                        enabled ? colors.stroke_ : colors.disabled_text_;
                     utils::DrawRectangleRoundedLinesWrapped(
                         {kSquare.x_ + 1.0F, kSquare.y_ + 1.0F,
                          kSquare.width_ - 2.0F, kSquare.height_ - 2.0F},
@@ -701,7 +690,8 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                 if (kEditing || kListOpen) {
                     utils::DrawRectangleRoundedLinesWrapped(
                         kControl, kBoxRadius, 1.0F,
-                        kEditing && !edit_->error_.empty() ? kError : kAccent);
+                        kEditing && !edit_->error_.empty() ? colors.error_
+                                                           : colors.accent_);
                 }
             }
         },
@@ -711,6 +701,7 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
 void ComponentAdapter::DrawOverlay(core::NodeId node_id,
                                    const ComponentList &components,
                                    WrappedRectangle bounds) const {
+    const palette::Palette::Field &colors = palette::Get().field_;
     if (edit_ && edit_->node_id_ == node_id && !edit_->error_.empty()) {
         if (const auto kIndex = IndexOfId(components, edit_->component_id_)) {
             const WrappedRectangle kRow = RowBounds(bounds, *kIndex);
@@ -719,10 +710,10 @@ void ComponentAdapter::DrawOverlay(core::NodeId node_id,
                 std::max(kRow.width_,
                          TextWidth(edit_->error_) + 2.0F * kControlPadding),
                 kBubbleHeight};
-            DrawBox(kBubble, kErrorBubble);
+            DrawBox(kBubble, colors.error_bubble_);
             utils::DrawTextExWrapped(
                 edit_->error_.c_str(), kBubble.x_ + kControlPadding,
-                kBubble.y_ + 3.0F, kFontSize, kSpacing, kErrorText);
+                kBubble.y_ + 3.0F, kFontSize, kSpacing, colors.error_text_);
         }
     }
 
@@ -735,17 +726,18 @@ void ComponentAdapter::DrawOverlay(core::NodeId node_id,
              ++option) {
             const WrappedRectangle kOption =
                 OptionBounds(components, bounds, *kIndex, option);
-            utils::DrawRectangleRecWrapped(
-                kOption, option == select->selected_index_ ? kListSelected
-                                                           : kListBackground);
-            DrawBoxText(kOption, select->options_[option], kListText);
+            utils::DrawRectangleRecWrapped(kOption,
+                                           option == select->selected_index_
+                                               ? colors.list_selected_
+                                               : colors.list_background_);
+            DrawBoxText(kOption, select->options_[option], colors.list_text_);
         }
         const WrappedRectangle kFirst =
             OptionBounds(components, bounds, *kIndex, 0);
         utils::DrawRectangleLinesWrapped(
             kFirst.x_, kFirst.y_, kFirst.width_,
             kFirst.height_ * static_cast<float>(select->options_.size()),
-            kAccent);
+            colors.accent_);
     }
 }
 

@@ -20,9 +20,6 @@
 
 namespace editor::ui {
 namespace {
-constexpr utils::WrappedColor kSelectionFill = palette::canvas::kSelectionFill;
-constexpr utils::WrappedColor kSelectionBorder =
-    palette::canvas::kSelectionBorder;
 
 utils::WrappedRectangle MakeRectangle(utils::WrappedVector2 first,
                                       utils::WrappedVector2 second) {
@@ -267,7 +264,10 @@ void NodeCanvas::DrawSelectionRectangle(const render::Camera &camera) const {
         return;
     }
 
-    utils::DrawRectangleRecWrapped(*kRectangle, kSelectionFill);
+    utils::DrawRectangleRecWrapped(*kRectangle,
+                                   palette::Get().canvas_.selection_fill_);
+    const utils::WrappedColor kSelectionBorder =
+        palette::Get().canvas_.selection_border_;
 
     const float kThickness = 1.0F / camera.Zoom();
     const float kLeft = kRectangle->x_;

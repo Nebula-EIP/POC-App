@@ -71,6 +71,11 @@ if(TEST_SOURCES)
         NEBULA_FIXTURE_WRONG_ID="$<TARGET_FILE:fixture_wrong_id_module>"
     )
 
+    # The palette tests read the palette file of the project.
+    target_compile_definitions(unit_tests PRIVATE
+        NEBULA_PALETTE_FILE="${CMAKE_SOURCE_DIR}/palette.yaml"
+    )
+
     # The module needs to know where its shared library is.
     target_compile_definitions(unit_tests PRIVATE
         NEBULA_C_MODULE="$<TARGET_FILE:neb_c_module>"

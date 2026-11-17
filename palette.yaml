@@ -1,0 +1,147 @@
+# Nebula color palette: every color the editor draws with, by name.
+#
+# Read at start-up from the working directory: edit it and restart the editor,
+# no rebuild needed. A copy is also compiled into the editor, used when this
+# file is missing and for every color this file leaves out or gets wrong.
+#
+# A color is written in one of these ways:
+#   name: "#23252D"                    hex code (quotes required: # starts a
+#                                      YAML comment)
+#   name: chasm.blue                   another color of the palette
+#   name: { color: "#000000", opacity: 0.25 }
+#   name: { color: base.accent, opacity: 0.12 }
+#                                      the same, with an opacity from 0 to 1
+#
+# Documentation: docs/docs/dev/color-palette.md
+
+# The Chasm palette of the design: the colors the rest is built from.
+chasm:
+  silver: "#AEAEB4"
+  slate: "#4E4F56"
+  charcoal: "#24252C"
+  abyss: "#16171D"
+  green: "#6EA17D"
+  red: "#A8474A"
+  violet: "#7E7FCD"
+  orange: "#D19D82"
+  blue: "#76A1E1"
+
+# Colors shared by several parts of the editor.
+base:
+  white: "#FFFFFF"
+  shadow: { color: "#000000", opacity: 0.25 }
+  accent: chasm.blue
+  error: "#D9575B"
+  warning: "#E8C15A"
+
+# The node canvas: background, grid, rectangle selection.
+canvas:
+  background: "#23252D"
+  grid: "#2E3037"
+  loading_text: "#909195"
+  selection_fill: { color: base.accent, opacity: 0.12 }
+  selection_border: { color: base.accent, opacity: 0.8 }
+
+# The menu bar at the top of the window and its drop-down menus.
+top_bar:
+  background: "#22232C"
+  text: "#909195"
+  text_hover: "#F2F2F4"
+  item_text: "#C9CACE"
+  disabled_text: "#6A6B72"
+  shadow: base.shadow
+  hover: "#30313B"
+  dropdown: "#22232C"
+  border: "#33343E"
+
+# The node cards.
+node:
+  header: "#1F2027"
+  body: chasm.abyss
+  title: base.white
+  pin_label: "#E2E2E4"
+  selected_outline: "#D7D8DD"
+  shadow: { color: "#000000", opacity: 0.18 }
+  error_pin: base.error
+
+# The node picker ("Add Node"), drawn like a node card.
+popup:
+  header: node.header
+  background: node.body
+  search_background: chasm.abyss
+  search_border: chasm.charcoal
+  placeholder: top_bar.text
+  text: node.pin_label
+  folder_text: chasm.silver
+  selected: chasm.charcoal
+  selected_text: base.white
+  empty_text: top_bar.disabled_text
+  scrollbar: chasm.slate
+  shadow: base.shadow
+
+# The values and settings drawn inside the nodes.
+field:
+  label: "#A9AAAF"
+  value: "#C4C5C7"
+  disabled_text: "#6B6C72"
+  warning_text: base.warning
+  idle: node.header
+  active: "#262730"
+  editing: "#2D2E38"
+  # Underline of the text fields, outline and mark of the checkboxes.
+  stroke: "#BBBBBB"
+  accent: base.accent
+  error: base.error
+  error_bubble: { color: "#6E2A2D", opacity: 0.95 }
+  error_text: base.white
+  list_background: top_bar.dropdown
+  list_selected: top_bar.hover
+  list_text: top_bar.text_hover
+  separator: "#34353D"
+
+# The links between pins (their color is the one of their type).
+link:
+  selected: base.white
+  ghost: { color: chasm.silver, opacity: 0.5 }
+
+# Warnings stacked at the bottom of the window.
+notification:
+  background: { color: "#3A2226", opacity: 0.95 }
+  border: base.error
+  text: base.white
+
+# Pins and links of the types not listed in type_names.
+type:
+  # Types defined by the user (structures...).
+  custom: chasm.orange
+  # Every other type (char...).
+  other: chasm.slate
+
+# Color of the pins and links of each type, by the name the modules give it.
+# Add a line to color a new type.
+type_names:
+  void: chasm.silver # execution flow, drawn as triangles
+  int: chasm.blue
+  float: chasm.violet
+  string: chasm.green
+  bool: chasm.red
+
+# Line at the top of the nodes (and marker in the node picker).
+accent:
+  # No line.
+  none: { color: "#000000", opacity: 0 }
+  # Entry points: functions, their inputs and outputs.
+  entry: chasm.red
+  # Branches (if...) and loops.
+  branch: chasm.silver
+  # Nodes that set a variable.
+  variable: chasm.blue
+
+# Accent of single nodes, by node name. Wins over the category.
+accent_nodes:
+  Variable: accent.variable
+
+# Accent of each category. Sub-folders ("Flow/Loops") use their root's.
+accent_categories:
+  Functions: accent.entry
+  Flow: accent.branch
