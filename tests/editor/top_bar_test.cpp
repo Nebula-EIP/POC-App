@@ -271,11 +271,11 @@ TEST_F(TopBarTest, DefaultStyleFollowsTheProjectPalette) {
     const editor::ui::TopBarStyle kStyle;
 
     EXPECT_FLOAT_EQ(bar_.Height(), 57.0F);
-    EXPECT_EQ(kStyle.bar_.r_, palette::top_bar::kBackground.r_);
-    EXPECT_EQ(kStyle.bar_.g_, palette::top_bar::kBackground.g_);
-    EXPECT_EQ(kStyle.bar_.b_, palette::top_bar::kBackground.b_);
-    EXPECT_EQ(kStyle.text_.r_, palette::top_bar::kText.r_);
-    EXPECT_EQ(kStyle.shadow_.a_, palette::top_bar::kShadow.a_);
+    EXPECT_EQ(kStyle.bar_.r_, palette::Get().top_bar_.background_.r_);
+    EXPECT_EQ(kStyle.bar_.g_, palette::Get().top_bar_.background_.g_);
+    EXPECT_EQ(kStyle.bar_.b_, palette::Get().top_bar_.background_.b_);
+    EXPECT_EQ(kStyle.text_.r_, palette::Get().top_bar_.text_.r_);
+    EXPECT_EQ(kStyle.shadow_.a_, palette::Get().top_bar_.shadow_.a_);
     EXPECT_EQ(kStyle.title_font_size_, 32);
     EXPECT_EQ(kStyle.title_weight_, utils::FontWeight::kBold);
 }

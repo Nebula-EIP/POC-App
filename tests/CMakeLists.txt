@@ -55,6 +55,9 @@ if(TEST_SOURCES)
         core_modules
         neb_render
         core_node_catalog
+        utils
+        nlohmann_json::nlohmann_json
+        yaml-cpp::yaml-cpp
     )
 
     # The loader tests open real shared libraries, so they need their absolute
@@ -69,6 +72,11 @@ if(TEST_SOURCES)
         NEBULA_FIXTURE_NO_TYPES="$<TARGET_FILE:fixture_no_types_module>"
         NEBULA_FIXTURE_NO_NODES="$<TARGET_FILE:fixture_no_nodes_module>"
         NEBULA_FIXTURE_WRONG_ID="$<TARGET_FILE:fixture_wrong_id_module>"
+    )
+
+    # The palette tests read the palette file of the project.
+    target_compile_definitions(unit_tests PRIVATE
+        NEBULA_PALETTE_FILE="${CMAKE_SOURCE_DIR}/palette.yaml"
     )
 
     # The module needs to know where its shared library is.

@@ -197,29 +197,30 @@ void NodeView::Draw(const render::Camera &camera,
     // Card: the header color everywhere, then the body below the header
     // (square on top, rounded at the bottom).
     utils::DrawShadowWrapped(bounds_, kCornerRadius, kShadowOffset, kShadowBlur,
-                             palette::node::kShadow);
+                             palette::Get().node_.shadow_);
     utils::DrawRectangleRoundedWrapped(bounds_, kCornerRadius,
-                                       palette::node::kHeader);
+                                       palette::Get().node_.header_);
     const float kBodyHeight = bounds_.height_ - kHeaderHeight;
     if (kBodyHeight > 0.0F) {
         utils::DrawRectangleRoundedWrapped(
             {bounds_.x_, bounds_.y_ + kHeaderHeight, bounds_.width_,
              kBodyHeight},
-            kCornerRadius, palette::node::kBody);
+            kCornerRadius, palette::Get().node_.body_);
         utils::DrawRectangleRecWrapped(
             {bounds_.x_, bounds_.y_ + kHeaderHeight, bounds_.width_,
              std::min(kCornerRadius, kBodyHeight)},
-            palette::node::kBody);
+            palette::Get().node_.body_);
     }
     if (selected_) {
         utils::DrawRectangleRoundedLinesWrapped(
             bounds_, kCornerRadius, kSelectedOutline,
-            palette::node::kSelectedOutline);
+            palette::Get().node_.selected_outline_);
     }
 
     // Accent line at the top of the card, in the color of the node's kind.
-    const utils::WrappedColor kAccent =
-        paint.accent_ ? paint.accent_(node_type_) : palette::accent::kNone;
+    const utils::WrappedColor kAccent = paint.accent_
+                                            ? paint.accent_(node_type_)
+                                            : palette::Get().accent_.none_;
     if (kAccent.a_ > 0) {
         const float kInset = bounds_.width_ * kAccentInset;
         utils::DrawRectangleRoundedWrapped(
@@ -231,7 +232,7 @@ void NodeView::Draw(const render::Camera &camera,
     utils::DrawTextExWrapped(
         title_.c_str(), bounds_.x_ + kHorizontalPadding,
         bounds_.y_ + (kHeaderHeight - static_cast<float>(kFontSize)) / 2.0F,
-        kFontSize, kSpacing, palette::node::kTitle);
+        kFontSize, kSpacing, palette::Get().node_.title_);
 
     for (const auto &port : inputs_) {
         DrawPort(port, true, paint);
@@ -251,10 +252,10 @@ void NodeView::DrawPort(const PortView &port, bool is_input,
         !paint.pin_linked_ || paint.pin_linked_(node_id_, port.id_, is_input);
     const bool kError =
         port.id_ == error_pin_id_ && error_pin_is_input_ == is_input;
-    const utils::WrappedColor kColor =
-        kError ? palette::node::kErrorPin : palette::TypeColor(kTypeName);
+    const utils::WrappedColor kColor = kError ? palette::Get().node_.error_pin_
+                                              : palette::TypeColor(kTypeName);
 
-    if (kTypeName == palette::type::kFlowTypeName) {
+    if (kTypeName == palette::kFlowTypeName) {
         // Execution flow: a triangle pointing right, across the edge.
         const float kX = kCenter.x_ + kFlowPinShift;
         const utils::WrappedVector2 kTop{kX - kFlowPinWidth / 2.0F,
@@ -283,12 +284,12 @@ void NodeView::DrawPort(const PortView &port, bool is_input,
     const float kTextY = kCenter.y_ - static_cast<float>(kFontSize) / 2.0F;
     if (is_input) {
         // Past the tip of a flow triangle, which reaches into the card.
-        const float kTextX = kTypeName == palette::type::kFlowTypeName
+        const float kTextX = kTypeName == palette::kFlowTypeName
                                  ? kCenter.x_ + kFlowPinShift +
                                        kFlowPinWidth / 2.0F + kFlowPinLabelGap
                                  : kCenter.x_ + kHorizontalPadding;
         utils::DrawTextExWrapped(port.name_.c_str(), kTextX, kTextY, kFontSize,
-                                 kSpacing, palette::node::kPinLabel);
+                                 kSpacing, palette::Get().node_.pin_label_);
         return;
     }
     // Measured with the real font, so that the names end on the same line.
@@ -296,7 +297,7 @@ void NodeView::DrawPort(const PortView &port, bool is_input,
         utils::MeasureTextExWrapped(port.name_.c_str(), kFontSize, kSpacing);
     utils::DrawTextExWrapped(
         port.name_.c_str(), kCenter.x_ - kHorizontalPadding - kTextWidth,
-        kTextY, kFontSize, kSpacing, palette::node::kPinLabel);
+        kTextY, kFontSize, kSpacing, palette::Get().node_.pin_label_);
 }
 
 std::optional<utils::WrappedVector2> NodeView::GetPinPosition(

@@ -1,0 +1,11 @@
+# Nebula editor configuration.
+#
+# Copy this file to `config.yaml` in the folder Nebula is started from, or pass
+# another file with `--config <path>`. The file is optional and every key is
+# optional: a missing key keeps its default value. Nebula never writes this
+# file.
+
+# Folder the modules are loaded from. A relative path is resolved from the
+# folder containing this file.
+# Default: modules
+module_folder: modules

@@ -606,6 +606,7 @@ bool NodePicker::Update(const NodePickerInput &input) {
 // Drawing
 
 void NodePicker::Draw() const {
+    const palette::Palette::Popup &colors = palette::Get().popup_;
     if (!is_open_) {
         return;
     }
@@ -615,39 +616,38 @@ void NodePicker::Draw() const {
 
     // Card: body color everywhere, header color behind the search field.
     utils::DrawShadowWrapped(kBounds, kRadius, {0.0F, style_.shadow_offset_},
-                             kShadowBlur, palette::popup::kShadow);
-    utils::DrawRectangleRoundedWrapped(kBounds, kRadius,
-                                       palette::popup::kBackground);
+                             kShadowBlur, colors.shadow_);
+    utils::DrawRectangleRoundedWrapped(kBounds, kRadius, colors.background_);
     const float kHeaderHeight =
         kSearch.y_ + kSearch.height_ + kSearchMargin - kBounds.y_;
     utils::DrawRectangleRoundedWrapped(
         {kBounds.x_, kBounds.y_, kBounds.width_, kHeaderHeight}, kRadius,
-        palette::popup::kHeader);
+        colors.header_);
     utils::DrawRectangleRecWrapped(
         {kBounds.x_, kBounds.y_ + kHeaderHeight - kRadius, kBounds.width_,
          kRadius},
-        palette::popup::kHeader);
+        colors.header_);
 
     // Search field, with a caret after the text.
     utils::DrawRectangleRoundedWrapped(kSearch, kSearchRadius,
-                                       palette::popup::kSearchBackground);
+                                       colors.search_background_);
     utils::DrawRectangleRoundedLinesWrapped(kSearch, kSearchRadius, 1.0F,
-                                            palette::popup::kSearchBorder);
+                                            colors.search_border_);
     const float kTextY = kSearch.y_ + (kSearch.height_ - kFont) / 2.0F;
     const float kTextX = kSearch.x_ + style_.item_padding_ / 2.0F;
     if (query_.empty()) {
         utils::DrawTextExWrapped(kPlaceholder, kTextX, kTextY,
                                  style_.font_size_, kSpacing,
-                                 palette::popup::kPlaceholder);
+                                 colors.placeholder_);
     } else {
         utils::DrawTextExWrapped(query_.c_str(), kTextX, kTextY,
                                  style_.font_size_, kSpacing,
-                                 palette::popup::kSelectedText);
+                                 colors.selected_text_);
     }
     const float kCaretX =
         kTextX + (query_.empty() ? 0.0F : measurer_(query_, style_.font_size_));
     utils::DrawRectangleWrapped(kCaretX + 1.0F, kTextY, 1.0F, kFont,
-                                palette::popup::kSelectedText);
+                                colors.selected_text_);
 
     // Rows.
     for (std::size_t row = scroll_;
@@ -667,7 +667,7 @@ void NodePicker::Draw() const {
             utils::DrawRectangleRoundedWrapped(
                 {kRect->x_ + kPadding, kRect->y_,
                  kRect->width_ - 2.0F * kPadding, kRect->height_},
-                kSearchRadius, palette::popup::kSelected);
+                kSearchRadius, colors.selected_);
         }
         switch (current.kind_) {
             case RowKind::kFolder: {
@@ -679,17 +679,17 @@ void NodePicker::Draw() const {
                         {kX - kHalf, kRowMiddle - kHalf / 2.0F},
                         {kX + kHalf, kRowMiddle - kHalf / 2.0F},
                         {kX, kRowMiddle + kHalf / 2.0F + 1.0F},
-                        palette::popup::kFolderText);
+                        colors.folder_text_);
                 } else {
                     utils::DrawTriangleWrapped(
                         {kX - kHalf / 2.0F, kRowMiddle - kHalf},
                         {kX - kHalf / 2.0F, kRowMiddle + kHalf},
                         {kX + kHalf / 2.0F + 1.0F, kRowMiddle},
-                        palette::popup::kFolderText);
+                        colors.folder_text_);
                 }
                 utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
                                          kRowTextY, style_.font_size_, kSpacing,
-                                         palette::popup::kFolderText);
+                                         colors.folder_text_);
                 break;
             }
             case RowKind::kEntry: {
@@ -704,17 +704,16 @@ void NodePicker::Draw() const {
                          kMarkerHeight},
                         kMarkerWidth / 2.0F, kAccent);
                 }
-                utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
-                                         kRowTextY, style_.font_size_, kSpacing,
-                                         kSelected
-                                             ? palette::popup::kSelectedText
-                                             : palette::popup::kText);
+                utils::DrawTextExWrapped(
+                    current.label_.c_str(), kLabelX, kRowTextY,
+                    style_.font_size_, kSpacing,
+                    kSelected ? colors.selected_text_ : colors.text_);
                 break;
             }
             case RowKind::kEmpty:
                 utils::DrawTextExWrapped(current.label_.c_str(), kLabelX,
                                          kRowTextY, style_.font_size_, kSpacing,
-                                         palette::popup::kEmptyText);
+                                         colors.empty_text_);
                 break;
         }
     }
@@ -734,7 +733,7 @@ void NodePicker::Draw() const {
                 {kBounds.x_ + kBounds.width_ - kScrollbarWidth,
                  kFirst->y_ + kOffset, kThumbWidth,
                  std::max(kTrack * kRatio, 8.0F)},
-                kThumbWidth / 2.0F, palette::popup::kScrollbar);
+                kThumbWidth / 2.0F, colors.scrollbar_);
         }
     }
 }

@@ -39,14 +39,26 @@ cd POC-App
 
 ### Module configuration
 
-At startup, Nebula reads `config.json` from the current directory. The file is
-optional: when it is absent, the default module folder is `modules`. Copy
-`config.example.json` to `config.json` and change `module_folder` to load
-modules from another folder. Relative folders are resolved from the directory
-containing the configuration file. The application never creates or overwrites
-this file automatically.
+At startup, Nebula reads `config.yaml` from the current directory. The file is
+optional, and so is every key: a missing key keeps its default value. Copy
+`config.example.yaml` to `config.yaml` and change the values you need:
+
+```yaml
+# Folder the modules are loaded from (default: modules).
+module_folder: build/manual-modules
+```
+
+Relative paths are resolved from the directory containing the configuration
+file. The application never creates or overwrites this file (the build scripts
+create a default one if it is missing). An invalid file stops the editor with
+an error giving the file, line and column; an unknown key is ignored with a
+warning.
 
 Use `--config <path>` to load a configuration from another location.
+
+> **Deprecated:** `config.json` is still read, with a warning, when
+> `config.yaml` is missing. This fallback will be removed: replace
+> `{"module_folder": "x"}` with `module_folder: x` in `config.yaml`.
 
 **Linux**
 ```bash
