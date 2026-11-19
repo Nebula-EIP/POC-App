@@ -1,5 +1,0 @@
-<map id="core::capa::ImportRequest" name="core::capa::ImportRequest">
-<area shape="rect" id="Node000001" title="Input supplied to an importer capability." alt="" coords="5,106,198,134"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1Graph.html" title="Collection of linked nodes." alt="" coords="53,5,150,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,47,104,106,99,105,99,50"/>
-</map>
