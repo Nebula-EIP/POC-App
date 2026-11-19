@@ -1,0 +1,5 @@
+<map id="editor::project::NebulaFileError" name="editor::project::NebulaFileError">
+<area shape="rect" id="Node000001" title="Thrown for any unreadable, invalid or unwritable .nebula file." alt="" coords="5,81,195,126"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,5,169,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,47,102,81,98,79,98,51"/>
+</map>

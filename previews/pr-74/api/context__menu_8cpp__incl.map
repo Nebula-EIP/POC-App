@@ -1,0 +1,50 @@
+<map id="src/editor/ui/context_menu.cpp" name="src/editor/ui/context_menu.cpp">
+<area shape="rect" id="Node000001" title="Implementation of ContextMenu." alt="" coords="293,5,444,50"/>
+<area shape="rect" id="Node000002" href="$context__menu_8hpp.html" title="ContextMenu UI component." alt="" coords="229,98,372,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="352,48,323,87,319,84,349,52"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="396,98,480,126"/>
+<area shape="poly" id="edge30_Node000001_Node000018" title=" " alt="" coords="387,48,419,86,414,86,386,53"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,325,92,353"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,128,188,145,133,170,82,205,61,226,43,251,37,264,36,279,41,310,35,310,30,280,32,263,38,248,57,223,79,201,131,165,186,140,240,124"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="735,249,810,277"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="352,124,521,171,726,243,721,244,520,176,352,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="129,325,187,353"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="298,124,273,194,252,237,227,279,189,317,186,313,222,275,248,235,268,192,295,128"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="861,325,924,353"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="372,123,485,145,617,175,739,210,788,228,823,247,856,277,880,313,875,311,852,281,820,252,785,233,737,215,616,180,484,150,372,128"/>
+<area shape="rect" id="Node000007" href="$action_8hpp.html" title="Action and Shortcut structures." alt="" coords="72,249,212,277"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="284,128,233,176,167,240,163,237,229,172,287,124"/>
+<area shape="rect" id="Node000008" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="210,325,388,353"/>
+<area shape="poly" id="edge29_Node000002_Node000008" title=" " alt="" coords="303,124,302,310,297,309,298,128"/>
+<area shape="rect" id="Node000011" href="$top__bar_8hpp.html" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="410,174,508,201"/>
+<area shape="poly" id="edge12_Node000002_Node000011" title=" " alt="" coords="329,124,420,166,415,168,329,129"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="124,280,79,317,75,313,127,275"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="146,275,154,310,149,309,144,280"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="170,275,260,317,255,319,170,280"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="264,401,334,428"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="301,351,301,387,297,383,297,355"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="378,401,437,428"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="319,351,378,392,373,392,318,356"/>
+<area shape="poly" id="edge14_Node000011_Node000003" title=" " alt="" coords="408,190,322,195,217,204,121,222,85,235,61,251,53,264,48,279,47,310,41,310,43,278,48,262,57,247,83,230,120,217,216,199,321,190,412,188"/>
+<area shape="poly" id="edge15_Node000011_Node000004" title=" " alt="" coords="509,198,722,249,717,250,508,203"/>
+<area shape="poly" id="edge16_Node000011_Node000005" title=" " alt="" coords="434,204,199,320,197,315,432,199"/>
+<area shape="poly" id="edge17_Node000011_Node000006" title=" " alt="" coords="508,197,587,217,674,247,699,261,724,275,788,300,849,323,844,323,786,305,722,279,697,265,671,252,585,222,508,202"/>
+<area shape="poly" id="edge28_Node000011_Node000008" title=" " alt="" coords="467,199,480,237,480,259,472,278,458,294,442,307,404,325,402,320,439,303,454,290,468,276,474,258,474,238,464,204"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="388,249,458,277"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="455,200,438,237,434,233,451,204"/>
+<area shape="rect" id="Node000013" href="$palette_8hpp.html" title="The project color palette: every color the editor draws with, by name." alt="" coords="533,249,660,277"/>
+<area shape="poly" id="edge18_Node000011_Node000013" title=" " alt="" coords="484,199,562,242,556,242,483,205"/>
+<area shape="poly" id="edge21_Node000013_Node000003" title=" " alt="" coords="530,272,346,296,117,328,108,329,106,324,116,322,345,291,535,270"/>
+<area shape="poly" id="edge23_Node000013_Node000005" title=" " alt="" coords="530,272,386,294,203,327,202,322,385,288,535,271"/>
+<area shape="poly" id="edge26_Node000013_Node000006" title=" " alt="" coords="654,275,849,324,843,325,654,280"/>
+<area shape="poly" id="edge27_Node000013_Node000008" title=" " alt="" coords="540,278,368,323,367,318,546,277"/>
+<area shape="poly" id="edge25_Node000013_Node000010" title=" " alt="" coords="544,277,497,298,454,327,432,356,417,388,414,384,428,353,451,323,494,294,539,278"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="464,325,529,353"/>
+<area shape="poly" id="edge19_Node000013_Node000014" title=" " alt="" coords="581,277,528,318,525,313,576,279"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="553,325,642,353"/>
+<area shape="poly" id="edge20_Node000013_Node000015" title=" " alt="" coords="598,276,599,311,595,308,595,280"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="666,325,716,353"/>
+<area shape="poly" id="edge22_Node000013_Node000016" title=" " alt="" coords="614,275,665,316,660,315,613,280"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="740,325,837,353"/>
+<area shape="poly" id="edge24_Node000013_Node000017" title=" " alt="" coords="631,275,743,319,737,319,630,280"/>
+</map>

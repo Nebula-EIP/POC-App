@@ -1,0 +1,9 @@
+<map id="src/render/camera.hpp" name="src/render/camera.hpp">
+<area shape="rect" id="Node000001" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="10,5,178,33"/>
+<area shape="rect" id="Node000002" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="5,81,183,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,31,97,66,91,65,93,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="15,157,85,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,108,68,145,63,142,84,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="110,157,169,184"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="103,107,126,143,121,143,101,112"/>
+</map>
