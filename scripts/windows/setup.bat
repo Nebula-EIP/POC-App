@@ -27,11 +27,17 @@ if errorlevel 1 (
 
 where choco >nul 2>&1
 if not errorlevel 1 (
+    if exist "%ProgramFiles%\LLVM\bin\clang-format.exe" (
+        copy /Y "%ProgramFiles%\LLVM\bin\clang-format.exe" "%TEMP%\clang-format-orig.exe" >nul
+    )
     echo Upgrading LLVM to match the latest MSVC STL requirements...
     call choco upgrade llvm -y --no-progress
     if errorlevel 1 (
         echo Error: Failed to upgrade LLVM via Chocolatey.
         exit /b 1
+    )
+    if exist "%TEMP%\clang-format-orig.exe" (
+        copy /Y "%TEMP%\clang-format-orig.exe" "%ProgramFiles%\LLVM\bin\clang-format.exe" >nul
     )
 )
 
