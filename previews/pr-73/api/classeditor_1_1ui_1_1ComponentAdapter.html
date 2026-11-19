@@ -98,12 +98,25 @@ $(function(){initNavTree('classeditor_1_1ui_1_1ComponentAdapter.html','','classe
 
 <p><code>#include &lt;<a class="el" href="component__adapter_8hpp_source.html">component_adapter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Clipboard" id="r_Clipboard"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html">Clipboard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the clipboard used by Ctrl+C, Ctrl+X and Ctrl+V.  <a href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a229813397ab951c6ead103e4515b257c" id="r_a229813397ab951c6ead103e4515b257c"><td class="memItemLeft" align="right" valign="top"><a id="a229813397ab951c6ead103e4515b257c" name="a229813397ab951c6ead103e4515b257c"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>TextMeasurer</b> = std::function&lt;float(const std::string &amp;)&gt;</td></tr>
+<tr class="memdesc:a229813397ab951c6ead103e4515b257c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measures the width of a text drawn in a field, in the units of the bounds given to the adapter. <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a1a4f5a2847bfb7e7e50ae567f551ae99" id="r_a1a4f5a2847bfb7e7e50ae567f551ae99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a4f5a2847bfb7e7e50ae567f551ae99">ComponentAdapter</a> (<a class="el" href="#a229813397ab951c6ead103e4515b257c">TextMeasurer</a> measurer={}, <a class="el" href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html">Clipboard</a> clipboard={})</td></tr>
+<tr class="memdesc:a1a4f5a2847bfb7e7e50ae567f551ae99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the adapter.  <br /></td></tr>
 <tr class="memitem:ab40e8db7adb1fa1420e15af47bf23a78" id="r_ab40e8db7adb1fa1420e15af47bf23a78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab40e8db7adb1fa1420e15af47bf23a78">Update</a> (<a class="el" href="datatypes_8hpp.html#a566a09b67984389a9c882a3c276c0abd">core::NodeId</a> node_id, const <a class="el" href="renderer__capability_8hpp.html#af6070c735f3bfb01c8c173c84c9dadf8">core::capa::ComponentList</a> &amp;components, <a class="el" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> bounds, const <a class="el" href="structeditor_1_1ui_1_1ComponentInput.html">ComponentInput</a> &amp;input)</td></tr>
 <tr class="memdesc:ab40e8db7adb1fa1420e15af47bf23a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles one frame of input for the node being edited.  <br /></td></tr>
-<tr class="memitem:a986e3af91781e608805624314d8203c4" id="r_a986e3af91781e608805624314d8203c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a986e3af91781e608805624314d8203c4">Draw</a> (<a class="el" href="datatypes_8hpp.html#a566a09b67984389a9c882a3c276c0abd">core::NodeId</a> node_id, const <a class="el" href="renderer__capability_8hpp.html#af6070c735f3bfb01c8c173c84c9dadf8">core::capa::ComponentList</a> &amp;components, <a class="el" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> bounds, bool active) const</td></tr>
-<tr class="memdesc:a986e3af91781e608805624314d8203c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the components.  <br /></td></tr>
+<tr class="memitem:acb75009d38755f2d3557110cd8934a15" id="r_acb75009d38755f2d3557110cd8934a15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb75009d38755f2d3557110cd8934a15">Draw</a> (<a class="el" href="datatypes_8hpp.html#a566a09b67984389a9c882a3c276c0abd">core::NodeId</a> node_id, const <a class="el" href="renderer__capability_8hpp.html#af6070c735f3bfb01c8c173c84c9dadf8">core::capa::ComponentList</a> &amp;components, <a class="el" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> bounds, bool active, float pixel_size=1.0F) const</td></tr>
+<tr class="memdesc:acb75009d38755f2d3557110cd8934a15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the components.  <br /></td></tr>
 <tr class="memitem:a55d1e11a69ad4e6fd3499f61d1c55d3c" id="r_a55d1e11a69ad4e6fd3499f61d1c55d3c"><td class="memItemLeft" align="right" valign="top"><a id="a55d1e11a69ad4e6fd3499f61d1c55d3c" name="a55d1e11a69ad4e6fd3499f61d1c55d3c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEditingText</b> () const noexcept</td></tr>
 <tr class="memdesc:a55d1e11a69ad4e6fd3499f61d1c55d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">True while a text or number field has the keyboard. <br /></td></tr>
@@ -119,6 +132,17 @@ const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Ed
 <tr class="memitem:a5f6b697a82310e23de1d55b35401f9eb" id="r_a5f6b697a82310e23de1d55b35401f9eb"><td class="memItemLeft" align="right" valign="top"><a id="a5f6b697a82310e23de1d55b35401f9eb" name="a5f6b697a82310e23de1d55b35401f9eb"></a>
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>EditError</b> () const noexcept</td></tr>
 <tr class="memdesc:a5f6b697a82310e23de1d55b35401f9eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explanation of why the typed text is invalid (empty when valid). <br /></td></tr>
+<tr class="memitem:a9e22a0fff4f77ad9a49c2e6d6cf1b454" id="r_a9e22a0fff4f77ad9a49c2e6d6cf1b454"><td class="memItemLeft" align="right" valign="top"><a id="a9e22a0fff4f77ad9a49c2e6d6cf1b454" name="a9e22a0fff4f77ad9a49c2e6d6cf1b454"></a>
+std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Caret</b> () const noexcept</td></tr>
+<tr class="memdesc:a9e22a0fff4f77ad9a49c2e6d6cf1b454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caret position in the edited text, in UTF-8 characters (0 when nothing is edited). <br /></td></tr>
+<tr class="memitem:a5a11b1a322fdd72b1134380d83907418" id="r_a5a11b1a322fdd72b1134380d83907418"><td class="memItemLeft" align="right" valign="top">std::pair&lt; std::size_t, std::size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a11b1a322fdd72b1134380d83907418">Selection</a> () const noexcept</td></tr>
+<tr class="memdesc:a5a11b1a322fdd72b1134380d83907418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selected characters of the edited text: [first, second), in UTF-8 characters.  <br /></td></tr>
+<tr class="memitem:a0ac984782413e8a834eadb53abe5562a" id="r_a0ac984782413e8a834eadb53abe5562a"><td class="memItemLeft" align="right" valign="top"><a id="a0ac984782413e8a834eadb53abe5562a" name="a0ac984782413e8a834eadb53abe5562a"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>SelectedText</b> () const</td></tr>
+<tr class="memdesc:a0ac984782413e8a834eadb53abe5562a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Text of the selection (empty when nothing is selected). <br /></td></tr>
+<tr class="memitem:a197737f91659ba7171b5314106978c2f" id="r_a197737f91659ba7171b5314106978c2f"><td class="memItemLeft" align="right" valign="top"><a id="a197737f91659ba7171b5314106978c2f" name="a197737f91659ba7171b5314106978c2f"></a>
+std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>FirstVisibleCharacter</b> () const noexcept</td></tr>
+<tr class="memdesc:a197737f91659ba7171b5314106978c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">First character drawn in the edited field: above 0 when a long text is scrolled to show the caret. <br /></td></tr>
 <tr class="memitem:a88e9580ee3e968eed470acc04d62f026" id="r_a88e9580ee3e968eed470acc04d62f026"><td class="memItemLeft" align="right" valign="top"><a id="a88e9580ee3e968eed470acc04d62f026" name="a88e9580ee3e968eed470acc04d62f026"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CancelEdit</b> () noexcept</td></tr>
 <tr class="memdesc:a88e9580ee3e968eed470acc04d62f026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops the current edit and closes any list, without applying. <br /></td></tr>
@@ -154,8 +178,48 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Draws renderer component descriptions and owns transient widget state (focused field, text being typed, open list). </p>
-<p>Components are rebuilt from the graph every frame: the adapter never keeps a value of its own, except the text being typed. Text and number fields are applied on Enter or when clicking elsewhere, and only when valid; Escape cancels. While a text is invalid its explanation is drawn under the field. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<p>Components are rebuilt from the graph every frame: the adapter never keeps a value of its own, except the text being typed. Text and number fields are applied on Enter or when clicking elsewhere, and only when valid; Escape cancels. While a text is invalid its explanation is drawn under the field.</p>
+<p>The edited field works like a standard single-line text input: a caret and a selection placed with the mouse (click, drag, double click selects all) and the keyboard (arrows, Home, End, Ctrl for words, Shift to select, Ctrl+A/C/X/V). Caret and selection positions count UTF-8 characters, not bytes. Long texts scroll so that the caret stays visible. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1a4f5a2847bfb7e7e50ae567f551ae99" name="a1a4f5a2847bfb7e7e50ae567f551ae99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a4f5a2847bfb7e7e50ae567f551ae99">&#9670;&#160;</a></span>ComponentAdapter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::ui::ComponentAdapter::ComponentAdapter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a229813397ab951c6ead103e4515b257c">TextMeasurer</a></td>          <td class="paramname"><span class="paramname"><em>measurer</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html">Clipboard</a></td>          <td class="paramname"><span class="paramname"><em>clipboard</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the adapter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">measurer</td><td>Measures field texts. Defaults to the editor font; without a window, to the estimate used for the layout. </td></tr>
+    <tr><td class="paramname">clipboard</td><td>Defaults to the system clipboard; without a window, an empty one. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="aae5f87db8309e7fec5561f4039e3ae7c" name="aae5f87db8309e7fec5561f4039e3ae7c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae5f87db8309e7fec5561f4039e3ae7c">&#9670;&#160;</a></span>ControlBounds()</h2>
 
@@ -200,8 +264,8 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
 
 </div>
 </div>
-<a id="a986e3af91781e608805624314d8203c4" name="a986e3af91781e608805624314d8203c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a986e3af91781e608805624314d8203c4">&#9670;&#160;</a></span>Draw()</h2>
+<a id="acb75009d38755f2d3557110cd8934a15" name="acb75009d38755f2d3557110cd8934a15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb75009d38755f2d3557110cd8934a15">&#9670;&#160;</a></span>Draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +288,12 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>&#160;) const</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>active</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>pixel_size</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0F</span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,6 +302,7 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">active</td><td>true when the node can be edited (it is selected). </td></tr>
+    <tr><td class="paramname">pixel_size</td><td>Size of one screen pixel in the units of the bounds (1 / zoom), so the caret stays visible at any zoom. </td></tr>
   </table>
   </dd>
 </dl>
@@ -264,6 +334,34 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
 
 <p>Space the components need to be drawn. </p>
 <dl class="section return"><dt>Returns</dt><dd>Width and height; {0, 0} for an empty list. </dd></dl>
+
+</div>
+</div>
+<a id="a5a11b1a322fdd72b1134380d83907418" name="a5a11b1a322fdd72b1134380d83907418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a11b1a322fdd72b1134380d83907418">&#9670;&#160;</a></span>Selection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; std::size_t, std::size_t &gt; editor::ui::ComponentAdapter::Selection </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Selected characters of the edited text: [first, second), in UTF-8 characters. </p>
+<p>Empty (first == second == caret) when nothing is selected. </p>
 
 </div>
 </div>
@@ -326,7 +424,7 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kRo
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true when the click was on one of the fields (or an open list), so nothing else should use it. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true when the click was on one of the fields (or an open list), or while the mouse selects text in a field: nothing else should use the pointer. </dd></dl>
 
 </div>
 </div>

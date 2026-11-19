@@ -9,6 +9,7 @@ var hierarchy =
     [ "palette::Palette::Canvas", "structpalette_1_1Palette_1_1Canvas.html", null ],
     [ "editor::ui::CanvasInput", "structeditor_1_1ui_1_1CanvasInput.html", null ],
     [ "palette::Palette::Chasm", "structpalette_1_1Palette_1_1Chasm.html", null ],
+    [ "editor::ui::ComponentAdapter::Clipboard", "structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html", null ],
     [ "editor::ui::ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
     [ "core::capa::ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", [
       [ "core::capa::Button", "structcore_1_1capa_1_1Button.html", null ],
