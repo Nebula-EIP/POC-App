@@ -20,6 +20,7 @@
 #include <source_location>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -30,6 +31,7 @@
 #include "ui/link_drop.hpp"
 #include "ui/property_change.hpp"
 #include "utils/logger.hpp"
+#include "utils/palette.hpp"
 
 namespace editor {
 
@@ -41,9 +43,10 @@ constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kConnectionNormal = {150, 150, 150, 255};
-constexpr utils::WrappedColor kConnectionSelected = {255, 255, 255, 255};
-constexpr utils::WrappedColor kConnectionGhost = {150, 150, 150, 128};
+constexpr utils::WrappedColor kConnectionSelected = palette::link::kSelected;
+constexpr utils::WrappedColor kConnectionGhost = palette::link::kGhost;
+constexpr float kConnectionThickness = 2.0F;
+constexpr float kSelectedConnectionThickness = 3.0F;
 constexpr float kLinkPickTolerance = 8.0F;
 // World offset of a duplicated node from its original.
 constexpr float kDuplicateOffset = 30.0F;
@@ -114,7 +117,7 @@ void Application::DrawInitialFrame() {
                              utils::DrawTextExWrapped(
                                  "Loading module...", kLoadingTextPosition,
                                  kLoadingTextPosition, kLoadingTextSize,
-                                 kSpacing, utils::kDarkgray);
+                                 kSpacing, palette::canvas::kLoadingText);
                          },
                      .draw_node_content_ = {},
                  });
@@ -201,6 +204,27 @@ void Application::LoadModules() {
     node_catalog_.Update(loader_);
     node_picker_.SetEntries(ui::EntriesFromCatalog(
         node_catalog_, [this](core::ModuleId id) { return ModuleName(id); }));
+
+    // The nodes take their colors from the palette: pins by type and by
+    // whether they are linked, the line at the top by node and category.
+    std::unordered_map<core::NodeType, utils::WrappedColor> accents;
+    for (const core::NodeDescriptor &descriptor : node_catalog_.GetNodes()) {
+        accents[descriptor.id_] =
+            palette::NodeAccent(descriptor.name_, descriptor.category_);
+    }
+    renderer_.node_canvas_.SetPaint(ui::NodePaint{
+        .type_name_ = [this](core::DataType type) { return TypeName(type); },
+        .accent_ =
+            [accents = std::move(accents)](core::NodeType type) {
+                const auto kAccent = accents.find(type);
+                return kAccent != accents.end() ? kAccent->second
+                                                : palette::accent::kNone;
+            },
+        .pin_linked_ =
+            [this](core::NodeId node, core::PinId pin, bool is_input) {
+                return !graph_.PinConnections(node, pin, is_input).empty();
+            },
+    });
 }
 
 void Application::BuildMenus() {
@@ -476,6 +500,9 @@ void Application::ProcessInput() {
         field_input.left_pressed_ = false;
     }
     const std::optional<core::NodeId> kEditedBefore = EditedNode();
+    // Keys used by a field this frame (even the Enter or Escape that ends
+    // the edit) must not reach the editor shortcuts.
+    const bool kWasTyping = node_fields_.IsEditingText();
     const bool kFieldsCaptured = UpdateNodeFields(field_input);
 
     // Typing a search must not trigger shortcuts.
@@ -489,11 +516,16 @@ void Application::ProcessInput() {
         ui::ComponentInput click_only;
         click_only.cursor_ = field_input.cursor_;
         click_only.left_pressed_ = true;
+        click_only.left_down_ = field_input.left_down_;
+        click_only.double_click_ = field_input.double_click_;
+        click_only.shift_ = field_input.shift_;
+        click_only.time_ = field_input.time_;
         UpdateNodeFields(click_only);
     }
 
-    // While typing in a field, keys belong to the field.
-    const bool kTyping = node_fields_.IsEditingText();
+    // While typing in a field, keys (Ctrl+C/V/A, Suppr...) belong to the
+    // field.
+    const bool kTyping = kWasTyping || node_fields_.IsEditingText();
     if (!kKeyboardCaptured && !kTyping) {
         action_manager_.ProcessShortcuts();
     }
@@ -938,17 +970,24 @@ void Application::DrawLinks(const render::Camera &camera) {
                                  ->GetPinPosition(connection.in_pin_, true);
 
         if (kStartPos && kEndPos) {
+            // A link has the color of its type, white while selected.
             const bool kIsSelected =
                 selected_connection_ && *selected_connection_ == id;
             const auto kColor =
-                kIsSelected ? kConnectionSelected : kConnectionNormal;
-            utils::DrawLineBezierWrapped(*kStartPos, *kEndPos, 3.0f, kColor);
+                kIsSelected
+                    ? kConnectionSelected
+                    : palette::TypeColor(TypeName(connection.data_type_));
+            utils::DrawLineBezierWrapped(*kStartPos, *kEndPos,
+                                         kIsSelected
+                                             ? kSelectedConnectionThickness
+                                             : kConnectionThickness,
+                                         kColor);
         }
     }
 
     if (auto ghost_link = renderer_.node_canvas_.GetConnectionDragLine()) {
         utils::DrawLineBezierWrapped(ghost_link->first, ghost_link->second,
-                                     3.0f, kConnectionGhost);
+                                     kConnectionThickness, kConnectionGhost);
     }
     // The dropped link stays drawn while the picker offers the nodes.
     if (link_drop_) {
@@ -957,7 +996,8 @@ void Application::DrawLinks(const render::Camera &camera) {
             if (const auto kStart = kView->second->GetPinPosition(
                     link_drop_->pin_.pin_id_,
                     link_drop_->pin_.part_ == ui::HitPart::kInputPin)) {
-                utils::DrawLineBezierWrapped(*kStart, link_drop_->world_, 3.0f,
+                utils::DrawLineBezierWrapped(*kStart, link_drop_->world_,
+                                             kConnectionThickness,
                                              kConnectionGhost);
             }
         }
@@ -989,7 +1029,8 @@ void Application::DrawFrame() {
                              node_fields_.Draw(view.NodeId(),
                                                kComponents->second,
                                                view.ContentBounds(),
-                                               EditedNode() == view.NodeId());
+                                               EditedNode() == view.NodeId(),
+                                               1.0F / camera_.Zoom());
                          }});
 }
 

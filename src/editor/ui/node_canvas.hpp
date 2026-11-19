@@ -7,7 +7,7 @@
  * @date Created on 26-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 24-10-2026
+ * @date Last modified on 05-11-2026
  */
 
 #pragma once
@@ -16,6 +16,7 @@
 #include <memory>
 #include <optional>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 #include "graph/graph.hpp"
@@ -154,6 +155,14 @@ class NodeCanvas final {
               const NodeContentDrawer &draw_content = {}) const;
 
     /**
+     * @brief Sets how the nodes find their colors: pin type names, node
+     * categories and linked pins (see NodePaint).
+     *
+     * @param paint The lookups, kept for every following Draw().
+     */
+    void SetPaint(NodePaint paint) { paint_ = std::move(paint); }
+
+    /**
      * @brief Gets the views of the nodes in the canvas.
      *
      * @return A reference to the map of node views.
@@ -227,6 +236,7 @@ class NodeCanvas final {
     std::optional<utils::WrappedVector2> connection_drag_current_;
     std::optional<std::pair<HitResult, HitResult>> pending_connection_;
     std::optional<LinkDrop> pending_link_drop_;
+    NodePaint paint_;
 };
 
 }  // namespace editor::ui
