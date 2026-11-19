@@ -25,9 +25,10 @@ var searchData=
   ['requestconnection_22',['RequestConnection',['../connection__request_8cpp.html#a35d3966adf560a94e4b01da2ca7fd75d',1,'editor::ui']]],
   ['resolvenodeconfiguration_23',['ResolveNodeConfiguration',['../classcore_1_1capa_1_1INodeListCapability.html#ab2ba5aa06747247f32f2153e833a91b4',1,'core::capa::INodeListCapability']]],
   ['resolvepickerpin_24',['ResolvePickerPin',['../link__drop_8cpp.html#af143f73477c15a0805ac645ec4919e8c',1,'editor::ui']]],
-  ['row_25',['Row',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html',1,'editor::ui::NodePicker']]],
-  ['rowkind_26',['RowKind',['../classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227',1,'editor::ui::NodePicker']]],
-  ['rowrect_27',['RowRect',['../classeditor_1_1ui_1_1NodePicker.html#a966daca0264061ffa9c858b1e0528543',1,'editor::ui::NodePicker']]],
-  ['rows_28',['Rows',['../classeditor_1_1ui_1_1NodePicker.html#aacd02b6907f26f1ecbc462413175ce42',1,'editor::ui::NodePicker']]],
-  ['run_29',['Run',['../classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7',1,'editor::Application::Run()'],['../classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0',1,'render::Renderer::Run()']]]
+  ['right_5f_25',['right_',['../structeditor_1_1ui_1_1ComponentInput.html#a5ca33afdf93bc734c32e9a421c13328a',1,'editor::ui::ComponentInput']]],
+  ['row_26',['Row',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html',1,'editor::ui::NodePicker']]],
+  ['rowkind_27',['RowKind',['../classeditor_1_1ui_1_1NodePicker.html#ac24f7e86f76b994215202882abe2d227',1,'editor::ui::NodePicker']]],
+  ['rowrect_28',['RowRect',['../classeditor_1_1ui_1_1NodePicker.html#a966daca0264061ffa9c858b1e0528543',1,'editor::ui::NodePicker']]],
+  ['rows_29',['Rows',['../classeditor_1_1ui_1_1NodePicker.html#aacd02b6907f26f1ecbc462413175ce42',1,'editor::ui::NodePicker']]],
+  ['run_30',['Run',['../classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7',1,'editor::Application::Run()'],['../classrender_1_1Renderer.html#a95f87555ed7973c452229590e40342f0',1,'render::Renderer::Run()']]]
 ];

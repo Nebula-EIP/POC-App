@@ -96,9 +96,11 @@ $(function(){initNavTree('component__adapter_8hpp.html','',''); });
 <p>Draws the components a module describes for a node and turns user input on them into the components' callbacks.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="datatypes_8hpp_source.html">core/graph/datatypes.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="renderer__capability_8hpp_source.html">core/modules/capabilities/renderer_capability.hpp</a>&quot;</code><br />
@@ -108,48 +110,51 @@ Include dependency graph for component_adapter.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="component__adapter_8hpp__incl.png" border="0" usemap="#asrc_2editor_2ui_2component__adapter_8hpp" loading="lazy" alt=""/></div>
 <map name="asrc_2editor_2ui_2component__adapter_8hpp" id="asrc_2editor_2ui_2component__adapter_8hpp">
-<area shape="rect" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="586,5,761,50"/>
-<area shape="rect" title=" " alt="" coords="88,266,157,294"/>
-<area shape="poly" title=" " alt="" coords="583,38,446,61,368,78,293,101,235,116,188,129,168,138,149,150,132,168,114,192,109,206,108,221,113,253,108,251,102,221,104,205,109,189,127,164,146,146,166,133,187,124,234,111,291,95,367,73,445,56,587,36"/>
-<area shape="rect" title=" " alt="" coords="917,106,992,134"/>
-<area shape="poly" title=" " alt="" coords="748,48,899,95,909,101,904,101,898,101,747,53"/>
-<area shape="rect" title=" " alt="" coords="5,266,64,294"/>
-<area shape="poly" title=" " alt="" coords="583,33,472,41,346,53,230,72,185,85,152,100,114,134,83,175,61,217,46,253,41,251,56,215,79,172,110,130,149,96,183,80,229,67,345,48,472,36,588,31"/>
-<area shape="rect" title=" " alt="" coords="557,266,680,294"/>
-<area shape="poly" title=" " alt="" coords="696,48,726,83,753,126,763,150,767,173,765,197,755,220,729,247,696,264,694,259,726,242,751,217,760,196,762,174,757,151,748,128,722,86,695,53"/>
-<area shape="rect" title=" " alt="" coords="747,266,810,294"/>
-<area shape="poly" title=" " alt="" coords="715,48,743,69,766,97,782,136,789,178,789,218,785,253,781,249,784,218,783,179,777,137,762,99,740,73,714,53"/>
-<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="141,191,328,218"/>
-<area shape="poly" title=" " alt="" coords="583,38,475,60,417,77,361,100,331,118,303,139,257,182,254,177,299,135,328,114,359,96,415,72,474,55,587,36"/>
-<area shape="rect" href="renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="372,98,561,143"/>
-<area shape="poly" title=" " alt="" coords="626,50,531,94,529,89,621,52"/>
-<area shape="rect" href="raylib__wrapper_8hpp_source.html" title=" " alt="" coords="1015,106,1192,134"/>
-<area shape="poly" title=" " alt="" coords="761,45,1004,95,1029,103,1024,103,1003,101,761,50"/>
-<area shape="poly" title=" " alt="" coords="217,218,156,260,154,255,212,220"/>
-<area shape="poly" title=" " alt="" coords="200,221,79,265,77,260,198,216"/>
-<area shape="poly" title=" " alt="" coords="304,216,544,263,539,265,303,222"/>
-<area shape="poly" title=" " alt="" coords="329,215,692,264,734,272,729,272,691,269,328,221"/>
-<area shape="rect" title=" " alt="" coords="212,266,257,294"/>
-<area shape="poly" title=" " alt="" coords="236,217,237,252,232,249,233,221"/>
-<area shape="rect" title=" " alt="" coords="284,266,350,294"/>
-<area shape="poly" title=" " alt="" coords="250,216,294,256,289,256,248,221"/>
-<area shape="rect" title=" " alt="" coords="377,266,444,294"/>
-<area shape="poly" title=" " alt="" coords="267,216,368,260,363,260,265,221"/>
-<area shape="poly" title=" " alt="" coords="369,129,301,139,230,152,169,170,146,180,131,192,123,205,119,220,119,252,114,250,114,219,118,203,127,189,144,176,167,165,229,147,301,134,374,128"/>
-<area shape="poly" title=" " alt="" coords="369,124,311,132,244,144,177,164,113,193,78,222,52,255,48,252,74,218,110,188,175,159,243,139,310,127,374,123"/>
-<area shape="poly" title=" " alt="" coords="528,140,564,161,595,189,611,219,618,253,614,250,606,221,591,192,561,165,527,146"/>
-<area shape="poly" title=" " alt="" coords="561,131,675,154,723,170,755,189,766,202,773,218,780,252,775,249,768,220,761,205,751,193,721,175,673,159,561,137"/>
-<area shape="poly" title=" " alt="" coords="402,144,287,188,285,183,407,142"/>
-<area shape="poly" title=" " alt="" coords="449,142,342,257,338,253,444,144"/>
-<area shape="poly" title=" " alt="" coords="461,141,444,192,422,254,418,250,439,190,457,144"/>
-<area shape="rect" title=" " alt="" coords="655,191,742,218"/>
-<area shape="poly" title=" " alt="" coords="528,141,650,185,644,185,528,146"/>
-<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="454,191,581,218"/>
-<area shape="poly" title=" " alt="" coords="481,141,504,178,499,176,479,146"/>
-<area shape="rect" title=" " alt="" coords="1114,191,1184,218"/>
-<area shape="poly" title=" " alt="" coords="1112,132,1137,178,1132,176,1110,137"/>
-<area shape="rect" title=" " alt="" coords="1030,191,1090,218"/>
-<area shape="poly" title=" " alt="" coords="1099,133,1076,179,1072,175,1095,136"/>
+<area shape="rect" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="244,5,419,50"/>
+<area shape="rect" title=" " alt="" coords="281,266,350,294"/>
+<area shape="poly" title=" " alt="" coords="283,52,260,73,239,99,226,131,222,158,226,185,239,217,256,239,278,258,272,257,252,242,235,220,221,187,217,158,221,129,235,97,256,69,288,49"/>
+<area shape="rect" title=" " alt="" coords="31,191,118,218"/>
+<area shape="poly" title=" " alt="" coords="242,43,144,66,103,82,78,100,69,117,66,136,69,176,64,175,60,136,64,115,74,96,100,77,142,61,246,39"/>
+<area shape="rect" title=" " alt="" coords="88,106,162,134"/>
+<area shape="poly" title=" " alt="" coords="281,53,170,102,168,98,284,49"/>
+<area shape="rect" title=" " alt="" coords="864,266,922,294"/>
+<area shape="poly" title=" " alt="" coords="419,30,592,39,796,52,975,71,1038,83,1074,96,1108,122,1132,152,1139,168,1140,185,1136,202,1126,220,1113,231,1095,241,1046,256,938,276,938,271,1044,251,1093,236,1110,227,1122,217,1131,200,1135,184,1134,169,1128,154,1105,126,1072,100,1037,88,974,77,795,58,592,44,420,35"/>
+<area shape="rect" title=" " alt="" coords="134,266,257,294"/>
+<area shape="poly" title=" " alt="" coords="242,32,197,40,148,52,101,72,59,100,31,128,13,156,9,170,9,185,13,201,22,217,41,237,65,252,92,263,122,272,116,273,91,268,63,257,38,241,18,220,8,203,3,186,4,170,8,154,27,124,55,96,98,67,147,47,196,35,246,29"/>
+<area shape="rect" title=" " alt="" coords="909,191,968,218"/>
+<area shape="poly" title=" " alt="" coords="420,47,605,95,765,144,897,188,891,188,763,149,603,101,420,53"/>
+<area shape="rect" title=" " alt="" coords="478,266,540,294"/>
+<area shape="poly" title=" " alt="" coords="326,48,318,86,313,129,316,175,323,197,334,217,360,242,393,259,429,269,465,277,460,277,428,275,391,264,357,246,330,220,318,199,311,176,308,129,313,85,323,52"/>
+<area shape="rect" href="datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="597,191,784,218"/>
+<area shape="poly" title=" " alt="" coords="420,46,487,67,553,96,617,136,668,180,663,179,613,141,551,100,485,72,420,52"/>
+<area shape="rect" href="renderer__capability_8hpp.html" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="351,98,539,143"/>
+<area shape="poly" title=" " alt="" coords="359,48,409,88,403,88,358,53"/>
+<area shape="rect" href="raylib__wrapper_8hpp_source.html" title=" " alt="" coords="883,106,1060,134"/>
+<area shape="poly" title=" " alt="" coords="420,39,870,103,866,106,420,44"/>
+<area shape="poly" title=" " alt="" coords="626,219,366,272,366,266,620,219"/>
+<area shape="poly" title=" " alt="" coords="727,216,852,263,847,263,726,222"/>
+<area shape="poly" title=" " alt="" coords="597,221,273,268,272,263,596,216"/>
+<area shape="poly" title=" " alt="" coords="661,218,555,263,554,258,655,219"/>
+<area shape="rect" title=" " alt="" coords="668,266,713,294"/>
+<area shape="poly" title=" " alt="" coords="692,217,693,252,688,249,689,221"/>
+<area shape="rect" title=" " alt="" coords="571,266,636,294"/>
+<area shape="poly" title=" " alt="" coords="677,218,632,259,629,254,672,220"/>
+<area shape="rect" title=" " alt="" coords="766,266,833,294"/>
+<area shape="poly" title=" " alt="" coords="711,216,770,258,765,257,709,221"/>
+<area shape="poly" title=" " alt="" coords="392,142,360,165,334,192,322,221,317,253,313,249,317,220,330,189,357,161,388,144"/>
+<area shape="poly" title=" " alt="" coords="350,145,133,193,132,188,351,140"/>
+<area shape="poly" title=" " alt="" coords="540,119,605,124,678,136,752,157,821,188,856,218,881,255,877,253,852,222,818,193,750,162,677,141,605,130,540,124"/>
+<area shape="poly" title=" " alt="" coords="403,142,316,193,225,259,222,254,313,188,398,144"/>
+<area shape="poly" title=" " alt="" coords="460,140,486,190,505,253,501,250,481,192,457,145"/>
+<area shape="poly" title=" " alt="" coords="511,141,640,185,634,186,510,146"/>
+<area shape="poly" title=" " alt="" coords="468,140,583,255,577,255,465,145"/>
+<area shape="poly" title=" " alt="" coords="540,125,615,133,691,145,756,163,781,175,798,189,806,203,810,220,809,253,805,249,805,220,801,205,794,192,778,180,754,168,690,150,614,138,540,130"/>
+<area shape="rect" href="icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="344,191,471,218"/>
+<area shape="poly" title=" " alt="" coords="437,141,422,178,418,174,433,145"/>
+<area shape="poly" title=" " alt="" coords="979,132,989,173,989,197,982,220,962,244,937,263,935,258,959,240,977,217,984,196,984,174,975,137"/>
+<area shape="poly" title=" " alt="" coords="969,133,951,179,948,174,964,136"/>
+<area shape="rect" title=" " alt="" coords="1042,191,1112,218"/>
+<area shape="poly" title=" " alt="" coords="990,132,1051,182,1046,181,988,137"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -177,13 +182,15 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input of one frame for the component fields.  <a href="structeditor_1_1ui_1_1ComponentInput.html#details">More...</a><br /></td></tr>
 <tr class="memitem:editor_3A_3Aui_3A_3AComponentAdapter" id="r_editor_3A_3Aui_3A_3AComponentAdapter"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classeditor_1_1ui_1_1ComponentAdapter.html">editor::ui::ComponentAdapter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws renderer component descriptions and owns transient widget state (focused field, text being typed, open list).  <a href="classeditor_1_1ui_1_1ComponentAdapter.html#details">More...</a><br /></td></tr>
+<tr class="memitem:editor_3A_3Aui_3A_3AComponentAdapter_3A_3AClipboard" id="r_editor_3A_3Aui_3A_3AComponentAdapter_3A_3AClipboard"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html">editor::ui::ComponentAdapter::Clipboard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the clipboard used by Ctrl+C, Ctrl+X and Ctrl+V.  <a href="structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html#details">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Draws the components a module describes for a node and turns user input on them into the components' callbacks. </p>
 <dl class="section author"><dt>Author</dt><dd>Created by Nolan Papa </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on 20-09-2026</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Last modified by ArthuryanLoheac </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>Last modified on 11-10-2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Last modified on 13-11-2026 </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

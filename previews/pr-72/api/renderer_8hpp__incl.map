@@ -1,59 +1,62 @@
 <map id="src/render/renderer.hpp" name="src/render/renderer.hpp">
-<area shape="rect" id="Node000001" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="144,5,316,33"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="267,157,353,184"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,31,299,143,293,143,236,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="502,384,560,411"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,31,216,75,206,134,205,166,208,198,216,230,230,259,254,289,284,315,318,336,354,353,426,376,489,391,484,391,424,381,352,358,315,340,281,319,250,293,225,261,211,232,202,199,200,166,201,133,211,74,224,36"/>
-<area shape="rect" id="Node000004" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="240,232,338,260"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,31,239,99,246,141,258,183,275,220,269,219,253,185,241,143,234,100,230,36"/>
-<area shape="rect" id="Node000005" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="5,308,183,336"/>
-<area shape="poly" id="edge37_Node000001_Node000005" title=" " alt="" coords="208,36,186,56,163,82,136,137,117,195,105,250,99,293,94,292,100,249,112,194,131,135,158,80,182,52,211,31"/>
-<area shape="rect" id="Node000008" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="462,81,612,109"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="285,31,469,75,465,78,285,36"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="252,262,144,305,141,300,256,259"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="104,384,174,411"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="103,334,126,370,121,370,101,339"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="20,384,80,411"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="88,335,68,372,63,369,84,338"/>
-<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="494,111,366,154,364,149,498,108"/>
-<area shape="poly" id="edge36_Node000008_Node000004" title=" " alt="" coords="517,108,325,226,322,222,513,110"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="776,232,852,260"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="562,107,653,154,780,224,774,225,650,159,561,112"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="369,232,443,260"/>
-<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="521,107,495,132,468,158,443,190,423,221,419,217,439,187,464,155,491,128,517,110"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="1046,384,1169,411"/>
-<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="612,99,787,118,870,134,904,143,929,154,960,176,989,202,1038,261,1075,321,1099,371,1094,368,1070,323,1034,264,985,206,957,180,926,159,902,148,869,139,787,123,613,104"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="615,384,677,411"/>
-<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="559,106,587,127,610,155,633,211,645,270,650,325,650,370,645,367,645,325,640,271,627,213,605,158,583,131,559,112"/>
-<area shape="rect" id="Node000013" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="788,157,915,184"/>
-<area shape="poly" id="edge13_Node000008_Node000013" title=" " alt="" coords="593,107,783,152,777,153,593,112"/>
-<area shape="rect" id="Node000020" href="$node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="478,157,596,184"/>
-<area shape="poly" id="edge29_Node000008_Node000020" title=" " alt="" coords="538,107,539,142,534,140,535,111"/>
-<area shape="poly" id="edge14_Node000013_Node000009" title=" " alt="" coords="847,183,829,221,826,217,843,186"/>
-<area shape="poly" id="edge15_Node000013_Node000011" title=" " alt="" coords="870,182,932,230,1017,306,1086,374,1081,372,1014,310,928,234,868,187"/>
-<area shape="poly" id="edge16_Node000013_Node000012" title=" " alt="" coords="859,182,872,220,873,241,867,261,851,285,831,306,786,342,737,367,692,385,691,380,735,363,783,337,828,303,847,282,862,259,868,240,867,221,857,187"/>
-<area shape="rect" id="Node000014" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="850,308,964,336"/>
-<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="870,182,893,204,911,231,917,263,915,295,911,291,912,263,906,233,889,207,869,187"/>
-<area shape="rect" id="Node000019" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="671,232,752,260"/>
-<area shape="poly" id="edge25_Node000013_Node000019" title=" " alt="" coords="829,184,751,227,749,222,824,186"/>
-<area shape="poly" id="edge21_Node000014_Node000003" title=" " alt="" coords="852,334,576,390,575,385,847,334"/>
-<area shape="poly" id="edge22_Node000014_Node000011" title=" " alt="" coords="944,334,1060,378,1055,378,943,339"/>
-<area shape="poly" id="edge24_Node000014_Node000012" title=" " alt="" coords="862,336,693,386,692,380,857,337"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="791,384,837,411"/>
-<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="893,335,843,376,841,372,888,337"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="861,384,930,411"/>
-<area shape="poly" id="edge19_Node000014_Node000016" title=" " alt="" coords="907,334,902,370,898,366,903,338"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="701,384,767,411"/>
-<area shape="poly" id="edge20_Node000014_Node000017" title=" " alt="" coords="879,336,779,380,778,375,874,337"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="954,384,1021,411"/>
-<area shape="poly" id="edge23_Node000014_Node000018" title=" " alt="" coords="923,334,964,374,959,372,921,339"/>
-<area shape="poly" id="edge27_Node000019_Node000012" title=" " alt="" coords="708,259,660,371,656,367,703,262"/>
-<area shape="poly" id="edge28_Node000019_Node000014" title=" " alt="" coords="747,258,861,302,856,302,746,263"/>
-<area shape="poly" id="edge26_Node000019_Node000017" title=" " alt="" coords="715,258,732,370,727,367,711,262"/>
-<area shape="poly" id="edge31_Node000020_Node000003" title=" " alt="" coords="538,183,534,369,530,367,534,186"/>
-<area shape="poly" id="edge34_Node000020_Node000004" title=" " alt="" coords="490,186,348,230,347,225,495,184"/>
-<area shape="poly" id="edge35_Node000020_Node000005" title=" " alt="" coords="531,183,502,225,481,245,457,262,410,279,345,293,198,313,197,308,344,288,409,274,454,258,478,241,498,221,527,186"/>
-<area shape="poly" id="edge30_Node000020_Node000010" title=" " alt="" coords="516,184,444,227,441,222,511,186"/>
-<area shape="poly" id="edge32_Node000020_Node000012" title=" " alt="" coords="544,183,616,334,634,371,629,369,612,337,541,187"/>
-<area shape="poly" id="edge33_Node000020_Node000019" title=" " alt="" coords="568,182,669,226,664,226,568,188"/>
+<area shape="rect" id="Node000001" title="Declaration of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="934,5,1106,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="876,232,962,260"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1017,32,933,220,929,216,1012,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="850,384,908,411"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1032,31,1064,72,1096,131,1108,163,1114,197,1111,230,1099,261,1077,284,1053,293,1027,298,998,310,949,343,907,376,905,371,946,339,995,306,1025,293,1052,287,1074,279,1094,259,1106,229,1109,197,1103,165,1091,133,1059,75,1031,36"/>
+<area shape="rect" id="Node000004" href="$camera_8hpp.html" title="Declaration of the Camera class, which handles 2D camera transformations." alt="" coords="986,232,1084,260"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1023,31,1035,218,1031,215,1019,35"/>
+<area shape="rect" id="Node000005" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="1008,308,1185,336"/>
+<area shape="poly" id="edge40_Node000001_Node000005" title=" " alt="" coords="1074,31,1112,50,1129,63,1143,80,1164,126,1168,168,1159,210,1143,261,1134,281,1121,298,1118,294,1129,278,1138,259,1154,209,1163,167,1159,128,1138,82,1125,67,1110,54,1074,36"/>
+<area shape="rect" id="Node000008" href="$node__canvas_8hpp.html" title="Declaration of the NodeCanvas class, which manages the display and interaction of nodes in the editor..." alt="" coords="630,81,781,109"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="961,35,778,80,776,74,966,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1047,258,1078,297,1073,295,1045,263"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="1060,336,923,384,922,379,1055,337"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="1061,384,1132,411"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1098,334,1098,370,1094,366,1094,338"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1175,384,1234,411"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="1116,334,1175,375,1170,374,1115,339"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="741,107,786,127,833,154,870,187,902,221,896,220,867,190,829,159,784,132,740,112"/>
+<area shape="poly" id="edge39_Node000008_Node000004" title=" " alt="" coords="744,106,867,154,1001,224,996,224,865,159,743,112"/>
+<area shape="poly" id="edge13_Node000008_Node000007" title=" " alt="" coords="763,107,834,125,919,152,1010,187,1098,230,1157,260,1179,277,1200,307,1210,338,1210,370,1206,367,1204,339,1195,309,1175,281,1154,264,1095,235,1008,192,917,157,832,131,763,112"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="474,232,550,260"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="657,110,615,131,571,159,546,188,526,220,523,216,541,185,568,155,613,126,662,108"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="626,232,700,260"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="704,107,673,219,669,216,700,111"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="5,384,129,411"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="628,97,562,103,483,113,401,131,321,159,282,180,245,206,177,265,123,325,86,373,82,369,119,322,174,262,241,202,279,176,319,154,399,126,482,108,562,98,633,95"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="496,384,558,411"/>
+<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="698,107,661,164,616,234,542,371,538,368,611,231,657,161,694,111"/>
+<area shape="rect" id="Node000013" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="333,157,460,184"/>
+<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="648,110,468,155,466,150,652,108"/>
+<area shape="rect" id="Node000020" href="$node__view_8hpp.html" title="Declaration of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="701,157,820,184"/>
+<area shape="poly" id="edge31_Node000008_Node000020" title=" " alt="" coords="716,107,744,145,739,143,715,112"/>
+<area shape="poly" id="edge16_Node000013_Node000009" title=" " alt="" coords="417,182,482,224,476,224,417,188"/>
+<area shape="poly" id="edge17_Node000013_Node000011" title=" " alt="" coords="368,186,287,235,180,310,96,376,93,371,177,306,284,230,372,184"/>
+<area shape="poly" id="edge18_Node000013_Node000012" title=" " alt="" coords="405,182,514,370,509,370,402,187"/>
+<area shape="rect" id="Node000014" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="222,308,336,336"/>
+<area shape="poly" id="edge19_Node000013_Node000014" title=" " alt="" coords="364,186,335,206,306,234,292,263,284,294,280,291,287,261,302,231,332,202,368,183"/>
+<area shape="rect" id="Node000019" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="317,232,398,260"/>
+<area shape="poly" id="edge27_Node000013_Node000019" title=" " alt="" coords="391,183,374,220,370,217,387,187"/>
+<area shape="poly" id="edge23_Node000014_Node000003" title=" " alt="" coords="337,328,835,388,833,393,336,333"/>
+<area shape="poly" id="edge24_Node000014_Node000011" title=" " alt="" coords="243,338,120,381,118,376,240,334"/>
+<area shape="poly" id="edge26_Node000014_Node000012" title=" " alt="" coords="324,334,484,382,478,383,323,339"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="336,384,382,411"/>
+<area shape="poly" id="edge20_Node000014_Node000015" title=" " alt="" coords="294,334,336,373,331,372,292,339"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="152,384,222,411"/>
+<area shape="poly" id="edge21_Node000014_Node000016" title=" " alt="" coords="265,335,216,376,214,372,260,337"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="406,384,472,411"/>
+<area shape="poly" id="edge22_Node000014_Node000017" title=" " alt="" coords="308,334,399,377,394,377,307,339"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="245,384,313,411"/>
+<area shape="poly" id="edge25_Node000014_Node000018" title=" " alt="" coords="281,334,281,369,277,366,277,338"/>
+<area shape="poly" id="edge29_Node000019_Node000012" title=" " alt="" coords="373,258,458,334,503,374,498,373,455,338,371,263"/>
+<area shape="poly" id="edge30_Node000019_Node000014" title=" " alt="" coords="346,259,306,299,303,295,341,262"/>
+<area shape="poly" id="edge28_Node000019_Node000017" title=" " alt="" coords="366,258,408,334,427,371,422,369,403,337,363,263"/>
+<area shape="poly" id="edge32_Node000020_Node000002" title=" " alt="" coords="789,182,880,226,874,225,788,188"/>
+<area shape="poly" id="edge34_Node000020_Node000003" title=" " alt="" coords="769,182,868,371,863,369,766,187"/>
+<area shape="poly" id="edge37_Node000020_Node000004" title=" " alt="" coords="810,182,974,228,969,228,809,188"/>
+<area shape="poly" id="edge38_Node000020_Node000005" title=" " alt="" coords="773,182,812,220,838,240,866,258,930,284,997,304,992,304,928,289,863,262,835,245,809,224,771,187"/>
+<area shape="poly" id="edge33_Node000020_Node000010" title=" " alt="" coords="745,184,693,225,691,221,741,186"/>
+<area shape="poly" id="edge35_Node000020_Node000012" title=" " alt="" coords="757,183,741,222,714,262,678,298,639,330,565,378,563,373,636,325,675,294,710,258,736,219,753,187"/>
+<area shape="poly" id="edge36_Node000020_Node000019" title=" " alt="" coords="699,184,414,237,413,232,703,181"/>
 </map>

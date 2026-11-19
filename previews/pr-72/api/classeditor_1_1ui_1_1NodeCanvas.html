@@ -122,6 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6e0215ab30cb7eb0d5fa20aeae413525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles one frame of input: selection, node moves, and link drags.  <br /></td></tr>
 <tr class="memitem:a3daeed3e97c3e611787fc2c41d58a763" id="r_a3daeed3e97c3e611787fc2c41d58a763"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3daeed3e97c3e611787fc2c41d58a763">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera, const <a class="el" href="#a355177090b21da22a104d171e5c9d14d">NodeContentDrawer</a> &amp;draw_content={}) const</td></tr>
 <tr class="memdesc:a3daeed3e97c3e611787fc2c41d58a763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the canvas and all its nodes.  <br /></td></tr>
+<tr class="memitem:a63bb0b0ad65350778a1e2d46e8704c5c" id="r_a63bb0b0ad65350778a1e2d46e8704c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63bb0b0ad65350778a1e2d46e8704c5c">SetPaint</a> (<a class="el" href="structeditor_1_1ui_1_1NodePaint.html">NodePaint</a> paint)</td></tr>
+<tr class="memdesc:a63bb0b0ad65350778a1e2d46e8704c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets how the nodes find their colors: pin type names, node categories and linked pins (see <a class="el" href="structeditor_1_1ui_1_1NodePaint.html" title="What the nodes need from the rest of the editor to be drawn in the project&#39;s colors (see utils/palett...">NodePaint</a>).  <br /></td></tr>
 <tr class="memitem:a6a604140fc2cf97d03c3ff5a992e4d4d" id="r_a6a604140fc2cf97d03c3ff5a992e4d4d"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a566a09b67984389a9c882a3c276c0abd">core::NodeId</a>, std::unique_ptr&lt; <a class="el" href="classeditor_1_1ui_1_1NodeView.html">NodeView</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a604140fc2cf97d03c3ff5a992e4d4d">Views</a> () const noexcept</td></tr>
 <tr class="memdesc:a6a604140fc2cf97d03c3ff5a992e4d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the views of the nodes in the canvas.  <br /></td></tr>
 <tr class="memitem:a47b1da69b06f2730e19bb3fd3ec089b9" id="r_a47b1da69b06f2730e19bb3fd3ec089b9"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47b1da69b06f2730e19bb3fd3ec089b9">ActiveSelectionRectangle</a> () const noexcept</td></tr>
@@ -419,6 +421,39 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Gets the selected nodes, from back to front (draw order). </p>
 <dl class="section return"><dt>Returns</dt><dd>The ids of the selected nodes. </dd></dl>
+
+</div>
+</div>
+<a id="a63bb0b0ad65350778a1e2d46e8704c5c" name="a63bb0b0ad65350778a1e2d46e8704c5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63bb0b0ad65350778a1e2d46e8704c5c">&#9670;&#160;</a></span>SetPaint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::ui::NodeCanvas::SetPaint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structeditor_1_1ui_1_1NodePaint.html">NodePaint</a></td>          <td class="paramname"><span class="paramname"><em>paint</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets how the nodes find their colors: pin type names, node categories and linked pins (see <a class="el" href="structeditor_1_1ui_1_1NodePaint.html" title="What the nodes need from the rest of the editor to be drawn in the project&#39;s colors (see utils/palett...">NodePaint</a>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paint</td><td>The lookups, kept for every following <a class="el" href="#a3daeed3e97c3e611787fc2c41d58a763" title="Draws the canvas and all its nodes.">Draw()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

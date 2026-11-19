@@ -25,6 +25,13 @@
 var NAVTREE =
 [
   [ "Nebula", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -51,8 +58,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "action_8cpp.html",
-"classeditor_1_1ui_1_1NodeView.html#a80dca46f3633d0c20d005f45baf2d6eb",
-"structcore_1_1capa_1_1Checkbox.html#add652ee7f68d31c9eac921e42d4f5bd7"
+"classeditor_1_1ui_1_1NodeView.html#a265d15565a112730d7b97994375c2813",
+"renderer_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

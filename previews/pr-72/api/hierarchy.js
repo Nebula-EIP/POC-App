@@ -5,6 +5,7 @@ var hierarchy =
     [ "editor::Application", "classeditor_1_1Application.html", null ],
     [ "render::Camera", "classrender_1_1Camera.html", null ],
     [ "editor::ui::CanvasInput", "structeditor_1_1ui_1_1CanvasInput.html", null ],
+    [ "editor::ui::ComponentAdapter::Clipboard", "structeditor_1_1ui_1_1ComponentAdapter_1_1Clipboard.html", null ],
     [ "editor::ui::ComponentAdapter", "classeditor_1_1ui_1_1ComponentAdapter.html", null ],
     [ "core::capa::ComponentBase", "structcore_1_1capa_1_1ComponentBase.html", [
       [ "core::capa::Button", "structcore_1_1capa_1_1Button.html", null ],
@@ -26,6 +27,8 @@ var hierarchy =
     [ "editor::ui::ContextMenuItem", "structeditor_1_1ui_1_1ContextMenuItem.html", null ],
     [ "editor::ui::DraggedPin", "structeditor_1_1ui_1_1DraggedPin.html", null ],
     [ "editor::ui::NotificationStack::Entry", "structeditor_1_1ui_1_1NotificationStack_1_1Entry.html", null ],
+    [ "palette::accent::Entry", "structpalette_1_1accent_1_1Entry.html", null ],
+    [ "palette::type::Entry", "structpalette_1_1type_1_1Entry.html", null ],
     [ "std::exception", null, [
       [ "utils::BaseException", "classutils_1_1BaseException.html", null ]
     ] ],
@@ -75,6 +78,7 @@ var hierarchy =
     [ "core::NodeDescriptor", "structcore_1_1NodeDescriptor.html", null ],
     [ "core::capa::NodeExportRequest", "structcore_1_1capa_1_1NodeExportRequest.html", null ],
     [ "core::capa::NodeMetadata", "structcore_1_1capa_1_1NodeMetadata.html", null ],
+    [ "editor::ui::NodePaint", "structeditor_1_1ui_1_1NodePaint.html", null ],
     [ "editor::ui::NodePicker", "classeditor_1_1ui_1_1NodePicker.html", null ],
     [ "editor::ui::NodePickerEntry", "structeditor_1_1ui_1_1NodePickerEntry.html", null ],
     [ "editor::ui::NodePickerInput", "structeditor_1_1ui_1_1NodePickerInput.html", null ],

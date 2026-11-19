@@ -104,6 +104,7 @@ var annotated_dup =
         [ "NodePickerInput", "structeditor_1_1ui_1_1NodePickerInput.html", "structeditor_1_1ui_1_1NodePickerInput" ],
         [ "NodePicker", "classeditor_1_1ui_1_1NodePicker.html", "classeditor_1_1ui_1_1NodePicker" ],
         [ "HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
+        [ "NodePaint", "structeditor_1_1ui_1_1NodePaint.html", "structeditor_1_1ui_1_1NodePaint" ],
         [ "NodeView", "classeditor_1_1ui_1_1NodeView.html", "classeditor_1_1ui_1_1NodeView" ],
         [ "NotificationStack", "classeditor_1_1ui_1_1NotificationStack.html", "classeditor_1_1ui_1_1NotificationStack" ],
         [ "PinTypeChange", "structeditor_1_1ui_1_1PinTypeChange.html", null ],
@@ -111,11 +112,19 @@ var annotated_dup =
         [ "MenuItem", "structeditor_1_1ui_1_1MenuItem.html", "structeditor_1_1ui_1_1MenuItem" ],
         [ "Menu", "classeditor_1_1ui_1_1Menu.html", "classeditor_1_1ui_1_1Menu" ],
         [ "TopBarInput", "structeditor_1_1ui_1_1TopBarInput.html", "structeditor_1_1ui_1_1TopBarInput" ],
-        [ "TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", null ],
+        [ "TopBarStyle", "structeditor_1_1ui_1_1TopBarStyle.html", "structeditor_1_1ui_1_1TopBarStyle" ],
         [ "TopBar", "classeditor_1_1ui_1_1TopBar.html", "classeditor_1_1ui_1_1TopBar" ]
       ] ],
       [ "Application", "classeditor_1_1Application.html", "classeditor_1_1Application" ],
       [ "Configuration", "structeditor_1_1Configuration.html", null ]
+    ] ],
+    [ "palette", null, [
+      [ "type", "namespacepalette_1_1type.html", [
+        [ "Entry", "structpalette_1_1type_1_1Entry.html", null ]
+      ] ],
+      [ "accent", "namespacepalette_1_1accent.html", [
+        [ "Entry", "structpalette_1_1accent_1_1Entry.html", null ]
+      ] ]
     ] ],
     [ "render", null, [
       [ "Camera", "classrender_1_1Camera.html", "classrender_1_1Camera" ],

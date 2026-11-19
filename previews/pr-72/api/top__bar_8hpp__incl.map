@@ -1,19 +1,27 @@
 <map id="src/editor/ui/top_bar.hpp" name="src/editor/ui/top_bar.hpp">
-<area shape="rect" id="Node000001" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="202,5,380,33"/>
+<area shape="rect" id="Node000001" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="231,5,409,33"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,81,75,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,36,91,82,89,77,246,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,36,91,83,89,78,270,31"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="98,81,184,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="262,35,183,76,180,72,266,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="286,35,188,77,186,72,290,32"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="208,81,282,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="285,32,263,69,260,66,280,35"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="307,81,365,109"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="300,31,323,68,317,67,298,36"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="389,81,451,109"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="314,31,387,73,381,73,313,36"/>
-<area shape="rect" id="Node000007" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="475,81,653,109"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="340,31,503,76,498,77,339,36"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="484,157,554,184"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="558,108,536,145,533,141,554,111"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="578,157,638,184"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="573,107,595,144,590,142,571,112"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="309,32,271,72,268,68,305,35"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="415,232,473,260"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="320,31,320,62,322,101,331,144,349,183,373,208,403,228,398,227,370,212,344,186,326,145,317,102,315,63,317,36"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="357,81,419,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="333,31,368,70,363,69,332,36"/>
+<area shape="rect" id="Node000007" href="$palette_8hpp.html" title="The project color palette: every color the editor draws with, by name, in one place." alt="" coords="443,81,570,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="354,31,462,74,457,76,353,36"/>
+<area shape="rect" id="Node000010" href="$raylib__wrapper_8hpp_source.html" title=" " alt="" coords="569,157,746,184"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="409,24,497,42,542,58,584,79,619,109,645,144,640,143,615,112,581,83,540,63,496,47,409,30"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="358,157,423,184"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="488,108,425,151,423,146,483,110"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="448,157,544,184"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="507,107,502,143,498,140,503,111"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="534,107,620,150,614,149,533,112"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="622,185,489,232,487,227,617,185"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="577,232,647,260"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="652,184,630,221,627,217,647,186"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="672,232,731,260"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="666,183,688,220,683,218,664,187"/>
 </map>

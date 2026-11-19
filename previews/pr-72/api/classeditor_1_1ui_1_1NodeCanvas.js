@@ -11,6 +11,7 @@ var classeditor_1_1ui_1_1NodeCanvas =
     [ "ProcessInput", "classeditor_1_1ui_1_1NodeCanvas.html#a995e288b8f9676f204c097f2db768291", null ],
     [ "RemoveMissingNodes", "classeditor_1_1ui_1_1NodeCanvas.html#a83cf632527e91d35bc20ca9a31c00f51", null ],
     [ "SelectedNodes", "classeditor_1_1ui_1_1NodeCanvas.html#ae3290ffc4ba9e08759419b0d4a787030", null ],
+    [ "SetPaint", "classeditor_1_1ui_1_1NodeCanvas.html#a63bb0b0ad65350778a1e2d46e8704c5c", null ],
     [ "SetSelection", "classeditor_1_1ui_1_1NodeCanvas.html#a005b3959217aafdc06f9c243eefa4d1d", null ],
     [ "Update", "classeditor_1_1ui_1_1NodeCanvas.html#a6e0215ab30cb7eb0d5fa20aeae413525", null ],
     [ "Views", "classeditor_1_1ui_1_1NodeCanvas.html#a6a604140fc2cf97d03c3ff5a992e4d4d", null ]

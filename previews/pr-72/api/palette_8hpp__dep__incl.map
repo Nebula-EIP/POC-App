@@ -1,0 +1,38 @@
+<map id="src/utils/palette.hpp" name="src/utils/palette.hpp">
+<area shape="rect" id="Node000001" title="The project color palette: every color the editor draws with, by name, in one place." alt="" coords="581,5,731,33"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="175,368,360,395"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="563,23,462,29,347,39,245,56,205,69,176,83,116,133,92,160,75,187,64,216,62,246,69,277,86,309,105,325,137,340,216,366,211,368,135,345,102,329,82,313,64,279,56,246,59,215,70,185,88,156,112,129,173,79,203,64,244,51,347,34,461,24,568,21"/>
+<area shape="rect" id="Node000003" href="$component__adapter_8cpp.html" title="Draws the components a module describes for a node and turns user input on them into the components&#39; ..." alt="" coords="390,81,565,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="611,41,526,83,523,78,616,39"/>
+<area shape="rect" id="Node000004" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="589,81,723,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="657,47,658,82,654,79,654,51"/>
+<area shape="rect" id="Node000005" href="$node__view_8cpp.html" title="Implementation of the NodeView class, which represents a visual node in the editor&#39;s UI." alt="" coords="747,81,882,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="695,38,775,80,770,80,694,43"/>
+<area shape="rect" id="Node000006" href="$notification__stack_8cpp.html" title="Implementation of the warning stack." alt="" coords="906,81,1081,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="725,35,907,80,902,81,725,40"/>
+<area shape="rect" id="Node000007" href="$top__bar_8hpp.html" title="Declaration of the TopBar class, the menu bar drawn at the top of the editor window,..." alt="" coords="187,90,365,117"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="578,39,338,91,336,86,582,35"/>
+<area shape="rect" id="Node000017" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="1105,90,1276,117"/>
+<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="746,28,909,49,1094,78,1136,89,1130,89,1093,84,908,55,747,34"/>
+<area shape="rect" id="Node000008" href="$application_8hpp.html" title="Declaration of the Application class, which manages the main loop, window, and module loading for the..." alt="" coords="96,275,282,302"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="227,126,200,147,177,175,170,200,171,227,185,275,180,274,166,228,164,200,172,172,196,143,231,122"/>
+<area shape="rect" id="Node000010" href="$context__menu_8hpp.html" title="ContextMenu UI component." alt="" coords="580,174,732,218"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="346,119,582,175,578,178,346,124"/>
+<area shape="rect" id="Node000012" href="$node__picker_8hpp.html" title="Declaration of the NodePicker class, the searchable tree of the nodes provided by the loaded modules,..." alt="" coords="389,174,523,218"/>
+<area shape="poly" id="edge12_Node000007_Node000012" title=" " alt="" coords="316,122,415,172,410,174,315,127"/>
+<area shape="rect" id="Node000016" href="$top__bar_8cpp.html" title="Implementation of the TopBar class and of the Menu builder." alt="" coords="187,182,364,210"/>
+<area shape="poly" id="edge18_Node000007_Node000016" title=" " alt="" coords="277,130,278,183,273,181,275,135"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="211,312,259,367,254,367,209,317"/>
+<area shape="rect" id="Node000009" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="5,368,152,395"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="165,312,96,369,93,365,159,312"/>
+<area shape="rect" id="Node000011" href="$context__menu_8cpp.html" title="Implementation of ContextMenu." alt="" coords="615,266,766,311"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="671,230,685,267,680,265,668,235"/>
+<area shape="poly" id="edge13_Node000012_Node000008" title=" " alt="" coords="376,225,229,277,227,272,380,222"/>
+<area shape="rect" id="Node000013" href="$link__drop_8hpp.html" title="A link dragged from a pin and released on empty canvas: the nodes that can be linked to the pin,..." alt="" coords="465,266,591,311"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="483,228,513,267,508,266,481,233"/>
+<area shape="rect" id="Node000015" href="$node__picker_8cpp.html" title="Implementation of the NodePicker class." alt="" coords="306,266,440,311"/>
+<area shape="poly" id="edge17_Node000012_Node000015" title=" " alt="" coords="428,228,394,268,391,264,424,231"/>
+<area shape="poly" id="edge15_Node000013_Node000002" title=" " alt="" coords="454,316,307,369,305,364,448,317"/>
+<area shape="rect" id="Node000014" href="$link__drop_8cpp.html" title="Implementation of the link drop helpers." alt="" coords="465,359,591,404"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="530,325,530,361,526,357,526,328"/>
+</map>

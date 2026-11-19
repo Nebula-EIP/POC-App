@@ -142,8 +142,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
 <tr class="memdesc:a44f7406fb39b2333a9975194654eb4f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves room under the pins for the node's fields.  <br /></td></tr>
 <tr class="memitem:a87319e1055b613f71be4a4389ad6ed95" id="r_a87319e1055b613f71be4a4389ad6ed95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structutils_1_1WrappedRectangle.html">utils::WrappedRectangle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87319e1055b613f71be4a4389ad6ed95">ContentBounds</a> () const noexcept</td></tr>
 <tr class="memdesc:a87319e1055b613f71be4a4389ad6ed95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Area where the node's fields are drawn (world space).  <br /></td></tr>
-<tr class="memitem:ac6f71bf4f63ad0df7b66038bc4690fe7" id="r_ac6f71bf4f63ad0df7b66038bc4690fe7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6f71bf4f63ad0df7b66038bc4690fe7">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera) const</td></tr>
-<tr class="memdesc:ac6f71bf4f63ad0df7b66038bc4690fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node.  <br /></td></tr>
+<tr class="memitem:a8a77f6dc5417b263b26cbe22afdc2482" id="r_a8a77f6dc5417b263b26cbe22afdc2482"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a77f6dc5417b263b26cbe22afdc2482">Draw</a> (const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera, const <a class="el" href="structeditor_1_1ui_1_1NodePaint.html">NodePaint</a> &amp;paint={}) const</td></tr>
+<tr class="memdesc:a8a77f6dc5417b263b26cbe22afdc2482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the node: shadow, card, header accent, title and pins.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a view of a node in the editor's UI. </p>
@@ -241,8 +241,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
 
 </div>
 </div>
-<a id="ac6f71bf4f63ad0df7b66038bc4690fe7" name="ac6f71bf4f63ad0df7b66038bc4690fe7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6f71bf4f63ad0df7b66038bc4690fe7">&#9670;&#160;</a></span>Draw()</h2>
+<a id="a8a77f6dc5417b263b26cbe22afdc2482" name="a8a77f6dc5417b263b26cbe22afdc2482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a77f6dc5417b263b26cbe22afdc2482">&#9670;&#160;</a></span>Draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,16 +250,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () 
         <tr>
           <td class="memname">void editor::ui::NodeView::Draw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="classrender_1_1Camera.html">render::Camera</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structeditor_1_1ui_1_1NodePaint.html">NodePaint</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>paint</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Draws the node. </p>
+<p>Draws the node: shadow, card, header accent, title and pins. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">camera</td><td>The camera to use for drawing. </td></tr>
+    <tr><td class="paramname">paint</td><td>Type names, categories and links, for the colors. </td></tr>
   </table>
   </dd>
 </dl>
