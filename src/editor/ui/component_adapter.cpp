@@ -7,7 +7,7 @@
  * @date Created on 20-09-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 05-11-2026
+ * @date Last modified on 20-11-2026
  */
 
 #include "component_adapter.hpp"
