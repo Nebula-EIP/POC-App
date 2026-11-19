@@ -25,5 +25,21 @@ if errorlevel 1 (
     exit /b 1
 )
 
+where choco >nul 2>&1
+if not errorlevel 1 (
+    echo Upgrading LLVM to match the latest MSVC STL requirements...
+    call choco upgrade llvm -y --no-progress
+    if errorlevel 1 (
+        echo Error: Failed to upgrade LLVM via Chocolatey.
+        exit /b 1
+    )
+)
+
+if defined GITHUB_PATH (
+    if exist "%ProgramFiles%\LLVM\bin" (
+        echo %ProgramFiles%\LLVM\bin>> "%GITHUB_PATH%"
+    )
+)
+
 echo Environment ready.
 exit /b 0
