@@ -20,9 +20,9 @@ fi
 rm -f "${MODULE_DIR}/fixture_valid_module.so"
 cp "${MODULE_FILE}" "${MODULE_DIR}/"
 
-if [ ! -f config.json ]; then
-    printf '{\n  "module_folder": "%s"\n}\n' "${MODULE_DIR}" > config.json
-    echo "Created default config.json"
+if [ ! -f config.yaml ]; then
+    printf '{\n  "module_folder": "%s"\n}\n' "${MODULE_DIR}" > config.yaml
+    echo "Created default config.yaml"
 fi
 
 if [ -f "${BUILD_DIR}/bin/${BUILD_TYPE}/Nebula" ]; then

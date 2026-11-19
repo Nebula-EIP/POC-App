@@ -36,11 +36,11 @@ if not exist "%MODULE_FILE%" (
 del /Q "%MODULE_DIR%\fixture_valid_module.dll" 2>nul
 copy /Y "%MODULE_FILE%" "%MODULE_DIR%\" >nul
 
-if not exist "config.json" (
-    >"config.json" echo {
-    >>"config.json" echo   "module_folder": "%MODULE_DIR:\=/%"
-    >>"config.json" echo }
-    echo Created default config.json
+if not exist "config.yaml" (
+    >"config.yaml" echo {
+    >>"config.yaml" echo   "module_folder": "%MODULE_DIR:\=/%"
+    >>"config.yaml" echo }
+    echo Created default config.yaml
 )
 
 if exist "%BUILD_DIR%\bin\%BUILD_TYPE%\%BUILD_TYPE%\Nebula.exe" (
