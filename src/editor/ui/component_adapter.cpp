@@ -59,25 +59,6 @@ constexpr double kBlinkHalfPeriod = 0.53;
 constexpr float kBoxRadius = 3.0F;
 constexpr float kUnderlineThickness = 1.5F;
 
-constexpr WrappedColor kText = palette::field::kValue;
-constexpr WrappedColor kMutedText = palette::field::kLabel;
-constexpr WrappedColor kDisabledText = palette::field::kDisabledText;
-constexpr WrappedColor kWarningText = palette::field::kWarningText;
-constexpr WrappedColor kFieldIdle = palette::field::kIdle;
-constexpr WrappedColor kField = palette::field::kActive;
-constexpr WrappedColor kFieldEditing = palette::field::kEditing;
-constexpr WrappedColor kStroke = palette::field::kStroke;
-constexpr WrappedColor kAccent = palette::field::kAccent;
-constexpr WrappedColor kError = palette::field::kError;
-constexpr WrappedColor kErrorBubble = palette::field::kErrorBubble;
-constexpr WrappedColor kErrorText = palette::field::kErrorText;
-constexpr WrappedColor kListBackground = palette::field::kListBackground;
-constexpr WrappedColor kListSelected = palette::field::kListSelected;
-constexpr WrappedColor kListText = palette::field::kListText;
-constexpr WrappedColor kSeparator = palette::field::kSeparator;
-constexpr WrappedColor kSelection =
-    palette::WithOpacity(palette::field::kAccent, 0.43F);
-
 /**
  * @brief Number of characters (UTF-8 code points) of a text.
  *
@@ -983,6 +964,7 @@ void ComponentAdapter::DrawValue(WrappedRectangle box, const std::string &text,
 
 void ComponentAdapter::DrawEditedText(WrappedRectangle control,
                                       float pixel_size) const {
+    const palette::Palette::Field &colors = palette::Get().field_;
     const Edit &edit = *edit_;
     const float kLeft = control.x_ + kControlPadding;
     const float kTop = control.y_ + kCaretMargin;
@@ -999,12 +981,12 @@ void ComponentAdapter::DrawEditedText(WrappedRectangle control,
         utils::DrawRectangleRecWrapped(
             {kX, kTop, kLeft + CaretOffset(edit.text_, edit.scroll_, kTo) - kX,
              kHeight},
-            kSelection);
+            palette::WithOpacity(colors.accent_, 0.43F));
     }
 
     utils::DrawTextExWrapped(
         Characters(edit.text_, edit.scroll_, kLast).c_str(), kLeft,
-        control.y_ + kTextTop, kFontSize, kSpacing, kText);
+        control.y_ + kTextTop, kFontSize, kSpacing, colors.value_);
 
     // The caret blinks, and shows right away when it moves.
     const double kElapsed = std::max(now_ - edit.caret_time_, 0.0);
@@ -1013,13 +995,14 @@ void ComponentAdapter::DrawEditedText(WrappedRectangle control,
         const float kX =
             kLeft + CaretOffset(edit.text_, edit.scroll_, edit.caret_);
         utils::DrawRectangleRecWrapped(
-            {kX - kWidth / 2.0F, kTop, kWidth, kHeight}, kText);
+            {kX - kWidth / 2.0F, kTop, kWidth, kHeight}, colors.value_);
     }
 }
 
 void ComponentAdapter::DrawRow(const ComponentList &components,
                                WrappedRectangle bounds, std::size_t index,
-                               core::NodeId node_id, bool active, float pixel_size) const {
+                               core::NodeId node_id, bool active,
+                               float pixel_size) const {
     const palette::Palette::Field &colors = palette::Get().field_;
     const Component &component = components[index];
     const WrappedRectangle kRow = RowBounds(bounds, index);
@@ -1030,18 +1013,18 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                            open_list_->component_id_ == IdOf(component);
 
     if (const std::string *label = LabelOf(component)) {
-        utils::DrawTextExWrapped(
-            Fit(*label, kControl.x_ - kRow.x_, false).c_str(), kRow.x_,
-            kRow.y_ + 4.0F, kFontSize, kSpacing, colors.label_);
+        utils::DrawTextExWrapped(Fit(*label, kControl.x_ - kRow.x_).c_str(),
+                                 kRow.x_, kRow.y_ + 4.0F, kFontSize, kSpacing,
+                                 colors.label_);
     }
 
     std::visit(
         [&](const auto &value) {
             using T = std::decay_t<decltype(value)>;
             if constexpr (std::is_same_v<T, Label>) {
-                utils::DrawTextExWrapped(
-                    Fit(value.text_, kRow.width_, false).c_str(), kRow.x_,
-                    kRow.y_ + 4.0F, kFontSize, kSpacing, colors.value_);
+                utils::DrawTextExWrapped(Fit(value.text_, kRow.width_).c_str(),
+                                         kRow.x_, kRow.y_ + 4.0F, kFontSize,
+                                         kSpacing, colors.value_);
             } else if constexpr (std::is_same_v<T, InfoBubble>) {
                 utils::DrawTextExWrapped(value.text_.c_str(), kRow.x_,
                                          kRow.y_ + 4.0F, kFontSize, kSpacing,
@@ -1069,23 +1052,20 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                     DrawValue(kControl, value.label_, kValueColor);
                 } else if constexpr (std::is_same_v<T, TextField>) {
                     if (kEditing) {
-                        DrawBoxText(kControl, edit_->text_ + "|", colors.value_,
-                                    true);
+                        DrawEditedText(kControl, pixel_size);
                     } else {
-                        DrawBoxText(kControl, value.value_, kValueColor);
+                        DrawValue(kControl, value.value_, kValueColor);
                         DrawUnderline(kControl, enabled
                                                     ? colors.stroke_
                                                     : colors.disabled_text_);
                     }
                 } else if constexpr (std::is_same_v<T, NumberField>) {
                     if (kEditing) {
-                        DrawBoxText(kControl, edit_->text_ + "|", colors.value_,
-                                    true);
+                        DrawEditedText(kControl, pixel_size);
                     } else {
-                        DrawBoxText(
-                            kControl,
-                            FormatNumber(value.value_, value.is_integer_),
-                            kValueColor);
+                        DrawValue(kControl,
+                                  FormatNumber(value.value_, value.is_integer_),
+                                  kValueColor);
                         DrawUnderline(kControl, enabled
                                                     ? colors.stroke_
                                                     : colors.disabled_text_);
@@ -1100,9 +1080,9 @@ void ComponentAdapter::DrawRow(const ComponentList &components,
                     DrawBox({kControl.x_, kControl.y_, kControl.width_ * kRatio,
                              kControl.height_},
                             colors.accent_);
-                    DrawBoxText(kControl,
-                                FormatNumber(value.value_, value.is_integer_),
-                                kValueColor);
+                    DrawValue(kControl,
+                              FormatNumber(value.value_, value.is_integer_),
+                              kValueColor);
                 } else if constexpr (std::is_same_v<T, Checkbox>) {
                     const float kSize = kControl.height_ - 6.0F;
                     const WrappedRectangle kSquare{
@@ -1185,7 +1165,7 @@ void ComponentAdapter::DrawOverlay(core::NodeId node_id,
                                            option == select->selected_index_
                                                ? colors.list_selected_
                                                : colors.list_background_);
-            DrawBoxText(kOption, select->options_[option], colors.list_text_);
+            DrawValue(kOption, select->options_[option], colors.list_text_);
         }
         const WrappedRectangle kFirst =
             OptionBounds(components, bounds, *kIndex, 0);
