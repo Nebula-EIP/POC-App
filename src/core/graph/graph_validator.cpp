@@ -225,9 +225,9 @@ bool IsOperatorCompatibleWithType(std::string_view op, std::string_view type) {
 std::vector<NodeId> SortedNodeIds(const Graph &graph) {
     std::vector<NodeId> ids;
     ids.reserve(graph.GetAllNodes().size());
-    for (const auto &[id, node] : graph.GetAllNodes()) {
-        (void)node;
-        ids.push_back(id);
+    for (const auto &[kId, kNode] : graph.GetAllNodes()) {
+        (void)kNode;
+        ids.push_back(kId);
     }
     std::sort(ids.begin(), ids.end());
     return ids;
@@ -236,9 +236,9 @@ std::vector<NodeId> SortedNodeIds(const Graph &graph) {
 std::vector<ConnectionId> SortedConnectionIds(const Graph &graph) {
     std::vector<ConnectionId> ids;
     ids.reserve(graph.GetAllConnections().size());
-    for (const auto &[id, conn] : graph.GetAllConnections()) {
-        (void)conn;
-        ids.push_back(id);
+    for (const auto &[kId, kConn] : graph.GetAllConnections()) {
+        (void)kConn;
+        ids.push_back(kId);
     }
     std::sort(ids.begin(), ids.end());
     return ids;

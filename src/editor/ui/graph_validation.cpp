@@ -19,9 +19,9 @@ namespace editor::ui {
 void HighlightValidationErrors(
     NodeCanvas &canvas, const core::GraphValidator::ValidationResult &result) {
     const auto &views = canvas.Views();
-    for (const auto &[id, view] : views) {
-        (void)id;
-        view->ClearErrorPin();
+    for (const auto &[kId, kView] : views) {
+        (void)kId;
+        kView->ClearErrorPin();
     }
 
     if (result.is_valid_) {
