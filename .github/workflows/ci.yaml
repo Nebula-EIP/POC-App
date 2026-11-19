@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-2022]
         build_type: [Debug, Release]
 
         include:
@@ -30,7 +30,7 @@ jobs:
             test_script: ./scripts/linux/test.sh
             shell: bash
 
-          - os: windows-latest
+          - os: windows-2022
             setup_script: call .\scripts\windows\setup.bat
             configure_script: call .\scripts\windows\configure.bat
             format_script: call .\scripts\windows\format.bat
