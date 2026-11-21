@@ -1,5 +1,0 @@
-<map id="palette::Palette::Base" name="palette::Palette::Base">
-<area shape="rect" id="Node000001" title="Colors shared by several parts of the editor." alt="" coords="5,195,166,223"/>
-<area shape="rect" id="Node000002" href="$structutils_1_1WrappedColor.html" title=" " alt="" coords="11,5,160,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,47,88,195,83,195,83,49"/>
-</map>
