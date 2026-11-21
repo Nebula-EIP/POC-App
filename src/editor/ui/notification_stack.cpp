@@ -30,9 +30,6 @@ constexpr float kSideMargin = 12.0F;
 // Space between two lines of a long warning.
 constexpr float kLineGap = 4.0F;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kBackground = palette::notification::kBackground;
-constexpr utils::WrappedColor kBorder = palette::notification::kBorder;
-constexpr utils::WrappedColor kText = palette::notification::kText;
 
 utils::WrappedColor Faded(utils::WrappedColor color, float opacity) {
     color.a_ = static_cast<unsigned char>(
@@ -113,15 +110,17 @@ void NotificationStack::Draw(utils::WrappedVector2 screen, double now) const {
             const float kWidth = text_width + 2.0F * kPadding;
             const float kX = std::max(kSideMargin, (screen.x_ - kWidth) / 2.0F);
 
-            utils::DrawRectangleWrapped(kX, kY, kWidth, kHeight,
-                                        Faded(kBackground, kOpacity));
-            utils::DrawRectangleLinesWrapped(kX, kY, kWidth, kHeight,
-                                             Faded(kBorder, kOpacity));
+            utils::DrawRectangleWrapped(
+                kX, kY, kWidth, kHeight,
+                Faded(palette::Get().notification_.background_, kOpacity));
+            utils::DrawRectangleLinesWrapped(
+                kX, kY, kWidth, kHeight,
+                Faded(palette::Get().notification_.border_, kOpacity));
             float line_y = kY + kPadding;
             for (const std::string &line : kLines) {
-                utils::DrawTextExWrapped(line.c_str(), kX + kPadding, line_y,
-                                         kFontSize, kSpacing,
-                                         Faded(kText, kOpacity));
+                utils::DrawTextExWrapped(
+                    line.c_str(), kX + kPadding, line_y, kFontSize, kSpacing,
+                    Faded(palette::Get().notification_.text_, kOpacity));
                 line_y += static_cast<float>(kFontSize) + kLineGap;
             }
         }

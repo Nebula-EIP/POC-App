@@ -1,37 +1,44 @@
 /**
  * @file palette.hpp
  * @brief The project color palette: every color the editor draws with, by
- * name, in one place.
+ * name. The values live in palette.yaml, read at start-up.
  *
- * Adding a color: one line in the section of the part of the editor it
- * belongs to, from its hex code and an optional opacity:
- * @code
- * inline constexpr utils::WrappedColor kMyColor = Hex(0x23252D);
- * inline constexpr utils::WrappedColor kMyShadow = Hex(0x000000, 0.25F);
- * @endcode
- * A color can reuse another one by name (kText = top_bar::kText).
+ * Referencing a color: palette::Get().<section>_.<name>_, e.g.
+ * palette::Get().canvas_.background_. Pin types and node accents are looked
+ * up by name: palette::TypeColor("int"), palette::NodeAccent("Variable",
+ * "Data").
  *
- * Referencing a color: palette::<section>::k<Name>, e.g.
- * palette::canvas::kBackground.
- *
- * Pin types and node accents are looked up by name (TypeColor("int"),
- * NodeAccent("Variable", "Data")): adding one is one line in its table.
+ * Adding a color: one line in palette.yaml and one member (plus its entry in
+ * Palette::Fields(), palette.cpp) here. A color only added to the type_names,
+ * accent_nodes or accent_categories tables of palette.yaml needs no code.
  *
  * @author Created by ArthuryanLoheac
  * @date Created on 05-11-2026
  *
  * @author Last modified by ArthuryanLoheac
- * @date Last modified on 05-11-2026
+ * @date Last modified on 17-11-2026
  */
 
 #pragma once
 
 #include <cstdint>
+#include <filesystem>
+#include <functional>
+#include <map>
+#include <string>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 #include "utils/raylib_wrapper.hpp"
 
 namespace palette {
+
+/// The palette file read at start-up, from the working directory.
+inline constexpr const char *kDefaultFile = "palette.yaml";
+
+/// Name of the type of the execution flow pins, drawn as triangles.
+inline constexpr std::string_view kFlowTypeName = "void";
 
 /**
  * @brief Builds a color from its hex code, as written in a design tool.
@@ -68,216 +75,239 @@ namespace palette {
     return color;
 }
 
-/**
- * @brief The Chasm palette of the design: the colors the rest of the palette
- * is built from.
- */
-namespace chasm {
-inline constexpr utils::WrappedColor kSilver = Hex(0xAEAEB4);
-inline constexpr utils::WrappedColor kSlate = Hex(0x4E4F56);
-inline constexpr utils::WrappedColor kCharcoal = Hex(0x24252C);
-inline constexpr utils::WrappedColor kAbyss = Hex(0x16171D);
-inline constexpr utils::WrappedColor kGreen = Hex(0x6EA17D);
-inline constexpr utils::WrappedColor kRed = Hex(0xA8474A);
-inline constexpr utils::WrappedColor kViolet = Hex(0x7E7FCD);
-inline constexpr utils::WrappedColor kOrange = Hex(0xD19D82);
-inline constexpr utils::WrappedColor kBlue = Hex(0x76A1E1);
-}  // namespace chasm
-
-/// Colors shared by several parts of the editor.
-namespace base {
-inline constexpr utils::WrappedColor kWhite = Hex(0xFFFFFF);
-inline constexpr utils::WrappedColor kShadow = Hex(0x000000, 0.25F);
-inline constexpr utils::WrappedColor kAccent = chasm::kBlue;
-inline constexpr utils::WrappedColor kError = Hex(0xD9575B);
-inline constexpr utils::WrappedColor kWarning = Hex(0xE8C15A);
-}  // namespace base
-
-/// The node canvas: background, grid, rectangle selection.
-namespace canvas {
-inline constexpr utils::WrappedColor kBackground = Hex(0x23252D);
-inline constexpr utils::WrappedColor kGrid = Hex(0x2E3037);
-inline constexpr utils::WrappedColor kLoadingText = Hex(0x909195);
-inline constexpr utils::WrappedColor kSelectionFill =
-    WithOpacity(base::kAccent, 0.12F);
-inline constexpr utils::WrappedColor kSelectionBorder =
-    WithOpacity(base::kAccent, 0.8F);
-}  // namespace canvas
-
-/// The menu bar at the top of the window and its drop-down menus.
-namespace top_bar {
-inline constexpr utils::WrappedColor kBackground = Hex(0x22232C);
-inline constexpr utils::WrappedColor kText = Hex(0x909195);
-inline constexpr utils::WrappedColor kTextHover = Hex(0xF2F2F4);
-inline constexpr utils::WrappedColor kItemText = Hex(0xC9CACE);
-inline constexpr utils::WrappedColor kDisabledText = Hex(0x6A6B72);
-inline constexpr utils::WrappedColor kShadow = base::kShadow;
-inline constexpr utils::WrappedColor kHover = Hex(0x30313B);
-inline constexpr utils::WrappedColor kDropdown = Hex(0x22232C);
-inline constexpr utils::WrappedColor kBorder = Hex(0x33343E);
-}  // namespace top_bar
-
-/// The node cards.
-namespace node {
-inline constexpr utils::WrappedColor kHeader = Hex(0x1F2027);
-inline constexpr utils::WrappedColor kBody = chasm::kAbyss;
-inline constexpr utils::WrappedColor kTitle = base::kWhite;
-inline constexpr utils::WrappedColor kPinLabel = Hex(0xE2E2E4);
-inline constexpr utils::WrappedColor kSelectedOutline = Hex(0xD7D8DD);
-inline constexpr utils::WrappedColor kShadow = Hex(0x000000, 0.18F);
-inline constexpr utils::WrappedColor kErrorPin = base::kError;
-}  // namespace node
-
-/// The node picker ("Add Node"), drawn like a node card.
-namespace popup {
-inline constexpr utils::WrappedColor kHeader = node::kHeader;
-inline constexpr utils::WrappedColor kBackground = node::kBody;
-inline constexpr utils::WrappedColor kSearchBackground = chasm::kAbyss;
-inline constexpr utils::WrappedColor kSearchBorder = chasm::kCharcoal;
-inline constexpr utils::WrappedColor kPlaceholder = top_bar::kText;
-inline constexpr utils::WrappedColor kText = node::kPinLabel;
-inline constexpr utils::WrappedColor kFolderText = chasm::kSilver;
-inline constexpr utils::WrappedColor kSelected = chasm::kCharcoal;
-inline constexpr utils::WrappedColor kSelectedText = base::kWhite;
-inline constexpr utils::WrappedColor kEmptyText = top_bar::kDisabledText;
-inline constexpr utils::WrappedColor kScrollbar = chasm::kSlate;
-inline constexpr utils::WrappedColor kShadow = base::kShadow;
-}  // namespace popup
-
-/// The values and settings drawn inside the nodes.
-namespace field {
-inline constexpr utils::WrappedColor kLabel = Hex(0xA9AAAF);
-inline constexpr utils::WrappedColor kValue = Hex(0xC4C5C7);
-inline constexpr utils::WrappedColor kDisabledText = Hex(0x6B6C72);
-inline constexpr utils::WrappedColor kWarningText = base::kWarning;
-inline constexpr utils::WrappedColor kIdle = node::kHeader;
-inline constexpr utils::WrappedColor kActive = Hex(0x262730);
-inline constexpr utils::WrappedColor kEditing = Hex(0x2D2E38);
-/// Underline of the text fields, outline and mark of the checkboxes.
-inline constexpr utils::WrappedColor kStroke = Hex(0xBBBBBB);
-inline constexpr utils::WrappedColor kAccent = base::kAccent;
-inline constexpr utils::WrappedColor kError = base::kError;
-inline constexpr utils::WrappedColor kErrorBubble = Hex(0x6E2A2D, 0.95F);
-inline constexpr utils::WrappedColor kErrorText = base::kWhite;
-inline constexpr utils::WrappedColor kListBackground = top_bar::kDropdown;
-inline constexpr utils::WrappedColor kListSelected = top_bar::kHover;
-inline constexpr utils::WrappedColor kListText = top_bar::kTextHover;
-inline constexpr utils::WrappedColor kSeparator = Hex(0x34353D);
-}  // namespace field
-
-/// The links between pins (their color is the one of their type).
-namespace link {
-inline constexpr utils::WrappedColor kSelected = base::kWhite;
-inline constexpr utils::WrappedColor kGhost = WithOpacity(chasm::kSilver, 0.5F);
-}  // namespace link
-
-/// Warnings stacked at the bottom of the window.
-namespace notification {
-inline constexpr utils::WrappedColor kBackground = Hex(0x3A2226, 0.95F);
-inline constexpr utils::WrappedColor kBorder = base::kError;
-inline constexpr utils::WrappedColor kText = base::kWhite;
-}  // namespace notification
-
-/// Colors of the pin types, also used by the links of that type.
-namespace type {
-inline constexpr utils::WrappedColor kFlow = chasm::kSilver;
-inline constexpr utils::WrappedColor kInt = chasm::kBlue;
-inline constexpr utils::WrappedColor kFloat = chasm::kViolet;
-inline constexpr utils::WrappedColor kString = chasm::kGreen;
-inline constexpr utils::WrappedColor kBool = chasm::kRed;
-/// Types defined by the user (structures...).
-inline constexpr utils::WrappedColor kCustom = chasm::kOrange;
-/// Every other type (char...).
-inline constexpr utils::WrappedColor kOther = chasm::kSlate;
-
-/// Name of the type of the execution flow pins, drawn as triangles.
-inline constexpr std::string_view kFlowTypeName = "void";
-
-struct Entry {
-    std::string_view name_;
-    utils::WrappedColor color_;
-};
-
-/// Color of each type, by the name the modules give it.
-inline constexpr Entry kColors[] = {
-    {kFlowTypeName, kFlow}, {"int", kInt},   {"float", kFloat},
-    {"string", kString},    {"bool", kBool},
-};
-}  // namespace type
+/// Colors by name (type names, node names, categories).
+using ColorTable = std::map<std::string, utils::WrappedColor, std::less<>>;
 
 /**
- * @brief Color of the pins and links of a type.
- *
- * @param type_name The name of the type, e.g. "int".
- * @param is_custom Whether the user defined the type (structure...).
- *
- * @return type::kCustom for a custom type, else its color in type::kColors,
- * else type::kOther.
+ * @brief Every color of the editor. One member per entry of palette.yaml,
+ * one struct per section.
  */
-[[nodiscard]] constexpr utils::WrappedColor TypeColor(
-    std::string_view type_name, bool is_custom = false) {
-    if (is_custom) {
-        return type::kCustom;
-    }
-    for (const type::Entry &entry : type::kColors) {
-        if (entry.name_ == type_name) {
-            return entry.color_;
-        }
-    }
-    return type::kOther;
-}
+struct Palette {
+    /// The Chasm palette of the design: the colors the rest is built from.
+    struct Chasm {
+        utils::WrappedColor silver_;
+        utils::WrappedColor slate_;
+        utils::WrappedColor charcoal_;
+        utils::WrappedColor abyss_;
+        utils::WrappedColor green_;
+        utils::WrappedColor red_;
+        utils::WrappedColor violet_;
+        utils::WrappedColor orange_;
+        utils::WrappedColor blue_;
+    };
 
-/// Line at the top of the nodes, by node and by category.
-namespace accent {
-inline constexpr utils::WrappedColor kNone = Hex(0x000000, 0.0F);
-/// Entry points: functions, their inputs and outputs.
-inline constexpr utils::WrappedColor kEntry = chasm::kRed;
-/// Branches (if...) and loops.
-inline constexpr utils::WrappedColor kBranch = chasm::kSilver;
-/// Nodes that set a variable.
-inline constexpr utils::WrappedColor kVariable = chasm::kBlue;
+    /// Colors shared by several parts of the editor.
+    struct Base {
+        utils::WrappedColor white_;
+        utils::WrappedColor shadow_;
+        utils::WrappedColor accent_;
+        utils::WrappedColor error_;
+        utils::WrappedColor warning_;
+    };
 
-struct Entry {
-    std::string_view name_;
-    utils::WrappedColor color_;
+    /// The node canvas: background, grid, rectangle selection.
+    struct Canvas {
+        utils::WrappedColor background_;
+        utils::WrappedColor grid_;
+        utils::WrappedColor loading_text_;
+        utils::WrappedColor selection_fill_;
+        utils::WrappedColor selection_border_;
+    };
+
+    /// The menu bar at the top of the window and its drop-down menus.
+    struct TopBar {
+        utils::WrappedColor background_;
+        utils::WrappedColor text_;
+        utils::WrappedColor text_hover_;
+        utils::WrappedColor item_text_;
+        utils::WrappedColor disabled_text_;
+        utils::WrappedColor shadow_;
+        utils::WrappedColor hover_;
+        utils::WrappedColor dropdown_;
+        utils::WrappedColor border_;
+    };
+
+    /// The node cards.
+    struct Node {
+        utils::WrappedColor header_;
+        utils::WrappedColor body_;
+        utils::WrappedColor title_;
+        utils::WrappedColor pin_label_;
+        utils::WrappedColor selected_outline_;
+        utils::WrappedColor shadow_;
+        utils::WrappedColor error_pin_;
+    };
+
+    /// The node picker ("Add Node"), drawn like a node card.
+    struct Popup {
+        utils::WrappedColor header_;
+        utils::WrappedColor background_;
+        utils::WrappedColor search_background_;
+        utils::WrappedColor search_border_;
+        utils::WrappedColor placeholder_;
+        utils::WrappedColor text_;
+        utils::WrappedColor folder_text_;
+        utils::WrappedColor selected_;
+        utils::WrappedColor selected_text_;
+        utils::WrappedColor empty_text_;
+        utils::WrappedColor scrollbar_;
+        utils::WrappedColor shadow_;
+    };
+
+    /// The values and settings drawn inside the nodes.
+    struct Field {
+        utils::WrappedColor label_;
+        utils::WrappedColor value_;
+        utils::WrappedColor disabled_text_;
+        utils::WrappedColor warning_text_;
+        utils::WrappedColor idle_;
+        utils::WrappedColor active_;
+        utils::WrappedColor editing_;
+        /// Underline of the text fields, outline and mark of the checkboxes.
+        utils::WrappedColor stroke_;
+        utils::WrappedColor accent_;
+        utils::WrappedColor error_;
+        utils::WrappedColor error_bubble_;
+        utils::WrappedColor error_text_;
+        utils::WrappedColor list_background_;
+        utils::WrappedColor list_selected_;
+        utils::WrappedColor list_text_;
+        utils::WrappedColor separator_;
+    };
+
+    /// The links between pins (their color is the one of their type).
+    struct Link {
+        utils::WrappedColor selected_;
+        utils::WrappedColor ghost_;
+    };
+
+    /// Warnings stacked at the bottom of the window.
+    struct Notification {
+        utils::WrappedColor background_;
+        utils::WrappedColor border_;
+        utils::WrappedColor text_;
+    };
+
+    /// Pins and links of the types not listed in type_names_.
+    struct Type {
+        /// Types defined by the user (structures...).
+        utils::WrappedColor custom_;
+        /// Every other type (char...).
+        utils::WrappedColor other_;
+    };
+
+    /// Line at the top of the nodes.
+    struct Accent {
+        /// Fully transparent: no line.
+        utils::WrappedColor none_;
+        /// Entry points: functions, their inputs and outputs.
+        utils::WrappedColor entry_;
+        /// Branches (if...) and loops.
+        utils::WrappedColor branch_;
+        /// Nodes that set a variable.
+        utils::WrappedColor variable_;
+    };
+
+    Chasm chasm_{};
+    Base base_{};
+    Canvas canvas_{};
+    TopBar top_bar_{};
+    Node node_{};
+    Popup popup_{};
+    Field field_{};
+    Link link_{};
+    Notification notification_{};
+    Type type_{};
+    /// Color of each type, by the name the modules give it.
+    ColorTable type_names_;
+    Accent accent_{};
+    /// Accent of single nodes, by node name. Wins over the category.
+    ColorTable accent_nodes_;
+    /// Accent of each category. Sub-folders ("Flow/Loops") use their root's.
+    ColorTable accent_categories_;
+
+    /**
+     * @brief The palette compiled into the editor (the palette.yaml of the
+     * build).
+     */
+    [[nodiscard]] static Palette Default();
+
+    /**
+     * @brief Reads a palette from YAML text.
+     *
+     * Colors the text leaves out keep their Default() value. A color that
+     * cannot be read (bad hex code, unknown or circular reference...) also
+     * keeps it, with a message in @p warnings.
+     *
+     * @param yaml The contents of a palette file.
+     * @param warnings Receives one message per ignored entry.
+     *
+     * @throws std::runtime_error If the text is not valid YAML.
+     */
+    [[nodiscard]] static Palette FromYaml(std::string_view yaml,
+                                          std::vector<std::string> &warnings);
+
+    /**
+     * @brief Reads a palette file, see FromYaml().
+     *
+     * @param file The palette file, e.g. kDefaultFile.
+     * @param warnings Receives one message per ignored entry, or one saying
+     * the file is missing (the palette is then Default()).
+     *
+     * @throws std::runtime_error If the file cannot be read or is not valid
+     * YAML.
+     */
+    [[nodiscard]] static Palette Load(const std::filesystem::path &file,
+                                      std::vector<std::string> &warnings);
+
+    /**
+     * @brief Color of the pins and links of a type.
+     *
+     * @param type_name The name of the type, e.g. "int".
+     * @param is_custom Whether the user defined the type (structure...).
+     *
+     * @return type_.custom_ for a custom type, else its color in type_names_,
+     * else type_.other_.
+     */
+    [[nodiscard]] utils::WrappedColor TypeColor(std::string_view type_name,
+                                                bool is_custom = false) const;
+
+    /**
+     * @brief Color of the line at the top of a node.
+     *
+     * @param node_name The name of the node, e.g. "Variable".
+     * @param category The category of the node, e.g. "Flow/Loops".
+     *
+     * @return The node's color in accent_nodes_, else the color of its root
+     * folder in accent_categories_, else accent_.none_.
+     */
+    [[nodiscard]] utils::WrappedColor NodeAccent(
+        std::string_view node_name, std::string_view category) const;
+
+    /**
+     * @brief Every fixed color of the palette with its "section.name" in
+     * palette.yaml (the tables are not included).
+     */
+    [[nodiscard]] std::vector<
+        std::pair<std::string_view, utils::WrappedColor *>>
+    Fields();
 };
-
-/// Accent of single nodes, by node name. Wins over the category.
-inline constexpr Entry kNodes[] = {
-    {"Variable", kVariable},
-};
-
-/// Accent of each category. Sub-folders ("Flow/Loops") use their root's.
-inline constexpr Entry kCategories[] = {
-    {"Functions", kEntry},
-    {"Flow", kBranch},
-};
-}  // namespace accent
 
 /**
- * @brief Color of the line at the top of a node.
- *
- * @param node_name The name of the node, e.g. "Variable".
- * @param category The category of the node, e.g. "Flow/Loops".
- *
- * @return The node's color in accent::kNodes, else the color of its root
- * folder in accent::kCategories, else accent::kNone (fully transparent: no
- * line).
+ * @brief The palette the editor draws with: Palette::Default() until Set()
+ * is called.
  */
-[[nodiscard]] constexpr utils::WrappedColor NodeAccent(
-    std::string_view node_name, std::string_view category) {
-    for (const accent::Entry &entry : accent::kNodes) {
-        if (entry.name_ == node_name) {
-            return entry.color_;
-        }
-    }
-    const std::string_view kRoot = category.substr(0, category.find('/'));
-    for (const accent::Entry &entry : accent::kCategories) {
-        if (entry.name_ == kRoot) {
-            return entry.color_;
-        }
-    }
-    return accent::kNone;
-}
+[[nodiscard]] const Palette &Get();
+
+/// Replaces the palette the editor draws with (e.g. by Palette::Load()).
+void Set(Palette palette);
+
+/// Get().TypeColor(), see Palette::TypeColor().
+[[nodiscard]] utils::WrappedColor TypeColor(std::string_view type_name,
+                                            bool is_custom = false);
+
+/// Get().NodeAccent(), see Palette::NodeAccent().
+[[nodiscard]] utils::WrappedColor NodeAccent(std::string_view node_name,
+                                             std::string_view category);
 
 }  // namespace palette

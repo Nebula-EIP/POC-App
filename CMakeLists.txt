@@ -68,6 +68,21 @@ if(portable_file_dialogs_ADDED)
     endif()
 endif()
 
+# Add yaml-cpp to read the color palette (palette.yaml)
+CPMAddPackage(
+    NAME yaml-cpp
+    GITHUB_REPOSITORY jbeder/yaml-cpp
+    GIT_TAG 0.8.0
+    OPTIONS
+        "YAML_CPP_BUILD_TESTS OFF"
+        "YAML_CPP_BUILD_TOOLS OFF"
+        "YAML_CPP_BUILD_CONTRIB OFF"
+        "YAML_CPP_INSTALL OFF"
+        "YAML_BUILD_SHARED_LIBS OFF"
+        # yaml-cpp 0.8.0 still asks for CMake 3.4, refused by CMake 4.
+        "CMAKE_POLICY_VERSION_MINIMUM 3.5"
+)
+
 # Add raylib for rendering and window management
 CPMAddPackage(
     NAME raylib

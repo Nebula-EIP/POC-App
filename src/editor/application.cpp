@@ -43,8 +43,6 @@ constexpr float kNodeHalfHeight = 25.0F;
 constexpr int kLoadingTextPosition = 20;
 constexpr int kLoadingTextSize = 20;
 constexpr float kSpacing = 2.0F;
-constexpr utils::WrappedColor kConnectionSelected = palette::link::kSelected;
-constexpr utils::WrappedColor kConnectionGhost = palette::link::kGhost;
 constexpr float kConnectionThickness = 2.0F;
 constexpr float kSelectedConnectionThickness = 3.0F;
 constexpr float kLinkPickTolerance = 8.0F;
@@ -117,7 +115,8 @@ void Application::DrawInitialFrame() {
                              utils::DrawTextExWrapped(
                                  "Loading module...", kLoadingTextPosition,
                                  kLoadingTextPosition, kLoadingTextSize,
-                                 kSpacing, palette::canvas::kLoadingText);
+                                 kSpacing,
+                                 palette::Get().canvas_.loading_text_);
                          },
                      .draw_node_content_ = {},
                  });
@@ -218,7 +217,7 @@ void Application::LoadModules() {
             [accents = std::move(accents)](core::NodeType type) {
                 const auto kAccent = accents.find(type);
                 return kAccent != accents.end() ? kAccent->second
-                                                : palette::accent::kNone;
+                                                : palette::Get().accent_.none_;
             },
         .pin_linked_ =
             [this](core::NodeId node, core::PinId pin, bool is_input) {
@@ -975,7 +974,7 @@ void Application::DrawLinks(const render::Camera &camera) {
                 selected_connection_ && *selected_connection_ == id;
             const auto kColor =
                 kIsSelected
-                    ? kConnectionSelected
+                    ? palette::Get().link_.selected_
                     : palette::TypeColor(TypeName(connection.data_type_));
             utils::DrawLineBezierWrapped(*kStartPos, *kEndPos,
                                          kIsSelected
@@ -987,7 +986,8 @@ void Application::DrawLinks(const render::Camera &camera) {
 
     if (auto ghost_link = renderer_.node_canvas_.GetConnectionDragLine()) {
         utils::DrawLineBezierWrapped(ghost_link->first, ghost_link->second,
-                                     kConnectionThickness, kConnectionGhost);
+                                     kConnectionThickness,
+                                     palette::Get().link_.ghost_);
     }
     // The dropped link stays drawn while the picker offers the nodes.
     if (link_drop_) {
@@ -998,7 +998,7 @@ void Application::DrawLinks(const render::Camera &camera) {
                     link_drop_->pin_.part_ == ui::HitPart::kInputPin)) {
                 utils::DrawLineBezierWrapped(*kStart, link_drop_->world_,
                                              kConnectionThickness,
-                                             kConnectionGhost);
+                                             palette::Get().link_.ghost_);
             }
         }
     }
