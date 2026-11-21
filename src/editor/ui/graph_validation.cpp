@@ -1,23 +1,21 @@
 /**
  * @file graph_validation.cpp
- * @brief Implementation of editor graph validation and node/pin error
+ * @brief Implementation of editor graph validation display and node/pin error
  * highlighting.
  *
  * @author Created by mathys-f
  * @date Created on 15-11-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 15-11-2026
+ * @date Last modified on 21-11-2026
  */
 
 #include "ui/graph_validation.hpp"
 
-#include <string>
-
 namespace editor::ui {
 
-void HighlightValidationErrors(
-    NodeCanvas &canvas, const core::GraphValidator::ValidationResult &result) {
+void HighlightValidationErrors(NodeCanvas &canvas,
+                               const core::capa::ValidationResult &result) {
     const auto &views = canvas.Views();
     for (const auto &[kId, kView] : views) {
         (void)kId;
@@ -44,26 +42,10 @@ void HighlightValidationErrors(
     }
 }
 
-core::GraphValidator::ValidationResult ValidateGraphForCodegen(
+core::capa::ValidationResult ValidateGraphForCodegen(
     const core::Graph &graph, NodeCanvas &canvas,
-    const core::NodeCatalog *catalog,
-    const core::capa::INodeListCapability *nodes,
-    const core::capa::ITypeListCapability *types) {
-    core::GraphValidator::ValidationContext context;
-    context.catalog_ = catalog;
-    context.nodes_ = nodes;
-    context.types_ = types;
-    context.node_title_ = [&canvas](core::NodeId node_id) -> std::string {
-        const auto &views = canvas.Views();
-        const auto kViewIt = views.find(node_id);
-        if (kViewIt == views.end()) {
-            return {};
-        }
-        return kViewIt->second->Title();
-    };
-
-    const core::GraphValidator kValidator;
-    const auto kResult = kValidator.Validate(graph, context);
+    const core::capa::IValidationCapability &validator) {
+    const core::capa::ValidationResult kResult = validator.Validate(graph);
     HighlightValidationErrors(canvas, kResult);
     return kResult;
 }

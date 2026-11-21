@@ -29,8 +29,10 @@ if(TEST_SOURCES)
         modules/c/c_module_tests.cpp
         modules/c/c_renderer_test.cpp
         modules/c/nodes/c_node_list_capability_test.cpp
+        modules/c/validation/c_validation_capability_test.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
+        ${CMAKE_SOURCE_DIR}/modules/c/validation/c_validation_capability.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_picker.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/link_drop.cpp

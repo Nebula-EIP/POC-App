@@ -942,16 +942,26 @@ void Application::ShowError(std::string message) {
 }
 
 bool Application::ValidateGraph() {
+    const auto *k_validator =
+        module_ != nullptr
+            ? module_->Capability<core::capa::IValidationCapability>()
+            : nullptr;
+    if (k_validator == nullptr) {
+        ShowError("No graph validation capability is available.");
+        return false;
+    }
+
     const auto kResult = ui::ValidateGraphForCodegen(
-        graph_, renderer_.node_canvas_, &node_catalog_,
-        module_ != nullptr ? module_->Nodes() : nullptr,
-        module_ != nullptr ? module_->Types() : nullptr);
+        graph_, renderer_.node_canvas_, *k_validator);
     if (!kResult.is_valid_) {
         for (const auto &error : kResult.errors_) {
             ShowError(error.message_);
         }
         return false;
     }
+
+    notifications_.Push("Graph check passed: no errors detected.",
+                        utils::GetTimeWrapped());
     return true;
 }
 

@@ -3,7 +3,6 @@
 add_library(neb_graph
     graph/graph.cpp
     graph/node.cpp
-    graph/graph_validator.cpp
 )
 
 target_include_directories(neb_graph PUBLIC
@@ -15,11 +14,16 @@ target_link_libraries(neb_graph PUBLIC
     utils
 )
 
+set_target_properties(neb_graph PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
+
 add_library(core_capabilities
     modules/capabilities/type_list_capability.cpp
     modules/capabilities/node_list_capability.cpp
     modules/capabilities/renderer_capability.cpp
     modules/capabilities/importer_capability.cpp
+    modules/capabilities/validation_capability.cpp
 )
 
 target_include_directories(core_capabilities PUBLIC
@@ -72,8 +76,4 @@ target_link_libraries(core_node_catalog PUBLIC
 
 set_target_properties(core_node_catalog PROPERTIES
     POSITION_INDEPENDENT_CODE ON
-)
-
-target_link_libraries(neb_graph PUBLIC
-    core_node_catalog
 )

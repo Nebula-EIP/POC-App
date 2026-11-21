@@ -6,7 +6,7 @@
  * @date Created on 15-11-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 15-11-2026
+ * @date Last modified on 21-11-2026
  */
 
 #include "ui/graph_validation.hpp"
@@ -18,13 +18,15 @@
 #include "graph/graph.hpp"
 #include "nodes/c_node_list_capability.hpp"
 #include "ui/node_canvas.hpp"
+#include "validation/c_validation_capability.hpp"
 
 TEST(EditorGraphValidationTest,
      HighlightsAffectedNodesAndPinsAndAllowsFixingIncompleteGraph) {
     core::Graph graph;
     editor::ui::NodeCanvas canvas;
+    const c_module::CValidationCapability kValidator;
 
-    // Create an incomplete Operator node (missing both inputs) and a Literal
+    // Create an incomplete Operator node (missing right input) and a Literal
     core::Node &lit1 = graph.CreateNode(2);
     graph.AddOutputPin(lit1.Id(), "out", 2);
     lit1.SetProperty(c_module::properties::kType,
@@ -48,10 +50,10 @@ TEST(EditorGraphValidationTest,
 
     // 1. Validate before export/compilation: should fail and highlight Addition
     const auto kInvalidResult =
-        editor::ui::ValidateGraphForCodegen(graph, canvas);
+        editor::ui::ValidateGraphForCodegen(graph, canvas, kValidator);
     EXPECT_FALSE(kInvalidResult.is_valid_);
     ASSERT_EQ(kInvalidResult.ErrorCount(), 1U);
-    EXPECT_NE(kInvalidResult.errors_[0].message_.find("Addition"),
+    EXPECT_NE(kInvalidResult.errors_[0].message_.find("Operator"),
               std::string::npos);
     EXPECT_NE(kInvalidResult.errors_[0].message_.find("right"),
               std::string::npos);
@@ -75,7 +77,7 @@ TEST(EditorGraphValidationTest,
 
     // 3. Re-validate: passes and clears error highlights
     const auto kValidResult =
-        editor::ui::ValidateGraphForCodegen(graph, canvas);
+        editor::ui::ValidateGraphForCodegen(graph, canvas, kValidator);
     EXPECT_TRUE(kValidResult.is_valid_);
     EXPECT_EQ(kValidResult.ErrorCount(), 0U);
     EXPECT_FALSE(views.at(op.Id())->HasError());
