@@ -1,0 +1,41 @@
+<map id="src/core/modules/capabilities/validation_capability.cpp" name="src/core/modules/capabilities/validation_capability.cpp">
+<area shape="rect" id="Node000001" title="Implementation of helper queries on core::capa::ValidationResult." alt="" coords="233,5,444,50"/>
+<area shape="rect" id="Node000002" href="$validation__capability_8hpp.html" title="Defines the capability interface for a module to validate a graph before code generation or compilati..." alt="" coords="165,98,352,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="318,52,290,88,286,85,321,48"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="376,106,461,134"/>
+<area shape="poly" id="edge24_Node000001_Node000015" title=" " alt="" coords="358,48,400,95,394,95,357,53"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,418,75,445"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,145,201,192,118,310,58,406,53,403,114,308,197,189,241,141"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="181,418,246,445"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="251,141,219,230,203,285,191,342,191,369,202,405,197,403,185,370,185,342,198,284,214,228,248,145"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="99,418,157,445"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="246,141,218,192,170,309,138,404,134,402,165,307,214,189,242,145"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="585,418,647,445"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="352,139,428,160,504,188,570,217,596,235,622,265,638,291,646,314,647,340,643,370,631,405,627,401,637,369,642,339,641,315,634,293,618,268,592,239,568,222,502,193,426,165,353,144"/>
+<area shape="rect" id="Node000007" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="200,342,355,370"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="262,141,278,327,272,326,258,145"/>
+<area shape="rect" id="Node000011" href="$graph_8hpp.html" title="The graph is a collection of nodes connected together." alt="" coords="363,191,490,218"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="303,141,389,183,383,184,303,146"/>
+<area shape="rect" id="Node000014" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="707,191,882,218"/>
+<area shape="poly" id="edge23_Node000002_Node000014" title=" " alt="" coords="352,138,364,140,537,167,694,190,689,191,537,172,364,145,353,143"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="236,373,90,417,89,412,234,368"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="268,369,236,408,233,404,263,371"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="253,370,169,413,167,408,248,371"/>
+<area shape="poly" id="edge13_Node000007_Node000006" title=" " alt="" coords="344,368,567,415,572,419,567,418,566,420,344,373"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="271,418,316,445"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="282,368,290,404,285,401,279,372"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="432,418,555,445"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="316,368,443,412,438,413,315,373"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="340,418,407,445"/>
+<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="295,368,347,408,342,408,294,373"/>
+<area shape="poly" id="edge17_Node000011_Node000006" title=" " alt="" coords="491,210,547,228,573,244,595,265,614,298,623,335,625,371,622,404,618,400,619,371,617,336,609,300,591,268,570,248,545,233,491,216"/>
+<area shape="poly" id="edge18_Node000011_Node000007" title=" " alt="" coords="404,218,370,242,338,268,313,299,293,330,289,326,309,295,334,264,367,237,399,220"/>
+<area shape="poly" id="edge16_Node000011_Node000009" title=" " alt="" coords="432,217,488,403,483,402,429,220"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="504,266,581,294"/>
+<area shape="poly" id="edge15_Node000011_Node000012" title=" " alt="" coords="448,216,512,258,507,258,447,222"/>
+<area shape="rect" id="Node000013" href="$node_8hpp.html" title="Definition of the Node class." alt="" coords="347,266,429,294"/>
+<area shape="poly" id="edge19_Node000011_Node000013" title=" " alt="" coords="422,217,404,254,400,251,418,221"/>
+<area shape="poly" id="edge20_Node000013_Node000004" title=" " alt="" coords="390,293,387,332,380,353,369,371,351,385,324,397,262,419,260,414,322,392,348,380,365,368,375,350,382,331,387,297"/>
+<area shape="poly" id="edge21_Node000013_Node000006" title=" " alt="" coords="409,292,586,409,581,409,407,297"/>
+<area shape="poly" id="edge22_Node000013_Node000007" title=" " alt="" coords="371,293,311,336,308,331,366,296"/>
+</map>

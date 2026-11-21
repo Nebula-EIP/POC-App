@@ -15,13 +15,13 @@
 <area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main entry point for the editor application." alt="" coords="220,460,367,488"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="296,409,296,461,291,458,292,412"/>
 <area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="425,232,419,274,401,312,385,331,366,347,327,369,325,365,363,342,381,327,397,310,413,272,422,236"/>
-<area shape="rect" id="Node000006" href="$graph__validation_8hpp.html" title="Runs graph validation for C++ code generation and highlights affected nodes and pins in the editor ca..." alt="" coords="461,266,601,311"/>
+<area shape="rect" id="Node000006" href="$graph__validation_8hpp.html" title="Runs graph validation through a module validation capability and highlights affected nodes and pins i..." alt="" coords="461,266,601,311"/>
 <area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="462,226,508,266,503,266,461,231"/>
 <area shape="rect" id="Node000008" href="$node__canvas_8cpp.html" title="Implementation of the NodeCanvas class, which manages the display and interaction of nodes in the edi..." alt="" coords="253,266,388,311"/>
 <area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="390,227,347,268,344,264,386,230"/>
 <area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="341,222,142,277,139,272,343,217"/>
 <area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="483,319,465,340,452,360,445,382,452,402,469,421,490,437,540,460,534,459,487,441,465,425,447,405,440,382,447,358,461,337,479,322"/>
-<area shape="rect" id="Node000007" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation and node/pin error highlighting." alt="" coords="461,359,601,404"/>
+<area shape="rect" id="Node000007" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation display and node/pin error highlighting." alt="" coords="461,359,601,404"/>
 <area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="533,325,533,360,529,357,529,329"/>
 <area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="136,307,267,365,262,368,135,312"/>
 <area shape="rect" id="Node000010" href="$renderer_8cpp.html" title="Implementation of the Renderer class, which manages the rendering loop and drawing of the graph." alt="" coords="5,368,177,395"/>

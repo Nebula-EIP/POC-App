@@ -39,7 +39,6 @@ var hierarchy =
     [ "palette::Palette::Field", "structpalette_1_1Palette_1_1Field.html", null ],
     [ "render::FrameCallbacks", "structrender_1_1FrameCallbacks.html", null ],
     [ "core::Graph", "classcore_1_1Graph.html", null ],
-    [ "core::GraphValidator", "classcore_1_1GraphValidator.html", null ],
     [ "render::GridLevels", "structrender_1_1GridLevels.html", null ],
     [ "editor::ui::HitResult", "structeditor_1_1ui_1_1HitResult.html", null ],
     [ "core::ICapability", "classcore_1_1ICapability.html", [
@@ -55,13 +54,14 @@ var hierarchy =
       ] ],
       [ "core::capa::ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", [
         [ "core::capa::TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", null ]
-      ] ]
+      ] ],
+      [ "core::capa::IValidationCapability", "classcore_1_1capa_1_1IValidationCapability.html", null ]
     ] ],
     [ "utils::IdManager&lt; IdType &gt;", "classutils_1_1IdManager.html", null ],
     [ "core::IModule", "classcore_1_1IModule.html", null ],
     [ "core::capa::ImportError", "structcore_1_1capa_1_1ImportError.html", null ],
     [ "core::capa::ImportRequest", "structcore_1_1capa_1_1ImportRequest.html", null ],
-    [ "core::GraphValidator::InvolvedPin", "structcore_1_1GraphValidator_1_1InvolvedPin.html", null ],
+    [ "core::capa::InvolvedPin", "structcore_1_1capa_1_1InvolvedPin.html", null ],
     [ "palette::Palette::Link", "structpalette_1_1Palette_1_1Link.html", null ],
     [ "editor::ui::LinkDrop", "structeditor_1_1ui_1_1LinkDrop.html", null ],
     [ "utils::Logger", "classutils_1_1Logger.html", null ],
@@ -144,9 +144,8 @@ var hierarchy =
     [ "palette::Palette::Type", "structpalette_1_1Palette_1_1Type.html", null ],
     [ "core::capa::ITypeListCapability::TypeDefinition", "structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html", null ],
     [ "core::capa::TypeDescriptor", "structcore_1_1capa_1_1TypeDescriptor.html", null ],
-    [ "core::GraphValidator::ValidationContext", "structcore_1_1GraphValidator_1_1ValidationContext.html", null ],
-    [ "core::GraphValidator::ValidationError", "structcore_1_1GraphValidator_1_1ValidationError.html", null ],
-    [ "core::GraphValidator::ValidationResult", "structcore_1_1GraphValidator_1_1ValidationResult.html", null ],
+    [ "core::capa::ValidationError", "structcore_1_1capa_1_1ValidationError.html", null ],
+    [ "core::capa::ValidationResult", "structcore_1_1capa_1_1ValidationResult.html", null ],
     [ "core::IModule::Version", "structcore_1_1IModule_1_1Version.html", null ],
     [ "utils::WrappedCircle", "structutils_1_1WrappedCircle.html", null ],
     [ "utils::WrappedColor", "structutils_1_1WrappedColor.html", null ],

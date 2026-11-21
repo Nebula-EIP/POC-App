@@ -1,0 +1,5 @@
+<map id="core::capa::IValidationCapability" name="core::capa::IValidationCapability">
+<area shape="rect" id="Node000001" title="Optional module capability that validates a graph against the module&#39;s node and type rules before cod..." alt="" coords="5,81,237,109"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ICapability.html" title="Base interface for all module capabilities." alt="" coords="57,5,185,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,47,123,82,119,79,119,51"/>
+</map>

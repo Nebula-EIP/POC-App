@@ -35,7 +35,7 @@ var searchData=
   ['invalidmoduleexception_32',['InvalidModuleException',['../classcore_1_1InvalidModuleException.html',1,'core']]],
   ['invalidmoduleversionexception_33',['InvalidModuleVersionException',['../classcore_1_1InvalidModuleVersionException.html',1,'core']]],
   ['invalidnodeexception_34',['InvalidNodeException',['../classcore_1_1InvalidNodeException.html',1,'core']]],
-  ['involvedpin_35',['InvolvedPin',['../structcore_1_1GraphValidator_1_1InvolvedPin.html',1,'core::GraphValidator']]],
+  ['involvedpin_35',['InvolvedPin',['../structcore_1_1capa_1_1InvolvedPin.html',1,'core::capa']]],
   ['irenderercapability_36',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
   ['is_5finteger_5f_37',['is_integer_',['../structcore_1_1capa_1_1NumberField.html#ae223d200b947792e46fe5b1e5cd0f317',1,'core::capa::NumberField::is_integer_'],['../structcore_1_1capa_1_1Slider.html#a4b7a474437d06ed1c9ceaf8fd65013b0',1,'core::capa::Slider::is_integer_']]],
   ['isconnectionmode_38',['IsConnectionMode',['../classeditor_1_1ui_1_1NodePicker.html#aa39d3b52990cfef12d82b94352c23ed6',1,'editor::ui::NodePicker']]],
@@ -47,5 +47,6 @@ var searchData=
   ['issearching_44',['IsSearching',['../classeditor_1_1ui_1_1NodePicker.html#a6b041a378ebaaa673b06b2ece4b0630d',1,'editor::ui::NodePicker']]],
   ['isshortcutkeydown_45',['IsShortcutKeyDown',['../classeditor_1_1actions_1_1ActionManager.html#ad8863f4818246fc3f6cd5fca4bae88d7',1,'editor::actions::ActionManager']]],
   ['itemrect_46',['ItemRect',['../classeditor_1_1ui_1_1TopBar.html#af0650b458fefcdff710933c007cc5b7d',1,'editor::ui::TopBar']]],
-  ['itypelistcapability_47',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
+  ['itypelistcapability_47',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]],
+  ['ivalidationcapability_48',['IValidationCapability',['../classcore_1_1capa_1_1IValidationCapability.html',1,'core::capa']]]
 ];

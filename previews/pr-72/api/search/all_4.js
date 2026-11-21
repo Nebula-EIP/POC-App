@@ -11,7 +11,7 @@ var searchData=
   ['error_5f_8',['error_',['../structeditor_1_1ui_1_1PropertyChangeOutcome.html#ac993130f280a7baa085b1f7e1be16358',1,'editor::ui::PropertyChangeOutcome']]],
   ['errorpinid_9',['ErrorPinId',['../classeditor_1_1ui_1_1NodeView.html#acdb9e0bdbee72e09f70f17fea382e106',1,'editor::ui::NodeView']]],
   ['errorpinisinput_10',['ErrorPinIsInput',['../classeditor_1_1ui_1_1NodeView.html#a80dca46f3633d0c20d005f45baf2d6eb',1,'editor::ui::NodeView']]],
-  ['errortype_11',['ErrorType',['../structcore_1_1GraphValidator_1_1ValidationError.html#ac58c051dc6fb2341e9a673644899d040',1,'core::GraphValidator::ValidationError']]],
+  ['errortype_11',['ErrorType',['../structcore_1_1capa_1_1ValidationError.html#ac0dde02ca17a2545d84ebb4764f885fd',1,'core::capa::ValidationError']]],
   ['exception_12',['Exception',['../classcore_1_1Exception.html',1,'core']]],
   ['expanded_5f_13',['expanded_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#a54a59c47da4acfe379e2aca7e4c0b8e8',1,'editor::ui::NodePicker::Row']]],
   ['exportcontext_14',['ExportContext',['../structcore_1_1capa_1_1ExportContext.html',1,'core::capa']]],
