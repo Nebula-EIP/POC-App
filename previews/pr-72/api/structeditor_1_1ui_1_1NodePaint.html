@@ -93,7 +93,7 @@ $(function(){initNavTree('structeditor_1_1ui_1_1NodePaint.html','','structeditor
 </div><!--header-->
 <div class="contents">
 
-<p>What the nodes need from the rest of the editor to be drawn in the project's colors (see <a class="el" href="palette_8hpp.html" title="The project color palette: every color the editor draws with, by name, in one place.">utils/palette.hpp</a>).  
+<p>What the nodes need from the rest of the editor to be drawn in the project's colors (see <a class="el" href="palette_8hpp.html" title="The project color palette: every color the editor draws with, by name.">utils/palette.hpp</a>).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="node__view_8hpp_source.html">node_view.hpp</a>&gt;</code></p>
@@ -105,13 +105,13 @@ std::function&lt; std::string(<a class="el" href="datatypes_8hpp.html#a130da6a81
 <tr class="memdesc:aec92c13bb8042b75bd334138fa0d54c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of a pin type ("int", "void"...): picks its color and shape. <br /></td></tr>
 <tr class="memitem:a75f682253f364b26264ed1db04a2d08d" id="r_a75f682253f364b26264ed1db04a2d08d"><td class="memItemLeft" align="right" valign="top"><a id="a75f682253f364b26264ed1db04a2d08d" name="a75f682253f364b26264ed1db04a2d08d"></a>
 std::function&lt; <a class="el" href="structutils_1_1WrappedColor.html">utils::WrappedColor</a>(<a class="el" href="datatypes_8hpp.html#ac33d443a97695102eb7520cef73f9cee">core::NodeType</a>)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>accent_</b></td></tr>
-<tr class="memdesc:a75f682253f364b26264ed1db04a2d08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color of the line at the top of a node type (<a class="el" href="palette_8hpp.html#a39ee282525dcb88f8563c1ab70b67a07" title="Color of the line at the top of a node.">palette::NodeAccent()</a>), fully transparent for none. <br /></td></tr>
+<tr class="memdesc:a75f682253f364b26264ed1db04a2d08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color of the line at the top of a node type (<a class="el" href="palette_8cpp.html#a971c92c0cc6bbaf3d1271bf8da3f8748" title="Get().NodeAccent(), see Palette::NodeAccent().">palette::NodeAccent()</a>), fully transparent for none. <br /></td></tr>
 <tr class="memitem:a4b53d8a05282160d5387f61a7f45d0db" id="r_a4b53d8a05282160d5387f61a7f45d0db"><td class="memItemLeft" align="right" valign="top"><a id="a4b53d8a05282160d5387f61a7f45d0db" name="a4b53d8a05282160d5387f61a7f45d0db"></a>
 std::function&lt; bool(<a class="el" href="datatypes_8hpp.html#a566a09b67984389a9c882a3c276c0abd">core::NodeId</a>, <a class="el" href="datatypes_8hpp.html#a249286c355f8b8e86358d64818552ed0">core::PinId</a>, bool is_input)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pin_linked_</b></td></tr>
 <tr class="memdesc:a4b53d8a05282160d5387f61a7f45d0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether a pin has a link: filled when linked, hollow otherwise. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>What the nodes need from the rest of the editor to be drawn in the project's colors (see <a class="el" href="palette_8hpp.html" title="The project color palette: every color the editor draws with, by name, in one place.">utils/palette.hpp</a>). </p>
+<div class="textblock"><p>What the nodes need from the rest of the editor to be drawn in the project's colors (see <a class="el" href="palette_8hpp.html" title="The project color palette: every color the editor draws with, by name.">utils/palette.hpp</a>). </p>
 <p>Every member is optional: without it, pins are drawn in a neutral color, filled, and the header has no accent. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/editor/ui/<a class="el" href="node__view_8hpp_source.html">node_view.hpp</a></li>

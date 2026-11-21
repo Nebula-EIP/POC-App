@@ -119,12 +119,7 @@ var annotated_dup =
       [ "Configuration", "structeditor_1_1Configuration.html", null ]
     ] ],
     [ "palette", null, [
-      [ "type", "namespacepalette_1_1type.html", [
-        [ "Entry", "structpalette_1_1type_1_1Entry.html", null ]
-      ] ],
-      [ "accent", "namespacepalette_1_1accent.html", [
-        [ "Entry", "structpalette_1_1accent_1_1Entry.html", null ]
-      ] ]
+      [ "Palette", "structpalette_1_1Palette.html", "structpalette_1_1Palette" ]
     ] ],
     [ "render", null, [
       [ "Camera", "classrender_1_1Camera.html", "classrender_1_1Camera" ],

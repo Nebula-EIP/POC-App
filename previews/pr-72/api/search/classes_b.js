@@ -6,7 +6,7 @@ var searchData=
   ['nebulametadata_3',['NebulaMetadata',['../structeditor_1_1project_1_1NebulaMetadata.html',1,'editor::project']]],
   ['nebulanode_4',['NebulaNode',['../structeditor_1_1project_1_1NebulaNode.html',1,'editor::project']]],
   ['nebulapin_5',['NebulaPin',['../structeditor_1_1project_1_1NebulaPin.html',1,'editor::project']]],
-  ['node_6',['Node',['../classcore_1_1Node.html',1,'core']]],
+  ['node_6',['Node',['../classcore_1_1Node.html',1,'core::Node'],['../structpalette_1_1Palette_1_1Node.html',1,'palette::Palette::Node']]],
   ['nodealreadyexistsexception_7',['NodeAlreadyExistsException',['../classcore_1_1NodeAlreadyExistsException.html',1,'core']]],
   ['nodecanvas_8',['NodeCanvas',['../classeditor_1_1ui_1_1NodeCanvas.html',1,'editor::ui']]],
   ['nodecatalog_9',['NodeCatalog',['../classcore_1_1NodeCatalog.html',1,'core']]],
@@ -25,6 +25,7 @@ var searchData=
   ['nodepindescriptor_22',['NodePinDescriptor',['../structcore_1_1NodePinDescriptor.html',1,'core']]],
   ['nodetypeexception_23',['NodeTypeException',['../classcore_1_1NodeTypeException.html',1,'core']]],
   ['nodeview_24',['NodeView',['../classeditor_1_1ui_1_1NodeView.html',1,'editor::ui']]],
-  ['notificationstack_25',['NotificationStack',['../classeditor_1_1ui_1_1NotificationStack.html',1,'editor::ui']]],
-  ['numberfield_26',['NumberField',['../structcore_1_1capa_1_1NumberField.html',1,'core::capa']]]
+  ['notification_25',['Notification',['../structpalette_1_1Palette_1_1Notification.html',1,'palette::Palette']]],
+  ['notificationstack_26',['NotificationStack',['../classeditor_1_1ui_1_1NotificationStack.html',1,'editor::ui']]],
+  ['numberfield_27',['NumberField',['../structcore_1_1capa_1_1NumberField.html',1,'core::capa']]]
 ];

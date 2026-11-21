@@ -1,0 +1,5 @@
+<map id="palette::Palette::Canvas" name="palette::Palette::Canvas">
+<area shape="rect" id="Node000001" title="The node canvas: background, grid, rectangle selection." alt="" coords="5,218,182,245"/>
+<area shape="rect" id="Node000002" href="$structutils_1_1WrappedColor.html" title=" " alt="" coords="19,5,168,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,48,96,217,91,217,91,50"/>
+</map>

@@ -7,7 +7,7 @@ var searchData=
   ['topbar_4',['TopBar',['../classeditor_1_1ui_1_1TopBar.html#ae26ed87e8c227eb1afc178288c7962cb',1,'editor::ui::TopBar']]],
   ['triggeraction_5',['TriggerAction',['../classeditor_1_1actions_1_1ActionManager.html#a9a9b303b896efe9ea6c047dfacc310d2',1,'editor::actions::ActionManager']]],
   ['type_6',['Type',['../classcore_1_1Node.html#a8cb2821fa5214cd1f3eae8f17eda3f2c',1,'core::Node']]],
-  ['typecolor_7',['TypeColor',['../palette_8hpp.html#aeff2301e1ae8f236eaabe65ae7eada92',1,'palette']]],
+  ['typecolor_7',['TypeColor',['../structpalette_1_1Palette.html#a1efebae29d6302e29463fe02a89773a5',1,'palette::Palette::TypeColor()'],['../palette_8cpp.html#abe78a5adcbc83c437901f81d771febec',1,'palette::TypeColor()']]],
   ['typeid_8',['TypeId',['../classcore_1_1capa_1_1ITypeListCapability.html#a67fd51bf386baee25a5ae8d5b141e524',1,'core::capa::ITypeListCapability::TypeId()'],['../classcore_1_1capa_1_1TypeListCapability.html#a4a036ddc3e724dfd5ea3a68e71005540',1,'core::capa::TypeListCapability::TypeId(std::string_view type_name) const noexcept override']]],
   ['typelistcapability_9',['TypeListCapability',['../classcore_1_1capa_1_1TypeListCapability.html#a11810b8ea6fe1718bfe4cc8ce75cd402',1,'core::capa::TypeListCapability']]],
   ['typename_10',['TypeName',['../classcore_1_1capa_1_1ITypeListCapability.html#aab50b668048b2f8fd7a21e933387b95d',1,'core::capa::ITypeListCapability::TypeName()'],['../classcore_1_1capa_1_1TypeListCapability.html#a18e691abdbb2cd2ba03489812a67f488',1,'core::capa::TypeListCapability::TypeName()']]],

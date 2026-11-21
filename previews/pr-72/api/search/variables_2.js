@@ -5,5 +5,6 @@ var searchData=
   ['control_5f_2',['control_',['../structeditor_1_1ui_1_1ComponentInput.html#a7c9a0e643a3310159ce0f88353ac71fe',1,'editor::ui::ComponentInput']]],
   ['copy_5f_3',['copy_',['../structeditor_1_1ui_1_1ComponentInput.html#a822c866775c8addd39d66bf146bef37a',1,'editor::ui::ComponentInput']]],
   ['cursor_5f_4',['cursor_',['../structeditor_1_1ui_1_1CanvasInput.html#a8cda2a260f9fe4d49503b94f8bc834bd',1,'editor::ui::CanvasInput']]],
-  ['cut_5f_5',['cut_',['../structeditor_1_1ui_1_1ComponentInput.html#a13e9d10e8087c43bce26b590563cf7ca',1,'editor::ui::ComponentInput']]]
+  ['custom_5f_5',['custom_',['../structpalette_1_1Palette_1_1Type.html#a3632692c98c506e11e845d8e21bc04b7',1,'palette::Palette::Type']]],
+  ['cut_5f_6',['cut_',['../structeditor_1_1ui_1_1ComponentInput.html#a13e9d10e8087c43bce26b590563cf7ca',1,'editor::ui::ComponentInput']]]
 ];

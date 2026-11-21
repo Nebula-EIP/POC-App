@@ -6,6 +6,7 @@ var searchData=
   ['tooltip_5f_3',['tooltip_',['../structcore_1_1capa_1_1ComponentBase.html#a501564a2e7727b4926f2c31709764a90',1,'core::capa::ComponentBase']]],
   ['type_5f_4',['type_',['../structcore_1_1capa_1_1NodeMetadata.html#a2d9fdb4f329f6da48ca4798717169feb',1,'core::capa::NodeMetadata::type_'],['../structeditor_1_1ui_1_1PinEnd.html#adbd934407dcfbc3ae93f135157f16ad1',1,'editor::ui::PinEnd::type_']]],
   ['type_5fname_5f_5',['type_name_',['../structeditor_1_1project_1_1NebulaNode.html#a6b9da93979852f83d36972ad7261bd41',1,'editor::project::NebulaNode::type_name_'],['../structeditor_1_1ui_1_1NodePaint.html#aec92c13bb8042b75bd334138fa0d54c3',1,'editor::ui::NodePaint::type_name_']]],
-  ['typed_5f_6',['typed_',['../structeditor_1_1ui_1_1ComponentInput.html#ace802791770095eec1943dc42f0ed7bb',1,'editor::ui::ComponentInput::typed_'],['../structeditor_1_1ui_1_1NodePickerInput.html#a28154936cc7770163322aec9927a2959',1,'editor::ui::NodePickerInput::typed_']]],
-  ['types_7',['types',['../structcore_1_1capa_1_1ExportContext.html#a0f3980a96e94c508fe3612796299cc72',1,'core::capa::ExportContext']]]
+  ['type_5fnames_5f_6',['type_names_',['../structpalette_1_1Palette.html#ad3af979a4c76e7894a7d39a0ea9f1c28',1,'palette::Palette']]],
+  ['typed_5f_7',['typed_',['../structeditor_1_1ui_1_1ComponentInput.html#ace802791770095eec1943dc42f0ed7bb',1,'editor::ui::ComponentInput::typed_'],['../structeditor_1_1ui_1_1NodePickerInput.html#a28154936cc7770163322aec9927a2959',1,'editor::ui::NodePickerInput::typed_']]],
+  ['types_8',['types',['../structcore_1_1capa_1_1ExportContext.html#a0f3980a96e94c508fe3612796299cc72',1,'core::capa::ExportContext']]]
 ];

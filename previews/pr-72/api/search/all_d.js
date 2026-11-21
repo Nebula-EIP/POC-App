@@ -9,12 +9,13 @@ var searchData=
   ['opening_5fkey_5fdown_5f_6',['opening_key_down_',['../structeditor_1_1ui_1_1NodePickerInput.html#a5bc38f91e0a0deaba5a2242598bbbf22',1,'editor::ui::NodePickerInput']]],
   ['optionbounds_7',['OptionBounds',['../classeditor_1_1ui_1_1ComponentAdapter.html#a6d85694b5e8faf099346bf11a9e7020d',1,'editor::ui::ComponentAdapter']]],
   ['options_5f_8',['options_',['../structcore_1_1capa_1_1Select.html#a860f5c9464ce40b1406bdd0515a896bd',1,'core::capa::Select']]],
-  ['other_5fpressed_5f_9',['other_pressed_',['../structeditor_1_1ui_1_1TopBarInput.html#a3eefc6498bd6189c335a52578cfb1553',1,'editor::ui::TopBarInput']]],
-  ['output_5fpins_5f_10',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
-  ['output_5fsymbols_11',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
-  ['outputpin_12',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
-  ['outputpinexists_13',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
-  ['outputpins_14',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
-  ['outputpinscount_15',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
-  ['ownership_20and_20lifetimes_16',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
+  ['other_5f_9',['other_',['../structpalette_1_1Palette_1_1Type.html#a2ab456577cdb2b3df1d2329ff8031ec4',1,'palette::Palette::Type']]],
+  ['other_5fpressed_5f_10',['other_pressed_',['../structeditor_1_1ui_1_1TopBarInput.html#a3eefc6498bd6189c335a52578cfb1553',1,'editor::ui::TopBarInput']]],
+  ['output_5fpins_5f_11',['output_pins_',['../structcore_1_1capa_1_1NodeConfiguration.html#a711bc357ade7fb877aa20bf71b4b6af8',1,'core::capa::NodeConfiguration']]],
+  ['output_5fsymbols_12',['output_symbols',['../structcore_1_1capa_1_1NodeExportRequest.html#a8e88e98f19c5c396682b791e13fdcfc3',1,'core::capa::NodeExportRequest']]],
+  ['outputpin_13',['OutputPin',['../classcore_1_1Node.html#a66855897cd199d6431497a2efe4034ff',1,'core::Node']]],
+  ['outputpinexists_14',['OutputPinExists',['../classcore_1_1Node.html#ab2b0375ba2599470bee11bfc88d5d789',1,'core::Node']]],
+  ['outputpins_15',['OutputPins',['../classcore_1_1Node.html#af1563ab79dba0e37185e4404fcf590c5',1,'core::Node']]],
+  ['outputpinscount_16',['OutputPinsCount',['../classcore_1_1Node.html#a7931f5de5c0d05a2d5db8fca91fb28c0',1,'core::Node']]],
+  ['ownership_20and_20lifetimes_17',['Ownership and lifetimes',['../classcore_1_1ModuleLoader.html#autotoc_md1',1,'']]]
 ];

@@ -5,5 +5,6 @@ var searchData=
   ['selected_5findex_5f_2',['selected_index_',['../structcore_1_1capa_1_1Select.html#a1235696801c112ab58fd4bc103ab6f04',1,'core::capa::Select']]],
   ['shadow_5foffset_5f_3',['shadow_offset_',['../structeditor_1_1ui_1_1TopBarStyle.html#aa69fb0456d77954af5eb6e9e79c00f5a',1,'editor::ui::TopBarStyle']]],
   ['shift_5f_4',['shift_',['../structeditor_1_1ui_1_1ComponentInput.html#a615761c52ae52099892a57edfd4b4a8c',1,'editor::ui::ComponentInput']]],
-  ['step_5f_5',['step_',['../structcore_1_1capa_1_1NumberField.html#a0545721c5e1dedc8aed7e290e3af59df',1,'core::capa::NumberField::step_'],['../structcore_1_1capa_1_1Slider.html#af83dc5b451d0a2f0aac3f6120eda4d9d',1,'core::capa::Slider::step_']]]
+  ['step_5f_5',['step_',['../structcore_1_1capa_1_1NumberField.html#a0545721c5e1dedc8aed7e290e3af59df',1,'core::capa::NumberField::step_'],['../structcore_1_1capa_1_1Slider.html#af83dc5b451d0a2f0aac3f6120eda4d9d',1,'core::capa::Slider::step_']]],
+  ['stroke_5f_6',['stroke_',['../structpalette_1_1Palette_1_1Field.html#aa43facaf1df37d02c3e45557160bdd08',1,'palette::Palette::Field']]]
 ];

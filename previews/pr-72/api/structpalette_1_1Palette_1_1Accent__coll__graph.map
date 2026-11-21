@@ -1,0 +1,5 @@
+<map id="palette::Palette::Accent" name="palette::Palette::Accent">
+<area shape="rect" id="Node000001" title="Line at the top of the nodes." alt="" coords="5,173,178,201"/>
+<area shape="rect" id="Node000002" href="$structutils_1_1WrappedColor.html" title=" " alt="" coords="17,5,166,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,48,94,173,89,172,89,49"/>
+</map>
