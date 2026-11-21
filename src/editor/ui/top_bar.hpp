@@ -125,15 +125,15 @@ struct TopBarStyle {
     int title_font_size_ = 32;
     float title_spacing_ = 1.0F;
     utils::FontWeight title_weight_ = utils::FontWeight::kBold;
-    utils::WrappedColor bar_ = palette::top_bar::kBackground;
-    utils::WrappedColor dropdown_ = palette::top_bar::kDropdown;
-    utils::WrappedColor hover_ = palette::top_bar::kHover;
-    utils::WrappedColor border_ = palette::top_bar::kBorder;
-    utils::WrappedColor text_ = palette::top_bar::kText;
-    utils::WrappedColor item_text_ = palette::top_bar::kItemText;
-    utils::WrappedColor hover_text_ = palette::top_bar::kTextHover;
-    utils::WrappedColor disabled_text_ = palette::top_bar::kDisabledText;
-    utils::WrappedColor shadow_ = palette::top_bar::kShadow;
+    utils::WrappedColor bar_ = palette::Get().top_bar_.background_;
+    utils::WrappedColor dropdown_ = palette::Get().top_bar_.dropdown_;
+    utils::WrappedColor hover_ = palette::Get().top_bar_.hover_;
+    utils::WrappedColor border_ = palette::Get().top_bar_.border_;
+    utils::WrappedColor text_ = palette::Get().top_bar_.text_;
+    utils::WrappedColor item_text_ = palette::Get().top_bar_.item_text_;
+    utils::WrappedColor hover_text_ = palette::Get().top_bar_.text_hover_;
+    utils::WrappedColor disabled_text_ = palette::Get().top_bar_.disabled_text_;
+    utils::WrappedColor shadow_ = palette::Get().top_bar_.shadow_;
 };
 
 /**

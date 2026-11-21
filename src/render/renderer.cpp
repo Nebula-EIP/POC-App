@@ -26,9 +26,6 @@ namespace render {
 
 namespace {
 
-constexpr utils::WrappedColor kGridColor = palette::canvas::kGrid;
-constexpr utils::WrappedColor kBackgroundColor = palette::canvas::kBackground;
-
 ::Camera2D BuildRaylibCamera2D(const Camera &camera) {
     const utils::WrappedVector2 kCenter = camera.ViewportCenter();
     const utils::WrappedVector2 kTarget = camera.Target();
@@ -149,6 +146,8 @@ void Renderer::ProcessInput(Camera &camera, bool pointer_captured) noexcept {
 void Renderer::RenderFrame(const Camera &camera,
                            const FrameCallbacks &callbacks) {
     utils::BeginFrame();
+    const utils::WrappedColor kBackgroundColor =
+        palette::Get().canvas_.background_;
     ClearBackground(Color{kBackgroundColor.r_, kBackgroundColor.g_,
                           kBackgroundColor.b_, kBackgroundColor.a_});
 
@@ -192,6 +191,7 @@ void Renderer::DrawGrid(const Camera &camera) const {
     };
     const float kThickness = 1.0F / camera.Zoom();
     const GridLevels kLevels = ComputeGridLevels(camera.Zoom());
+    const utils::WrappedColor kGridColor = palette::Get().canvas_.grid_;
 
     utils::WrappedColor fine_color = kGridColor;
     fine_color.a_ = static_cast<unsigned char>(
