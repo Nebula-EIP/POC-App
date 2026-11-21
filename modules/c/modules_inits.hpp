@@ -16,9 +16,15 @@
 #include "modules/capabilities/node_list_capability.hpp"
 #include "modules/capabilities/renderer_capability.hpp"
 #include "modules/capabilities/type_list_capability.hpp"
+#include "modules/capabilities/validation_capability.hpp"
 
 core::capa::TypeListCapability *CreateTypeListCapa();
 
-core::capa::INodeListCapability *CreateNodeListCapa(core::capa::ITypeListCapability *types_capa);
+core::capa::INodeListCapability *CreateNodeListCapa(
+    core::capa::ITypeListCapability *types_capa);
 
 core::capa::RendererCapability *CreateRendererCapa();
+
+core::capa::IValidationCapability *CreateValidationCapa(
+    const core::capa::ITypeListCapability *types_capa,
+    const core::capa::INodeListCapability *nodes_capa);

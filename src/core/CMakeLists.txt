@@ -14,11 +14,16 @@ target_link_libraries(neb_graph PUBLIC
     utils
 )
 
+set_target_properties(neb_graph PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+)
+
 add_library(core_capabilities
     modules/capabilities/type_list_capability.cpp
     modules/capabilities/node_list_capability.cpp
     modules/capabilities/renderer_capability.cpp
     modules/capabilities/importer_capability.cpp
+    modules/capabilities/validation_capability.cpp
 )
 
 target_include_directories(core_capabilities PUBLIC

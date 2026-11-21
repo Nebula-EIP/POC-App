@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 14-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 20-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 21-11-2026
  */
 
 #include <filesystem>
@@ -16,6 +16,7 @@
 #include "modules/capabilities/exporter_capability.hpp"
 #include "modules/capabilities/importer_capability.hpp"
 #include "modules/capabilities/renderer_capability.hpp"
+#include "modules/capabilities/validation_capability.hpp"
 #include "modules/loader.hpp"
 
 namespace {
@@ -199,6 +200,19 @@ TEST_F(CModuleTest, HasExporterCapability) {
     ASSERT_NE(module, nullptr);
 
     EXPECT_EQ(module->Capability<core::capa::IExporterCapability>(), nullptr);
+}
+
+/**
+ * The validation capability is available when CModule provides it.
+ */
+TEST_F(CModuleTest, HasValidationCapability) {
+    core::IModule *module = LoadCModule();
+
+    ASSERT_NE(module, nullptr);
+
+    const auto *validator =
+        module->Capability<core::capa::IValidationCapability>();
+    ASSERT_NE(validator, nullptr);
 }
 
 /**
