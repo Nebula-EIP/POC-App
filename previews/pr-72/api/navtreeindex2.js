@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"structcore_1_1capa_1_1ExportContext.html#a2759765e6b14556b1421f6d3046f4033":[0,0,0,0,3,0],
+"structcore_1_1capa_1_1ExportContext.html#afc8727ed84832cc3c042aed3cec9171d":[0,0,0,0,3,1],
 "structcore_1_1capa_1_1ExportError.html":[0,0,0,0,2],
 "structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html":[0,0,0,0,26,0],
 "structcore_1_1capa_1_1ITypeListCapability_1_1TypeDefinition.html#a9ac0022c79626c36844c52f73034a9a7":[0,0,0,0,26,0,0],

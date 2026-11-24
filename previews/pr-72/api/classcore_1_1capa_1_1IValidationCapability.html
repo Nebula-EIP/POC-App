@@ -120,12 +120,82 @@ Collaboration diagram for core::capa::IValidationCapability:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a5c3175dd92d54e53ec6ea568059afb46" id="r_a5c3175dd92d54e53ec6ea568059afb46"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c3175dd92d54e53ec6ea568059afb46">InitializeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a130da6a81f673ee59ea7506e68beb7a5">DataType</a>, std::string &gt; &amp;types)=0</td></tr>
+<tr class="memdesc:a5c3175dd92d54e53ec6ea568059afb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the data types assigned by the core to this module.  <br /></td></tr>
+<tr class="memitem:a784a802ca76f3ec2b20cb7d108e65fcd" id="r_a784a802ca76f3ec2b20cb7d108e65fcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a784a802ca76f3ec2b20cb7d108e65fcd">InitializeNodeTypes</a> (const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#ac33d443a97695102eb7520cef73f9cee">NodeType</a>, std::string &gt; &amp;node_types)=0</td></tr>
+<tr class="memdesc:a784a802ca76f3ec2b20cb7d108e65fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the node types assigned by the core to this module.  <br /></td></tr>
 <tr class="memitem:a8df0df6ed36b5d0ec84abc79a1bf976c" id="r_a8df0df6ed36b5d0ec84abc79a1bf976c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structcore_1_1capa_1_1ValidationResult.html">ValidationResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8df0df6ed36b5d0ec84abc79a1bf976c">Validate</a> (const <a class="el" href="classcore_1_1Graph.html">Graph</a> &amp;graph) const =0</td></tr>
 <tr class="memdesc:a8df0df6ed36b5d0ec84abc79a1bf976c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the given graph against the module's rules.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Optional module capability that validates a graph against the module's node and type rules before code export or compilation. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a784a802ca76f3ec2b20cb7d108e65fcd" name="a784a802ca76f3ec2b20cb7d108e65fcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a784a802ca76f3ec2b20cb7d108e65fcd">&#9670;&#160;</a></span>InitializeNodeTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::capa::IValidationCapability::InitializeNodeTypes </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#ac33d443a97695102eb7520cef73f9cee">NodeType</a>, std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>node_types</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the node types assigned by the core to this module. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node_types</td><td>Map of core-assigned node type IDs to owned names. The core must provide only node types declared by the owning module. Each call replaces the previously stored list with a local copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5c3175dd92d54e53ec6ea568059afb46" name="a5c3175dd92d54e53ec6ea568059afb46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c3175dd92d54e53ec6ea568059afb46">&#9670;&#160;</a></span>InitializeTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::capa::IValidationCapability::InitializeTypes </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; <a class="el" href="datatypes_8hpp.html#a130da6a81f673ee59ea7506e68beb7a5">DataType</a>, std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>types</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the data types assigned by the core to this module. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">types</td><td>Map of core-assigned data type IDs to owned type names. The core must provide only types declared by the owning module. Each call replaces the previously stored list with a local copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8df0df6ed36b5d0ec84abc79a1bf976c" name="a8df0df6ed36b5d0ec84abc79a1bf976c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8df0df6ed36b5d0ec84abc79a1bf976c">&#9670;&#160;</a></span>Validate()</h2>
 
