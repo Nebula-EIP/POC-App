@@ -6,7 +6,7 @@
  * @date Created on 15-11-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 21-11-2026
+ * @date Last modified on 24-11-2026
  */
 
 #include "validation/c_validation_capability.hpp"
@@ -17,7 +17,6 @@
 #include <cctype>
 #include <cmath>
 #include <cstdint>
-#include <exception>
 #include <optional>
 #include <sstream>
 #include <string_view>
@@ -31,20 +30,6 @@ namespace {
 constexpr double kIntMin = -2147483648.0;
 constexpr double kIntMax = 2147483647.0;
 constexpr double kFloatLimit = 3.4e38;
-
-constexpr std::array<std::string_view, 10> kSupportedNodeNames = {
-    "Variable", "Literal",       "Operator",       "Condition", "Loop",
-    "Function", "FunctionInput", "FunctionOutput", "Print",     "For",
-};
-
-constexpr std::array<std::string_view, 6> kSupportedValueTypes = {
-    "int", "float", "double", "char", "bool", "string",
-};
-
-constexpr std::array<std::string_view, 18> kSupportedOperators = {
-    "+", "-",  "*",  "/",  "%", "==", "!=", "<",  "<=",
-    ">", ">=", "&&", "||", "&", "|",  "^",  "<<", ">>",
-};
 
 constexpr std::array<std::string_view, 97> kReservedWords = {
     "alignas",
@@ -146,30 +131,191 @@ constexpr std::array<std::string_view, 97> kReservedWords = {
     "main",
 };
 
-[[nodiscard]] bool IsSupportedNodeName(std::string_view name) {
-    return std::find(kSupportedNodeNames.begin(), kSupportedNodeNames.end(),
-                     name) != kSupportedNodeNames.end();
+[[nodiscard]] std::optional<CNodeKind> ParseNodeKind(std::string_view name) {
+    if (name == "Variable") return CNodeKind::kVariable;
+    if (name == "Literal") return CNodeKind::kLiteral;
+    if (name == "Operator") return CNodeKind::kOperator;
+    if (name == "Condition") return CNodeKind::kCondition;
+    if (name == "Loop") return CNodeKind::kLoop;
+    if (name == "Function") return CNodeKind::kFunction;
+    if (name == "FunctionInput") return CNodeKind::kFunctionInput;
+    if (name == "FunctionOutput") return CNodeKind::kFunctionOutput;
+    if (name == "Print") return CNodeKind::kPrint;
+    if (name == "For") return CNodeKind::kFor;
+    return std::nullopt;
 }
 
-[[nodiscard]] bool IsSupportedValueType(std::string_view type) {
-    return std::find(kSupportedValueTypes.begin(), kSupportedValueTypes.end(),
-                     type) != kSupportedValueTypes.end();
+[[nodiscard]] std::string_view NodeKindToString(CNodeKind kind) {
+    switch (kind) {
+        case CNodeKind::kVariable:
+            return "Variable";
+        case CNodeKind::kLiteral:
+            return "Literal";
+        case CNodeKind::kOperator:
+            return "Operator";
+        case CNodeKind::kCondition:
+            return "Condition";
+        case CNodeKind::kLoop:
+            return "Loop";
+        case CNodeKind::kFunction:
+            return "Function";
+        case CNodeKind::kFunctionInput:
+            return "FunctionInput";
+        case CNodeKind::kFunctionOutput:
+            return "FunctionOutput";
+        case CNodeKind::kPrint:
+            return "Print";
+        case CNodeKind::kFor:
+            return "For";
+    }
+    return "";
 }
 
-[[nodiscard]] bool IsSupportedOperator(std::string_view op) {
-    return std::find(kSupportedOperators.begin(), kSupportedOperators.end(),
-                     op) != kSupportedOperators.end();
+[[nodiscard]] std::optional<CValueType> ParseValueType(std::string_view type) {
+    if (type == "void") return CValueType::kVoid;
+    if (type == "int") return CValueType::kInt;
+    if (type == "float") return CValueType::kFloat;
+    if (type == "double") return CValueType::kDouble;
+    if (type == "char") return CValueType::kChar;
+    if (type == "bool") return CValueType::kBool;
+    if (type == "string") return CValueType::kString;
+    return std::nullopt;
 }
 
-[[nodiscard]] bool IsNamedNodeKind(std::string_view kind) {
-    return kind == "Variable" || kind == "Function" ||
-           kind == "FunctionInput" || kind == "For";
+[[nodiscard]] std::optional<CValueType> ParseNonVoidValueType(
+    std::string_view type) {
+    const auto kParsed = ParseValueType(type);
+    if (!kParsed.has_value() || *kParsed == CValueType::kVoid) {
+        return std::nullopt;
+    }
+    return kParsed;
 }
 
-[[nodiscard]] bool IsTypedNodeKind(std::string_view kind) {
-    return kind == "Variable" || kind == "Literal" || kind == "Operator" ||
-           kind == "FunctionInput" || kind == "FunctionOutput" ||
-           kind == "Print";
+[[nodiscard]] std::string_view ValueTypeToString(CValueType type) {
+    switch (type) {
+        case CValueType::kVoid:
+            return "void";
+        case CValueType::kInt:
+            return "int";
+        case CValueType::kFloat:
+            return "float";
+        case CValueType::kDouble:
+            return "double";
+        case CValueType::kChar:
+            return "char";
+        case CValueType::kBool:
+            return "bool";
+        case CValueType::kString:
+            return "string";
+    }
+    return "";
+}
+
+[[nodiscard]] std::optional<COperator> ParseOperator(std::string_view op) {
+    if (op == "+") return COperator::kAdd;
+    if (op == "-") return COperator::kSub;
+    if (op == "*") return COperator::kMul;
+    if (op == "/") return COperator::kDiv;
+    if (op == "%") return COperator::kMod;
+    if (op == "==") return COperator::kEq;
+    if (op == "!=") return COperator::kNe;
+    if (op == "<") return COperator::kLt;
+    if (op == "<=") return COperator::kLe;
+    if (op == ">") return COperator::kGt;
+    if (op == ">=") return COperator::kGe;
+    if (op == "&&") return COperator::kLogicalAnd;
+    if (op == "||") return COperator::kLogicalOr;
+    if (op == "&") return COperator::kBitAnd;
+    if (op == "|") return COperator::kBitOr;
+    if (op == "^") return COperator::kBitXor;
+    if (op == "<<") return COperator::kShiftLeft;
+    if (op == ">>") return COperator::kShiftRight;
+    return std::nullopt;
+}
+
+[[nodiscard]] std::string_view OperatorToString(COperator op) {
+    switch (op) {
+        case COperator::kAdd:
+            return "+";
+        case COperator::kSub:
+            return "-";
+        case COperator::kMul:
+            return "*";
+        case COperator::kDiv:
+            return "/";
+        case COperator::kMod:
+            return "%";
+        case COperator::kEq:
+            return "==";
+        case COperator::kNe:
+            return "!=";
+        case COperator::kLt:
+            return "<";
+        case COperator::kLe:
+            return "<=";
+        case COperator::kGt:
+            return ">";
+        case COperator::kGe:
+            return ">=";
+        case COperator::kLogicalAnd:
+            return "&&";
+        case COperator::kLogicalOr:
+            return "||";
+        case COperator::kBitAnd:
+            return "&";
+        case COperator::kBitOr:
+            return "|";
+        case COperator::kBitXor:
+            return "^";
+        case COperator::kShiftLeft:
+            return "<<";
+        case COperator::kShiftRight:
+            return ">>";
+    }
+    return "";
+}
+
+[[nodiscard]] bool IsLogicalOperator(COperator op) {
+    return op == COperator::kLogicalAnd || op == COperator::kLogicalOr;
+}
+
+[[nodiscard]] bool IsComparisonOperator(COperator op) {
+    switch (op) {
+        case COperator::kEq:
+        case COperator::kNe:
+        case COperator::kLt:
+        case COperator::kLe:
+        case COperator::kGt:
+        case COperator::kGe:
+            return true;
+        default:
+            return false;
+    }
+}
+
+[[nodiscard]] bool IsBitwiseOrModuloOperator(COperator op) {
+    switch (op) {
+        case COperator::kMod:
+        case COperator::kBitAnd:
+        case COperator::kBitOr:
+        case COperator::kBitXor:
+        case COperator::kShiftLeft:
+        case COperator::kShiftRight:
+            return true;
+        default:
+            return false;
+    }
+}
+
+[[nodiscard]] bool IsNamedNodeKind(CNodeKind kind) {
+    return kind == CNodeKind::kVariable || kind == CNodeKind::kFunction ||
+           kind == CNodeKind::kFunctionInput || kind == CNodeKind::kFor;
+}
+
+[[nodiscard]] bool IsTypedNodeKind(CNodeKind kind) {
+    return kind == CNodeKind::kVariable || kind == CNodeKind::kLiteral ||
+           kind == CNodeKind::kOperator || kind == CNodeKind::kFunctionInput ||
+           kind == CNodeKind::kFunctionOutput || kind == CNodeKind::kPrint;
 }
 
 [[nodiscard]] std::string ValidateCppIdentifier(const std::string &name) {
@@ -213,62 +359,63 @@ constexpr std::array<std::string_view, 97> kReservedWords = {
     return std::nullopt;
 }
 
-[[nodiscard]] std::string ValidateLiteralValueForType(
-    const std::any &val, std::string_view value_type) {
-    if (value_type == "int") {
-        const auto kNum = ExtractNumericProperty(val);
-        if (!kNum.has_value() || !std::isfinite(*kNum) || *kNum < kIntMin ||
-            *kNum > kIntMax) {
-            return "expected a valid 32-bit integer value";
-        }
-        return {};
-    }
-    if (value_type == "float" || value_type == "double") {
-        const auto kNum = ExtractNumericProperty(val);
-        if (!kNum.has_value() || !std::isfinite(*kNum) ||
-            *kNum < -kFloatLimit || *kNum > kFloatLimit) {
-            return "expected a finite floating-point number";
-        }
-        return {};
-    }
-    if (value_type == "bool") {
-        if (std::any_cast<bool>(&val) == nullptr) {
-            return "expected a boolean value";
-        }
-        return {};
-    }
-    if (value_type == "char") {
-        if (std::any_cast<char>(&val) != nullptr) {
+[[nodiscard]] std::string ValidateLiteralValueForType(const std::any &val,
+                                                      CValueType value_type) {
+    switch (value_type) {
+        case CValueType::kInt: {
+            const auto kNum = ExtractNumericProperty(val);
+            if (!kNum.has_value() || !std::isfinite(*kNum) || *kNum < kIntMin ||
+                *kNum > kIntMax) {
+                return "expected a valid 32-bit integer value";
+            }
             return {};
         }
-        const auto *k_str = std::any_cast<std::string>(&val);
-        if (k_str == nullptr || k_str->size() != 1 ||
-            static_cast<unsigned char>((*k_str)[0]) >= 0x80 ||
-            !std::isprint(static_cast<unsigned char>((*k_str)[0]))) {
-            return "expected a single printable ASCII character";
+        case CValueType::kFloat:
+        case CValueType::kDouble: {
+            const auto kNum = ExtractNumericProperty(val);
+            if (!kNum.has_value() || !std::isfinite(*kNum) ||
+                *kNum < -kFloatLimit || *kNum > kFloatLimit) {
+                return "expected a finite floating-point number";
+            }
+            return {};
         }
-        return {};
-    }
-    if (value_type == "string") {
-        if (std::any_cast<std::string>(&val) == nullptr) {
-            return "expected a string value";
+        case CValueType::kBool:
+            if (std::any_cast<bool>(&val) == nullptr) {
+                return "expected a boolean value";
+            }
+            return {};
+        case CValueType::kChar: {
+            if (std::any_cast<char>(&val) != nullptr) {
+                return {};
+            }
+            const auto *k_str = std::any_cast<std::string>(&val);
+            if (k_str == nullptr || k_str->size() != 1 ||
+                static_cast<unsigned char>((*k_str)[0]) >= 0x80 ||
+                !std::isprint(static_cast<unsigned char>((*k_str)[0]))) {
+                return "expected a single printable ASCII character";
+            }
+            return {};
         }
+        case CValueType::kString:
+            if (std::any_cast<std::string>(&val) == nullptr) {
+                return "expected a string value";
+            }
+            return {};
+        case CValueType::kVoid:
+            return "void cannot hold a literal value";
     }
     return {};
 }
 
-[[nodiscard]] bool IsOperatorCompatibleWithType(std::string_view op,
-                                                std::string_view type) {
-    if (op == "&&" || op == "||") {
+[[nodiscard]] bool IsOperatorCompatibleWithType(COperator op, CValueType type) {
+    if (IsLogicalOperator(op)) {
         return true;
     }
-    if (type == "string") {
-        return op == "+" || op == "==" || op == "!=" || op == "<" ||
-               op == "<=" || op == ">" || op == ">=";
+    if (type == CValueType::kString) {
+        return op == COperator::kAdd || IsComparisonOperator(op);
     }
-    if (type == "float" || type == "double") {
-        return op != "%" && op != "&" && op != "|" && op != "^" && op != "<<" &&
-               op != ">>";
+    if (type == CValueType::kFloat || type == CValueType::kDouble) {
+        return !IsBitwiseOrModuloOperator(op);
     }
     return true;
 }
@@ -309,109 +456,123 @@ void AddUniqueNodeId(std::vector<core::NodeId> &list, core::NodeId id) {
            pin_name == "true" || pin_name == "false";
 }
 
-[[nodiscard]] std::string ExpectedNodePinTypeName(
-    const core::Node &node, std::string_view kind, const core::Pin &pin,
-    bool is_input, std::string_view fallback_type_name) {
+[[nodiscard]] CValueType ExpectedNodePinValueType(const core::Node &node,
+                                                  CNodeKind kind,
+                                                  const core::Pin &pin,
+                                                  bool is_input,
+                                                  CValueType fallback_type) {
     if (IsControlFlowPinName(pin.name_) &&
-        !(kind == "Variable" && (pin.name_ == "in" || pin.name_ == "out")) &&
-        !(kind == "Literal" && pin.name_ == "out") &&
-        !(kind == "FunctionInput" && pin.name_ == "out")) {
-        return "void";
+        !(kind == CNodeKind::kVariable &&
+          (pin.name_ == "in" || pin.name_ == "out")) &&
+        !(kind == CNodeKind::kLiteral && pin.name_ == "out") &&
+        !(kind == CNodeKind::kFunctionInput && pin.name_ == "out")) {
+        return CValueType::kVoid;
     }
 
-    std::string prop_type = std::string(fallback_type_name);
+    CValueType prop_type = fallback_type;
     const auto kTypeIt = node.Properties().find(properties::kType);
     if (kTypeIt != node.Properties().end()) {
         const auto *k_type_str =
             std::any_cast<std::string>(&kTypeIt->second.value_);
-        if (k_type_str != nullptr && IsSupportedValueType(*k_type_str)) {
-            prop_type = *k_type_str;
-        }
-    }
-
-    if (kind == "Variable" || kind == "Literal") {
-        return prop_type;
-    }
-    if (kind == "Operator") {
-        std::string op = "+";
-        const auto kOpIt = node.Properties().find(properties::kOperator);
-        if (kOpIt != node.Properties().end()) {
-            const auto *k_op_str =
-                std::any_cast<std::string>(&kOpIt->second.value_);
-            if (k_op_str != nullptr) {
-                op = *k_op_str;
+        if (k_type_str != nullptr) {
+            const auto kParsed = ParseNonVoidValueType(*k_type_str);
+            if (kParsed.has_value()) {
+                prop_type = *kParsed;
             }
         }
-        const bool kIsLogical = (op == "&&" || op == "||");
-        const bool kIsComparison = (op == "==" || op == "!=" || op == "<" ||
-                                    op == "<=" || op == ">" || op == ">=");
-        if (is_input) {
-            return kIsLogical ? "bool" : prop_type;
+    }
+
+    switch (kind) {
+        case CNodeKind::kVariable:
+        case CNodeKind::kLiteral:
+            return prop_type;
+        case CNodeKind::kOperator: {
+            COperator op = COperator::kAdd;
+            const auto kOpIt = node.Properties().find(properties::kOperator);
+            if (kOpIt != node.Properties().end()) {
+                const auto *k_op_str =
+                    std::any_cast<std::string>(&kOpIt->second.value_);
+                if (k_op_str != nullptr) {
+                    const auto kParsedOp = ParseOperator(*k_op_str);
+                    if (kParsedOp.has_value()) {
+                        op = *kParsedOp;
+                    }
+                }
+            }
+            if (is_input) {
+                return IsLogicalOperator(op) ? CValueType::kBool : prop_type;
+            }
+            return (IsLogicalOperator(op) || IsComparisonOperator(op))
+                       ? CValueType::kBool
+                       : prop_type;
         }
-        return (kIsLogical || kIsComparison) ? "bool" : prop_type;
+        case CNodeKind::kFunctionInput:
+            return (!is_input && pin.name_ == "out") ? prop_type
+                                                     : fallback_type;
+        case CNodeKind::kFunctionOutput:
+        case CNodeKind::kPrint:
+            return (is_input && pin.name_ == "value") ? prop_type
+                                                      : fallback_type;
+        default:
+            return fallback_type;
     }
-    if (kind == "FunctionInput" && !is_input && pin.name_ == "out") {
-        return prop_type;
-    }
-    if (kind == "FunctionOutput" && is_input && pin.name_ == "value") {
-        return prop_type;
-    }
-    if (kind == "Print" && is_input && pin.name_ == "value") {
-        return prop_type;
-    }
-    return std::string(fallback_type_name);
 }
 
-[[nodiscard]] std::size_t MinRequiredInputsForKind(std::string_view kind) {
-    if (kind == "Operator") {
-        return 2;
+[[nodiscard]] std::size_t MinRequiredInputsForKind(CNodeKind kind) {
+    switch (kind) {
+        case CNodeKind::kOperator:
+            return 2;
+        case CNodeKind::kFor:
+            return 3;
+        case CNodeKind::kCondition:
+        case CNodeKind::kLoop:
+        case CNodeKind::kPrint:
+        case CNodeKind::kFunctionOutput:
+            return 1;
+        default:
+            return 0;
     }
-    if (kind == "For") {
-        return 3;
-    }
-    if (kind == "Condition" || kind == "Loop" || kind == "Print" ||
-        kind == "FunctionOutput") {
-        return 1;
-    }
-    return 0;
 }
 
-[[nodiscard]] bool IsInputPinRequired(std::string_view kind,
+[[nodiscard]] bool IsInputPinRequired(CNodeKind kind,
                                       std::string_view pin_name) {
-    if (kind == "Operator") {
-        return true;
+    switch (kind) {
+        case CNodeKind::kOperator:
+            return true;
+        case CNodeKind::kCondition:
+        case CNodeKind::kLoop:
+            return pin_name == "cond" || pin_name != "in";
+        case CNodeKind::kFor:
+            return pin_name == "init" || pin_name == "cond" ||
+                   pin_name == "step" || pin_name != "in";
+        case CNodeKind::kPrint:
+            return pin_name == "value" || pin_name != "control";
+        case CNodeKind::kFunctionOutput:
+            return pin_name == "value" || pin_name != "flow";
+        case CNodeKind::kFunction:
+            return pin_name != "in";
+        default:
+            return false;
     }
-    if (kind == "Condition" || kind == "Loop") {
-        return pin_name == "cond" || pin_name != "in";
-    }
-    if (kind == "For") {
-        return pin_name == "init" || pin_name == "cond" || pin_name == "step" ||
-               pin_name != "in";
-    }
-    if (kind == "Print") {
-        return pin_name == "value" || pin_name != "control";
-    }
-    if (kind == "FunctionOutput") {
-        return pin_name == "value" || pin_name != "flow";
-    }
-    if (kind == "Function") {
-        return pin_name != "in";
-    }
-    return false;
 }
 
 }  // namespace
 
-CValidationCapability::CValidationCapability(
-    const core::capa::ITypeListCapability *types_capa,
-    const core::capa::INodeListCapability *nodes_capa)
-    : types_capa_(types_capa), nodes_capa_(nodes_capa) {}
+void CValidationCapability::InitializeTypes(
+    const std::unordered_map<core::DataType, std::string> &types) {
+    types_ = types;
+}
+
+void CValidationCapability::InitializeNodeTypes(
+    const std::unordered_map<core::NodeType, std::string> &node_types) {
+    node_types_ = node_types;
+}
 
 core::capa::ValidationResult CValidationCapability::Validate(
     const core::Graph &graph) const {
     core::capa::ValidationResult result;
 
-    std::unordered_map<core::NodeId, std::string> node_kinds;
+    std::unordered_map<core::NodeId, CNodeKind> node_kinds;
     const auto kNodeErrors = CheckSupportedNodesAndValues(graph, node_kinds);
     result.errors_.insert(result.errors_.end(), kNodeErrors.begin(),
                           kNodeErrors.end());
@@ -428,67 +589,96 @@ core::capa::ValidationResult CValidationCapability::Validate(
     return result;
 }
 
-std::string CValidationCapability::ResolveNodeKind(
+std::optional<CNodeKind> CValidationCapability::ResolveNodeKind(
     const core::Node &node) const {
-    if (nodes_capa_ != nullptr) {
-        const auto kAvailable = nodes_capa_->GetAvailableNodes();
-        if (!kAvailable.empty()) {
-            for (const auto &meta : kAvailable) {
-                if (meta.type_ == node.Type()) {
-                    return meta.name_;
-                }
-            }
-            return {};
+    if (!node_types_.empty()) {
+        const auto kIt = node_types_.find(node.Type());
+        if (kIt == node_types_.end()) {
+            return std::nullopt;
         }
+        return ParseNodeKind(kIt->second);
     }
 
-    if (node.Type() >= 1 && node.Type() <= static_cast<core::NodeType>(
-                                               kSupportedNodeNames.size())) {
-        return std::string(kSupportedNodeNames[node.Type() - 1]);
+    switch (node.Type()) {
+        case 1:
+            return CNodeKind::kVariable;
+        case 2:
+            return CNodeKind::kLiteral;
+        case 3:
+            return CNodeKind::kOperator;
+        case 4:
+            return CNodeKind::kCondition;
+        case 5:
+            return CNodeKind::kLoop;
+        case 6:
+            return CNodeKind::kFunction;
+        case 7:
+            return CNodeKind::kFunctionInput;
+        case 8:
+            return CNodeKind::kFunctionOutput;
+        case 9:
+            return CNodeKind::kPrint;
+        case 10:
+            return CNodeKind::kFor;
+        default:
+            return std::nullopt;
     }
-    return {};
 }
 
-std::string CValidationCapability::FormatNodeLabel(const core::Node &node,
-                                                   std::string_view kind) {
+std::string CValidationCapability::FormatNodeLabel(
+    const core::Node &node, std::optional<CNodeKind> kind) {
     std::ostringstream oss;
     oss << "node " << node.Id();
-    if (!kind.empty()) {
-        oss << " ('" << kind << "')";
+    if (kind.has_value()) {
+        oss << " ('" << NodeKindToString(*kind) << "')";
     }
     return oss.str();
 }
 
-std::string CValidationCapability::ResolveTypeName(core::DataType type) const {
-    if (types_capa_ != nullptr) {
-        const std::string_view kView = types_capa_->TypeName(type);
-        if (!kView.empty()) {
-            return std::string(kView);
+std::optional<CValueType> CValidationCapability::ResolveDataType(
+    core::DataType type) const {
+    if (!types_.empty()) {
+        const auto kIt = types_.find(type);
+        if (kIt != types_.end()) {
+            return ParseValueType(kIt->second);
         }
+        return std::nullopt;
     }
 
     switch (type) {
         case 1:
-            return "void";
+            return CValueType::kVoid;
         case 2:
-            return "int";
+            return CValueType::kInt;
         case 3:
-            return "float";
+            return CValueType::kFloat;
         case 4:
-            return "bool";
+            return CValueType::kBool;
         case 5:
-            return "char";
+            return CValueType::kChar;
         case 6:
-            return "string";
+            return CValueType::kString;
         default:
-            return "type#" + std::to_string(type);
+            return std::nullopt;
     }
+}
+
+std::string CValidationCapability::ResolveTypeName(core::DataType type) const {
+    const auto kValueType = ResolveDataType(type);
+    if (kValueType.has_value()) {
+        return std::string(ValueTypeToString(*kValueType));
+    }
+    const auto kIt = types_.find(type);
+    if (kIt != types_.end() && !kIt->second.empty()) {
+        return kIt->second;
+    }
+    return "type#" + std::to_string(type);
 }
 
 std::vector<core::capa::ValidationError>
 CValidationCapability::CheckSupportedNodesAndValues(
     const core::Graph &graph,
-    std::unordered_map<core::NodeId, std::string> &node_kinds) const {
+    std::unordered_map<core::NodeId, CNodeKind> &node_kinds) const {
     std::vector<core::capa::ValidationError> errors;
     const auto kNodeIds = SortedNodeIds(graph);
 
@@ -498,10 +688,10 @@ CValidationCapability::CheckSupportedNodesAndValues(
             continue;
         }
 
-        const std::string kKind = ResolveNodeKind(*k_node);
+        const auto kKind = ResolveNodeKind(*k_node);
         const std::string kLabel = FormatNodeLabel(*k_node, kKind);
 
-        if (kKind.empty() || !IsSupportedNodeName(kKind)) {
+        if (!kKind.has_value()) {
             core::capa::ValidationError err;
             err.type_ =
                 core::capa::ValidationError::ErrorType::kUnsupportedNode;
@@ -513,33 +703,33 @@ CValidationCapability::CheckSupportedNodesAndValues(
             continue;
         }
 
-        node_kinds[kId] = kKind;
-        CheckNodeProperties(graph, *k_node, kKind, kLabel, errors);
+        node_kinds[kId] = *kKind;
+        CheckNodeProperties(graph, *k_node, *kKind, kLabel, errors);
     }
 
     return errors;
 }
 
 void CValidationCapability::CheckNodeProperties(
-    const core::Graph &graph, const core::Node &node, std::string_view kind,
+    const core::Graph &graph, const core::Node &node, CNodeKind kind,
     const std::string &label,
     std::vector<core::capa::ValidationError> &errors) const {
     CheckIdentifierProperty(node, kind, label, errors);
 
-    const std::string kValueType =
+    const CValueType kValueType =
         ResolveAndCheckTypeProperty(node, kind, label, errors);
 
-    if (kind == "Literal") {
+    if (kind == CNodeKind::kLiteral) {
         CheckLiteralProperty(node, kValueType, label, errors);
-    } else if (kind == "Operator") {
+    } else if (kind == CNodeKind::kOperator) {
         CheckOperatorProperties(graph, node, kValueType, label, errors);
-    } else if (kind == "Condition") {
+    } else if (kind == CNodeKind::kCondition) {
         CheckConditionProperty(node, label, errors);
     }
 }
 
 void CValidationCapability::CheckIdentifierProperty(
-    const core::Node &node, std::string_view kind, const std::string &label,
+    const core::Node &node, CNodeKind kind, const std::string &label,
     std::vector<core::capa::ValidationError> &errors) {
     if (!IsNamedNodeKind(kind)) {
         return;
@@ -572,22 +762,26 @@ void CValidationCapability::CheckIdentifierProperty(
     }
 }
 
-std::string CValidationCapability::ResolveAndCheckTypeProperty(
-    const core::Node &node, std::string_view kind, const std::string &label,
+CValueType CValidationCapability::ResolveAndCheckTypeProperty(
+    const core::Node &node, CNodeKind kind, const std::string &label,
     std::vector<core::capa::ValidationError> &errors) {
-    std::string resolved_value_type = (kind == "Print") ? "string" : "int";
+    const CValueType kDefaultType =
+        (kind == CNodeKind::kPrint) ? CValueType::kString : CValueType::kInt;
     if (!IsTypedNodeKind(kind)) {
-        return resolved_value_type;
+        return kDefaultType;
     }
 
     const auto kTypeIt = node.Properties().find(properties::kType);
     if (kTypeIt == node.Properties().end()) {
-        return resolved_value_type;
+        return kDefaultType;
     }
 
     const auto *k_type_str =
         std::any_cast<std::string>(&kTypeIt->second.value_);
-    if (k_type_str == nullptr || !IsSupportedValueType(*k_type_str)) {
+    const auto kParsedType = k_type_str != nullptr
+                                 ? ParseNonVoidValueType(*k_type_str)
+                                 : std::nullopt;
+    if (!kParsedType.has_value()) {
         core::capa::ValidationError err;
         err.type_ = core::capa::ValidationError::ErrorType::kIncompatibleValue;
         err.message_ =
@@ -596,15 +790,14 @@ std::string CValidationCapability::ResolveAndCheckTypeProperty(
             (k_type_str != nullptr ? " '" + *k_type_str + "'." : ".");
         err.involved_node_ids_.push_back(node.Id());
         errors.push_back(std::move(err));
-        return resolved_value_type;
+        return kDefaultType;
     }
 
-    return *k_type_str;
+    return *kParsedType;
 }
 
 void CValidationCapability::CheckLiteralProperty(
-    const core::Node &node, std::string_view value_type,
-    const std::string &label,
+    const core::Node &node, CValueType value_type, const std::string &label,
     std::vector<core::capa::ValidationError> &errors) {
     const auto kValIt = node.Properties().find(properties::kValue);
     if (kValIt == node.Properties().end()) {
@@ -616,24 +809,26 @@ void CValidationCapability::CheckLiteralProperty(
     if (!kReason.empty()) {
         core::capa::ValidationError err;
         err.type_ = core::capa::ValidationError::ErrorType::kIncompatibleValue;
-        err.message_ = "Incompatible literal value on " + label +
-                       " for type '" + std::string(value_type) +
-                       "': " + kReason + ".";
+        err.message_ =
+            "Incompatible literal value on " + label + " for type '" +
+            std::string(ValueTypeToString(value_type)) + "': " + kReason + ".";
         err.involved_node_ids_.push_back(node.Id());
         errors.push_back(std::move(err));
     }
 }
 
 void CValidationCapability::CheckOperatorProperties(
-    const core::Graph &graph, const core::Node &node,
-    std::string_view value_type, const std::string &label,
+    const core::Graph &graph, const core::Node &node, CValueType value_type,
+    const std::string &label,
     std::vector<core::capa::ValidationError> &errors) const {
-    std::string op = "+";
+    COperator op = COperator::kAdd;
     const auto kOpIt = node.Properties().find(properties::kOperator);
     if (kOpIt != node.Properties().end()) {
         const auto *k_op_str =
             std::any_cast<std::string>(&kOpIt->second.value_);
-        if (k_op_str == nullptr || !IsSupportedOperator(*k_op_str)) {
+        const auto kParsedOp =
+            k_op_str != nullptr ? ParseOperator(*k_op_str) : std::nullopt;
+        if (!kParsedOp.has_value()) {
             core::capa::ValidationError err;
             err.type_ =
                 core::capa::ValidationError::ErrorType::kIncompatibleValue;
@@ -644,19 +839,21 @@ void CValidationCapability::CheckOperatorProperties(
             errors.push_back(std::move(err));
             return;
         }
-        op = *k_op_str;
+        op = *kParsedOp;
     }
 
     if (!IsOperatorCompatibleWithType(op, value_type)) {
         core::capa::ValidationError err;
         err.type_ = core::capa::ValidationError::ErrorType::kIncompatibleValue;
-        err.message_ = "Incompatible operator '" + op + "' for type '" +
-                       std::string(value_type) + "' on " + label + ".";
+        err.message_ = "Incompatible operator '" +
+                       std::string(OperatorToString(op)) + "' for type '" +
+                       std::string(ValueTypeToString(value_type)) + "' on " +
+                       label + ".";
         err.involved_node_ids_.push_back(node.Id());
         errors.push_back(std::move(err));
     }
 
-    if (op == "/" || op == "%") {
+    if (op == COperator::kDiv || op == COperator::kMod) {
         CheckDivisionByZero(graph, node, label, errors);
     }
 }
@@ -678,7 +875,8 @@ void CValidationCapability::CheckDivisionByZero(
     const core::Connection &k_conn =
         graph.GetAllConnections().at(kRightConns.front());
     const core::Node *k_source = graph.GetNode(k_conn.from_node_);
-    if (k_source == nullptr || ResolveNodeKind(*k_source) != "Literal") {
+    if (k_source == nullptr ||
+        ResolveNodeKind(*k_source) != CNodeKind::kLiteral) {
         return;
     }
 
@@ -692,7 +890,7 @@ void CValidationCapability::CheckDivisionByZero(
         core::capa::ValidationError err;
         err.type_ = core::capa::ValidationError::ErrorType::kIncompatibleValue;
         err.message_ = "Division or modulo by zero on " + label + " from " +
-                       FormatNodeLabel(*k_source, "Literal") + ".";
+                       FormatNodeLabel(*k_source, CNodeKind::kLiteral) + ".";
         err.involved_node_ids_.push_back(node.Id());
         AddUniqueNodeId(err.involved_node_ids_, k_source->Id());
         err.involved_pins_.push_back({node.Id(), k_right_pin.id_, true});
@@ -721,7 +919,7 @@ void CValidationCapability::CheckConditionProperty(
 std::vector<core::capa::ValidationError>
 CValidationCapability::CheckPinCompatibility(
     const core::Graph &graph,
-    const std::unordered_map<core::NodeId, std::string> &node_kinds) const {
+    const std::unordered_map<core::NodeId, CNodeKind> &node_kinds) const {
     std::vector<core::capa::ValidationError> errors;
     const auto kConnIds = SortedConnectionIds(graph);
 
@@ -734,7 +932,7 @@ CValidationCapability::CheckPinCompatibility(
 
 void CValidationCapability::CheckSingleConnection(
     const core::Graph &graph, core::ConnectionId conn_id,
-    const std::unordered_map<core::NodeId, std::string> &node_kinds,
+    const std::unordered_map<core::NodeId, CNodeKind> &node_kinds,
     std::vector<core::capa::ValidationError> &errors) const {
     const core::Connection &k_conn = graph.GetAllConnections().at(conn_id);
     const core::Node *k_from_node = graph.GetNode(k_conn.from_node_);
@@ -759,11 +957,15 @@ void CValidationCapability::CheckSingleConnection(
     const core::Pin *k_in_pin = k_to_node->InputPin(k_conn.in_pin_);
 
     const auto kFromKindIt = node_kinds.find(k_from_node->Id());
-    const std::string kFromKind =
-        kFromKindIt != node_kinds.end() ? kFromKindIt->second : "";
+    const std::optional<CNodeKind> kFromKind =
+        kFromKindIt != node_kinds.end()
+            ? std::optional<CNodeKind>(kFromKindIt->second)
+            : std::nullopt;
     const auto kToKindIt = node_kinds.find(k_to_node->Id());
-    const std::string kToKind =
-        kToKindIt != node_kinds.end() ? kToKindIt->second : "";
+    const std::optional<CNodeKind> kToKind =
+        kToKindIt != node_kinds.end()
+            ? std::optional<CNodeKind>(kToKindIt->second)
+            : std::nullopt;
 
     const std::string kFromLabel = FormatNodeLabel(*k_from_node, kFromKind);
     const std::string kToLabel = FormatNodeLabel(*k_to_node, kToKind);
@@ -779,36 +981,38 @@ void CValidationCapability::CheckSingleConnection(
         return;
     }
 
-    std::string out_type_name = ResolveTypeName(k_out_pin->type_);
-    std::string in_type_name = ResolveTypeName(k_in_pin->type_);
+    auto out_val_type = ResolveDataType(k_out_pin->type_);
+    auto in_val_type = ResolveDataType(k_in_pin->type_);
 
-    if (!kFromKind.empty()) {
-        out_type_name = ExpectedNodePinTypeName(
-            *k_from_node, kFromKind, *k_out_pin, false, out_type_name);
+    if (kFromKind.has_value() && out_val_type.has_value()) {
+        out_val_type = ExpectedNodePinValueType(
+            *k_from_node, *kFromKind, *k_out_pin, false, *out_val_type);
     }
-    if (!kToKind.empty()) {
-        in_type_name = ExpectedNodePinTypeName(*k_to_node, kToKind, *k_in_pin,
-                                               true, in_type_name);
-    }
-
-    bool types_match = (k_out_pin->type_ == k_in_pin->type_) &&
-                       (out_type_name == in_type_name) &&
-                       (k_out_pin->type_ != 0) && (k_in_pin->type_ != 0);
-
-    if (nodes_capa_ != nullptr && types_match) {
-        types_match = VerifyPinTypesAgainstModuleConfig(
-            *k_from_node, kFromKind, *k_out_pin, *k_to_node, kToKind, *k_in_pin,
-            out_type_name, in_type_name);
+    if (kToKind.has_value() && in_val_type.has_value()) {
+        in_val_type = ExpectedNodePinValueType(*k_to_node, *kToKind, *k_in_pin,
+                                               true, *in_val_type);
     }
 
-    if (!types_match) {
+    const std::string kOutTypeName =
+        out_val_type.has_value() ? std::string(ValueTypeToString(*out_val_type))
+                                 : ResolveTypeName(k_out_pin->type_);
+    const std::string kInTypeName =
+        in_val_type.has_value() ? std::string(ValueTypeToString(*in_val_type))
+                                : ResolveTypeName(k_in_pin->type_);
+
+    const bool kTypesMatch = (k_out_pin->type_ == k_in_pin->type_) &&
+                             (out_val_type == in_val_type) &&
+                             out_val_type.has_value() &&
+                             (k_out_pin->type_ != 0) && (k_in_pin->type_ != 0);
+
+    if (!kTypesMatch) {
         core::capa::ValidationError err;
         err.type_ =
             core::capa::ValidationError::ErrorType::kIncompatiblePinTypes;
         err.message_ = "Incompatible pin types: " + kFromLabel + " output '" +
-                       k_out_pin->name_ + "' (" + out_type_name + ") -> " +
+                       k_out_pin->name_ + "' (" + kOutTypeName + ") -> " +
                        kToLabel + " input '" + k_in_pin->name_ + "' (" +
-                       in_type_name + ").";
+                       kInTypeName + ").";
         err.involved_node_ids_.push_back(k_from_node->Id());
         AddUniqueNodeId(err.involved_node_ids_, k_to_node->Id());
         err.involved_pins_.push_back(
@@ -818,45 +1022,10 @@ void CValidationCapability::CheckSingleConnection(
     }
 }
 
-bool CValidationCapability::VerifyPinTypesAgainstModuleConfig(
-    const core::Node &from_node, std::string_view from_kind,
-    const core::Pin &out_pin, const core::Node &to_node,
-    std::string_view to_kind, const core::Pin &in_pin,
-    std::string &out_type_name, std::string &in_type_name) const {
-    bool types_match = true;
-    try {
-        if (!from_kind.empty()) {
-            const auto kFromConfig = nodes_capa_->ResolveNodeConfiguration(
-                from_node.Type(), from_node.Properties());
-            for (const auto &cfg_pin : kFromConfig.output_pins_) {
-                if (cfg_pin.name_ == out_pin.name_ &&
-                    cfg_pin.type_ != out_pin.type_) {
-                    types_match = false;
-                    out_type_name = ResolveTypeName(cfg_pin.type_);
-                }
-            }
-        }
-        if (!to_kind.empty()) {
-            const auto kToConfig = nodes_capa_->ResolveNodeConfiguration(
-                to_node.Type(), to_node.Properties());
-            for (const auto &cfg_pin : kToConfig.input_pins_) {
-                if (cfg_pin.name_ == in_pin.name_ &&
-                    cfg_pin.type_ != in_pin.type_) {
-                    types_match = false;
-                    in_type_name = ResolveTypeName(cfg_pin.type_);
-                }
-            }
-        }
-    } catch (const std::exception &) {
-        // Handled by unsupported node check
-    }
-    return types_match;
-}
-
 std::vector<core::capa::ValidationError>
 CValidationCapability::CheckPinConnectivity(
     const core::Graph &graph,
-    const std::unordered_map<core::NodeId, std::string> &node_kinds) const {
+    const std::unordered_map<core::NodeId, CNodeKind> &node_kinds) const {
     std::vector<core::capa::ValidationError> errors;
     const auto kNodeIds = SortedNodeIds(graph);
 
@@ -870,17 +1039,17 @@ CValidationCapability::CheckPinConnectivity(
         if (kKindIt == node_kinds.end()) {
             continue;
         }
-        const std::string &k_kind = kKindIt->second;
-        const std::string kLabel = FormatNodeLabel(*k_node, k_kind);
+        const CNodeKind kKind = kKindIt->second;
+        const std::string kLabel = FormatNodeLabel(*k_node, kKind);
 
-        CheckNodePinConnectivity(graph, *k_node, k_kind, kLabel, errors);
+        CheckNodePinConnectivity(graph, *k_node, kKind, kLabel, errors);
     }
 
     return errors;
 }
 
 void CValidationCapability::CheckNodePinConnectivity(
-    const core::Graph &graph, const core::Node &node, std::string_view kind,
+    const core::Graph &graph, const core::Node &node, CNodeKind kind,
     const std::string &label,
     std::vector<core::capa::ValidationError> &errors) const {
     const std::size_t kMinRequiredInputs = MinRequiredInputsForKind(kind);

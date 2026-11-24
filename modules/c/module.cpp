@@ -42,7 +42,7 @@ bool CModule::Initialize(core::ModuleId id) {
     types_.reset(CreateTypeListCapa());
     nodes_.reset(CreateNodeListCapa(types_.get()));
     renderer_.reset(CreateRendererCapa());
-    validation_.reset(CreateValidationCapa(types_.get(), nodes_.get()));
+    validation_.reset(CreateValidationCapa());
     /// Initialize others capabilities here.
     return true;
 }

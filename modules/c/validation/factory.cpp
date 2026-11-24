@@ -6,14 +6,12 @@
  * @date Created on 21-11-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 21-11-2026
+ * @date Last modified on 24-11-2026
  */
 
 #include "modules_inits.hpp"
 #include "validation/c_validation_capability.hpp"
 
-core::capa::IValidationCapability *CreateValidationCapa(
-    const core::capa::ITypeListCapability *types_capa,
-    const core::capa::INodeListCapability *nodes_capa) {
-    return new c_module::CValidationCapability(types_capa, nodes_capa);
+core::capa::IValidationCapability *CreateValidationCapa() {
+    return new c_module::CValidationCapability();
 }

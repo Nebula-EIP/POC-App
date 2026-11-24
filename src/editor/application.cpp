@@ -204,6 +204,20 @@ void Application::LoadModules() {
     node_picker_.SetEntries(ui::EntriesFromCatalog(
         node_catalog_, [this](core::ModuleId id) { return ModuleName(id); }));
 
+    auto *validator = module_->Capability<core::capa::IValidationCapability>();
+    if (validator != nullptr) {
+        std::unordered_map<core::DataType, std::string> registered_types;
+        for (const auto &type_def : module_->Types()->Types()) {
+            registered_types[type_def.id_] = std::string(type_def.name_);
+        }
+        std::unordered_map<core::NodeType, std::string> registered_node_types;
+        for (const auto &node_meta : module_->Nodes()->GetAvailableNodes()) {
+            registered_node_types[node_meta.type_] = node_meta.name_;
+        }
+        validator->InitializeTypes(registered_types);
+        validator->InitializeNodeTypes(registered_node_types);
+    }
+
     // The nodes take their colors from the palette: pins by type and by
     // whether they are linked, the line at the top by node and category.
     std::unordered_map<core::NodeType, utils::WrappedColor> accents;

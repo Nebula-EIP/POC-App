@@ -7,7 +7,7 @@
  * @date Created on 15-11-2026
  *
  * @author Last modified by mathys-f
- * @date Last modified on 21-11-2026
+ * @date Last modified on 24-11-2026
  */
 
 #pragma once
@@ -15,6 +15,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "graph/datatypes.hpp"
@@ -74,6 +75,24 @@ struct ValidationResult {
 class IValidationCapability : public core::ICapability {
    public:
     ~IValidationCapability() override = default;
+
+    /**
+     * @brief Store the data types assigned by the core to this module.
+     * @param types Map of core-assigned data type IDs to owned type names.
+     * The core must provide only types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeTypes(
+        const std::unordered_map<DataType, std::string> &types) = 0;
+
+    /**
+     * @brief Store the node types assigned by the core to this module.
+     * @param node_types Map of core-assigned node type IDs to owned names.
+     * The core must provide only node types declared by the owning module.
+     * Each call replaces the previously stored list with a local copy.
+     */
+    virtual void InitializeNodeTypes(
+        const std::unordered_map<NodeType, std::string> &node_types) = 0;
 
     /**
      * @brief Validates the given graph against the module's rules.

@@ -41,8 +41,17 @@ class CValidationCapabilityTest : public ::testing::Test {
             node_capa_->RegisterNode(static_cast<core::NodeType>(i + 1));
         }
 
-        validator_ =
-            new c_module::CValidationCapability(types_capa_, node_capa_);
+        validator_ = new c_module::CValidationCapability();
+        std::unordered_map<core::DataType, std::string> registered_types;
+        for (const auto &type_def : types_capa_->Types()) {
+            registered_types[type_def.id_] = std::string(type_def.name_);
+        }
+        std::unordered_map<core::NodeType, std::string> registered_node_types;
+        for (const auto &node_meta : node_capa_->GetAvailableNodes()) {
+            registered_node_types[node_meta.type_] = node_meta.name_;
+        }
+        validator_->InitializeTypes(registered_types);
+        validator_->InitializeNodeTypes(registered_node_types);
     }
 
     void TearDown() override {

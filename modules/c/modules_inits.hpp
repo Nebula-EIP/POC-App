@@ -25,6 +25,4 @@ core::capa::INodeListCapability *CreateNodeListCapa(
 
 core::capa::RendererCapability *CreateRendererCapa();
 
-core::capa::IValidationCapability *CreateValidationCapa(
-    const core::capa::ITypeListCapability *types_capa,
-    const core::capa::INodeListCapability *nodes_capa);
+core::capa::IValidationCapability *CreateValidationCapa();
