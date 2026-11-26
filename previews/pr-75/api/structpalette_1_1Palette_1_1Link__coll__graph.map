@@ -1,0 +1,5 @@
+<map id="palette::Palette::Link" name="palette::Palette::Link">
+<area shape="rect" id="Node000001" title="The links between pins (their color is the one of their type)." alt="" coords="5,128,161,156"/>
+<area shape="rect" id="Node000002" href="$structutils_1_1WrappedColor.html" title=" " alt="" coords="8,5,158,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,47,86,128,80,127,81,50"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="core::ModuleNotFoundException" name="core::ModuleNotFoundException">
+<area shape="rect" id="Node000001" title="Thrown when a module cannot be found or is invalid." alt="" coords="5,232,237,260"/>
+<area shape="rect" id="Node000002" href="$classcore_1_1ModuleException.html" title="Base exception for errors related to module management." alt="" coords="36,157,206,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,198,123,233,119,231,119,202"/>
+<area shape="rect" id="Node000003" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="60,81,182,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,122,124,157,118,155,120,127"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="52,5,190,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="122,46,124,81,118,80,120,51"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="src/editor/ui/property_change.hpp" name="src/editor/ui/property_change.hpp">
+<area shape="rect" id="Node000001" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="117,5,274,50"/>
+<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,106,191,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,60,114,108,111,104,159,61"/>
+<area shape="rect" id="Node000003" href="$property__change_8cpp.html" title="Applies the property changes made in a node&#39;s fields to the graph." alt="" coords="215,98,373,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,58,273,98,268,97,229,63"/>
+</map>

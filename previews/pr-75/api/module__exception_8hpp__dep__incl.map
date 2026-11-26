@@ -1,0 +1,10 @@
+<map id="src/core/exception/module_exception/module_exception.hpp" name="src/core/exception/module_exception/module_exception.hpp">
+<area shape="rect" id="Node000001" title="Defines exceptions related to module management." alt="" coords="116,5,314,67"/>
+<area shape="rect" id="Node000002" href="$module__load__exception_8hpp.html" title="Defines exceptions related to module loading." alt="" coords="5,115,204,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,80,137,116,134,113,175,76"/>
+<area shape="rect" id="Node000004" href="$module__validation__exception_8hpp.html" title="Defines exceptions related to module validation." alt="" coords="228,115,426,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="258,75,298,114,293,115,257,80"/>
+<area shape="rect" id="Node000003" href="$loader_8cpp.html" title="ModuleLoader implementation." alt="" coords="114,225,317,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,184,202,224,196,224,152,189"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="280,186,233,226,230,222,275,188"/>
+</map>

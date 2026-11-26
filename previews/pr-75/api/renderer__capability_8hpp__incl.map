@@ -1,0 +1,29 @@
+<map id="src/core/modules/capabilities/renderer_capability.hpp" name="src/core/modules/capabilities/renderer_capability.hpp">
+<area shape="rect" id="Node000001" title="Defines the UI components that can be provided by a renderer capability." alt="" coords="330,5,542,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,174,75,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,47,248,69,164,100,111,132,67,166,64,161,108,127,162,96,246,64,333,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="99,174,165,201"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="328,44,261,66,227,81,196,100,167,129,146,162,143,158,163,126,193,96,225,77,260,61,332,42"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="574,98,660,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="485,48,577,91,572,91,484,53"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="188,174,246,201"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="327,35,297,45,264,57,234,75,210,100,204,113,202,128,208,160,203,158,197,128,199,112,206,96,231,71,261,52,295,40,332,33"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="340,174,463,201"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="434,49,410,160,405,157,429,52"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="488,174,555,201"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="449,48,510,160,504,159,446,52"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="580,174,642,201"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="461,48,588,163,582,163,459,53"/>
+<area shape="rect" id="Node000009" href="$datatypes_8hpp.html" title="Declares all types commonly used in the core library." alt="" coords="220,98,399,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="405,49,344,92,341,87,400,51"/>
+<area shape="rect" id="Node000011" href="$icapability_8hpp.html" title="Base interface for all module capabilities." alt="" coords="684,98,812,126"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="519,48,686,93,681,94,519,53"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="262,129,90,175,89,170,261,124"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="280,126,178,170,177,165,275,127"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="295,125,247,166,244,162,290,127"/>
+<area shape="poly" id="edge13_Node000009_Node000006" title=" " alt="" coords="327,124,376,164,371,164,325,129"/>
+<area shape="poly" id="edge14_Node000009_Node000007" title=" " alt="" coords="348,124,476,169,470,170,347,129"/>
+<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="369,124,567,173,562,174,368,129"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="271,174,316,201"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="309,125,301,160,297,157,304,128"/>
+</map>
