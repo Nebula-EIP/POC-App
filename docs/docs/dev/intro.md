@@ -15,4 +15,6 @@ It will host the project’s technical documentation, including:
 - the C++ code generation pipeline and its algorithmic steps
 - internal tooling and generated documentation
 
+The latest documentation built from the `dev` branch is published automatically at [nebula-eip.github.io/POC-App/dev/](https://nebula-eip.github.io/POC-App/dev/).
+
 If you only want to use the application, the User section is the right entry point.
