@@ -1,9 +1,0 @@
-<map id="core::InputAlreadyConnectedException" name="core::InputAlreadyConnectedException">
-<area shape="rect" id="Node000001" title="Thrown when connecting an input pin that already has a connection." alt="" coords="5,232,215,277"/>
-<area shape="rect" id="Node000002" href="$classcore_1_1ConnectionException.html" title="Base exception for errors related to connection operations." alt="" coords="13,157,207,184"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,198,112,233,108,231,108,202"/>
-<area shape="rect" id="Node000003" href="$classcore_1_1Exception.html" title="Base exception for all core&#45;related errors." alt="" coords="49,81,171,109"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,122,113,157,107,156,109,127"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="41,5,179,33"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,46,113,81,107,80,109,51"/>
-</map>

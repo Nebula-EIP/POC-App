@@ -1,7 +1,0 @@
-<map id="src/editor/ui/graph_validation.hpp" name="src/editor/ui/graph_validation.hpp">
-<area shape="rect" id="Node000001" title="Runs graph validation through a module validation capability and highlights affected nodes and pins i..." alt="" coords="122,5,261,50"/>
-<area shape="rect" id="Node000002" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="5,106,191,134"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,60,113,108,110,104,156,61"/>
-<area shape="rect" id="Node000003" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation display and node/pin error highlighting." alt="" coords="215,98,354,143"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,58,265,98,260,98,223,63"/>
-</map>
