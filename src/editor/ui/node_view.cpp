@@ -6,8 +6,8 @@
  * @author Created by Nolan Papa
  * @date Created on 26-09-2026
  *
- * @author Last modified by ArthuryanLoheac
- * @date Last modified on 05-11-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 15-11-2026
  */
 
 #include "node_view.hpp"
@@ -211,10 +211,11 @@ void NodeView::Draw(const render::Camera &camera,
              std::min(kCornerRadius, kBodyHeight)},
             palette::Get().node_.body_);
     }
-    if (selected_) {
+    if (has_error_ || selected_) {
         utils::DrawRectangleRoundedLinesWrapped(
             bounds_, kCornerRadius, kSelectedOutline,
-            palette::Get().node_.selected_outline_);
+            has_error_ ? palette::Get().node_.error_pin_
+                       : palette::Get().node_.selected_outline_);
     }
 
     // Accent line at the top of the card, in the color of the node's kind.

@@ -5,8 +5,8 @@
  * @author Created by JeanBizeul
  * @date Created on 14-09-2026
  *
- * @author Last modified by Nolan Papa
- * @date Last modified on 20-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 21-11-2026
  */
 
 #include "module.hpp"
@@ -25,7 +25,8 @@ CModule::CModule()
       nodes_(nullptr),
       renderer_(nullptr),
       importer_(nullptr),
-      exporter_(nullptr) {}
+      exporter_(nullptr),
+      validation_(nullptr) {}
 
 std::string_view CModule::Name() const noexcept { return kName; }
 
@@ -41,11 +42,13 @@ bool CModule::Initialize(core::ModuleId id) {
     types_.reset(CreateTypeListCapa());
     nodes_.reset(CreateNodeListCapa(types_.get()));
     renderer_.reset(CreateRendererCapa());
+    validation_.reset(CreateValidationCapa());
     /// Initialize others capabilities here.
     return true;
 }
 
 void CModule::Shutdown() noexcept {
+    validation_.reset();
     renderer_.reset();
     types_.reset();
     nodes_.reset();
@@ -75,6 +78,9 @@ core::ICapability *CModule::Capability(std::type_index type) noexcept {
     } else if (type ==
                std::type_index(typeid(core::capa::IExporterCapability))) {
         return exporter_.get();
+    } else if (type ==
+               std::type_index(typeid(core::capa::IValidationCapability))) {
+        return validation_.get();
     } else {
         return nullptr;
     }
@@ -96,6 +102,9 @@ const core::ICapability *CModule::Capability(
     } else if (type ==
                std::type_index(typeid(core::capa::IExporterCapability))) {
         return exporter_.get();
+    } else if (type ==
+               std::type_index(typeid(core::capa::IValidationCapability))) {
+        return validation_.get();
     } else {
         return nullptr;
     }

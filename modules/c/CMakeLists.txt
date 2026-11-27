@@ -9,11 +9,14 @@ add_library(neb_c_module SHARED
     nodes/c_node_list_capability.cpp
     renderer/renderer.cpp
     renderer/factory.cpp
+    validation/c_validation_capability.cpp
+    validation/factory.cpp
 )
 
 target_link_libraries(neb_c_module
     PRIVATE
         core_modules
+        neb_graph
 )
 
 target_include_directories(neb_c_module

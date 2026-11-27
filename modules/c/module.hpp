@@ -5,16 +5,17 @@
  * @author Created by JeanBizeul
  * @date Created on 14-09-2026
  *
- * @author Last modified by JeanBizeul
- * @date Last modified on 14-09-2026
+ * @author Last modified by mathys-f
+ * @date Last modified on 21-11-2026
  */
 
 #pragma once
 
-#include "modules/module.hpp"
-#include "modules/capabilities/renderer_capability.hpp"
-#include "modules/capabilities/importer_capability.hpp"
 #include "modules/capabilities/exporter_capability.hpp"
+#include "modules/capabilities/importer_capability.hpp"
+#include "modules/capabilities/renderer_capability.hpp"
+#include "modules/capabilities/validation_capability.hpp"
+#include "modules/module.hpp"
 
 /**
  * @brief C Module class
@@ -92,9 +93,11 @@ class CModule : public core::IModule {
     virtual core::capa::INodeListCapability *Nodes() override;
 
    private:
-    virtual core::ICapability *Capability(std::type_index type) noexcept override;
+    virtual core::ICapability *Capability(
+        std::type_index type) noexcept override;
 
-    virtual const core::ICapability *Capability(std::type_index) const noexcept override;
+    virtual const core::ICapability *Capability(
+        std::type_index) const noexcept override;
 
     core::ModuleId id_;
 
@@ -103,4 +106,5 @@ class CModule : public core::IModule {
     std::unique_ptr<core::capa::IRendererCapability> renderer_;
     std::unique_ptr<core::capa::IImporterCapability> importer_;
     std::unique_ptr<core::capa::IExporterCapability> exporter_;
+    std::unique_ptr<core::capa::IValidationCapability> validation_;
 };

@@ -16,6 +16,7 @@ if(TEST_SOURCES)
         editor/component_adapter_test.cpp
         editor/connection_request_test.cpp
         editor/configuration_test.cpp
+        editor/graph_validation_test.cpp
         editor/link_drop_test.cpp
         editor/node_canvas_test.cpp
         editor/node_clipboard_test.cpp
@@ -28,11 +29,14 @@ if(TEST_SOURCES)
         modules/c/c_module_tests.cpp
         modules/c/c_renderer_test.cpp
         modules/c/nodes/c_node_list_capability_test.cpp
+        modules/c/validation/c_validation_capability_test.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/renderer/renderer.cpp
         ${CMAKE_SOURCE_DIR}/modules/c/nodes/c_node_list_capability.cpp
+        ${CMAKE_SOURCE_DIR}/modules/c/validation/c_validation_capability.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_view.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/node_picker.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/link_drop.cpp
+        ${CMAKE_SOURCE_DIR}/src/editor/ui/graph_validation.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/ui/top_bar.cpp
         ${CMAKE_SOURCE_DIR}/src/editor/configuration.cpp
     )
