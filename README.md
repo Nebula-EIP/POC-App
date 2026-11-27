@@ -82,6 +82,7 @@ docs/             Docusaurus documentation site
 ## Documentation
 
 - Full docs: [nebula-eip.github.io/POC-App](https://nebula-eip.github.io/POC-App/)
+- Dev branch docs: [nebula-eip.github.io/POC-App/dev/](https://nebula-eip.github.io/POC-App/dev/)
 - API reference (Doxygen): available from the docs navbar
 - Developer setup guide: `docs/docs/dev/`
 
