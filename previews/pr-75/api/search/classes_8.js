@@ -16,6 +16,8 @@ var searchData=
   ['invalidmoduleexception_13',['InvalidModuleException',['../classcore_1_1InvalidModuleException.html',1,'core']]],
   ['invalidmoduleversionexception_14',['InvalidModuleVersionException',['../classcore_1_1InvalidModuleVersionException.html',1,'core']]],
   ['invalidnodeexception_15',['InvalidNodeException',['../classcore_1_1InvalidNodeException.html',1,'core']]],
-  ['irenderercapability_16',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
-  ['itypelistcapability_17',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]]
+  ['involvedpin_16',['InvolvedPin',['../structcore_1_1capa_1_1InvolvedPin.html',1,'core::capa']]],
+  ['irenderercapability_17',['IRendererCapability',['../classcore_1_1capa_1_1IRendererCapability.html',1,'core::capa']]],
+  ['itypelistcapability_18',['ITypeListCapability',['../classcore_1_1capa_1_1ITypeListCapability.html',1,'core::capa']]],
+  ['ivalidationcapability_19',['IValidationCapability',['../classcore_1_1capa_1_1IValidationCapability.html',1,'core::capa']]]
 ];

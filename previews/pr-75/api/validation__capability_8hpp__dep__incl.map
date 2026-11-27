@@ -1,0 +1,11 @@
+<map id="src/core/modules/capabilities/validation_capability.hpp" name="src/core/modules/capabilities/validation_capability.hpp">
+<area shape="rect" id="Node000001" title="Defines the capability interface for a module to validate a graph before code generation or compilati..." alt="" coords="105,5,317,50"/>
+<area shape="rect" id="Node000002" href="$validation__capability_8cpp.html" title="Implementation of helper queries on core::capa::ValidationResult." alt="" coords="5,98,217,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,62,137,99,133,96,178,59"/>
+<area shape="rect" id="Node000003" href="$graph__validation_8hpp.html" title="Runs graph validation through a module validation capability and highlights affected nodes and pins i..." alt="" coords="241,98,381,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,58,290,97,284,98,246,63"/>
+<area shape="rect" id="Node000004" href="$application_8cpp.html" title="Implementation of the Application class, which manages the main loop, window, and module loading for ..." alt="" coords="125,199,310,227"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="281,152,233,201,230,196,276,154"/>
+<area shape="rect" id="Node000005" href="$graph__validation_8cpp.html" title="Implementation of editor graph validation display and node/pin error highlighting." alt="" coords="335,191,474,235"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="345,151,385,191,380,190,343,156"/>
+</map>

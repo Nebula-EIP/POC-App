@@ -29,7 +29,11 @@ var annotated_dup =
         [ "IRendererCapability", "classcore_1_1capa_1_1IRendererCapability.html", "classcore_1_1capa_1_1IRendererCapability" ],
         [ "RendererCapability", "classcore_1_1capa_1_1RendererCapability.html", "classcore_1_1capa_1_1RendererCapability" ],
         [ "ITypeListCapability", "classcore_1_1capa_1_1ITypeListCapability.html", "classcore_1_1capa_1_1ITypeListCapability" ],
-        [ "TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", "classcore_1_1capa_1_1TypeListCapability" ]
+        [ "TypeListCapability", "classcore_1_1capa_1_1TypeListCapability.html", "classcore_1_1capa_1_1TypeListCapability" ],
+        [ "InvolvedPin", "structcore_1_1capa_1_1InvolvedPin.html", null ],
+        [ "ValidationError", "structcore_1_1capa_1_1ValidationError.html", "structcore_1_1capa_1_1ValidationError" ],
+        [ "ValidationResult", "structcore_1_1capa_1_1ValidationResult.html", null ],
+        [ "IValidationCapability", "classcore_1_1capa_1_1IValidationCapability.html", "classcore_1_1capa_1_1IValidationCapability" ]
       ] ],
       [ "detail", null, [
         [ "SharedLibrary", "classcore_1_1detail_1_1SharedLibrary.html", "classcore_1_1detail_1_1SharedLibrary" ]

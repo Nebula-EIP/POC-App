@@ -9,11 +9,14 @@ var searchData=
   ['entry_5f_6',['entry_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#ac252931c001b68ccf59378eb09088bd4',1,'editor::ui::NodePicker::Row::entry_'],['../structpalette_1_1Palette_1_1Accent.html#a9e6f825ca89740e46cba41fe4e2ef4ff',1,'palette::Palette::Accent::entry_']]],
   ['error_20reporting_20convention_7',['Error reporting convention',['../classcore_1_1ModuleLoader.html#autotoc_md0',1,'']]],
   ['error_5f_8',['error_',['../structeditor_1_1ui_1_1PropertyChangeOutcome.html#ac993130f280a7baa085b1f7e1be16358',1,'editor::ui::PropertyChangeOutcome']]],
-  ['exception_9',['Exception',['../classcore_1_1Exception.html',1,'core']]],
-  ['expanded_5f_10',['expanded_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#a54a59c47da4acfe379e2aca7e4c0b8e8',1,'editor::ui::NodePicker::Row']]],
-  ['exportcontext_11',['ExportContext',['../structcore_1_1capa_1_1ExportContext.html',1,'core::capa']]],
-  ['exporterror_12',['ExportError',['../structcore_1_1capa_1_1ExportError.html',1,'core::capa']]],
-  ['exportnode_13',['exportNode',['../classcore_1_1capa_1_1IExporterCapability.html#a8ccf1ab90bf4ebd270c20d8877788ebe',1,'core::capa::IExporterCapability']]],
-  ['exportpreamble_14',['exportPreamble',['../classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899',1,'core::capa::IExporterCapability']]],
-  ['exporttype_15',['exportType',['../classcore_1_1capa_1_1IExporterCapability.html#a278de9b3af0c6439cca3e59c7c38fdcb',1,'core::capa::IExporterCapability']]]
+  ['errorpinid_9',['ErrorPinId',['../classeditor_1_1ui_1_1NodeView.html#acdb9e0bdbee72e09f70f17fea382e106',1,'editor::ui::NodeView']]],
+  ['errorpinisinput_10',['ErrorPinIsInput',['../classeditor_1_1ui_1_1NodeView.html#a80dca46f3633d0c20d005f45baf2d6eb',1,'editor::ui::NodeView']]],
+  ['errortype_11',['ErrorType',['../structcore_1_1capa_1_1ValidationError.html#ac0dde02ca17a2545d84ebb4764f885fd',1,'core::capa::ValidationError']]],
+  ['exception_12',['Exception',['../classcore_1_1Exception.html',1,'core']]],
+  ['expanded_5f_13',['expanded_',['../structeditor_1_1ui_1_1NodePicker_1_1Row.html#a54a59c47da4acfe379e2aca7e4c0b8e8',1,'editor::ui::NodePicker::Row']]],
+  ['exportcontext_14',['ExportContext',['../structcore_1_1capa_1_1ExportContext.html',1,'core::capa']]],
+  ['exporterror_15',['ExportError',['../structcore_1_1capa_1_1ExportError.html',1,'core::capa']]],
+  ['exportnode_16',['exportNode',['../classcore_1_1capa_1_1IExporterCapability.html#a8ccf1ab90bf4ebd270c20d8877788ebe',1,'core::capa::IExporterCapability']]],
+  ['exportpreamble_17',['exportPreamble',['../classcore_1_1capa_1_1IExporterCapability.html#abe820f71b4420303b95e48d583186899',1,'core::capa::IExporterCapability']]],
+  ['exporttype_18',['exportType',['../classcore_1_1capa_1_1IExporterCapability.html#a278de9b3af0c6439cca3e59c7c38fdcb',1,'core::capa::IExporterCapability']]]
 ];

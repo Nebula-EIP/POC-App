@@ -198,70 +198,72 @@ $(function(){initNavTree('application_8hpp_source.html','',''); });
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="comment">// Feedback</span></div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordtype">void</span> ShowError(std::string message);</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="comment">// Render</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordtype">void</span> ProcessInput();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordtype">void</span> DrawFrame();</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordtype">void</span> DrawLinks(<span class="keyword">const</span> <a class="code hl_class" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera);</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> SpawnPosition() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> CanvasCenter() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordtype">void</span> NewProject();</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordtype">void</span> OpenProject();</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">bool</span> SaveProject(<span class="keywordtype">bool</span> save_as);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordtype">bool</span> ValidateGraph();</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">// Render</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordtype">void</span> ProcessInput();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordtype">void</span> DrawFrame();</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordtype">void</span> DrawLinks(<span class="keyword">const</span> <a class="code hl_class" href="classrender_1_1Camera.html">render::Camera</a> &amp;camera);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> SpawnPosition() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> CanvasCenter() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">void</span> NewProject();</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">void</span> OpenProject();</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordtype">bool</span> ConfirmDiscardChanges();</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    [[nodiscard]] <span class="keywordtype">bool</span> HasUnsavedChanges() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    [[nodiscard]] <a class="code hl_struct" href="structeditor_1_1project_1_1NebulaDocument.html">project::NebulaDocument</a> BuildDocument() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    [[nodiscard]] std::string Snapshot() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordtype">void</span> ClearGraph();</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="keywordtype">bool</span> SaveProject(<span class="keywordtype">bool</span> save_as);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordtype">bool</span> ConfirmDiscardChanges();</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    std::filesystem::path module_folder_;</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordtype">bool</span> should_quit_ = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> cursor_position_{0.0F, 0.0F};</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <a class="code hl_class" href="classrender_1_1Renderer.html">render::Renderer</a> renderer_;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <a class="code hl_class" href="classrender_1_1Camera.html">render::Camera</a> camera_;</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="classcore_1_1ModuleLoader.html">core::ModuleLoader</a> loader_;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <a class="code hl_typedef" href="datatypes_8hpp.html#ac9c7204d1b2fb88c70323d674ad3e8f4">core::ModuleId</a> module_id_ = 0;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <a class="code hl_class" href="classcore_1_1IModule.html">core::IModule</a> *module_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <a class="code hl_class" href="classcore_1_1NodeCatalog.html">core::NodeCatalog</a> node_catalog_;</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> graph_;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    std::optional&lt;core::ConnectionId&gt; selected_connection_;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    [[nodiscard]] <span class="keywordtype">bool</span> HasUnsavedChanges() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    [[nodiscard]] <a class="code hl_struct" href="structeditor_1_1project_1_1NebulaDocument.html">project::NebulaDocument</a> BuildDocument() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    [[nodiscard]] std::string Snapshot() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keywordtype">void</span> ClearGraph();</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    std::filesystem::path module_folder_;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordtype">bool</span> should_quit_ = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <a class="code hl_struct" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> cursor_position_{0.0F, 0.0F};</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <a class="code hl_class" href="classrender_1_1Renderer.html">render::Renderer</a> renderer_;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <a class="code hl_class" href="classrender_1_1Camera.html">render::Camera</a> camera_;</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <a class="code hl_class" href="classcore_1_1capa_1_1IRendererCapability.html">core::capa::IRendererCapability</a> *node_renderer_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1ComponentAdapter.html">ui::ComponentAdapter</a> node_fields_;</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    std::unordered_map&lt;core::NodeId, core::capa::ComponentList&gt;</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        node_components_;</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    std::vector&lt;std::pair&lt;core::NodeId, core::PropertyMap&gt;&gt;</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        pending_property_changes_;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <a class="code hl_class" href="classcore_1_1ModuleLoader.html">core::ModuleLoader</a> loader_;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <a class="code hl_typedef" href="datatypes_8hpp.html#ac9c7204d1b2fb88c70323d674ad3e8f4">core::ModuleId</a> module_id_ = 0;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <a class="code hl_class" href="classcore_1_1IModule.html">core::IModule</a> *module_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <a class="code hl_class" href="classcore_1_1NodeCatalog.html">core::NodeCatalog</a> node_catalog_;</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <a class="code hl_class" href="classcore_1_1Graph.html">core::Graph</a> graph_;</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NotificationStack.html">ui::NotificationStack</a> notifications_;</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NodeClipboard.html">ui::NodeClipboard</a> clipboard_;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1TopBar.html">ui::TopBar</a> top_bar_;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NodePicker.html">ui::NodePicker</a> node_picker_;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    std::optional&lt;ui::LinkDrop&gt; link_drop_;</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <a class="code hl_class" href="classeditor_1_1actions_1_1ActionManager.html">actions::ActionManager</a> action_manager_;</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    std::filesystem::path project_path_;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <a class="code hl_struct" href="structeditor_1_1project_1_1NebulaMetadata.html">project::NebulaMetadata</a> project_metadata_;</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    std::string saved_snapshot_;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>};</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    std::optional&lt;core::ConnectionId&gt; selected_connection_;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <a class="code hl_class" href="classcore_1_1capa_1_1IRendererCapability.html">core::capa::IRendererCapability</a> *node_renderer_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1ComponentAdapter.html">ui::ComponentAdapter</a> node_fields_;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    std::unordered_map&lt;core::NodeId, core::capa::ComponentList&gt;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        node_components_;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    std::vector&lt;std::pair&lt;core::NodeId, core::PropertyMap&gt;&gt;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        pending_property_changes_;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NotificationStack.html">ui::NotificationStack</a> notifications_;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NodeClipboard.html">ui::NodeClipboard</a> clipboard_;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1TopBar.html">ui::TopBar</a> top_bar_;</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <a class="code hl_class" href="classeditor_1_1ui_1_1NodePicker.html">ui::NodePicker</a> node_picker_;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    std::optional&lt;ui::LinkDrop&gt; link_drop_;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_class" href="classeditor_1_1actions_1_1ActionManager.html">actions::ActionManager</a> action_manager_;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    std::filesystem::path project_path_;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <a class="code hl_struct" href="structeditor_1_1project_1_1NebulaMetadata.html">project::NebulaMetadata</a> project_metadata_;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    std::string saved_snapshot_;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>};</div>
 </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>}  <span class="comment">// namespace editor</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>}  <span class="comment">// namespace editor</span></div>
 <div class="ttc" id="aaction__manager_8hpp_html"><div class="ttname"><a href="action__manager_8hpp.html">action_manager.hpp</a></div><div class="ttdoc">ActionManager class for managing shortcuts and actions.</div></div>
 <div class="ttc" id="acamera_8hpp_html"><div class="ttname"><a href="camera_8hpp.html">camera.hpp</a></div><div class="ttdoc">Declaration of the Camera class, which handles 2D camera transformations.</div></div>
 <div class="ttc" id="aclasscore_1_1Graph_html"><div class="ttname"><a href="classcore_1_1Graph.html">core::Graph</a></div><div class="ttdoc">Collection of linked nodes.</div><div class="ttdef"><b>Definition</b> graph.hpp:32</div></div>
@@ -269,8 +271,8 @@ $(function(){initNavTree('application_8hpp_source.html','',''); });
 <div class="ttc" id="aclasscore_1_1ModuleLoader_html"><div class="ttname"><a href="classcore_1_1ModuleLoader.html">core::ModuleLoader</a></div><div class="ttdoc">The module loader is responsible for loading and unloading modules.</div><div class="ttdef"><b>Definition</b> loader.hpp:70</div></div>
 <div class="ttc" id="aclasscore_1_1NodeCatalog_html"><div class="ttname"><a href="classcore_1_1NodeCatalog.html">core::NodeCatalog</a></div><div class="ttdoc">Facade over the ModuleLoader to retrieve node definitions.</div><div class="ttdef"><b>Definition</b> node_catalog.hpp:50</div></div>
 <div class="ttc" id="aclasscore_1_1capa_1_1IRendererCapability_html"><div class="ttname"><a href="classcore_1_1capa_1_1IRendererCapability.html">core::capa::IRendererCapability</a></div><div class="ttdoc">Interface for the capability providing custom node rendering.</div><div class="ttdef"><b>Definition</b> renderer_capability.hpp:311</div></div>
-<div class="ttc" id="aclasseditor_1_1Application_html_a0b00ba01b8367fa36d8359876159b48f"><div class="ttname"><a href="classeditor_1_1Application.html#a0b00ba01b8367fa36d8359876159b48f">editor::Application::Application</a></div><div class="ttdeci">Application(std::filesystem::path module_folder)</div><div class="ttdoc">Creates an editor application using the given module folder.</div><div class="ttdef"><b>Definition</b> application.cpp:86</div></div>
-<div class="ttc" id="aclasseditor_1_1Application_html_a201233bacc2de3615fc4d17c1cbd9bf7"><div class="ttname"><a href="classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7">editor::Application::Run</a></div><div class="ttdeci">int Run()</div><div class="ttdoc">Runs the editor until the window is closed or quit is requested.</div><div class="ttdef"><b>Definition</b> application.cpp:90</div></div>
+<div class="ttc" id="aclasseditor_1_1Application_html_a0b00ba01b8367fa36d8359876159b48f"><div class="ttname"><a href="classeditor_1_1Application.html#a0b00ba01b8367fa36d8359876159b48f">editor::Application::Application</a></div><div class="ttdeci">Application(std::filesystem::path module_folder)</div><div class="ttdoc">Creates an editor application using the given module folder.</div><div class="ttdef"><b>Definition</b> application.cpp:87</div></div>
+<div class="ttc" id="aclasseditor_1_1Application_html_a201233bacc2de3615fc4d17c1cbd9bf7"><div class="ttname"><a href="classeditor_1_1Application.html#a201233bacc2de3615fc4d17c1cbd9bf7">editor::Application::Run</a></div><div class="ttdeci">int Run()</div><div class="ttdoc">Runs the editor until the window is closed or quit is requested.</div><div class="ttdef"><b>Definition</b> application.cpp:91</div></div>
 <div class="ttc" id="aclasseditor_1_1Application_html_a2bb417ea08ce03a2bda5c1247056fe85"><div class="ttname"><a href="classeditor_1_1Application.html#a2bb417ea08ce03a2bda5c1247056fe85">editor::Application::~Application</a></div><div class="ttdeci">~Application()=default</div><div class="ttdoc">Releases the editor application resources.</div></div>
 <div class="ttc" id="aclasseditor_1_1actions_1_1ActionManager_html"><div class="ttname"><a href="classeditor_1_1actions_1_1ActionManager.html">editor::actions::ActionManager</a></div><div class="ttdoc">Manages actions and their keyboard shortcuts.</div><div class="ttdef"><b>Definition</b> action_manager.hpp:23</div></div>
 <div class="ttc" id="aclasseditor_1_1ui_1_1ComponentAdapter_html"><div class="ttname"><a href="classeditor_1_1ui_1_1ComponentAdapter.html">editor::ui::ComponentAdapter</a></div><div class="ttdoc">Draws renderer component descriptions and owns transient widget state (focused field,...</div><div class="ttdef"><b>Definition</b> component_adapter.hpp:84</div></div>

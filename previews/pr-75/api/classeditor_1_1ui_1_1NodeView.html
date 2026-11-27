@@ -115,9 +115,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a07f9a61e910842cd453478f50f59dfdf" id="r_a07f9a61e910842cd453478f50f59dfdf"><td class="memItemLeft" align="right" valign="top"><a id="a07f9a61e910842cd453478f50f59dfdf" name="a07f9a61e910842cd453478f50f59dfdf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetErrorPin</b> (<a class="el" href="datatypes_8hpp.html#a249286c355f8b8e86358d64818552ed0">core::PinId</a> pin, bool is_input) noexcept</td></tr>
 <tr class="memdesc:a07f9a61e910842cd453478f50f59dfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks a pin as having an error (e.g., failed connection). <br /></td></tr>
+<tr class="memitem:acdb9e0bdbee72e09f70f17fea382e106" id="r_acdb9e0bdbee72e09f70f17fea382e106"><td class="memItemLeft" align="right" valign="top"><a id="acdb9e0bdbee72e09f70f17fea382e106" name="acdb9e0bdbee72e09f70f17fea382e106"></a>
+<a class="el" href="datatypes_8hpp.html#a249286c355f8b8e86358d64818552ed0">core::PinId</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ErrorPinId</b> () const noexcept</td></tr>
+<tr class="memdesc:acdb9e0bdbee72e09f70f17fea382e106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the ID of the currently highlighted error pin, or 0 if none. <br /></td></tr>
+<tr class="memitem:a80dca46f3633d0c20d005f45baf2d6eb" id="r_a80dca46f3633d0c20d005f45baf2d6eb"><td class="memItemLeft" align="right" valign="top"><a id="a80dca46f3633d0c20d005f45baf2d6eb" name="a80dca46f3633d0c20d005f45baf2d6eb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ErrorPinIsInput</b> () const noexcept</td></tr>
+<tr class="memdesc:a80dca46f3633d0c20d005f45baf2d6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the currently highlighted error pin is an input. <br /></td></tr>
+<tr class="memitem:a011f6755dc8e2ace1cc84e59c9ef86b1" id="r_a011f6755dc8e2ace1cc84e59c9ef86b1"><td class="memItemLeft" align="right" valign="top"><a id="a011f6755dc8e2ace1cc84e59c9ef86b1" name="a011f6755dc8e2ace1cc84e59c9ef86b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetHasError</b> (bool has_error) noexcept</td></tr>
+<tr class="memdesc:a011f6755dc8e2ace1cc84e59c9ef86b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the node itself as having a validation error. <br /></td></tr>
+<tr class="memitem:a8fab76f58b8a5e04f6b2d3704d5dd245" id="r_a8fab76f58b8a5e04f6b2d3704d5dd245"><td class="memItemLeft" align="right" valign="top"><a id="a8fab76f58b8a5e04f6b2d3704d5dd245" name="a8fab76f58b8a5e04f6b2d3704d5dd245"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasError</b> () const noexcept</td></tr>
+<tr class="memdesc:a8fab76f58b8a5e04f6b2d3704d5dd245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the node is currently marked with an error. <br /></td></tr>
 <tr class="memitem:af96d7ac262159e4ca04c6f4eeea60bc0" id="r_af96d7ac262159e4ca04c6f4eeea60bc0"><td class="memItemLeft" align="right" valign="top"><a id="af96d7ac262159e4ca04c6f4eeea60bc0" name="af96d7ac262159e4ca04c6f4eeea60bc0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearErrorPin</b> () noexcept</td></tr>
-<tr class="memdesc:af96d7ac262159e4ca04c6f4eeea60bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the error state of pins. <br /></td></tr>
+<tr class="memdesc:af96d7ac262159e4ca04c6f4eeea60bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the error state of pins and the node border. <br /></td></tr>
 <tr class="memitem:ade584a88ce7649eeaab6997fdf926bb9" id="r_ade584a88ce7649eeaab6997fdf926bb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade584a88ce7649eeaab6997fdf926bb9">MoveBy</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> delta) noexcept</td></tr>
 <tr class="memdesc:ade584a88ce7649eeaab6997fdf926bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the node by the specified delta.  <br /></td></tr>
 <tr class="memitem:a2c1d9f0fe5ac6f6afac1085389ee1dc3" id="r_a2c1d9f0fe5ac6f6afac1085389ee1dc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structeditor_1_1ui_1_1HitResult.html">HitResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c1d9f0fe5ac6f6afac1085389ee1dc3">HitTest</a> (<a class="el" href="structutils_1_1WrappedVector2.html">utils::WrappedVector2</a> world_point) const noexcept</td></tr>
