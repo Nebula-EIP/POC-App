@@ -9,7 +9,7 @@ set FAILED=0
 
 for /r src %%f in (*.cpp) do (
     echo Checking %%f
-    clang-tidy "%%f" -p "%BUILD_DIR%" --quiet --header-filter="%HEADER_FILTER%"
+    clang-tidy "%%f" -p "%BUILD_DIR%" --quiet --header-filter="%HEADER_FILTER%" --extra-arg=--target=x86_64-w64-mingw32
     if !ERRORLEVEL! neq 0 (
         set FAILED=1
     )
