@@ -32,6 +32,8 @@ __pycache__/
 # Nebula specific
 .nebula/
 code-generated/
+config.yaml
+# Deprecated, replaced by config.yaml
 config.json
 
 # Documentation build artifacts

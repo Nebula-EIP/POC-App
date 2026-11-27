@@ -31,5 +31,6 @@ target_link_libraries(Nebula PRIVATE
     project_warnings
     neb_render
     nlohmann_json::nlohmann_json
+    yaml-cpp::yaml-cpp
     portable_file_dialogs
 )

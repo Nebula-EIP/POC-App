@@ -59,6 +59,9 @@ if(TEST_SOURCES)
         core_modules
         neb_render
         core_node_catalog
+        utils
+        nlohmann_json::nlohmann_json
+        yaml-cpp::yaml-cpp
     )
 
     # The loader tests open real shared libraries, so they need their absolute
